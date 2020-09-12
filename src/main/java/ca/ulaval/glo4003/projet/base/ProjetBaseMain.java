@@ -39,7 +39,7 @@ public class ProjetBaseMain {
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    context.setContextPath("/api/ ");
+    context.setContextPath("/api/");
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
