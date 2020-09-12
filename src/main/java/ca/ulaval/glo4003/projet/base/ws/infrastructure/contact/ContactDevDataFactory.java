@@ -1,10 +1,8 @@
 package ca.ulaval.glo4003.projet.base.ws.infrastructure.contact;
 
-import jersey.repackaged.com.google.common.collect.Lists;
-
-import java.util.List;
-
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
+import java.util.List;
+import jersey.repackaged.com.google.common.collect.Lists;
 
 public class ContactDevDataFactory {
 

@@ -1,14 +1,12 @@
 package ca.ulaval.glo4003.projet.base.ws.api.contact;
 
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-
 import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactService;
-
 import java.util.List;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 public class ContactResourceImpl implements ContactResource {
 

@@ -1,18 +1,14 @@
 package ca.ulaval.glo4003.projet.base.ws.infrastructure.contact;
 
+import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
+import com.google.common.truth.Truth;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.google.common.truth.Truth;
-
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
-import ca.ulaval.glo4003.projet.base.ws.infrastructure.contact.ContactRepositoryInMemory;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContactRepositoryInMemoryTest {

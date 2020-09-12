@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.projet.base.ws.domain.contact;
 import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
 
 public class ContactAssembler {
+
   public Contact create(ContactDto contactDto) {
     Contact contact = new Contact();
     contact.setAddress(contactDto.address);

@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.projet.base.ws.domain.contact;
 
+import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
+import com.google.common.truth.Truth;
 import java.util.List;
-
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,15 +11,6 @@ import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.google.common.truth.Truth;
-
-import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactAssembler;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactRepository;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactService;
-import jersey.repackaged.com.google.common.collect.Lists;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContactServiceTest {
@@ -35,13 +28,13 @@ public class ContactServiceTest {
 
   @Before
   public void setUp()
-          throws Exception {
+      throws Exception {
     contactService = new ContactService(contactRepository, contactAssembler);
   }
 
   @Test
   public void givenContactsInRepository_whenFindAllContacts_thenReturnThose()
-          throws Exception {
+      throws Exception {
     // given
     BDDMockito.given(contactRepository.findAll()).willReturn(Lists.newArrayList(contact));
     BDDMockito.given(contactAssembler.create(contact)).willReturn(contactDto);

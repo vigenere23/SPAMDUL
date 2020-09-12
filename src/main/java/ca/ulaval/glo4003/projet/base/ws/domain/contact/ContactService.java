@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.projet.base.ws.domain.contact;
 
 
+import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import ca.ulaval.glo4003.projet.base.ws.api.contact.dto.ContactDto;
-
 public class ContactService {
+
   private Logger logger = Logger.getLogger(ContactService.class.getName());
 
   private ContactRepository contactRepository;
@@ -39,7 +39,7 @@ public class ContactService {
   }
 
   public void updateContact(String id, ContactDto contactDto)
-          throws ContactNotFoundException {
+      throws ContactNotFoundException {
     logger.info(String.format("Update contact with id %s", id));
     Contact contact = contactAssembler.create(contactDto);
     contact.setId(id);

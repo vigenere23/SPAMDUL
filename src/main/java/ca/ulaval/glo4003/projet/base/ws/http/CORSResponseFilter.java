@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.projet.base.ws.http;
 
+import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
-import java.io.IOException;
 
 /**
  * This class adds headers to the response context to enable the app to send http request to a different domain
@@ -16,7 +16,7 @@ public class CORSResponseFilter implements ContainerResponseFilter {
 
 
   public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
-          throws IOException {
+      throws IOException {
 
     MultivaluedMap<String, Object> headers = responseContext.getHeaders();
 

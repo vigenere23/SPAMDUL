@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.projet.base.ws.domain.contact;
 
 public class Contact {
+
   private String id;
   private String telephoneNumber;
   private String address;
