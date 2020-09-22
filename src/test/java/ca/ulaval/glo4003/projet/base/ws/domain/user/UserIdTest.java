@@ -10,7 +10,7 @@ public class UserIdTest {
   public void whenCreatingUserId_shouldGenerateAnId() {
     UserId userId = new UserId();
 
-    assertThat(userId.toString()).isEqualTo("1");
+    assertThat(userId.toString()).isNotEqualTo("");
   }
 
   @Test
@@ -25,7 +25,7 @@ public class UserIdTest {
   @Test
   public void whenComparingTheSameUserId_shouldBeEqual() {
     UserId userId = new UserId();
-    UserId sameUserId = UserId.valueOf("1");
+    UserId sameUserId = UserId.valueOf(userId.toString());
 
     assertThat(userId).isEqualTo(sameUserId);
     assertThat(userId.hashCode()).isEqualTo(sameUserId.hashCode());

@@ -24,7 +24,7 @@ public class UserAssemblerTest {
   public void setUp() throws Exception {
     userAssembler = new UserAssembler();
     A_NAME = "Bob Ross";
-    A_GENDER = Gender.male;
+    A_GENDER = Gender.MALE;
     A_GENDER_STRING = "male";
     A_BIRTHDAY_DATE = LocalDate.of(1945, 8, 10);
     A_BIRTHDAY_DATE_STRING = "1945-08-10";
