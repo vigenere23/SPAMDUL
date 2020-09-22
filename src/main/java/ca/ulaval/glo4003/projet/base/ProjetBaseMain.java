@@ -2,13 +2,20 @@ package ca.ulaval.glo4003.projet.base;
 
 import ca.ulaval.glo4003.projet.base.ws.api.contact.ContactResource;
 import ca.ulaval.glo4003.projet.base.ws.api.contact.ContactResourceImpl;
+import ca.ulaval.glo4003.projet.base.ws.api.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.projet.base.ws.api.user.UserResource;
+import ca.ulaval.glo4003.projet.base.ws.api.user.UserResourceImpl;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactService;
+import ca.ulaval.glo4003.projet.base.ws.domain.user.UserAssembler;
+import ca.ulaval.glo4003.projet.base.ws.domain.user.UserRepository;
+import ca.ulaval.glo4003.projet.base.ws.domain.user.UserService;
 import ca.ulaval.glo4003.projet.base.ws.http.CORSResponseFilter;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.user.UserRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +40,8 @@ public class ProjetBaseMain {
       throws Exception {
 
     // Setup resources (API)
-    ContactResource contactResource = createContactResource();
+//    ContactResource contactResource = createContactResource();
+    UserResource userResource = createUserResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -41,9 +49,12 @@ public class ProjetBaseMain {
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
+        //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
         // Add resources to context
-        resources.add(contactResource);
+//        resources.add(contactResource);
+        resources.add(userResource);
+        resources.add(new UserExceptionAssembler());
         return resources;
       }
     });
@@ -65,6 +76,15 @@ public class ProjetBaseMain {
     } finally {
       server.destroy();
     }
+  }
+
+  private static UserResource createUserResource() {
+    UserRepository userRepository = new UserRepositoryInMemory();
+    UserAssembler userAssembler = new UserAssembler();
+    UserService userService = new UserService(userAssembler, userRepository);
+    UserResource userResource = new UserResourceImpl(userService);
+
+    return userResource;
   }
 
   private static ContactResource createContactResource() {
