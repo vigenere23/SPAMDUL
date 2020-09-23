@@ -6,14 +6,12 @@ import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.except
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.usecases.user.UserDto;
+import ca.ulaval.glo4003.projet.base.ws.utils.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class UserAssembler {
-
-  private static final DateTimeFormatter BIRTHDAY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   public UserDto fromDto(UserRequest userRequest) {
 
@@ -42,7 +40,7 @@ public class UserAssembler {
 
   private LocalDate getBirthDate(UserRequest userRequest) {
     try {
-      return LocalDate.parse(userRequest.birthDate, BIRTHDAY_DATE_TIME_FORMATTER);
+      return LocalDate.parse(userRequest.birthDate, DateTimeFormatter.BIRTHDAY_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
     }
