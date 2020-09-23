@@ -8,6 +8,6 @@ public class UserDto {
 
   public String name;
   public Gender gender;
-  public LocalDate birthdayDate;
+  public LocalDate birthDate;
   public DayOfWeek dayToAccessCampus;
 }

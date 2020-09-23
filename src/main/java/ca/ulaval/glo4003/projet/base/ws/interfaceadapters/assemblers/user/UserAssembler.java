@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user;
 
 import ca.ulaval.glo4003.projet.base.ws.entity.user.Gender;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.dto.UserRequest;
-import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthdayDateArgumentException;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.usecases.user.UserDto;
@@ -19,14 +19,14 @@ public class UserAssembler {
 
     Gender gender = getGender(userRequest);
 
-    LocalDate birthdayDate = getBirthdayDate(userRequest);
+    LocalDate birthDate = getBirthDate(userRequest);
 
     DayOfWeek dayToAccessCampus = getDayToAccessCampus(userRequest);
 
     UserDto userDto = new UserDto();
     userDto.name = userRequest.name;
     userDto.gender = gender;
-    userDto.birthdayDate = birthdayDate;
+    userDto.birthDate = birthDate;
     userDto.dayToAccessCampus = dayToAccessCampus;
 
     return userDto;
@@ -40,11 +40,11 @@ public class UserAssembler {
     }
   }
 
-  private LocalDate getBirthdayDate(UserRequest userRequest) {
+  private LocalDate getBirthDate(UserRequest userRequest) {
     try {
-      return LocalDate.parse(userRequest.birthdayDate, BIRTHDAY_DATE_TIME_FORMATTER);
+      return LocalDate.parse(userRequest.birthDate, BIRTHDAY_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
-      throw new InvalidBirthdayDateArgumentException("The birthday date provided must be yyyy-MM-dd");
+      throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
     }
   }
 

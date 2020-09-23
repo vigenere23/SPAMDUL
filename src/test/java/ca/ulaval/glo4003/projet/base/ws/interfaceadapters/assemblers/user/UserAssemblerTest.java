@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.projet.base.ws.entity.user.Gender;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.dto.UserRequest;
-import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthdayDateArgumentException;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.usecases.user.UserDto;
@@ -31,7 +31,7 @@ public class UserAssemblerTest {
     userAssembler = new UserAssembler();
     userRequest = new UserRequest();
     userRequest.name = A_NAME;
-    userRequest.birthdayDate = A_BIRTHDAY_DATE_STRING;
+    userRequest.birthDate = A_BIRTHDAY_DATE_STRING;
     userRequest.gender = A_GENDER_STRING;
     userRequest.dayToAccessCampus = A_DAY_OF_THE_WEEK_STRING;
   }
@@ -41,7 +41,7 @@ public class UserAssemblerTest {
     UserDto userDto = userAssembler.fromDto(userRequest);
 
     assertThat(userDto.name).isEqualTo(A_NAME);
-    assertThat(userDto.birthdayDate).isEqualTo(A_BIRTHDAY_DATE);
+    assertThat(userDto.birthDate).isEqualTo(A_BIRTHDAY_DATE);
     assertThat(userDto.gender).isEqualTo(A_GENDER);
     assertThat(userDto.dayToAccessCampus).isEqualTo(A_DAY_OF_THE_WEEK);
   }
@@ -53,23 +53,23 @@ public class UserAssemblerTest {
     userAssembler.fromDto(userRequest);
   }
 
-  @Test(expected = InvalidBirthdayDateArgumentException.class)
-  public void givenAWrongMonthBirthdayDateFormat_whenCreatingUser_shouldThrowIllegalArgumentException() {
-    userRequest.birthdayDate = "2020-1-10";
+  @Test(expected = InvalidBirthDateArgumentException.class)
+  public void givenAWrongMonthBirthDateFormat_whenCreatingUser_shouldThrowIllegalArgumentException() {
+    userRequest.birthDate = "2020-1-10";
 
     userAssembler.fromDto(userRequest);
   }
 
-  @Test(expected = InvalidBirthdayDateArgumentException.class)
-  public void givenAWrongDayBirthdayDateFormat_whenCreatingUser_shouldThrowIllegalArgumentException() {
-    userRequest.birthdayDate = "2020-01-1";
+  @Test(expected = InvalidBirthDateArgumentException.class)
+  public void givenAWrongDayBirthDateFormat_whenCreatingUser_shouldThrowIllegalArgumentException() {
+    userRequest.birthDate = "2020-01-1";
 
     userAssembler.fromDto(userRequest);
   }
 
-  @Test(expected = InvalidBirthdayDateArgumentException.class)
+  @Test(expected = InvalidBirthDateArgumentException.class)
   public void givenAnInvalidFormat_whenCreatingUser_shouldThrowIllegalArgumentException() {
-    userRequest.birthdayDate = "01-01-2020";
+    userRequest.birthDate = "01-01-2020";
 
     userAssembler.fromDto(userRequest);
   }

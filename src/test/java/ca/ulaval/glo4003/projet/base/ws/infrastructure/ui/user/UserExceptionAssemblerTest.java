@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.projet.base.ws.entity.user.InvalidDayToAccessCampusException;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.dto.UserExceptionResponse;
-import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthdayDateArgumentException;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.UserExceptionAssembler;
@@ -24,8 +24,8 @@ public class UserExceptionAssemblerTest {
   }
 
   @Test
-  public void givenAnInvalidBirthdayDateArgumentException_whenAssembling_shouldProduceTheRightError() {
-    InvalidBirthdayDateArgumentException exception = new InvalidBirthdayDateArgumentException(A_MESSAGE);
+  public void givenAnInvalidBirthDateArgumentException_whenAssembling_shouldProduceTheRightError() {
+    InvalidBirthDateArgumentException exception = new InvalidBirthDateArgumentException(A_MESSAGE);
 
     Response response = assembler.toResponse(exception);
 

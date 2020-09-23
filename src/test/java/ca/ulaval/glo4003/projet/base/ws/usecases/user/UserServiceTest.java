@@ -37,7 +37,7 @@ public class UserServiceTest {
     userDto = new UserDto();
     userDto.name = A_NAME;
     userDto.gender = A_GENDER;
-    userDto.birthdayDate = A_BIRTHDAY_DATE;
+    userDto.birthDate = A_BIRTHDAY_DATE;
     userDto.dayToAccessCampus = A_DAY_TO_ACCESS_CAMPUS;
   }
 

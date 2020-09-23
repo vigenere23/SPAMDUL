@@ -27,7 +27,7 @@ public class UserFactoryTest {
 
     assertThat(user.getName()).isEqualTo(A_NAME);
     assertThat(user.getGender()).isEqualTo(A_GENDER);
-    assertThat(user.getBirthdayDate()).isEqualTo(A_BIRTHDAY_DATE);
+    assertThat(user.getBirthDate()).isEqualTo(A_BIRTHDAY_DATE);
     assertThat(user.getDayToAccessCampus()).isEqualTo(A_DAY_TO_ACCESS_CAMPUS);
   }
 

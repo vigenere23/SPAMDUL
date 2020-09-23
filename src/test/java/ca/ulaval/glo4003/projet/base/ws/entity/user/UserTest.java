@@ -21,7 +21,7 @@ public class UserTest {
   }
 
   @Test
-  public void givenABirthdayDate_whenCalculatingAge_shouldReturnTheCorrectAge() {
+  public void givenABirthDate_whenCalculatingAge_shouldReturnTheCorrectAge() {
     User user = new User(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_DAY_TO_ACCESS_CAMPUS);
     LocalDate TODAY_DATE = LocalDate.of(2020, 9, 22);
 

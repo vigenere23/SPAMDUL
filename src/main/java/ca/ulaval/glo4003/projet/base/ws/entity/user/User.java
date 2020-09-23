@@ -8,14 +8,14 @@ public class User {
 
   private final String name;
   private final Gender gender;
-  private final LocalDate birthdayDate;
+  private final LocalDate birthDate;
   private final DayOfWeek dayToAccessCampus;
   private final UserId id;
 
-  public User(String name, Gender gender, LocalDate birthdayDate, DayOfWeek dayToAccessCampus) {
+  public User(String name, Gender gender, LocalDate birthDate, DayOfWeek dayToAccessCampus) {
     this.name = name;
     this.gender = gender;
-    this.birthdayDate = birthdayDate;
+    this.birthDate = birthDate;
     this.dayToAccessCampus = dayToAccessCampus;
     this.id = new UserId();
   }
@@ -24,8 +24,8 @@ public class User {
     return name;
   }
 
-  public LocalDate getBirthdayDate() {
-    return birthdayDate;
+  public LocalDate getBirthDate() {
+    return birthDate;
   }
 
   public Gender getGender() {
@@ -38,7 +38,7 @@ public class User {
 
   public int getAge(LocalDate todaysDate) {
     //TODO si on passe une date inferieur a la naissance => probleme, age negatif, on veut le gerer?
-    return Period.between(birthdayDate, todaysDate).getYears();
+    return Period.between(birthDate, todaysDate).getYears();
   }
 
   public UserId getId() {

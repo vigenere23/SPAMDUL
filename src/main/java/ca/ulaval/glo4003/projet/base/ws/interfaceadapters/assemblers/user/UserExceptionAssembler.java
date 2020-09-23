@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user;
 
 import ca.ulaval.glo4003.projet.base.ws.entity.user.InvalidDayToAccessCampusException;
 import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.dto.UserExceptionResponse;
-import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthdayDateArgumentException;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
 import javax.ws.rs.core.MediaType;
@@ -21,7 +21,7 @@ public class UserExceptionAssembler implements ExceptionMapper<RuntimeException>
 
     if (e instanceof InvalidGenderArgumentException) {
       userExceptionResponse.error = "INVALID_GENDER";
-    } else if (e instanceof InvalidBirthdayDateArgumentException) {
+    } else if (e instanceof InvalidBirthDateArgumentException) {
       userExceptionResponse.error = "INVALID_BIRTHDAY_DATE";
     } else if (e instanceof InvalidDayOfCampusAccessArgumentException
         || e instanceof InvalidDayToAccessCampusException) {

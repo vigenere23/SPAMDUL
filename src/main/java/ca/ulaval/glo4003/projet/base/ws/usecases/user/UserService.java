@@ -17,7 +17,7 @@ public class UserService {
   public User createUser(UserDto userDto) {
     User createdUser = userFactory.create(userDto.name,
                                           userDto.gender,
-                                          userDto.birthdayDate,
+                                          userDto.birthDate,
                                           userDto.dayToAccessCampus);
 
     return userRepository.save(createdUser);
