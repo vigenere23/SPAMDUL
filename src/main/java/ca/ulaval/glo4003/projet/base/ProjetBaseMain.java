@@ -1,21 +1,22 @@
 package ca.ulaval.glo4003.projet.base;
 
-import ca.ulaval.glo4003.projet.base.ws.api.contact.ContactResource;
-import ca.ulaval.glo4003.projet.base.ws.api.contact.ContactResourceImpl;
-import ca.ulaval.glo4003.projet.base.ws.api.user.UserExceptionAssembler;
-import ca.ulaval.glo4003.projet.base.ws.api.user.UserResource;
-import ca.ulaval.glo4003.projet.base.ws.api.user.UserResourceImpl;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.Contact;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactAssembler;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactRepository;
-import ca.ulaval.glo4003.projet.base.ws.domain.contact.ContactService;
-import ca.ulaval.glo4003.projet.base.ws.domain.user.UserAssembler;
-import ca.ulaval.glo4003.projet.base.ws.domain.user.UserRepository;
-import ca.ulaval.glo4003.projet.base.ws.domain.user.UserService;
-import ca.ulaval.glo4003.projet.base.ws.http.CORSResponseFilter;
-import ca.ulaval.glo4003.projet.base.ws.infrastructure.contact.ContactDevDataFactory;
-import ca.ulaval.glo4003.projet.base.ws.infrastructure.contact.ContactRepositoryInMemory;
-import ca.ulaval.glo4003.projet.base.ws.infrastructure.user.UserRepositoryInMemory;
+import ca.ulaval.glo4003.projet.base.ws.entity.contact.Contact;
+import ca.ulaval.glo4003.projet.base.ws.entity.contact.ContactAssembler;
+import ca.ulaval.glo4003.projet.base.ws.entity.contact.ContactRepository;
+import ca.ulaval.glo4003.projet.base.ws.entity.contact.ContactService;
+import ca.ulaval.glo4003.projet.base.ws.entity.user.UserFactory;
+import ca.ulaval.glo4003.projet.base.ws.entity.user.UserRepository;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.db.contact.ContactDevDataFactory;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.db.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.db.user.UserRepositoryInMemory;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.http.CORSResponseFilter;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.contact.ContactResource;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.contact.ContactResourceImpl;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.UserResource;
+import ca.ulaval.glo4003.projet.base.ws.infrastructure.ui.user.UserResourceImpl;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.UserAssembler;
+import ca.ulaval.glo4003.projet.base.ws.interfaceadapters.assemblers.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.projet.base.ws.usecases.user.UserService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +41,7 @@ public class ProjetBaseMain {
       throws Exception {
 
     // Setup resources (API)
-//    ContactResource contactResource = createContactResource();
+    //    ContactResource contactResource = createContactResource();
     UserResource userResource = createUserResource();
 
     // Setup API context (JERSEY + JETTY)
@@ -52,7 +53,7 @@ public class ProjetBaseMain {
         //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
         // Add resources to context
-//        resources.add(contactResource);
+        //        resources.add(contactResource);
         resources.add(userResource);
         resources.add(new UserExceptionAssembler());
         return resources;
@@ -81,8 +82,9 @@ public class ProjetBaseMain {
   private static UserResource createUserResource() {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserAssembler userAssembler = new UserAssembler();
-    UserService userService = new UserService(userAssembler, userRepository);
-    UserResource userResource = new UserResourceImpl(userService);
+    UserFactory userFactory = new UserFactory();
+    UserService userService = new UserService(userFactory, userRepository);
+    UserResource userResource = new UserResourceImpl(userService, userAssembler);
 
     return userResource;
   }
