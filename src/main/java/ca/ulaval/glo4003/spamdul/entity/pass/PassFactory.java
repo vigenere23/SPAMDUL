@@ -19,7 +19,8 @@ public class PassFactory {
 
         LocalDate firstDayOfValidity = calendar.getCurrentTermStartDate();
         LocalDate lastDayOfValidity = calendar.getEndOfTermDateInNTerms(numberOfTerms);
+        PassCode passCode = new PassCode();
 
-        return new Pass(userId, parkingZone, firstDayOfValidity, lastDayOfValidity);
+        return new Pass(passCode, userId, parkingZone, firstDayOfValidity, lastDayOfValidity);
     }
 }

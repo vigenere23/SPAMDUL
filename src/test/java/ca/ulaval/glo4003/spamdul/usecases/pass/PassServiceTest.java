@@ -1,9 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.*;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import org.junit.Before;
@@ -25,7 +22,7 @@ public class PassServiceTest {
     private final int A_NUMBER = 2;
     private final LocalDate A_DATE = LocalDate.of(1111, 11, 11);
 
-    private final Pass A_PASS = new Pass(A_USER_ID, A_PARKING_ZONE, A_DATE, A_DATE);;
+    private final Pass A_PASS = new Pass(new PassCode(), A_USER_ID, A_PARKING_ZONE, A_DATE, A_DATE);;
     @Mock
     private PassFactory passFactory;
     @Mock
