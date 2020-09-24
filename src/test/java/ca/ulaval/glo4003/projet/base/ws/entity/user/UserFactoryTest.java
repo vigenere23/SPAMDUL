@@ -31,13 +31,13 @@ public class UserFactoryTest {
     assertThat(user.getDayToAccessCampus()).isEqualTo(A_DAY_TO_ACCESS_CAMPUS);
   }
 
-  @Test(expected = InvalidDayToAccessCampusException.class)
-  public void givenSaturdayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
-    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SATURDAY);
-  }
-
-  @Test(expected = InvalidDayToAccessCampusException.class)
-  public void givenSundayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
-    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SUNDAY);
-  }
+//  @Test(expected = InvalidDayToAccessCampusException.class)
+//  public void givenSaturdayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
+//    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SATURDAY);
+//  }
+//
+//  @Test(expected = InvalidDayToAccessCampusException.class)
+//  public void givenSundayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
+//    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SUNDAY);
+//  }
 }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.Gender;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.User;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.UserFactory;
+import ca.ulaval.glo4003.projet.base.ws.entity.user.UserId;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.UserRepository;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -16,11 +17,12 @@ import org.junit.Test;
 
 public class UserServiceTest {
 
+  private final UserId A_USER_ID = new UserId();
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private final DayOfWeek A_DAY_TO_ACCESS_CAMPUS = DayOfWeek.MONDAY;
-  private final User user = new User(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_DAY_TO_ACCESS_CAMPUS);
+  private final User user = new User(A_USER_ID,A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_DAY_TO_ACCESS_CAMPUS);
 
   private UserRepository userRepository;
   private UserFactory userFactory;

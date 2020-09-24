@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.projet.base.ws.entity.user.Gender;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.User;
+import ca.ulaval.glo4003.projet.base.ws.entity.user.UserId;
 import ca.ulaval.glo4003.projet.base.ws.entity.user.UserRepository;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import org.junit.Test;
 
 public class UserRepositoryInMemoryTest {
 
-  private final User A_USER = new User("Bob Ross", Gender.MALE, LocalDate.of(2004, 1, 1), DayOfWeek.MONDAY);
+  private final User A_USER = new User(new UserId(), "Bob Ross", Gender.MALE, LocalDate.of(2004, 1, 1), DayOfWeek.MONDAY);
 
   private UserRepository repository;
 
