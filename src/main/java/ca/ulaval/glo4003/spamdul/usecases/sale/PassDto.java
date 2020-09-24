@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.pass;
+package ca.ulaval.glo4003.spamdul.usecases.sale;
 
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.sale.DeliveryMode;
