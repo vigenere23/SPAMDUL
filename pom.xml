@@ -128,7 +128,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<configuration>
-					<mainClass>ca.ulaval.glo4003.projet.base.ProjetBaseMain</mainClass>
+					<mainClass>ca.ulaval.glo4003.spamdul.SpamdUlMain</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
