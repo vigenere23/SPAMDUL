@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.user;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.user.InvalidDayToAccessCampusException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserExceptionResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
@@ -29,7 +29,7 @@ public class UserExceptionAssemblerTest {
 
     Response response = assembler.toResponse(exception);
 
-    UserExceptionResponse dto = (UserExceptionResponse) response.getEntity();
+    ExceptionResponse dto = (ExceptionResponse) response.getEntity();
     assertThat(response.getStatus()).isEqualTo(400);
     assertThat(dto.error).isEqualTo("INVALID_BIRTHDAY_DATE");
   }
@@ -39,7 +39,7 @@ public class UserExceptionAssemblerTest {
     InvalidGenderArgumentException exception = new InvalidGenderArgumentException(A_MESSAGE);
     Response response = assembler.toResponse(exception);
 
-    UserExceptionResponse dto = (UserExceptionResponse) response.getEntity();
+    ExceptionResponse dto = (ExceptionResponse) response.getEntity();
     assertThat(response.getStatus()).isEqualTo(400);
     assertThat(dto.error).isEqualTo("INVALID_GENDER");
   }
@@ -49,7 +49,7 @@ public class UserExceptionAssemblerTest {
     InvalidDayOfCampusAccessArgumentException exception = new InvalidDayOfCampusAccessArgumentException(A_MESSAGE);
     Response response = assembler.toResponse(exception);
 
-    UserExceptionResponse dto = (UserExceptionResponse) response.getEntity();
+    ExceptionResponse dto = (ExceptionResponse) response.getEntity();
     assertThat(response.getStatus()).isEqualTo(400);
     assertThat(dto.error).isEqualTo("INVALID_DAY_OF_CAMPUS_ACCESS");
   }
@@ -59,7 +59,7 @@ public class UserExceptionAssemblerTest {
     InvalidDayToAccessCampusException exception = new InvalidDayToAccessCampusException(A_MESSAGE);
     Response response = assembler.toResponse(exception);
 
-    UserExceptionResponse dto = (UserExceptionResponse) response.getEntity();
+    ExceptionResponse dto = (ExceptionResponse) response.getEntity();
     assertThat(response.getStatus()).isEqualTo(400);
     assertThat(dto.error).isEqualTo("INVALID_DAY_OF_CAMPUS_ACCESS");
   }
