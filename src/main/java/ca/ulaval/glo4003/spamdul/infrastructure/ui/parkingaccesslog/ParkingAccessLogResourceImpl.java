@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.parkingaccesslog;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogService;
+import ca.ulaval.glo4003.spamdul.usecases.parkingaccesslog.ParkingAccessLogService;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.parkingaccesslog.dto.ParkingAccessLog;
 import java.util.List;
 
