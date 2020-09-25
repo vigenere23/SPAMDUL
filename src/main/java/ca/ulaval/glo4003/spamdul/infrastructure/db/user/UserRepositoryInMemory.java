@@ -26,6 +26,12 @@ public class UserRepositoryInMemory implements UserRepository {
   }
 
   public User findById(UserId userId) {
-    return registeredUsers.get(userId);
+    User user = registeredUsers.get(userId);
+
+    if (user == null) {
+      throw new UserNotFoundException("User id does not correspond to a valid user");
+    }
+
+    return user;
   }
 }
