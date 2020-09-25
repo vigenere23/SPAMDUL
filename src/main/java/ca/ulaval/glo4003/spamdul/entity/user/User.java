@@ -9,15 +9,13 @@ public class User {
   private final String name;
   private final Gender gender;
   private final LocalDate birthDate;
-  private final DayOfWeek dayToAccessCampus;
   private final UserId id;
 
-  public User(UserId userId, String name, Gender gender, LocalDate birthDate, DayOfWeek dayToAccessCampus) {
+  public User(UserId userId, String name, Gender gender, LocalDate birthDate) {
     this.name = name;
     this.gender = gender;
     this.birthDate = birthDate;
     //TODO Devrait-on bouger ca dans la passe au moment ou elle est acheter?
-    this.dayToAccessCampus = dayToAccessCampus;
     this.id = userId;
   }
 
@@ -31,10 +29,6 @@ public class User {
 
   public Gender getGender() {
     return gender;
-  }
-
-  public DayOfWeek getDayToAccessCampus() {
-    return dayToAccessCampus;
   }
 
   public int getAge(LocalDate todaysDate) {

@@ -12,11 +12,14 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResourceImpl;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.CampusAccessResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.UserAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
+import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +45,7 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    UserResource userResource = createUserResource();
+    CampusAccessResource campusAccessResource = createUserResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -54,7 +57,7 @@ public class SpamdUlMain {
         HashSet<Object> resources = new HashSet<>();
         // Add resources to context
         //        resources.add(contactResource);
-        resources.add(userResource);
+        resources.add(campusAccessResource);
         resources.add(new UserExceptionAssembler());
         return resources;
       }
@@ -79,14 +82,17 @@ public class SpamdUlMain {
     }
   }
 
-  private static UserResource createUserResource() {
+  private static CampusAccessResource createUserResource() {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserAssembler userAssembler = new UserAssembler();
+    CarAssembler carAssembler = new CarAssembler();
+    CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler);
+    CampusAccessService campusAccessService = new CampusAccessService();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
-    UserResource userResource = new UserResourceImpl(userService, userAssembler);
+    CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
 
-    return userResource;
+    return campusAccessResource;
   }
 
   private static ContactResource createContactResource() {
