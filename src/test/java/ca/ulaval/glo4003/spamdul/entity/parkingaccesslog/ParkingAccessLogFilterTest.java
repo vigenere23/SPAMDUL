@@ -21,5 +21,4 @@ public class ParkingAccessLogFilterTest {
         parkingAccessLogFilter = new ParkingAccessLogFilter();
     }
 
-    // TODO
 }

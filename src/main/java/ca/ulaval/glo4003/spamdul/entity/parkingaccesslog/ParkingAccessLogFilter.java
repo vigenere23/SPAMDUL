@@ -1,55 +1,48 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
+import ca.ulaval.glo4003.spamdul.utils.FilterContainer;
+
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ParkingAccessLogFilter {
-    private Stream<ParkingAccessLog> filterStream = Stream.empty();
+    private FilterContainer<ParkingAccessLog> filterContainer;
 
     public ParkingAccessLogFilter setData(List<ParkingAccessLog> accessLogs) {
-        filterStream = accessLogs.stream();
+        filterContainer = new FilterContainer<>(accessLogs);
         return this;
     }
 
     public ParkingAccessLogFilter setData(Stream<ParkingAccessLog> accessLogsStream) {
-        filterStream = accessLogsStream;
+        filterContainer = new FilterContainer<>(accessLogsStream);
         return this;
     }
 
     public ParkingAccessLogFilter fromCurrentMonth() {
         LocalDate now = LocalDate.now();
-        filterStream = filterStream
-                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == now.getMonth())
-                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().getYear() == now.getYear());
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == now.getMonth());
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getYear() == now.getYear());
         return this;
     }
 
     public ParkingAccessLogFilter atZone(ParkingZone zone) {
-        filterStream = filterStream.filter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
         return this;
     }
 
     public ParkingAccessLogFilter atDate(LocalDate date) {
-        filterStream = filterStream.filter(parkingAccessLog -> parkingAccessLog.getAccessDate().isEqual(date));
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isEqual(date));
         return this;
     }
 
     public ParkingAccessLogFilter betweenDates(LocalDate startDate, LocalDate endDate) {
-        filterStream = filterStream
-                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().isAfter(startDate))
-                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().isBefore(endDate));
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isAfter(startDate));
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isBefore(endDate));
         return this;
     }
 
     public List<ParkingAccessLog> getResults() {
-        return filterStream.collect(Collectors.toList());
-    }
-
-    public List<ParkingAccessLog> getResultsAndReset() {
-        List<ParkingAccessLog> results = filterStream.collect(Collectors.toList());
-        filterStream = Stream.empty();
-        return results;
+        return filterContainer.getResults();
     }
 }
