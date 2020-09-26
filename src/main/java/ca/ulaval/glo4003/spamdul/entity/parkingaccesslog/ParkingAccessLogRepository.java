@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface ParkingAccessLogRepository {
   List<ParkingAccessLog> findAll();
-  List<ParkingAccessLog> findAllWithFilter(ParkingAccessLogFilter filter);
 
   void save(ParkingAccessLog parkingAccessLog);
 }

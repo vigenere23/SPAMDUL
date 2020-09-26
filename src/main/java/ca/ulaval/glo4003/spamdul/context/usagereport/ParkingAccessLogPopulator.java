@@ -5,7 +5,11 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class ParkingAccessLogPopulator {
     private ParkingAccessLogRepository parkingAccessLogRepository;
@@ -16,17 +20,20 @@ public class ParkingAccessLogPopulator {
         this.parkingAccessLogFactory = parkingAccessLogFactory;
     }
 
-    public void populate() {
-        ParkingAccessLog log1 = parkingAccessLogFactory.create(ParkingZone.ZONE_1, LocalDate.now());
-        ParkingAccessLog log2 = parkingAccessLogFactory.create(ParkingZone.ZONE_1, LocalDate.now());
-        ParkingAccessLog log3 = parkingAccessLogFactory.create(ParkingZone.ZONE_2, LocalDate.now());
-        ParkingAccessLog log4 = parkingAccessLogFactory.create(ParkingZone.ZONE_3, LocalDate.now());
-        ParkingAccessLog log5 = parkingAccessLogFactory.create(ParkingZone.ZONE_R, LocalDate.now());
+    public void populate(int numberOfRecords) {
+        Random random = new Random();
+        LocalDate now = LocalDate.now();
+        List<ParkingZone> allZones = Arrays.asList(ParkingZone.values());
 
-        parkingAccessLogRepository.save(log1);
-        parkingAccessLogRepository.save(log2);
-        parkingAccessLogRepository.save(log3);
-        parkingAccessLogRepository.save(log4);
-        parkingAccessLogRepository.save(log5);
+        for (int recordNumber = 0; recordNumber < numberOfRecords; recordNumber++) {
+            ParkingAccessLog accessLog = createRandomLog(random, now, allZones);
+            parkingAccessLogRepository.save(accessLog);
+        }
+    }
+
+    private ParkingAccessLog createRandomLog(Random random, LocalDate now, List<ParkingZone> allZones) {
+        LocalDate accessDay = now.minusDays(random.nextInt(40)); // a bit more than a month
+        ParkingZone zone = allZones.get(random.nextInt(allZones.size()));
+        return parkingAccessLogFactory.create(zone, accessDay);
     }
 }

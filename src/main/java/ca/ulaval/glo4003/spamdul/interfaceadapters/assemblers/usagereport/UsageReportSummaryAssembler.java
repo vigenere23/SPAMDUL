@@ -7,7 +7,7 @@ public class UsageReportSummaryAssembler {
     public UsageReportSummaryDto toDto(UsageReportSummary usageReportSummary) {
         UsageReportSummaryDto dto = new UsageReportSummaryDto();
 
-        dto.usagePerDayMean = usageReportSummary.getUsagePerDayMean();
+        dto.meanUsagePerDay = usageReportSummary.getMeanUsagePerDay();
         usageReportSummary.getMostPopularDayOfMonth().ifPresent(localDate -> dto.mostPopularMonthDay = localDate.getDayOfMonth());
         usageReportSummary.getLeastPopularDayOfMonth().ifPresent(localDate -> dto.leastPopularMonthDay = localDate.getDayOfMonth());
 

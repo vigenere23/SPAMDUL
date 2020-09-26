@@ -18,11 +18,6 @@ public class ParkingAccessLogRepositoryInMemory implements ParkingAccessLogRepos
   }
 
   @Override
-  public List<ParkingAccessLog> findAllWithFilter(ParkingAccessLogFilter filter) {
-    return filter.setData(findAll()).getResults();
-  }
-
-  @Override
   public void save(ParkingAccessLog parkingAccessLog) {
     parkingAccessLogsById.put(parkingAccessLog.getId(), parkingAccessLog);
   }

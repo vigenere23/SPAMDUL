@@ -12,13 +12,14 @@ public class UsageReportFactory {
     }
 
     public UsageReportSummary createSummaryReport(List<ParkingAccessLog> lastMonthAccesses) {
+        LocalDate now = LocalDate.now();
         Map<LocalDate, List<ParkingAccessLog>> logsPerDay = parkingAccessLogAgglomerator.groupPerDay(lastMonthAccesses);
 
         float totalUsage = 0;
         int minNumberOfAccesses = Integer.MAX_VALUE;
         int maxNumberOfAccesses = 0;
-        LocalDate dayWithMinUsage = null;
-        LocalDate dayWithMaxUsage = null;
+        LocalDate mostPopularDayOfMonth = null;
+        LocalDate leastPopularDayOfMonth = null;
 
         for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : logsPerDay.entrySet()) {
             int numberOfAccesses = entry.getValue().size();
@@ -26,20 +27,17 @@ public class UsageReportFactory {
 
             if (numberOfAccesses > maxNumberOfAccesses) {
                 maxNumberOfAccesses = numberOfAccesses;
-                dayWithMaxUsage = entry.getKey();
+                leastPopularDayOfMonth = entry.getKey();
             }
 
             if (numberOfAccesses < minNumberOfAccesses) {
                 minNumberOfAccesses = numberOfAccesses;
-                dayWithMinUsage = entry.getKey();
+                mostPopularDayOfMonth = entry.getKey();
             }
         }
 
-        // TODO not entirely true. Only counts the days which a parking was accessed!
-        float numberOfDays = logsPerDay.entrySet().size();
-        float meanUsage = 0;
-        if (numberOfDays > 1) meanUsage = totalUsage / numberOfDays;
+        float meanUsage = totalUsage / now.getDayOfMonth();
 
-        return new UsageReportSummary(meanUsage, dayWithMaxUsage, dayWithMinUsage);
+        return new UsageReportSummary(meanUsage, leastPopularDayOfMonth, mostPopularDayOfMonth);
     }
 }

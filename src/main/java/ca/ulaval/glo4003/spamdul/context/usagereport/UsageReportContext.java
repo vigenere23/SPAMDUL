@@ -27,7 +27,8 @@ public class UsageReportContext {
         ParkingAccessLogPopulator parkingAccessLogPopulator = new ParkingAccessLogPopulator(
                 parkingAccessLogRepository, parkingAccessLogFactory
         );
-        parkingAccessLogPopulator.populate();
+        final int NUMBER_OF_ACCESS_LOGS = 300;
+        parkingAccessLogPopulator.populate(NUMBER_OF_ACCESS_LOGS);
 
         return new UsageReportResourceImpl(parkingAccessLogService);
     }

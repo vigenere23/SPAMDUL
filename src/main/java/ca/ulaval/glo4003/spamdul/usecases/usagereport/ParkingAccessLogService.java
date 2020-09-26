@@ -22,10 +22,12 @@ public class ParkingAccessLogService {
   }
 
   public UsageReportSummaryDto getReportSummary() {
-    List<ParkingAccessLog> logs = parkingAccessLogRepository.findAllWithFilter(
-            parkingAccessLogFilter.fromCurrentMonth()
-    );
-    UsageReportSummary usageReportSummary = usageReportFactory.createSummaryReport(logs);
+    List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
+    List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
+            .setData(allLogs)
+            .fromCurrentMonth()
+            .getResultsAndReset();
+    UsageReportSummary usageReportSummary = usageReportFactory.createSummaryReport(lastMonthLogs);
 
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }

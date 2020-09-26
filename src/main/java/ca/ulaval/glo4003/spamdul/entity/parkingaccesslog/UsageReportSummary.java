@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class UsageReportSummary {
-    private final float usagePerDayMean;
+    private final float meanUsagePerDay;
     private final Optional<LocalDate> mostPopularDayOfMonth;
     private final Optional<LocalDate> leastPopularDayOfMonth;
 
-    public UsageReportSummary(float usagePerDayMean, LocalDate mostPopularDayOfMonth, LocalDate leastPopularDayOfMonth) {
-        this.usagePerDayMean = usagePerDayMean;
+    public UsageReportSummary(float meanUsagePerDay, LocalDate mostPopularDayOfMonth, LocalDate leastPopularDayOfMonth) {
+        this.meanUsagePerDay = meanUsagePerDay;
         this.mostPopularDayOfMonth = Optional.ofNullable(mostPopularDayOfMonth);
         this.leastPopularDayOfMonth = Optional.ofNullable(leastPopularDayOfMonth);
     }
 
-    public float getUsagePerDayMean() {
-        return usagePerDayMean;
+    public float getMeanUsagePerDay() {
+        return meanUsagePerDay;
     }
 
     public Optional<LocalDate> getMostPopularDayOfMonth() {
