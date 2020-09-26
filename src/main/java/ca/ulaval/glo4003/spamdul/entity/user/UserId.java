@@ -1,14 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+
 import java.util.Objects;
 
 public class UserId {
 
-  private static Long lastId = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
   public UserId() {
-    id = getNextId();
+    id = idGenerator.getNextId();
   }
 
   //TODO pas encore utilise mais le sera bientot pour retrouver un user quand il le faudra
@@ -19,12 +22,6 @@ public class UserId {
 
   public static UserId valueOf(String userId) {
     return new UserId(Long.parseLong(userId));
-  }
-
-  private static synchronized Long getNextId() {
-    lastId += 1;
-
-    return lastId;
   }
 
   public boolean equals(Object o) {

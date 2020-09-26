@@ -1,17 +1,18 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+
 import java.util.Objects;
 
 public class ParkingAccessLogId {
 
-  private static Long lastId = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
   public ParkingAccessLogId() {
-    id = getNextId();
+    id = idGenerator.getNextId();
   }
-
-  //TODO pas encore utilise mais le sera bientot pour retrouver un user quand il le faudra
 
   private ParkingAccessLogId(long id) {
     this.id = id;
@@ -19,12 +20,6 @@ public class ParkingAccessLogId {
 
   public static ParkingAccessLogId valueOf(String parkingAccessLogId) {
     return new ParkingAccessLogId(Long.parseLong(parkingAccessLogId));
-  }
-
-  private static synchronized Long getNextId() {
-    lastId += 1;
-
-    return lastId;
   }
 
   public boolean equals(Object o) {
