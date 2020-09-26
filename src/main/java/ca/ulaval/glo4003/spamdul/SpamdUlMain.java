@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactAssembler;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactRepository;
@@ -43,6 +44,7 @@ public class SpamdUlMain {
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
     UserResource userResource = createUserResource();
+    UsageReportContext usageReportContext = new UsageReportContext();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -56,6 +58,7 @@ public class SpamdUlMain {
         //        resources.add(contactResource);
         resources.add(userResource);
         resources.add(new UserExceptionAssembler());
+        resources.add(usageReportContext.createUsageReportResource());
         return resources;
       }
     });
