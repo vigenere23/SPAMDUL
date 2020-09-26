@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
-import ca.ulaval.glo4003.spamdul.context.UsageReportContext;
+import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactAssembler;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactRepository;

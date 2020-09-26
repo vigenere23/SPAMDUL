@@ -25,7 +25,7 @@ public class ParkingAccessLogService {
     List<ParkingAccessLog> logs = parkingAccessLogRepository.findAllWithFilter(
             parkingAccessLogFilter.fromCurrentMonth()
     );
-    UsageReportSummary usageReportSummary = usageReportFactory.create(logs);
+    UsageReportSummary usageReportSummary = usageReportFactory.createSummaryReport(logs);
 
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }

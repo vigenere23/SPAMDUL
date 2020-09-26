@@ -11,7 +11,7 @@ public class UsageReportFactory {
         this.parkingAccessLogAgglomerator = parkingAccessLogAgglomerator;
     }
 
-    public UsageReportSummary create(List<ParkingAccessLog> lastMonthAccesses) {
+    public UsageReportSummary createSummaryReport(List<ParkingAccessLog> lastMonthAccesses) {
         Map<LocalDate, List<ParkingAccessLog>> logsPerDay = parkingAccessLogAgglomerator.groupPerDay(lastMonthAccesses);
 
         float totalUsage = 0;
@@ -35,7 +35,10 @@ public class UsageReportFactory {
             }
         }
 
-        float meanUsage = totalUsage / logsPerDay.keySet().size();
+        // TODO not entirely true. Only counts the days which a parking was accessed!
+        float numberOfDays = logsPerDay.entrySet().size();
+        float meanUsage = 0;
+        if (numberOfDays > 1) meanUsage = totalUsage / numberOfDays;
 
         return new UsageReportSummary(meanUsage, dayWithMaxUsage, dayWithMinUsage);
     }

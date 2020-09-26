@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.context;
+package ca.ulaval.glo4003.spamdul.context.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.*;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
@@ -22,6 +22,12 @@ public class UsageReportContext {
                 usageReportFactory,
                 usageReportSummaryAssembler
         );
+
+        ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
+        ParkingAccessLogPopulator parkingAccessLogPopulator = new ParkingAccessLogPopulator(
+                parkingAccessLogRepository, parkingAccessLogFactory
+        );
+        parkingAccessLogPopulator.populate();
 
         return new UsageReportResourceImpl(parkingAccessLogService);
     }
