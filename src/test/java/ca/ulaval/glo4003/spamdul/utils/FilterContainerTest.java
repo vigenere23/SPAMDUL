@@ -24,42 +24,42 @@ public class FilterContainerTest {
 
     @Test
     public void givenNoDataHasBeenSet_whenGettingResults_shouldReturnEmptyList() {
-        List<FilterContainerItem> filteredLogs = filterContainer.getResults();
-        assertThat(filteredLogs).isEmpty();
+        List<FilterContainerItem> filteredItems = filterContainer.getResults();
+        assertThat(filteredItems).isEmpty();
     }
 
     @Test
     public void givenDataIsEmptyList_whenGettingResults_shouldReturnEmptyList() {
         filterContainer.setData(new ArrayList<>());
-        List<FilterContainerItem> filteredLogs = filterContainer.getResults();
-        assertThat(filteredLogs).isEmpty();
+        List<FilterContainerItem> filteredItems = filterContainer.getResults();
+        assertThat(filteredItems).isEmpty();
     }
 
     @Test
     public void givenDataIsEmptyStream_whenGettingResults_shouldReturnEmptyList() {
         filterContainer.setData(Stream.empty());
-        List<FilterContainerItem> filteredLogs = filterContainer.getResults();
-        assertThat(filteredLogs).isEmpty();
+        List<FilterContainerItem> filteredItems = filterContainer.getResults();
+        assertThat(filteredItems).isEmpty();
     }
 
     @Test
     public void givenDataIsAList_whenGettingResults_shouldReturnThatList() {
-        List<FilterContainerItem> logs = Arrays.asList(AN_ITEM, ANOTHER_ITEM);
-        filterContainer.setData(logs);
+        List<FilterContainerItem> items = Arrays.asList(AN_ITEM, ANOTHER_ITEM);
+        filterContainer.setData(items);
 
-        List<FilterContainerItem> filteredLogs = filterContainer.getResults();
+        List<FilterContainerItem> filteredItems = filterContainer.getResults();
 
-        assertThat(filteredLogs).containsExactlyElementsIn(logs);
+        assertThat(filteredItems).containsExactlyElementsIn(items);
     }
 
     @Test
     public void givenDataIsAStream_whenGettingResults_shouldReturnThatStreamAsList() {
-        List<FilterContainerItem> logs = Arrays.asList(AN_ITEM, ANOTHER_ITEM);
-        filterContainer.setData(logs.stream());
+        List<FilterContainerItem> items = Arrays.asList(AN_ITEM, ANOTHER_ITEM);
+        filterContainer.setData(items.stream());
 
-        List<FilterContainerItem> filteredLogs = filterContainer.getResults();
+        List<FilterContainerItem> filteredItems = filterContainer.getResults();
 
-        assertThat(filteredLogs).containsExactlyElementsIn(logs);
+        assertThat(filteredItems).containsExactlyElementsIn(items);
     }
 
     @Test
@@ -67,8 +67,8 @@ public class FilterContainerTest {
         filterContainer.setData(Arrays.asList(AN_ITEM, ANOTHER_ITEM));
         filterContainer.getResults();
 
-        List<FilterContainerItem> filteredLogsSecondTime = filterContainer.getResults();
+        List<FilterContainerItem> filteredItemsSecondTime = filterContainer.getResults();
 
-        assertThat(filteredLogsSecondTime).isEmpty();
+        assertThat(filteredItemsSecondTime).isEmpty();
     }
 }

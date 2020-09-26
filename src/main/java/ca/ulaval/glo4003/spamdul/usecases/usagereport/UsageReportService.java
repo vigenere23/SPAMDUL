@@ -32,7 +32,7 @@ public class UsageReportService {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
             .setData(allLogs)
-            .fromCurrentMonth()
+            .fromOngoingMonth()
             .getResults();
     Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(lastMonthLogs);
     UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(lastMonthLogsPerDay);

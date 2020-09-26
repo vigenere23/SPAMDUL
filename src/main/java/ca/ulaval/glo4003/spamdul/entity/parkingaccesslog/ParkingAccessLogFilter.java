@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.utils.FilterContainer;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ParkingAccessLogFilter {
     private FilterContainer<ParkingAccessLog> filterContainer;
@@ -14,13 +13,9 @@ public class ParkingAccessLogFilter {
         return this;
     }
 
-    public ParkingAccessLogFilter setData(Stream<ParkingAccessLog> accessLogsStream) {
-        filterContainer = new FilterContainer<>(accessLogsStream);
-        return this;
-    }
-
-    public ParkingAccessLogFilter fromCurrentMonth() {
+    public ParkingAccessLogFilter fromOngoingMonth() {
         LocalDate now = LocalDate.now();
+        filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(now));
         filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == now.getMonth());
         filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getYear() == now.getYear());
         return this;
@@ -37,8 +32,8 @@ public class ParkingAccessLogFilter {
     }
 
     public ParkingAccessLogFilter betweenDates(LocalDate startDate, LocalDate endDate) {
-        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isAfter(startDate));
-        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isBefore(endDate));
+        filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isBefore(startDate));
+        filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(endDate));
         return this;
     }
 
