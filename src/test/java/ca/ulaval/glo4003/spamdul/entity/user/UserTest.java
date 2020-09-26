@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class UserTest {
   public void whenCreatingNewUser_shouldCreateRandomId() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
 
-    assertThat(user.getId()).isNotNull();
+    assertThat(user.getUserId()).isNotNull();
   }
 
   @Test

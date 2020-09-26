@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 
 public class UserService {
@@ -15,11 +14,15 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public UserId createUser(UserDto userDto) {
-    User createdUser = userFactory.create(userDto.name,
-                                          userDto.gender,
-                                          userDto.birthDate);
+  public User createUser(UserDto userDto) {
+    return userFactory.create(userDto.name,
+                              userDto.gender,
+                              userDto.birthDate);
 
-    return userRepository.save(createdUser);
+    //    return userRepository.save(createdUser);
+  }
+
+  public void saveUser(User user) {
+    userRepository.save(user);
   }
 }

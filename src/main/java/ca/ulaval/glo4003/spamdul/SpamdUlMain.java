@@ -20,8 +20,11 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.CampusAccessExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
@@ -66,6 +69,10 @@ public class SpamdUlMain {
         //        resources.add(contactResource);
         resources.add(campusAccessResource);
         resources.add(new UserExceptionAssembler());
+        resources.add(new CarExceptionAssembler());
+        resources.add(new CampusAccessExceptionAssembler());
+        resources.add(new AccessingCampusExceptionAssembler());
+
         return resources;
       }
     });

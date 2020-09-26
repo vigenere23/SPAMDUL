@@ -15,9 +15,13 @@ public class CarService {
     this.carRepository = carRepository;
   }
 
-  public CarId createCar(CarDto carDto) {
-    Car car = carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
+  public Car createCar(CarDto carDto) {
+    return carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
 
-    return carRepository.save(car);
+//    return carRepository.save(car);
+  }
+
+  public void saveCar(Car car) {
+    carRepository.save(car);
   }
 }

@@ -17,12 +17,12 @@ public class UserRepositoryInMemory implements UserRepository {
   }
 
   public UserId save(User user) {
-    registeredUsers.put(user.getId(), user);
+    registeredUsers.put(user.getUserId(), user);
 
-    String loggingInfos = String.format("Saving user: %s", user.getId().toString());
+    String loggingInfos = String.format("Saving user: %s", user.getUserId().toString());
     logger.info(loggingInfos);
 
-    return user.getId();
+    return user.getUserId();
   }
 
   public User findById(UserId userId) {

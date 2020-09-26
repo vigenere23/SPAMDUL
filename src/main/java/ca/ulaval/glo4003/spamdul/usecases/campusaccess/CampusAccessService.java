@@ -2,11 +2,13 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+import java.time.DayOfWeek;
 
 public class CampusAccessService {
 
@@ -25,16 +27,35 @@ public class CampusAccessService {
     this.campusAccessRepository = campusAccessRepository;
   }
 
-  public CampusAccess createNewCampusAccess(CampusAccessDto campusAccessDto) {
-    UserId userId = userService.createUser(campusAccessDto.userDto);
-    CarId carId = carService.createCar(campusAccessDto.carDto);
-    CampusAccess campusAccess = campusAccessFactory.create(userId,
-                                                           carId,
+  public CampusAccess createAndSaveNewCampusAccess(CampusAccessDto campusAccessDto) {
+    User user = userService.createUser(campusAccessDto.userDto);
+    Car car = carService.createCar(campusAccessDto.carDto);
+
+    CampusAccess campusAccess = campusAccessFactory.create(user.getUserId(),
+                                                           car.getCarId(),
                                                            campusAccessDto.period,
                                                            campusAccessDto.dayToAccessCampus);
+
     //TODO saleService.buyingCampusAccess(campusAccessDto.period, campusAccessDto.carDto.type);
+
+    userService.saveUser(user);
+    carService.saveCar(car);
     campusAccessRepository.save(campusAccess);
 
     return campusAccess;
+  }
+
+  public boolean canAccessCampus(AccessingCampusDto accessingCampusDto) {
+    CampusAccess campusAccess;
+
+    try {
+      campusAccess = campusAccessRepository.findById(accessingCampusDto.campusAccessCode);
+    } catch (CampusAccessNotFoundException e) {
+      return false;
+    }
+
+    DayOfWeek accessingDay = accessingCampusDto.accessingCampusDate.getDayOfWeek();
+
+    return campusAccess.getDayOfWeek() == accessingDay;
   }
 }

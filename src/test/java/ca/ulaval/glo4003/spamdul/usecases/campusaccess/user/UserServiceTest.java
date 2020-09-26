@@ -50,10 +50,9 @@ public class UserServiceTest {
   }
 
   @Test
-  public void whenCreatingNewUser_shouldAddUserToRepository() {
-    given(userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE)).willReturn(user);
-
-    userService.createUser(userDto);
+  public void whenSavingUser_shouldAddUserToRepository() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    userService.saveUser(user);
 
     verify(userRepository, times(1)).save(user);
   }

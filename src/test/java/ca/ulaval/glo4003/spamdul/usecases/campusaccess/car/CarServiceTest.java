@@ -22,6 +22,7 @@ public class CarServiceTest {
   private final CarId A_CAR_ID= CarId.valueOf("1");
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final int A_YEAR = 2020;
+  private final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, A_CAR_BRAND, A_CAR_MODEL, A_YEAR, A_LICENSE_PLATE);
 
   private CarRepository carRepository;
   private CarFactory carFactory;
@@ -46,12 +47,9 @@ public class CarServiceTest {
   }
 
   @Test
-  public void whenCreatingCar_shouldSaveCarInRepo() {
-    given(carFactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate)).willReturn(
-        car);
+  public void whenSavingCar_shouldSaveCarInRepo() {
+    carService.saveCar(A_CAR);
 
-    carService.createCar(carDto);
-
-    verify(carRepository, times(1)).save(this.car);
+    verify(carRepository, times(1)).save(A_CAR);
   }
 }

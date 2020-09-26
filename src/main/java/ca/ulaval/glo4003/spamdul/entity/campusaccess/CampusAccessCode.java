@@ -16,7 +16,11 @@ public class CampusAccessCode {
   }
 
   public static CampusAccessCode valueOf(String userId) {
-    return new CampusAccessCode(Long.parseLong(userId));
+    try {
+      return new CampusAccessCode(Long.parseLong(userId));
+    } catch (NumberFormatException e) {
+      throw new InvalidCampusAccessCodeFormat("invalid campus code format");
+    }
   }
 
   private static synchronized Long getNextId() {

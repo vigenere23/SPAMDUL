@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import java.util.HashMap;
@@ -26,6 +27,12 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
   }
 
   public CampusAccess findById(CampusAccessCode campusAccessCode) {
-    return campusAccesses.get(campusAccessCode);
+    CampusAccess campusAccess = campusAccesses.get(campusAccessCode);
+
+    if (campusAccess == null) {
+      throw new CampusAccessNotFoundException();
+    }
+
+    return campusAccess;
   }
 }
