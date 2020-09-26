@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.exceptions.InvalidUserArgumentException;

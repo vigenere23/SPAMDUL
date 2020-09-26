@@ -1,0 +1,36 @@
+package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
+
+import static com.google.common.truth.Truth.assertThat;
+
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
+import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import java.time.DayOfWeek;
+import org.junit.Before;
+import org.junit.Test;
+
+public class InMemoryCampusAccessRepositoryTest {
+
+  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
+                                                                new UserId(),
+                                                                new CarId(),
+                                                                DayOfWeek.MONDAY,
+                                                                Period.SEMESTER_1);
+
+  private InMemoryCampusAccessRepository campusAccessRepository;
+
+  @Before
+  public void setUp() throws Exception {
+    campusAccessRepository = new InMemoryCampusAccessRepository();
+  }
+
+  @Test
+  public void whenSavingCampusAccess_campusAccessShouldBeSaved() {
+    CampusAccessCode code = campusAccessRepository.save(A_CAMPUS_ACCESS);
+
+    assertThat(campusAccessRepository.findById(code)).isEqualTo(A_CAMPUS_ACCESS);
+  }
+}

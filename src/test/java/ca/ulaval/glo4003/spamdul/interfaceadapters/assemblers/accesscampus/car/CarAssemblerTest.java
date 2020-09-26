@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.car.CarRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car.CarRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarTypeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarYearArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
@@ -31,7 +31,7 @@ public class CarAssemblerTest {
     carRequest.model = A_CAR_MODEL;
     carRequest.year = A_YEAR_STRING;
     carRequest.licensePlate = A_LICENSE_PLATE;
-    carRequest.carType = A_CAR_TYPE_STRING;
+    carRequest.type = A_CAR_TYPE_STRING;
   }
 
   @Test
@@ -54,7 +54,7 @@ public class CarAssemblerTest {
 
   @Test(expected = InvalidCarTypeArgumentException.class)
   public void givenAnInvalidCarType_whenAssemblingFromRequest_shouldThrowInvalidCarTypeArgumentException() {
-    carRequest.carType = "invalid";
+    carRequest.type = "invalid";
 
     carAssembler.fromRequest(carRequest);
   }

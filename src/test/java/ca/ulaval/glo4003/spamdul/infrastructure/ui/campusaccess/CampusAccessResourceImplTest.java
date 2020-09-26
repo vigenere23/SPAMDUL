@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.CampusAccessRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;

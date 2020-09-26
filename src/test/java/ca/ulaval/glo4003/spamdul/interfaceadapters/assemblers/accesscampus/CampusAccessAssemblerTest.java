@@ -10,10 +10,10 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.CampusAccessResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.car.CarRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.user.UserRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car.CarRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarAssembler;
@@ -47,8 +47,8 @@ public class CampusAccessAssemblerTest {
     carAssembler = mock(CarAssembler.class);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_DAY_TO_ACCESS_CAMPUS, A_PERIOD);
     campusAccessRequest = new CampusAccessRequest();
-    campusAccessRequest.carRequest = carRequest;
-    campusAccessRequest.userRequest = userRequest;
+    campusAccessRequest.carInfos = carRequest;
+    campusAccessRequest.userInfos = userRequest;
     campusAccessRequest.dayToAccessCampus = A_DAY_TO_ACCESS_CAMPUS_STRING;
     campusAccessRequest.period = A_PERIOD_STRING;
     campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler);
@@ -58,14 +58,14 @@ public class CampusAccessAssemblerTest {
   public void whenAssemblingFromRequest_shouldCallUserAssembler() {
     campusAccessAssembler.fromRequest(campusAccessRequest);
 
-    verify(userAssembler, times(1)).fromRequest(campusAccessRequest.userRequest);
+    verify(userAssembler, times(1)).fromRequest(campusAccessRequest.userInfos);
   }
 
   @Test
   public void whenAssemblingFromRequest_shouldCallCarAssembler() {
     campusAccessAssembler.fromRequest(campusAccessRequest);
 
-    verify(carAssembler, times(1)).fromRequest(campusAccessRequest.carRequest);
+    verify(carAssembler, times(1)).fromRequest(campusAccessRequest.carInfos);
   }
 
   @Test
@@ -94,6 +94,6 @@ public class CampusAccessAssemblerTest {
   public void whenCreatingCampusAccessResponse_shouldCreateResponseWithTheRightInfos() {
     CampusAccessResponse campusAccessResponse = campusAccessAssembler.toResponse(campusAccess);
 
-    assertThat(campusAccessResponse.getAccessCode()).isNotNull();
+    assertThat(campusAccessResponse.campusAccessCode).isNotNull();
   }
 }

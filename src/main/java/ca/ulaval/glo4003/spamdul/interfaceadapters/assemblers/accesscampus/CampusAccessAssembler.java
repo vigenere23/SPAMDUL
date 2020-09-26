@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.CampusAccessResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarAssembler;
@@ -23,8 +23,8 @@ public class CampusAccessAssembler {
 
   public CampusAccessDto fromRequest(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = new CampusAccessDto();
-    campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.userRequest);
-    campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.carRequest);
+    campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.userInfos);
+    campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.carInfos);
 
     setDayToAccessCampus(campusAccessRequest, campusAccessDto);
     setPeriod(campusAccessRequest, campusAccessDto);
@@ -49,6 +49,9 @@ public class CampusAccessAssembler {
   }
 
   public CampusAccessResponse toResponse(CampusAccess campusAccess) {
-    return new CampusAccessResponse(campusAccess.getCampusAccessCode().toString());
+    CampusAccessResponse campusAccessResponse = new CampusAccessResponse();
+    campusAccessResponse.campusAccessCode = campusAccess.getCampusAccessCode().toString();
+
+    return campusAccessResponse;
   }
 }

@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.user.UserRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;

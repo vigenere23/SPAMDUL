@@ -15,15 +15,11 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public User createUser(UserDto userDto) {
+  public UserId createUser(UserDto userDto) {
     User createdUser = userFactory.create(userDto.name,
                                           userDto.gender,
                                           userDto.birthDate);
 
     return userRepository.save(createdUser);
-  }
-
-  public boolean isARegisteredUser(UserId userId) {
-    return false;
   }
 }

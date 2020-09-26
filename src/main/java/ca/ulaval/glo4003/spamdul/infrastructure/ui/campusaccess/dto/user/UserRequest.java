@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.user;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user;
 
 public class UserRequest {
 

@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.car;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car;
 
 public class CarRequest {
 
-  public String carType;
+  public String type;
   public String brand;
   public String model;
   public String year;

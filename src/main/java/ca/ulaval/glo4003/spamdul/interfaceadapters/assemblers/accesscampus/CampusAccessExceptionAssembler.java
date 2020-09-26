@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.accesscampus.dto.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidDayToAccessCampusException;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
@@ -18,7 +19,7 @@ public class CampusAccessExceptionAssembler implements ExceptionMapper<InvalidCa
     ExceptionResponse exceptionResponse = new ExceptionResponse();
     exceptionResponse.description = e.getMessage();
 
-    if (e instanceof InvalidDayOfCampusAccessArgumentException) {
+    if (e instanceof InvalidDayOfCampusAccessArgumentException || e instanceof InvalidDayToAccessCampusException) {
       exceptionResponse.error = "INVALID_DAY_TO_ACCESS_CAMPUS";
     } else if (e instanceof InvalidPeriodArgumentException) {
       exceptionResponse.error = "INVALID_PERIOD";

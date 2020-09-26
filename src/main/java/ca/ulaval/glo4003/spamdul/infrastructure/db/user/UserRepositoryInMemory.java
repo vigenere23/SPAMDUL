@@ -16,13 +16,13 @@ public class UserRepositoryInMemory implements UserRepository {
     registeredUsers = new HashMap<>();
   }
 
-  public User save(User user) {
+  public UserId save(User user) {
     registeredUsers.put(user.getId(), user);
 
-    String loggingInfos = String.format("Saved user: %s", user.getId().toString());
+    String loggingInfos = String.format("Saving user: %s", user.getId().toString());
     logger.info(loggingInfos);
 
-    return user;
+    return user.getId();
   }
 
   public User findById(UserId userId) {

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
+package ca.ulaval.glo4003.spamdul.usecases.campusaccess.user;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;

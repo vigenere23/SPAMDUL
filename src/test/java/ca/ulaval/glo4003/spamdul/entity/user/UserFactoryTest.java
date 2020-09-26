@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,14 +27,4 @@ public class UserFactoryTest {
     assertThat(user.getGender()).isEqualTo(A_GENDER);
     assertThat(user.getBirthDate()).isEqualTo(A_BIRTHDAY_DATE);
   }
-
-//  @Test(expected = InvalidDayToAccessCampusException.class)
-//  public void givenSaturdayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
-//    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SATURDAY);
-//  }
-//
-//  @Test(expected = InvalidDayToAccessCampusException.class)
-//  public void givenSundayAsDayToAccessCampus_whenCreatingUser_shouldThrowInvalidDayToAccessCampus() {
-//    userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, DayOfWeek.SUNDAY);
-//  }
 }
