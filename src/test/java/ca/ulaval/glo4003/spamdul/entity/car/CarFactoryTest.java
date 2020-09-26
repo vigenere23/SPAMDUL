@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.car;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.time.LocalDate;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,5 +32,10 @@ public class CarFactoryTest {
     assertThat(car.getModel()).isEqualTo(A_MODEL);
     assertThat(car.getYear()).isEqualTo(A_CAR_YEAR);
     assertThat(car.getLicencePlate()).isEqualTo(A_LICENCE_PLATE);
+  }
+
+  @Test(expected = InvalidCarYearException.class)
+  public void givenACarYearOverCurrentYear_whenCreatingCar_shouldThrowInvalidCarYearException() {
+    carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, LocalDate.now().getYear() + 1, A_LICENCE_PLATE);
   }
 }

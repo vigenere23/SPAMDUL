@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car;
 
+import ca.ulaval.glo4003.spamdul.entity.car.InvalidCarYearException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarTypeArgumentException;
@@ -20,7 +21,7 @@ public class CarExceptionAssembler implements ExceptionMapper<InvalidCarArgument
 
     if (e instanceof InvalidCarTypeArgumentException) {
       exceptionResponse.error = "INVALID_CAR_TYPE";
-    } else if (e instanceof InvalidCarYearArgumentException) {
+    } else if (e instanceof InvalidCarYearArgumentException || e instanceof InvalidCarYearException) {
       exceptionResponse.error = "INVALID_CAR_YEAR";
     }
 
