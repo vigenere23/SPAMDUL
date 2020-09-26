@@ -13,6 +13,11 @@ public class ParkingAccessLogFilter {
         return this;
     }
 
+    public ParkingAccessLogFilter setData(Stream<ParkingAccessLog> accessLogsStream) {
+        filterStream = accessLogsStream;
+        return this;
+    }
+
     public ParkingAccessLogFilter fromCurrentMonth() {
         LocalDate now = LocalDate.now();
         filterStream = filterStream

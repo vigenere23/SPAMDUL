@@ -18,11 +18,11 @@ public class UsageReportSummary {
         return meanUsagePerDay;
     }
 
-    public Optional<LocalDate> getMostPopularDayOfMonth() {
+    public Optional<LocalDate> getMostPopularDateOfMonth() {
         return mostPopularDayOfMonth;
     }
 
-    public Optional<LocalDate> getLeastPopularDayOfMonth() {
+    public Optional<LocalDate> getLeastPopularDateOfMonth() {
         return leastPopularDayOfMonth;
     }
 }

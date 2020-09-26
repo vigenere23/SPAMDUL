@@ -27,13 +27,13 @@ public class UsageReportSummaryFactoryTest {
     }
 
     @Test
-    public void givenEmptyAccessLogsMap_whenCreatingSummaryReport_shouldNotHaveMaxAndMinDays() {
+    public void givenEmptyAccessLogsMap_whenCreatingSummaryReport_shouldNotHaveMaxAndMinDates() {
         Map<LocalDate, List<ParkingAccessLog>> emptyLogsMap = new HashMap<>();
 
         UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(emptyLogsMap);
 
-        assertThat(usageReportSummary.getLeastPopularDayOfMonth().isPresent()).isFalse();
-        assertThat(usageReportSummary.getMostPopularDayOfMonth().isPresent()).isFalse();
+        assertThat(usageReportSummary.getLeastPopularDateOfMonth().isPresent()).isFalse();
+        assertThat(usageReportSummary.getMostPopularDateOfMonth().isPresent()).isFalse();
     }
 
     @Test
@@ -44,15 +44,15 @@ public class UsageReportSummaryFactoryTest {
     }
 
     @Test
-    public void givenAccessLogsForOneDay_whenCreatingSummaryReport_shouldHaveSameMaxAndMinDays() {
+    public void givenAccessLogsForOneDay_whenCreatingSummaryReport_shouldHaveSameMaxAndMinDates() {
         List<ParkingAccessLog> accessLogs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
         Map<LocalDate, List<ParkingAccessLog>> accessLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(accessLogs);
 
         UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(accessLogsPerDay);
-        LocalDate maxUsageDay = usageReportSummary.getMostPopularDayOfMonth().get();
-        LocalDate minUsageDay = usageReportSummary.getLeastPopularDayOfMonth().get();
+        LocalDate maxUsageDate = usageReportSummary.getMostPopularDateOfMonth().get();
+        LocalDate minUsageDate = usageReportSummary.getLeastPopularDateOfMonth().get();
 
-        assertThat(maxUsageDay).isEquivalentAccordingToCompareTo(minUsageDay);
+        assertThat(maxUsageDate).isEquivalentAccordingToCompareTo(minUsageDate);
     }
 
     @Test
@@ -67,15 +67,15 @@ public class UsageReportSummaryFactoryTest {
     }
 
     @Test
-    public void givenDifferentUsageEachDay_whenCreatingSummaryReport_shouldHaveDifferentMaxAndMinDays() {
+    public void givenDifferentUsageEachDay_whenCreatingSummaryReport_shouldHaveDifferentMaxAndMinDates() {
         List<ParkingAccessLog> accessLogs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY, AN_ACCESS_LOG_ONE_DAY_BEFORE);
         Map<LocalDate, List<ParkingAccessLog>> accessLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(accessLogs);
 
         UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(accessLogsPerDay);
-        LocalDate maxUsageDay = usageReportSummary.getMostPopularDayOfMonth().get();
-        LocalDate minUsageDay = usageReportSummary.getLeastPopularDayOfMonth().get();
+        LocalDate maxUsageDate = usageReportSummary.getMostPopularDateOfMonth().get();
+        LocalDate minUsageDate = usageReportSummary.getLeastPopularDateOfMonth().get();
 
-        assertThat(maxUsageDay).isGreaterThan(minUsageDay);
+        assertThat(maxUsageDate).isGreaterThan(minUsageDate);
     }
 
     @Test
@@ -86,6 +86,19 @@ public class UsageReportSummaryFactoryTest {
         UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(accessLogsPerDay);
 
         assertThat(usageReportSummary.getMeanUsagePerDay()).isEqualTo(1);
+    }
+
+    @Test
+    public void givenMultipleDifferentDays_whenCreatingSummaryReport_shouldHaveCorrectMinAndMaxDates() {
+        List<ParkingAccessLog> accessLogs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY, AN_ACCESS_LOG_ONE_DAY_BEFORE);
+        Map<LocalDate, List<ParkingAccessLog>> accessLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(accessLogs);
+
+        UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(accessLogsPerDay);
+        LocalDate maxUsageDate = usageReportSummary.getMostPopularDateOfMonth().get();
+        LocalDate minUsageDate = usageReportSummary.getLeastPopularDateOfMonth().get();
+
+        assertThat(maxUsageDate).isEqualTo(AN_ACCESS_LOG.getAccessDate());
+        assertThat(minUsageDate).isEqualTo(AN_ACCESS_LOG_ONE_DAY_BEFORE.getAccessDate());
     }
 
     private List<ParkingAccessLog> generateOneAccessLogPerDay(int numberOfDays) {
