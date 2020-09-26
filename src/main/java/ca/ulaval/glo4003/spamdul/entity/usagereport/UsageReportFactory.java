@@ -1,4 +1,7 @@
-package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
+package ca.ulaval.glo4003.spamdul.entity.usagereport;
+
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 
 import java.time.LocalDate;
 import java.util.List;

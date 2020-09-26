@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.ParkingAccessLogService;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
 
 public class UsageReportResourceImpl implements UsageReportResource {
 
-    private final ParkingAccessLogService parkingAccessLogService;
+    private final UsageReportService usageReportService;
 
-    public UsageReportResourceImpl(ParkingAccessLogService parkingAccessLogService) {
-        this.parkingAccessLogService = parkingAccessLogService;
+    public UsageReportResourceImpl(UsageReportService usageReportService) {
+        this.usageReportService = usageReportService;
     }
 
     @Override
@@ -19,6 +19,6 @@ public class UsageReportResourceImpl implements UsageReportResource {
 
     @Override
     public UsageReportSummaryDto getUsageReportSummary() {
-        return parkingAccessLogService.getReportSummary();
+        return usageReportService.getReportSummary();
     }
 }

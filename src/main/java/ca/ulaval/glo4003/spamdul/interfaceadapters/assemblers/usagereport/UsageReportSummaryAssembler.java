@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.UsageReportSummary;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
 
 public class UsageReportSummaryAssembler {

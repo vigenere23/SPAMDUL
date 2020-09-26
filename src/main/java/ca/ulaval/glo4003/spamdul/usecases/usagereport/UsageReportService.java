@@ -1,20 +1,22 @@
 package ca.ulaval.glo4003.spamdul.usecases.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.*;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 
 import java.util.List;
 
-public class ParkingAccessLogService {
+public class UsageReportService {
   private final ParkingAccessLogRepository parkingAccessLogRepository;
   private final ParkingAccessLogFilter parkingAccessLogFilter;
   private final UsageReportFactory usageReportFactory;
   private final UsageReportSummaryAssembler usageReportSummaryAssembler;
 
-  public ParkingAccessLogService(ParkingAccessLogRepository parkingAccessLogRepository,
-                                 ParkingAccessLogFilter parkingAccessLogFilter,
-                                 UsageReportFactory usageReportFactory,
-                                 UsageReportSummaryAssembler usageReportSummaryAssembler) {
+  public UsageReportService(ParkingAccessLogRepository parkingAccessLogRepository,
+                            ParkingAccessLogFilter parkingAccessLogFilter,
+                            UsageReportFactory usageReportFactory,
+                            UsageReportSummaryAssembler usageReportSummaryAssembler) {
     this.parkingAccessLogRepository = parkingAccessLogRepository;
     this.parkingAccessLogFilter = parkingAccessLogFilter;
     this.usageReportFactory = usageReportFactory;
