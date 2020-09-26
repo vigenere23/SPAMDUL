@@ -3,9 +3,9 @@ package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 import java.time.LocalDate;
 
 public class ParkingAccessLog {
-    private ParkingAccessLogId id;
-    private ParkingZone zone;
-    private LocalDate accessDate;
+    private final ParkingAccessLogId id;
+    private final ParkingZone zone;
+    private final LocalDate accessDate;
 
     public ParkingAccessLog(ParkingAccessLogId id, ParkingZone zone, LocalDate accessDate) {
         this.id = id;
