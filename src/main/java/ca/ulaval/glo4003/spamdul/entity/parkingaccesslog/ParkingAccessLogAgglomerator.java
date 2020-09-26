@@ -16,6 +16,9 @@ public class ParkingAccessLogAgglomerator {
                 logsForThisDay = new ArrayList<>();
             }
 
+            logsForThisDay.add(log);
         });
+
+        return logsPerDay;
     }
 }

@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,8 +18,10 @@ public class ParkingAccessLogFilterImpl implements ParkingAccessLogFilter {
     }
 
     public ParkingAccessLogFilter fromCurrentMonth() {
-        Month month = LocalDate.now().getMonth();
-        filterStream = filterStream.filter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == month);
+        LocalDate now = LocalDate.now();
+        filterStream = filterStream
+                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == now.getMonth())
+                .filter(parkingAccessLog -> parkingAccessLog.getAccessDate().getYear() == now.getYear());
         return this;
     }
 
