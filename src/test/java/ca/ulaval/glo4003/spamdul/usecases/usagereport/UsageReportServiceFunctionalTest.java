@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UsageReportServiceIntegrationTest {
+public class UsageReportServiceFunctionalTest {
 
   private UsageReportService usageReportService;
   private ParkingAccessLogRepository parkingAccessLogRepository;
