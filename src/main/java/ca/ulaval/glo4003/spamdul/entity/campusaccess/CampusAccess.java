@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class CampusAccess {
 
@@ -42,5 +43,9 @@ public class CampusAccess {
 
   public CampusAccessCode getCampusAccessCode() {
     return campusAccessCode;
+  }
+
+  public boolean isAccessGranted(DayOfWeek accessingDay) {
+    return accessingDay == dayOfWeek;
   }
 }

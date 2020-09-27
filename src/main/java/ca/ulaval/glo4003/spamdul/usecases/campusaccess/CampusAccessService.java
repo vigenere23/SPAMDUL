@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
-import java.time.DayOfWeek;
 
 public class CampusAccessService {
 
@@ -54,8 +53,6 @@ public class CampusAccessService {
       return false;
     }
 
-    DayOfWeek accessingDay = accessingCampusDto.accessingCampusDate.getDayOfWeek();
-
-    return campusAccess.getDayOfWeek() == accessingDay;
+    return campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
   }
 }

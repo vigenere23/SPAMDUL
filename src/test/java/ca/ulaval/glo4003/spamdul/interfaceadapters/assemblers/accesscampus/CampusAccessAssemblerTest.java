@@ -145,4 +145,5 @@ public class CampusAccessAssemblerTest {
 
     assertThat(response.access).isEqualTo("NOT GRANTED");
   }
+
 }

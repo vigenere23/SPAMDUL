@@ -126,25 +126,6 @@ public class CampusAccessServiceTest {
   }
 
   @Test
-  public void whenVerigyingIfCanAccessCamus_shouldGrantAccess() {
-    given(campusAccessRepository.findById(accessingCampusDto.campusAccessCode)).willReturn(A_CAMPUS_ACCESS);
-
-    boolean isGrantedAccess = campusAccessService.canAccessCampus(accessingCampusDto);
-
-    assertThat(isGrantedAccess).isTrue();
-  }
-
-  @Test
-  public void whenVerifyingIfCanAccessCampus_shouldNotGrantAccess() {
-    CampusAccess campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, DayOfWeek.MONDAY, A_PERIOD);
-    given(campusAccessRepository.findById(accessingCampusDto.campusAccessCode)).willReturn(campusAccess);
-
-    boolean isGrantedAccess = campusAccessService.canAccessCampus(accessingCampusDto);
-
-    assertThat(isGrantedAccess).isFalse();
-  }
-
-  @Test
   public void givenAnUnregisteredCampusAccessCode_whenVerifyingIfCanAccessCampus_shouldNotGrantAccess() {
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willThrow(CampusAccessNotFoundException.class);
 
