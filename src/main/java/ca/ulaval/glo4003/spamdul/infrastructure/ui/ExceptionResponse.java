@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui;
 
 public class ExceptionResponse {
 

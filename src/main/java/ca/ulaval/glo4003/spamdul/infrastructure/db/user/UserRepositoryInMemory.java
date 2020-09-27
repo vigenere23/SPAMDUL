@@ -9,11 +9,10 @@ import java.util.logging.Logger;
 
 public class UserRepositoryInMemory implements UserRepository {
 
-  private final Map<UserId, User> registeredUsers;
+  private static final Map<UserId, User> registeredUsers = new HashMap<>();
   private final Logger logger = Logger.getLogger(UserRepository.class.getName());
 
   public UserRepositoryInMemory() {
-    registeredUsers = new HashMap<>();
   }
 
   public User save(User user) {
@@ -27,5 +26,9 @@ public class UserRepositoryInMemory implements UserRepository {
 
   public User findById(UserId userId) {
     return registeredUsers.get(userId);
+  }
+
+  public void clear(){
+    registeredUsers.clear();
   }
 }

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import java.time.DayOfWeek;
 import java.time.LocalDate;

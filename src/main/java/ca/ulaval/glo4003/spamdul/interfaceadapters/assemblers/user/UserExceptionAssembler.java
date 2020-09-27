@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.InvalidDayToAccessCampusException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidUserArgumentException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

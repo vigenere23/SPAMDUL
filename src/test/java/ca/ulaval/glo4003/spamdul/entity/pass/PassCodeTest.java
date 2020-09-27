@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.pass;
+package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import org.junit.Test;

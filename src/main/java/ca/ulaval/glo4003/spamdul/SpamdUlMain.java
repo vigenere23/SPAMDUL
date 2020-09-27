@@ -4,18 +4,29 @@ import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactAssembler;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactRepository;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactService;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.pass.PassRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.SaleAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.SaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
+import ca.ulaval.glo4003.spamdul.usecases.sale.SaleService;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +54,7 @@ public class SpamdUlMain {
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
     UserResource userResource = createUserResource();
+    SaleResource saleResource = createSaleResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -55,7 +67,10 @@ public class SpamdUlMain {
         // Add resources to context
         //        resources.add(contactResource);
         resources.add(userResource);
+        resources.add(saleResource);
         resources.add(new UserExceptionAssembler());
+        resources.add(new PassExceptionAssembler());
+        resources.add(new SaleExceptionAssembler());
         return resources;
       }
     });
@@ -87,6 +102,19 @@ public class SpamdUlMain {
     UserResource userResource = new UserResourceImpl(userService, userAssembler);
 
     return userResource;
+  }
+
+  private static SaleResource createSaleResource(){
+    PassRepository passRepository = new PassRepositoryInMemory();
+    UserRepository userRepository = new UserRepositoryInMemory();
+    PassFactory passFactory = new PassFactory();
+    PassService passService = new PassService(passRepository, userRepository, passFactory);
+    SaleService saleService = new SaleService(passService);
+    PassAssembler passAssembler = new PassAssembler();
+    SaleAssembler saleAssembler = new SaleAssembler(passAssembler);
+    SaleResource saleResource = new SaleResourceImpl(saleService, saleAssembler);
+
+    return saleResource;
   }
 
   private static ContactResource createContactResource() {

@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,10 +20,10 @@ import static org.mockito.Mockito.when;
 public class PassServiceTest {
     private final UserId A_USER_ID = new UserId();
     private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
-    private final int A_NUMBER = 2;
-    private final LocalDate A_DATE = LocalDate.of(1111, 11, 11);
+    private final PassType A_PASS_TYPE = PassType.MONTHLY;
 
-    private final Pass A_PASS = new Pass(new PassCode(), A_USER_ID, A_PARKING_ZONE, A_DATE, A_DATE);;
+    private final Pass A_PASS = new Pass(new PassCode(), A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
+    private PassDto passDto = new PassDto();
     @Mock
     private PassFactory passFactory;
     @Mock
@@ -34,29 +35,39 @@ public class PassServiceTest {
 
     @Before
     public void setUp() {
+        passDto.userId = A_USER_ID;
+        passDto.parkingZone = A_PARKING_ZONE;
+        passDto.passType = A_PASS_TYPE;
+
         passService = new PassService(passRepository, userRepository, passFactory);
+        when(passFactory.create(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE)).thenReturn(A_PASS);
+
     }
 
     @Test
     public void whenSellingPass_shouldFindUserInRepository() {
-        passService.createPass(A_USER_ID, A_PARKING_ZONE, A_NUMBER);
+        passService.createPass(passDto);
 
         verify(userRepository).findById(A_USER_ID);
     }
 
     @Test
     public void whenSellingPass_shouldCallFactoryToCreateNewPass() {
-        passService.createPass(A_USER_ID, A_PARKING_ZONE, A_NUMBER);
+        passService.createPass(passDto);
 
-        verify(passFactory).create(A_USER_ID, A_PARKING_ZONE, A_NUMBER);
+        verify(passFactory).create(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
     }
 
     @Test
     public void whenSellingPass_shouldAddPassToRepository() {
-        when(passFactory.create(A_USER_ID, A_PARKING_ZONE, A_NUMBER)).thenReturn(A_PASS);
-
-        passService.createPass(A_USER_ID, A_PARKING_ZONE, A_NUMBER);
+        passService.createPass(passDto);
 
         verify(passRepository).save(A_PASS);
+    }
+
+    @Test
+    public void whenCreatingPass_thenShouldReturnRightPassCode(){
+
+        assertThat(passService.createPass(passDto)).isEqualTo(A_PASS.getPassCode());
     }
 }
