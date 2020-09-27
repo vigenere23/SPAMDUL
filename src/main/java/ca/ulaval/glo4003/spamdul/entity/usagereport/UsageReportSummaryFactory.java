@@ -2,20 +2,22 @@ package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
 public class UsageReportSummaryFactory {
 
-  public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> lastMonthAccessesPerDay) {
+  public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> monthAccessesPerDay,
+                                   LocalDate startDate,
+                                   LocalDate endDate) {
     float totalUsage = 0;
     int minNumberOfAccesses = Integer.MAX_VALUE;
     int maxNumberOfAccesses = 0;
-    LocalDate now = LocalDate.now();
     LocalDate mostPopularDayOfMonth = null;
     LocalDate leastPopularDayOfMonth = null;
 
-    for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : lastMonthAccessesPerDay.entrySet()) {
+    for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : monthAccessesPerDay.entrySet()) {
       int numberOfAccesses = entry.getValue().size();
       totalUsage += numberOfAccesses;
 
@@ -30,7 +32,8 @@ public class UsageReportSummaryFactory {
       }
     }
 
-    float meanUsage = totalUsage / now.getDayOfMonth();
+    long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+    float meanUsage = totalUsage / numberOfDays;
 
     return new UsageReportSummary(meanUsage, leastPopularDayOfMonth, mostPopularDayOfMonth);
   }

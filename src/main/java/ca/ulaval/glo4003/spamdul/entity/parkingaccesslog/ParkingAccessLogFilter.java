@@ -13,14 +13,6 @@ public class ParkingAccessLogFilter {
     return this;
   }
 
-  public ParkingAccessLogFilter fromOngoingMonth() {
-    LocalDate now = LocalDate.now();
-    filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(now));
-    filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getMonth() == now.getMonth());
-    filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().getYear() == now.getYear());
-    return this;
-  }
-
   public ParkingAccessLogFilter atZone(ParkingZone zone) {
     filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
     return this;

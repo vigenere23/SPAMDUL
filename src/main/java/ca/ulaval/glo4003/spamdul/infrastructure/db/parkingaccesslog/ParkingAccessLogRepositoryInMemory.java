@@ -10,7 +10,7 @@ import jersey.repackaged.com.google.common.collect.Lists;
 
 public class ParkingAccessLogRepositoryInMemory implements ParkingAccessLogRepository {
 
-  private final Map<ParkingAccessLogId, ParkingAccessLog> parkingAccessLogsById = new HashMap<>();
+  private static final Map<ParkingAccessLogId, ParkingAccessLog> parkingAccessLogsById = new HashMap<>();
 
   @Override
   public List<ParkingAccessLog> findAll() {

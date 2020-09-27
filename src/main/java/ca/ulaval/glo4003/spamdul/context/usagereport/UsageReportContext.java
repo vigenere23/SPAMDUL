@@ -20,8 +20,8 @@ public class UsageReportContext {
     ParkingAccessLogFilter parkingAccessLogFilter = new ParkingAccessLogFilter();
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
-    UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportMonthFactory usageReportMonthFactory = new UsageReportMonthFactory();
+    UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportMonthAssembler usageReportMonthAssembler = new UsageReportMonthAssembler();
 
     UsageReportService usageReportService = new UsageReportService(
@@ -30,7 +30,8 @@ public class UsageReportContext {
         parkingAccessLogAgglomerator,
         usageReportSummaryFactory,
         usageReportSummaryAssembler,
-        usageReportMonthFactory, usageReportMonthAssembler);
+        usageReportMonthFactory,
+        usageReportMonthAssembler);
 
     ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
     ParkingAccessLogPopulator parkingAccessLogPopulator = new ParkingAccessLogPopulator(

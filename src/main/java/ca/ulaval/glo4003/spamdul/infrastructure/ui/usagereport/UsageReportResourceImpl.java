@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportMonthDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
+import java.time.LocalDate;
 
 public class UsageReportResourceImpl implements UsageReportResource {
 
@@ -20,11 +21,11 @@ public class UsageReportResourceImpl implements UsageReportResource {
 
   @Override
   public UsageReportSummaryDto getUsageReportSummary() {
-    return usageReportService.getReportSummary();
+    return usageReportService.getReportSummaryOfMonth(LocalDate.now());
   }
 
   @Override
   public UsageReportMonthDto getUsageReportMonth() {
-    return usageReportService.getReportMonth();
+    return usageReportService.getReportMonth(LocalDate.now());
   }
 }

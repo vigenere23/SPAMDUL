@@ -40,25 +40,33 @@ public class UsageReportService {
     this.usageReportMonthAssembler = usageReportMonthAssembler;
   }
 
-  public UsageReportSummaryDto getReportSummary() {
+  public UsageReportSummaryDto getReportSummaryOfMonth(LocalDate reportMonthDate) {
+    LocalDate reportStartDate = reportMonthDate.withDayOfMonth(1);
+    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportMonthDate);
+
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
         .setData(allLogs)
-        .fromOngoingMonth()
+        .betweenDates(reportStartDate, reportEndDate)
         .getResults();
     Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(
         lastMonthLogs);
 
-    UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(lastMonthLogsPerDay);
+    UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(lastMonthLogsPerDay,
+                                                                             reportStartDate,
+                                                                             reportEndDate);
 
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }
 
-  public UsageReportMonthDto getReportMonth() {
+  public UsageReportMonthDto getReportMonth(LocalDate reportMonthDate) {
+    LocalDate reportStartDate = reportMonthDate.withDayOfMonth(1);
+    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportMonthDate);
+
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
         .setData(allLogs)
-        .fromOngoingMonth()
+        .betweenDates(reportStartDate, reportEndDate)
         .getResults();
     Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(
         lastMonthLogs);
@@ -66,5 +74,16 @@ public class UsageReportService {
     UsageReportMonth usageReportMonth = usageReportMonthFactory.create(lastMonthLogsPerDay);
 
     return usageReportMonthAssembler.toDto(usageReportMonth);
+  }
+
+  private LocalDate getLastDayOfMonthBeforeToday(LocalDate date) {
+    LocalDate now = LocalDate.now();
+    LocalDate lastDayOfMonth = date.withDayOfMonth(date.lengthOfMonth());
+
+    if (lastDayOfMonth.isAfter(now)) {
+      return now;
+    }
+
+    return lastDayOfMonth;
   }
 }
