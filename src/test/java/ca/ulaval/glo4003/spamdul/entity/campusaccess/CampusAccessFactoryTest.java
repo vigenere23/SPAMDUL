@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
 import java.time.DayOfWeek;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class CampusAccessFactoryTest {
 
   private final UserId A_USER_ID = new UserId();
   private final CarId A_CAR_ID = new CarId();
-  private final Period A_PERIOD = Period.SEMESTER_1;
+  private final Period A_PERIOD = Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
   private final DayOfWeek A_CAMPUS_ACCESS_DAY = DayOfWeek.WEDNESDAY;
 
   private CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
@@ -41,5 +42,10 @@ public class CampusAccessFactoryTest {
   @Test(expected = InvalidDayToAccessCampusException.class)
   public void givenSundayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
     campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_PERIOD, DayOfWeek.SUNDAY);
+  }
+
+  @Test(expected = InvalidPeriodArgumentException.class)
+  public void givenAnInvalidPeriod_whenCreatingCampusAccess_shouldThrowInvalidPeriodException() {
+    campusAccessFactory.create(A_USER_ID, A_CAR_ID, Period.SEMESTER_1, A_CAMPUS_ACCESS_DAY);
   }
 }
