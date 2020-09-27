@@ -38,21 +38,23 @@ public class UsageReportServiceIntegrationTest {
 
   @Test
   public void whenGettingUsageReportSummary_shouldReturnTheRightSummary() {
-    LocalDate reportMonthDate = LocalDate.of(2010, 1, 1);
-    LocalDate mostPopularDate = reportMonthDate.plusDays(15);
-    LocalDate leastPopularDate = reportMonthDate.plusDays(7);
-    LocalDate randomDate = reportMonthDate.plusDays(21);
+    LocalDate reportStartDate = LocalDate.of(2010, 1, 1);
+    LocalDate reportEndDate = reportStartDate.withDayOfMonth(reportStartDate.lengthOfMonth());
+    LocalDate mostPopularDate = reportStartDate.plusDays(15);
+    LocalDate leastPopularDate = reportStartDate.plusDays(7);
+    LocalDate randomDate = reportStartDate.plusDays(21);
     int numberOfMostPopularDateLogs = 13;
     int numberOfLeastPopularDateLogs = 5;
     int numberOfRandomLogs = 7;
-    int numberOfMonthDays = reportMonthDate.lengthOfMonth();
+    int numberOfMonthDays = reportStartDate.lengthOfMonth();
     float meanUsage =
         (float) (numberOfMostPopularDateLogs + numberOfLeastPopularDateLogs + numberOfRandomLogs) / numberOfMonthDays;
     createLogs(mostPopularDate, numberOfMostPopularDateLogs);
     createLogs(leastPopularDate, numberOfLeastPopularDateLogs);
     createLogs(randomDate, numberOfRandomLogs);
 
-    UsageReportSummaryDto usageReportSummaryDto = usageReportService.getReportSummaryOfMonth(reportMonthDate);
+    UsageReportSummaryDto usageReportSummaryDto = usageReportService.getReportSummaryOfMonth(reportStartDate,
+                                                                                             reportEndDate);
 
     assertThat(usageReportSummaryDto.mostPopularMonthDate).isEquivalentAccordingToCompareTo(mostPopularDate);
     assertThat(usageReportSummaryDto.leastPopularMonthDate).isEquivalentAccordingToCompareTo(leastPopularDate);

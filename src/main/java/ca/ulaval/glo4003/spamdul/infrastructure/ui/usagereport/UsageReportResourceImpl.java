@@ -21,11 +21,26 @@ public class UsageReportResourceImpl implements UsageReportResource {
 
   @Override
   public UsageReportSummaryDto getUsageReportSummary() {
-    return usageReportService.getReportSummaryOfMonth(LocalDate.now());
+    LocalDate reportStartDate = LocalDate.now();
+    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportStartDate);
+    return usageReportService.getReportSummaryOfMonth(reportStartDate, reportEndDate);
   }
 
   @Override
   public UsageReportMonthDto getUsageReportMonth() {
-    return usageReportService.getReportMonth(LocalDate.now());
+    LocalDate reportStartDate = LocalDate.now();
+    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportStartDate);
+    return usageReportService.getReportMonth(reportStartDate, reportEndDate);
+  }
+
+  private LocalDate getLastDayOfMonthBeforeToday(LocalDate date) {
+    LocalDate now = LocalDate.now();
+    LocalDate lastDayOfMonth = date.withDayOfMonth(date.lengthOfMonth());
+
+    if (lastDayOfMonth.isAfter(now)) {
+      return now;
+    }
+
+    return lastDayOfMonth;
   }
 }

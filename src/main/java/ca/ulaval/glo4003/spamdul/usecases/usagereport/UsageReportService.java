@@ -40,10 +40,7 @@ public class UsageReportService {
     this.usageReportMonthAssembler = usageReportMonthAssembler;
   }
 
-  public UsageReportSummaryDto getReportSummaryOfMonth(LocalDate reportMonthDate) {
-    LocalDate reportStartDate = reportMonthDate.withDayOfMonth(1);
-    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportMonthDate);
-
+  public UsageReportSummaryDto getReportSummaryOfMonth(LocalDate reportStartDate, LocalDate reportEndDate) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
         .setData(allLogs)
@@ -59,10 +56,7 @@ public class UsageReportService {
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }
 
-  public UsageReportMonthDto getReportMonth(LocalDate reportMonthDate) {
-    LocalDate reportStartDate = reportMonthDate.withDayOfMonth(1);
-    LocalDate reportEndDate = getLastDayOfMonthBeforeToday(reportMonthDate);
-
+  public UsageReportMonthDto getReportMonth(LocalDate reportStartDate, LocalDate reportEndDate) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
         .setData(allLogs)
@@ -74,16 +68,5 @@ public class UsageReportService {
     UsageReportMonth usageReportMonth = usageReportMonthFactory.create(lastMonthLogsPerDay);
 
     return usageReportMonthAssembler.toDto(usageReportMonth);
-  }
-
-  private LocalDate getLastDayOfMonthBeforeToday(LocalDate date) {
-    LocalDate now = LocalDate.now();
-    LocalDate lastDayOfMonth = date.withDayOfMonth(date.lengthOfMonth());
-
-    if (lastDayOfMonth.isAfter(now)) {
-      return now;
-    }
-
-    return lastDayOfMonth;
   }
 }
