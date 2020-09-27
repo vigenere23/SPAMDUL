@@ -1,18 +1,12 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.calendar.Calendar;
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.time.LocalDate;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PassFactoryTest {

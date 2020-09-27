@@ -44,12 +44,12 @@ public class GmailEmailService implements EmailService {
   }
 
   private static Session getSession(Properties properties) {
-      return Session.getInstance(properties, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(properties.getProperty("mail.username"),
-                                            properties.getProperty("mail.password"));
-        }
-      });
+    return Session.getInstance(properties, new Authenticator() {
+      @Override
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(properties.getProperty("mail.username"),
+                                          properties.getProperty("mail.password"));
+      }
+    });
   }
 }

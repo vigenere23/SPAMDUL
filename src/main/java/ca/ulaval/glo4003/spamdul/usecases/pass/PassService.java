@@ -7,21 +7,22 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 
 public class PassService {
-    private PassRepository passRepository;
-    private UserRepository userRepository;
-    private PassFactory passFactory;
 
-    public PassService(PassRepository passRepository, UserRepository userRepository, PassFactory passFactory) {
-        this.passRepository = passRepository;
-        this.userRepository = userRepository;
-        this.passFactory = passFactory;
-    }
+  private PassRepository passRepository;
+  private UserRepository userRepository;
+  private PassFactory passFactory;
 
-    public PassCode createPass(PassDto passDto) {
-        userRepository.findById(passDto.userId);
-        Pass pass = passFactory.create(passDto.userId, passDto.parkingZone, passDto.passType);
-        passRepository.save(pass);
+  public PassService(PassRepository passRepository, UserRepository userRepository, PassFactory passFactory) {
+    this.passRepository = passRepository;
+    this.userRepository = userRepository;
+    this.passFactory = passFactory;
+  }
 
-        return pass.getPassCode();
-    }
+  public PassCode createPass(PassDto passDto) {
+    userRepository.findById(passDto.userId);
+    Pass pass = passFactory.create(passDto.userId, passDto.parkingZone, passDto.passType);
+    passRepository.save(pass);
+
+    return pass.getPassCode();
+  }
 }

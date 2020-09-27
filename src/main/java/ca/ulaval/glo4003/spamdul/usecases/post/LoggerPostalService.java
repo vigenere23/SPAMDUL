@@ -12,7 +12,7 @@ public class LoggerPostalService implements PostalService {
     LOGGER.log(Level.INFO,
                String.format("Sending parcel to %s at address %s with content %s",
                              recipientName,
-                             recipientAddress,
+                             recipientAddress.getAddress(),
                              content));
   }
 }

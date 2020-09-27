@@ -8,7 +8,7 @@ public class Pass {
   private PassCode passCode;
   private UserId userId;
   private ParkingZone parkingZone;
-  private final PassType passType;
+  private PassType passType;
 
   public Pass(PassCode passCode, UserId userId, ParkingZone parkingZone, PassType passType) {
     this.passCode = passCode;

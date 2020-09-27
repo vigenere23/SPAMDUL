@@ -14,7 +14,11 @@ import org.junit.Test;
 
 public class UserRepositoryInMemoryTest {
 
-  private final User A_USER = new User(new UserId(), "Bob Ross", Gender.MALE, LocalDate.of(2004, 1, 1), DayOfWeek.MONDAY);
+  private final User A_USER = new User(new UserId(),
+                                       "Bob Ross",
+                                       Gender.MALE,
+                                       LocalDate.of(2004, 1, 1),
+                                       DayOfWeek.MONDAY);
 
   private UserRepository repository;
 
@@ -24,7 +28,7 @@ public class UserRepositoryInMemoryTest {
   }
 
   @After
-  public void cleanUp(){
+  public void cleanUp() {
     repository.clear();
   }
 

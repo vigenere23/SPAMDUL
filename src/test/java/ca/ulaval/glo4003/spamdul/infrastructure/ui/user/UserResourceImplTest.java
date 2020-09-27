@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserRequest;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
@@ -21,7 +21,11 @@ import org.junit.Test;
 
 public class UserResourceImplTest {
 
-  private final User A_USER = new User(new UserId(), "Bob Ross", Gender.MALE, LocalDate.of(2004, 1, 1), DayOfWeek.MONDAY);
+  private final User A_USER = new User(new UserId(),
+                                       "Bob Ross",
+                                       Gender.MALE,
+                                       LocalDate.of(2004, 1, 1),
+                                       DayOfWeek.MONDAY);
 
   private UserService userService;
   private UserAssembler userAssembler;

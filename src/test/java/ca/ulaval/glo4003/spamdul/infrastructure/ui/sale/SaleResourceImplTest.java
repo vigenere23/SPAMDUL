@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SaleResourceImplTest {
+
   private SaleRequest A_SALE_REQUEST = new SaleRequest();
   private SaleDto A_SALE_DTO = new SaleDto();
   private SaleService saleService;
@@ -19,7 +20,7 @@ public class SaleResourceImplTest {
   private SaleResource saleResourceImpl;
 
   @Before
-  public void setUp(){
+  public void setUp() {
     saleService = mock(SaleService.class);
     saleAssembler = mock(SaleAssembler.class);
 
@@ -28,14 +29,14 @@ public class SaleResourceImplTest {
   }
 
   @Test
-  public void whenCreatingSale_thenShouldCallSaleAssembler(){
+  public void whenCreatingSale_thenShouldCallSaleAssembler() {
     saleResourceImpl.createSale(A_SALE_REQUEST);
 
     verify(saleAssembler).fromDto(A_SALE_REQUEST);
   }
 
   @Test
-  public void whenCreatingSale_thenShouldCallSaleServiceToCreateSale(){
+  public void whenCreatingSale_thenShouldCallSaleServiceToCreateSale() {
     saleResourceImpl.createSale(A_SALE_REQUEST);
 
     verify(saleService).createSale(A_SALE_DTO);

@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.spamdul;
 
-import static io.restassured.RestAssured.get;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +26,6 @@ public class ContactResourceIT {
 
   @Test
   public void givenContacts_whenGetAllContacts_thenContactsReturned() {
-//    get("/api/telephony/contacts").then().body("name", Matchers.hasItem("Steve Jobs"));
+    //    get("/api/telephony/contacts").then().body("name", Matchers.hasItem("Steve Jobs"));
   }
 }

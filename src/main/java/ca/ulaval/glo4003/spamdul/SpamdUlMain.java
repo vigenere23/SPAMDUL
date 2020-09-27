@@ -25,7 +25,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.SaleAssembler
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.SaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.email.EmailService;
+import ca.ulaval.glo4003.spamdul.usecases.email.GmailEmailService;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
+import ca.ulaval.glo4003.spamdul.usecases.post.LoggerPostalService;
+import ca.ulaval.glo4003.spamdul.usecases.post.PostalService;
 import ca.ulaval.glo4003.spamdul.usecases.sale.SaleService;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
 import java.util.HashSet;
@@ -104,12 +108,14 @@ public class SpamdUlMain {
     return userResource;
   }
 
-  private static SaleResource createSaleResource(){
+  private static SaleResource createSaleResource() {
     PassRepository passRepository = new PassRepositoryInMemory();
     UserRepository userRepository = new UserRepositoryInMemory();
+    EmailService emailService = new GmailEmailService();
+    PostalService postalService = new LoggerPostalService();
     PassFactory passFactory = new PassFactory();
     PassService passService = new PassService(passRepository, userRepository, passFactory);
-    SaleService saleService = new SaleService(passService);
+    SaleService saleService = new SaleService(passService, userRepository, emailService, postalService);
     PassAssembler passAssembler = new PassAssembler();
     SaleAssembler saleAssembler = new SaleAssembler(passAssembler);
     SaleResource saleResource = new SaleResourceImpl(saleService, saleAssembler);

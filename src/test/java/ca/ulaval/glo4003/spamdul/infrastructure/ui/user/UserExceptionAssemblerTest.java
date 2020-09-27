@@ -4,10 +4,10 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.user.InvalidDayToAccessCampusException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;

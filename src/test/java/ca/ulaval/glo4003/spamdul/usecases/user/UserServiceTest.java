@@ -22,7 +22,7 @@ public class UserServiceTest {
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private final DayOfWeek A_DAY_TO_ACCESS_CAMPUS = DayOfWeek.MONDAY;
-  private final User user = new User(A_USER_ID,A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_DAY_TO_ACCESS_CAMPUS);
+  private final User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_DAY_TO_ACCESS_CAMPUS);
 
   private UserRepository userRepository;
   private UserFactory userFactory;

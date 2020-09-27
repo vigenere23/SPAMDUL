@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public interface Calendar {
 
-    LocalDate getCurrentTermStartDate();
+  LocalDate getCurrentTermStartDate();
 
-    LocalDate getEndOfTermDateInNTerms(int numberOfTerms);
+  LocalDate getEndOfTermDateInNTerms(int numberOfTerms);
 
 }

@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 
 public class InvalidNumberOfTermsException extends InvalidUserArgumentException {
 
-    public InvalidNumberOfTermsException(String message) {
-        super(message);
-    }
+  public InvalidNumberOfTermsException(String message) {
+    super(message);
+  }
 }

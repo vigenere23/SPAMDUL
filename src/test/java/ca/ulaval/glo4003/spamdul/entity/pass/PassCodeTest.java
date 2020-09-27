@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import org.junit.Test;
-
 import static com.google.common.truth.Truth.assertThat;
+
+import org.junit.Test;
 
 public class PassCodeTest {
 

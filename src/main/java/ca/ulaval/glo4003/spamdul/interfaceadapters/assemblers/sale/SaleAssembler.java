@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
+import ca.ulaval.glo4003.spamdul.entity.post.PostalAddress;
 import ca.ulaval.glo4003.spamdul.entity.sale.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.SaleRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
@@ -18,6 +19,8 @@ public class SaleAssembler {
     SaleDto saleDto = new SaleDto();
 
     saleDto.deliveryMode = getDeliveryMode(saleRequest.deliveryMode);
+    saleDto.emailAddress = saleRequest.emailAddress;
+    saleDto.postalAddress = new PostalAddress(saleRequest.postalAddress);
     saleDto.passDTO = passAssembler.fromDTO(saleRequest.pass);
 
     return saleDto;

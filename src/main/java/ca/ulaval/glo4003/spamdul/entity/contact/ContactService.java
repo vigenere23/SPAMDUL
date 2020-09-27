@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.contact;
 
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.dto.ContactDto;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;

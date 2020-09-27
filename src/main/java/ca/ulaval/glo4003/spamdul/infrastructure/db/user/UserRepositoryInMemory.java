@@ -28,7 +28,7 @@ public class UserRepositoryInMemory implements UserRepository {
     return registeredUsers.get(userId);
   }
 
-  public void clear(){
+  public void clear() {
     registeredUsers.clear();
   }
 }
