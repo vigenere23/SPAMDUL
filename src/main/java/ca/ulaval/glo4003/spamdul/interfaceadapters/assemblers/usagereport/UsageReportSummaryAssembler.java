@@ -10,9 +10,9 @@ public class UsageReportSummaryAssembler {
 
     dto.meanUsagePerDay = usageReportSummary.getMeanUsagePerDay();
     usageReportSummary.getMostPopularDateOfMonth()
-                      .ifPresent(localDate -> dto.mostPopularMonthDay = localDate.getDayOfMonth());
+                      .ifPresent(mostPopularDate -> dto.mostPopularMonthDate = mostPopularDate);
     usageReportSummary.getLeastPopularDateOfMonth()
-                      .ifPresent(localDate -> dto.leastPopularMonthDay = localDate.getDayOfMonth());
+                      .ifPresent(leastPopularDate -> dto.leastPopularMonthDate = leastPopularDate);
 
     return dto;
   }
