@@ -1,18 +1,21 @@
 package ca.ulaval.glo4003.spamdul.usecases.usagereport;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.*;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportMonth;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportMonthFactory;
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportMonthAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 public class UsageReportService {
+
   private final ParkingAccessLogRepository parkingAccessLogRepository;
   private final ParkingAccessLogFilter parkingAccessLogFilter;
   private final ParkingAccessLogAgglomerator parkingAccessLogAgglomerator;
@@ -40,10 +43,11 @@ public class UsageReportService {
   public UsageReportSummaryDto getReportSummary() {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
-            .setData(allLogs)
-            .fromOngoingMonth()
-            .getResults();
-    Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(lastMonthLogs);
+        .setData(allLogs)
+        .fromOngoingMonth()
+        .getResults();
+    Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(
+        lastMonthLogs);
 
     UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(lastMonthLogsPerDay);
 
@@ -56,7 +60,8 @@ public class UsageReportService {
         .setData(allLogs)
         .fromOngoingMonth()
         .getResults();
-    Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(lastMonthLogs);
+    Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(
+        lastMonthLogs);
 
     UsageReportMonth usageReportMonth = usageReportMonthFactory.create(lastMonthLogsPerDay);
 

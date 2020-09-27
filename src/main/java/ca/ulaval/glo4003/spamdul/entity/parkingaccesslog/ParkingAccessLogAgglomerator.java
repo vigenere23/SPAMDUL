@@ -7,18 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 public class ParkingAccessLogAgglomerator {
-    public Map<LocalDate, List<ParkingAccessLog>> groupByAccessDate(List<ParkingAccessLog> logs) {
-        Map<LocalDate, List<ParkingAccessLog>> logsPerDay = new HashMap<>();
-        logs.forEach(log -> {
-            List<ParkingAccessLog> logsForThisDay = logsPerDay.get(log.getAccessDate());
-            if (logsForThisDay == null) {
-                logsForThisDay = new ArrayList<>();
-                logsPerDay.put(log.getAccessDate(), logsForThisDay);
-            }
 
-            logsForThisDay.add(log);
-        });
+  public Map<LocalDate, List<ParkingAccessLog>> groupByAccessDate(List<ParkingAccessLog> logs) {
+    Map<LocalDate, List<ParkingAccessLog>> logsPerDay = new HashMap<>();
+    logs.forEach(log -> {
+      List<ParkingAccessLog> logsForThisDay = logsPerDay.get(log.getAccessDate());
+      if (logsForThisDay == null) {
+        logsForThisDay = new ArrayList<>();
+        logsPerDay.put(log.getAccessDate(), logsForThisDay);
+      }
 
-        return logsPerDay;
-    }
+      logsForThisDay.add(log);
+    });
+
+    return logsPerDay;
+  }
 }

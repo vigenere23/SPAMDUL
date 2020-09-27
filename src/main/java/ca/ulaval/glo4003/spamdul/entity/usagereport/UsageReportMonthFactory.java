@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public class UsageReportMonthFactory {
-    public UsageReportMonth create(Map<LocalDate, List<ParkingAccessLog>> lastMonthAccessesPerDay) {
-        Map<LocalDate, Integer> usageByDate = new HashMap<>();
-        for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : lastMonthAccessesPerDay.entrySet()) {
-            usageByDate.put(entry.getKey(), entry.getValue().size());
-        }
 
-        return new UsageReportMonth(usageByDate);
+  public UsageReportMonth create(Map<LocalDate, List<ParkingAccessLog>> lastMonthAccessesPerDay) {
+    Map<LocalDate, Integer> usageByDate = new HashMap<>();
+    for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : lastMonthAccessesPerDay.entrySet()) {
+      usageByDate.put(entry.getKey(), entry.getValue().size());
     }
+
+    return new UsageReportMonth(usageByDate);
+  }
 }

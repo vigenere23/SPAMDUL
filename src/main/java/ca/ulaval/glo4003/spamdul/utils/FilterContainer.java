@@ -6,33 +6,35 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FilterContainer<T> {
-    private Stream<T> filterStream = Stream.empty();
 
-    public FilterContainer() {}
+  private Stream<T> filterStream = Stream.empty();
 
-    public FilterContainer(List<T> dataList) {
-        setData(dataList);
-    }
+  public FilterContainer() {
+  }
 
-    public FilterContainer(Stream<T> dataStream) {
-        setData(dataStream);
-    }
+  public FilterContainer(List<T> dataList) {
+    setData(dataList);
+  }
 
-    public void setData(List<T> dataList) {
-        filterStream = dataList.stream();
-    }
+  public FilterContainer(Stream<T> dataStream) {
+    setData(dataStream);
+  }
 
-    public void setData(Stream<T> dataStream) {
-        filterStream = dataStream;
-    }
+  public void setData(List<T> dataList) {
+    filterStream = dataList.stream();
+  }
 
-    public void addFilter(Predicate<? super T> predicate) {
-        filterStream = filterStream.filter(predicate);
-    }
+  public void setData(Stream<T> dataStream) {
+    filterStream = dataStream;
+  }
 
-    public List<T> getResults() {
-        List<T> results = filterStream.collect(Collectors.toList());
-        filterStream = Stream.empty();
-        return results;
-    }
+  public void addFilter(Predicate<? super T> predicate) {
+    filterStream = filterStream.filter(predicate);
+  }
+
+  public List<T> getResults() {
+    List<T> results = filterStream.collect(Collectors.toList());
+    filterStream = Stream.empty();
+    return results;
+  }
 }

@@ -3,25 +3,26 @@ package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 import java.time.LocalDate;
 
 public class ParkingAccessLog {
-    private final ParkingAccessLogId id;
-    private final ParkingZone zone;
-    private final LocalDate accessDate;
 
-    public ParkingAccessLog(ParkingAccessLogId id, ParkingZone zone, LocalDate accessDate) {
-        this.id = id;
-        this.zone = zone;
-        this.accessDate = accessDate;
-    }
+  private final ParkingAccessLogId id;
+  private final ParkingZone zone;
+  private final LocalDate accessDate;
 
-    public ParkingZone getZone() {
-        return zone;
-    }
+  public ParkingAccessLog(ParkingAccessLogId id, ParkingZone zone, LocalDate accessDate) {
+    this.id = id;
+    this.zone = zone;
+    this.accessDate = accessDate;
+  }
 
-    public LocalDate getAccessDate() {
-        return accessDate;
-    }
+  public ParkingZone getZone() {
+    return zone;
+  }
 
-    public ParkingAccessLogId getId() {
-        return id;
-    }
+  public LocalDate getAccessDate() {
+    return accessDate;
+  }
+
+  public ParkingAccessLogId getId() {
+    return id;
+  }
 }

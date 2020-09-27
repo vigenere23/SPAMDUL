@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
-
 import java.util.Objects;
 
 public class ParkingAccessLogId {
@@ -22,7 +21,7 @@ public class ParkingAccessLogId {
     return new ParkingAccessLogId(Long.parseLong(parkingAccessLogId));
   }
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -33,11 +32,11 @@ public class ParkingAccessLogId {
     return Objects.equals(id, userId.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
 }
