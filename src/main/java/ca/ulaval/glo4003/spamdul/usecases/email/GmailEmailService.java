@@ -16,10 +16,11 @@ public class GmailEmailService implements EmailService {
 
   public void send(String to, String subject, String text) {
     try {
-      Session session = getSession();
+      Properties properties = getProperties();
+      Session session = getSession(properties);
 
       Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress("spamdul@gmail.com"));
+      message.setFrom(new InternetAddress(properties.get("mail.from").toString()));
       message.setRecipients(Message.RecipientType.TO,
                             InternetAddress.parse(to));
       message.setSubject(subject);
@@ -27,25 +28,28 @@ public class GmailEmailService implements EmailService {
 
       Transport.send(message);
     } catch (MessagingException e) {
-      throw new SendEmailException();
+      throw new EmailException();
     }
   }
 
-  private static Session getSession() {
+  private static Properties getProperties() {
     try (InputStream input = GmailEmailService.class.getClassLoader()
                                                     .getResourceAsStream("mail.properties")) {
       Properties props = new Properties();
       props.load(input);
+      return props;
+    } catch (IOException e) {
+      throw new EmailException();
+    }
+  }
 
-      return Session.getInstance(props, new Authenticator() {
+  private static Session getSession(Properties properties) {
+      return Session.getInstance(properties, new Authenticator() {
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(props.getProperty("mail.username"),
-                                            props.getProperty("mail.password"));
+          return new PasswordAuthentication(properties.getProperty("mail.username"),
+                                            properties.getProperty("mail.password"));
         }
       });
-    } catch (IOException e) {
-      throw new SendEmailException();
-    }
   }
 }
