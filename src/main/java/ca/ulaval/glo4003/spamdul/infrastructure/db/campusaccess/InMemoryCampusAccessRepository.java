@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class InMemoryCampusAccessRepository implements CampusAccessRepository {
 
   private static final Map<CampusAccessCode, CampusAccess> campusAccesses = new HashMap<>();
-  private final Logger logger = Logger.getLogger(CampusAccessRepository.class.getName());
+  private static final Logger logger = Logger.getLogger(InMemoryCampusAccessRepository.class.getName());
 
   public CampusAccessCode save(CampusAccess campusAccess) {
     campusAccesses.put(campusAccess.getCampusAccessCode(), campusAccess);

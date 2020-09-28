@@ -11,10 +11,10 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 
 public class CampusAccessService {
 
-  private UserService userService;
-  private CarService carService;
-  private CampusAccessFactory campusAccessFactory;
-  private CampusAccessRepository campusAccessRepository;
+  private final UserService userService;
+  private final CarService carService;
+  private final CampusAccessFactory campusAccessFactory;
+  private final CampusAccessRepository campusAccessRepository;
 
   public CampusAccessService(UserService userService,
                              CarService carService,

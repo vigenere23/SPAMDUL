@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class InMemoryCarRepository implements CarRepository {
 
   private static final Map<CarId, Car> cars = new HashMap<>();
-  private final Logger logger = Logger.getLogger(CarRepository.class.getName());
+  private static final Logger logger = Logger.getLogger(InMemoryCarRepository.class.getName());
 
   public CarId save(Car car) {
     cars.put(car.getCarId(), car);

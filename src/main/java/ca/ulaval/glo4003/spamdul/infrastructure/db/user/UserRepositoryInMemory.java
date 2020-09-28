@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class UserRepositoryInMemory implements UserRepository {
 
   private static final Map<UserId, User> registeredUsers = new HashMap<>();
-  private final Logger logger = Logger.getLogger(UserRepository.class.getName());
+  private static final Logger logger = Logger.getLogger(UserRepositoryInMemory.class.getName());
 
   public UserId save(User user) {
     registeredUsers.put(user.getUserId(), user);
