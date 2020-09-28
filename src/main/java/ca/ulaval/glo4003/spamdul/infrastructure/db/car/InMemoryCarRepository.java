@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.car;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -11,7 +10,7 @@ import java.util.logging.Logger;
 public class InMemoryCarRepository implements CarRepository {
 
   private static final Map<CarId, Car> cars = new HashMap<>();
-  private final Logger logger = Logger.getLogger(UserRepository.class.getName());
+  private final Logger logger = Logger.getLogger(CarRepository.class.getName());
 
   public CarId save(Car car) {
     cars.put(car.getCarId(), car);
