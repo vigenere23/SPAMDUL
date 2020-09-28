@@ -22,13 +22,6 @@ public class UserRepositoryInMemoryTest {
   }
 
   @Test
-  public void whenSavingNewUser_userShouldBeSaved() {
-    repository.save(A_USER);
-
-    assertThat(repository.findById(A_USER.getUserId())).isEqualTo(A_USER);
-  }
-
-  @Test
   public void whenFindingById_shouldReturnTheRightUser() {
     repository.save(A_USER);
 
