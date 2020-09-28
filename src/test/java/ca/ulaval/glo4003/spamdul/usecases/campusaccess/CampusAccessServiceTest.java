@@ -94,7 +94,7 @@ public class CampusAccessServiceTest {
   }
 
   @Test
-  public void whenCreatingNewCampusAccess_shouldCallCarFactoryToCreateNewCampusAccess() {
+  public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
     given(userService.createUser(userDto)).willReturn(A_USER);
     given(carService.createCar(carDto)).willReturn(A_CAR);
 
