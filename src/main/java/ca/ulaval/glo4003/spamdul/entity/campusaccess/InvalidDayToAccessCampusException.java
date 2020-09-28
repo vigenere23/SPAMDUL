@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidCampusAccessArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 
 public class InvalidDayToAccessCampusException extends InvalidCampusAccessArgumentException {
 

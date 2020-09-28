@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions;
 
 public class InvalidPeriodArgumentException extends InvalidCampusAccessArgumentException {
 

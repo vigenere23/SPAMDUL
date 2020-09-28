@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;

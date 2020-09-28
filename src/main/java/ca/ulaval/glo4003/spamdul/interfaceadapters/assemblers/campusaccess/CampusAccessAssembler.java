@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
@@ -8,12 +8,12 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCam
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidAccessingCampusDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidCampusAccessCodeArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidDayOfCampusAccessArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.CarAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.user.UserAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusDateArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidDayOfCampusAccessArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;

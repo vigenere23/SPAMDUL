@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidAccessingCampusArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidAccessingCampusDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusDateArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

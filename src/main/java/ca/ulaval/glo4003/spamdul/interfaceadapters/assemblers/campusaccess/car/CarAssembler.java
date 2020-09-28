@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car.CarRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarTypeArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.car.exceptions.InvalidCarYearArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.exceptions.InvalidCarTypeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.exceptions.InvalidCarYearArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 
 public class CarAssembler {

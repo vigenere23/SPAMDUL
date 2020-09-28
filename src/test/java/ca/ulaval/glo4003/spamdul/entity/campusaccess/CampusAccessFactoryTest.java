@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.accesscampus.campusaccessexceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidPeriodArgumentException;
 import java.time.DayOfWeek;
 import org.junit.Before;
 import org.junit.Test;

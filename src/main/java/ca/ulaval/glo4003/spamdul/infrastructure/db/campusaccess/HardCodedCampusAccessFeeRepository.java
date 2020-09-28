@@ -34,7 +34,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     Map<CarType, Period> session2SansPollution = new HashMap<>();
     Map<CarType, Period> session3SansPollution = new HashMap<>();
 
-    singleSansPollution.put(CarType.SANS_POLLUTION, Period.SINGLE);
+    singleSansPollution.put(CarType.SANS_POLLUTION, Period.SINGLE_DAY);
     campusAccessFees.put(singleSansPollution, new CampusAccessFee(0));
 
     singleWeekSemesterSansPollution.put(CarType.SANS_POLLUTION, Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
@@ -57,7 +57,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     Map<CarType, Period> session2SuperEconomique = new HashMap<>();
     Map<CarType, Period> session3SuperEconomique = new HashMap<>();
 
-    singleSuperEconomique.put(CarType.SUPER_ECONOMIQUE, Period.SINGLE);
+    singleSuperEconomique.put(CarType.SUPER_ECONOMIQUE, Period.SINGLE_DAY);
     campusAccessFees.put(singleSuperEconomique, new CampusAccessFee(2));
 
     singleWeekSemesterSuperEconomique.put(CarType.SUPER_ECONOMIQUE, Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
@@ -80,7 +80,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     Map<CarType, Period> session2HybrideEconomique = new HashMap<>();
     Map<CarType, Period> session3HybrideEconomique = new HashMap<>();
 
-    singleHybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, Period.SINGLE);
+    singleHybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, Period.SINGLE_DAY);
     campusAccessFees.put(singleHybrideEconomique, new CampusAccessFee(4));
 
     singleWeekSemesterHybridEconomique.put(CarType.HYBRIDE_ECONOMIQUE, Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
@@ -103,7 +103,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     Map<CarType, Period> session2Economique = new HashMap<>();
     Map<CarType, Period> session3Economique = new HashMap<>();
 
-    singleEconomique.put(CarType.ECONOMIQUE, Period.SINGLE);
+    singleEconomique.put(CarType.ECONOMIQUE, Period.SINGLE_DAY);
     campusAccessFees.put(singleEconomique, new CampusAccessFee(8));
 
     singleWeekSemesterEconomique.put(CarType.ECONOMIQUE, Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
@@ -121,7 +121,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
 
   private void setGourmande() {
     Map<CarType, Period> singleGourmande = new HashMap<>();
-    singleGourmande.put(CarType.GOURMANDE, Period.SINGLE);
+    singleGourmande.put(CarType.GOURMANDE, Period.SINGLE_DAY);
     campusAccessFees.put(singleGourmande, new CampusAccessFee(12));
 
     Map<CarType, Period> singleWeekSemesterGourmande = new HashMap<>();

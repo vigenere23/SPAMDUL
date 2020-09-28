@@ -40,7 +40,7 @@ public class HardCodedCampusAccessFeeRepositoryTest {
   public void givenSingleSansPollution_whenFindingFee_shouldReturnRightFee() {
     HardCodedCampusAccessFeeRepository repository = new HardCodedCampusAccessFeeRepository();
 
-    CampusAccessFee feeBy = repository.findFeeBy(CarType.SANS_POLLUTION, Period.SINGLE);
+    CampusAccessFee feeBy = repository.findFeeBy(CarType.SANS_POLLUTION, Period.SINGLE_DAY);
 
     assertThat(feeBy.getFee()).isEqualTo(0);
   }
