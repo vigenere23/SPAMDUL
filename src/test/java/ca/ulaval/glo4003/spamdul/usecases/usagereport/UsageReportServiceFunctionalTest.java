@@ -80,6 +80,7 @@ public class UsageReportServiceFunctionalTest {
 
     assertThat(usageReportDto.usageReport.get(0).date).isEqualTo(A_DATE);
     assertThat(usageReportDto.usageReport.get(0).numberOfEntry).isEqualTo(numberOfLogs);
+    assertThat(usageReportDto.totalOfEntry).isEqualTo(numberOfLogs);
   }
 
   private void createLogs(LocalDate date, int numberOfLogs) {

@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.spamdul;
 
-import static io.restassured.RestAssured.get;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

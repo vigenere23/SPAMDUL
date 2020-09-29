@@ -1,13 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,33 +19,48 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UsageReportFactoryTest {
 
   private UsageReportFactory usageReportFactory;
+  List<ParkingAccessLog> parkingAccessLogs;
+  List<ParkingAccessLog> anotherParkingAccessLogs;
 
   private Map<LocalDate, List<ParkingAccessLog>> ACCESSES_PER_DAY = new HashMap<>();
-  List<ParkingAccessLog> parkingAccessLogs = new ArrayList<>();
 
-  private final LocalDate DATE = LocalDate.of(2011, 1, 1);
+  private final LocalDate A_DATE = LocalDate.of(2011, 1, 1);
+  private final LocalDate ANOTHER_DATE = LocalDate.of(2011, 1, 2);
   private final Integer NUMBER_OF_ACCESS = 1;
-  private final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
-  private final ParkingAccessLog PARKING_ACCESS_LOG = mock(ParkingAccessLog.class);
+  private final Integer ANOTHER_NUMBER_OF_ACCESS = 2;
+  private final Integer TOTAL_NUMBER_OF_ACCESS = 3;
+  private final ParkingZone PARKING_ZONE_1 = ParkingZone.ZONE_1;
+  private final ParkingZone PARKING_ZONE_2 = ParkingZone.ZONE_2;
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(new ParkingAccessLogId(), PARKING_ZONE_1, A_DATE);
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_2 = new ParkingAccessLog(new ParkingAccessLogId(), PARKING_ZONE_2, ANOTHER_DATE);
 
   @Before
   public void setUp() {
     usageReportFactory = new UsageReportFactory();
-    parkingAccessLogs.add(PARKING_ACCESS_LOG);
-    ACCESSES_PER_DAY.put(DATE, parkingAccessLogs);
+    parkingAccessLogs = new ArrayList<>();
+    anotherParkingAccessLogs = new ArrayList<>();
+    parkingAccessLogs.add(PARKING_ACCESS_LOG_ZONE_1);
+    anotherParkingAccessLogs.add(PARKING_ACCESS_LOG_ZONE_2);
+    anotherParkingAccessLogs.add(PARKING_ACCESS_LOG_ZONE_2);
+    ACCESSES_PER_DAY.put(A_DATE, parkingAccessLogs);
+    ACCESSES_PER_DAY.put(ANOTHER_DATE, anotherParkingAccessLogs);
   }
 
   @Test
-  public void whenCreatingAUsageReport_ShouldCreateUsageReport() {
+  public void whenCreatingAUsageReportWithoutAZone_ShouldCreateUsageReport() {
     UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY);
-    assertThat(usageReport.getUsageReport().get(DATE)).isEqualTo(NUMBER_OF_ACCESS);
+    assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
+    assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
+    assertThat(usageReport.getParkingZones()).isNull();
+    assertThat(usageReport.getTotalOfEntry()).isEqualTo(TOTAL_NUMBER_OF_ACCESS);
   }
 
   @Test
-  public void whenCreatingAUsageReportWithZone_ShouldCreateUsageReport() {
-    UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE);
-    assertThat(usageReport.getUsageReport().get(DATE)).isEqualTo(NUMBER_OF_ACCESS);
-    assertThat(usageReport.getParkingZones()).isEqualTo(PARKING_ZONE);
+  public void whenCreatingAUsageReportWithZone_ShouldCreateUsageReportWithZone() {
+    UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE_1);
+    assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
+    assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
+    assertThat(usageReport.getParkingZones()).isEqualTo(PARKING_ZONE_1);
+    assertThat(usageReport.getTotalOfEntry()).isEqualTo(TOTAL_NUMBER_OF_ACCESS);
   }
-
 }

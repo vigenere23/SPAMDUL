@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserRequest;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.contact;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.dto.ContactDto;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactService;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.dto.ContactDto;
 import com.google.common.truth.Truth;
 import java.util.List;
 import jersey.repackaged.com.google.common.collect.Lists;
