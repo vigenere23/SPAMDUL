@@ -27,7 +27,7 @@ public class RequestReportAssembler {
 
   private LocalDate getStartDate(ReportRequest reportRequest) {
     try {
-      return LocalDate.parse(reportRequest.startDate, DateTimeFormatter.DATE_TIME_FORMATTER);
+      return LocalDate.parse(reportRequest.startDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }
@@ -38,7 +38,7 @@ public class RequestReportAssembler {
       if (reportRequest.endDate == null) {
         return null;
       }
-      return LocalDate.parse(reportRequest.endDate, DateTimeFormatter.DATE_TIME_FORMATTER);
+      return LocalDate.parse(reportRequest.endDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }
