@@ -1,22 +1,23 @@
-package ca.ulaval.glo4003.spamdul.entity.user;
+package ca.ulaval.glo4003.spamdul.entity.car;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.util.Objects;
 
-public class UserId {
+public class CarId {
 
   private static Long lastId = 0L;
   private final Long id;
 
-  public UserId() {
+  public CarId() {
     id = getNextId();
   }
 
-  private UserId(long id) {
+  private CarId(long id) {
     this.id = id;
   }
 
-  public static UserId valueOf(String userId) {
-    return new UserId(Long.parseLong(userId));
+  public static CarId valueOf(String userId) {
+    return new CarId(Long.parseLong(userId));
   }
 
   private static synchronized Long getNextId() {
@@ -32,8 +33,8 @@ public class UserId {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserId userId = (UserId) o;
-    return Objects.equals(id, userId.id);
+    CarId carId = (CarId) o;
+    return Objects.equals(id, carId.id);
   }
 
   public int hashCode() {
@@ -43,4 +44,5 @@ public class UserId {
   public String toString() {
     return this.id.toString();
   }
+
 }
