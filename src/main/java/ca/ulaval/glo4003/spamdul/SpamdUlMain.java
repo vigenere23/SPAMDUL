@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
@@ -59,6 +60,7 @@ public class SpamdUlMain {
         resources.add(userResource);
         resources.add(new UserExceptionAssembler());
         resources.add(usageReportContext.createUsageReportResource());
+        resources.add(new UsageReportExceptionAssembler());
         return resources;
       }
     });
