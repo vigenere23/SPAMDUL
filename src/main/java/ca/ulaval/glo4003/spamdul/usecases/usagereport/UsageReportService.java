@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReport;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReportDto;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import java.time.LocalDate;
@@ -41,7 +41,7 @@ public class UsageReportService {
     this.usageReportAssembler = usageReportAssembler;
   }
 
-  public UsageReportSummaryDto getReportSummaryOfMonth(LocalDate reportStartDate, LocalDate reportEndDate) {
+  public UsageReportSummaryDto getReportSummary(LocalDate reportStartDate, LocalDate reportEndDate) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
         .setData(allLogs)
@@ -71,25 +71,24 @@ public class UsageReportService {
     return usageReportAssembler.toDto(usageReport);
   }
 
-  public UsageReportDto getReport(RequestReportDto requestReportDTO) {
+  public UsageReportDto getReport(ReportCreationDto reportCreationDTO) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     parkingAccessLogFilter.setData(allLogs);
-    if (requestReportDTO.endDate == null) {
-      parkingAccessLogFilter.atDate(requestReportDTO.startDate);
+    if (reportCreationDTO.endDate == null) {
+      parkingAccessLogFilter.atDate(reportCreationDTO.startDate);
     } else {
-      parkingAccessLogFilter.betweenDates(requestReportDTO.startDate, requestReportDTO.endDate);
+      parkingAccessLogFilter.betweenDates(reportCreationDTO.startDate, reportCreationDTO.endDate);
     }
-    if (requestReportDTO.parkingZone !=  null) {
-      parkingAccessLogFilter.atZone(requestReportDTO.parkingZone);
+    if (reportCreationDTO.parkingZone != null) {
+      parkingAccessLogFilter.atZone(reportCreationDTO.parkingZone);
     }
     List<ParkingAccessLog> logs = parkingAccessLogFilter.getResults();
     Map<LocalDate, List<ParkingAccessLog>> LogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(logs);
 
-    UsageReport usageReport = usageReportFactory.create(LogsPerDay, requestReportDTO.parkingZone);
+    UsageReport usageReport = usageReportFactory.create(LogsPerDay, reportCreationDTO.parkingZone);
 
     return usageReportAssembler.toDto(usageReport);
   }
-
 
 
 }

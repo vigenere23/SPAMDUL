@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReport;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.RequestReportAssembler;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
@@ -20,16 +20,16 @@ public class UsageReportResourceImpl implements UsageReportResource {
   }
 
   @Override
-  public UsageReportDto getUsageReport(RequestReport requestReport) {
-    RequestReportDto requestReportDTO = requestReportAssembler.fromDto(requestReport);
-    return usageReportService.getReport(requestReportDTO);
+  public UsageReportDto getUsageReport(ReportRequest reportRequest) {
+    ReportCreationDto reportCreationDTO = requestReportAssembler.fromDto(reportRequest);
+    return usageReportService.getReport(reportCreationDTO);
   }
 
   @Override
   public UsageReportSummaryDto getUsageReportSummary() {
     LocalDate reportEndDate = LocalDate.now();
     LocalDate reportStartDate = reportEndDate.withDayOfMonth(1);
-    return usageReportService.getReportSummaryOfMonth(reportStartDate, reportEndDate);
+    return usageReportService.getReportSummary(reportStartDate, reportEndDate);
   }
 
   @Override
@@ -38,6 +38,4 @@ public class UsageReportResourceImpl implements UsageReportResource {
     LocalDate reportStartDate = reportEndDate.withDayOfMonth(1);
     return usageReportService.getReportMonth(reportStartDate, reportEndDate);
   }
-
-
 }

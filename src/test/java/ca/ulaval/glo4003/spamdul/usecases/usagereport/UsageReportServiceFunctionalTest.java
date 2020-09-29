@@ -11,10 +11,11 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReportDto;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,22 +44,22 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReportSummary_shouldReturnTheRightSummary() {
     LocalDate reportStartDate = LocalDate.of(2010, 1, 1);
-    LocalDate reportEndDate = reportStartDate.withDayOfMonth(reportStartDate.lengthOfMonth());
+    LocalDate reportEndDate = reportStartDate.plusDays(21);
     LocalDate mostPopularDate = reportStartDate.plusDays(15);
     LocalDate leastPopularDate = reportStartDate.plusDays(7);
-    LocalDate randomDate = reportStartDate.plusDays(21);
+    LocalDate randomDate = reportStartDate.plusDays(9);
     int numberOfMostPopularDateLogs = 13;
     int numberOfLeastPopularDateLogs = 5;
     int numberOfRandomLogs = 7;
-    int numberOfMonthDays = reportStartDate.lengthOfMonth();
+    long numberOfMonthDays = ChronoUnit.DAYS.between(reportStartDate, reportEndDate) + 1;
     float meanUsage =
         (float) (numberOfMostPopularDateLogs + numberOfLeastPopularDateLogs + numberOfRandomLogs) / numberOfMonthDays;
     createLogs(mostPopularDate, numberOfMostPopularDateLogs);
     createLogs(leastPopularDate, numberOfLeastPopularDateLogs);
     createLogs(randomDate, numberOfRandomLogs);
 
-    UsageReportSummaryDto usageReportSummaryDto = usageReportService.getReportSummaryOfMonth(reportStartDate,
-                                                                                             reportEndDate);
+    UsageReportSummaryDto usageReportSummaryDto = usageReportService.getReportSummary(reportStartDate,
+                                                                                      reportEndDate);
 
     assertThat(usageReportSummaryDto.mostPopularMonthDate).isEquivalentAccordingToCompareTo(mostPopularDate);
     assertThat(usageReportSummaryDto.leastPopularMonthDate).isEquivalentAccordingToCompareTo(leastPopularDate);
@@ -67,10 +68,11 @@ public class UsageReportServiceFunctionalTest {
 
   @Test
   public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
-    RequestReportDto requestReportDto = new RequestReportDto();
-    requestReportDto.startDate = A_DATE;
+    // TODO add better testing
+    ReportCreationDto reportCreationDto = new ReportCreationDto();
+    reportCreationDto.startDate = A_DATE;
 
-    UsageReportDto usageReportDto = usageReportService.getReport(requestReportDto);
+    UsageReportDto usageReportDto = usageReportService.getReport(reportCreationDto);
 
     assertThat(usageReportDto.usageReport).isEmpty();
   }

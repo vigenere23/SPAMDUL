@@ -74,7 +74,7 @@ public class UsageReportServiceTest {
     when(parkingAccessLogAgglomerator.groupByAccessDate(returnedByFilter)).thenReturn(returnedByAgglomerator);
     when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate)).thenReturn(returnedByFactory);
 
-    usageReportService.getReportSummaryOfMonth(startDate, endDate);
+    usageReportService.getReportSummary(startDate, endDate);
 
     verify(parkingAccessLogRepository).findAll();
     verify(parkingAccessLogFilter).setData(returnedByRepo);

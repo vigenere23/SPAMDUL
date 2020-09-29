@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReport;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportRequest;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
 import javax.ws.rs.GET;
@@ -13,7 +13,7 @@ public interface UsageReportResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  UsageReportDto getUsageReport(RequestReport requestReport);
+  UsageReportDto getUsageReport(ReportRequest reportRequest);
 
   @GET
   @Path("/summary")
