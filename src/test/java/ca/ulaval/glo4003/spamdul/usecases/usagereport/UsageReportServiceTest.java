@@ -7,10 +7,10 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportMonthFactory;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportMonthAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,9 +39,9 @@ public class UsageReportServiceTest {
   @Mock
   private UsageReportSummaryAssembler usageReportSummaryAssembler;
   @Mock
-  private UsageReportMonthFactory usageReportMonthFactory;
+  private UsageReportFactory usageReportFactory;
   @Mock
-  private UsageReportMonthAssembler usageReportMonthAssembler;
+  private UsageReportAssembler usageReportAssembler;
   @Mock
   private UsageReportSummary A_USAGE_REPORT_SUMMARY;
 
@@ -56,8 +56,8 @@ public class UsageReportServiceTest {
         parkingAccessLogAgglomerator,
         usageReportSummaryFactory,
         usageReportSummaryAssembler,
-        usageReportMonthFactory,
-        usageReportMonthAssembler
+        usageReportFactory,
+        usageReportAssembler
     );
   }
 

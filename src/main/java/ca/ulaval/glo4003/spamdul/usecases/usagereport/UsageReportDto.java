@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.spamdul.usecases.usagereport;
 
-public class UsageReportDto {
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
+import java.util.List;
 
+public class UsageReportDto {
+  public ParkingZone parkingZone;
+  public List<UsageReportDayDto> usageReport;
 }

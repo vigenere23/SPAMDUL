@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReport;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportMonthDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,7 +13,7 @@ public interface UsageReportResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  UsageReportDto getUsageReport();
+  UsageReportDto getUsageReport(RequestReport requestReport);
 
   @GET
   @Path("/summary")
@@ -23,5 +23,5 @@ public interface UsageReportResource {
   @GET
   @Path("/month")
   @Produces(MediaType.APPLICATION_JSON)
-  UsageReportMonthDto getUsageReportMonth();
+  UsageReportDto getUsageReportMonth();
 }

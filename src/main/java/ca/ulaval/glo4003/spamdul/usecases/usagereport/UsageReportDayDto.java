@@ -4,5 +4,5 @@ import java.time.LocalDate;
 
 public class UsageReportDayDto {
   public LocalDate date;
-  public Integer usage;
+  public Integer numberOfEntry;
 }

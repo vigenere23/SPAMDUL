@@ -8,10 +8,11 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportMonthFactory;
+import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportMonthAssembler;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.RequestReportDto;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -22,6 +23,9 @@ public class UsageReportServiceFunctionalTest {
   private UsageReportService usageReportService;
   private ParkingAccessLogRepository parkingAccessLogRepository;
 
+  private final LocalDate A_DATE = LocalDate.of(1995, 8, 13);
+  private final LocalDate A_LATER_DATE = LocalDate.of(1995, 8, 20);
+
   @Before
   public void setUp() {
     parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
@@ -31,8 +35,8 @@ public class UsageReportServiceFunctionalTest {
         new ParkingAccessLogAgglomerator(),
         new UsageReportSummaryFactory(),
         new UsageReportSummaryAssembler(),
-        new UsageReportMonthFactory(),
-        new UsageReportMonthAssembler()
+        new UsageReportFactory(),
+        new UsageReportAssembler()
     );
   }
 
@@ -59,6 +63,16 @@ public class UsageReportServiceFunctionalTest {
     assertThat(usageReportSummaryDto.mostPopularMonthDate).isEquivalentAccordingToCompareTo(mostPopularDate);
     assertThat(usageReportSummaryDto.leastPopularMonthDate).isEquivalentAccordingToCompareTo(leastPopularDate);
     assertThat(usageReportSummaryDto.meanUsagePerDay).isEqualTo(meanUsage);
+  }
+
+  @Test
+  public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
+    RequestReportDto requestReportDto = new RequestReportDto();
+    requestReportDto.startDate = A_DATE;
+
+    UsageReportDto usageReportDto = usageReportService.getReport(requestReportDto);
+
+    assertThat(usageReportDto.usageReport).isEmpty();
   }
 
   private void createLogs(LocalDate date, int numberOfLogs) {
