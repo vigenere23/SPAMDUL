@@ -74,6 +74,7 @@ public class UsageReportService {
   public UsageReportDto getReport(ReportCreationDto reportCreationDTO) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
     parkingAccessLogFilter.setData(allLogs);
+    //TODO:: if null, pas tr's bon design
     if (reportCreationDTO.endDate == null) {
       parkingAccessLogFilter.atDate(reportCreationDTO.startDate);
     } else {

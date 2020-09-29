@@ -69,12 +69,17 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
     // TODO add better testing
+    Integer numberOfLogs = 12;
+
     ReportCreationDto reportCreationDto = new ReportCreationDto();
     reportCreationDto.startDate = A_DATE;
 
+    createLogs(A_DATE, numberOfLogs);
+
     UsageReportDto usageReportDto = usageReportService.getReport(reportCreationDto);
 
-    assertThat(usageReportDto.usageReport).isEmpty();
+    assertThat(usageReportDto.usageReport.get(0).date).isEqualTo(A_DATE);
+    assertThat(usageReportDto.usageReport.get(0).numberOfEntry).isEqualTo(numberOfLogs);
   }
 
   private void createLogs(LocalDate date, int numberOfLogs) {

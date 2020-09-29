@@ -11,14 +11,14 @@ public class UsageReportFactory {
 
   public UsageReport create(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay) {
     Map<LocalDate, Integer> usageByDate = getLocalDateIntegerMap(accessesPerDay);
-
-    return new UsageReport(usageByDate, null);
+    Integer totalOfEntry = getTotalOfEntry(accessesPerDay);
+    return new UsageReport(usageByDate, null, totalOfEntry);
   }
 
   public UsageReport create(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay, ParkingZone parkingZone) {
     Map<LocalDate, Integer> usageByDate = getLocalDateIntegerMap(accessesPerDay);
-
-    return new UsageReport(usageByDate, parkingZone);
+    Integer totalOfEntry = getTotalOfEntry(accessesPerDay);
+    return new UsageReport(usageByDate, parkingZone, totalOfEntry);
   }
 
   private Map<LocalDate, Integer> getLocalDateIntegerMap(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay) {
@@ -27,5 +27,13 @@ public class UsageReportFactory {
       usageByDate.put(entry.getKey(), entry.getValue().size());
     }
     return usageByDate;
+  }
+
+  private Integer getTotalOfEntry(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay) {
+    Integer totalOfEntry = 0;
+    for (Map.Entry<LocalDate, List<ParkingAccessLog>> entry : accessesPerDay.entrySet()) {
+      totalOfEntry += entry.getValue().size();
+    }
+    return totalOfEntry;
   }
 }

@@ -6,4 +6,5 @@ import java.util.List;
 public class UsageReportDto {
   public ParkingZone parkingZone;
   public List<UsageReportDayDto> usageReport;
+  public Integer totalOfEntry;
 }

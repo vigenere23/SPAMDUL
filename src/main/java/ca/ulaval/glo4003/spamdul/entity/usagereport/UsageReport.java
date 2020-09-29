@@ -8,10 +8,12 @@ public class UsageReport {
 
   private Map<LocalDate, Integer> usageReport;
   private ParkingZone parkingZones;
+  private Integer totalOfEntry;
 
-  public UsageReport(Map<LocalDate, Integer> usage, ParkingZone parkingZones) {
-    this.usageReport = usage;
+  public UsageReport(Map<LocalDate, Integer> usageReport, ParkingZone parkingZones, Integer totalOfEntry) {
+    this.usageReport = usageReport;
     this.parkingZones = parkingZones;
+    this.totalOfEntry = totalOfEntry;
   }
 
   public Map<LocalDate, Integer> getUsageReport() {
@@ -20,5 +22,9 @@ public class UsageReport {
 
   public ParkingZone getParkingZones() {
     return parkingZones;
+  }
+
+  public Integer getTotalOfEntry() {
+    return totalOfEntry;
   }
 }

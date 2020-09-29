@@ -21,6 +21,7 @@ public class UsageReportAssembler {
       usageReportDayDtos.add(dayDto);
     }
     dto.usageReport = usageReportDayDtos;
+    dto.totalOfEntry = usageReport.getTotalOfEntry();
 
     return dto;
   }
