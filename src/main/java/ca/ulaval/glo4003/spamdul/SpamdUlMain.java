@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
@@ -16,10 +17,10 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactDevDataFactory
 import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
@@ -55,7 +56,8 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    CampusAccessResource campusAccessResource = createUserResource();
+    UsageReportContext usageReportContext = new UsageReportContext();
+    CampusAccessResource campusAccessResource = createCampusAccessResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -69,6 +71,7 @@ public class SpamdUlMain {
         //        resources.add(contactResource);
         resources.add(campusAccessResource);
         resources.add(new UserExceptionAssembler());
+        resources.add(usageReportContext.createUsageReportResource());
         resources.add(new CarExceptionAssembler());
         resources.add(new CampusAccessExceptionAssembler());
         resources.add(new AccessingCampusExceptionAssembler());
@@ -91,12 +94,14 @@ public class SpamdUlMain {
     try {
       server.start();
       server.join();
+    } catch (Exception exception) {
+      exception.printStackTrace();
     } finally {
       server.destroy();
     }
   }
 
-  private static CampusAccessResource createUserResource() {
+  private static CampusAccessResource createCampusAccessResource() {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
@@ -111,8 +116,12 @@ public class SpamdUlMain {
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
-    CampusAccessService campusAccessService = new CampusAccessService(userService, carService, campusAccessFactory, campusAccessRepository);
-    CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
+    CampusAccessService campusAccessService = new CampusAccessService(userService,
+                                                                      carService,
+                                                                      campusAccessFactory,
+                                                                      campusAccessRepository);
+    CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
+                                                                             campusAccessService);
 
     return campusAccessResource;
   }
