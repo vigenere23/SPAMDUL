@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
@@ -9,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 
-public class CampusAccessService {
+public class CampusAccessService extends AccessGrantedObservable {
 
   private final UserService userService;
   private final CarService carService;
@@ -53,6 +54,11 @@ public class CampusAccessService {
       return false;
     }
 
-    return campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
+    boolean accessGranted = campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
+    if (accessGranted) {
+      notifyAccessGrantedWithCampusAccess(campusAccess, accessingCampusDto.accessingCampusDate);
+    }
+
+    return accessGranted;
   }
 }

@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -52,6 +53,7 @@ public class CampusAccessServiceTest {
   private UserDto userDto;
   private CarDto carDto;
   private AccessingCampusDto accessingCampusDto;
+  private ParkingAccessLogRepository parkingAccessLogRepository;
 
   @Before
   public void setUp() throws Exception {
@@ -66,7 +68,11 @@ public class CampusAccessServiceTest {
     carService = mock(CarService.class);
     campusAccessRepository = mock(CampusAccessRepository.class);
     campusAccessFactory = mock(CampusAccessFactory.class);
-    campusAccessService = new CampusAccessService(userService, carService, campusAccessFactory, campusAccessRepository);
+    parkingAccessLogRepository = mock(ParkingAccessLogRepository.class);
+    campusAccessService = new CampusAccessService(userService,
+                                                  carService,
+                                                  campusAccessFactory,
+                                                  campusAccessRepository);
 
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.accessingCampusDate = A_CAMPUS_ACCESS_DATE;

@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactAssembler;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactRepository;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactService;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
@@ -56,8 +57,8 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    UsageReportContext usageReportContext = new UsageReportContext();
-    CampusAccessResource campusAccessResource = createCampusAccessResource();
+    UsageReportContext usageReportContext = new UsageReportContext(true);
+    CampusAccessResource campusAccessResource = createCampusAccessResource(usageReportContext.getParkingAccessLogRepository());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -71,7 +72,7 @@ public class SpamdUlMain {
         //        resources.add(contactResource);
         resources.add(campusAccessResource);
         resources.add(new UserExceptionAssembler());
-        resources.add(usageReportContext.createUsageReportResource());
+        resources.add(usageReportContext.getUsageReportResource());
         resources.add(new CarExceptionAssembler());
         resources.add(new CampusAccessExceptionAssembler());
         resources.add(new AccessingCampusExceptionAssembler());
@@ -101,7 +102,7 @@ public class SpamdUlMain {
     }
   }
 
-  private static CampusAccessResource createCampusAccessResource() {
+  private static CampusAccessResource createCampusAccessResource(ParkingAccessLogRepository parkingAccessLogRepository) {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
@@ -120,6 +121,7 @@ public class SpamdUlMain {
                                                                       carService,
                                                                       campusAccessFactory,
                                                                       campusAccessRepository);
+    campusAccessService.register(parkingAccessLogRepository);
     CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                                              campusAccessService);
 
