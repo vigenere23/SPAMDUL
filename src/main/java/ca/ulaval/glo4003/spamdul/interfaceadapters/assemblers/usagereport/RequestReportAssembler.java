@@ -50,7 +50,7 @@ public class RequestReportAssembler {
         return null;
       }
       return ParkingZone.valueOf(reportRequest.parkingZone);
-    } catch (DateTimeParseException e) {
+    } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneArgumentException("The Parking zone provided must be ZONE_*number*");
     }
   }
