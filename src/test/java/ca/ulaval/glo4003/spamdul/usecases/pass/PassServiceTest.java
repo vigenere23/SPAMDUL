@@ -26,14 +26,13 @@ public class PassServiceTest {
   private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
   private final PassType A_PASS_TYPE = PassType.MONTHLY;
 
+
   private final Pass A_PASS = new Pass(new PassCode(), A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
   private PassDto passDto = new PassDto();
   @Mock
   private PassFactory passFactory;
   @Mock
   private PassRepository passRepository;
-  @Mock
-  private UserRepository userRepository;
 
   private PassService passService;
 
@@ -43,28 +42,21 @@ public class PassServiceTest {
     passDto.parkingZone = A_PARKING_ZONE;
     passDto.passType = A_PASS_TYPE;
 
-    passService = new PassService(passRepository, userRepository, passFactory);
+    passService = new PassService(passRepository, passFactory);
     when(passFactory.create(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE)).thenReturn(A_PASS);
 
   }
 
   @Test
-  public void whenSellingPass_shouldFindUserInRepository() {
-    passService.createPass(passDto);
-
-    verify(userRepository).findById(A_USER_ID);
-  }
-
-  @Test
   public void whenSellingPass_shouldCallFactoryToCreateNewPass() {
-    passService.createPass(passDto);
+    passService.createPass(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
 
     verify(passFactory).create(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
   }
 
   @Test
   public void whenSellingPass_shouldAddPassToRepository() {
-    passService.createPass(passDto);
+    passService.createPass(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
 
     verify(passRepository).save(A_PASS);
   }
@@ -72,6 +64,7 @@ public class PassServiceTest {
   @Test
   public void whenCreatingPass_thenShouldReturnRightPassCode() {
 
-    assertThat(passService.createPass(passDto)).isEqualTo(A_PASS.getPassCode());
+
+    assertThat(passService.createPass(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE)).isEqualTo(A_PASS.getPassCode());
   }
 }

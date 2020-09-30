@@ -14,7 +14,6 @@ import org.junit.Test;
 public class PassRepositoryInMemoryTest {
 
   private final Pass A_PASS = new Pass(new PassCode(), new UserId(), ParkingZone.ZONE_1, PassType.MONTHLY);
-  private final Pass A_SECOND_PASS = new Pass(new PassCode(), new UserId(), ParkingZone.ZONE_2, PassType.ONE_SEMESTER);
   private PassRepository passRepositoryInMemory;
 
   @Before
@@ -27,12 +26,5 @@ public class PassRepositoryInMemoryTest {
   public void givenASavedPass_whenFindingPassByPassCode_thenShouldReturnRightPass() {
 
     assertThat(passRepositoryInMemory.findByPassCode(A_PASS.getPassCode())).isEqualTo(A_PASS);
-  }
-
-  @Test
-  public void whenSavingPass_thenPassShouldBeAddedToRepository() {
-    passRepositoryInMemory.save(A_SECOND_PASS);
-
-    assertThat(passRepositoryInMemory.findByPassCode(A_SECOND_PASS.getPassCode())).isEqualTo(A_SECOND_PASS);
   }
 }

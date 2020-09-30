@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidPassTypeException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidUserIdException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassTypeException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidUserIdException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 
 public class PassAssembler {

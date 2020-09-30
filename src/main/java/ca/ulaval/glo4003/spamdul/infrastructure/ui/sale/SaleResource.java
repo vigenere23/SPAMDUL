@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale;
 
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.SaleRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -12,5 +13,5 @@ public interface SaleResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  Response createSale(SaleRequest saleRequest);
+  Response sellPass(PassSaleRequest passSaleRequest);
 }

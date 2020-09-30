@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -10,25 +11,24 @@ import java.util.logging.Logger;
 public class UserRepositoryInMemory implements UserRepository {
 
   private static final Map<UserId, User> registeredUsers = new HashMap<>();
-  private final Logger logger = Logger.getLogger(UserRepository.class.getName());
+  private static final Logger logger = Logger.getLogger(UserRepositoryInMemory.class.getName());
 
-  public UserRepositoryInMemory() {
-  }
+  public UserId save(User user) {
+    registeredUsers.put(user.getUserId(), user);
 
-  public User save(User user) {
-    registeredUsers.put(user.getId(), user);
-
-    String loggingInfos = String.format("Saved user: %s", user.getId().toString());
+    String loggingInfos = String.format("Saving user: %s", user.getUserId().toString());
     logger.info(loggingInfos);
 
-    return user;
+    return user.getUserId();
   }
 
   public User findById(UserId userId) {
-    return registeredUsers.get(userId);
-  }
+    User user = registeredUsers.get(userId);
 
-  public void clear() {
-    registeredUsers.clear();
+    if (user == null) {
+      throw new UserNotFoundException("User id does not correspond to a valid user");
+    }
+
+    return user;
   }
 }

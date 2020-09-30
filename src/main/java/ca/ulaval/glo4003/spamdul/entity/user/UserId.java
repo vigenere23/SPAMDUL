@@ -11,8 +11,6 @@ public class UserId {
     id = getNextId();
   }
 
-  //TODO pas encore utilise mais le sera bientot pour retrouver un user quand il le faudra
-
   private UserId(long id) {
     this.id = id;
   }
