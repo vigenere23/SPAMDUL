@@ -1,18 +1,10 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess.car;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.car.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.*;
 
 public class CarServiceTest {
 

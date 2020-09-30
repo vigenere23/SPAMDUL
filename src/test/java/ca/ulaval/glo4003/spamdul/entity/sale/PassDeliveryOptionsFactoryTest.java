@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.sale;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
 import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
 import org.junit.Before;
@@ -16,6 +17,7 @@ public class PassDeliveryOptionsFactoryTest {
     private static final String AN_EMAIL_ADDRESS = "fdjk";
 
     private PostalAddress postalAddress;
+    private EmailAddress emailAddress;
     private DeliveryDto deliveryDto;
 
     private PassDeliveryOptionsFactory passDeliveryOptionsFactory;
@@ -24,8 +26,9 @@ public class PassDeliveryOptionsFactoryTest {
     public void setUpDto() {
         passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
         deliveryDto = new DeliveryDto();
-        deliveryDto.emailAddress = AN_EMAIL_ADDRESS;
-        postalAddress = new PostalAddress(AN_ADDRESS);
+        emailAddress = new EmailAddress(AN_EMAIL_ADDRESS);
+        postalAddress = new PostalAddress("", "", "", "", "", "");
+        deliveryDto.emailAddress = emailAddress;
         deliveryDto.postalAddress = postalAddress;
 
     }
@@ -48,6 +51,6 @@ public class PassDeliveryOptionsFactoryTest {
     public void givenEmailDelivery_whenCreatingDeliveryOptions_shouldCopyPostalAddress() {
         deliveryDto.deliveryMode = DeliveryMode.EMAIL;
         DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT, A_NAME);
-        assertThat(deliveryOptions.emailAddress).isEqualTo(AN_EMAIL_ADDRESS);
+        assertThat(deliveryOptions.emailAddress).isEqualTo(emailAddress);
     }
 }

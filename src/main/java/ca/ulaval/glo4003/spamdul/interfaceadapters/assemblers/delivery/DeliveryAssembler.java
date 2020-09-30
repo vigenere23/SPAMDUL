@@ -1,19 +1,30 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
 
 public class DeliveryAssembler {
+    private EmailAddressAssembler emailAddressAssembler;
+    private PostalAddressAssembler postalAddressAssembler;
+
+    public DeliveryAssembler(EmailAddressAssembler emailAddressAssembler, PostalAddressAssembler postalAddressAssembler) {
+        this.emailAddressAssembler = emailAddressAssembler;
+        this.postalAddressAssembler = postalAddressAssembler;
+    }
 
     public DeliveryDto fromDto(DeliveryRequest deliveryRequest) {
         DeliveryDto deliveryDto = new DeliveryDto();
+        DeliveryMode deliveryMode = getDeliveryMode(deliveryRequest.deliveryMode);
+        deliveryDto.deliveryMode = deliveryMode;
+        if (deliveryMode == DeliveryMode.POST) {
+            deliveryDto.postalAddress = postalAddressAssembler.fromDto(deliveryRequest.postalAddress);
+        } else {
+            deliveryDto.emailAddress = emailAddressAssembler.fromString(deliveryRequest.emailAddress);
+        }
 
-        deliveryDto.deliveryMode = getDeliveryMode(deliveryRequest.deliveryMode);
-        deliveryDto.emailAddress = deliveryRequest.emailAddress;
-        deliveryDto.postalAddress = new PostalAddress(deliveryRequest.postalAddress);
+
 
         return deliveryDto;
     }

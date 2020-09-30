@@ -14,7 +14,7 @@ public class GmailEmailService implements DeliveryBridge {
 
   @Override
   public void send(DeliveryOptions deliveryOptions, String content) {
-    send(deliveryOptions.emailAddress, deliveryOptions.subject, content);
+    send(deliveryOptions.emailAddress.toString(), deliveryOptions.subject, content);
   }
 
   private void send(String to, String subject, String text) {

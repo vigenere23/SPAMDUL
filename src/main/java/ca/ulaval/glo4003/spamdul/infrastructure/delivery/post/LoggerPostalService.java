@@ -18,9 +18,9 @@ public class LoggerPostalService implements DeliveryBridge {
 
   private void send(String recipientName, PostalAddress recipientAddress, String content) {
     LOGGER.log(Level.INFO,
-               String.format("Sending parcel to %s at address %s with content %s",
+               String.format("Sending parcel to %s at address:\n %s with content %s",
                              recipientName,
-                             recipientAddress.getAddress(),
+                             recipientAddress.toString(),
                              content));
   }
 
