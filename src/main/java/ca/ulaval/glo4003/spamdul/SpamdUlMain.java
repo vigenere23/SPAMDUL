@@ -38,6 +38,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAddressAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
@@ -154,7 +156,9 @@ public class SpamdUlMain {
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
     PassSender passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryBridgeFactory);
     SaleService saleService = new SaleService(passService, passSender);
-    DeliveryAssembler deliveryAssembler = new DeliveryAssembler();
+    EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
+    PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
+    DeliveryAssembler deliveryAssembler = new DeliveryAssembler(emailAddressAssembler, postalAddressAssembler);
     PassSaleAssembler passSaleAssembler = new PassSaleAssembler(deliveryAssembler);
     SaleResource saleResource = new SaleResourceImpl(saleService, passSaleAssembler);
 

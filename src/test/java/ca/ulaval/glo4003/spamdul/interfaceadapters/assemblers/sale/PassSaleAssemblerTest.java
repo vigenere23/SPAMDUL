@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PostalAddressRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassTypeException;
@@ -26,7 +27,7 @@ public class PassSaleAssemblerTest {
   private final DeliveryMode A_DELIVERY_MODE = DeliveryMode.EMAIL;
   private final String A_EMAIL_ADDRESS = "test@test.ca";
   private final String A_POSTAL_ADDRESS_STRING = "test address";
-  private final PostalAddress A_POSTAL_ADDRESS = new PostalAddress(A_POSTAL_ADDRESS_STRING);
+  private final PostalAddress A_POSTAL_ADDRESS = new PostalAddress("", "", "", "", "", "");
   private final String A_PARKING_ZONE_STRING = "zone_1";
   private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private final String A_PASS_TYPE_STRING = "monthly";
@@ -48,7 +49,7 @@ public class PassSaleAssemblerTest {
 
     A_DELIVERY_REQUEST.deliveryMode = A_DELIVER_MODE_STRING;
     A_DELIVERY_REQUEST.emailAddress = A_EMAIL_ADDRESS;
-    A_DELIVERY_REQUEST.postalAddress = A_POSTAL_ADDRESS_STRING;
+    A_DELIVERY_REQUEST.postalAddress = new PostalAddressRequest();
     A_PASS_SALE_REQUEST.deliveryInfos = A_DELIVERY_REQUEST;
 
     deliveryAssembler = mock(DeliveryAssembler.class);
