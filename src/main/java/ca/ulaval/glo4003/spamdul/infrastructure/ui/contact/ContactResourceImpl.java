@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.contact;
 
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.dto.ContactDto;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.contact.ContactService;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.dto.ContactDto;
 import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

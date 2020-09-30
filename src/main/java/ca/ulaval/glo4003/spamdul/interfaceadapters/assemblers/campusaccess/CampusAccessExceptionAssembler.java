@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidDayToAccessCampusException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidDayOfCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidPeriodArgumentException;
