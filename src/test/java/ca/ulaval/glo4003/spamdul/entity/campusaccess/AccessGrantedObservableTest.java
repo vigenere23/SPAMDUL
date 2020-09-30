@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +18,8 @@ public class AccessGrantedObservableTest {
   private AccessGrantedObserver accessGrantedObserver;
   @Mock
   private AccessGrantedObserver accessGrantedObserver2;
-  @Mock
-  private CampusAccess A_CAMPUS_ACCESS;
+
+  private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private final LocalDate A_DATE = LocalDate.now();
 
 
@@ -31,8 +32,8 @@ public class AccessGrantedObservableTest {
 
   @Test
   public void givenObserverNotRegistered_whenNotifyingObservers_itDoesNotCallThatObserver() {
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
-    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
+    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
   }
 
   @Test
@@ -40,10 +41,10 @@ public class AccessGrantedObservableTest {
     accessGrantedObservable.register(accessGrantedObserver);
     accessGrantedObservable.register(accessGrantedObserver2);
 
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
+    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
 
-    verify(accessGrantedObserver).handleAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
-    verify(accessGrantedObserver2).handleAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
+    verify(accessGrantedObserver).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    verify(accessGrantedObserver2).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
   }
 
   @Test
@@ -51,8 +52,8 @@ public class AccessGrantedObservableTest {
     accessGrantedObservable.register(accessGrantedObserver);
     accessGrantedObservable.unregister(accessGrantedObserver);
 
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
+    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
 
-    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_CAMPUS_ACCESS, A_DATE);
+    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
   }
 }

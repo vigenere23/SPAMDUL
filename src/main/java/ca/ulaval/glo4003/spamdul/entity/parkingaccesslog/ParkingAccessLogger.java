@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObserver;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
@@ -17,11 +17,10 @@ public class ParkingAccessLogger implements AccessGrantedObserver {
     this.parkingAccessLogRepository = parkingAccessLogRepository;
   }
 
-  @Override public void handleAccessGrantedWithCampusAccess(CampusAccess campusAccess, LocalDate accessDate) {
+  @Override public void handleAccessGrantedWithCampusAccess(ParkingZone parkingZone, LocalDate accessDate) {
     // TODO need parking zone!
     // TODO could add carId to ParkingAccessLog fields
-    // parkingAccessLogRepository.save(parkingAccessLogFactory.create(parkingZone, accessDate));
-    logger.info(
-        "creating parking access log from access granted from campus access: " + campusAccess.getCampusAccessCode());
+    parkingAccessLogRepository.save(parkingAccessLogFactory.create(parkingZone, accessDate));
+    logger.info("Creating and saving parkingAccessLogFactory");
   }
 }

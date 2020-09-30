@@ -16,6 +16,11 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -38,6 +43,9 @@ public class CampusAccessServiceTest {
   private final Period A_PERIOD = Period.SEMESTER_1;
   private final DayOfWeek A_CAMPUS_ACCESS_DAY = DayOfWeek.FRIDAY;
   private final LocalDate A_CAMPUS_ACCESS_DATE = LocalDate.of(2020, 9, 25);
+  private final PassCode A_PASS_CODE = new PassCode();
+  private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
+  private final Pass A_PASS = new Pass(A_PASS_CODE, new UserId(), A_PARKING_ZONE, PassType.ONE_DAY_PER_WEEK);
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_USER_ID,
                                                                 A_CAR_ID,
@@ -54,6 +62,7 @@ public class CampusAccessServiceTest {
   private CarDto carDto;
   private AccessingCampusDto accessingCampusDto;
   private ParkingAccessLogRepository parkingAccessLogRepository;
+  private PassRepository passRepository;
 
   @Before
   public void setUp() throws Exception {
@@ -69,14 +78,17 @@ public class CampusAccessServiceTest {
     campusAccessRepository = mock(CampusAccessRepository.class);
     campusAccessFactory = mock(CampusAccessFactory.class);
     parkingAccessLogRepository = mock(ParkingAccessLogRepository.class);
+    passRepository = mock(PassRepository.class);
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
-                                                  campusAccessRepository);
+                                                  campusAccessRepository,
+                                                  passRepository);
 
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.accessingCampusDate = A_CAMPUS_ACCESS_DATE;
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
+    A_CAMPUS_ACCESS.setPassCode(A_PASS_CODE);
   }
 
   @Test
@@ -125,8 +137,9 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
+    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(A_CAMPUS_ACCESS);
-    campusAccessService.canAccessCampus(accessingCampusDto);
+    campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(campusAccessRepository, times(1)).findById(A_CAMPUS_ACCESS_CODE);
   }
@@ -135,7 +148,7 @@ public class CampusAccessServiceTest {
   public void givenAnUnregisteredCampusAccessCode_whenVerifyingIfCanAccessCampus_shouldNotGrantAccess() {
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willThrow(CampusAccessNotFoundException.class);
 
-    boolean isGrantedAccess = campusAccessService.canAccessCampus(accessingCampusDto);
+    boolean isGrantedAccess = campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     assertThat(isGrantedAccess).isFalse();
   }
