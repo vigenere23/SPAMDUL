@@ -1,43 +1,42 @@
-package ca.ulaval.glo4003.spamdul.entity.user;
+package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
-
 import java.util.Objects;
 
-public class UserId {
+public class ParkingAccessLogId {
 
   private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
-  public UserId() {
+  public ParkingAccessLogId() {
     id = idGenerator.getNextId();
   }
 
-  private UserId(long id) {
+  private ParkingAccessLogId(long id) {
     this.id = id;
   }
 
-  public static UserId valueOf(String userId) {
-    return new UserId(Long.parseLong(userId));
+  public static ParkingAccessLogId valueOf(String parkingAccessLogId) {
+    return new ParkingAccessLogId(Long.parseLong(parkingAccessLogId));
   }
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserId userId = (UserId) o;
+    ParkingAccessLogId userId = (ParkingAccessLogId) o;
     return Objects.equals(id, userId.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
 }

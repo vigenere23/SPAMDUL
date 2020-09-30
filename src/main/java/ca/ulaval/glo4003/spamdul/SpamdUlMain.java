@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
@@ -70,8 +71,9 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    CampusAccessResource campusAccessResource = createUserResource();
     SaleResource saleResource = createSaleResource();
+    UsageReportContext usageReportContext = new UsageReportContext();
+    CampusAccessResource campusAccessResource = createCampusAccessResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -86,6 +88,7 @@ public class SpamdUlMain {
         resources.add(saleResource);
         resources.add(campusAccessResource);
         resources.add(new UserExceptionAssembler());
+        resources.add(usageReportContext.createUsageReportResource());
         resources.add(new CarExceptionAssembler());
         resources.add(new CampusAccessExceptionAssembler());
         resources.add(new AccessingCampusExceptionAssembler());
@@ -110,12 +113,14 @@ public class SpamdUlMain {
     try {
       server.start();
       server.join();
+    } catch (Exception exception) {
+      exception.printStackTrace();
     } finally {
       server.destroy();
     }
   }
 
-  private static CampusAccessResource createUserResource() {
+  private static CampusAccessResource createCampusAccessResource() {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
@@ -130,8 +135,12 @@ public class SpamdUlMain {
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
-    CampusAccessService campusAccessService = new CampusAccessService(userService, carService, campusAccessFactory, campusAccessRepository);
-    CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
+    CampusAccessService campusAccessService = new CampusAccessService(userService,
+                                                                      carService,
+                                                                      campusAccessFactory,
+                                                                      campusAccessRepository);
+    CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
+                                                                             campusAccessService);
 
     return campusAccessResource;
   }
