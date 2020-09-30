@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglome
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
@@ -17,7 +18,7 @@ import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 public class UsageReportContext {
 
   private final ParkingAccessLogPopulator parkingAccessLogPopulator;
-  private final ParkingAccessLogRepository parkingAccessLogRepository;
+  private final ParkingAccessLogger parkingAccessLogger;
   private final UsageReportResource usageReportResource;
 
   public UsageReportContext(boolean populateData) {
@@ -29,7 +30,8 @@ public class UsageReportContext {
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();
     RequestReportAssembler requestReportAssembler = new RequestReportAssembler();
     ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
-    parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory(parkingAccessLogFactory);
+    ParkingAccessLogRepository parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
+    parkingAccessLogger = new ParkingAccessLogger(parkingAccessLogFactory, parkingAccessLogRepository);
 
     UsageReportService usageReportService = new UsageReportService(
         parkingAccessLogRepository,
@@ -53,8 +55,8 @@ public class UsageReportContext {
     return usageReportResource;
   }
 
-  public ParkingAccessLogRepository getParkingAccessLogRepository() {
-    return parkingAccessLogRepository;
+  public ParkingAccessLogger getParkingAccessLogger() {
+    return parkingAccessLogger;
   }
 
   private void populateData() {

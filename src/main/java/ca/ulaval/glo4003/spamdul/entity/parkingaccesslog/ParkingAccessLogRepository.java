@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObserver;
 import java.util.List;
 
-public interface ParkingAccessLogRepository extends AccessGrantedObserver {
+public interface ParkingAccessLogRepository {
 
   List<ParkingAccessLog> findAll();
 
