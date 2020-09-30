@@ -4,5 +4,5 @@ public class PassSaleRequest {
     public String parkingZone;
     public String passType;
     public String userId;
-    public DeliveryRequest deliveryRequest;
+    public DeliveryRequest deliveryInfos;
 }

@@ -11,14 +11,14 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PassRepositoryInMemoryTest {
+public class InMemoryPassRepositoryTest {
 
   private final Pass A_PASS = new Pass(new PassCode(), new UserId(), ParkingZone.ZONE_1, PassType.MONTHLY);
   private PassRepository passRepositoryInMemory;
 
   @Before
   public void setUp() {
-    passRepositoryInMemory = new PassRepositoryInMemory();
+    passRepositoryInMemory = new InMemoryPassRepository();
     passRepositoryInMemory.save(A_PASS);
   }
 

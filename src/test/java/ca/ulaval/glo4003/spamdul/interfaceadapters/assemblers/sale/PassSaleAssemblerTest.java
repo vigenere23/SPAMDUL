@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassTypeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidUserIdException;
@@ -50,7 +49,7 @@ public class PassSaleAssemblerTest {
     A_DELIVERY_REQUEST.deliveryMode = A_DELIVER_MODE_STRING;
     A_DELIVERY_REQUEST.emailAddress = A_EMAIL_ADDRESS;
     A_DELIVERY_REQUEST.postalAddress = A_POSTAL_ADDRESS_STRING;
-    A_PASS_SALE_REQUEST.deliveryRequest = A_DELIVERY_REQUEST;
+    A_PASS_SALE_REQUEST.deliveryInfos = A_DELIVERY_REQUEST;
 
     deliveryAssembler = mock(DeliveryAssembler.class);
     passSaleAssembler = new PassSaleAssembler(deliveryAssembler);

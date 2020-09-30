@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAc
 import ca.ulaval.glo4003.spamdul.infrastructure.db.car.InMemoryCarRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.pass.PassRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.pass.InMemoryPassRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
@@ -137,7 +137,7 @@ public class SpamdUlMain {
   }
 
   private static SaleResource createSaleResource() {
-    PassRepository passRepository = new PassRepositoryInMemory();
+    PassRepository passRepository = new InMemoryPassRepository();
     UserRepository userRepository = new UserRepositoryInMemory();
     PassFactory passFactory = new PassFactory();
     PassService passService = new PassService(passRepository, passFactory);

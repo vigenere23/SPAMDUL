@@ -21,7 +21,7 @@ public class PassSaleAssembler {
   public PassSaleDto fromDto(PassSaleRequest passSaleRequest) {
     PassSaleDto passSaleDto = new PassSaleDto();
 
-    passSaleDto.deliveryDto = deliveryAssembler.fromDto(passSaleRequest.deliveryRequest);
+    passSaleDto.deliveryDto = deliveryAssembler.fromDto(passSaleRequest.deliveryInfos);
     passSaleDto.parkingZone = getParkingZone(passSaleRequest.parkingZone);
     passSaleDto.userId = getUserId(passSaleRequest.userId);
     passSaleDto.passType = getPassType(passSaleRequest.passType);
