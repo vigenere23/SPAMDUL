@@ -5,4 +5,5 @@ public interface UserRepository {
   UserId save(User user);
 
   User findById(UserId userId);
+
 }

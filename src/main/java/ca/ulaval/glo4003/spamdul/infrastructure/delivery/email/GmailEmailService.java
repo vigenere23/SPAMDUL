@@ -1,20 +1,23 @@
-package ca.ulaval.glo4003.spamdul.usecases.email;
+package ca.ulaval.glo4003.spamdul.infrastructure.delivery.email;
 
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridge;
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-public class GmailEmailService implements EmailService {
+public class GmailEmailService implements DeliveryBridge {
 
-  public void send(String to, String subject, String text) {
+  @Override
+  public void send(DeliveryOptions deliveryOptions, String content) {
+    send(deliveryOptions.emailAddress, deliveryOptions.subject, content);
+  }
+
+  private void send(String to, String subject, String text) {
     try {
       Properties properties = getProperties();
       Session session = getSession(properties);
@@ -44,12 +47,12 @@ public class GmailEmailService implements EmailService {
   }
 
   private static Session getSession(Properties properties) {
-      return Session.getInstance(properties, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(properties.getProperty("mail.username"),
-                                            properties.getProperty("mail.password"));
-        }
-      });
+    return Session.getInstance(properties, new Authenticator() {
+      @Override
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(properties.getProperty("mail.username"),
+                                          properties.getProperty("mail.password"));
+      }
+    });
   }
 }
