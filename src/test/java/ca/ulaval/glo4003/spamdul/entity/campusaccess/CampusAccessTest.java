@@ -8,12 +8,15 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessExceptio
 import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CampusAccessTest {
 
   public static final PassCode A_PASS_CODE = new PassCode();
+  private static final LocalDate A_VALID_ACCESS_DATE = LocalDate.of(2020, 10, 5);
+  private static final LocalDate AN_INVALID_ACCESS_DATE = LocalDate.of(2020, 10, 6);
   private final DayOfWeek A_DAY_OF_THE_WEEK = DayOfWeek.MONDAY;
   private final DayOfWeek ANOTHER_DAY_OF_THE_WEEK = DayOfWeek.SATURDAY;
 
@@ -30,14 +33,14 @@ public class CampusAccessTest {
 
   @Test
   public void givenTheSameDayOfTheWeek_whenVerifyingIfGrantedAccess_shouldGrantAccess() {
-    boolean grantedAccess = campusAccess.isAccessGranted(A_DAY_OF_THE_WEEK);
+    boolean grantedAccess = campusAccess.isAccessGranted(A_VALID_ACCESS_DATE);
 
     assertThat(grantedAccess).isTrue();
   }
 
   @Test
   public void givenAnotherDayOfTheWeek_whenVerifyingIfGrantedAccess_shouldNotGrantAccess() {
-    boolean grantedAccess = campusAccess.isAccessGranted(ANOTHER_DAY_OF_THE_WEEK);
+    boolean grantedAccess = campusAccess.isAccessGranted(AN_INVALID_ACCESS_DATE);
 
     assertThat(grantedAccess).isFalse();
   }

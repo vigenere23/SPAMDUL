@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class CampusAccess {
 
@@ -16,6 +17,9 @@ public class CampusAccess {
   private DayOfWeek dayOfWeek;
   private Period period;
   private PassCode associatedPassCode;
+
+  private LocalDate beginDate = LocalDate.of(2020, 9, 1);
+  private LocalDate endDate = LocalDate.of(2020, 12, 31);
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       UserId userId,
@@ -49,8 +53,12 @@ public class CampusAccess {
     return campusAccessCode;
   }
 
-  public boolean isAccessGranted(DayOfWeek accessingDay) {
-    return accessingDay == dayOfWeek;
+  public boolean isAccessGranted(LocalDate dateOfAccess) {
+    if (dateOfAccess.isAfter(endDate) || dateOfAccess.isBefore(beginDate)) {
+      return false;
+    }
+
+    return dateOfAccess.getDayOfWeek() == dayOfWeek;
   }
 
   public void associatePass(PassCode passCode, PassType passType, DayOfWeek dayOfWeek) {
@@ -64,6 +72,7 @@ public class CampusAccess {
         );
       }
     }
+
     associatedPassCode = passCode;
   }
 
