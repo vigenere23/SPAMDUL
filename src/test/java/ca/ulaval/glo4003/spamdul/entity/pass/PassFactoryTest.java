@@ -1,34 +1,51 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassDayOfWeekException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.DayOfWeek;
+
+import static com.google.common.truth.Truth.assertThat;
+
 @RunWith(MockitoJUnitRunner.class)
 public class PassFactoryTest {
 
-  private final UserId A_USER_ID = new UserId();
-  private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
-  private final PassType A_PASS_TYPE = PassType.MONTHLY;
+  private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
+  private static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.MONDAY;
 
   private PassFactory passFactory;
 
   @Before
-  public void setUpCalendar() {
-
+  public void setUp() {
     passFactory = new PassFactory();
   }
 
   @Test
-  public void whenCreatingPass_shouldCreatePassWithRightInfo() {
-    Pass pass = passFactory.create(A_USER_ID, A_PARKING_ZONE, A_PASS_TYPE);
+  public void givenSingleDayPerWeekType_whenCreatingPass_shouldCreatePassWithRightInfo() {
+    Pass pass = passFactory.create(A_PARKING_ZONE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, A_DAY_OF_WEEK);
 
-    assertThat(pass.getUserId()).isEqualTo(A_USER_ID);
     assertThat(pass.getParkingZone()).isEqualTo(A_PARKING_ZONE);
-    assertThat(pass.getPassType()).isEqualTo(A_PASS_TYPE);
+    assertThat(pass.getPassType()).isEqualTo(PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    assertThat(pass.getDayOfWeek()).isEqualTo(A_DAY_OF_WEEK);
+    assertThat(pass.getPassCode()).isNotNull();
+  }
+
+  @Test(expected = InvalidPassDayOfWeekException.class)
+  public void givenSaturdayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
+    passFactory.create(A_PARKING_ZONE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, DayOfWeek.SATURDAY);
+  }
+
+  @Test(expected = InvalidPassDayOfWeekException.class)
+  public void givenSundayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
+    passFactory.create(A_PARKING_ZONE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, DayOfWeek.SUNDAY);
+  }
+
+  @Test(expected = InvalidPassArgumentException.class)
+  public void givenOtherType_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
+    passFactory.create(A_PARKING_ZONE, PassType.MONTHLY, DayOfWeek.MONDAY);
   }
 }

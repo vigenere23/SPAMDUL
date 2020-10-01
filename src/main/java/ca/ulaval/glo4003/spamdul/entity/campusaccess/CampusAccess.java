@@ -1,9 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 public class CampusAccess {
 
@@ -12,6 +14,7 @@ public class CampusAccess {
   private CarId carId;
   private DayOfWeek dayOfWeek;
   private Period period;
+  private PassCode associatedPassCode;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       UserId userId,
@@ -47,5 +50,20 @@ public class CampusAccess {
 
   public boolean isAccessGranted(DayOfWeek accessingDay) {
     return accessingDay == dayOfWeek;
+  }
+
+  public void associatePass(PassCode passCode, PassType passType, DayOfWeek dayOfWeek) {
+    if (period == Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
+      if (passType != PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER || dayOfWeek != this.dayOfWeek) {
+        throw new PassNotAcceptedByAccessException(
+                "This user does not have campus access for the dates covered by this pass."
+        );
+      }
+    }
+    associatedPassCode = passCode;
+  }
+
+  public PassCode getAssociatedPassCode() {
+    return associatedPassCode;
   }
 }

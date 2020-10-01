@@ -19,13 +19,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeliveryAssemblerTest {
-
-    private final String A_EMAIL_ADDRESS_STRING = "test@test.ca";
+    private final static String A_EMAIL_ADDRESS_STRING = "test@test.ca";
 
     private DeliveryRequest deliveryRequest = new DeliveryRequest();
     private PostalAddressRequest postalAddressRequest = new PostalAddressRequest();
     private EmailAddress emailAddress = new EmailAddress("");
-    private PostalAddress postalAddress = new PostalAddress("","","","","","");
+    private PostalAddress postalAddress = new PostalAddress("","","","","","","");
 
     @Mock
     private EmailAddressAssembler emailAddressAssembler;

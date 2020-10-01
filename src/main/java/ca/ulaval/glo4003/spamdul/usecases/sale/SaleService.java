@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.usecases.sale;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridgeFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
@@ -8,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 
 public class SaleService {
 
-  private PassService passService;
+  private final PassService passService;
   private final PassSender passSender;
 
   public SaleService(PassService passService,
@@ -18,8 +17,9 @@ public class SaleService {
   }
 
   public void createSale(PassSaleDto passSaleDto) {
-    PassCode passCode = passService.createPass(passSaleDto.userId, passSaleDto.parkingZone, passSaleDto.passType);
+    PassCode passCode = passService.createPass(passSaleDto.campusAccessCode, passSaleDto.parkingZone, passSaleDto.passType,
+            passSaleDto.dayOfWeek);
 
-    passSender.sendPass(passSaleDto.userId, passSaleDto.deliveryDto, passCode);
+    passSender.sendPass(passSaleDto.deliveryDto, passCode);
   }
 }

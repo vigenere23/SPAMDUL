@@ -15,6 +15,8 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -29,15 +31,18 @@ import org.junit.Test;
 
 public class CampusAccessServiceTest {
 
-  private final UserId A_USER_ID = new UserId();
-  private final CarId A_CAR_ID = new CarId();
-  private final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
-  private final Car A_CAR = new Car(A_CAR_ID, CarType.GOURMANDE, "brand", "model", 2020, "xxx xxx");
-  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
-  private final Period A_PERIOD = Period.SEMESTER_1;
-  private final DayOfWeek A_CAMPUS_ACCESS_DAY = DayOfWeek.FRIDAY;
-  private final LocalDate A_CAMPUS_ACCESS_DATE = LocalDate.of(2020, 9, 25);
-  private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
+  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassType A_PASS_TYPE = PassType.MONTHLY;
+  private static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.SATURDAY;
+  private static final UserId A_USER_ID = new UserId();
+  private static final CarId A_CAR_ID = new CarId();
+  private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
+  private static final Car A_CAR = new Car(A_CAR_ID, CarType.GOURMANDE, "brand", "model", 2020, "xxx xxx");
+  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private static final Period A_PERIOD = Period.SEMESTER_1;
+  private static final DayOfWeek A_CAMPUS_ACCESS_DAY = DayOfWeek.FRIDAY;
+  private static final LocalDate A_CAMPUS_ACCESS_DATE = LocalDate.of(2020, 9, 25);
+  private static final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_USER_ID,
                                                                 A_CAR_ID,
                                                                 A_CAMPUS_ACCESS_DAY,
@@ -132,5 +137,24 @@ public class CampusAccessServiceTest {
     boolean isGrantedAccess = campusAccessService.canAccessCampus(accessingCampusDto);
 
     assertThat(isGrantedAccess).isFalse();
+  }
+
+  @Test
+  public void whenAssociatingPassToCampusAccess_shouldFindCampusAccessInRepo() {
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(A_CAMPUS_ACCESS);
+
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+
+    verify(campusAccessRepository).findById(A_CAMPUS_ACCESS_CODE);
+  }
+
+  @Test
+  public void whenAssociatingPassToCampusAccess_shouldAskCampusAccessToAssociatePass() {
+    CampusAccess campusAccess = mock(CampusAccess.class);
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+
+    verify(campusAccess).associatePass(A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
   }
 }

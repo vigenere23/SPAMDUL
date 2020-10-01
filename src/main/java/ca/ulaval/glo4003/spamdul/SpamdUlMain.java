@@ -73,9 +73,22 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    SaleResource saleResource = createSaleResource();
+    UserRepository userRepository = new UserRepositoryInMemory();
+    UserFactory userFactory = new UserFactory();
+    UserService userService = new UserService(userFactory, userRepository);
+
+    CarRepository carRepository = new InMemoryCarRepository();
+    CarFactory carFactory = new CarFactory();
+    CarService carService = new CarService(carFactory, carRepository);
+    CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
+    CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
+    CampusAccessService campusAccessService = new CampusAccessService(userService,
+            carService,
+            campusAccessFactory,
+            campusAccessRepository);
+    SaleResource saleResource = createSaleResource(campusAccessService);
+    CampusAccessResource campusAccessResource = createCampusAccessResource(campusAccessService);
     UsageReportContext usageReportContext = new UsageReportContext();
-    CampusAccessResource campusAccessResource = createCampusAccessResource();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -122,7 +135,7 @@ public class SpamdUlMain {
     }
   }
 
-  private static CampusAccessResource createCampusAccessResource() {
+  private static CampusAccessResource createCampusAccessResource(CampusAccessService campusAccessService) {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
@@ -137,24 +150,19 @@ public class SpamdUlMain {
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
-    CampusAccessService campusAccessService = new CampusAccessService(userService,
-                                                                      carService,
-                                                                      campusAccessFactory,
-                                                                      campusAccessRepository);
     CampusAccessResource campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                                              campusAccessService);
 
     return campusAccessResource;
   }
 
-  private static SaleResource createSaleResource() {
+  private static SaleResource createSaleResource(CampusAccessService campusAccessService) {
     PassRepository passRepository = new InMemoryPassRepository();
-    UserRepository userRepository = new UserRepositoryInMemory();
     PassFactory passFactory = new PassFactory();
-    PassService passService = new PassService(passRepository, passFactory);
+    PassService passService = new PassService(passRepository, passFactory, campusAccessService);
     DeliveryBridgeFactory deliveryBridgeFactory = new DeliveryBridgeFactory();
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
-    PassSender passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryBridgeFactory);
+    PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryBridgeFactory);
     SaleService saleService = new SaleService(passService, passSender);
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();

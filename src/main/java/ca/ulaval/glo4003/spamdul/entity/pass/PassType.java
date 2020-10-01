@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
 public enum PassType {
-  ONE_DAY_PER_WEEK,
+    SINGLE_DAY_PER_WEEK_PER_SEMESTER,
   MONTHLY,
   ONE_SEMESTER,
   TWO_SEMESTERS,

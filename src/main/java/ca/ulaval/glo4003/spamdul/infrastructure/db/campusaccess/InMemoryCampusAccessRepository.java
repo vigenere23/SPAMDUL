@@ -4,6 +4,8 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;

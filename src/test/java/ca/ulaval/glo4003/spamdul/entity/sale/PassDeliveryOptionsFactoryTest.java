@@ -12,8 +12,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class PassDeliveryOptionsFactoryTest {
     private static final String A_SUBJECT = "djehfj";
-    private static final String A_NAME = "esdj";
-    private static final String AN_ADDRESS = "adsjk";
     private static final String AN_EMAIL_ADDRESS = "fdjk";
 
     private PostalAddress postalAddress;
@@ -27,7 +25,7 @@ public class PassDeliveryOptionsFactoryTest {
         passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
         deliveryDto = new DeliveryDto();
         emailAddress = new EmailAddress(AN_EMAIL_ADDRESS);
-        postalAddress = new PostalAddress("", "", "", "", "", "");
+        postalAddress = new PostalAddress("","", "", "", "", "", "");
         deliveryDto.emailAddress = emailAddress;
         deliveryDto.postalAddress = postalAddress;
 
@@ -35,22 +33,21 @@ public class PassDeliveryOptionsFactoryTest {
 
     @Test
     public void whenCreatingDeliveryOptions_shouldCreateWithRightFields() {
-        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT, A_NAME);
-        assertThat(deliveryOptions.recipientName).isEqualTo(A_NAME);
+        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
         assertThat(deliveryOptions.subject).isEqualTo(A_SUBJECT);
     }
 
     @Test
     public void givenPostalDelivery_whenCreatingDeliveryOptions_shouldCopyPostalAddress() {
         deliveryDto.deliveryMode = DeliveryMode.POST;
-        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT, A_NAME);
+        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
         assertThat(deliveryOptions.postalAddress).isEqualTo(postalAddress);
     }
 
     @Test
     public void givenEmailDelivery_whenCreatingDeliveryOptions_shouldCopyPostalAddress() {
         deliveryDto.deliveryMode = DeliveryMode.EMAIL;
-        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT, A_NAME);
+        DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
         assertThat(deliveryOptions.emailAddress).isEqualTo(emailAddress);
     }
 }

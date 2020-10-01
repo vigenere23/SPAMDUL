@@ -3,6 +3,9 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
 import org.junit.Before;
@@ -10,6 +13,7 @@ import org.junit.Test;
 
 public class CampusAccessTest {
 
+  public static final PassCode A_PASS_CODE = new PassCode();
   private final DayOfWeek A_DAY_OF_THE_WEEK = DayOfWeek.MONDAY;
   private final DayOfWeek ANOTHER_DAY_OF_THE_WEEK = DayOfWeek.SATURDAY;
 
@@ -20,7 +24,7 @@ public class CampusAccessTest {
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                                  new UserId(),
                                                  new CarId(),
-                                                 DayOfWeek.MONDAY,
+                                                 A_DAY_OF_THE_WEEK,
                                                  Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
   }
 
@@ -36,5 +40,27 @@ public class CampusAccessTest {
     boolean grantedAccess = campusAccess.isAccessGranted(ANOTHER_DAY_OF_THE_WEEK);
 
     assertThat(grantedAccess).isFalse();
+  }
+
+  //TODO: remove those ugly test when refactoring is done
+  @Test
+  public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnSameDay_shouldSetPassCode() {
+    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, A_DAY_OF_THE_WEEK);
+
+    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
+  }
+
+  @Test(expected = PassNotAcceptedByAccessException.class)
+  public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
+    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);
+
+    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
+  }
+
+  @Test(expected = PassNotAcceptedByAccessException.class)
+  public void givenSingleDayPerWeekPeriod_whenAssociatingOtherTypeOfPass_shouldThrow() {
+    campusAccess.associatePass(A_PASS_CODE, PassType.MONTHLY, ANOTHER_DAY_OF_THE_WEEK);
+
+    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
   }
 }

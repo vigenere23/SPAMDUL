@@ -1,13 +1,15 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.*;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+
+import java.time.DayOfWeek;
 
 public class CampusAccessService {
 
@@ -54,5 +56,10 @@ public class CampusAccessService {
     }
 
     return campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
+  }
+
+  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, PassCode passCode, PassType passType, DayOfWeek dayOfWeek) {
+    CampusAccess campusAccess = campusAccessRepository.findById(campusAccessCode);
+    campusAccess.associatePass(passCode, passType, dayOfWeek);
   }
 }

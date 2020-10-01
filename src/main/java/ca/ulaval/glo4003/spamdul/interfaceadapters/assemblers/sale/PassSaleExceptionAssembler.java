@@ -1,10 +1,8 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassTypeException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidUserIdException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.*;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,8 +22,12 @@ public class PassSaleExceptionAssembler implements ExceptionMapper<InvalidPassAr
       exceptionResponse.error = "INVALID_PARKING_ZONE";
     } else if (e instanceof InvalidPassTypeException) {
       exceptionResponse.error = "INVALID_PASS_TYPE";
-    } else if (e instanceof InvalidUserIdException) {
-      exceptionResponse.error = "INVALID_USER_ID";
+    } else if (e instanceof InvalidCampusAccessCodeException) {
+      exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE";
+    } else if (e instanceof PassNotAcceptedByAccessException) {
+      exceptionResponse.error = "NO_ACCESS";
+    } else if (e instanceof InvalidPassDayOfWeekException) {
+      exceptionResponse.error = "INVALID_DAY_OF_WEEK";
     }
 
     return Response.status(Status.BAD_REQUEST)
