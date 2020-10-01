@@ -12,6 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UsageReportServiceTest {
 
   private UsageReportService usageReportService;
+  private UsageReportSummaryCreationDto creationDto;
 
   @Mock
   private ParkingAccessLogRepository parkingAccessLogRepository;
@@ -59,6 +61,10 @@ public class UsageReportServiceTest {
         usageReportFactory,
         usageReportAssembler
     );
+
+    creationDto = new UsageReportSummaryCreationDto();
+    creationDto.startDate = startDate;
+    creationDto.endDate = endDate;
   }
 
   @Test
@@ -74,7 +80,7 @@ public class UsageReportServiceTest {
     when(parkingAccessLogAgglomerator.groupByAccessDate(returnedByFilter)).thenReturn(returnedByAgglomerator);
     when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate)).thenReturn(returnedByFactory);
 
-    usageReportService.getReportSummary(startDate, endDate);
+    usageReportService.getReportSummary(creationDto);
 
     verify(parkingAccessLogRepository).findAll();
     verify(parkingAccessLogFilter).setData(returnedByRepo);
