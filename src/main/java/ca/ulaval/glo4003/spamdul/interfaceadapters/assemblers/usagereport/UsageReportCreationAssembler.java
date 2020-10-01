@@ -38,9 +38,7 @@ public class UsageReportCreationAssembler {
 
   private LocalDate getEndDate(String endDate) {
     if (endDate == null) {
-      LocalDate now = LocalDate.now();
-      LocalDate endOfMonth = now.withDayOfMonth(now.lengthOfMonth());
-      return endOfMonth.isAfter(now) ? now : endOfMonth;
+      return LocalDate.now();
     }
 
     try {

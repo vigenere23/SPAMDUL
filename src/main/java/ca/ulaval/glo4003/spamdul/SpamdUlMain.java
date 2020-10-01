@@ -44,7 +44,7 @@ public class SpamdUlMain {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
-    UsageReportContext usageReportContext = new UsageReportContext(false);
+    UsageReportContext usageReportContext = new UsageReportContext(true);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
