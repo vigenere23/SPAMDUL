@@ -1,16 +1,14 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportRequest;
+import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
-
-import static com.google.common.truth.Truth.assertThat;
 
 public class RequestReportAssemblerTest {
 
@@ -22,25 +20,15 @@ public class RequestReportAssemblerTest {
   private final String PARKING_ZONE_3_STRING = "ZONE_3";
 
   private RequestReportAssembler requestReportAssembler;
-  private ReportCreationDto reportCreationDto;
-  private ReportRequest reportRequest;
 
   @Before
   public void setUp() {
     requestReportAssembler = new RequestReportAssembler();
-    reportCreationDto = new ReportCreationDto();
-    reportCreationDto.startDate = START_DATE;
-    reportCreationDto.endDate = END_DATE;
-    reportCreationDto.parkingZone = PARKING_ZONE_3;
-    reportRequest = new ReportRequest();
-    reportRequest.startDate = START_DATE_STRING;
-    reportRequest.endDate = END_DATE_STRING;
-    reportRequest.parkingZone = PARKING_ZONE_3_STRING;
   }
 
   @Test
   public void whenRequestingReportDto_shouldCreateReportDtoWithRightInfos() {
-    ReportCreationDto dto = requestReportAssembler.fromDto(reportRequest);
+    ReportCreationDto dto = requestReportAssembler.fromDto(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_3_STRING);
     assertThat(dto.startDate).isEqualTo(START_DATE);
     assertThat(dto.endDate).isEqualTo(END_DATE);
     assertThat(dto.parkingZone).isEqualTo(PARKING_ZONE_3);
@@ -48,19 +36,19 @@ public class RequestReportAssemblerTest {
 
   @Test(expected = InvalidDateArgumentException.class)
   public void givenAWrongStartDate_whenRequestingReportDto_shouldThrowIllegalArgumentException() {
-    reportRequest.startDate = "wrong date";
-    ReportCreationDto dto = requestReportAssembler.fromDto(reportRequest);
+    String startDate = "wrong date";
+    ReportCreationDto dto = requestReportAssembler.fromDto(startDate, END_DATE_STRING, PARKING_ZONE_3_STRING);
   }
 
   @Test(expected = InvalidDateArgumentException.class)
   public void givenAWrongEndDate_whenRequestingReportDto_shouldThrowIllegalArgumentException() {
-    reportRequest.endDate = "wrong date";
-    ReportCreationDto dto = requestReportAssembler.fromDto(reportRequest);
+    String endDate = "wrong date";
+    ReportCreationDto dto = requestReportAssembler.fromDto(START_DATE_STRING, endDate, PARKING_ZONE_3_STRING);
   }
 
   @Test(expected = InvalidParkingZoneArgumentException.class)
   public void givenAWrongParkingZone_whenRequestingReportDto_shouldThrowIllegalArgumentException() {
-    reportRequest.parkingZone = "wrong zone";
-    ReportCreationDto dto = requestReportAssembler.fromDto(reportRequest);
+    String parkingZone = "wrong zone";
+    ReportCreationDto dto = requestReportAssembler.fromDto(START_DATE_STRING, END_DATE_STRING, parkingZone);
   }
 }

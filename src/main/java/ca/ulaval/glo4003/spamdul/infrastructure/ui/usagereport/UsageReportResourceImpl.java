@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.RequestReportAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
@@ -20,8 +19,8 @@ public class UsageReportResourceImpl implements UsageReportResource {
   }
 
   @Override
-  public UsageReportDto getUsageReport(ReportRequest reportRequest) {
-    ReportCreationDto reportCreationDTO = requestReportAssembler.fromDto(reportRequest);
+  public UsageReportDto getUsageReport(String startDate, String endDate, String parkingZone) {
+    ReportCreationDto reportCreationDTO = requestReportAssembler.fromDto(startDate, endDate, parkingZone);
     return usageReportService.getReport(reportCreationDTO);
   }
 
