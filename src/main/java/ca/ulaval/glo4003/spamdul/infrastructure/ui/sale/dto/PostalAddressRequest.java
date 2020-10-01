@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto;
 
 public class PostalAddressRequest {
+    public String name;
     public String line1;
     public String line2;
     public String city;

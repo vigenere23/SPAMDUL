@@ -2,7 +2,10 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+
 import java.time.DayOfWeek;
 
 public class CampusAccess {
@@ -10,9 +13,9 @@ public class CampusAccess {
   private CampusAccessCode campusAccessCode;
   private UserId userId;
   private CarId carId;
-  private PassCode passCode;
   private DayOfWeek dayOfWeek;
   private Period period;
+  private PassCode associatedPassCode;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       UserId userId,
@@ -50,11 +53,25 @@ public class CampusAccess {
     return accessingDay == dayOfWeek;
   }
 
-  public PassCode getPassCode() {
-    return passCode;
+  public void associatePass(PassCode passCode, PassType passType, DayOfWeek dayOfWeek) {
+    if (associatedPassCode != null) {
+      throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
+    }
+    if (period == Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
+      if (passType != PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER || dayOfWeek != this.dayOfWeek) {
+        throw new PassSaleNotAcceptedByAccessException(
+                "This user does not have campus access for the dates covered by this pass."
+        );
+      }
+    }
+    associatedPassCode = passCode;
   }
 
-  public void setPassCode(PassCode passCode) {
-    this.passCode = passCode;
+  public PassCode getAssociatedPassCode() {
+    return associatedPassCode;
+  }
+
+  public void setAssociatedPassCode(PassCode associatedPassCode) {
+    this.associatedPassCode = associatedPassCode;
   }
 }

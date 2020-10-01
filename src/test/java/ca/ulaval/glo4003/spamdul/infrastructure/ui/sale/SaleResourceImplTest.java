@@ -28,14 +28,14 @@ public class SaleResourceImplTest {
     passSaleAssembler = mock(PassSaleAssembler.class);
 
     saleResourceImpl = new SaleResourceImpl(saleService, passSaleAssembler);
-    given(passSaleAssembler.fromDto(A_PASS_SALE_REQUEST)).willReturn(A_PASS_SALE_DTO);
+    given(passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST)).willReturn(A_PASS_SALE_DTO);
   }
 
   @Test
   public void whenwhenSellingPasse_thenShouldCallSaleAssembler() {
     saleResourceImpl.sellPass(A_PASS_SALE_REQUEST);
 
-    verify(passSaleAssembler).fromDto(A_PASS_SALE_REQUEST);
+    verify(passSaleAssembler).fromRequest(A_PASS_SALE_REQUEST);
   }
 
   @Test

@@ -1,28 +1,24 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import java.time.DayOfWeek;
 
 
 public class Pass {
 
+  private DayOfWeek dayOfWeek;
   private PassCode passCode;
-  private UserId userId;
   private ParkingZone parkingZone;
   private PassType passType;
 
-  public Pass(PassCode passCode, UserId userId, ParkingZone parkingZone, PassType passType) {
+  public Pass(PassCode passCode, ParkingZone parkingZone, PassType passType, DayOfWeek dayOfWeek) {
     this.passCode = passCode;
-    this.userId = userId;
     this.parkingZone = parkingZone;
     this.passType = passType;
+    this.dayOfWeek = dayOfWeek;
   }
 
   public PassCode getPassCode() {
     return passCode;
-  }
-
-  public UserId getUserId() {
-    return userId;
   }
 
   public ParkingZone getParkingZone() {
@@ -31,5 +27,9 @@ public class Pass {
 
   public PassType getPassType() {
     return passType;
+  }
+
+  public DayOfWeek getDayOfWeek() {
+    return dayOfWeek;
   }
 }

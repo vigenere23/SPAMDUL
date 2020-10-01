@@ -13,13 +13,12 @@ public class LoggerPostalService implements DeliveryStrategy {
 
   @Override
   public void deliver(DeliveryOptions deliveryOptions, String content) {
-    send(deliveryOptions.recipientName, deliveryOptions.postalAddress, content);
+    send(deliveryOptions.postalAddress, content);
   }
 
-  private void send(String recipientName, PostalAddress recipientAddress, String content) {
+  private void send(PostalAddress recipientAddress, String content) {
     LOGGER.log(Level.INFO,
-               String.format("Sending parcel to %s at address:\n %s with content %s",
-                             recipientName,
+               String.format("Sending parcel at address:\n %s with content %s",
                              recipientAddress.toString(),
                              content));
   }

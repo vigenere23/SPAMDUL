@@ -7,5 +7,4 @@ public class DeliveryOptions {
     public EmailAddress emailAddress;
     public String subject;
     public PostalAddress postalAddress;
-    public String recipientName;
 }
