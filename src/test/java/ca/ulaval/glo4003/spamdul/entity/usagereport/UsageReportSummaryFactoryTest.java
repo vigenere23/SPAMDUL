@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;

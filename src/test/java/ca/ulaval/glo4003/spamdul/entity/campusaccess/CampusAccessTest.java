@@ -50,6 +50,15 @@ public class CampusAccessTest {
     assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
   }
 
+  @Test(expected = PassAlreadyAssociatedException.class)
+  public void givenPassAlreadyAssociated_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
+    campusAccess.setAssociatedPassCode(new PassCode());
+
+    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);
+
+    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
+  }
+
   @Test(expected = PassSaleNotAcceptedByAccessException.class)
   public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
     campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);

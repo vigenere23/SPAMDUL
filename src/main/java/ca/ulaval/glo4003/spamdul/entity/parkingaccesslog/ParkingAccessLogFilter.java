@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.utils.FilterContainer;
 import java.time.LocalDate;
 import java.util.List;
