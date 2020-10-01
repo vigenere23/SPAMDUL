@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.sale;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridgeFactory;
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.sale.PassDeliveryOptionsFactory;
@@ -27,9 +27,9 @@ public class SaleContext {
     UserRepository userRepository = new UserRepositoryInMemory();
     PassFactory passFactory = new PassFactory();
     PassService passService = new PassService(passRepository, passFactory);
-    DeliveryBridgeFactory deliveryBridgeFactory = new DeliveryBridgeFactory();
+    DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory();
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
-    PassSender passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryBridgeFactory);
+    PassSender passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryStrategyFactory);
     SaleService saleService = new SaleService(passService, passSender);
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();

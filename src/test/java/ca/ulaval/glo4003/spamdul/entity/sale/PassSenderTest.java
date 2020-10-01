@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.sale;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridge;
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridgeFactory;
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -41,9 +41,9 @@ public class PassSenderTest {
     @Mock
     private PassDeliveryOptionsFactory passDeliveryOptionsFactory;
     @Mock
-    private DeliveryBridgeFactory deliveryBridgeFactory;
+    private DeliveryStrategyFactory deliveryStrategyFactory;
     @Mock
-    private DeliveryBridge deliveryBridge;
+    private DeliveryStrategy deliveryStrategy;
 
     private PassSender passSender ;
 
@@ -55,16 +55,16 @@ public class PassSenderTest {
         deliveryOptions = new DeliveryOptions();
         deliveryDto = new DeliveryDto();
         deliveryDto.deliveryMode = A_DELIVERY_MODE;
-        passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryBridgeFactory);
-        when(userRepository.findById(A_USER_ID)).thenReturn(user);;
+        passSender = new PassSender(userRepository, passDeliveryOptionsFactory, deliveryStrategyFactory);
+        when(userRepository.findById(A_USER_ID)).thenReturn(user);
         when(passDeliveryOptionsFactory.create(deliveryDto, SUBJECT, A_NAME)).thenReturn(deliveryOptions);
-        when(deliveryBridgeFactory.create(A_DELIVERY_MODE)).thenReturn(deliveryBridge);
+        when(deliveryStrategyFactory.create(A_DELIVERY_MODE)).thenReturn(deliveryStrategy);
     }
 
     @Test
-    public void whenSendingPass_shouldCallDeliveryBridgeFactoryToCreateDeliveryBridge() {
+    public void whenSendingPass_shouldCallDeliveryStrategyFactoryToCreateDeliveryStrategy() {
         passSender.sendPass(A_USER_ID, deliveryDto, A_PASS_CODE);
-        verify(deliveryBridgeFactory).create(A_DELIVERY_MODE);
+        verify(deliveryStrategyFactory).create(A_DELIVERY_MODE);
     }
 
     @Test
@@ -83,6 +83,6 @@ public class PassSenderTest {
     public void givenPassCode_whenSendingPass_shouldSendMessageContainingPassCode() {
         passSender.sendPass(A_USER_ID, deliveryDto, A_PASS_CODE);
         String message = String.format(CONTENT, A_PASS_CODE.toString());
-        verify(deliveryBridge).send(deliveryOptions, message);
+        verify(deliveryStrategy).deliver(deliveryOptions, message);
     }
 }
