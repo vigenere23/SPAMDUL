@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportRequest;
@@ -28,6 +29,10 @@ public class UsageReportResourceImplTest {
   @Mock
   private UsageReportDto usageReportDto;
 
+  private final String START_DATE = "2020-02-01";
+  private final String END_DATE = "2020-02-11";
+  private final String PARKING_ZONE = "ZONE_1";
+
   private ReportRequest reportRequest;
   private ReportCreationDto reportCreationDto;
   private UsageReportSummaryDto usageReportSummaryDto;
@@ -36,8 +41,7 @@ public class UsageReportResourceImplTest {
 
 
   @Before
-  public void setUp()
-      throws Exception {
+  public void setUp() {
     usageReportResource = new UsageReportResourceImpl(usageReportService, requestReportAssembler);
   }
 
@@ -45,10 +49,10 @@ public class UsageReportResourceImplTest {
   public void whenGetUsageReport_thenFoundUsageReportDtoFromService() {
     reportCreationDto = new ReportCreationDto();
     reportRequest = new ReportRequest();
-    BDDMockito.given(requestReportAssembler.fromDto(reportRequest)).willReturn(reportCreationDto);
+    BDDMockito.given(requestReportAssembler.fromDto(any(String.class), any(String.class), any(String.class))).willReturn(reportCreationDto);
     BDDMockito.given(usageReportService.getReport(reportCreationDto)).willReturn(usageReportDto);
 
-    UsageReportDto dto = usageReportResource.getUsageReport(reportRequest);
+    UsageReportDto dto = usageReportResource.getUsageReport(START_DATE, END_DATE, PARKING_ZONE);
 
     Truth.assertThat(dto).isEqualTo(usageReportDto);
   }
