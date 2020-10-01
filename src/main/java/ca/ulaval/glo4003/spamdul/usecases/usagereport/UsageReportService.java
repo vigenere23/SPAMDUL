@@ -46,10 +46,15 @@ public class UsageReportService {
 
   public UsageReportSummaryDto getReportSummary(UsageReportSummaryCreationDto usageReportSummaryCreationDto) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
-    List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter
+    parkingAccessLogFilter
         .setData(allLogs)
-        .betweenDates(usageReportSummaryCreationDto.startDate, usageReportSummaryCreationDto.endDate)
-        .getResults();
+        .betweenDates(usageReportSummaryCreationDto.startDate, usageReportSummaryCreationDto.endDate);
+
+    if (usageReportSummaryCreationDto.parkingZone != null) {
+      parkingAccessLogFilter.atZone(usageReportSummaryCreationDto.parkingZone);
+    }
+
+    List<ParkingAccessLog> lastMonthLogs = parkingAccessLogFilter.getResults();
     Map<LocalDate, List<ParkingAccessLog>> lastMonthLogsPerDay = parkingAccessLogAgglomerator.groupByAccessDate(
         lastMonthLogs);
 

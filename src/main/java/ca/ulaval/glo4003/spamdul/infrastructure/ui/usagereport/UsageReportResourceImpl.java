@@ -31,8 +31,10 @@ public class UsageReportResourceImpl implements UsageReportResource {
   }
 
   @Override
-  public UsageReportSummaryDto getUsageReportSummary(String startDate, String endDate) {
-    UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate, endDate);
+  public UsageReportSummaryDto getUsageReportSummary(String startDate, String endDate, String parkingZone) {
+    UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate,
+                                                                                               endDate,
+                                                                                               parkingZone);
     return usageReportService.getReportSummary(creationDto);
   }
 }

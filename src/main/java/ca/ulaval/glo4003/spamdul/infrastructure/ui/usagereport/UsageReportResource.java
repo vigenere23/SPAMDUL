@@ -22,5 +22,6 @@ public interface UsageReportResource {
   @Path("/summary")
   @Produces(MediaType.APPLICATION_JSON)
   UsageReportSummaryDto getUsageReportSummary(@QueryParam("startDate") String startDate,
-                                              @QueryParam("endDate") String endDate);
+                                              @QueryParam("endDate") String endDate,
+                                              @QueryParam("parkingZone") String parkingZone);
 }

@@ -59,12 +59,14 @@ public class UsageReportResourceImplTest {
   @Test
   public void whenGetUsageReportSummary_thenFoundUsageReportSummaryDtoFromService() {
     UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
-    given(usageReportSummaryCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING))
+    given(usageReportSummaryCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING))
         .willReturn(creationDto);
     given(usageReportService.getReportSummary(creationDto)).willReturn(
         usageReportSummaryDto);
 
-    UsageReportSummaryDto dto = usageReportResource.getUsageReportSummary(START_DATE_STRING, END_DATE_STRING);
+    UsageReportSummaryDto dto = usageReportResource.getUsageReportSummary(START_DATE_STRING,
+                                                                          END_DATE_STRING,
+                                                                          PARKING_ZONE_STRING);
 
     Truth.assertThat(dto).isEqualTo(usageReportSummaryDto);
   }
