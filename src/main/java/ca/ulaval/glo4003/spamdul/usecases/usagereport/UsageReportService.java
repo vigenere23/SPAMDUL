@@ -21,7 +21,6 @@ import java.util.Map;
 public class UsageReportService {
 
   private final ParkingAccessLogRepository parkingAccessLogRepository;
-  private final ParkingAccessLogFilter parkingAccessLogFilter;
   private final ParkingAccessLogAgglomerator parkingAccessLogAgglomerator;
   private final UsageReportSummaryFactory usageReportSummaryFactory;
   private final UsageReportSummaryAssembler usageReportSummaryAssembler;
@@ -29,14 +28,12 @@ public class UsageReportService {
   private final UsageReportAssembler usageReportAssembler;
 
   public UsageReportService(ParkingAccessLogRepository parkingAccessLogRepository,
-                            ParkingAccessLogFilter parkingAccessLogFilter,
                             ParkingAccessLogAgglomerator parkingAccessLogAgglomerator,
                             UsageReportSummaryFactory usageReportSummaryFactory,
                             UsageReportSummaryAssembler usageReportSummaryAssembler,
                             UsageReportFactory usageReportFactory,
                             UsageReportAssembler usageReportAssembler) {
     this.parkingAccessLogRepository = parkingAccessLogRepository;
-    this.parkingAccessLogFilter = parkingAccessLogFilter;
     this.parkingAccessLogAgglomerator = parkingAccessLogAgglomerator;
     this.usageReportSummaryFactory = usageReportSummaryFactory;
     this.usageReportSummaryAssembler = usageReportSummaryAssembler;
@@ -46,9 +43,10 @@ public class UsageReportService {
 
   public UsageReportSummaryDto getReportSummary(UsageReportSummaryCreationDto usageReportSummaryCreationDto) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
-    parkingAccessLogFilter
+    ParkingAccessLogFilter parkingAccessLogFilter = new ParkingAccessLogFilter()
         .setData(allLogs)
-        .betweenDates(usageReportSummaryCreationDto.startDate, usageReportSummaryCreationDto.endDate);
+        .betweenDates(usageReportSummaryCreationDto.startDate,
+                      usageReportSummaryCreationDto.endDate);
 
     if (usageReportSummaryCreationDto.parkingZone != null) {
       parkingAccessLogFilter.atZone(usageReportSummaryCreationDto.parkingZone);
@@ -68,8 +66,10 @@ public class UsageReportService {
 
   public UsageReportDto getReport(UsageReportCreationDto usageReportCreationDto) {
     List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
-    parkingAccessLogFilter.setData(allLogs)
-                          .betweenDates(usageReportCreationDto.startDate, usageReportCreationDto.endDate);
+    ParkingAccessLogFilter parkingAccessLogFilter = new ParkingAccessLogFilter()
+        .setData(allLogs)
+        .betweenDates(usageReportCreationDto.startDate,
+                      usageReportCreationDto.endDate);
 
     if (usageReportCreationDto.parkingZone != null) {
       parkingAccessLogFilter.atZone(usageReportCreationDto.parkingZone);

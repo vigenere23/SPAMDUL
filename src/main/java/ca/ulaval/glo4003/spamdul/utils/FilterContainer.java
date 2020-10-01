@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.utils;
 
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.FilterDataNotSetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -7,7 +9,8 @@ import java.util.stream.Stream;
 
 public class FilterContainer<T> {
 
-  private Stream<T> filterStream = Stream.empty();
+  private List<T> originalData;
+  private final List<Predicate<? super T>> filters = new ArrayList<>();
 
   public FilterContainer() {
   }
@@ -16,25 +19,24 @@ public class FilterContainer<T> {
     setData(dataList);
   }
 
-  public FilterContainer(Stream<T> dataStream) {
-    setData(dataStream);
-  }
-
   public void setData(List<T> dataList) {
-    filterStream = dataList.stream();
+    originalData = dataList;
   }
 
-  public void setData(Stream<T> dataStream) {
-    filterStream = dataStream;
-  }
-
-  public void addFilter(Predicate<? super T> predicate) {
-    filterStream = filterStream.filter(predicate);
+  public void addFilter(Predicate<? super T> filter) {
+    filters.add(filter);
   }
 
   public List<T> getResults() {
-    List<T> results = filterStream.collect(Collectors.toList());
-    filterStream = Stream.empty();
-    return results;
+    if (originalData == null) {
+      throw new FilterDataNotSetException();
+    }
+
+    Stream<T> filterStream = originalData.stream();
+    for (Predicate<? super T> filter : filters) {
+      filterStream = filterStream.filter(filter);
+    }
+
+    return filterStream.collect(Collectors.toList());
   }
 }
