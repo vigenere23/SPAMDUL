@@ -1,29 +1,34 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 
-public class CampusAccessService {
+public class CampusAccessService extends AccessGrantedObservable {
 
   private final UserService userService;
   private final CarService carService;
   private final CampusAccessFactory campusAccessFactory;
   private final CampusAccessRepository campusAccessRepository;
+  private final PassRepository passRepository;
 
   public CampusAccessService(UserService userService,
                              CarService carService,
                              CampusAccessFactory campusAccessFactory,
-                             CampusAccessRepository campusAccessRepository) {
+                             CampusAccessRepository campusAccessRepository,
+                             PassRepository passRepository) {
     this.userService = userService;
     this.carService = carService;
     this.campusAccessFactory = campusAccessFactory;
     this.campusAccessRepository = campusAccessRepository;
+    this.passRepository = passRepository;
   }
 
   public CampusAccess createAndSaveNewCampusAccess(CampusAccessDto campusAccessDto) {
@@ -44,7 +49,7 @@ public class CampusAccessService {
     return campusAccess;
   }
 
-  public boolean canAccessCampus(AccessingCampusDto accessingCampusDto) {
+  public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
     CampusAccess campusAccess;
 
     try {
@@ -53,6 +58,12 @@ public class CampusAccessService {
       return false;
     }
 
-    return campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
+    boolean accessGranted = campusAccess.isAccessGranted(accessingCampusDto.accessingCampusDate.getDayOfWeek());
+    if (accessGranted) {
+      notifyAccessGrantedWithCampusAccess(passRepository.findByPassCode(campusAccess.getPassCode()).getParkingZone(),
+                                          accessingCampusDto.accessingCampusDate);
+    }
+
+    return accessGranted;
   }
 }

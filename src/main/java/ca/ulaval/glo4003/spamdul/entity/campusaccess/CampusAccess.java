@@ -1,15 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 public class CampusAccess {
 
   private CampusAccessCode campusAccessCode;
   private UserId userId;
   private CarId carId;
+  private PassCode passCode;
   private DayOfWeek dayOfWeek;
   private Period period;
 
@@ -47,5 +48,13 @@ public class CampusAccess {
 
   public boolean isAccessGranted(DayOfWeek accessingDay) {
     return accessingDay == dayOfWeek;
+  }
+
+  public PassCode getPassCode() {
+    return passCode;
+  }
+
+  public void setPassCode(PassCode passCode) {
+    this.passCode = passCode;
   }
 }

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;

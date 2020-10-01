@@ -33,7 +33,7 @@ public class CampusAccessResourceImpl implements CampusAccessResource {
 
   public AccessingCampusResponse canAccessCampus(AccessingCampusRequest accessingCampusRequest) {
     AccessingCampusDto accessingCampusDto = campusAccessAssembler.fromRequest(accessingCampusRequest);
-    boolean isAccessGranted = campusAccessService.canAccessCampus(accessingCampusDto);
+    boolean isAccessGranted = campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     return campusAccessAssembler.toResponse(isAccessGranted);
   }

@@ -87,13 +87,13 @@ public class CampusAccessResourceImplTest {
     given(campusAccessAssembler.fromRequest(accessingCampusRequest)).willReturn(accessingCampusDto);
     campusAccessResource.canAccessCampus(accessingCampusRequest);
 
-    verify(campusAccessService, times(1)).canAccessCampus(accessingCampusDto);
+    verify(campusAccessService, times(1)).grantAccessToCampus(accessingCampusDto);
   }
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldAssembleResponse() {
     given(campusAccessAssembler.fromRequest(accessingCampusRequest)).willReturn(accessingCampusDto);
-    given(campusAccessService.canAccessCampus(accessingCampusDto)).willReturn(true);
+    given(campusAccessService.grantAccessToCampus(accessingCampusDto)).willReturn(true);
 
     campusAccessResource.canAccessCampus(accessingCampusRequest);
 
