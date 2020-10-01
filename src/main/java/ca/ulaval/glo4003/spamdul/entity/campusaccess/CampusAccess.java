@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
@@ -55,7 +55,7 @@ public class CampusAccess {
   public void associatePass(PassCode passCode, PassType passType, DayOfWeek dayOfWeek) {
     if (period == Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
       if (passType != PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER || dayOfWeek != this.dayOfWeek) {
-        throw new PassNotAcceptedByAccessException(
+        throw new PassSaleNotAcceptedByAccessException(
                 "This user does not have campus access for the dates covered by this pass."
         );
       }

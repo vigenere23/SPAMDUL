@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.DayOfWeek;
@@ -50,14 +50,14 @@ public class CampusAccessTest {
     assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
   }
 
-  @Test(expected = PassNotAcceptedByAccessException.class)
+  @Test(expected = PassSaleNotAcceptedByAccessException.class)
   public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
     campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);
 
     assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
   }
 
-  @Test(expected = PassNotAcceptedByAccessException.class)
+  @Test(expected = PassSaleNotAcceptedByAccessException.class)
   public void givenSingleDayPerWeekPeriod_whenAssociatingOtherTypeOfPass_shouldThrow() {
     campusAccess.associatePass(A_PASS_CODE, PassType.MONTHLY, ANOTHER_DAY_OF_THE_WEEK);
 

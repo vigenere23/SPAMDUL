@@ -35,7 +35,7 @@ public class PassSaleAssembler {
     try {
       return DayOfWeek.valueOf(dayOfWeekString.toUpperCase());
     } catch (IllegalArgumentException e) {
-      throw new InvalidPassDayOfWeekException("The day for the pass must be a valid day of the week");
+      throw new InvalidPassSaleDayOfWeekException("The day for the pass must be a valid day of the week");
     }
   }
 
@@ -43,7 +43,7 @@ public class PassSaleAssembler {
     try {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
     } catch (IllegalArgumentException e) {
-      throw new InvalidParkingZoneException("The parking zone is invalid");
+      throw new InvalidParkingZoneExceptionSale("The parking zone is invalid");
     }
   }
 
@@ -51,7 +51,7 @@ public class PassSaleAssembler {
     try {
       return PassType.valueOf(passType.toUpperCase());
     } catch (IllegalArgumentException e) {
-      throw new InvalidPassTypeException("The pass type is invalid");
+      throw new InvalidPassSaleTypeException("The pass type is invalid");
     }
   }
 
@@ -59,7 +59,7 @@ public class PassSaleAssembler {
     try {
       return CampusAccessCode.valueOf(userId.toUpperCase());
     } catch (InvalidCampusAccessCodeFormat e) {
-      throw new InvalidCampusAccessCodeException("The campus access code is not in the right format");
+      throw new InvalidCampusAccessCodeExceptionSale("The campus access code is not in the right format");
     }
   }
 }

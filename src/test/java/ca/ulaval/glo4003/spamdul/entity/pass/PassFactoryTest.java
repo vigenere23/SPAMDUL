@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassDayOfWeekException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleDayOfWeekException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,17 +34,17 @@ public class PassFactoryTest {
     assertThat(pass.getPassCode()).isNotNull();
   }
 
-  @Test(expected = InvalidPassDayOfWeekException.class)
+  @Test(expected = InvalidPassSaleDayOfWeekException.class)
   public void givenSaturdayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
     passFactory.create(A_PARKING_ZONE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, DayOfWeek.SATURDAY);
   }
 
-  @Test(expected = InvalidPassDayOfWeekException.class)
+  @Test(expected = InvalidPassSaleDayOfWeekException.class)
   public void givenSundayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
     passFactory.create(A_PARKING_ZONE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, DayOfWeek.SUNDAY);
   }
 
-  @Test(expected = InvalidPassArgumentException.class)
+  @Test(expected = InvalidPassSaleArgumentException.class)
   public void givenOtherType_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
     passFactory.create(A_PARKING_ZONE, PassType.MONTHLY, DayOfWeek.MONDAY);
   }

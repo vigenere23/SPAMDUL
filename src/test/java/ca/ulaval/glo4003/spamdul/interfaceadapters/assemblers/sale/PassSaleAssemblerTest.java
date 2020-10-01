@@ -6,10 +6,10 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassTypeException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleTypeException;
 import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
 import ca.ulaval.glo4003.spamdul.usecases.sale.PassSaleDto;
 import org.junit.Before;
@@ -63,28 +63,28 @@ public class PassSaleAssemblerTest {
     assertThat(passSaleDto.dayOfWeek).isEqualTo(A_DAY_OF_THE_WEEK);
   }
 
-  @Test(expected = InvalidParkingZoneException.class)
+  @Test(expected = InvalidParkingZoneExceptionSale.class)
   public void givenInvalidParkingZone_whenCreatingFromDto_thenShouldThrowInvalidParkingZoneException() {
     A_PASS_SALE_REQUEST.parkingZone = "invalid";
 
     passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
   }
 
-  @Test(expected = InvalidPassTypeException.class)
+  @Test(expected = InvalidPassSaleTypeException.class)
   public void givenInvalidPassType_whenCreatingFromDto_thenShouldThrowInvalidInvalidPassTypeException() {
     A_PASS_SALE_REQUEST.passType = "invalid";
 
     passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
   }
 
-  @Test(expected = InvalidCampusAccessCodeException.class)
+  @Test(expected = InvalidCampusAccessCodeExceptionSale.class)
   public void givenInvalidCampusAccessCode_whenCreatingFromDto_thenShouldThrowInvalidCampusAccessCodeException() {
     A_PASS_SALE_REQUEST.campusAccessCode = "invalid";
 
     passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
   }
 
-  @Test(expected = InvalidPassArgumentException.class)
+  @Test(expected = InvalidPassSaleArgumentException.class)
   public void givenInvalidDayOfWeek_whenCreatingFromDto_thenShouldThrowInvalidPassArgumentException() {
     A_PASS_SALE_REQUEST.dayOfWeek = "invalid";
 
