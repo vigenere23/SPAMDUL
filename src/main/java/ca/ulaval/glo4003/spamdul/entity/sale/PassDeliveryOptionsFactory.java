@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
 
 public class PassDeliveryOptionsFactory {
 
-    public DeliveryOptions create(DeliveryDto deliveryDto, String subject, String recipientName) {
+    public DeliveryOptions create(DeliveryDto deliveryDto, String subject) {
         DeliveryOptions deliveryOptions = new DeliveryOptions();
 
         if (deliveryDto.deliveryMode == DeliveryMode.POST) {
@@ -16,7 +16,6 @@ public class PassDeliveryOptionsFactory {
         }
 
         deliveryOptions.subject = subject;
-        deliveryOptions.recipientName = recipientName;
 
         return deliveryOptions;
     }

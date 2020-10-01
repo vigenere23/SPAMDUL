@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.delivery.email;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridge;
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 
 import javax.mail.*;
@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class GmailEmailService implements DeliveryBridge {
+public class GmailEmailService implements DeliveryStrategy {
 
   @Override
-  public void send(DeliveryOptions deliveryOptions, String content) {
-    send(deliveryOptions.emailAddress, deliveryOptions.subject, content);
+  public void deliver(DeliveryOptions deliveryOptions, String content) {
+    send(deliveryOptions.emailAddress.toString(), deliveryOptions.subject, content);
   }
 
   private void send(String to, String subject, String text) {

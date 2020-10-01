@@ -1,20 +1,20 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.pass;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.DayOfWeek;
+
+import static com.google.common.truth.Truth.assertThat;
+
 public class InMemoryPassRepositoryTest {
 
-  private final Pass A_PASS = new Pass(new PassCode(), new UserId(), ParkingZone.ZONE_1, PassType.MONTHLY);
-  private PassRepository passRepositoryInMemory;
+  private static final Pass A_PASS = new Pass(new PassCode(), ParkingZone.ZONE_1, PassType.MONTHLY, DayOfWeek.MONDAY);
+  private InMemoryPassRepository passRepositoryInMemory;
 
   @Before
   public void setUp() {

@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglome
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;

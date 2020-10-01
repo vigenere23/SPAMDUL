@@ -18,7 +18,7 @@ public class SaleResourceImpl implements SaleResource {
   }
 
   public Response sellPass(PassSaleRequest passSaleRequest) {
-    this.saleService.createSale(passSaleAssembler.fromDto(passSaleRequest));
+    this.saleService.createSale(passSaleAssembler.fromRequest(passSaleRequest));
 
     return Response.status(Status.CREATED)
                    .build();
