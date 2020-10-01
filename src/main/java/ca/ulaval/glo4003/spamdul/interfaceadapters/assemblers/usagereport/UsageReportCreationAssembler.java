@@ -1,30 +1,34 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class RequestReportAssembler {
+public class UsageReportCreationAssembler {
 
-  public ReportCreationDto fromDto(String startDate, String endDate, String parkingZone) {
-    LocalDate validateStartDate = getStartDate(startDate);
-    LocalDate validateEndDate = getEndDate(endDate);
-    ParkingZone validateParkingZone = getParkingZone(parkingZone);
+  public UsageReportCreationDto fromValues(String startDate, String endDate, String parkingZone) {
+    LocalDate validStartDate = getStartDate(startDate);
+    LocalDate validEndDate = getEndDate(endDate);
+    ParkingZone validParkingZone = getParkingZone(parkingZone);
 
-    ReportCreationDto reportCreationDTO = new ReportCreationDto();
+    UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();
 
-    reportCreationDTO.startDate = validateStartDate;
-    reportCreationDTO.endDate = validateEndDate;
-    reportCreationDTO.parkingZone = validateParkingZone;
+    usageReportCreationDto.startDate = validStartDate;
+    usageReportCreationDto.endDate = validEndDate;
+    usageReportCreationDto.parkingZone = validParkingZone;
 
-    return reportCreationDTO;
+    return usageReportCreationDto;
   }
 
   private LocalDate getStartDate(String startDate) {
+    if (startDate == null) {
+      return LocalDate.now().withDayOfMonth(1);
+    }
+
     try {
       return LocalDate.parse(startDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
@@ -33,10 +37,11 @@ public class RequestReportAssembler {
   }
 
   private LocalDate getEndDate(String endDate) {
+    if (endDate == null) {
+      return LocalDate.now();
+    }
+
     try {
-      if (endDate == null) {
-        return null;
-      }
       return LocalDate.parse(endDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
@@ -44,15 +49,14 @@ public class RequestReportAssembler {
   }
 
   private ParkingZone getParkingZone(String parkingZone) {
+    if (parkingZone == null) {
+      return null;
+    }
+
     try {
-      if (parkingZone == null) {
-        return null;
-      }
       return ParkingZone.valueOf(parkingZone);
-    } catch (DateTimeParseException e) {
+    } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneArgumentException("The Parking zone provided must be ZONE_*number*");
     }
   }
-
-
 }

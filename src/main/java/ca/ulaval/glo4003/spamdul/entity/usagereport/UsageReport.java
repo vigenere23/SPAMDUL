@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class UsageReport {
 
-  private Map<LocalDate, Integer> usageReport;
-  private ParkingZone parkingZones;
-  private Integer totalOfEntry;
+  private final Map<LocalDate, Integer> usageReport;
+  private final ParkingZone parkingZone;
+  private final Integer totalOfEntry;
 
-  public UsageReport(Map<LocalDate, Integer> usageReport, ParkingZone parkingZones, Integer totalOfEntry) {
+  public UsageReport(Map<LocalDate, Integer> usageReport, ParkingZone parkingZone, Integer totalOfEntry) {
     this.usageReport = usageReport;
-    this.parkingZones = parkingZones;
+    this.parkingZone = parkingZone;
     this.totalOfEntry = totalOfEntry;
   }
 
@@ -20,8 +20,8 @@ public class UsageReport {
     return usageReport;
   }
 
-  public ParkingZone getParkingZones() {
-    return parkingZones;
+  public ParkingZone getParkingZone() {
+    return parkingZone;
   }
 
   public Integer getTotalOfEntry() {

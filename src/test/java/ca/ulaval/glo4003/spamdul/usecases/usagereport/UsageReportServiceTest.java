@@ -7,11 +7,13 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UsageReportServiceTest {
 
   private UsageReportService usageReportService;
+  private UsageReportSummaryCreationDto creationDto;
 
   @Mock
   private ParkingAccessLogRepository parkingAccessLogRepository;
@@ -47,6 +50,7 @@ public class UsageReportServiceTest {
 
   private final LocalDate startDate = LocalDate.of(2010, 1, 1);
   private final LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+  private final ParkingZone parkingZone = ParkingZone.ZONE_1;
 
   @Before
   public void setUp() {
@@ -59,6 +63,11 @@ public class UsageReportServiceTest {
         usageReportFactory,
         usageReportAssembler
     );
+
+    creationDto = new UsageReportSummaryCreationDto();
+    creationDto.startDate = startDate;
+    creationDto.endDate = endDate;
+    creationDto.parkingZone = parkingZone;
   }
 
   @Test
@@ -72,9 +81,10 @@ public class UsageReportServiceTest {
     when(parkingAccessLogFilter.betweenDates(startDate, endDate)).thenReturn(parkingAccessLogFilter);
     when(parkingAccessLogFilter.getResults()).thenReturn(returnedByFilter);
     when(parkingAccessLogAgglomerator.groupByAccessDate(returnedByFilter)).thenReturn(returnedByAgglomerator);
-    when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate)).thenReturn(returnedByFactory);
+    when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate, parkingZone)).thenReturn(
+        returnedByFactory);
 
-    usageReportService.getReportSummary(startDate, endDate);
+    usageReportService.getReportSummary(creationDto);
 
     verify(parkingAccessLogRepository).findAll();
     verify(parkingAccessLogFilter).setData(returnedByRepo);
@@ -82,7 +92,7 @@ public class UsageReportServiceTest {
     verify(parkingAccessLogFilter).getResults();
     verify(parkingAccessLogFilter).setData(returnedByRepo);
     verify(parkingAccessLogAgglomerator).groupByAccessDate(returnedByFilter);
-    verify(usageReportSummaryFactory).create(returnedByAgglomerator, startDate, endDate);
+    verify(usageReportSummaryFactory).create(returnedByAgglomerator, startDate, endDate, parkingZone);
     verify(usageReportSummaryAssembler).toDto(returnedByFactory);
   }
 }

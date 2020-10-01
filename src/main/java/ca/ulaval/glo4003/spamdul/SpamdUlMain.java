@@ -18,6 +18,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.C
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -25,11 +30,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
-
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * RESTApi setup without using DI or spring
@@ -40,14 +40,14 @@ public class SpamdUlMain {
   public static boolean isDev = true; // Would be a JVM argument or in a .property file
 
   public static void main(String[] args)
-          throws Exception {
+      throws Exception {
 
     // Setup resources (API)
     //    ContactResource contactResource = createContactResource();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
-            usageReportContext.getParkingAccessLogger());
+                                                                      usageReportContext.getParkingAccessLogger());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -62,6 +62,7 @@ public class SpamdUlMain {
         resources.add(saleContext.getSaleResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(new UserExceptionAssembler());
+        resources.add(new UsageReportExceptionAssembler());
         resources.add(usageReportContext.getUsageReportResource());
         resources.add(new CarExceptionAssembler());
         resources.add(new CampusAccessExceptionAssembler());

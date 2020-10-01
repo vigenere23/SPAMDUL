@@ -1,40 +1,40 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ReportCreationDto;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.RequestReportAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportDto;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
-import java.time.LocalDate;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryDto;
 
 public class UsageReportResourceImpl implements UsageReportResource {
 
   private final UsageReportService usageReportService;
-  private final RequestReportAssembler requestReportAssembler;
+  private final UsageReportCreationAssembler usageReportCreationAssembler;
+  private final UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler;
 
   public UsageReportResourceImpl(UsageReportService usageReportService,
-                                 RequestReportAssembler requestReportAssembler) {
+                                 UsageReportCreationAssembler usageReportCreationAssembler,
+                                 UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler) {
     this.usageReportService = usageReportService;
-    this.requestReportAssembler = requestReportAssembler;
+    this.usageReportCreationAssembler = usageReportCreationAssembler;
+    this.usageReportSummaryCreationAssembler = usageReportSummaryCreationAssembler;
   }
 
   @Override
   public UsageReportDto getUsageReport(String startDate, String endDate, String parkingZone) {
-    ReportCreationDto reportCreationDTO = requestReportAssembler.fromDto(startDate, endDate, parkingZone);
-    return usageReportService.getReport(reportCreationDTO);
+    UsageReportCreationDto creationDto = usageReportCreationAssembler.fromValues(startDate,
+                                                                                 endDate,
+                                                                                 parkingZone);
+    return usageReportService.getReport(creationDto);
   }
 
   @Override
-  public UsageReportSummaryDto getUsageReportSummary() {
-    LocalDate reportEndDate = LocalDate.now();
-    LocalDate reportStartDate = reportEndDate.withDayOfMonth(1);
-    return usageReportService.getReportSummary(reportStartDate, reportEndDate);
-  }
-
-  @Override
-  public UsageReportDto getUsageReportMonth() {
-    LocalDate reportEndDate = LocalDate.now();
-    LocalDate reportStartDate = reportEndDate.withDayOfMonth(1);
-    return usageReportService.getReportMonth(reportStartDate, reportEndDate);
+  public UsageReportSummaryDto getUsageReportSummary(String startDate, String endDate, String parkingZone) {
+    UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate,
+                                                                                               endDate,
+                                                                                               parkingZone);
+    return usageReportService.getReportSummary(creationDto);
   }
 }

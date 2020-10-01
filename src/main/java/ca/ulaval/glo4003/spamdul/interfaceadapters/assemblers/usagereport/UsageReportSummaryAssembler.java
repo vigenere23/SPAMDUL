@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportSummaryDto;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryDto;
 
 public class UsageReportSummaryAssembler {
 
@@ -13,6 +13,7 @@ public class UsageReportSummaryAssembler {
                       .ifPresent(mostPopularDate -> dto.mostPopularMonthDate = mostPopularDate);
     usageReportSummary.getLeastPopularDateOfMonth()
                       .ifPresent(leastPopularDate -> dto.leastPopularMonthDate = leastPopularDate);
+    usageReportSummary.getParkingZone().ifPresent(parkingZone -> dto.parkingZone = parkingZone);
 
     return dto;
   }

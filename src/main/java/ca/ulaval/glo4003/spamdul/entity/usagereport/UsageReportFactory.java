@@ -10,9 +10,7 @@ import java.util.Map;
 public class UsageReportFactory {
 
   public UsageReport create(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay) {
-    Map<LocalDate, Integer> usageByDate = getLocalDateIntegerMap(accessesPerDay);
-    Integer totalOfEntry = getTotalOfEntry(accessesPerDay);
-    return new UsageReport(usageByDate, null, totalOfEntry);
+    return create(accessesPerDay, null);
   }
 
   public UsageReport create(Map<LocalDate, List<ParkingAccessLog>> accessesPerDay, ParkingZone parkingZone) {
