@@ -22,7 +22,7 @@ public class UsageReportFactoryTest {
   List<ParkingAccessLog> parkingAccessLogs;
   List<ParkingAccessLog> anotherParkingAccessLogs;
 
-  private Map<LocalDate, List<ParkingAccessLog>> ACCESSES_PER_DAY = new HashMap<>();
+  private final Map<LocalDate, List<ParkingAccessLog>> ACCESSES_PER_DAY = new HashMap<>();
 
   private final LocalDate A_DATE = LocalDate.of(2011, 1, 1);
   private final LocalDate ANOTHER_DATE = LocalDate.of(2011, 1, 2);
@@ -31,8 +31,12 @@ public class UsageReportFactoryTest {
   private final Integer TOTAL_NUMBER_OF_ACCESS = 3;
   private final ParkingZone PARKING_ZONE_1 = ParkingZone.ZONE_1;
   private final ParkingZone PARKING_ZONE_2 = ParkingZone.ZONE_2;
-  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(new ParkingAccessLogId(), PARKING_ZONE_1, A_DATE);
-  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_2 = new ParkingAccessLog(new ParkingAccessLogId(), PARKING_ZONE_2, ANOTHER_DATE);
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(new ParkingAccessLogId(),
+                                                                                  PARKING_ZONE_1,
+                                                                                  A_DATE);
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_2 = new ParkingAccessLog(new ParkingAccessLogId(),
+                                                                                  PARKING_ZONE_2,
+                                                                                  ANOTHER_DATE);
 
   @Before
   public void setUp() {
@@ -51,7 +55,7 @@ public class UsageReportFactoryTest {
     UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY);
     assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
     assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
-    assertThat(usageReport.getParkingZones()).isNull();
+    assertThat(usageReport.getParkingZone()).isNull();
     assertThat(usageReport.getTotalOfEntry()).isEqualTo(TOTAL_NUMBER_OF_ACCESS);
   }
 
@@ -60,7 +64,7 @@ public class UsageReportFactoryTest {
     UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE_1);
     assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
     assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
-    assertThat(usageReport.getParkingZones()).isEqualTo(PARKING_ZONE_1);
+    assertThat(usageReport.getParkingZone()).isEqualTo(PARKING_ZONE_1);
     assertThat(usageReport.getTotalOfEntry()).isEqualTo(TOTAL_NUMBER_OF_ACCESS);
   }
 }

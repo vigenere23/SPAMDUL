@@ -12,7 +12,7 @@ public class UsageReportAssembler {
 
   public UsageReportDto toDto(UsageReport usageReport) {
     UsageReportDto dto = new UsageReportDto();
-    dto.parkingZone = usageReport.getParkingZones();
+    dto.parkingZone = usageReport.getParkingZone();
     List<UsageReportDayDto> usageReportDayDtos = new ArrayList<>();
 
     for (Map.Entry<LocalDate, Integer> entry : usageReport.getUsageReport().entrySet()) {

@@ -60,7 +60,8 @@ public class UsageReportService {
 
     UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(lastMonthLogsPerDay,
                                                                              usageReportSummaryCreationDto.startDate,
-                                                                             usageReportSummaryCreationDto.endDate);
+                                                                             usageReportSummaryCreationDto.endDate,
+                                                                             usageReportSummaryCreationDto.parkingZone);
 
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }

@@ -13,6 +13,7 @@ public class UsageReportSummaryAssembler {
                       .ifPresent(mostPopularDate -> dto.mostPopularMonthDate = mostPopularDate);
     usageReportSummary.getLeastPopularDateOfMonth()
                       .ifPresent(leastPopularDate -> dto.leastPopularMonthDate = leastPopularDate);
+    usageReportSummary.getParkingZone().ifPresent(parkingZone -> dto.parkingZone = parkingZone);
 
     return dto;
   }

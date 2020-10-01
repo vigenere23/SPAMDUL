@@ -10,6 +10,5 @@ public class UsageReportCreationDto {
   public LocalDate startDate;
   @NotNull
   public LocalDate endDate;
-  @NotNull
   public ParkingZone parkingZone;
 }
