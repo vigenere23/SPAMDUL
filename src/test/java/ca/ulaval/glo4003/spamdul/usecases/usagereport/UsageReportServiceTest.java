@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummary;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
@@ -49,6 +50,7 @@ public class UsageReportServiceTest {
 
   private final LocalDate startDate = LocalDate.of(2010, 1, 1);
   private final LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+  private final ParkingZone parkingZone = ParkingZone.ZONE_1;
 
   @Before
   public void setUp() {
@@ -65,6 +67,7 @@ public class UsageReportServiceTest {
     creationDto = new UsageReportSummaryCreationDto();
     creationDto.startDate = startDate;
     creationDto.endDate = endDate;
+    creationDto.parkingZone = parkingZone;
   }
 
   @Test
@@ -78,7 +81,8 @@ public class UsageReportServiceTest {
     when(parkingAccessLogFilter.betweenDates(startDate, endDate)).thenReturn(parkingAccessLogFilter);
     when(parkingAccessLogFilter.getResults()).thenReturn(returnedByFilter);
     when(parkingAccessLogAgglomerator.groupByAccessDate(returnedByFilter)).thenReturn(returnedByAgglomerator);
-    when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate)).thenReturn(returnedByFactory);
+    when(usageReportSummaryFactory.create(returnedByAgglomerator, startDate, endDate, parkingZone)).thenReturn(
+        returnedByFactory);
 
     usageReportService.getReportSummary(creationDto);
 
@@ -88,7 +92,7 @@ public class UsageReportServiceTest {
     verify(parkingAccessLogFilter).getResults();
     verify(parkingAccessLogFilter).setData(returnedByRepo);
     verify(parkingAccessLogAgglomerator).groupByAccessDate(returnedByFilter);
-    verify(usageReportSummaryFactory).create(returnedByAgglomerator, startDate, endDate);
+    verify(usageReportSummaryFactory).create(returnedByAgglomerator, startDate, endDate, parkingZone);
     verify(usageReportSummaryAssembler).toDto(returnedByFactory);
   }
 }
