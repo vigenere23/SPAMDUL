@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.usecases.sale;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryBridgeFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
