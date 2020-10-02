@@ -54,7 +54,7 @@ public class UsageReportCreationAssembler {
     }
 
     try {
-      return ParkingZone.valueOf(parkingZone);
+      return ParkingZone.valueOf(parkingZone.toUpperCase());
     } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneArgumentException("The Parking zone provided must be ZONE_*number*");
     }
