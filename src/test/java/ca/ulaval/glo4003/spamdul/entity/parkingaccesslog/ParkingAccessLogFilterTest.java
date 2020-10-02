@@ -49,7 +49,7 @@ public class ParkingAccessLogFilterTest {
 
     List<ParkingAccessLog> filteredLogsSecondTime = parkingAccessLogFilter.getResults();
 
-    assertThat(filteredLogsSecondTime).containsExactlyElementsIn(filteredLogsSecondTime);
+    assertThat(filteredLogsSecondTime).containsExactlyElementsIn(filteredLogsFirstTime);
   }
 
   @Test

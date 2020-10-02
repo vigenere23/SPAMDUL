@@ -10,13 +10,15 @@ import java.util.Map;
 public class UsageReportSummaryFactory {
 
   public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> monthAccessesPerDay,
-                                   LocalDate startDate, LocalDate endDate) {
+                                   LocalDate startDate,
+                                   LocalDate endDate) {
     return create(monthAccessesPerDay, startDate, endDate, null);
   }
 
   public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> monthAccessesPerDay,
                                    LocalDate startDate,
-                                   LocalDate endDate, ParkingZone parkingZone) {
+                                   LocalDate endDate,
+                                   ParkingZone parkingZone) {
     float totalUsage = 0;
     int minNumberOfAccesses = Integer.MAX_VALUE;
     int maxNumberOfAccesses = 0;
