@@ -6,8 +6,6 @@ public enum DayOfWeek {
     WEDNESDAY,
     THURSDAY,
     FRIDAY,
-    SATURDAY,
-    SUNDAY,
     ALL;
 
     public boolean includedIn(DayOfWeek dayOfWeek) {
