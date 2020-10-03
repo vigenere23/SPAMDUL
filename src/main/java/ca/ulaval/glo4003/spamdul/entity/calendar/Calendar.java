@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.calendar;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public interface Calendar {
 
-  LocalDate getCurrentTermStartDate();
+    LocalDateTime getStartOfSemester(Semester semester);
 
-  LocalDate getEndOfTermDateInNTerms(int numberOfTerms);
-
+    LocalDateTime getEndOfSemester(Semester semester);
 }
