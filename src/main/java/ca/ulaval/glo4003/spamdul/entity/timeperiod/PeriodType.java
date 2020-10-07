@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.spamdul.entity.pass;
+package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
-public enum PassType {
+public enum PeriodType {
+    SINGLE_DAY,
     SINGLE_DAY_PER_WEEK_PER_SEMESTER,
     MONTHLY,
     ONE_SEMESTER,

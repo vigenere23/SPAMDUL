@@ -39,13 +39,13 @@ public class CampusAccessResourceImplTest {
     campusAccessService = mock(CampusAccessService.class);
     campusAccessDto = new CampusAccessDto();
     campusAccessRequest = new CampusAccessRequest();
-    campusAccess = new CampusAccess(null, null, null, null, null);
+    campusAccess = new CampusAccess(null, null, null, null);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
     accessingCampusRequest.accessingCampusDate = ACCESSING_CAMPUS_DATE_STRING;
     accessingCampusDto = new AccessingCampusDto();
-    accessingCampusDto.accessingCampusDate = ACCESSING_CAMPUS_DATE;
+    accessingCampusDto.accessingCampusDateTime = ACCESSING_CAMPUS_DATE;
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
   }
 

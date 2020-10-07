@@ -18,8 +18,7 @@ public class InMemoryCampusAccessRepositoryTest {
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 new UserId(),
                                                                 new CarId(),
-                                                                DayOfWeek.MONDAY,
-                                                                Period.SEMESTER_1);
+                                                                null);
 
   private InMemoryCampusAccessRepository campusAccessRepository;
 

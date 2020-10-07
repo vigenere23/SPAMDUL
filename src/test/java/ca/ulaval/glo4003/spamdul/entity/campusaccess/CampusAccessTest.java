@@ -1,78 +1,74 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import static com.google.common.truth.Truth.assertThat;
-
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.DayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class CampusAccessTest {
 
   public static final PassCode A_PASS_CODE = new PassCode();
-  private static final LocalDate A_VALID_ACCESS_DATE = LocalDate.of(2020, 10, 5);
-  private static final LocalDate AN_INVALID_ACCESS_DATE = LocalDate.of(2020, 10, 6);
-  private final DayOfWeek A_DAY_OF_THE_WEEK = DayOfWeek.MONDAY;
-  private final DayOfWeek ANOTHER_DAY_OF_THE_WEEK = DayOfWeek.SATURDAY;
+  private final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
+  private final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
+  private final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
+  private final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
 
+  private TimePeriod timePeriod;
   private CampusAccess campusAccess;
 
   @Before
   public void setUp() throws Exception {
+    timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, DayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                                  new UserId(),
                                                  new CarId(),
-                                                 A_DAY_OF_THE_WEEK,
-                                                 Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+                                                 timePeriod);
   }
 
   @Test
-  public void givenTheSameDayOfTheWeek_whenVerifyingIfGrantedAccess_shouldGrantAccess() {
-    boolean grantedAccess = campusAccess.isAccessGranted(A_VALID_ACCESS_DATE);
+  public void givenDateTimeIncludedInPeriod_whenVerifyingIfGrantedAccess_shouldGrantAccess() {
+    boolean grantedAccess = campusAccess.isAccessGranted(A_WEDNESDAY_IN_THE_MIDDLE);
 
     assertThat(grantedAccess).isTrue();
   }
 
   @Test
-  public void givenAnotherDayOfTheWeek_whenVerifyingIfGrantedAccess_shouldNotGrantAccess() {
-    boolean grantedAccess = campusAccess.isAccessGranted(AN_INVALID_ACCESS_DATE);
+  public void givenDateNotTimeIncludedInPeriod_whenVerifyingIfGrantedAccess_shouldNotGrantAccess() {
+
+    boolean grantedAccess = campusAccess.isAccessGranted(A_DATE_TIME_BEFORE);
 
     assertThat(grantedAccess).isFalse();
   }
 
-  //TODO: remove those ugly test when refactoring is done
   @Test
-  public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnSameDay_shouldSetPassCode() {
-    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, A_DAY_OF_THE_WEEK);
+  public void givenPassPeriodIncluded_whenAssociatingSingleDayPerWeekPassOnSameDay_shouldSetPassCode() {
+    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, DayOfWeek.WEDNESDAY);
+
+    campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
 
     assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
   }
 
   @Test(expected = PassAlreadyAssociatedException.class)
   public void givenPassAlreadyAssociated_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
-    campusAccess.setAssociatedPassCode(new PassCode());
+    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, DayOfWeek.WEDNESDAY);
+    campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
 
-    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);
-
-    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
+    campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
   }
 
   @Test(expected = PassSaleNotAcceptedByAccessException.class)
-  public void givenSingleDayPerWeekPeriod_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
-    campusAccess.associatePass(A_PASS_CODE, PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER, ANOTHER_DAY_OF_THE_WEEK);
+  public void givenPassPeriodNotIncluded_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
+    final TimePeriod NOT_INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, DayOfWeek.FRIDAY);
 
-    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
-  }
-
-  @Test(expected = PassSaleNotAcceptedByAccessException.class)
-  public void givenSingleDayPerWeekPeriod_whenAssociatingOtherTypeOfPass_shouldThrow() {
-    campusAccess.associatePass(A_PASS_CODE, PassType.MONTHLY, ANOTHER_DAY_OF_THE_WEEK);
-
-    assertThat(campusAccess.getAssociatedPassCode()).isEqualTo(A_PASS_CODE);
+    campusAccess.associatePass(A_PASS_CODE, NOT_INCLUDED_TIME_PERIOD);
   }
 }

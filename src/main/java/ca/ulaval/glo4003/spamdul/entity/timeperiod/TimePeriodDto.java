@@ -1,11 +1,9 @@
-package ca.ulaval.glo4003.spamdul.entity.calendar;
-
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
+package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
 import java.time.LocalDate;
 
 public class TimePeriodDto {
-    public Period period;
+    public PeriodType periodType;
     public LocalDate startDate;
     public LocalDate date;
     public Semester startSemester;

@@ -55,7 +55,7 @@ public class CampusAccessAssemblerTest {
   public void setUp() throws Exception {
     userAssembler = mock(UserAssembler.class);
     carAssembler = mock(CarAssembler.class);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_DAY_TO_ACCESS_CAMPUS, A_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, null);
     campusAccessRequest = new CampusAccessRequest();
     campusAccessRequest.carInfos = carRequest;
     campusAccessRequest.userInfos = userRequest;
@@ -114,7 +114,7 @@ public class CampusAccessAssemblerTest {
   public void whenAssemblingFromRequest_shouldCreateNewAccessingCampusDto() {
     AccessingCampusDto accessingCampusDto = campusAccessAssembler.fromRequest(accessingCampusRequest);
 
-    assertThat(accessingCampusDto.accessingCampusDate).isEqualTo(ACCESSING_CAMPUS_DATE);
+    assertThat(accessingCampusDto.accessingCampusDateTime).isEqualTo(ACCESSING_CAMPUS_DATE);
     assertThat(accessingCampusDto.campusAccessCode).isEqualTo(A_CAMPUS_ACCESS_CODE);
   }
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.calendar;
+package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
 import java.time.LocalDateTime;
 
