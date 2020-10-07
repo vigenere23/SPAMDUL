@@ -7,4 +7,6 @@ public interface Calendar {
     LocalDateTime getStartOfSemester(Semester semester);
 
     LocalDateTime getEndOfSemester(Semester semester);
+
+    LocalDateTime now();
 }

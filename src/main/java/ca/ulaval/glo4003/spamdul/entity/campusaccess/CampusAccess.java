@@ -63,17 +63,4 @@ public class CampusAccess {
   public PassCode getAssociatedPassCode() {
     return associatedPassCode;
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    CampusAccess that = (CampusAccess) o;
-    return campusAccessCode.equals(that.campusAccessCode);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(campusAccessCode);
-  }
 }

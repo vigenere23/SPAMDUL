@@ -1,10 +1,5 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
@@ -13,16 +8,16 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.Campu
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
-import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 public class CampusAccessResourceImplTest {
 
   private final String A_CAMPUS_ACCESS_CODE_STRING = "1";
   private final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf(A_CAMPUS_ACCESS_CODE_STRING);
-  private final String ACCESSING_CAMPUS_DATE_STRING = "2020-01-01";
-  private final LocalDate ACCESSING_CAMPUS_DATE = LocalDate.of(2020, 1, 1);
 
   private CampusAccessAssembler campusAccessAssembler;
   private CampusAccessService campusAccessService;
@@ -43,9 +38,7 @@ public class CampusAccessResourceImplTest {
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
-    accessingCampusRequest.accessingCampusDate = ACCESSING_CAMPUS_DATE_STRING;
     accessingCampusDto = new AccessingCampusDto();
-    accessingCampusDto.accessingCampusDateTime = ACCESSING_CAMPUS_DATE;
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
   }
 

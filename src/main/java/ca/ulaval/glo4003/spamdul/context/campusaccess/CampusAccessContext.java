@@ -6,6 +6,8 @@ import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
@@ -16,6 +18,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessReso
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
@@ -35,15 +38,21 @@ public class CampusAccessContext {
 
     UserAssembler userAssembler = new UserAssembler();
     CarAssembler carAssembler = new CarAssembler();
-    CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler);
+    TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
+    CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(userAssembler,
+            carAssembler,
+            timePeriodAssembler);
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
-    CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
+    Calendar calendar = null;
+    TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
+    CampusAccessFactory campusAccessFactory = new CampusAccessFactory(timePeriodFactory);
     CampusAccessService campusAccessService = new CampusAccessService(userService,
                                                                       carService,
                                                                       campusAccessFactory,
                                                                       campusAccessRepository,
-                                                                      passRepository);
+                                                                      passRepository,
+                                                                      calendar);
     campusAccessService.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                         campusAccessService);

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.*;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 
 import java.time.DayOfWeek;
@@ -18,10 +19,9 @@ public class PassService {
     this.campusAccessService = campusAccessService;
   }
 
-  public PassCode createPass(CampusAccessCode campusAccessCode, ParkingZone parkingZone, PassType passType,
-                             DayOfWeek dayOfWeek) {
-    Pass pass = passFactory.create(parkingZone, passType, dayOfWeek);
-    campusAccessService.associatePassToCampusAccess(campusAccessCode, pass.getPassCode(), passType, dayOfWeek);
+  public PassCode createPass(CampusAccessCode campusAccessCode, ParkingZone parkingZone, TimePeriodDto timePeriodDto) {
+    Pass pass = passFactory.create(parkingZone, timePeriodDto);
+    campusAccessService.associatePassToCampusAccess(campusAccessCode, pass.getPassCode(), pass.getTimePeriod());
     passRepository.save(pass);
 
     return pass.getPassCode();

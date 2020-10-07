@@ -9,6 +9,8 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.sale.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
@@ -21,6 +23,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAddressAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
@@ -34,7 +37,9 @@ public class SaleContext {
 
   public SaleContext() {
     passRepository = new InMemoryPassRepository();
-    PassFactory passFactory = new PassFactory();
+    Calendar calendar = null;
+    TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
+    PassFactory passFactory = new PassFactory(timePeriodFactory);
 
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
@@ -45,12 +50,13 @@ public class SaleContext {
     CarService carService = new CarService(carFactory, carRepository);
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
-    CampusAccessFactory campusAccessFactory = new CampusAccessFactory();
+    CampusAccessFactory campusAccessFactory = new CampusAccessFactory(timePeriodFactory);
     CampusAccessService campusAccessService = new CampusAccessService(userService,
             carService,
             campusAccessFactory,
             campusAccessRepository,
-            passRepository);
+            passRepository,
+            calendar);
 
     PassService passService = new PassService(passRepository, passFactory, campusAccessService);
     DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory();
@@ -60,7 +66,8 @@ public class SaleContext {
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
     DeliveryAssembler deliveryAssembler = new DeliveryAssembler(emailAddressAssembler, postalAddressAssembler);
-    PassSaleAssembler passSaleAssembler = new PassSaleAssembler(deliveryAssembler);
+    TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
+    PassSaleAssembler passSaleAssembler = new PassSaleAssembler(deliveryAssembler, timePeriodAssembler);
     saleResource = new SaleResourceImpl(saleService, passSaleAssembler);
   }
 

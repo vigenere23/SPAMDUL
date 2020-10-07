@@ -7,6 +7,5 @@ import java.time.LocalDateTime;
 public class AccessingCampusDto {
 
   public CampusAccessCode campusAccessCode;
-  public LocalDateTime accessingCampusDateTime;
 
 }

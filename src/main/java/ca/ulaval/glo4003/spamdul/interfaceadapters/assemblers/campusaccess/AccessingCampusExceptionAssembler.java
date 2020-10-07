@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.PassNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusDateArgumentException;
@@ -19,6 +20,8 @@ public class AccessingCampusExceptionAssembler implements ExceptionMapper<Invali
       exceptionResponse.error = "INVALID_ACCESSING_CAMPUS_DATE_FORMAT";
     } else if (e instanceof InvalidCampusAccessCodeArgumentException) {
       exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE_FORMAT";
+    } else if (e instanceof PassNotFoundException) {
+      exceptionResponse.error = "PASS_NOT_FOUND";
     }
 
     return Response.status(Status.BAD_REQUEST)

@@ -1,28 +1,22 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidDayOfCampusAccessArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
-import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 
 import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
@@ -64,7 +58,6 @@ public class CampusAccessAssembler {
 
     try {
       timePeriodDto = timePeriodAssembler.fromRequest(campusAccessRequest.period);
-
     } catch (IllegalArgumentException e) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
 
@@ -73,6 +66,8 @@ public class CampusAccessAssembler {
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
     }
+
+    campusAccessDto.timePeriodDto = timePeriodDto;
   }
 
   public CampusAccessResponse toResponse(CampusAccess campusAccess) {

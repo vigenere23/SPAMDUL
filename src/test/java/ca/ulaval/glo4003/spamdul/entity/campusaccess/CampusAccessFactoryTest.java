@@ -44,7 +44,7 @@ public class CampusAccessFactoryTest {
 
     campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO);
 
-    verify(timePeriodFactory.createTimePeriod(A_TIME_PERIOD_DTO));
+    verify(timePeriodFactory).createTimePeriod(A_TIME_PERIOD_DTO);
   }
 
   @Test

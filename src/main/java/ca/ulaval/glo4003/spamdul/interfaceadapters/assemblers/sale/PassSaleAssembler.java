@@ -3,40 +3,65 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.*;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.sale.PassSaleDto;
 
-import java.time.DayOfWeek;
+import java.util.ArrayList;
+
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.*;
+import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
 public class PassSaleAssembler {
 
-  private DeliveryAssembler deliveryAssembler;
+  private final static ArrayList<PeriodType> ACCEPTED_PERIOD_TYPES = newArrayList(
+          SINGLE_DAY_PER_WEEK_PER_SEMESTER,
+          MONTHLY,
+          ONE_SEMESTER,
+          TWO_SEMESTERS,
+          THREE_SEMESTERS);
+  private final DeliveryAssembler deliveryAssembler;
+  private final TimePeriodAssembler timePeriodAssembler;
 
-  public PassSaleAssembler(DeliveryAssembler deliveryAssembler) {
+  public PassSaleAssembler(DeliveryAssembler deliveryAssembler, TimePeriodAssembler timePeriodAssembler) {
     this.deliveryAssembler = deliveryAssembler;
+    this.timePeriodAssembler = timePeriodAssembler;
   }
 
   public PassSaleDto fromRequest(PassSaleRequest passSaleRequest) {
     PassSaleDto passSaleDto = new PassSaleDto();
 
-    passSaleDto.deliveryDto = deliveryAssembler.fromDto(passSaleRequest.deliveryInfos);
+    passSaleDto.deliveryDto = deliveryAssembler.fromRequest(passSaleRequest.deliveryInfos);
+    passSaleDto.timePeriodDto = getTimePeriodDto(passSaleRequest.period);
     passSaleDto.parkingZone = getParkingZone(passSaleRequest.parkingZone);
     passSaleDto.campusAccessCode = getCampusAccessCode(passSaleRequest.campusAccessCode);
-    passSaleDto.passType = getPassType(passSaleRequest.passType);
-    passSaleDto.dayOfWeek = getDayOfWeek(passSaleRequest.dayOfWeek);
 
     return passSaleDto;
   }
 
-  private DayOfWeek getDayOfWeek(String dayOfWeekString) {
+  private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {
+    final String ERROR_MESSAGE = "make a choice between (single_day_per_week_per_semester, monthly, one_semester," +
+            "two_semester or three_semester) ";
+    TimePeriodDto timePeriodDto;
+
     try {
-      return DayOfWeek.valueOf(dayOfWeekString.toUpperCase());
+      timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
     } catch (IllegalArgumentException e) {
-      throw new InvalidPassSaleDayOfWeekException("The day for the pass must be a valid day of the week");
+      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+
     }
+
+    if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
+      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+    }
+    return timePeriodDto;
   }
 
   private ParkingZone getParkingZone(String parkingZone) {
@@ -44,14 +69,6 @@ public class PassSaleAssembler {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
     } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneExceptionSale("The parking zone is invalid");
-    }
-  }
-
-  private PassType getPassType(String passType) {
-    try {
-      return PassType.valueOf(passType.toUpperCase());
-    } catch (IllegalArgumentException e) {
-      throw new InvalidPassSaleTypeException("The pass type is invalid");
     }
   }
 
