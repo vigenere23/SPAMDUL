@@ -69,7 +69,7 @@ public class CampusAccessAssemblerTest {
     timePeriodDto = new TimePeriodDto();
     timePeriodDto.periodType = PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
     timePeriodRequest = new TimePeriodRequest();
-    timePeriodRequest.period = "";
+    timePeriodRequest.type = "";
     campusAccessRequest.period = timePeriodRequest;
     when(timePeriodAssembler.fromRequest(timePeriodRequest)).thenReturn(timePeriodDto);
   }

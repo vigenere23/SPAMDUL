@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.car.InMemoryCarRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.pass.InMemoryPassRepository;
@@ -37,7 +38,7 @@ public class SaleContext {
 
   public SaleContext() {
     passRepository = new InMemoryPassRepository();
-    Calendar calendar = null;
+    Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     PassFactory passFactory = new PassFactory(timePeriodFactory);
 

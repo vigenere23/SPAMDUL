@@ -43,4 +43,12 @@ public class Semester {
     public int hashCode() {
         return Objects.hash(season, year);
     }
+
+    public char getSeason() {
+        return season;
+    }
+
+    public int getYear() {
+        return year;
+    }
 }
