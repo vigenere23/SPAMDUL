@@ -6,24 +6,24 @@ import java.util.Objects;
 public class TimePeriod {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private DayOfWeek dayOfWeek;
+    private TimePeriodDayOfWeek timePeriodDayOfWeek;
 
-    public TimePeriod(LocalDateTime startDateTime, LocalDateTime endDateTime, DayOfWeek dayOfWeek) {
+    public TimePeriod(LocalDateTime startDateTime, LocalDateTime endDateTime, TimePeriodDayOfWeek timePeriodDayOfWeek) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.dayOfWeek = dayOfWeek;
+        this.timePeriodDayOfWeek = timePeriodDayOfWeek;
     }
 
     public boolean includedIn(TimePeriod that) {
         return !startDateTime.isBefore(that.startDateTime) &&
                 !endDateTime.isAfter(that.endDateTime) &&
-                dayOfWeek.includedIn(that.dayOfWeek);
+                timePeriodDayOfWeek.includedIn(that.timePeriodDayOfWeek);
     }
 
     public boolean include(LocalDateTime localDateTime) {
         return !startDateTime.isAfter(localDateTime) &&
                 !endDateTime.isBefore(localDateTime) &&
-                dayOfWeek.include(localDateTime.getDayOfWeek());
+                timePeriodDayOfWeek.include(localDateTime.getDayOfWeek());
     }
 
     @Override
@@ -33,12 +33,12 @@ public class TimePeriod {
         TimePeriod that = (TimePeriod) o;
         return startDateTime.equals(that.startDateTime) &&
                 endDateTime.equals(that.endDateTime) &&
-                dayOfWeek == that.dayOfWeek;
+                timePeriodDayOfWeek == that.timePeriodDayOfWeek;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startDateTime, endDateTime, dayOfWeek);
+        return Objects.hash(startDateTime, endDateTime, timePeriodDayOfWeek);
     }
 
     public LocalDateTime getStartDateTime() {
@@ -49,7 +49,7 @@ public class TimePeriod {
         return endDateTime;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public TimePeriodDayOfWeek getTimePeriodDayOfWeek() {
+        return timePeriodDayOfWeek;
     }
 }

@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.pass.*;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.DayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
@@ -37,7 +37,7 @@ public class CampusAccessServiceTest {
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020,1,1,0,0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020,2,1,0,0);
-  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, DayOfWeek.ALL);
+  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.ALL);
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();

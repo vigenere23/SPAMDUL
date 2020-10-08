@@ -8,5 +8,5 @@ public class TimePeriodDto {
     public LocalDate date;
     public Semester startSemester;
     public Semester semester;
-    public DayOfWeek dayOfWeek;
+    public TimePeriodDayOfWeek timePeriodDayOfWeek;
 }

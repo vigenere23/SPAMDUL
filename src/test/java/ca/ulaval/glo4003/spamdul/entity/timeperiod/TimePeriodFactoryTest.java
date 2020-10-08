@@ -17,7 +17,7 @@ public class TimePeriodFactoryTest {
     private static final Semester A_SEMESTER = new Semester('A', 2050);
     private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020,1,1,0,0);
     private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020,2,1,0,0);
-    private static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.TUESDAY;
+    private static final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.TUESDAY;
 
     @Mock
     private Calendar calendar;
@@ -56,7 +56,7 @@ public class TimePeriodFactoryTest {
         TimePeriodDto dto = new TimePeriodDto();
         dto.periodType = PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
         dto.semester = A_SEMESTER;
-        dto.dayOfWeek = A_DAY_OF_WEEK;
+        dto.timePeriodDayOfWeek = A_DAY_OF_WEEK;
         when(calendar.getStartOfSemester(A_SEMESTER)).thenReturn(A_START_DATE_TIME);
         when(calendar.getEndOfSemester(A_SEMESTER)).thenReturn(A_END_DATE_TIME);
 
@@ -64,6 +64,6 @@ public class TimePeriodFactoryTest {
 
         assertThat(timePeriod.getStartDateTime()).isEqualTo(A_START_DATE_TIME);
         assertThat(timePeriod.getEndDateTime()).isEqualTo(A_END_DATE_TIME);
-        assertThat(timePeriod.getDayOfWeek()).isEqualTo(A_DAY_OF_WEEK);
+        assertThat(timePeriod.getTimePeriodDayOfWeek()).isEqualTo(A_DAY_OF_WEEK);
     }
 }

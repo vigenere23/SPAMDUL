@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.pass;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.*;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class PassServiceTest {
   private static final PassCode A_PASS_CODE = new PassCode();
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2000,1,1,0,0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2001,1,1,0,0);
-  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, ca.ulaval.glo4003.spamdul.entity.timeperiod.DayOfWeek.MONDAY);
+  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.MONDAY);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
   private Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
 

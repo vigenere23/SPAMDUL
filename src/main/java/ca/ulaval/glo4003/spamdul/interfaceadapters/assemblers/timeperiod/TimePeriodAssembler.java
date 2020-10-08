@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.DayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -32,7 +32,7 @@ public class TimePeriodAssembler {
     private void setSingleDayPerWeekPerSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {
         timePeriodDto.semester = assembleSemester(timePeriodRequest.semester);
         try {
-            timePeriodDto.dayOfWeek = DayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
+            timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw  new InvalidPeriodArgumentException("Day of the week must be from monday to friday");
         }

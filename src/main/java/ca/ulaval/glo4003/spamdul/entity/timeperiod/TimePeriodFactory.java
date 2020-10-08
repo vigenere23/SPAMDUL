@@ -12,13 +12,13 @@ public class TimePeriodFactory {
   public TimePeriod createTimePeriod(TimePeriodDto timePeriodDto) {
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
-    DayOfWeek dayOfWeek;
+    TimePeriodDayOfWeek timePeriodDayOfWeek;
 
     if (timePeriodDto.periodType == PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
       startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
-      dayOfWeek = timePeriodDto.dayOfWeek;
-      return new TimePeriod(startDateTime, endDateTime, dayOfWeek);
+      timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;
+      return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);
     }
 
     return null;

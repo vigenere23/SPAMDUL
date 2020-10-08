@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.DayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
@@ -26,7 +26,7 @@ public class CampusAccessFactoryTest {
   private final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
   private final TimePeriod A_TIME_PERIOD = new TimePeriod(LocalDateTime.of(2020,1,1,0,0),
           LocalDateTime.of(2020,1,2,0,0),
-          DayOfWeek.MONDAY);
+          TimePeriodDayOfWeek.MONDAY);
 
   @Mock
   private TimePeriodFactory timePeriodFactory;
