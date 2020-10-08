@@ -4,7 +4,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
@@ -36,7 +35,6 @@ public class UsageReportServiceFunctionalTest {
     parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
     usageReportService = new UsageReportService(
         parkingAccessLogRepository,
-        new ParkingAccessLogFilter(),
         new ParkingAccessLogAgglomerator(),
         new UsageReportSummaryFactory(),
         new UsageReportSummaryAssembler(),
