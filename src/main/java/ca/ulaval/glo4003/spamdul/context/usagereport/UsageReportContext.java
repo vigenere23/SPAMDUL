@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.context.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
@@ -23,7 +22,6 @@ public class UsageReportContext {
   private final UsageReportResource usageReportResource;
 
   public UsageReportContext(boolean populateData) {
-    ParkingAccessLogFilter parkingAccessLogFilter = new ParkingAccessLogFilter();
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
     UsageReportFactory usageReportFactory = new UsageReportFactory();
@@ -37,7 +35,6 @@ public class UsageReportContext {
 
     UsageReportService usageReportService = new UsageReportService(
         parkingAccessLogRepository,
-        parkingAccessLogFilter,
         parkingAccessLogAgglomerator,
         usageReportSummaryFactory,
         usageReportSummaryAssembler,

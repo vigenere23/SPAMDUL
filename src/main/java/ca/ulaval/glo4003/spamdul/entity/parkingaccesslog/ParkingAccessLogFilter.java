@@ -7,24 +7,40 @@ import java.util.List;
 
 public class ParkingAccessLogFilter {
 
-  private FilterContainer<ParkingAccessLog> filterContainer;
+  private final FilterContainer<ParkingAccessLog> filterContainer;
+
+  public ParkingAccessLogFilter() {
+    filterContainer = new FilterContainer<>();
+  }
 
   public ParkingAccessLogFilter setData(List<ParkingAccessLog> accessLogs) {
-    filterContainer = new FilterContainer<>(accessLogs);
+    filterContainer.setData(accessLogs);
     return this;
   }
 
   public ParkingAccessLogFilter atZone(ParkingZone zone) {
+    if (zone == null) {
+      return this;
+    }
+
     filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
     return this;
   }
 
   public ParkingAccessLogFilter atDate(LocalDate date) {
+    if (date == null) {
+      return this;
+    }
+
     filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isEqual(date));
     return this;
   }
 
   public ParkingAccessLogFilter betweenDates(LocalDate startDate, LocalDate endDate) {
+    if (startDate == null || endDate == null) {
+      return this;
+    }
+
     filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isBefore(startDate));
     filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(endDate));
     return this;

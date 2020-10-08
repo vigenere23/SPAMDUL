@@ -32,7 +32,7 @@ public class ParkingAccessLogFilterTest {
   }
 
   @Test
-  public void givenDataSet_whenGettingResults_shouldReturnDataSet() {
+  public void givenDataSetAndNoFiltersAdded_whenGettingResults_shouldReturnDataSet() {
     List<ParkingAccessLog> logs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
     parkingAccessLogFilter.setData(logs);
 
@@ -42,14 +42,14 @@ public class ParkingAccessLogFilterTest {
   }
 
   @Test
-  public void givenResultsGet_whenGettingResultsASecondTime_shouldReturnEmptyList() {
+  public void givenResultsGet_whenGettingResultsASecondTime_shouldReturnSameResults() {
     List<ParkingAccessLog> logs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
     parkingAccessLogFilter.setData(logs);
-    parkingAccessLogFilter.getResults();
+    List<ParkingAccessLog> filteredLogsFirstTime = parkingAccessLogFilter.getResults();
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.getResults();
+    List<ParkingAccessLog> filteredLogsSecondTime = parkingAccessLogFilter.getResults();
 
-    assertThat(filteredLogs).isEmpty();
+    assertThat(filteredLogsSecondTime).containsExactlyElementsIn(filteredLogsFirstTime);
   }
 
   @Test
