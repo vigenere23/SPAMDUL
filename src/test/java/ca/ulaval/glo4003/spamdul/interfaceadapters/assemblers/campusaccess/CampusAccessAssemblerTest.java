@@ -61,8 +61,8 @@ public class CampusAccessAssemblerTest {
     timePeriodAssembler = mock(TimePeriodAssembler.class);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, null);
     campusAccessRequest = new CampusAccessRequest();
-    campusAccessRequest.carInfos = carRequest;
-    campusAccessRequest.userInfos = userRequest;
+    campusAccessRequest.car = carRequest;
+    campusAccessRequest.user = userRequest;
     campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler, timePeriodAssembler);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
@@ -78,14 +78,14 @@ public class CampusAccessAssemblerTest {
   public void whenAssemblingFromRequest_shouldCallUserAssembler() {
     campusAccessAssembler.fromRequest(campusAccessRequest);
 
-    verify(userAssembler, times(1)).fromRequest(campusAccessRequest.userInfos);
+    verify(userAssembler, times(1)).fromRequest(campusAccessRequest.user);
   }
 
   @Test
   public void whenAssemblingFromRequest_shouldCallCarAssembler() {
     campusAccessAssembler.fromRequest(campusAccessRequest);
 
-    verify(carAssembler, times(1)).fromRequest(campusAccessRequest.carInfos);
+    verify(carAssembler, times(1)).fromRequest(campusAccessRequest.car);
   }
 
   @Test
