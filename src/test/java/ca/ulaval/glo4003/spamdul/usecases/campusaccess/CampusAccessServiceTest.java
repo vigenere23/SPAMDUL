@@ -4,8 +4,11 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.*;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.*;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -16,8 +19,8 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -27,30 +30,31 @@ public class CampusAccessServiceTest {
 
   private static final PassCode A_PASS_CODE = new PassCode();
   private static final PassType A_PASS_TYPE = PassType.MONTHLY;
-  private static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.SATURDAY;
   private static final UserId A_USER_ID = new UserId();
   private static final CarId A_CAR_ID = new CarId();
   private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
   private static final Car A_CAR = new Car(A_CAR_ID, CarType.GOURMANDE, "brand", "model", 2020, "xxx xxx");
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
-  private static final Period A_PERIOD = Period.SEMESTER_1;
-  private static final DayOfWeek A_CAMPUS_ACCESS_DAY = DayOfWeek.FRIDAY;
-  private static final LocalDate A_CAMPUS_ACCESS_DATE = LocalDate.of(2020, 9, 25);
-  private static final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_DAY_OF_WEEK, A_PERIOD);
+  private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020,1,1,0,0);
+  private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020,2,1,0,0);
+  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.ALL);
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_PASS_TYPE, A_DAY_OF_WEEK);
+  private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
+  private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
 
+  private CampusAccess campusAccess;
   private CampusAccessRepository campusAccessRepository;
   private UserService userService;
   private CarService carService;
-  private CampusAccessService campusAccessService;
   private CampusAccessFactory campusAccessFactory;
   private CampusAccessDto campusAccessDto;
   private UserDto userDto;
   private CarDto carDto;
   private AccessingCampusDto accessingCampusDto;
-  private ParkingAccessLogRepository parkingAccessLogRepository;
   private PassRepository passRepository;
+  private Calendar calendar;
+
+  private CampusAccessService campusAccessService;
 
   @Before
   public void setUp() throws Exception {
@@ -59,24 +63,23 @@ public class CampusAccessServiceTest {
     campusAccessDto = new CampusAccessDto();
     campusAccessDto.userDto = userDto;
     campusAccessDto.carDto = carDto;
-    campusAccessDto.period = A_PERIOD;
-    campusAccessDto.dayToAccessCampus = A_CAMPUS_ACCESS_DAY;
+    campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
     userService = mock(UserService.class);
     carService = mock(CarService.class);
     campusAccessRepository = mock(CampusAccessRepository.class);
     campusAccessFactory = mock(CampusAccessFactory.class);
-    parkingAccessLogRepository = mock(ParkingAccessLogRepository.class);
     passRepository = mock(PassRepository.class);
+    calendar = mock(Calendar.class);
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
                                                   campusAccessRepository,
-                                                  passRepository);
+                                                  passRepository,
+                                                  calendar);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
-    accessingCampusDto.accessingCampusDate = A_CAMPUS_ACCESS_DATE;
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
-    A_CAMPUS_ACCESS.setAssociatedPassCode(A_PASS_CODE);
   }
 
   @Test
@@ -108,28 +111,62 @@ public class CampusAccessServiceTest {
 
     verify(campusAccessFactory, times(1)).create(A_USER_ID,
                                                  A_CAR_ID,
-                                                 campusAccessDto.period,
-                                                 campusAccessDto.dayToAccessCampus);
+                                                 A_TIME_PERIOD_DTO);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldSaveCampusAccessInRepository() {
     given(userService.createUser(userDto)).willReturn(A_USER);
     given(carService.createCar(carDto)).willReturn(A_CAR);
-    given(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_PERIOD, A_CAMPUS_ACCESS_DAY)).willReturn(A_CAMPUS_ACCESS);
+    given(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO)).willReturn(campusAccess);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
-    verify(campusAccessRepository, times(1)).save(A_CAMPUS_ACCESS);
+    verify(campusAccessRepository, times(1)).save(campusAccess);
   }
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
     given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(A_CAMPUS_ACCESS);
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    given(calendar.now()).willReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(campusAccessRepository, times(1)).findById(A_CAMPUS_ACCESS_CODE);
+  }
+
+  @Test
+  public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
+    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    given(calendar.now()).willReturn(A_START_DATE_TIME);
+    campusAccessService.grantAccessToCampus(accessingCampusDto);
+
+    verify(calendar, times(1)).now();
+  }
+
+  @Test
+  public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldCallPassRepositoryFind() {
+    campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
+    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    given(calendar.now()).willReturn(A_START_DATE_TIME);
+
+    campusAccessService.grantAccessToCampus(accessingCampusDto);
+
+    verify(passRepository, times(1)).findByPassCode(A_PASS_CODE);
+  }
+
+  @Test
+  public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
+    campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
+    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
+    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    given(calendar.now()).willReturn(A_START_DATE_TIME);
+
+    boolean result = campusAccessService.grantAccessToCampus(accessingCampusDto);
+
+    assertThat(result).isTrue();
   }
 
   @Test
@@ -146,7 +183,7 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
     verify(campusAccessRepository).findById(A_CAMPUS_ACCESS_CODE);
   }
@@ -156,9 +193,9 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
-    verify(campusAccess).associatePass(A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+    verify(campusAccess).associatePass(A_PASS_CODE, A_TIME_PERIOD);
   }
 
   @Test
@@ -166,7 +203,7 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_PASS_TYPE, A_DAY_OF_WEEK);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
     verify(campusAccessRepository).save(campusAccess);
   }

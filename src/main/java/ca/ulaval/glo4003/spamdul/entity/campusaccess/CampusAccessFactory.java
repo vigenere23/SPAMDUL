@@ -1,22 +1,21 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidPeriodArgumentException;
-import java.time.DayOfWeek;
 
 public class CampusAccessFactory {
+  private final TimePeriodFactory timePeriodFactory;
 
-  public CampusAccess create(UserId userId, CarId carId, Period period, DayOfWeek dayToAccessCampus) {
-    if (dayToAccessCampus == DayOfWeek.SATURDAY || dayToAccessCampus == DayOfWeek.SUNDAY) {
-      throw new InvalidDayToAccessCampusException("The campus access day must be between Monday and Friday");
-    }
+  public CampusAccessFactory(TimePeriodFactory timePeriodFactory) {
+    this.timePeriodFactory = timePeriodFactory;
+  }
 
-    if (period != Period.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
-      throw new InvalidPeriodArgumentException(
-          "When choosing a specific day of the week to access the campus the period option must be single_per_week_per_semester");
-    }
+  public CampusAccess create(UserId userId, CarId carId, TimePeriodDto timePeriodDto) {
+    TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
 
-    return new CampusAccess(new CampusAccessCode(), userId, carId, dayToAccessCampus, period);
+    return new CampusAccess(new CampusAccessCode(), userId, carId, timePeriod);
   }
 }

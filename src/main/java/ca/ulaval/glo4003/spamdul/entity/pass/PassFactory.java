@@ -1,27 +1,20 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleDayOfWeekException;
-
-import java.time.DayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 
 public class PassFactory {
+  private final TimePeriodFactory timePeriodFactory;
 
-  public PassFactory() {
+  public PassFactory(TimePeriodFactory timePeriodFactory) {
+    this.timePeriodFactory = timePeriodFactory;
   }
 
-  public Pass create(ParkingZone parkingZone, PassType passType, DayOfWeek dayOfWeek) {
+  public Pass create(ParkingZone parkingZone, TimePeriodDto timePeriodDto) {
+    TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
     PassCode passCode = new PassCode();
 
-    if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-      throw new InvalidPassSaleDayOfWeekException("The campus access day must be between Monday and Friday");
-    }
-
-    if (passType != PassType.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
-      throw new InvalidPassSaleArgumentException(
-              "When choosing a specific day of the week for the pass the pass type must be single_per_week_per_semester");
-    }
-
-    return new Pass(passCode, parkingZone, passType, dayOfWeek);
+    return new Pass(passCode, parkingZone, timePeriod);
   }
 }

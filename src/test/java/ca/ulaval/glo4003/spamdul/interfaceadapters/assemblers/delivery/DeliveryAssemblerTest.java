@@ -45,7 +45,7 @@ public class DeliveryAssemblerTest {
         deliveryRequest.emailAddress = A_EMAIL_ADDRESS_STRING;
 
 
-        DeliveryDto deliveryDto = deliveryAssembler.fromDto(deliveryRequest);
+        DeliveryDto deliveryDto = deliveryAssembler.fromRequest(deliveryRequest);
 
         verify(emailAddressAssembler).fromString(A_EMAIL_ADDRESS_STRING);
         assertThat(deliveryDto.deliveryMode).isEqualTo(DeliveryMode.EMAIL);
@@ -58,7 +58,7 @@ public class DeliveryAssemblerTest {
         deliveryRequest.deliveryMode = "post";
         deliveryRequest.postalAddress = postalAddressRequest;
 
-        DeliveryDto deliveryDto = deliveryAssembler.fromDto(deliveryRequest);
+        DeliveryDto deliveryDto = deliveryAssembler.fromRequest(deliveryRequest);
 
         verify(postalAddressAssembler).fromDto(postalAddressRequest);
         assertThat(deliveryDto.deliveryMode).isEqualTo(DeliveryMode.POST);
@@ -69,6 +69,6 @@ public class DeliveryAssemblerTest {
     public void givenInvalidDeliveryMode_whenCreatingFromDto_thenShouldThrowInvalidDeliveryModeException() {
         deliveryRequest.deliveryMode = "test";
 
-        deliveryAssembler.fromDto(deliveryRequest);
+        deliveryAssembler.fromRequest(deliveryRequest);
     }
 }

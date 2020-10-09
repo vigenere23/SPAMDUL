@@ -14,7 +14,7 @@ public class DeliveryAssembler {
         this.postalAddressAssembler = postalAddressAssembler;
     }
 
-    public DeliveryDto fromDto(DeliveryRequest deliveryRequest) {
+    public DeliveryDto fromRequest(DeliveryRequest deliveryRequest) {
         DeliveryDto deliveryDto = new DeliveryDto();
         DeliveryMode deliveryMode = getDeliveryMode(deliveryRequest.deliveryMode);
         deliveryDto.deliveryMode = deliveryMode;

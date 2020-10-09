@@ -17,8 +17,8 @@ public class SaleService {
   }
 
   public void createSale(PassSaleDto passSaleDto) {
-    PassCode passCode = passService.createPass(passSaleDto.campusAccessCode, passSaleDto.parkingZone, passSaleDto.passType,
-            passSaleDto.dayOfWeek);
+    PassCode passCode = passService.createPass(passSaleDto.campusAccessCode, passSaleDto.parkingZone,
+            passSaleDto.timePeriodDto);
 
     passSender.sendPass(passSaleDto.deliveryDto, passCode);
   }
