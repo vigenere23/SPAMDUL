@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFee;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +21,8 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     setSansPollution();
   }
 
-  public CampusAccessFee findFeeBy(CarType carType, Period period) {
-    Map<CarType, Period> key = new HashMap<>();
+  public CampusAccessFee findBy(CarType carType, PeriodType period) {
+    Map<CarType, PeriodType> key = new HashMap<>();
     key.put(carType, period);
 
     return campusAccessFees.get(key);
