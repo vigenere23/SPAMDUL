@@ -43,8 +43,8 @@ public class CampusAccessAssembler {
 
   public CampusAccessDto fromRequest(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = new CampusAccessDto();
-    campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.userInfos);
-    campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.carInfos);
+    campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.user);
+    campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.car);
 
     setTimePeriodDto(campusAccessRequest, campusAccessDto);
 
