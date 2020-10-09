@@ -15,15 +15,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CampusAccessFeeCsvReaderTest {
+public class CampusAccessFeeCsvRepositoryTest {
 
-  private CampusAccessFeeCsvReader repository;
+  private CampusAccessFeeCsvRepository repository;
   private CsvReader csvReader;
 
   @Before
   public void setUp() throws Exception {
     csvReader = mock(CsvReader.class);
-    repository = new CampusAccessFeeCsvReader(csvReader);
+    repository = new CampusAccessFeeCsvRepository(csvReader);
     given(csvReader.read(anyString())).willReturn(generateReadCsv());
   }
 

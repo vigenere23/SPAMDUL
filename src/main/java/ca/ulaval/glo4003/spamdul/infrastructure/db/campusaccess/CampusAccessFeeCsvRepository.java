@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class CampusAccessFeeCsvReader implements CampusAccessFeeRepository {
+public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
 
   private final String CSV_PATH = "frais-acces.csv";
   private CsvReader reader;
 
-  public CampusAccessFeeCsvReader(CsvReader reader) {
+  public CampusAccessFeeCsvRepository(CsvReader reader) {
     this.reader = reader;
   }
 
