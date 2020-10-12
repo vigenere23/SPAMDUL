@@ -12,16 +12,14 @@ public class CsvReader {
   public List<List<String>> read(String filePath) {
     List<List<String>> csvData = new ArrayList<>();
 
-    try {
-      try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))) {
-        String row;
-        while ((row = csvReader.readLine()) != null) {
-          String[] data = row.split(",");
-          csvData.add(new ArrayList<>(Arrays.asList(data)));
-        }
+    try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))) {
+      String row;
+      while ((row = csvReader.readLine()) != null) {
+        String[] data = row.split(",");
+        csvData.add(new ArrayList<>(Arrays.asList(data)));
       }
     } catch (IOException e) {
-      //euhhhh
+      throw new CantFindFileException(String.format("%s is not a valid path", filePath));
     }
 
     return csvData;

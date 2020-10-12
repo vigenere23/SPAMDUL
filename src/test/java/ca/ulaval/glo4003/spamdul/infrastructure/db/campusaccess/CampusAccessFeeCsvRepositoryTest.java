@@ -73,4 +73,33 @@ public class CampusAccessFeeCsvRepositoryTest {
 
     Truth.assertThat(fee.getFee()).isEqualTo(0);
   }
+
+  @Test(expected = CantFindCampusAccessFeeException.class)
+  public void givenAnInvalidCarType_whenFindingBy_shouldThrownCantFindCampusAccessFeeException() {
+    List<List<String>> lists = generateReadCsv();
+    lists.remove(1); //Removing super economique
+    given(csvReader.read(anyString())).willReturn(lists);
+
+    repository.findBy(CarType.SUPER_ECONOMIQUE, PeriodType.MONTHLY);
+  }
+
+  @Test(expected = CantFindCampusAccessFeeException.class)
+  public void givenAnInvalidPeriodType_whenFindingBy_shouldThrownCantFindCampusAccessFeeException() {
+    List<List<String>> lists = generateReadCsvWithout2Semesters();
+    given(csvReader.read(anyString())).willReturn(lists);
+
+    repository.findBy(CarType.SUPER_ECONOMIQUE, PeriodType.TWO_SEMESTERS);
+  }
+
+  private List<List<String>> generateReadCsvWithout2Semesters() {
+    List<List<String>> lines = new ArrayList<>();
+    lines.add(Arrays.asList("Listype\temps", "3 session", "1h", "1 session", "1j", "1j/semaine/session"));
+    lines.add(Arrays.asList("Super économique", "50", "1", "20", "2", "5"));
+    lines.add(Arrays.asList("Hybride économique", "200", "1.5", "75", "4", "15"));
+    lines.add(Arrays.asList("Gourmande", "725", "3", "250", "12", "65"));
+    lines.add(Arrays.asList("0 pollution", "0", "0", "0", "0", "0"));
+    lines.add(Arrays.asList("économique", "300", "2", "120", "8", "30"));
+
+    return lines;
+  }
 }
