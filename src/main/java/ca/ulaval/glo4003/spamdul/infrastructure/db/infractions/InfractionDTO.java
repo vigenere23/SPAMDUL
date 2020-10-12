@@ -8,12 +8,6 @@ public class InfractionDTO {
   public InfractionDTO() {
   }
 
-  public InfractionDTO(String infraction, String code, int montant) {
-    this.infraction = infraction;
-    this.code = code;
-    this.montant = montant;
-  }
-
   public String getInfraction() {
     return infraction;
   }
