@@ -49,10 +49,10 @@ public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
     Collator collator = Collator.getInstance();
     collator.setStrength(Collator.NO_DECOMPOSITION);
 
-    Map<PeriodType, Integer> periodTypeColumnMap = PeriodTypeParser.mapPeriodColumn(csvInfos, collator);
+    Map<PeriodType, Integer> periodTypeColumnMap = mapPeriodColumn(csvInfos, collator);
 
     for (List<String> line : csvData) {
-      CarType carType = CarTypeParser.createCarType(line.get(0), collator);
+      CarType carType = CarType.parse(line.get(0), collator);
 
       for (Entry<PeriodType, Integer> entry : periodTypeColumnMap.entrySet()) {
         CampusAccessFee fee = new CampusAccessFee(Double.parseDouble(line.get(entry.getValue())));
@@ -68,5 +68,18 @@ public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
     }
 
     return fees;
+  }
+
+  public static Map<PeriodType, Integer> mapPeriodColumn(List<String> csvInfos,
+                                                         Collator collator) {
+    Map<PeriodType, Integer> periodTypePosition = new HashMap<>();
+
+    for (int i = 1; i < csvInfos.size(); i++) {
+      String info = csvInfos.get(i);
+      PeriodType periodType = PeriodType.parse(info, collator);
+      periodTypePosition.put(periodType, i);
+    }
+
+    return periodTypePosition;
   }
 }
