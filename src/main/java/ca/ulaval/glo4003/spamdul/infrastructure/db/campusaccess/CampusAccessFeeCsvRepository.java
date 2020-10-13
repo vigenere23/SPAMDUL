@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +13,12 @@ import java.util.Map.Entry;
 
 public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
 
-  private final String CSV_PATH = "src/main/resources/frais-acces.csv";
+  private final String path;
   private final CsvReader reader;
 
-  public CampusAccessFeeCsvRepository(CsvReader reader) {
+  public CampusAccessFeeCsvRepository(CsvReader reader, String path) {
     this.reader = reader;
+    this.path = path;
   }
 
   public CampusAccessFee findBy(CarType carType, PeriodType period) {
@@ -42,7 +42,7 @@ public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
 
   private Map<CarType, Map<PeriodType, CampusAccessFee>> readAndParseCsv() {
     Map<CarType, Map<PeriodType, CampusAccessFee>> fees = new HashMap<>();
-    List<List<String>> csvData = reader.read(CSV_PATH);
+    List<List<String>> csvData = reader.read(path);
     List<String> csvInfos = new ArrayList<>(csvData.get(0));
     csvData.remove(0);
 

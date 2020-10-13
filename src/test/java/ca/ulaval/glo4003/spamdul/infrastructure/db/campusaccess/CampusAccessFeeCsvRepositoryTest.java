@@ -17,14 +17,15 @@ import org.junit.Test;
 
 public class CampusAccessFeeCsvRepositoryTest {
 
+  public static final String A_PATH = "a/path";
   private CampusAccessFeeCsvRepository repository;
   private CsvReader csvReader;
 
   @Before
   public void setUp() throws Exception {
     csvReader = mock(CsvReader.class);
-    repository = new CampusAccessFeeCsvRepository(csvReader);
-    given(csvReader.read(anyString())).willReturn(generateReadCsv());
+    repository = new CampusAccessFeeCsvRepository(csvReader, A_PATH);
+    given(csvReader.read(A_PATH)).willReturn(generateReadCsv());
   }
 
   private List<List<String>> generateReadCsv() {
