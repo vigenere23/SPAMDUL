@@ -11,7 +11,11 @@ public enum PeriodType {
   TWO_SEMESTERS,
   THREE_SEMESTERS;
 
-  public static PeriodType parse(String periodTypeString, Collator collator) {
+  private static final Collator collator = Collator.getInstance();
+
+  public static PeriodType parse(String periodTypeString) {
+    collator.setStrength(Collator.NO_DECOMPOSITION);
+
     if (collator.equals("1h", periodTypeString)) {
       return PeriodType.ONE_HOUR;
     } else if (collator.equals("1j", periodTypeString)) {

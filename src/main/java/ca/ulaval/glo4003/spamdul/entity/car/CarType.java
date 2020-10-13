@@ -10,7 +10,11 @@ public enum CarType {
   SUPER_ECONOMIQUE,
   SANS_POLLUTION;
 
-  public static CarType parse(String carTypeString, Collator collator) {
+  private static final Collator collator = Collator.getInstance();
+
+  public static CarType parse(String carTypeString) {
+    collator.setStrength(Collator.NO_DECOMPOSITION);
+
     if (collator.equals("gourmande", carTypeString.toLowerCase())) {
       return CarType.GOURMANDE;
     } else if (collator.equals("economique", carTypeString.toLowerCase())) {
