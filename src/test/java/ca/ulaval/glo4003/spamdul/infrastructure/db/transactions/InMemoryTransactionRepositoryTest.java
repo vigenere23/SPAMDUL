@@ -17,12 +17,11 @@ public class InMemoryTransactionRepositoryTest {
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   public static final CarType ANOTHER_CAR_TYPE = CarType.ECONOMIQUE;
   public static final int AN_AMOUNT = 99;
-  public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private final Transaction A_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
   private final Transaction ANOTHER_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
   private final Transaction A_CAMPUS_ACCESS_TRANSACTION_DIFFERENT_CAR_TYPE = new CampusAccessTransaction(AN_AMOUNT,
                                                                                                          ANOTHER_CAR_TYPE);
-  private final Transaction A_PASS_TRANSACTION = new PassTransaction(AN_AMOUNT, A_PARKING_ZONE);
+  private final Transaction A_PASS_TRANSACTION = new PassTransaction(AN_AMOUNT);
   private final Transaction AN_INFRACTION_TRANSACTION = new InfractionTransaction(AN_AMOUNT);
 
   private InMemoryTransactionRepository repository;
