@@ -17,6 +17,12 @@ import org.junit.Test;
 
 public class ParkingZoneFeeCsvRepositoryTest {
 
+  public static final int MONTHLY_ZONE_2_FEE = 121;
+  public static final int ONE_DAY_PER_WEEK_PER_SEMESTER_ZONE_1 = 163;
+  public static final int THREE_SEMESTER_ZONE_R = 872;
+  public static final int ONE_SEMESTER_ZONE_3 = 272;
+  public static final int TWO_SEMESTER_ZONE_1 = 895;
+
   private ParkingZoneFeeCsvRepository repository;
   private CsvReader reader;
 
@@ -42,35 +48,35 @@ public class ParkingZoneFeeCsvRepositoryTest {
   public void givenZone2Mensuel_whenFindingBy_shouldReturnRightFee() {
     ParkingZoneFee parkingZoneFee = repository.findBy(ParkingZone.ZONE_2, PeriodType.MONTHLY);
 
-    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(121);
+    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(MONTHLY_ZONE_2_FEE);
   }
 
   @Test
   public void givenZone1OneDayPerWeekPerSemester_whenFindingBy_shouldReturnRighFee() {
     ParkingZoneFee parkingZoneFee = repository.findBy(ParkingZone.ZONE_1, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
 
-    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(163);
+    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(ONE_DAY_PER_WEEK_PER_SEMESTER_ZONE_1);
   }
 
   @Test
   public void givenZoneR3Session_whenFindingBy_shouldReturnRighFee() {
     ParkingZoneFee parkingZoneFee = repository.findBy(ParkingZone.ZONE_R, PeriodType.THREE_SEMESTERS);
 
-    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(872);
+    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(THREE_SEMESTER_ZONE_R);
   }
 
   @Test
   public void givenZone31ession_whenFindingBy_shouldReturnRighFee() {
     ParkingZoneFee parkingZoneFee = repository.findBy(ParkingZone.ZONE_3, PeriodType.ONE_SEMESTER);
 
-    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(272);
+    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(ONE_SEMESTER_ZONE_3);
   }
 
   @Test
-  public void givenZone12Session_whenFindingBy_shouldReturnRighFee() {
+  public void givenZone12Session_whenFindingBy_shouldReturnRightFee() {
     ParkingZoneFee parkingZoneFee = repository.findBy(ParkingZone.ZONE_1, PeriodType.TWO_SEMESTERS);
 
-    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(895);
+    Truth.assertThat(parkingZoneFee.getFee()).isEqualTo(TWO_SEMESTER_ZONE_1);
   }
 
   @Test(expected = CantFindParkingZoneFeeException.class)
