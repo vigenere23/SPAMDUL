@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 import java.util.Objects;
 
 public class PassCode {
@@ -18,7 +19,11 @@ public class PassCode {
   }
 
   public static PassCode valueOf(String userId) {
-    return new PassCode(Long.parseLong(userId));
+    try {
+      return new PassCode(Long.parseLong(userId));
+    } catch (NumberFormatException e) {
+      throw new InvalidPassCodeFormat("Invalid pass code format");
+    }
   }
 
   private static synchronized Long getNextCode() {

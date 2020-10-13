@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 
 import java.util.HashMap;

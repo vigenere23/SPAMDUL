@@ -3,11 +3,10 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class CampusAccess {
 

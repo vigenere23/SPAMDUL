@@ -16,6 +16,10 @@ public class Pass {
     this.timePeriod = timePeriod;
   }
 
+  public boolean isAValidParkingZone(ParkingZone parkingZone) {
+    return this.parkingZone.equals(parkingZone);
+  }
+
   public PassCode getPassCode() {
     return passCode;
   }

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.*;
 
