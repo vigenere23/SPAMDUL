@@ -1,0 +1,42 @@
+[
+    {
+       "infraction": "mauvaise zone",
+       "code": "ZONE_01",
+       "montant": 55
+    },
+    {
+        "infraction": "vignette pas admissible pour la journée",
+        "code": "VIG_01",
+        "montant": 22
+     },
+     {
+        "infraction": "temps dépassé",
+        "code": "TEMPS_01",
+        "montant": 47
+     },
+     {
+        "infraction": "stationnement réservé pour voiture électrique",
+        "code": "ZONE_02",
+        "montant":  55
+     },
+     {
+        "infraction": "vignette invalide",
+        "code": "VIG_02",
+        "montant":  45
+     },
+     {
+        "infraction": "pas de vignette",
+        "code": "VIG_03",
+        "montant":  55
+     },
+     {
+        "infraction": "la vignette et la plaque ne sont pas associées",
+        "code": "VIG_04",
+        "montant":  42
+     },
+     {
+        "infraction": "stationnement réservé pour voiture électrique branchée",
+        "code": "ZONE_03",
+        "montant":  55
+     }
+]
