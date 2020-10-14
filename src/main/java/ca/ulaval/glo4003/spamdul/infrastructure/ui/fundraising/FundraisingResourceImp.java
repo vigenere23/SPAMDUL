@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativesResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
-import java.util.List;
 
 public class FundraisingResourceImp implements FundraisingResource {
 
@@ -17,11 +17,11 @@ public class FundraisingResourceImp implements FundraisingResource {
     this.initiativeService = initiativeService;
   }
 
-  @Override public List<InitiativeResponse> getInitiatives() {
-    return initiativeAssembler.toDtos(initiativeService.getAllInitiatives());
+  @Override public InitiativesResponse getInitiatives() {
+    return initiativeAssembler.toResponse(initiativeService.getAllInitiatives());
   }
 
   @Override public InitiativeResponse createInitiative(InitiativeRequest request) {
-    return initiativeAssembler.toDto(initiativeService.addInitiative(initiativeAssembler.fromDto(request)));
+    return initiativeAssembler.toResponse(initiativeService.addInitiative(initiativeAssembler.fromRequest(request)));
   }
 }

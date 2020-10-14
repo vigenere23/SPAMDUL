@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
-import java.util.List;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativesResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,7 +16,7 @@ public interface FundraisingResource {
   @GET
   @Path("/initiatives")
   @Produces(MediaType.APPLICATION_JSON)
-  List<InitiativeResponse> getInitiatives();
+  InitiativesResponse getInitiatives();
 
   @POST
   @Path("/initiatives")

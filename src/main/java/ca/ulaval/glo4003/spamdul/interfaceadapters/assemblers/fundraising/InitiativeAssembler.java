@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativesResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,11 +16,11 @@ public class InitiativeAssembler {
     this.initiativeFactory = initiativeFactory;
   }
 
-  public Initiative fromDto(InitiativeRequest request) {
+  public Initiative fromRequest(InitiativeRequest request) {
     return initiativeFactory.create(request.name, request.amount);
   }
 
-  public InitiativeResponse toDto(Initiative initiative) {
+  public InitiativeResponse toResponse(Initiative initiative) {
     InitiativeResponse response = new InitiativeResponse();
     response.id = initiative.getId().toString();
     response.name = initiative.getName();
@@ -28,7 +29,11 @@ public class InitiativeAssembler {
     return response;
   }
 
-  public List<InitiativeResponse> toDtos(List<Initiative> initiatives) {
-    return initiatives.stream().map(this::toDto).collect(Collectors.toList());
+  public InitiativesResponse toResponse(List<Initiative> initiatives) {
+    List<InitiativeResponse> items = initiatives.stream().map(this::toResponse).collect(Collectors.toList());
+    InitiativesResponse response = new InitiativesResponse();
+    response.initiatives = items;
+
+    return response;
   }
 }
