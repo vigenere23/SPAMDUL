@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsToggleResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsToggleDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,7 +15,7 @@ public interface CarbonCreditsResource {
   @Path("/toggle")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  CarbonCreditsToggleResponse toggleAutomaticTransfer();
+  CarbonCreditsToggleDto toggleAutomaticTransfer(CarbonCreditsToggleDto request);
 
   @POST
   @Path("/transfer")
