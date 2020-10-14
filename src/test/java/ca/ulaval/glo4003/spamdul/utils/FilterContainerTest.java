@@ -2,7 +2,8 @@ package ca.ulaval.glo4003.spamdul.utils;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.FilterDataNotSetException;
+import ca.ulaval.glo4003.spamdul.utils.filter.FilterContainer;
+import ca.ulaval.glo4003.spamdul.utils.filter.FilterDataNotSetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
