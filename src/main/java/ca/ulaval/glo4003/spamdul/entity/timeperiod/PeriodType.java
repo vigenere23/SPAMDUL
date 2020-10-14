@@ -16,20 +16,18 @@ public enum PeriodType {
   public static PeriodType parse(String periodTypeString) {
     collator.setStrength(Collator.NO_DECOMPOSITION);
 
-    if (collator.equals("1h", periodTypeString.toLowerCase())) {
+    if (collator.equals("1h", periodTypeString)) {
       return PeriodType.ONE_HOUR;
-    } else if (collator.equals("1j", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("1j", periodTypeString)) {
       return PeriodType.SINGLE_DAY;
-    } else if (collator.equals("1j/semaine/session", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("1j/semaine/session", periodTypeString)) {
       return PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
-    } else if (collator.equals("1 session", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("1 session", periodTypeString)) {
       return PeriodType.ONE_SEMESTER;
-    } else if (collator.equals("2 session", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("2 session", periodTypeString)) {
       return PeriodType.TWO_SEMESTERS;
-    } else if (collator.equals("3 session", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("3 session", periodTypeString)) {
       return PeriodType.THREE_SEMESTERS;
-    } else if (collator.equals("mensuel", periodTypeString.toLowerCase())) {
-      return PeriodType.MONTHLY;
     } else {
       return null;
     }

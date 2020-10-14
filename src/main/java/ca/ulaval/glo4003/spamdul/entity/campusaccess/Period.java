@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 public enum Period {
+  ONE_HOUR,
   SINGLE_DAY,
   SINGLE_DAY_PER_WEEK_PER_SEMESTER,
   SEMESTER_1,
