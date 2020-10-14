@@ -14,10 +14,12 @@ import javax.ws.rs.core.MediaType;
 public interface FundraisingResource {
 
   @GET
+  @Path("/initiatives")
   @Produces(MediaType.APPLICATION_JSON)
   List<InitiativeResponse> getInitiatives();
 
   @POST
+  @Path("/initiatives")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   InitiativeResponse createInitiative(InitiativeRequest request);

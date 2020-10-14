@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
+import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
@@ -21,6 +22,10 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryE
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -28,11 +33,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
-
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * RESTApi setup without using DI or spring
@@ -51,6 +51,7 @@ public class SpamdUlMain {
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
+    FundraisingContext fundraisingContext = new FundraisingContext(true);
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -74,6 +75,7 @@ public class SpamdUlMain {
         resources.add(new GlobalExceptionAssembler());
         resources.add(new PassSaleExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
+        resources.add(fundraisingContext.getFundraisingResource());
         return resources;
       }
     });
