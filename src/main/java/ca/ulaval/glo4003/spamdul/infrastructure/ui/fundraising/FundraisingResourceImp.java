@@ -5,6 +5,8 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRes
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativesResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 public class FundraisingResourceImp implements FundraisingResource {
 
@@ -17,11 +19,16 @@ public class FundraisingResourceImp implements FundraisingResource {
     this.initiativeService = initiativeService;
   }
 
-  @Override public InitiativesResponse getInitiatives() {
+  @Override
+  public InitiativesResponse getInitiatives() {
     return initiativeAssembler.toResponse(initiativeService.getAllInitiatives());
   }
 
-  @Override public InitiativeResponse createInitiative(InitiativeRequest request) {
-    return initiativeAssembler.toResponse(initiativeService.addInitiative(initiativeAssembler.fromRequest(request)));
+  @Override
+  public Response createInitiative(InitiativeRequest request) {
+    InitiativeResponse responseObject = initiativeAssembler.toResponse(initiativeService.addInitiative(
+        initiativeAssembler.fromRequest(
+            request)));
+    return Response.status(Status.CREATED).entity(responseObject).build();
   }
 }
