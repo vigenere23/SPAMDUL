@@ -1,17 +1,17 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.FundraisingRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.FundraisingResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FundraisingResourceImp implements FundraisingResource {
 
-  @Override public List<FundraisingResponse> getInitiatives() {
+  @Override public List<InitiativeResponse> getInitiatives() {
     return new ArrayList<>();
   }
 
-  @Override public FundraisingResponse createInitiative(FundraisingRequest request) {
-    return new FundraisingResponse();
+  @Override public InitiativeResponse createInitiative(InitiativeRequest request) {
+    return new InitiativeResponse();
   }
 }
