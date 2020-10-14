@@ -22,6 +22,7 @@ public class ParkingZoneFeeCsvRepositoryTest {
   public static final int THREE_SEMESTER_ZONE_R = 872;
   public static final int ONE_SEMESTER_ZONE_3 = 272;
   public static final int TWO_SEMESTER_ZONE_1 = 895;
+  public static final String A_PATH = "a/path";
 
   private ParkingZoneFeeCsvRepository repository;
   private CsvReader reader;
@@ -29,8 +30,8 @@ public class ParkingZoneFeeCsvRepositoryTest {
   @Before
   public void setUp() throws Exception {
     reader = mock(CsvReader.class);
-    repository = new ParkingZoneFeeCsvRepository(reader);
-    given(reader.read(anyString())).willReturn(generateReadCsv());
+    repository = new ParkingZoneFeeCsvRepository(reader, A_PATH);
+    given(reader.read(A_PATH)).willReturn(generateReadCsv());
   }
 
   private List<List<String>> generateReadCsv() {

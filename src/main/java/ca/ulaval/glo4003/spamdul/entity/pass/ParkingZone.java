@@ -8,7 +8,11 @@ public enum ParkingZone {
   ZONE_3,
   ZONE_R;
 
-  public static ParkingZone parse(String parkingZoneString, Collator collator) {
+  private static final Collator collator = Collator.getInstance();
+
+  public static ParkingZone parse(String parkingZoneString) {
+    collator.setStrength(Collator.NO_DECOMPOSITION);
+
     if (collator.equals("zone1", parkingZoneString.toLowerCase())) {
       return ParkingZone.ZONE_1;
     } else if (collator.equals("zone2", parkingZoneString.toLowerCase())) {

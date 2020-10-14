@@ -14,11 +14,12 @@ import java.util.Map.Entry;
 
 public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
 
-  private final String CSV_PATH = "src/main/resources/frais-zone.csv";
+  private final String path;
   private final CsvReader reader;
 
-  public ParkingZoneFeeCsvRepository(CsvReader csvReader) {
+  public ParkingZoneFeeCsvRepository(CsvReader csvReader, String path) {
     reader = csvReader;
+    this.path = path;
   }
 
 
@@ -43,17 +44,14 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
 
   private Map<ParkingZone, Map<PeriodType, ParkingZoneFee>> readAndParseCsv() {
     Map<ParkingZone, Map<PeriodType, ParkingZoneFee>> fees = new HashMap<>();
-    List<List<String>> csvData = reader.read(CSV_PATH);
+    List<List<String>> csvData = reader.read(path);
     List<String> csvInfos = new ArrayList<>(csvData.get(0));
     csvData.remove(0);
 
-    Collator collator = Collator.getInstance();
-    collator.setStrength(Collator.NO_DECOMPOSITION);
-
-    Map<PeriodType, Integer> periodTypeColumnMap = mapPeriodColumn(csvInfos, collator);
+    Map<PeriodType, Integer> periodTypeColumnMap = mapPeriodColumn(csvInfos);
 
     for (List<String> line : csvData) {
-      ParkingZone parkingZone = ParkingZone.parse(line.get(0), collator);
+      ParkingZone parkingZone = ParkingZone.parse(line.get(0));
 
       for (Entry<PeriodType, Integer> entry : periodTypeColumnMap.entrySet()) {
         ParkingZoneFee fee = new ParkingZoneFee(Double.parseDouble(line.get(entry.getValue())));
@@ -71,13 +69,12 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
     return fees;
   }
 
-  public static Map<PeriodType, Integer> mapPeriodColumn(List<String> csvInfos,
-                                                         Collator collator) {
+  public static Map<PeriodType, Integer> mapPeriodColumn(List<String> csvInfos) {
     Map<PeriodType, Integer> periodTypePosition = new HashMap<>();
 
     for (int i = 1; i < csvInfos.size(); i++) {
       String info = csvInfos.get(i);
-      PeriodType periodType = PeriodType.parse(info, collator);
+      PeriodType periodType = PeriodType.parse(info);
       periodTypePosition.put(periodType, i);
     }
 
