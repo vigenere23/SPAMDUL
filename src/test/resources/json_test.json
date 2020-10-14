@@ -1,0 +1,12 @@
+[
+  {
+    "infraction": "mauvaise zone",
+    "code": "ZONE_01",
+    "montant": 55
+  },
+  {
+    "infraction": "vignette pas admissible pour la journée",
+    "code": "VIG_01",
+    "montant": 22
+  }
+]
