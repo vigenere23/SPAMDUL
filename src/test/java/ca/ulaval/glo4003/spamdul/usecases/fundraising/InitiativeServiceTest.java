@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
@@ -20,10 +21,12 @@ public class InitiativeServiceTest {
 
   @Mock
   private InitiativeRepository initiativeRepository;
+  @Mock
+  private InitiativeFactory initiativeFactory;
 
   @Before
   public void setUp() {
-    initiativeService = new InitiativeService(initiativeRepository);
+    initiativeService = new InitiativeService(initiativeRepository, initiativeFactory);
   }
 
   @Test

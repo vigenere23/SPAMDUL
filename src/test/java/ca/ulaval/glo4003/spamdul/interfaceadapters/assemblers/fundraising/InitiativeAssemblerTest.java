@@ -1,17 +1,14 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
-import static org.mockito.Mockito.when;
-
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
+import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,18 +18,13 @@ public class InitiativeAssemblerTest {
   private InitiativeRequest initiativeRequest;
   private Initiative initiative;
 
-  @Mock
-  private InitiativeFactory initiativeFactory;
-  @Mock
-  private Initiative AN_INITIATIVE;
-
   private final String A_VALID_NAME = "Yolo";
   private final double A_VALID_AMOUNT = 1234.22;
   private final InitiativeId AN_ID = new InitiativeId();
 
   @Before
   public void setUp() {
-    initiativeAssembler = new InitiativeAssembler(initiativeFactory);
+    initiativeAssembler = new InitiativeAssembler();
     initiativeRequest = new InitiativeRequest();
     initiativeRequest.name = A_VALID_NAME;
     initiativeRequest.amount = A_VALID_AMOUNT;
@@ -41,9 +33,9 @@ public class InitiativeAssemblerTest {
 
   @Test
   public void givenInitiativeRequest_whenAssembling_shouldReturnEntityFromFactory() {
-    when(initiativeFactory.create(initiativeRequest.name, initiativeRequest.amount)).thenReturn(AN_INITIATIVE);
-    Initiative initiative = initiativeAssembler.fromRequest(initiativeRequest);
-    Truth.assertThat(initiative).isEqualTo(AN_INITIATIVE);
+    InitiativeDto initiativeDto = initiativeAssembler.fromRequest(initiativeRequest);
+    Truth.assertThat(initiativeDto.name).isEqualTo(initiativeRequest.name);
+    Truth.assertThat(initiativeDto.amount).isEqualTo(initiativeRequest.amount);
   }
 
   @Test
