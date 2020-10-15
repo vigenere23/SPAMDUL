@@ -19,7 +19,7 @@ public class InitiativeRepositoryInMemoryTest {
   }
 
   @Test
-  public void givenInitialized_whenFindingAll_shouldReturnEmptyList() {
+  public void givenNewRepository_whenFindingAll_shouldReturnEmptyList() {
     List<Initiative> initiatives = initiativeRepositoryInMemory.findAll();
     Truth.assertThat(initiatives).isEmpty();
   }
