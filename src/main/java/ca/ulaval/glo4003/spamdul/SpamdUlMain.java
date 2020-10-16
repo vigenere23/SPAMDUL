@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
+import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
@@ -43,6 +44,7 @@ public class SpamdUlMain {
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
     FundraisingContext fundraisingContext = new FundraisingContext(true);
     RevenueContext revenueContext = new RevenueContext();
 
@@ -54,7 +56,7 @@ public class SpamdUlMain {
       public Set<Object> getSingletons() {
         //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
-        
+
         resources.add(saleContext.getSaleResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());
@@ -68,6 +70,7 @@ public class SpamdUlMain {
         resources.add(new GlobalExceptionAssembler());
         resources.add(new PassSaleExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
+        resources.add(carbonCreditsContext.getCarbonCreditsResource());
         resources.add(fundraisingContext.getFundraisingResource());
         resources.add(new InitiativeExceptionMapper());
 
