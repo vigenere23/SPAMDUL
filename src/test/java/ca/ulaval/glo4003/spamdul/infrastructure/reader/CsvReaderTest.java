@@ -8,7 +8,7 @@ import org.junit.Test;
 public class CsvReaderTest {
 
   private CsvReader reader;
-  private String PATH = "src/test/ressources/test_file.csv";
+  private final String PATH = "src/test/ressources/test_file.csv";
 
   @Before
   public void setUp() throws Exception {
@@ -28,7 +28,7 @@ public class CsvReaderTest {
     Truth.assertThat(fileContent.get(1)).contains("f");
   }
 
-  @Test(expected = CantFindFileException.class)
+  @Test(expected = InvalidCsvFile.class)
   public void givenAnInvalidPath_whenReading_shouldThrowCantFindFileException() {
     reader.read("invalid/path");
   }

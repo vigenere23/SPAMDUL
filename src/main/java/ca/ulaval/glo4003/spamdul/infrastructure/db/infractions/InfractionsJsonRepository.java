@@ -18,7 +18,7 @@ public class InfractionsJsonRepository implements InfractionRepository {
     reader = jsonReader;
   }
 
-  public Infraction findBy(InfractionCode infractionCode) {
+  @Override public Infraction findBy(InfractionCode infractionCode) {
     List<InfractionDTO> infractionDTOs = reader.read(JSON_PATH, InfractionDTO[].class);
     Map<InfractionCode, Infraction> infractions = generateInfractions(infractionDTOs);
 

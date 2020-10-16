@@ -24,7 +24,7 @@ public class JsonReaderTest {
     Truth.assertThat(dtos.get(1).montant).isEqualTo(22);
   }
 
-  @Test(expected = CantReadFileFromPathException.class)
+  @Test(expected = InvalidJsonFile.class)
   public void givenAnInvalidJsonFilePath_whenReading_shouldThrowCantReadFileFromPathException() {
     new JsonReader().read("invalid/path", InfractionDTO[].class);
   }

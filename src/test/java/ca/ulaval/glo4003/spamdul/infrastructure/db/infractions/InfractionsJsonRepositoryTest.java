@@ -21,8 +21,8 @@ public class InfractionsJsonRepositoryTest {
   private final String ANOTHER_INFRACTION_CODE_STRING = "IFN_02";
   private final String ANOTHER_INFRACTION_CODE_DESCRITPION = "another infraction";
   private final String AN_INFRACTION_CODE_DESCRITPION = "infraction";
-  private final int ANOTHER_INFRACTION_AMOUNT = 99;
-  private final int AN_INFRACTION_AMOUNT = 100;
+  private final double ANOTHER_INFRACTION_AMOUNT = 99;
+  private final double AN_INFRACTION_AMOUNT = 100;
   private final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
   private final InfractionCode ANOTHER_INFRACTION_CODE = InfractionCode.valueOf(ANOTHER_INFRACTION_CODE_STRING);
 
@@ -64,11 +64,11 @@ public class InfractionsJsonRepositoryTest {
 
     Truth.assertThat(infraction.getCode()).isEqualTo(AN_INFRACTION_CODE);
     Truth.assertThat(infraction.getInfractionDscription()).isEqualTo(AN_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(infraction.getMontant()).isEqualTo(AN_INFRACTION_AMOUNT);
+    Truth.assertThat(infraction.getAmount()).isEqualTo(AN_INFRACTION_AMOUNT);
 
     Truth.assertThat(anotherInfraction.getCode()).isEqualTo(ANOTHER_INFRACTION_CODE);
     Truth.assertThat(anotherInfraction.getInfractionDscription()).isEqualTo(ANOTHER_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(anotherInfraction.getMontant()).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
+    Truth.assertThat(anotherInfraction.getAmount()).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
   }
 
   @Test(expected = CantFindInfractionException.class)
