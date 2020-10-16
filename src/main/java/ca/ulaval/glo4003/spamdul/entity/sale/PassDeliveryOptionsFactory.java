@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.sale;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
-import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 
 public class PassDeliveryOptionsFactory {
 
