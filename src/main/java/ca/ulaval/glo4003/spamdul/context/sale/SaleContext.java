@@ -29,7 +29,6 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
-import ca.ulaval.glo4003.spamdul.usecases.sale.SaleService;
 
 public class SaleContext {
 
@@ -53,23 +52,22 @@ public class SaleContext {
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory(timePeriodFactory);
     CampusAccessService campusAccessService = new CampusAccessService(userService,
-            carService,
-            campusAccessFactory,
-            campusAccessRepository,
-            passRepository,
-            calendar);
+                                                                      carService,
+                                                                      campusAccessFactory,
+                                                                      campusAccessRepository,
+                                                                      passRepository,
+                                                                      calendar);
 
-    PassService passService = new PassService(passRepository, passFactory, campusAccessService);
     DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory();
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
-    SaleService saleService = new SaleService(passService, passSender);
+    PassService passService = new PassService(passRepository, passFactory, campusAccessService, passSender);
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
     DeliveryAssembler deliveryAssembler = new DeliveryAssembler(emailAddressAssembler, postalAddressAssembler);
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
     PassSaleAssembler passSaleAssembler = new PassSaleAssembler(deliveryAssembler, timePeriodAssembler);
-    saleResource = new SaleResourceImpl(saleService, passSaleAssembler);
+    saleResource = new SaleResourceImpl(passService, passSaleAssembler);
   }
 
   public SaleResource getSaleResource() {

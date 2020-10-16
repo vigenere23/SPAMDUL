@@ -4,12 +4,12 @@ public class Infraction {
 
   private String infractionDscription;
   private InfractionCode code;
-  private int montant;
+  private double amount;
 
-  public Infraction(String infractionDscription, InfractionCode code, int montant) {
+  public Infraction(String infractionDscription, InfractionCode code, double amount) {
     this.infractionDscription = infractionDscription;
     this.code = code;
-    this.montant = montant;
+    this.amount = amount;
   }
 
   public String getInfractionDscription() {
@@ -20,7 +20,7 @@ public class Infraction {
     return code;
   }
 
-  public int getAmount() {
-    return montant;
+  public double getAmount() {
+    return amount;
   }
 }
