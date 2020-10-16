@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
+package ca.ulaval.glo4003.spamdul.utils.filter;
 
 public class FilterDataNotSetException extends RuntimeException {
 

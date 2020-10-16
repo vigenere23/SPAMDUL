@@ -1,6 +1,5 @@
-package ca.ulaval.glo4003.spamdul.utils;
+package ca.ulaval.glo4003.spamdul.utils.filter;
 
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.FilterDataNotSetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;

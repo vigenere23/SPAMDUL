@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
+import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
@@ -12,10 +13,12 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.Campu
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -42,6 +45,7 @@ public class SpamdUlMain {
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
+    FundraisingContext fundraisingContext = new FundraisingContext(true);
     RevenueContext revenueContext = new RevenueContext();
 
     // Setup API context (JERSEY + JETTY)
@@ -67,6 +71,8 @@ public class SpamdUlMain {
         resources.add(new PassSaleExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
         resources.add(carbonCreditsContext.getCarbonCreditsResource());
+        resources.add(fundraisingContext.getFundraisingResource());
+        resources.add(new InitiativeExceptionMapper());
 
         return resources;
       }
