@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PostalAddressRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
-import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

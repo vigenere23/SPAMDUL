@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.sale.PassSaleDto;
-import ca.ulaval.glo4003.spamdul.usecases.sale.SaleService;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,32 +17,32 @@ import static org.mockito.Mockito.verify;
 public class SaleResourceImplTest {
 
   private PassSaleRequest A_PASS_SALE_REQUEST = new PassSaleRequest();
-  private PassSaleDto A_PASS_SALE_DTO = new PassSaleDto();
-  private SaleService saleService;
+  private PassDto A_PASS_SALE_DTO = new PassDto();
+  private PassService passService;
   private PassSaleAssembler passSaleAssembler;
   private SaleResource saleResourceImpl;
 
   @Before
   public void setUp() {
-    saleService = mock(SaleService.class);
+    passService = mock(PassService.class);
     passSaleAssembler = mock(PassSaleAssembler.class);
 
-    saleResourceImpl = new SaleResourceImpl(saleService, passSaleAssembler);
+    saleResourceImpl = new SaleResourceImpl(passService, passSaleAssembler);
     given(passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST)).willReturn(A_PASS_SALE_DTO);
   }
 
   @Test
-  public void whenwhenSellingPasse_thenShouldCallSaleAssembler() {
+  public void whenSellingPasse_thenShouldCallSaleAssembler() {
     saleResourceImpl.sellPass(A_PASS_SALE_REQUEST);
 
     verify(passSaleAssembler).fromRequest(A_PASS_SALE_REQUEST);
   }
 
   @Test
-  public void whenwhenSellingPass_thenShouldCallSaleServiceToCreateSale() {
+  public void whenSellingPass_thenShouldCallSaleServiceToCreateSale() {
     saleResourceImpl.sellPass(A_PASS_SALE_REQUEST);
 
-    verify(saleService).createSale(A_PASS_SALE_DTO);
+    verify(passService).createPass(A_PASS_SALE_DTO);
   }
 
   @Test

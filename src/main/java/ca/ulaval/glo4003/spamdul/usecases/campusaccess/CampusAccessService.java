@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
@@ -12,10 +10,11 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
-
 import java.time.LocalDateTime;
 
 public class CampusAccessService extends AccessGrantedObservable {
@@ -49,12 +48,11 @@ public class CampusAccessService extends AccessGrantedObservable {
                                                            car.getCarId(),
                                                            campusAccessDto.timePeriodDto);
 
-    //TODO saleService.buyingCampusAccess(campusAccessDto.period, campusAccessDto.carDto.type);
-
     userService.saveUser(user);
     carService.saveCar(car);
     campusAccessRepository.save(campusAccess);
 
+    //TODO saleService.createTransaction(TransactionDTO);
     return campusAccess;
   }
 

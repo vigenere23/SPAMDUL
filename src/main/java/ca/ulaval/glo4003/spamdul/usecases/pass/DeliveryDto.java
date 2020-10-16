@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.sale;
+package ca.ulaval.glo4003.spamdul.usecases.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;

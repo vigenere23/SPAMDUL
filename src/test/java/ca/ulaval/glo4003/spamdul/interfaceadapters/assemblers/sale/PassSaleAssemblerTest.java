@@ -12,8 +12,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
-import ca.ulaval.glo4003.spamdul.usecases.sale.PassSaleDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,12 +55,12 @@ public class PassSaleAssemblerTest {
 
   @Test
   public void whenCreatingFromDto_thenShouldCreatePassSaleDtoWithRightFields() {
-    PassSaleDto passSaleDto = passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
+    PassDto passDto = passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
 
-    assertThat(passSaleDto.parkingZone).isEqualTo(A_PARKING_ZONE);
-    assertThat(passSaleDto.timePeriodDto).isEqualTo(timePeriodDto);
-    assertThat(passSaleDto.campusAccessCode).isEqualTo(AN_ACCESS_CODE);
-    assertThat(passSaleDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
+    assertThat(passDto.parkingZone).isEqualTo(A_PARKING_ZONE);
+    assertThat(passDto.timePeriodDto).isEqualTo(timePeriodDto);
+    assertThat(passDto.campusAccessCode).isEqualTo(AN_ACCESS_CODE);
+    assertThat(passDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
   }
 
   @Test(expected = InvalidParkingZoneExceptionSale.class)
