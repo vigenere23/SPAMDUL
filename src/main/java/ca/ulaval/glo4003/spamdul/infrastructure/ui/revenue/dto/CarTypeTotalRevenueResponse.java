@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto;
 
-import java.util.List;
-
 public class CarTypeTotalRevenueResponse {
 
-  public List<CarTypeRevenueResponse> carTypesRevenue;
+  public double gourmande;
+  public double economique;
+  public double superEconomique;
+  public double hybridEconomique;
+  public double sansPollution;
+  public double total;
 }

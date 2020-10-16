@@ -18,11 +18,6 @@ public interface RevenueResource {
   @GET
   @Path("/campus-access")
   @Produces(MediaType.APPLICATION_JSON)
-  RevenueResponse getCampusAccessTotalRevenue();
-
-  @GET
-  @Path("/campus-access/carTypes")
-  @Produces(MediaType.APPLICATION_JSON)
   CarTypeTotalRevenueResponse getCarTypeTotalRevenue();
 
   @GET
