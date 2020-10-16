@@ -5,15 +5,7 @@ import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
-import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
-import ca.ulaval.glo4003.spamdul.entity.contact.ContactAssembler;
-import ca.ulaval.glo4003.spamdul.entity.contact.ContactRepository;
-import ca.ulaval.glo4003.spamdul.entity.contact.ContactService;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactDevDataFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.contact.ContactRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
@@ -47,8 +39,6 @@ public class SpamdUlMain {
   public static void main(String[] args)
       throws Exception {
 
-    // Setup resources (API)
-    //    ContactResource contactResource = createContactResource();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
@@ -64,8 +54,7 @@ public class SpamdUlMain {
       public Set<Object> getSingletons() {
         //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
-        // Add resources to context
-        //        resources.add(contactResource);
+        
         resources.add(saleContext.getSaleResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());
@@ -106,22 +95,4 @@ public class SpamdUlMain {
       server.destroy();
     }
   }
-
-  private static ContactResource createContactResource() {
-    // Setup resources' dependencies (DOMAIN + INFRASTRUCTURE)
-    ContactRepository contactRepository = new ContactRepositoryInMemory();
-
-    // For development ease
-    if (isDev) {
-      ContactDevDataFactory contactDevDataFactory = new ContactDevDataFactory();
-      List<Contact> contacts = contactDevDataFactory.createMockData();
-      contacts.stream().forEach(contactRepository::save);
-    }
-
-    ContactAssembler contactAssembler = new ContactAssembler();
-    ContactService contactService = new ContactService(contactRepository, contactAssembler);
-
-    return new ContactResourceImpl(contactService);
-  }
-
 }
