@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
+import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.entity.contact.Contact;
@@ -53,6 +54,7 @@ public class SpamdUlMain {
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
     FundraisingContext fundraisingContext = new FundraisingContext(true);
+    RevenueContext revenueContext = new RevenueContext();
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -66,9 +68,10 @@ public class SpamdUlMain {
         //        resources.add(contactResource);
         resources.add(saleContext.getSaleResource());
         resources.add(campusAccessContext.getCampusAccessResource());
-        resources.add(new UserExceptionAssembler());
-        resources.add(new UsageReportExceptionAssembler());
         resources.add(usageReportContext.getUsageReportResource());
+        resources.add(revenueContext.getRevenueResource());
+        resources.add(new UsageReportExceptionAssembler());
+        resources.add(new UserExceptionAssembler());
         resources.add(new CarExceptionAssembler());
         resources.add(new CampusAccessExceptionAssembler());
         resources.add(new AccessingCampusExceptionAssembler());
@@ -78,6 +81,7 @@ public class SpamdUlMain {
         resources.add(new DeliveryExceptionAssembler());
         resources.add(fundraisingContext.getFundraisingResource());
         resources.add(new InitiativeExceptionMapper());
+
         return resources;
       }
     });

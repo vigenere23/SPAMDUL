@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.sale.PassSaleDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 
 import java.util.ArrayList;
 
@@ -35,15 +35,15 @@ public class PassSaleAssembler {
     this.timePeriodAssembler = timePeriodAssembler;
   }
 
-  public PassSaleDto fromRequest(PassSaleRequest passSaleRequest) {
-    PassSaleDto passSaleDto = new PassSaleDto();
+  public PassDto fromRequest(PassSaleRequest passSaleRequest) {
+    PassDto passDto = new PassDto();
 
-    passSaleDto.deliveryDto = deliveryAssembler.fromRequest(passSaleRequest.deliveryInfos);
-    passSaleDto.timePeriodDto = getTimePeriodDto(passSaleRequest.period);
-    passSaleDto.parkingZone = getParkingZone(passSaleRequest.parkingZone);
-    passSaleDto.campusAccessCode = getCampusAccessCode(passSaleRequest.campusAccessCode);
+    passDto.deliveryDto = deliveryAssembler.fromRequest(passSaleRequest.deliveryInfos);
+    passDto.timePeriodDto = getTimePeriodDto(passSaleRequest.period);
+    passDto.parkingZone = getParkingZone(passSaleRequest.parkingZone);
+    passDto.campusAccessCode = getCampusAccessCode(passSaleRequest.campusAccessCode);
 
-    return passSaleDto;
+    return passDto;
   }
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {

@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
-import ca.ulaval.glo4003.spamdul.usecases.sale.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 
 public class DeliveryAssembler {
     private EmailAddressAssembler emailAddressAssembler;

@@ -18,8 +18,6 @@ public class ParkingAccessLogger implements AccessGrantedObserver {
   }
 
   @Override public void handleAccessGrantedWithCampusAccess(ParkingZone parkingZone, LocalDate accessDate) {
-    // TODO need parking zone!
-    // TODO could add carId to ParkingAccessLog fields
     parkingAccessLogRepository.save(parkingAccessLogFactory.create(parkingZone, accessDate));
     logger.info("Creating and saving parkingAccessLogFactory");
   }
