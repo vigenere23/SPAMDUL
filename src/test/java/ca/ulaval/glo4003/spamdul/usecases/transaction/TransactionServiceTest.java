@@ -109,11 +109,11 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoCampusAccessTransactionsExistsForCarType_whenGetCampusAccessTotalRevenueByCarType_thenReturnAmountZeroForCarType() {
-    given(transactionRepository.findAllBy(CarType.ECONOMIQUE)).willReturn(Collections.emptyList());
+    given(transactionRepository.findAllBy(A_CAR_TYPE)).willReturn(Collections.emptyList());
 
     Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType();
 
-    assertThat(revenue.get(CarType.ECONOMIQUE)).isEqualTo(Amount.valueOf(0));
+    assertThat(revenue.get(A_CAR_TYPE)).isEqualTo(Amount.valueOf(0));
   }
 
   @Test
