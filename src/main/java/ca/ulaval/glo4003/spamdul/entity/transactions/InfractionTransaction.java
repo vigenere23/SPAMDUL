@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
-public class InfractionTransaction extends Transaction{
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-  private double amount;
+public class InfractionTransaction extends Transaction {
 
-  public InfractionTransaction(double amount) {
-    this.amount = amount;
-  }
-
-  public double getAmount() {
-    return amount;
+  public InfractionTransaction(Amount amount) {
+    super(amount);
   }
 }

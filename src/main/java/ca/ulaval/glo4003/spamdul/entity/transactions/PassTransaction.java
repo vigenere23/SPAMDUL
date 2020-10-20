@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
+import ca.ulaval.glo4003.spamdul.utils.Amount;
+
 public class PassTransaction extends Transaction {
 
-  private double amount;
-
-  public PassTransaction(double amount) {
-    this.amount = amount;
-  }
-
-  public double getAmount() {
-    return amount;
+  public PassTransaction(Amount amount) {
+    super(amount);
   }
 }

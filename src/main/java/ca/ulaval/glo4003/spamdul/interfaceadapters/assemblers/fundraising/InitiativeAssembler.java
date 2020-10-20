@@ -13,7 +13,7 @@ public class InitiativeAssembler {
   public InitiativeDto fromRequest(InitiativeRequest request) {
     InitiativeDto initiativeDto = new InitiativeDto();
     initiativeDto.name = request.name;
-    initiativeDto.amount = request.amount; // TODO new Amount()
+    initiativeDto.amount = request.amount;
     return initiativeDto;
   }
 
@@ -21,7 +21,7 @@ public class InitiativeAssembler {
     InitiativeResponse response = new InitiativeResponse();
     response.id = initiative.getId().toString();
     response.name = initiative.getName();
-    response.amount = initiative.getAmount();
+    response.amount = initiative.getAmount().asDouble();
 
     return response;
   }

@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class InitiativeAssemblerTest {
   private Initiative initiative;
 
   private final String A_VALID_NAME = "Yolo";
-  private final double A_VALID_AMOUNT = 1234.22;
+  private final Amount A_VALID_AMOUNT = Amount.valueOf(1234.22);
   private final InitiativeId AN_ID = new InitiativeId();
 
   @Before
@@ -27,7 +28,7 @@ public class InitiativeAssemblerTest {
     initiativeAssembler = new InitiativeAssembler();
     initiativeRequest = new InitiativeRequest();
     initiativeRequest.name = A_VALID_NAME;
-    initiativeRequest.amount = A_VALID_AMOUNT;
+    initiativeRequest.amount = A_VALID_AMOUNT.asDouble();
     initiative = new Initiative(AN_ID, A_VALID_NAME, A_VALID_AMOUNT);
   }
 
@@ -43,6 +44,6 @@ public class InitiativeAssemblerTest {
     InitiativeResponse initiativeResponse = initiativeAssembler.toResponse(initiative);
     Truth.assertThat(initiativeResponse.id).isEqualTo(initiative.getId().toString());
     Truth.assertThat(initiativeResponse.name).isEqualTo(initiative.getName());
-    Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.getAmount());
+    Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.getAmount().asDouble());
   }
 }

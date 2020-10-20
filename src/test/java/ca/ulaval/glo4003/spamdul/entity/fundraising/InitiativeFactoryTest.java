@@ -1,14 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.fundraising;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeName;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import org.junit.Before;
 import org.junit.Test;
 
 public class InitiativeFactoryTest {
 
   private final String A_VALID_NAME = "YOLO";
-  private final double A_VALID_AMOUNT = 2233.23;
+  private final Amount A_VALID_AMOUNT = Amount.valueOf(2233.23);
 
   private InitiativeFactory initiativeFactory;
 
@@ -29,16 +32,16 @@ public class InitiativeFactoryTest {
 
   @Test(expected = InvalidInitiativeAmount.class)
   public void givenNegativeAmount_whenCreating_shouldThrowInvalidInitiativeAmountException() {
-    initiativeFactory.create(A_VALID_NAME, -45.21);
+    initiativeFactory.create(A_VALID_NAME, Amount.valueOf(-45.21));
   }
 
   @Test(expected = InvalidInitiativeAmount.class)
   public void givenZeroAmount_whenCreating_shouldThrowInvalidInitiativeAmountException() {
-    initiativeFactory.create(A_VALID_NAME, 0);
+    initiativeFactory.create(A_VALID_NAME, Amount.valueOf(0));
   }
 
   @Test
   public void whenCreating_itReturnsValidInitiative() {
-    initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT);
+    assertThat(initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT)).isNotNull();
   }
 }
