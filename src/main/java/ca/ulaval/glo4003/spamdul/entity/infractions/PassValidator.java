@@ -21,4 +21,8 @@ public class PassValidator {
   public InfractionCode validateInvalidPass(){
     return InfractionCode.valueOf("VIG_02");
   }
+
+  public InfractionCode validateNoPass() {
+    return InfractionCode.valueOf("VIG_03");
+  }
 }

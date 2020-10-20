@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.pass.InvalidPassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 
@@ -28,6 +29,8 @@ public class InfractionService {
 
   private Infraction generateInfraction(InfractionValidationDto infractionValidationDto) {
     if (infractionValidationDto.passCode == null) {
+      return infractionRepository.findBy(passValidator.validateNoPass());
+    } else if (infractionValidationDto.passCode instanceof InvalidPassCode) {
       return infractionRepository.findBy(passValidator.validateInvalidPass());
     } else {
       Pass pass = passRepository.findByPassCode(infractionValidationDto.passCode);

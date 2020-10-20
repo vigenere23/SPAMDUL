@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.InvalidPassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
@@ -57,10 +58,17 @@ public class InfractionAssemblerTest {
   }
 
   @Test
-  public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldThrowInvalidInfractionPassCodeFormatException() {
-    infractionRequest.passCode = "invalid";
+  public void givenAnAbsentPassCode_whenAssemblingFromRequest_shouldReturnNull() {
+    infractionRequest.passCode = "";
 
     Truth.assertThat(infractionAssembler.fromRequest(infractionRequest).passCode).isNull();
+  }
+
+  @Test
+  public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldReturnInvalidPassCode() {
+    infractionRequest.passCode = "invalid";
+
+    Truth.assertThat(infractionAssembler.fromRequest(infractionRequest).passCode).isInstanceOf(InvalidPassCode.class);
   }
 
   @Test(expected = InvalidInfractionTimeOfTheDayException.class)

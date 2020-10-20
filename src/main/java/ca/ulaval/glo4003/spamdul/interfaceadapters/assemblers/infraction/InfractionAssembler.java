@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.entity.pass.InvalidPassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
@@ -42,11 +43,14 @@ public class InfractionAssembler {
   }
 
   private PassCode getPassCode(InfractionRequest infractionRequest) {
+    if (infractionRequest.passCode.equals("")){
+      return null;
+    }
     try {
       return PassCode.valueOf(infractionRequest.passCode);
     } catch (InvalidPassCodeFormat e) {
     }
-    return null;
+    return new InvalidPassCode();
   }
 
   public InfractionResponse toResponse(Infraction infraction) {
