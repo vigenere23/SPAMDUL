@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
+import ca.ulaval.glo4003.spamdul.utils.Amount;
+
 public class TransactionFactory {
 
   public Transaction create(TransactionDto dto) {
@@ -8,11 +10,11 @@ public class TransactionFactory {
         throw new CantCreateCampusAccessTransactionWithoutCarTypeException(
             "A campus access transaction must contain a valid car type");
       }
-      return new CampusAccessTransaction(dto.amount, dto.carType);
+      return new CampusAccessTransaction(Amount.valueOf(dto.amount), dto.carType);
     } else if (dto.transactionType.equals(TransactionType.PASS)) {
-      return new PassTransaction(dto.amount);
+      return new PassTransaction(Amount.valueOf(dto.amount));
     } else if (dto.transactionType.equals(TransactionType.INFRACTION)){
-      return new InfractionTransaction(dto.amount);
+      return new InfractionTransaction(Amount.valueOf(dto.amount));
     } else {
       throw new CantCreateTransactionException("transaction type must be valid");
     }

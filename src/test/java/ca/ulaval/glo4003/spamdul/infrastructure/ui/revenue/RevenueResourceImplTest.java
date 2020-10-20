@@ -20,12 +20,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class RevenueResourceImplTest {
 
-  public static final int AN_AMOUNT_NUMBER = 9;
-  public static final Amount AN_AMOUNT = new Amount(AN_AMOUNT_NUMBER);
-  public static final int ANOTHER_AMOUNT_NUMBER = 8;
-  public static final Amount ANOTHER_AMOUNT = new Amount(ANOTHER_AMOUNT_NUMBER);
-  public static final int ANOTHER_ANOTHER_AMOUNT_NUMBER = 11;
-  public static final Amount ANOTHER_ANOTHER_AMOUNT = new Amount(ANOTHER_ANOTHER_AMOUNT_NUMBER);
+  public static final int AMOUNT_VALUE_1 = 9;
+  public static final int AMOUNT_VALUE_2 = 8;
+  public static final Amount AMOUNT_1 = Amount.valueOf(AMOUNT_VALUE_1);
+  public static final Amount AMOUNT_2 = Amount.valueOf(AMOUNT_VALUE_2);
   public static final int GOUMANDE_AMOUNT_NUMBER = 99;
   public static final int ECONOMIQUE_AMOUNT_NUMBER = 98;
   public static final int SUPER_ECONOMIQUE_AMOUNT_NUMBER = 97;
@@ -63,34 +61,34 @@ public class RevenueResourceImplTest {
 
   @Test
   public void whenGettingTotalInfractionsRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getInfractionsTotalRevenue()).willReturn(AN_AMOUNT);
+    BDDMockito.given(transactionService.getInfractionsTotalRevenue()).willReturn(AMOUNT_1);
 
     RevenueResponse infractionsTotalRevenue = resource.getInfractionsTotalRevenue();
 
-    Truth.assertThat(infractionsTotalRevenue.revenue).isEqualTo(AN_AMOUNT_NUMBER);
+    Truth.assertThat(infractionsTotalRevenue.revenue).isEqualTo(AMOUNT_VALUE_1);
   }
 
   @Test
   public void whenGettingTotalPassRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getPassTotalRevenue()).willReturn(AN_AMOUNT);
+    BDDMockito.given(transactionService.getPassTotalRevenue()).willReturn(AMOUNT_1);
 
     RevenueResponse parkingPassTotalRevenue = resource.getParkingPassTotalRevenue();
 
-    Truth.assertThat(parkingPassTotalRevenue.revenue).isEqualTo(AN_AMOUNT_NUMBER);
+    Truth.assertThat(parkingPassTotalRevenue.revenue).isEqualTo(AMOUNT_VALUE_1);
   }
 
   @Test
   public void whenGettingTotalRevenue_shouldReturnResponseWithCorrectInfos() {
     BDDMockito.given(transactionService.getTotalCampusAccessRevenueByCarType()).willReturn(carTypeRevenues);
-    BDDMockito.given(transactionService.getInfractionsTotalRevenue()).willReturn(AN_AMOUNT);
-    BDDMockito.given(transactionService.getPassTotalRevenue()).willReturn(ANOTHER_AMOUNT);
+    BDDMockito.given(transactionService.getInfractionsTotalRevenue()).willReturn(AMOUNT_1);
+    BDDMockito.given(transactionService.getPassTotalRevenue()).willReturn(AMOUNT_2);
 
     TotalRevenueResponse totalRevenue = resource.getTotalRevenue();
 
     double total = GOUMANDE_AMOUNT_NUMBER + ECONOMIQUE_AMOUNT_NUMBER + SUPER_ECONOMIQUE_AMOUNT_NUMBER
-        + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER + AN_AMOUNT_NUMBER + ANOTHER_AMOUNT_NUMBER;
-    Truth.assertThat(totalRevenue.infraction).isEqualTo(AN_AMOUNT_NUMBER);
-    Truth.assertThat(totalRevenue.pass).isEqualTo(ANOTHER_AMOUNT_NUMBER);
+        + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER + AMOUNT_VALUE_1 + AMOUNT_VALUE_2;
+    Truth.assertThat(totalRevenue.infraction).isEqualTo(AMOUNT_VALUE_1);
+    Truth.assertThat(totalRevenue.pass).isEqualTo(AMOUNT_VALUE_2);
     Truth.assertThat(totalRevenue.campusAccess.gourmande).isEqualTo(GOUMANDE_AMOUNT_NUMBER);
     Truth.assertThat(totalRevenue.campusAccess.economique).isEqualTo(ECONOMIQUE_AMOUNT_NUMBER);
     Truth.assertThat(totalRevenue.campusAccess.superEconomique).isEqualTo(SUPER_ECONOMIQUE_AMOUNT_NUMBER);
@@ -102,11 +100,11 @@ public class RevenueResourceImplTest {
   private Map<CarType, Amount> generateCarTypesRevenues() {
     Map<CarType, Amount> carTypesRevenues = new HashMap<>();
 
-    carTypesRevenues.put(CarType.GOURMANDE, new Amount(GOUMANDE_AMOUNT_NUMBER));
-    carTypesRevenues.put(CarType.ECONOMIQUE, new Amount(ECONOMIQUE_AMOUNT_NUMBER));
-    carTypesRevenues.put(CarType.SUPER_ECONOMIQUE, new Amount(SUPER_ECONOMIQUE_AMOUNT_NUMBER));
-    carTypesRevenues.put(CarType.HYBRIDE_ECONOMIQUE, new Amount(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER));
-    carTypesRevenues.put(CarType.SANS_POLLUTION, new Amount(SANS_POLLUTION_AMOUNT_NUMBER));
+    carTypesRevenues.put(CarType.GOURMANDE, Amount.valueOf(GOUMANDE_AMOUNT_NUMBER));
+    carTypesRevenues.put(CarType.ECONOMIQUE, Amount.valueOf(ECONOMIQUE_AMOUNT_NUMBER));
+    carTypesRevenues.put(CarType.SUPER_ECONOMIQUE, Amount.valueOf(SUPER_ECONOMIQUE_AMOUNT_NUMBER));
+    carTypesRevenues.put(CarType.HYBRIDE_ECONOMIQUE, Amount.valueOf(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER));
+    carTypesRevenues.put(CarType.SANS_POLLUTION, Amount.valueOf(SANS_POLLUTION_AMOUNT_NUMBER));
 
     return carTypesRevenues;
   }
