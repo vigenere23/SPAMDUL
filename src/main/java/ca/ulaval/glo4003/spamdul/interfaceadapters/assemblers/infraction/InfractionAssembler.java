@@ -1,13 +1,14 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
-import ca.ulaval.glo4003.spamdul.entity.pass.InvalidPassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.EmptyPassCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionPassCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
 import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
@@ -43,18 +44,22 @@ public class InfractionAssembler {
   }
 
   private PassCode getPassCode(InfractionRequest infractionRequest) {
-    if (infractionRequest.passCode.equals("")){
-      return null;
+    if (infractionRequest.passCode.equals("")) {
+      throw new EmptyPassCodeException("The pass code is empty");
     }
     try {
       return PassCode.valueOf(infractionRequest.passCode);
     } catch (InvalidPassCodeFormat e) {
+      throw new InvalidInfractionPassCodeFormatException("The pass code format is invalid");
     }
-    return new InvalidPassCode();
   }
 
   public InfractionResponse toResponse(Infraction infraction) {
     InfractionResponse response = new InfractionResponse();
+    if (infraction == null) {
+      response.reason = "The pass is Valid";
+      return response;
+    }
     response.amount = infraction.getAmount();
     response.code = infraction.getCode().toString();
     response.reason = infraction.getInfractionDscription();

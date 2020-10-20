@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.InvalidPassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.EmptyPassCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionPassCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
@@ -57,18 +57,18 @@ public class InfractionAssemblerTest {
     infractionAssembler.fromRequest(infractionRequest);
   }
 
-  @Test
-  public void givenAnAbsentPassCode_whenAssemblingFromRequest_shouldReturnNull() {
+  @Test(expected = EmptyPassCodeException.class)
+  public void givenAnAbsentPassCode_whenAssemblingFromRequest_shouldThrowEmptyPassCodeException() {
     infractionRequest.passCode = "";
 
-    Truth.assertThat(infractionAssembler.fromRequest(infractionRequest).passCode).isNull();
+    infractionAssembler.fromRequest(infractionRequest);
   }
 
-  @Test
-  public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldReturnInvalidPassCode() {
+  @Test(expected = InvalidInfractionPassCodeFormatException.class)
+  public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldThrowInvalidInfractionPassCodeFormatException() {
     infractionRequest.passCode = "invalid";
 
-    Truth.assertThat(infractionAssembler.fromRequest(infractionRequest).passCode).isInstanceOf(InvalidPassCode.class);
+    infractionAssembler.fromRequest(infractionRequest);
   }
 
   @Test(expected = InvalidInfractionTimeOfTheDayException.class)

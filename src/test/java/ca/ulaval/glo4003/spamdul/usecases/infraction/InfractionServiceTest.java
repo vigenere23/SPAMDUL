@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.ValidationChain;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -27,20 +28,21 @@ public class InfractionServiceTest {
                                                          A_END_DATE_TIME,
                                                          TimePeriodDayOfWeek.MONDAY);
   public final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
-  public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf("00");
+  public final String AN_INFRACTION_CODE_VALUE = "00";
+  public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
   private InfractionService service;
   private InfractionRepository infractionRepository;
   private PassRepository passRepository;
-  private PassValidator passValidator;
+  private ValidationChain validationChain;
   private InfractionValidationDto infractionValidationDto;
 
   @Before
   public void setUp() throws Exception {
     infractionRepository = BDDMockito.mock(InfractionRepository.class);
     passRepository = BDDMockito.mock(PassRepository.class);
-    passValidator = BDDMockito.mock(PassValidator.class);
-    service = new InfractionService(infractionRepository, passRepository, passValidator);
+    validationChain = BDDMockito.mock(ValidationChain.class);
+    service = new InfractionService(infractionRepository, passRepository, validationChain);
 
     infractionValidationDto = new InfractionValidationDto();
     infractionValidationDto.parkingZone = A_PARKING_ZONE;
@@ -61,13 +63,16 @@ public class InfractionServiceTest {
 
     service.validatePass(infractionValidationDto);
 
-    BDDMockito.verify(passValidator, Mockito.times(1)).validate(A_PASS, A_PARKING_ZONE, A_TIME_OF_THE_DAY);
+    BDDMockito.verify(validationChain, Mockito.times(1)).validate(A_PASS, A_PARKING_ZONE, A_TIME_OF_THE_DAY);
   }
 
   @Test
   public void whenValidatingPass_shouldFindInfractionInRepository() {
     BDDMockito.given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    BDDMockito.given(passValidator.validate(A_PASS, A_PARKING_ZONE, A_TIME_OF_THE_DAY)).willReturn(AN_INFRACTION_CODE);
+    //    BDDMockito.given(validationChain.validate(A_PASS, A_PARKING_ZONE, A_TIME_OF_THE_DAY)).willThrow(InfractionException.class);
+    BDDMockito.doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE)).when(validationChain).validate(A_PASS,
+                                                                                                         A_PARKING_ZONE,
+                                                                                                         A_TIME_OF_THE_DAY);
 
     service.validatePass(infractionValidationDto);
 

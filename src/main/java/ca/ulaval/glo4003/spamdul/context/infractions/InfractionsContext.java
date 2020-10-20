@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.ParkingZoneValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.TimePeriodValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.ValidationChain;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
@@ -18,9 +20,9 @@ public class InfractionsContext {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionRepository infractionRepository = new InfractionsJsonRepository("src/main/resources/infraction.json",
                                                                               new JsonReader());
-    PassValidator passValidator = new PassValidator();
+    ValidationChain validationChain = InitilalizeValidationChain();
 
-    InfractionService infractionService = new InfractionService(infractionRepository, passRepository, passValidator);
+    InfractionService infractionService = new InfractionService(infractionRepository, passRepository, validationChain);
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService);
 
@@ -28,5 +30,16 @@ public class InfractionsContext {
 
   public InfractionResource getInfractionResource() {
     return infractionResource;
+  }
+
+  private ValidationChain InitilalizeValidationChain() {
+    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+    TimePeriodValidator timePeriodValidator = new TimePeriodValidator();
+
+    parkingZoneValidator.setNextValidator(timePeriodValidator);
+
+    ValidationChain validationChain = new ValidationChain(parkingZoneValidator);
+
+    return validationChain;
   }
 }

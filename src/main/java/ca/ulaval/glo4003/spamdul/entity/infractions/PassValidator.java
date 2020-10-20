@@ -2,27 +2,19 @@ package ca.ulaval.glo4003.spamdul.entity.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PassValidator {
+public abstract class PassValidator {
 
-  public InfractionCode validate(Pass pass, ParkingZone parkingZone, LocalTime localTime) {
+  protected PassValidator nextPassValidator;
 
-    boolean isParkingZoneValid = pass.isAValidParkingZone(parkingZone);
-    if (!isParkingZoneValid) {
-      return InfractionCode.valueOf("ZONE_01");
-    } else if (!pass.getTimePeriod().include(localTime.atDate(LocalDate.now()))) {
-      return InfractionCode.valueOf("VIG_01");
+  public void setNextValidator(PassValidator passValidator) {
+    nextPassValidator = passValidator;
+  }
+
+  public void validate(Pass pass, ParkingZone parkingZone, LocalTime time) {
+    if (nextPassValidator != null) {
+      nextPassValidator.validate(pass, parkingZone, time);
     }
-    return null;
-  }
-
-  public InfractionCode validateInvalidPass(){
-    return InfractionCode.valueOf("VIG_02");
-  }
-
-  public InfractionCode validateNoPass() {
-    return InfractionCode.valueOf("VIG_03");
   }
 }
