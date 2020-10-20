@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRes
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionPassCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
-import ca.ulaval.glo4003.spamdul.usecases.InfractionService.InfractionValidationDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
 import com.google.common.truth.Truth;
 import java.time.LocalTime;
 import org.junit.Before;

@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 
-import java.util.Objects;
-
 public class Pass {
 
   private final PassCode passCode;

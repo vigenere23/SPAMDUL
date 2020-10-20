@@ -11,7 +11,7 @@ public class TransactionFactory {
       return new CampusAccessTransaction(dto.amount, dto.carType);
     } else if (dto.transactionType.equals(TransactionType.PASS)) {
       return new PassTransaction(dto.amount);
-    } else if (dto.transactionType.equals(TransactionType.INFRACTION)){
+    } else if (dto.transactionType.equals(TransactionType.INFRACTION)) {
       return new InfractionTransaction(dto.amount);
     } else {
       throw new CantCreateTransactionException("transaction type must be valid");

@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 
 public class PassFactory {
+
   private final TimePeriodFactory timePeriodFactory;
 
   public PassFactory(TimePeriodFactory timePeriodFactory) {

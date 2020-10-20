@@ -41,8 +41,8 @@ public class CampusAccessContext {
     CarAssembler carAssembler = new CarAssembler();
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
     CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(userAssembler,
-            carAssembler,
-            timePeriodAssembler);
+                                                                            carAssembler,
+                                                                            timePeriodAssembler);
 
     CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
     Calendar calendar = new HardCodedCalendar();

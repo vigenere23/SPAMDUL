@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
+import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
@@ -14,11 +15,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.C
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -47,6 +48,7 @@ public class SpamdUlMain {
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
     FundraisingContext fundraisingContext = new FundraisingContext(true);
     RevenueContext revenueContext = new RevenueContext();
+    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -73,6 +75,8 @@ public class SpamdUlMain {
         resources.add(carbonCreditsContext.getCarbonCreditsResource());
         resources.add(fundraisingContext.getFundraisingResource());
         resources.add(new InitiativeExceptionMapper());
+        resources.add(infractionsContext.getInfractionResource());
+        resources.add(new InfractionExceptionAssembler());
 
         return resources;
       }

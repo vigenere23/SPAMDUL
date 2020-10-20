@@ -1,122 +1,124 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
-import org.junit.Test;
-
-import java.time.LocalDateTime;
-
 import static com.google.common.truth.Truth.assertThat;
 
+import java.time.LocalDateTime;
+import org.junit.Test;
+
 public class TimePeriodTest {
-    private final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
-    private final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
-    private final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
-    private final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
-    private final LocalDateTime A_DATE_TIME_AFTER = LocalDateTime.of(2021, 1, 1, 0, 0);
-    private final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.MONDAY;
 
-    @Test
-    public void givenSameTimePeriods_whenComparingTimePeriod_shouldBeEqual() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+  private final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
+  private final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
+  private final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
+  private final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
+  private final LocalDateTime A_DATE_TIME_AFTER = LocalDateTime.of(2021, 1, 1, 0, 0);
+  private final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.MONDAY;
 
-        boolean result = A_TIME_PERIOD.equals(SAME_TIME_PERIOD);
+  @Test
+  public void givenSameTimePeriods_whenComparingTimePeriod_shouldBeEqual() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
 
-        assertThat(result).isTrue();
-    }
+    boolean result = A_TIME_PERIOD.equals(SAME_TIME_PERIOD);
 
-    @Test
-    public void givenDifferentTimePeriods_whenComparing_shouldNotBeEqual() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod OTHER_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    assertThat(result).isTrue();
+  }
 
-        boolean result = A_TIME_PERIOD.equals(OTHER_TIME_PERIOD);
+  @Test
+  public void givenDifferentTimePeriods_whenComparing_shouldNotBeEqual() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod OTHER_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = A_TIME_PERIOD.equals(OTHER_TIME_PERIOD);
 
-    @Test
-    public void givenDayOfWeekIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeTrue() {
-        final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
+  @Test
+  public void givenDayOfWeekIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeTrue() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
 
-        assertThat(result).isTrue();
-    }
+    boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
 
-    @Test
-    public void givenDayOfWeekNotIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeFalse() {
-        final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    assertThat(result).isTrue();
+  }
 
-        boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
+  @Test
+  public void givenDayOfWeekNotIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeFalse() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
 
-    @Test
-    public void whenCheckingInclusionOfJavaDateTimeBefore_shouldBeFalse() {
-        final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = TIME_PERIOD.include(A_DATE_TIME_BEFORE);
+  @Test
+  public void whenCheckingInclusionOfJavaDateTimeBefore_shouldBeFalse() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = TIME_PERIOD.include(A_DATE_TIME_BEFORE);
 
-    @Test
-    public void whenCheckingInclusionOfJavaDateTimeAfter_shouldBeFalse() {
-        final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = TIME_PERIOD.include(A_DATE_TIME_AFTER);
+  @Test
+  public void whenCheckingInclusionOfJavaDateTimeAfter_shouldBeFalse() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = TIME_PERIOD.include(A_DATE_TIME_AFTER);
 
-    @Test
-    public void givenTimePeriod_whenCheckingIfIncludedInSameTimePeriod_shouldBeTrue() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = A_TIME_PERIOD.includedIn(SAME_TIME_PERIOD);
+  @Test
+  public void givenTimePeriod_whenCheckingIfIncludedInSameTimePeriod_shouldBeTrue() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
 
-        assertThat(result).isTrue();
-    }
+    boolean result = A_TIME_PERIOD.includedIn(SAME_TIME_PERIOD);
 
-    @Test
-    public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingBeforeAndEndingAfterWithDayIncluded_shouldBeTrue() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod INCLUDING_TIME_PERIOD = new TimePeriod(A_DATE_TIME_BEFORE, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
+    assertThat(result).isTrue();
+  }
 
-        boolean result = A_TIME_PERIOD.includedIn(INCLUDING_TIME_PERIOD);
+  @Test
+  public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingBeforeAndEndingAfterWithDayIncluded_shouldBeTrue() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod INCLUDING_TIME_PERIOD = new TimePeriod(A_DATE_TIME_BEFORE, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
 
-        assertThat(result).isTrue();
-    }
+    boolean result = A_TIME_PERIOD.includedIn(INCLUDING_TIME_PERIOD);
 
-    @Test
-    public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodEndingBefore_shouldBeFalse() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod TIME_PERIOD_ENDING_BEFORE = new TimePeriod(A_DATE_TIME_BEFORE, A_START_DATE_TIME, A_DAY_OF_WEEK);
+    assertThat(result).isTrue();
+  }
 
-        boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_ENDING_BEFORE);
+  @Test
+  public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodEndingBefore_shouldBeFalse() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod TIME_PERIOD_ENDING_BEFORE = new TimePeriod(A_DATE_TIME_BEFORE, A_START_DATE_TIME, A_DAY_OF_WEEK);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_ENDING_BEFORE);
 
-    @Test
-    public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingAfter_shouldBeFalse() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-        TimePeriod TIME_PERIOD_STARTING_AFTER = new TimePeriod(A_END_DATE_TIME, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_STARTING_AFTER);
+  @Test
+  public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingAfter_shouldBeFalse() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod TIME_PERIOD_STARTING_AFTER = new TimePeriod(A_END_DATE_TIME, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_STARTING_AFTER);
 
-    @Test
-    public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodWithDayOfWeekNotIncluded_shouldBeFalse() {
-        TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
-        TimePeriod TIME_PERIOD_NOT_SAME_DAY= new TimePeriod(A_DATE_TIME_BEFORE, A_DATE_TIME_AFTER, TimePeriodDayOfWeek.MONDAY);
+    assertThat(result).isFalse();
+  }
 
-        boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_NOT_SAME_DAY);
+  @Test
+  public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodWithDayOfWeekNotIncluded_shouldBeFalse() {
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    TimePeriod TIME_PERIOD_NOT_SAME_DAY = new TimePeriod(A_DATE_TIME_BEFORE,
+                                                         A_DATE_TIME_AFTER,
+                                                         TimePeriodDayOfWeek.MONDAY);
 
-        assertThat(result).isFalse();
-    }
+    boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_NOT_SAME_DAY);
+
+    assertThat(result).isFalse();
+  }
 }

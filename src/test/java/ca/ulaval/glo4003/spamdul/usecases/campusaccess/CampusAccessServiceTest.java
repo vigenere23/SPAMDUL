@@ -1,13 +1,27 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.*;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.pass.*;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
@@ -16,15 +30,10 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CampusAccessServiceTest {
 
@@ -35,9 +44,11 @@ public class CampusAccessServiceTest {
   private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
   private static final Car A_CAR = new Car(A_CAR_ID, CarType.GOURMANDE, "brand", "model", 2020, "xxx xxx");
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
-  private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020,1,1,0,0);
-  private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020,2,1,0,0);
-  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.ALL);
+  private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
+  private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
+  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
+                                                                 A_END_DATE_TIME,
+                                                                 TimePeriodDayOfWeek.ALL);
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();

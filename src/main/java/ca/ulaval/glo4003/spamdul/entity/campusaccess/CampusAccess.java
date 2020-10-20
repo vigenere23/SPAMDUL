@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-
 import java.time.LocalDateTime;
 
 public class CampusAccess {
@@ -52,7 +51,7 @@ public class CampusAccess {
     }
     if (!passTimePeriod.includedIn(timePeriod)) {
       throw new PassSaleNotAcceptedByAccessException(
-              "This user does not have campus access for the dates covered by this pass."
+          "This user does not have campus access for the dates covered by this pass."
       );
     }
 

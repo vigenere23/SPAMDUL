@@ -3,8 +3,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.*;
-
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleDayOfWeekException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidPassSaleTypeException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

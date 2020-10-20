@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.InfractionService.InfractionService;
-import ca.ulaval.glo4003.spamdul.usecases.InfractionService.InfractionValidationDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
 
 public class InfractionResourceImpl implements InfractionResource {
 

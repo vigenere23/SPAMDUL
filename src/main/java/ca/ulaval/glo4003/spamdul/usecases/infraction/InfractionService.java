@@ -1,11 +1,13 @@
-package ca.ulaval.glo4003.spamdul.usecases.InfractionService;
+package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import java.time.LocalTime;
 
 public class InfractionService {
 
@@ -23,10 +25,29 @@ public class InfractionService {
 
   public Infraction validatePass(InfractionValidationDto infractionValidationDto) {
     Pass pass = passRepository.findByPassCode(infractionValidationDto.passCode);
-    InfractionCode infractionCode = passValidator.validate(pass,
-                                                     infractionValidationDto.parkingZone,
-                                                     infractionValidationDto.time);
+    Infraction infraction = generateInfraction(pass,
+                                               infractionValidationDto.parkingZone,
+                                               infractionValidationDto.time);
 
-    return infractionRepository.findBy(infractionCode);
+    return infraction;
   }
+
+  private Infraction generateInfraction(Pass pass, ParkingZone parkingZone, LocalTime time) {
+    InfractionCode infractionCode = passValidator.validate(pass,
+                                                           parkingZone,
+                                                           time);
+    if (infractionCode != null) {
+      return infractionRepository.findBy(infractionCode);
+    }
+    return createValidPassInfraction();
+  }
+
+  private Infraction createValidPassInfraction() {
+    String description = "The pass is valid";
+    InfractionCode code = InfractionCode.valueOf("");
+    double amount = 0;
+    return new Infraction(description, code, amount);
+  }
+
+
 }

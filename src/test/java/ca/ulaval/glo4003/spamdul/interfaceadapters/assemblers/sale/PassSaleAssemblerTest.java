@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
@@ -7,19 +11,15 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import org.junit.Before;
 import org.junit.Test;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 public class PassSaleAssemblerTest {
 
