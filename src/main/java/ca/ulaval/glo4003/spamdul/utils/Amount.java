@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 public class Amount {
 
@@ -29,5 +30,26 @@ public class Amount {
 
   public boolean isZero() {
     return value.compareTo(BigDecimal.ZERO) == 0;
+  }
+
+  public Amount add(Amount other) {
+    return new Amount(value.add(other.value));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Amount amount = (Amount) o;
+    return Objects.equals(value, amount.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
   }
 }

@@ -5,8 +5,11 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
+import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class TransactionService {
@@ -21,29 +24,28 @@ public class TransactionService {
   }
 
   public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType() {
-    //TODO faire la real implementation ceci est du dummy data
     Map<CarType, Amount> carTypeRevenues = new EnumMap<>(CarType.class);
-    carTypeRevenues.put(CarType.GOURMANDE, Amount.valueOf(1.125));
-    carTypeRevenues.put(CarType.ECONOMIQUE, Amount.valueOf(2.124));
-    carTypeRevenues.put(CarType.SUPER_ECONOMIQUE, Amount.valueOf(3.455));
-    carTypeRevenues.put(CarType.HYBRIDE_ECONOMIQUE, Amount.valueOf(4.454));
-    carTypeRevenues.put(CarType.SANS_POLLUTION, Amount.valueOf(5.1234));
-
+    Arrays.stream(CarType.values())
+          .forEach(carType -> carTypeRevenues.put(carType, getTotalAmount(this.transactionRepository.findAllBy(carType))));
     return carTypeRevenues;
   }
 
   public Amount getInfractionsTotalRevenue() {
-    //TODO faire la real implementation ceci est du dummy data
-    return Amount.valueOf(12.114);
+    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.INFRACTION));
   }
 
   public Amount getPassTotalRevenue() {
-    //TODO faire la real implementation ceci est du dummy data
-    return Amount.valueOf(100.115);
+    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.PASS));
   }
 
   public void createTransaction(TransactionDto transactionDto) {
     Transaction transaction = transactionFactory.create(transactionDto);
     transactionRepository.save(transaction);
+  }
+
+  private Amount getTotalAmount(List<Transaction> transactions) {
+    return transactions.stream()
+                       .map(Transaction::getAmount)
+                       .reduce(Amount.valueOf(0), Amount::add);
   }
 }
