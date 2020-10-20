@@ -46,8 +46,8 @@ public class InfractionAssembler {
     try {
       return PassCode.valueOf(infractionRequest.passCode);
     } catch (InvalidPassCodeFormat e) {
-      throw new InvalidInfractionPassCodeFormatException("Invalid pass code format");
     }
+    return null;
   }
 
   public InfractionResponse toResponse(Infraction infraction) {

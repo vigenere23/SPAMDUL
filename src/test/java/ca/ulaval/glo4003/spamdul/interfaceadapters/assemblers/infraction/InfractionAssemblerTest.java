@@ -56,11 +56,11 @@ public class InfractionAssemblerTest {
     infractionAssembler.fromRequest(infractionRequest);
   }
 
-  @Test(expected = InvalidInfractionPassCodeFormatException.class)
+  @Test
   public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldThrowInvalidInfractionPassCodeFormatException() {
     infractionRequest.passCode = "invalid";
 
-    infractionAssembler.fromRequest(infractionRequest);
+    Truth.assertThat(infractionAssembler.fromRequest(infractionRequest).passCode).isNull();
   }
 
   @Test(expected = InvalidInfractionTimeOfTheDayException.class)

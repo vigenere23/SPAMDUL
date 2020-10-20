@@ -17,4 +17,8 @@ public class PassValidator {
     }
     return null;
   }
+
+  public InfractionCode validateInvalidPass(){
+    return InfractionCode.valueOf("VIG_02");
+  }
 }

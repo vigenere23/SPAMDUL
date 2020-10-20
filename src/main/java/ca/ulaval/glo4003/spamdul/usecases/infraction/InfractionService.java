@@ -4,10 +4,8 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassValidator;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import java.time.LocalTime;
 
 public class InfractionService {
 
@@ -24,20 +22,21 @@ public class InfractionService {
   }
 
   public Infraction validatePass(InfractionValidationDto infractionValidationDto) {
-    Pass pass = passRepository.findByPassCode(infractionValidationDto.passCode);
-    Infraction infraction = generateInfraction(pass,
-                                               infractionValidationDto.parkingZone,
-                                               infractionValidationDto.time);
 
-    return infraction;
+    return generateInfraction(infractionValidationDto);
   }
 
-  private Infraction generateInfraction(Pass pass, ParkingZone parkingZone, LocalTime time) {
-    InfractionCode infractionCode = passValidator.validate(pass,
-                                                           parkingZone,
-                                                           time);
-    if (infractionCode != null) {
-      return infractionRepository.findBy(infractionCode);
+  private Infraction generateInfraction(InfractionValidationDto infractionValidationDto) {
+    if (infractionValidationDto.passCode == null) {
+      return infractionRepository.findBy(passValidator.validateInvalidPass());
+    } else {
+      Pass pass = passRepository.findByPassCode(infractionValidationDto.passCode);
+      InfractionCode infractionCode = passValidator.validate(pass,
+                                                             infractionValidationDto.parkingZone,
+                                                             infractionValidationDto.time);
+      if (infractionCode != null) {
+        return infractionRepository.findBy(infractionCode);
+      }
     }
     return createValidPassInfraction();
   }
