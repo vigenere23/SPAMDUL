@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionPassCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
 import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
@@ -19,14 +18,14 @@ public class InfractionAssembler {
   public InfractionValidationDto fromRequest(InfractionRequest infractionRequest) {
     InfractionValidationDto dto = new InfractionValidationDto();
 
-    dto.passCode = getPassCode(infractionRequest, dto);
-    dto.parkingZone = getParkingZone(infractionRequest, dto);
-    dto.time = getTimeOfTheDay(infractionRequest, dto);
+    dto.passCode = getPassCode(infractionRequest);
+    dto.parkingZone = getParkingZone(infractionRequest);
+    dto.time = getTimeOfTheDay(infractionRequest);
 
     return dto;
   }
 
-  private LocalTime getTimeOfTheDay(InfractionRequest infractionRequest, InfractionValidationDto dto) {
+  private LocalTime getTimeOfTheDay(InfractionRequest infractionRequest) {
     try {
       return LocalTime.parse(infractionRequest.timeOfTheDay, DateTimeFormatter.LOCAL_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
@@ -34,7 +33,7 @@ public class InfractionAssembler {
     }
   }
 
-  private ParkingZone getParkingZone(InfractionRequest infractionRequest, InfractionValidationDto dto) {
+  private ParkingZone getParkingZone(InfractionRequest infractionRequest) {
     try {
       return ParkingZone.valueOf(infractionRequest.parkingZone.toUpperCase());
     } catch (IllegalArgumentException e) {
@@ -42,7 +41,7 @@ public class InfractionAssembler {
     }
   }
 
-  private PassCode getPassCode(InfractionRequest infractionRequest, InfractionValidationDto dto) {
+  private PassCode getPassCode(InfractionRequest infractionRequest) {
     try {
       return PassCode.valueOf(infractionRequest.passCode);
     } catch (InvalidPassCodeFormat e) {
