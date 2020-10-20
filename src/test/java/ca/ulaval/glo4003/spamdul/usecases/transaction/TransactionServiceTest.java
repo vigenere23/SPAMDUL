@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
+import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import org.junit.Before;
 import org.junit.Test;
