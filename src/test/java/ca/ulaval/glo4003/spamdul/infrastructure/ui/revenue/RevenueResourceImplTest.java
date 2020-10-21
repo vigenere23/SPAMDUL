@@ -51,11 +51,11 @@ public class RevenueResourceImplTest {
 
     double total = GOUMANDE_AMOUNT_NUMBER + ECONOMIQUE_AMOUNT_NUMBER + SUPER_ECONOMIQUE_AMOUNT_NUMBER
         + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER;
-    Truth.assertThat(response.gourmande).isEqualTo(GOUMANDE_AMOUNT_NUMBER);
-    Truth.assertThat(response.economique).isEqualTo(ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(response.superEconomique).isEqualTo(SUPER_ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(response.hybridEconomique).isEqualTo(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(response.sansPollution).isEqualTo(SANS_POLLUTION_AMOUNT_NUMBER);
+    Truth.assertThat(response.byCarType.get(CarType.GOURMANDE)).isEqualTo(GOUMANDE_AMOUNT_NUMBER);
+    Truth.assertThat(response.byCarType.get(CarType.ECONOMIQUE)).isEqualTo(ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(response.byCarType.get(CarType.SUPER_ECONOMIQUE)).isEqualTo(SUPER_ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(response.byCarType.get(CarType.HYBRIDE_ECONOMIQUE)).isEqualTo(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(response.byCarType.get(CarType.SANS_POLLUTION)).isEqualTo(SANS_POLLUTION_AMOUNT_NUMBER);
     Truth.assertThat(response.total).isEqualTo(total);
   }
 
@@ -89,11 +89,11 @@ public class RevenueResourceImplTest {
         + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER + AMOUNT_VALUE_1 + AMOUNT_VALUE_2;
     Truth.assertThat(totalRevenue.infraction).isEqualTo(AMOUNT_VALUE_1);
     Truth.assertThat(totalRevenue.pass).isEqualTo(AMOUNT_VALUE_2);
-    Truth.assertThat(totalRevenue.campusAccess.gourmande).isEqualTo(GOUMANDE_AMOUNT_NUMBER);
-    Truth.assertThat(totalRevenue.campusAccess.economique).isEqualTo(ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(totalRevenue.campusAccess.superEconomique).isEqualTo(SUPER_ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(totalRevenue.campusAccess.hybridEconomique).isEqualTo(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER);
-    Truth.assertThat(totalRevenue.campusAccess.sansPollution).isEqualTo(SANS_POLLUTION_AMOUNT_NUMBER);
+    Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.GOURMANDE)).isEqualTo(GOUMANDE_AMOUNT_NUMBER);
+    Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.ECONOMIQUE)).isEqualTo(ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.SUPER_ECONOMIQUE)).isEqualTo(SUPER_ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.HYBRIDE_ECONOMIQUE)).isEqualTo(HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER);
+    Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.SANS_POLLUTION)).isEqualTo(SANS_POLLUTION_AMOUNT_NUMBER);
     Truth.assertThat(totalRevenue.total).isEqualTo(total);
   }
 
