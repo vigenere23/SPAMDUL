@@ -32,19 +32,18 @@ public class InfractionAssembler {
     return dto;
   }
 
-  public InfractionPayDto fromRequest(InfractionPayRequest infractionPayRequest){
+  public InfractionPayDto fromRequest(InfractionPayRequest infractionPayRequest) {
     InfractionPayDto infractionPayDto = new InfractionPayDto();
 
     infractionPayDto.infractionId = getInfractionId(infractionPayRequest);
 
-    return  infractionPayDto;
+    return infractionPayDto;
   }
 
   private InfractionId getInfractionId(InfractionPayRequest infractionPayRequest) {
-    try{
+    try {
       return InfractionId.valueOf(infractionPayRequest.infractionId.toUpperCase());
-    }
-    catch (InvalidInfractionIdException e){
+    } catch (InvalidInfractionIdException e) {
       throw new InvalidInfractionIdFormatException("The infraction id format is invalid");
     }
   }

@@ -10,7 +10,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InMemoryInfractionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsJsonRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.transactions.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
@@ -22,14 +21,13 @@ public class InfractionsContext {
 
   private final InfractionResource infractionResource;
 
-  public InfractionsContext(PassRepository passRepository) {
+  public InfractionsContext(PassRepository passRepository, TransactionRepository transactionRepository) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsJsonRepository(
         "src/main/resources/infraction.json",
         new JsonReader());
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     ValidationChain validationChain = InitilalizeValidationChain();
-    TransactionRepository transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
     TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
 

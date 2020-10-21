@@ -10,9 +10,11 @@ import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 public class RevenueContext {
 
   private final RevenueResourceImpl revenueResource;
+  private TransactionRepository transactionRepository;
+
 
   public RevenueContext() {
-    TransactionRepository transactionRepository = new InMemoryTransactionRepository();
+    transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
     TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
@@ -21,5 +23,9 @@ public class RevenueContext {
 
   public RevenueResourceImpl getRevenueResource() {
     return revenueResource;
+  }
+
+  public TransactionRepository getTransactionRepository() {
+    return transactionRepository;
   }
 }
