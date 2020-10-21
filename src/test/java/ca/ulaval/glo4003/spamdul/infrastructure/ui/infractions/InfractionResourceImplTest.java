@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.BDDMockito;
@@ -22,7 +22,7 @@ public class InfractionResourceImplTest {
   private InfractionAssembler infractionAssembler;
   private InfractionService infractionService;
   private InfractionRequest infractionRequest;
-  private InfractionValidationDto infractionValidationDto;
+  private PassToValidateDto passToValidateDto;
   private Infraction infraction;
 
   @Before
@@ -34,7 +34,7 @@ public class InfractionResourceImplTest {
     infractionRequest.parkingZone = "Zone1";
     infractionRequest.passCode = "1";
     infractionRequest.timeOfTheDay = "12h00";
-    infractionValidationDto = new InfractionValidationDto();
+    passToValidateDto = new PassToValidateDto();
     infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
   }
 
@@ -47,17 +47,17 @@ public class InfractionResourceImplTest {
 
   @Test
   public void whenValidatingParkingPass_shouldCallService() {
-    BDDMockito.given(infractionAssembler.fromRequest(infractionRequest)).willReturn(infractionValidationDto);
+    BDDMockito.given(infractionAssembler.fromRequest(infractionRequest)).willReturn(passToValidateDto);
 
     resource.validateParkingPass(infractionRequest);
 
-    BDDMockito.verify(infractionService, Mockito.times(1)).validatePass(infractionValidationDto);
+    BDDMockito.verify(infractionService, Mockito.times(1)).validatePass(passToValidateDto);
   }
 
   @Test
   public void whenValidatingParkingPass_shouldMapToResponse() {
-    BDDMockito.given(infractionAssembler.fromRequest(infractionRequest)).willReturn(infractionValidationDto);
-    BDDMockito.given(infractionService.validatePass(infractionValidationDto)).willReturn(infraction);
+    BDDMockito.given(infractionAssembler.fromRequest(infractionRequest)).willReturn(passToValidateDto);
+    BDDMockito.given(infractionService.validatePass(passToValidateDto)).willReturn(infraction);
 
     resource.validateParkingPass(infractionRequest);
 

@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.infractions;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -26,6 +27,7 @@ public class ValidationChainTest {
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private PassValidator baseValidator;
   private ValidationChain validationChain;
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
 
   @Before
   public void setUp() {
@@ -35,9 +37,9 @@ public class ValidationChainTest {
 
   @Test
   public void whenValidating_thenShouldCallBaseValidator() {
-    validationChain.validate(A_PASS, A_PARKING_ZONE, A_TIME);
+    validationChain.validate(passToValidateDto);
 
-    verify(baseValidator).validate(A_PASS, A_PARKING_ZONE, A_TIME);
+    verify(baseValidator).validate(passToValidateDto);
   }
 
 }

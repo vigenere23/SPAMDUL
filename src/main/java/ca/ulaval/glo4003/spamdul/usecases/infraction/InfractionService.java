@@ -1,67 +1,53 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.ValidationChain;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.*;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class InfractionService {
 
-  private InfractionInfoRepository infractionInfoRepository;
-  private InfractionRepository infractionRepository;
-  private PassRepository passRepository;
-  private ValidationChain validationChain;
-  private TransactionService transactionService;
+  private final InfractionInfoRepository infractionInfoRepository;
+  private final InfractionRepository infractionRepository;
+  private final ValidationChain validationChain;
+  private final TransactionService transactionService;
+  private final InfractionFactory infractionFactory;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
-                           PassRepository passRepository,
                            ValidationChain validationChain,
-                           TransactionService transactionService) {
+                           TransactionService transactionService,
+                           InfractionFactory infractionFactory) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
-    this.passRepository = passRepository;
     this.validationChain = validationChain;
     this.transactionService = transactionService;
+    this.infractionFactory = infractionFactory;
   }
 
-  public Infraction validatePass(InfractionValidationDto infractionValidationDto) {
-    Pass pass = passRepository.findByPassCode(infractionValidationDto.passCode);
+  public Infraction validatePass(PassToValidateDto passToValidateDto) {
+    Infraction infraction = null;
+
     try {
-      validationChain.validate(pass, infractionValidationDto.parkingZone, infractionValidationDto.time);
+      validationChain.validate(passToValidateDto);
     } catch (InfractionException e) {
-      Infraction infraction = infractionInfoRepository.findBy(InfractionCode.valueOf(e.getMessage()));
+      InfractionInfos infractionInfos = infractionInfoRepository.findBy(InfractionCode.valueOf(e.getMessage()));
+      infraction = infractionFactory.create(infractionInfos);
       infractionRepository.save(infraction);
-      return infraction;
     }
-    return null;
-  }
 
-  public Infraction createNoPassInfraction() {
-    Infraction infraction = infractionInfoRepository.findBy(InfractionCode.valueOf("VIG_03"));
-    infractionRepository.save(infraction);
-    return infraction;
-  }
-
-  public Infraction createInvalidPassException() {
-    Infraction infraction = infractionInfoRepository.findBy(InfractionCode.valueOf("VIG_02"));
-    infractionRepository.save(infraction);
     return infraction;
   }
 
   public void payInfraction(InfractionPayDto infractionPayDto) {
     Infraction infraction = infractionRepository.findBy(infractionPayDto.infractionId);
-    infraction.payInfraction();
+    infraction.pay();
+
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.amount = infraction.getAmount();
     transactionDto.transactionType = TransactionType.INFRACTION;
+
     transactionService.createTransaction(transactionDto);
   }
 }

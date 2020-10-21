@@ -42,7 +42,7 @@ public class CampusAccess {
   }
 
   public boolean isAccessGranted(LocalDateTime dateOfAccess) {
-    return timePeriod.include(dateOfAccess);
+    return timePeriod.includes(dateOfAccess);
   }
 
   public void associatePass(PassCode passCode, TimePeriod passTimePeriod) {

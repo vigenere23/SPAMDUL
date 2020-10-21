@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.reader;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionDTO;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Test;
@@ -11,7 +11,7 @@ public class JsonReaderTest {
   public void givenAValidJsonFilePath_whenReading_shouldReturnDtos() {
     JsonReader reader = new JsonReader();
 
-    List<InfractionDTO> dtos = reader.read("src/test/resources/json_test.json", InfractionDTO[].class);
+    List<InfractionInfos> dtos = reader.read("src/test/resources/json_test.json", InfractionInfos[].class);
 
     System.out.println(dtos);
 
@@ -26,6 +26,6 @@ public class JsonReaderTest {
 
   @Test(expected = InvalidJsonFile.class)
   public void givenAnInvalidJsonFilePath_whenReading_shouldThrowCantReadFileFromPathException() {
-    new JsonReader().read("invalid/path", InfractionDTO[].class);
+    new JsonReader().read("invalid/path", InfractionInfos[].class);
   }
 }

@@ -1,17 +1,22 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class ParkingZoneValidatorTest {
 
@@ -28,24 +33,29 @@ public class ParkingZoneValidatorTest {
   private PassValidator nextValidator;
   private ParkingZoneValidator parkingZoneValidator;
 
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
+
+  private PassRepository passRepository;
+
   @Before
   public void setUp() {
     nextValidator = mock(PassValidator.class);
-    parkingZoneValidator = new ParkingZoneValidator();
+    passRepository = mock(PassRepository.class);
+    parkingZoneValidator = new ParkingZoneValidator(passRepository);
   }
 
   @Test
   public void givenNextValidator_whenParkingZoneIsValid_thenShouldCallNextValidatorToValidate() {
     parkingZoneValidator.setNextValidator(nextValidator);
 
-    parkingZoneValidator.validate(A_PASS, A_PARKING_ZONE, A_TIME);
+    parkingZoneValidator.validate(passToValidateDto);
 
-    verify(nextValidator).validate(A_PASS, A_PARKING_ZONE, A_TIME);
+    verify(nextValidator).validate(passToValidateDto);
   }
 
   @Test(expected = InfractionException.class)
   public void whenParkingZoneIsInvalid_thenShouldThrowInfractionException() {
 
-    parkingZoneValidator.validate(A_PASS, A_INVALID_PARKING_ZONE, A_TIME);
+    parkingZoneValidator.validate(passToValidateDto);
   }
 }

@@ -38,7 +38,7 @@ public class TimePeriodTest {
   public void givenDayOfWeekIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeTrue() {
     final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
 
-    boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
+    boolean result = TIME_PERIOD.includes(A_WEDNESDAY_IN_THE_MIDDLE);
 
     assertThat(result).isTrue();
   }
@@ -47,7 +47,7 @@ public class TimePeriodTest {
   public void givenDayOfWeekNotIncluded_whenCheckingInclusionOfJavaDateTimeInTheMiddle_shouldBeFalse() {
     final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-    boolean result = TIME_PERIOD.include(A_WEDNESDAY_IN_THE_MIDDLE);
+    boolean result = TIME_PERIOD.includes(A_WEDNESDAY_IN_THE_MIDDLE);
 
     assertThat(result).isFalse();
   }
@@ -56,7 +56,7 @@ public class TimePeriodTest {
   public void whenCheckingInclusionOfJavaDateTimeBefore_shouldBeFalse() {
     final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-    boolean result = TIME_PERIOD.include(A_DATE_TIME_BEFORE);
+    boolean result = TIME_PERIOD.includes(A_DATE_TIME_BEFORE);
 
     assertThat(result).isFalse();
   }
@@ -65,7 +65,7 @@ public class TimePeriodTest {
   public void whenCheckingInclusionOfJavaDateTimeAfter_shouldBeFalse() {
     final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
-    boolean result = TIME_PERIOD.include(A_DATE_TIME_AFTER);
+    boolean result = TIME_PERIOD.includes(A_DATE_TIME_AFTER);
 
     assertThat(result).isFalse();
   }

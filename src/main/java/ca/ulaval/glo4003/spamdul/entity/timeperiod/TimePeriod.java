@@ -21,10 +21,15 @@ public class TimePeriod {
         timePeriodDayOfWeek.includedIn(that.timePeriodDayOfWeek);
   }
 
-  public boolean include(LocalDateTime localDateTime) {
+  public boolean includes(LocalDateTime localDateTime) {
     return !startDateTime.isAfter(localDateTime) &&
         !endDateTime.isBefore(localDateTime) &&
         timePeriodDayOfWeek.include(localDateTime.getDayOfWeek());
+  }
+
+  public boolean bounds(LocalDateTime localDateTime) {
+    return !startDateTime.isAfter(localDateTime) &&
+            !endDateTime.isBefore(localDateTime);
   }
 
   @Override

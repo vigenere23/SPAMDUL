@@ -23,7 +23,7 @@ public class InfractionExceptionAssembler implements ExceptionMapper<InvalidInfr
       exceptionResponse.error = "INVALID_PASS_CODE_FORMAT";
     } else if (e instanceof InvalidInfractionTimeOfTheDayException) {
       exceptionResponse.error = "INVALID_TIME_OF_DAY";
-    }else if (e instanceof InvalidInfractionIdFormatException){
+    } else if (e instanceof InvalidInfractionIdFormatException){
       exceptionResponse.error = "INVALID_INFRACTION_ID_FORMAT";
     }
     return Response.status(Status.BAD_REQUEST)

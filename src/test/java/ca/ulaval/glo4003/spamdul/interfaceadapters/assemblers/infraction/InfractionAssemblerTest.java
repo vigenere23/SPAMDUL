@@ -3,19 +3,19 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.EmptyPassCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionPassCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionValidationDto;
-import com.google.common.truth.Truth;
-import java.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalTime;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class InfractionAssemblerTest {
 
@@ -45,30 +45,16 @@ public class InfractionAssemblerTest {
 
   @Test
   public void whenAssemblingFromRequest_shouldCreateDtoWithTheRightInfos() {
-    InfractionValidationDto infractionValidationDto = infractionAssembler.fromRequest(infractionRequest);
+    PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
 
-    Truth.assertThat(infractionValidationDto.parkingZone).isEqualTo(A_PARKING_ZONE);
-    Truth.assertThat(infractionValidationDto.passCode).isEqualTo(A_PASS_CODE_);
-    Truth.assertThat(infractionValidationDto.time).isEqualTo(A_TIME_OF_THE_DAY);
+    assertThat(passToValidateDto.parkingZone).isEqualTo(A_PARKING_ZONE);
+    assertThat(passToValidateDto.passCode).isEqualTo(A_PASS_CODE_STRING);
+    assertThat(passToValidateDto.time).isEqualTo(A_TIME_OF_THE_DAY);
   }
 
   @Test(expected = InvalidInfractionParkingZoneException.class)
   public void givenAnInvalidParkingZone_whenAssemblingFromRequest_shouldThrowInvalidInfractionParkingZoneException() {
     infractionRequest.parkingZone = "invalid";
-
-    infractionAssembler.fromRequest(infractionRequest);
-  }
-
-  @Test(expected = EmptyPassCodeException.class)
-  public void givenAnAbsentPassCode_whenAssemblingFromRequest_shouldThrowEmptyPassCodeException() {
-    infractionRequest.passCode = "";
-
-    infractionAssembler.fromRequest(infractionRequest);
-  }
-
-  @Test(expected = InvalidInfractionPassCodeFormatException.class)
-  public void givenAnInvalidPassCode_whenAssemblingFromRequest_shouldThrowInvalidInfractionPassCodeFormatException() {
-    infractionRequest.passCode = "invalid";
 
     infractionAssembler.fromRequest(infractionRequest);
   }
@@ -86,8 +72,17 @@ public class InfractionAssemblerTest {
 
     InfractionResponse response = infractionAssembler.toResponse(infraction);
 
-    Truth.assertThat(response.amount).isEqualTo(AN_AMOUNT);
-    Truth.assertThat(response.reason).isEqualTo(AN_INFRACTION_DESCRIPTION);
-    Truth.assertThat(response.code).isEqualTo(AN_INFRACTION_CODE_STRING);
+    assertThat(response.amount).isEqualTo(AN_AMOUNT);
+    assertThat(response.reason).isEqualTo(AN_INFRACTION_DESCRIPTION);
+    assertThat(response.code).isEqualTo(AN_INFRACTION_CODE_STRING);
+  }
+
+  @Test
+  public void givenNull_whenAssemblingResponse_shouldReturnNull() {
+    Infraction infraction = null;
+
+    InfractionResponse response = infractionAssembler.toResponse(infraction);
+
+    assertThat(response).isNull();
   }
 }

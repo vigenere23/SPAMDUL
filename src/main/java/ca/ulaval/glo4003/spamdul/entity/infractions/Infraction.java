@@ -6,7 +6,7 @@ public class Infraction {
   private String infractionDescription;
   private InfractionCode code;
   private double amount;
-  private boolean isPayed = false;
+  private boolean isPaid = false;
 
   public Infraction(InfractionId infractionId, String infractionDescription, InfractionCode code, double amount) {
     this.infractionId = infractionId;
@@ -15,8 +15,12 @@ public class Infraction {
     this.amount = amount;
   }
 
-  public void payInfraction(){
-    isPayed = true;
+  public void pay(){
+    if (isPaid) {
+      throw new AlreadyPaidInfractionException("Cette infraction a déjà été payée");
+    }
+
+    isPaid = true;
   }
 
   public String getInfractionDscription() {

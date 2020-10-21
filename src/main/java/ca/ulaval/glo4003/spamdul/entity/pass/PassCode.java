@@ -18,9 +18,9 @@ public class PassCode {
     this.code = code;
   }
 
-  public static PassCode valueOf(String userId) {
+  public static PassCode valueOf(String passCode) {
     try {
-      return new PassCode(Long.parseLong(userId));
+      return new PassCode(Long.parseLong(passCode));
     } catch (NumberFormatException e) {
       throw new InvalidPassCodeFormat("Invalid pass code format");
     }

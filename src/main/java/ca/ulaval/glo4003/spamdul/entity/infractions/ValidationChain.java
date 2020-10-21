@@ -1,8 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import java.time.LocalTime;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 
 public class ValidationChain {
 
@@ -12,7 +10,7 @@ public class ValidationChain {
     this.baseValidator = baseValidator;
   }
 
-  public void validate(Pass pass, ParkingZone parkingZone, LocalTime time) {
-    baseValidator.validate(pass, parkingZone, time);
+  public synchronized void validate(PassToValidateDto passToValidateDto) {
+    baseValidator.validate(passToValidateDto);
   }
 }
