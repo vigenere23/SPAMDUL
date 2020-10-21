@@ -2,13 +2,14 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InfractionsJsonRepository implements InfractionRepository {
+public class InfractionsJsonRepository implements InfractionInfoRepository {
 
   private final String JSON_PATH;
   private final JsonReader reader;
@@ -36,7 +37,7 @@ public class InfractionsJsonRepository implements InfractionRepository {
 
     for (InfractionDTO infractionDto : infractionDTOs) {
       InfractionCode infractionCode = InfractionCode.valueOf(infractionDto.code);
-      Infraction infraction = new Infraction(infractionDto.infraction, infractionCode, infractionDto.montant);
+      Infraction infraction = new Infraction(new InfractionId(), infractionDto.infraction, infractionCode, infractionDto.montant);
       infractions.put(infractionCode, infraction);
     }
 

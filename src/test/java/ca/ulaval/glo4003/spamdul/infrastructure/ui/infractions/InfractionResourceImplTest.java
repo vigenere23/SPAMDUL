@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
@@ -12,7 +13,11 @@ import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 
 public class InfractionResourceImplTest {
-
+  public static final String AN_INFRACTION_DESCRIPTION = "a description";
+  public static final String AN_INFRACTION_CODE_STRING = "INF-01";
+  public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
+  public static final InfractionId A_INFRACTION_ID = new InfractionId();
+  public static final int AN_AMOUNT = 99;
   private InfractionResourceImpl resource;
   private InfractionAssembler infractionAssembler;
   private InfractionService infractionService;
@@ -30,7 +35,7 @@ public class InfractionResourceImplTest {
     infractionRequest.passCode = "1";
     infractionRequest.timeOfTheDay = "12h00";
     infractionValidationDto = new InfractionValidationDto();
-    infraction = new Infraction("infraction", InfractionCode.valueOf("a1"), 22);
+    infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
   }
 
   @Test

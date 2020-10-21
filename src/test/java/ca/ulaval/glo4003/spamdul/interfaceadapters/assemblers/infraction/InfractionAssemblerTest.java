@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
@@ -27,6 +28,7 @@ public class InfractionAssemblerTest {
   public static final String AN_INFRACTION_DESCRIPTION = "a description";
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
+  public static final InfractionId A_INFRACTION_ID = new InfractionId();
   public static final int AN_AMOUNT = 99;
 
   private InfractionAssembler infractionAssembler;
@@ -80,7 +82,7 @@ public class InfractionAssemblerTest {
 
   @Test
   public void givenAnInfraction_whenAssemblingResponse_shouldReturnResponseWithTheRightInfos() {
-    Infraction infraction = new Infraction(AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    Infraction infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
 
     InfractionResponse response = infractionAssembler.toResponse(infraction);
 
