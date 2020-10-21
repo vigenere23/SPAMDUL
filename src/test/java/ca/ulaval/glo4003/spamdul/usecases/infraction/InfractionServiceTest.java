@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.usecases.transaction.TransactionService;
+import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import org.junit.Before;
@@ -48,7 +48,11 @@ public class InfractionServiceTest {
     validationChain = BDDMockito.mock(ValidationChain.class);
     infractionRepository = BDDMockito.mock(InfractionRepository.class);
     transactionService = BDDMockito.mock(TransactionService.class);
-    service = new InfractionService(infractionInfoRepository, infractionRepository, passRepository, validationChain, transactionService);
+    service = new InfractionService(infractionInfoRepository,
+                                    infractionRepository,
+                                    passRepository,
+                                    validationChain,
+                                    transactionService);
 
     infractionValidationDto = new InfractionValidationDto();
     infractionValidationDto.parkingZone = A_PARKING_ZONE;

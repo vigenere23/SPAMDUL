@@ -8,10 +8,9 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.ValidationChain;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.usecases.transaction.TransactionService;
+import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class InfractionService {
 
