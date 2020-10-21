@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.PassTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;
@@ -15,7 +16,7 @@ public class InMemoryTransactionRepositoryTest {
 
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   public static final CarType ANOTHER_CAR_TYPE = CarType.ECONOMIQUE;
-  public static final int AN_AMOUNT = 99;
+  public static final Amount AN_AMOUNT = Amount.valueOf(99);
   private final Transaction A_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
   private final Transaction ANOTHER_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
   private final Transaction A_CAMPUS_ACCESS_TRANSACTION_DIFFERENT_CAR_TYPE = new CampusAccessTransaction(AN_AMOUNT,

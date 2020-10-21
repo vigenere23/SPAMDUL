@@ -1,19 +1,15 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 
 public class CampusAccessTransaction extends Transaction {
 
-  private double amount;
-  private CarType carType;
+  private final CarType carType;
 
-  public CampusAccessTransaction(double amount, CarType carType) {
-    this.amount = amount;
+  public CampusAccessTransaction(Amount amount, CarType carType) {
+    super(amount);
     this.carType = carType;
-  }
-
-  public double getAmount() {
-    return amount;
   }
 
   public CarType getCarType() {

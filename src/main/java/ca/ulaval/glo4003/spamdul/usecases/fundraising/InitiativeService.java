@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.List;
 
 public class InitiativeService {
@@ -25,7 +26,7 @@ public class InitiativeService {
     // TODO check if budget allows it
     // TODO create and save transaction
     // TODO transfer money
-    Initiative initiative = initiativeFactory.create(initiativeDto.name, initiativeDto.amount);
+    Initiative initiative = initiativeFactory.create(initiativeDto.name, Amount.valueOf(initiativeDto.amount));
     initiativeRepository.save(initiative);
     return initiative;
   }

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising;
 
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;
@@ -11,7 +12,7 @@ public class InitiativeRepositoryInMemoryTest {
 
   private InitiativeRepositoryInMemory initiativeRepositoryInMemory;
   private final String A_NAME = "dfhsadf";
-  private final double AN_AMOUNT = 21438.23;
+  private final Amount AN_AMOUNT = Amount.valueOf(21438.23);
 
   @Before
   public void setUp() {

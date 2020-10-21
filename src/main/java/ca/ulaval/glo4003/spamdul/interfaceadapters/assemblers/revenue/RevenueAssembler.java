@@ -11,7 +11,7 @@ public class RevenueAssembler {
 
   public RevenueResponse toResponse(Amount amount) {
     RevenueResponse response = new RevenueResponse();
-    response.revenue = amount.getAmount();
+    response.revenue = amount.asDouble();
 
     return response;
   }
@@ -21,11 +21,11 @@ public class RevenueAssembler {
     // TODO sinon on itere dessus et on ajoute seulement qui sont present...
     try {
       CarTypeTotalRevenueResponse response = new CarTypeTotalRevenueResponse();
-      response.gourmande = revenueByCarType.get(CarType.GOURMANDE).getAmount();
-      response.economique = revenueByCarType.get(CarType.ECONOMIQUE).getAmount();
-      response.superEconomique = revenueByCarType.get(CarType.SUPER_ECONOMIQUE).getAmount();
-      response.hybridEconomique = revenueByCarType.get(CarType.HYBRIDE_ECONOMIQUE).getAmount();
-      response.sansPollution = revenueByCarType.get(CarType.SANS_POLLUTION).getAmount();
+      response.gourmande = revenueByCarType.get(CarType.GOURMANDE).asDouble();
+      response.economique = revenueByCarType.get(CarType.ECONOMIQUE).asDouble();
+      response.superEconomique = revenueByCarType.get(CarType.SUPER_ECONOMIQUE).asDouble();
+      response.hybridEconomique = revenueByCarType.get(CarType.HYBRIDE_ECONOMIQUE).asDouble();
+      response.sansPollution = revenueByCarType.get(CarType.SANS_POLLUTION).asDouble();
       response.total = response.gourmande + response.economique + response.superEconomique + response.hybridEconomique
           + response.sansPollution;
 
@@ -40,11 +40,11 @@ public class RevenueAssembler {
                                          Map<CarType, Amount> revenueByCarType) {
     TotalRevenueResponse totalRevenueResponse = new TotalRevenueResponse();
     totalRevenueResponse.campusAccess = toResponse(revenueByCarType);
-    totalRevenueResponse.infraction = infractionsTotalRevenue.getAmount();
-    totalRevenueResponse.pass = passTotalRevenue.getAmount();
+    totalRevenueResponse.infraction = infractionsTotalRevenue.asDouble();
+    totalRevenueResponse.pass = passTotalRevenue.asDouble();
     totalRevenueResponse.total =
-        totalRevenueResponse.campusAccess.total + infractionsTotalRevenue.getAmount()
-            + passTotalRevenue.getAmount();
+        totalRevenueResponse.campusAccess.total + infractionsTotalRevenue.asDouble()
+            + passTotalRevenue.asDouble();
 
     return totalRevenueResponse;
   }
