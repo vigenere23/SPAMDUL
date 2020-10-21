@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto;
 
+import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import java.util.Map;
+
 public class CarTypeTotalRevenueResponse {
 
-  public double gourmande;
-  public double economique;
-  public double superEconomique;
-  public double hybridEconomique;
-  public double sansPollution;
+  public Map<CarType, Double> byCarType;
   public double total;
 }
