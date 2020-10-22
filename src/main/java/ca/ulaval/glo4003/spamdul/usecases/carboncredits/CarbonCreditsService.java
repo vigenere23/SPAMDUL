@@ -1,8 +1,13 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
-public class CarbonCreditsService {
+import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 
+public class CarbonCreditsService extends EndOfMonthObserver {
+
+  private InitiativeService initiativeService;
   private static boolean active = true;
+  private Amount totalCarbonCredits = Amount.valueOf(0);
 
   public CarbonCreditsService() {
   }
@@ -15,15 +20,22 @@ public class CarbonCreditsService {
     return active;
   }
 
-  public double transferRemainingBudget() {
-    if (!active) {
-      // TODO exception or return 0? (thinking about the thread that could crash and not restart)
-      throw new RuntimeException("Could not transfer funds : the feature is not active");
-    }
+  @Override
+  public void update() {
 
+  }
+
+  public double transferRemainingBudget() {
+    if (active) {
+      // TODO save bugget in BD
+    }
+    else {
+      // TODO exception or return 0? (thinking about the thread that could crash and not restart)
+      // throw new RuntimeException("Could not transfer funds : the feature is not active");
+      return 0;
+    }
     // TODO add logic for transferring
     // TODO need to restart thread?
-
     return 238.34;
   }
 

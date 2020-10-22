@@ -20,6 +20,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageR
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -40,11 +42,14 @@ public class SpamdUlMain {
   public static void main(String[] args)
       throws Exception {
 
+    // Setup Task
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(executor);
     FundraisingContext fundraisingContext = new FundraisingContext(true);
     RevenueContext revenueContext = new RevenueContext();
 
@@ -96,6 +101,7 @@ public class SpamdUlMain {
       exception.printStackTrace();
     } finally {
       server.destroy();
+      executor.shutdown();
     }
   }
 }
