@@ -43,7 +43,6 @@ public class InfractionResourceImplTest {
     infractionRequest = new InfractionRequest();
     infractionRequest.parkingZone = "Zone1";
     infractionRequest.passCode = "1";
-    infractionRequest.timeOfTheDay = "12h00";
     passToValidateDto = new PassToValidateDto();
     infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
   }

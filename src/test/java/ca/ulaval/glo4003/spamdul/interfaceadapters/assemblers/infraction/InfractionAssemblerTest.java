@@ -5,25 +5,19 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalTime;
-
 import static com.google.common.truth.Truth.assertThat;
 
 public class InfractionAssemblerTest {
 
   public static final String A_PASS_CODE_STRING = "1";
-  public static final PassCode A_PASS_CODE_ = PassCode.valueOf(A_PASS_CODE_STRING);
   public static final String A_PARKING_ZONE_STRING = "zone_1";
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.valueOf(A_PARKING_ZONE_STRING.toUpperCase());
-  public static final String A_TIME_OF_THE_DAY_STRING = "01:32";
-  public static final LocalTime A_TIME_OF_THE_DAY = LocalTime.of(1, 32);
   public static final String AN_INFRACTION_DESCRIPTION = "a description";
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
@@ -39,7 +33,6 @@ public class InfractionAssemblerTest {
     infractionRequest = new InfractionRequest();
     infractionRequest.passCode = A_PASS_CODE_STRING;
     infractionRequest.parkingZone = A_PARKING_ZONE_STRING;
-    infractionRequest.timeOfTheDay = A_TIME_OF_THE_DAY_STRING;
   }
 
   @Test
