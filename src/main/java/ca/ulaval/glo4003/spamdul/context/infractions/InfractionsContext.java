@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.*;
-import ca.ulaval.glo4003.spamdul.entity.infractions.ValidationChain;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -53,14 +52,14 @@ public class InfractionsContext {
     PassValidator.setPassRepository(passRepository);
 
     EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
-    InvalidPassCodeFormatValidator invalidPassCodeFormatValidator = new InvalidPassCodeFormatValidator();
+    PassCodeFormatValidator passCodeFormatValidator = new PassCodeFormatValidator();
     PassExistsValidator passExistsValidator = new PassExistsValidator();
     ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
     TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
     DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
 
-    emptyPassCodeValidator.setNextValidator(invalidPassCodeFormatValidator);
-    invalidPassCodeFormatValidator.setNextValidator(passExistsValidator);
+    emptyPassCodeValidator.setNextValidator(passCodeFormatValidator);
+    passCodeFormatValidator.setNextValidator(passExistsValidator);
     passExistsValidator.setNextValidator(parkingZoneValidator);
     parkingZoneValidator.setNextValidator(timePeriodBoundaryValidator);
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);

@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionExcepti
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 
-public class InvalidPassCodeFormatValidator extends PassValidator {
+public class PassCodeFormatValidator extends PassValidator {
 
     @Override
     public void validate(PassToValidateDto passToValidateDto) {

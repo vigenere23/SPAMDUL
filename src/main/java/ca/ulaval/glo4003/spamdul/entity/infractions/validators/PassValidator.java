@@ -42,7 +42,7 @@ public abstract class PassValidator {
     Pass correspondingPass = passCache.get(passCode);
 
     if (correspondingPass == null) {
-      if (passRepository == null) throw new PassRepositoryNotSetException("This validator requires pass repository"+
+      if (passRepository == null) throw new PassRepositoryNotSetException("This validator requires pass repository "+
               "to be set before usage");
 
       correspondingPass = passRepository.findByPassCode(passCode);

@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,10 +35,14 @@ public class PassValidatorTest extends PassValidator{
 
     @Before
     public void setUp() {
-        PassValidator.setPassRepository(null);
-        PassValidator.passCache.clear();
         TimePeriod timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
         pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, timePeriod);
+    }
+
+    @After
+    public void clearStatic() {
+        PassValidator.setPassRepository(null);
+        PassValidator.passCache.clear();
     }
 
     @Test
