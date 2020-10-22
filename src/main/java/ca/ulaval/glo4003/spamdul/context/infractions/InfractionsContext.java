@@ -64,6 +64,6 @@ public class InfractionsContext {
     parkingZoneValidator.setNextValidator(timePeriodBoundaryValidator);
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);
 
-    return parkingZoneValidator;
+    return emptyPassCodeValidator;
   }
 }
