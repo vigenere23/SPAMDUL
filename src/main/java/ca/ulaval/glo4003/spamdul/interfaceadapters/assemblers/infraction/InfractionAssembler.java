@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidInfractionIdException;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPayRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionIdFormatException;
@@ -40,22 +40,22 @@ public class InfractionAssembler {
     infractionResponse.infractionId = infraction.getInfractionId().toString();
     infractionResponse.amount = infraction.getAmount();
     infractionResponse.code = infraction.getCode().toString();
-    infractionResponse.reason = infraction.getInfractionDscription();
+    infractionResponse.reason = infraction.getInfractionDescription();
 
     return infractionResponse;
   }
 
-  public InfractionPaymentDto fromRequest(InfractionPayRequest infractionPayRequest) {
+  public InfractionPaymentDto fromRequest(InfractionPaymentRequest infractionPaymentRequest) {
     InfractionPaymentDto infractionPaymentDto = new InfractionPaymentDto();
 
-    infractionPaymentDto.infractionId = getInfractionId(infractionPayRequest);
+    infractionPaymentDto.infractionId = getInfractionId(infractionPaymentRequest);
 
     return infractionPaymentDto;
   }
 
-  private InfractionId getInfractionId(InfractionPayRequest infractionPayRequest) {
+  private InfractionId getInfractionId(InfractionPaymentRequest infractionPaymentRequest) {
     try {
-      return InfractionId.valueOf(infractionPayRequest.infractionId.toUpperCase());
+      return InfractionId.valueOf(infractionPaymentRequest.infractionId.toUpperCase());
     } catch (InvalidInfractionIdException e) {
       throw new InvalidInfractionIdFormatException("The infraction id format is invalid");
     }

@@ -30,11 +30,6 @@ public class PassFactoryTest {
 
   private PassFactory passFactory;
 
-  @Before
-  public void setUp() {
-
-  }
-
   @Test
   public void givenSingleDayPerWeekType_whenCreatingPass_shouldCreatePassWithRightInfo() {
     passFactory = new PassFactory(timePeriodFactory);

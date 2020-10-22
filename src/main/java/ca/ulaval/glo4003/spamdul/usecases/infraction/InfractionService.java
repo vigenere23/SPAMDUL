@@ -49,12 +49,13 @@ public class InfractionService {
 
   public void payInfraction(InfractionPaymentDto infractionPaymentDto) {
     Infraction infraction = infractionRepository.findBy(infractionPaymentDto.infractionId);
-    infraction.pay();
 
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.amount = infraction.getAmount();
     transactionDto.transactionType = TransactionType.INFRACTION;
 
     transactionService.createTransaction(transactionDto);
+
+    infraction.pay();
   }
 }

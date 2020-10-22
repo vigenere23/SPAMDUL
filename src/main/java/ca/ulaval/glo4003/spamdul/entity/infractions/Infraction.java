@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.AlreadyPaidInfractionException;
+
 public class Infraction {
 
   private InfractionId infractionId;
@@ -23,7 +25,7 @@ public class Infraction {
     isPaid = true;
   }
 
-  public String getInfractionDscription() {
+  public String getInfractionDescription() {
     return infractionDescription;
   }
 
@@ -37,5 +39,9 @@ public class Infraction {
 
   public double getAmount() {
     return amount;
+  }
+
+  public boolean isPaid() {
+    return isPaid;
   }
 }

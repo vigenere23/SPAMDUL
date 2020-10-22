@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPayRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
@@ -38,8 +38,8 @@ public class InfractionResourceImpl implements InfractionResource {
             .build();
   }
 
-  public Response payInfraction(InfractionPayRequest infractionPayRequest) {
-    InfractionPaymentDto infractionPaymentDto = infractionAssembler.fromRequest(infractionPayRequest);
+  public Response payInfraction(InfractionPaymentRequest infractionPaymentRequest) {
+    InfractionPaymentDto infractionPaymentDto = infractionAssembler.fromRequest(infractionPaymentRequest);
     infractionService.payInfraction(infractionPaymentDto);
 
     return Response.status(Status.OK)

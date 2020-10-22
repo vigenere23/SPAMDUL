@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.AlreadyPaidInfractionException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionIdFormatException;
@@ -20,6 +21,8 @@ public class InfractionExceptionAssembler implements ExceptionMapper<InvalidInfr
       exceptionResponse.error = "INVALID_PARKING_ZONE";
     } else if (e instanceof InvalidInfractionIdFormatException){
       exceptionResponse.error = "INVALID_INFRACTION_ID_FORMAT";
+    } else if (e instanceof AlreadyPaidInfractionException){
+      exceptionResponse.error = "ALREADY_PAID_INFRACTION";
     }
     return Response.status(Status.BAD_REQUEST)
                    .type(MediaType.APPLICATION_JSON)

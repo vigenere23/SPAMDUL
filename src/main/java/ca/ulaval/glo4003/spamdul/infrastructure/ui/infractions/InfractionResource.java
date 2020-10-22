@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPayRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 
 import javax.ws.rs.Consumes;
@@ -19,5 +19,5 @@ public interface InfractionResource {
   @POST
   @Path("/pay")
   @Consumes(MediaType.APPLICATION_JSON)
-  Response payInfraction(InfractionPayRequest infractionPayRequest);
+  Response payInfraction(InfractionPaymentRequest infractionPaymentRequest);
 }
