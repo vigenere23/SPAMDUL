@@ -15,6 +15,6 @@ public class ParkingZoneValidator extends PassValidator {
       throw new InfractionException("ZONE_01");
     }
 
-    super.validate(passToValidateDto);
+    nextValidation(passToValidateDto);
   }
 }

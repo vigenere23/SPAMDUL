@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.*;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
@@ -36,7 +37,7 @@ public class InfractionServiceTest {
   private InfractionInfoRepository infractionInfoRepository;
   private InfractionRepository infractionRepository;
   private PassRepository passRepository;
-  private ValidationChain validationChain;
+  private PassValidator passValidator;
   private TransactionService transactionService;
   private PassToValidateDto passToValidateDto;
   private InfractionFactory infractionFactory;
@@ -47,85 +48,84 @@ public class InfractionServiceTest {
   public void setUp() throws Exception {
     infractionInfoRepository = Mockito.mock(InfractionInfoRepository.class);
     passRepository = Mockito.mock(PassRepository.class);
-    validationChain = Mockito.mock(ValidationChain.class);
+    passValidator = Mockito.mock(PassValidator.class);
     infractionRepository = Mockito.mock(InfractionRepository.class);
     transactionService = Mockito.mock(TransactionService.class);
     infractionFactory = Mockito.mock(InfractionFactory.class);
 
     infractionService = new InfractionService(infractionInfoRepository,
                                     infractionRepository,
-                                    validationChain,
                                     transactionService,
-                                    infractionFactory);
+                                    infractionFactory,
+                                    passValidator);
 
     passToValidateDto = new PassToValidateDto();
     passToValidateDto.parkingZone = A_PARKING_ZONE;
     passToValidateDto.passCode = A_PASS_CODE_STRING;
-    passToValidateDto.time = A_TIME_OF_THE_DAY;
     infractionInfos = new InfractionInfos();
     infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
   }
 
 
   @Test
-  public void whenValidatingPass_shouldCallValidationChainValidate() {
-    infractionService.validatePass(passToValidateDto);
+  public void whenGivingExpressionIfNotValid_shouldCallValidationChainValidate() {
+    infractionService.giveInfractionIfNotValid(passToValidateDto);
 
-    verify(validationChain, Mockito.times(1)).validate(passToValidateDto);
+    verify(passValidator, Mockito.times(1)).validate(passToValidateDto);
   }
 
   @Test
-  public void givenInfractionException_whenValidatingPass_shouldFindInfractionInfosInRepository() {
+  public void givenInfractionException_whenGivingExpressionIfNotValid_shouldFindInfractionInfosInRepository() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(validationChain)
+            .when(passValidator)
             .validate(passToValidateDto);
 
-    infractionService.validatePass(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     verify(infractionInfoRepository).findBy(InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE));
   }
 
   @Test
-  public void givenInfractionException_whenValidatingPass_shouldCreateInfractionWithFactory() {
+  public void givenInfractionException_whenGivingExpressionIfNotValid_shouldCreateInfractionWithFactory() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(validationChain)
+            .when(passValidator)
             .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
 
-    infractionService.validatePass(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     verify(infractionFactory, Mockito.times(1)).create(infractionInfos);
   }
 
   @Test
-  public void givenInfractionException_whenValidatingPass_shouldSaveInfractionsInRepo() {
+  public void givenInfractionException_whenGivingExpressionIfNotValid_shouldSaveInfractionsInRepo() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(validationChain)
+            .when(passValidator)
             .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
-    infractionService.validatePass(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     verify(infractionRepository, Mockito.times(1)).save(infraction);
   }
 
   @Test
-  public void givenInfractionException_whenValidatingPass_shouldReturnInfraction() {
+  public void givenInfractionException_whenGivingExpressionIfNotValid_shouldReturnInfraction() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(validationChain)
+            .when(passValidator)
             .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
-    Infraction actual = infractionService.validatePass(passToValidateDto);
+    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     assertThat(actual).isNotNull();
   }
 
   @Test
-  public void givenNoInfractionException_whenValidatingPass_shouldReturnNull() {
-    Infraction actual = infractionService.validatePass(passToValidateDto);
+  public void givenNoInfractionException_whenGivingExpressionIfNotValid_shouldReturnNull() {
+    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     assertThat(actual).isNull();
   }

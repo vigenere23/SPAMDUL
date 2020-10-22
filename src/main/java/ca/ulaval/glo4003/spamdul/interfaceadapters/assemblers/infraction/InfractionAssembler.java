@@ -10,12 +10,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionReq
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionIdFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPayDto;
-import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 
 public class InfractionAssembler {
 
@@ -24,17 +19,8 @@ public class InfractionAssembler {
 
     dto.passCode = infractionRequest.passCode;
     dto.parkingZone = getParkingZone(infractionRequest);
-    dto.time = getTimeOfTheDay(infractionRequest);
 
     return dto;
-  }
-
-  private LocalTime getTimeOfTheDay(InfractionRequest infractionRequest) {
-    try {
-      return LocalTime.parse(infractionRequest.timeOfTheDay, DateTimeFormatter.LOCAL_TIME_FORMATTER);
-    } catch (DateTimeParseException e) {
-      throw new InvalidInfractionTimeOfTheDayException("The time of the day must be HH:mm");
-    }
   }
 
   private ParkingZone getParkingZone(InfractionRequest infractionRequest) {
@@ -59,12 +45,12 @@ public class InfractionAssembler {
     return infractionResponse;
   }
 
-  public InfractionPayDto fromRequest(InfractionPayRequest infractionPayRequest) {
-    InfractionPayDto infractionPayDto = new InfractionPayDto();
+  public InfractionPaymentDto fromRequest(InfractionPayRequest infractionPayRequest) {
+    InfractionPaymentDto infractionPaymentDto = new InfractionPaymentDto();
 
-    infractionPayDto.infractionId = getInfractionId(infractionPayRequest);
+    infractionPaymentDto.infractionId = getInfractionId(infractionPayRequest);
 
-    return infractionPayDto;
+    return infractionPaymentDto;
   }
 
   private InfractionId getInfractionId(InfractionPayRequest infractionPayRequest) {

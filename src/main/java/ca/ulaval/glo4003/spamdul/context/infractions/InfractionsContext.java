@@ -29,16 +29,16 @@ public class InfractionsContext {
         "src/main/resources/infraction.json",
         new JsonReader());
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
-    ValidationChain validationChain = initializeValidationChain(passRepository);
+    PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
     TransactionFactory transactionFactory = new TransactionFactory();
     TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,
                                                                 infractionRepository,
-                                                                validationChain,
                                                                 transactionService,
-                                                                infractionFactory);
+                                                                infractionFactory,
+                                                                firstValidationNode);
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService);
 
@@ -48,23 +48,23 @@ public class InfractionsContext {
     return infractionResource;
   }
 
-  private ValidationChain initializeValidationChain(PassRepository passRepository) {
+  private PassValidator initializeValidationChainAndReturnFirstNode(PassRepository passRepository) {
     Calendar calendar = new HardCodedCalendar();
     PassValidator.setPassRepository(passRepository);
-    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+
     EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
     InvalidPassCodeFormatValidator invalidPassCodeFormatValidator = new InvalidPassCodeFormatValidator();
     PassExistsValidator passExistsValidator = new PassExistsValidator();
+    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
     TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
     DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
 
-
-    parkingZoneValidator.setNextValidator(emptyPassCodeValidator);
     emptyPassCodeValidator.setNextValidator(invalidPassCodeFormatValidator);
     invalidPassCodeFormatValidator.setNextValidator(passExistsValidator);
-    passExistsValidator.setNextValidator(timePeriodBoundaryValidator);
+    passExistsValidator.setNextValidator(parkingZoneValidator);
+    parkingZoneValidator.setNextValidator(timePeriodBoundaryValidator);
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);
 
-    return new ValidationChain(parkingZoneValidator);
+    return parkingZoneValidator;
   }
 }

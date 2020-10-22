@@ -11,6 +11,6 @@ public class EmptyPassCodeValidator extends PassValidator {
             throw new InfractionException("VIG_03");
         }
 
-        super.validate(passToValidateDto);
+        nextValidation(passToValidateDto);
     }
 }

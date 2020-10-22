@@ -23,7 +23,7 @@ public class DayOfWeekValidator extends PassValidator {
       throw new InfractionException("VIG_01");
     }
 
-    super.validate(passToValidateDto);
+    nextValidation(passToValidateDto);
   }
 
 

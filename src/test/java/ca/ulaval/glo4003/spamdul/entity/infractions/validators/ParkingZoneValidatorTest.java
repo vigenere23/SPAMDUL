@@ -1,5 +1,6 @@
-package ca.ulaval.glo4003.spamdul.entity.infractions;
+package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;

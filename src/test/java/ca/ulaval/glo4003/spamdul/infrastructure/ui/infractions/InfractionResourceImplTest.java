@@ -51,13 +51,13 @@ public class InfractionResourceImplTest {
 
     resource.validateParkingPass(infractionRequest);
 
-    BDDMockito.verify(infractionService, Mockito.times(1)).validatePass(passToValidateDto);
+    BDDMockito.verify(infractionService, Mockito.times(1)).giveInfractionIfNotValid(passToValidateDto);
   }
 
   @Test
   public void whenValidatingParkingPass_shouldMapToResponse() {
     BDDMockito.given(infractionAssembler.fromRequest(infractionRequest)).willReturn(passToValidateDto);
-    BDDMockito.given(infractionService.validatePass(passToValidateDto)).willReturn(infraction);
+    BDDMockito.given(infractionService.giveInfractionIfNotValid(passToValidateDto)).willReturn(infraction);
 
     resource.validateParkingPass(infractionRequest);
 

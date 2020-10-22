@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionTimeOfTheDayException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,19 +48,11 @@ public class InfractionAssemblerTest {
 
     assertThat(passToValidateDto.parkingZone).isEqualTo(A_PARKING_ZONE);
     assertThat(passToValidateDto.passCode).isEqualTo(A_PASS_CODE_STRING);
-    assertThat(passToValidateDto.time).isEqualTo(A_TIME_OF_THE_DAY);
   }
 
   @Test(expected = InvalidInfractionParkingZoneException.class)
   public void givenAnInvalidParkingZone_whenAssemblingFromRequest_shouldThrowInvalidInfractionParkingZoneException() {
     infractionRequest.parkingZone = "invalid";
-
-    infractionAssembler.fromRequest(infractionRequest);
-  }
-
-  @Test(expected = InvalidInfractionTimeOfTheDayException.class)
-  public void givenAnInvalidTimeFormat_whenAssemblingFromRequest_shouldThrowInvalidInfractionTimeOfTheDayException() {
-    infractionRequest.timeOfTheDay = "invalid";
 
     infractionAssembler.fromRequest(infractionRequest);
   }

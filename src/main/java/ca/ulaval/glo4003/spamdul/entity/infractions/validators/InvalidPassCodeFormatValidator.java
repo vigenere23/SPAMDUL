@@ -15,6 +15,6 @@ public class InvalidPassCodeFormatValidator extends PassValidator {
             throw new InfractionException("VIG_02");
         }
 
-        super.validate(passToValidateDto);
+        nextValidation(passToValidateDto);
     }
 }

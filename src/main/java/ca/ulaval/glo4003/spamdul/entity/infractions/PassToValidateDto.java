@@ -7,6 +7,5 @@ import java.time.LocalTime;
 public class PassToValidateDto {
 
   public String passCode;
-  public LocalTime time;
   public ParkingZone parkingZone;
 }

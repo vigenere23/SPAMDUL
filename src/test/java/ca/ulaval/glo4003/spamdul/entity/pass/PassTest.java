@@ -28,14 +28,14 @@ public class PassTest {
   }
 
   @Test
-  public void givenTheSameParkingZone_whenValidatingParkingZone_shouldReturnSameParkingZone() {
+  public void givenTheSameParkingZone_whenValidatingParkingZone_shouldReturnTrue() {
     boolean isParkingZoneValid = pass.isAValidParkingZone(SAME_PARKING_ZONE);
 
     Truth.assertThat(isParkingZoneValid).isTrue();
   }
 
   @Test
-  public void givenAnotherParkingZone_whenValidatingParkingZone_shouldReturnSameParkingZone() {
+  public void givenAnotherParkingZone_whenValidatingParkingZone_shouldReturnFalse() {
     boolean isParkingZoneValid = pass.isAValidParkingZone(ANOTHER_PARKING_ZONE);
 
     Truth.assertThat(isParkingZoneValid).isFalse();

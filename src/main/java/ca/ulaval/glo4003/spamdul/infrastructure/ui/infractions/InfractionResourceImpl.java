@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPay
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPayDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
 
 import javax.ws.rs.core.Response;
@@ -24,7 +24,7 @@ public class InfractionResourceImpl implements InfractionResource {
 
   public Response validateParkingPass(InfractionRequest infractionRequest) {
     PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
-    Infraction infraction = infractionService.validatePass(passToValidateDto);
+    Infraction infraction = infractionService.giveInfractionIfNotValid(passToValidateDto);
 
     InfractionResponse infractionResponse = infractionAssembler.toResponse(infraction);
 
@@ -39,8 +39,8 @@ public class InfractionResourceImpl implements InfractionResource {
   }
 
   public Response payInfraction(InfractionPayRequest infractionPayRequest) {
-    InfractionPayDto infractionPayDto = infractionAssembler.fromRequest(infractionPayRequest);
-    infractionService.payInfraction(infractionPayDto);
+    InfractionPaymentDto infractionPaymentDto = infractionAssembler.fromRequest(infractionPayRequest);
+    infractionService.payInfraction(infractionPaymentDto);
 
     return Response.status(Status.OK)
                    .build();
