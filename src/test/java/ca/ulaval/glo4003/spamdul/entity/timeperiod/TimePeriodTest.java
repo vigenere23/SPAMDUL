@@ -10,6 +10,7 @@ public class TimePeriodTest {
   private final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
+  private final LocalDateTime A_DATE_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 13, 0, 0);
   private final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
   private final LocalDateTime A_DATE_TIME_AFTER = LocalDateTime.of(2021, 1, 1, 0, 0);
   private final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.MONDAY;
@@ -79,6 +80,34 @@ public class TimePeriodTest {
 
     assertThat(result).isTrue();
   }
+
+  @Test
+  public void whenCheckingBoundsOfJavaDateTimeBefore_shouldBeFalse() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+
+    boolean result = TIME_PERIOD.bounds(A_DATE_TIME_BEFORE);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  public void whenCheckingBoundsOfJavaDateTimeAfter_shouldBeFalse() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+
+    boolean result = TIME_PERIOD.bounds(A_DATE_TIME_AFTER);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  public void whenCheckingBoundsOfJavaDateTimeInTheMiddle_shouldBeTrue() {
+    final TimePeriod TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
+
+    boolean result = TIME_PERIOD.bounds(A_DATE_IN_THE_MIDDLE);
+
+    assertThat(result).isTrue();
+  }
+
 
   @Test
   public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingBeforeAndEndingAfterWithDayIncluded_shouldBeTrue() {

@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -38,5 +40,10 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime now() {
     return LocalDateTime.now();
+  }
+
+  @Override
+  public DayOfWeek getDayOfWeek() {
+    return now().getDayOfWeek();
   }
 }

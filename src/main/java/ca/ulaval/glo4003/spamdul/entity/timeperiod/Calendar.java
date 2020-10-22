@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public interface Calendar {
@@ -9,4 +10,6 @@ public interface Calendar {
   LocalDateTime getEndOfSemester(Semester semester);
 
   LocalDateTime now();
+
+  DayOfWeek getDayOfWeek();
 }
