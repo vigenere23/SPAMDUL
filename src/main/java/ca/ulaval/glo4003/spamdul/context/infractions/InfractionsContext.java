@@ -50,15 +50,13 @@ public class InfractionsContext {
 
   private ValidationChain initializeValidationChain(PassRepository passRepository) {
     Calendar calendar = new HardCodedCalendar();
-
-    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator(passRepository);
-    EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator(passRepository);
-    InvalidPassCodeFormatValidator invalidPassCodeFormatValidator = new InvalidPassCodeFormatValidator(passRepository
-    );
-    PassExistsValidator passExistsValidator = new PassExistsValidator(passRepository);
-    TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(passRepository, calendar
-    );
-    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(passRepository, calendar);
+    PassValidator.setPassRepository(passRepository);
+    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+    EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
+    InvalidPassCodeFormatValidator invalidPassCodeFormatValidator = new InvalidPassCodeFormatValidator();
+    PassExistsValidator passExistsValidator = new PassExistsValidator();
+    TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
+    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
 
 
     parkingZoneValidator.setNextValidator(emptyPassCodeValidator);

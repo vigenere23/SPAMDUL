@@ -10,7 +10,7 @@ public class ValidationChain {
     this.baseValidator = baseValidator;
   }
 
-  public synchronized void validate(PassToValidateDto passToValidateDto) {
+  public void validate(PassToValidateDto passToValidateDto) {
     baseValidator.validate(passToValidateDto);
   }
 }

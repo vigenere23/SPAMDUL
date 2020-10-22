@@ -10,8 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 public class DayOfWeekValidator extends PassValidator {
   private final Calendar calendar;
 
-  public DayOfWeekValidator(PassRepository passRepository, Calendar calendar) {
-    super(passRepository);
+  public DayOfWeekValidator(Calendar calendar) {
     this.calendar = calendar;
   }
 

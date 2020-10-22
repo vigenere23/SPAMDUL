@@ -41,7 +41,7 @@ public class ParkingZoneValidatorTest {
   public void setUp() {
     nextValidator = mock(PassValidator.class);
     passRepository = mock(PassRepository.class);
-    parkingZoneValidator = new ParkingZoneValidator(passRepository);
+    parkingZoneValidator = new ParkingZoneValidator();
   }
 
   @Test

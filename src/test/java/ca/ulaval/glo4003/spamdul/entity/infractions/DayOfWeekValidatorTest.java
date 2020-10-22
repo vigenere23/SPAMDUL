@@ -50,7 +50,7 @@ public class DayOfWeekValidatorTest {
     calendar = mock(Calendar.class);
     passRepository = mock(PassRepository.class);
 
-    dayOfWeekValidator = new DayOfWeekValidator(passRepository, calendar);
+    dayOfWeekValidator = new DayOfWeekValidator(calendar);
   }
 
   @Test

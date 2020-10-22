@@ -5,14 +5,18 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class PassValidator {
 
-  private final PassRepository passRepository;
-  private static Pass correspondingPass;
+  private static PassRepository passRepository;
+  private final static Map <PassCode, Pass> passCache = new HashMap<>();
   protected PassValidator nextPassValidator;
 
-  public PassValidator(PassRepository passRepository) {
-    this.passRepository = passRepository;
+
+  public static void setPassRepository(PassRepository passRepository) {
+    PassValidator.passRepository = passRepository;
   }
 
   public void setNextValidator(PassValidator passValidator) {
@@ -23,18 +27,22 @@ public abstract class PassValidator {
     if (nextPassValidator != null) {
       nextPassValidator.validate(passToValidateDto);
     } else {
-      terminateChainOfValidation();
+      terminateChainOfValidation(PassCode.valueOf(passToValidateDto.passCode));
     }
   }
 
-  private void terminateChainOfValidation() {
-    correspondingPass = null;
+  private void terminateChainOfValidation(PassCode passCode) {
+    passCache.remove(passCode);
   }
 
   protected Pass getCorrespondingPass(PassCode passCode) {
+    Pass correspondingPass = passCache.get(passCode);
+
     if (correspondingPass == null) {
       correspondingPass = passRepository.findByPassCode(passCode);
+      passCache.put(passCode, correspondingPass);
     }
+
     return correspondingPass;
   }
 }
