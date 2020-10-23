@@ -1,22 +1,21 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.time.LocalDateTime;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessFactoryTest {
@@ -24,9 +23,9 @@ public class CampusAccessFactoryTest {
   private final UserId A_USER_ID = new UserId();
   private final CarId A_CAR_ID = new CarId();
   private final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
-  private final TimePeriod A_TIME_PERIOD = new TimePeriod(LocalDateTime.of(2020,1,1,0,0),
-          LocalDateTime.of(2020,1,2,0,0),
-          TimePeriodDayOfWeek.MONDAY);
+  private final TimePeriod A_TIME_PERIOD = new TimePeriod(LocalDateTime.of(2020, 1, 1, 0, 0),
+                                                          LocalDateTime.of(2020, 1, 2, 0, 0),
+                                                          TimePeriodDayOfWeek.MONDAY);
 
   @Mock
   private TimePeriodFactory timePeriodFactory;

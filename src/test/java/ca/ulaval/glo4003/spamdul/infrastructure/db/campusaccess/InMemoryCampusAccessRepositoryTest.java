@@ -5,10 +5,8 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import java.time.DayOfWeek;
 import org.junit.Before;
 import org.junit.Test;
 

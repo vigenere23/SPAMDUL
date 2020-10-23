@@ -14,6 +14,10 @@ public class InfractionCode {
     return new InfractionCode(codeString);
   }
 
+  public String toString() {
+    return codeString;
+  }
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;

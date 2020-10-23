@@ -4,6 +4,7 @@ import java.util.Objects;
 
 // TODO: add to user
 public class PostalAddress {
+
   private String name;
   private String line1;
   private String line2;
@@ -28,7 +29,7 @@ public class PostalAddress {
       return String.format("%s \n%s \n%s \n%s \n%s \n%s \n", name, line1, city, province, postalCode, country);
     }
     return String.format("%s \n%s \n%s \n%s \n%s \n%s \n%s \n",
-            name, line1, line2, city, province, postalCode, country);
+                         name, line1, line2, city, province, postalCode, country);
   }
 
   public boolean equals(Object o) {

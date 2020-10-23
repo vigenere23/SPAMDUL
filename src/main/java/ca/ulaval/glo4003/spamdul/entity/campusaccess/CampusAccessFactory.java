@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 
 public class CampusAccessFactory {
+
   private final TimePeriodFactory timePeriodFactory;
 
   public CampusAccessFactory(TimePeriodFactory timePeriodFactory) {

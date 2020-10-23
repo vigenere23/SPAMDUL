@@ -1,5 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
@@ -10,9 +15,6 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 
 public class CampusAccessResourceImplTest {
 

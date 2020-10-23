@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

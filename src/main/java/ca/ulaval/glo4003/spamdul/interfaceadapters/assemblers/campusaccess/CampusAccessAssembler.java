@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
+import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
+
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
@@ -11,23 +13,21 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccess
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
-
 import java.util.ArrayList;
 
-import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
-
 public class CampusAccessAssembler {
+
   private static final ArrayList<PeriodType> ACCEPTED_PERIOD_TYPES = newArrayList(
-          PeriodType.SINGLE_DAY,
-          PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER,
-          PeriodType.ONE_SEMESTER,
-          PeriodType.TWO_SEMESTERS,
-          PeriodType.THREE_SEMESTERS);
+      PeriodType.SINGLE_DAY,
+      PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER,
+      PeriodType.ONE_SEMESTER,
+      PeriodType.TWO_SEMESTERS,
+      PeriodType.THREE_SEMESTERS);
 
   private final UserAssembler userAssembler;
   private final CarAssembler carAssembler;
@@ -53,7 +53,7 @@ public class CampusAccessAssembler {
 
   private void setTimePeriodDto(CampusAccessRequest campusAccessRequest, CampusAccessDto campusAccessDto) {
     final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
-            "two_semester or three_semester) ";
+        "two_semester or three_semester) ";
     TimePeriodDto timePeriodDto;
 
     try {
