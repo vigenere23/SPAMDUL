@@ -15,12 +15,13 @@ public class TransactionFilter {
   }
 
   public TransactionFilter betweenDates(LocalDate startDate, LocalDate endDate) {
-    if (startDate == null || endDate == null) {
-      return this;
+    if (startDate != null) {
+      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isBefore(LocalDateTime.from(startDate)));
+    }
+    if (endDate != null) {
+      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(LocalDateTime.from(endDate)));
     }
 
-    filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isBefore(LocalDateTime.from(startDate)));
-    filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(LocalDateTime.from(endDate)));
     return this;
   }
 

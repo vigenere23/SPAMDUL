@@ -33,12 +33,13 @@ public class ParkingAccessLogFilter {
   }
 
   public ParkingAccessLogFilter betweenDates(LocalDate startDate, LocalDate endDate) {
-    if (startDate == null || endDate == null) {
-      return this;
+    if (startDate != null) {
+      filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isBefore(startDate));
+    }
+    if (endDate != null) {
+      filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(endDate));
     }
 
-    filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isBefore(startDate));
-    filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(endDate));
     return this;
   }
 
