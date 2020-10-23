@@ -7,11 +7,7 @@ import java.util.List;
 
 public class ParkingAccessLogFilter {
 
-  private final FilterContainer<ParkingAccessLog> filterContainer;
-
-  public ParkingAccessLogFilter() {
-    filterContainer = new FilterContainer<>();
-  }
+  private final FilterContainer<ParkingAccessLog> filterContainer = new FilterContainer<>();
 
   public ParkingAccessLogFilter setData(List<ParkingAccessLog> accessLogs) {
     filterContainer.setData(accessLogs);
