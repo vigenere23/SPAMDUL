@@ -3,7 +3,8 @@ package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 import java.time.LocalDateTime;
 
 public class TimePeriodFactory {
-  private Calendar calendar;
+
+  private final Calendar calendar;
 
   public TimePeriodFactory(Calendar calendar) {
     this.calendar = calendar;
@@ -23,5 +24,4 @@ public class TimePeriodFactory {
 
     return null;
   }
-
 }

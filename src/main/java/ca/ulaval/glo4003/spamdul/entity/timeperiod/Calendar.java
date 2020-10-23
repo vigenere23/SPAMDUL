@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 
 public interface Calendar {
 
-    LocalDateTime getStartOfSemester(Semester semester);
+  LocalDateTime getStartOfSemester(Semester semester);
 
-    LocalDateTime getEndOfSemester(Semester semester);
+  LocalDateTime getEndOfSemester(Semester semester);
 
-    LocalDateTime now();
+  LocalDateTime now();
+
+  LocalDateTime getStartOfScholarYear();
+
+  LocalDateTime getEndOfScholarYear();
 }
