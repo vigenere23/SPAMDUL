@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.transactions;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
@@ -29,20 +29,20 @@ public class TransactionQueryAssembler {
     if (startDate == null) {
       return calendar.getStartOfSchoolYearAtDate(LocalDate.now());
     }
-    return parseDate(startDate);
+    return parseDate(startDate, LocalTime.MIN);
   }
 
   private LocalDateTime getEndDate(String endDate) {
     if (endDate == null) {
       return calendar.getEndOfSchoolYearAtDate(LocalDate.now());
     }
-    return parseDate(endDate);
+    return parseDate(endDate, LocalTime.MAX);
   }
 
-  private LocalDateTime parseDate(String stringDate) {
+  private LocalDateTime parseDate(String stringDate, LocalTime time) {
     try {
       LocalDate date = LocalDate.parse(stringDate, DateTimeFormatter.TRANSACTION_DATE_TIME_FORMATTER);
-      return LocalDateTime.of(date, LocalTime.MIDNIGHT);
+      return LocalDateTime.of(date, time);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }

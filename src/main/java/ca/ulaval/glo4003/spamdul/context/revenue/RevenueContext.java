@@ -7,24 +7,34 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.transactions.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.RevenueResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.transactions.TransactionQueryAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class RevenueContext {
 
   private final RevenueResourceImpl revenueResource;
+  private final TransactionPopulator transactionPopulator;
 
-  public RevenueContext() {
+  public RevenueContext(boolean populateData) {
     TransactionRepository transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
     Calendar calendar = new HardCodedCalendar();
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
     TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
+    transactionPopulator = new TransactionPopulator(transactionFactory, transactionRepository);
     revenueResource = new RevenueResourceImpl(transactionService, transactionQueryAssembler, revenueAssembler);
+
+    if (populateData) {
+      this.populateData();
+    }
   }
 
   public RevenueResourceImpl getRevenueResource() {
     return revenueResource;
+  }
+
+  private void populateData() {
+    transactionPopulator.populate(60);
   }
 }

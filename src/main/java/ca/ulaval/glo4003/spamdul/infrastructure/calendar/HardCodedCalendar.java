@@ -27,11 +27,11 @@ public class HardCodedCalendar implements Calendar {
   public LocalDateTime getEndOfSemester(Semester semester) {
     switch (semester.getSeason()) {
       case A:
-        return LocalDateTime.of(semester.getYear(), 12, 31, 23, 59, 59);
+        return LocalDateTime.of(LocalDate.of(semester.getYear(), 12, 31), LocalTime.MAX);
       case H:
-        return LocalDateTime.of(semester.getYear(), 4, 30, 23, 59, 59);
+        return LocalDateTime.of(LocalDate.of(semester.getYear(), 4, 30), LocalTime.MAX);
       case E:
-        return LocalDateTime.of(semester.getYear(), 8, 31, 23, 59, 59);
+        return LocalDateTime.of(LocalDate.of(semester.getYear(), 8, 31), LocalTime.MAX);
       default:
         throw new RuntimeException("The given season is not valid");
     }
@@ -44,7 +44,7 @@ public class HardCodedCalendar implements Calendar {
 
   @Override
   public LocalDateTime getStartOfSchoolYearAtDate(LocalDate date) {
-    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MAX);
+    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MIN);
     Season firstSeason = Season.A;
 
     int year = datetime.getYear();
@@ -59,7 +59,7 @@ public class HardCodedCalendar implements Calendar {
 
   @Override
   public LocalDateTime getEndOfSchoolYearAtDate(LocalDate date) {
-    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MIN);
+    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MAX);
     Season lastSeason = Season.E;
 
     int year = datetime.getYear();

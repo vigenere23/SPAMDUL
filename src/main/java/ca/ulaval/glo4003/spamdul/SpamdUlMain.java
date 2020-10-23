@@ -18,7 +18,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExcep
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -45,8 +44,8 @@ public class SpamdUlMain {
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    FundraisingContext fundraisingContext = new FundraisingContext(true);
-    RevenueContext revenueContext = new RevenueContext();
+    FundraisingContext fundraisingContext = new FundraisingContext(false);
+    RevenueContext revenueContext = new RevenueContext(false);
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import org.junit.Test;
 
 public class HardCodedCalendarTest {
@@ -47,7 +48,7 @@ public class HardCodedCalendarTest {
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
-    assertThat(result).isEqualTo(LocalDateTime.of(A_YEAR, 12, 31, 23, 59, 59));
+    assertThat(result).isEqualTo(LocalDateTime.of(LocalDate.of(A_YEAR, 12, 31), LocalTime.MAX));
   }
 
   @Test
@@ -56,7 +57,7 @@ public class HardCodedCalendarTest {
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
-    assertThat(result).isEqualTo(LocalDateTime.of(A_YEAR, 4, 30, 23, 59, 59));
+    assertThat(result).isEqualTo(LocalDateTime.of(LocalDate.of(A_YEAR, 4, 30), LocalTime.MAX));
   }
 
   @Test
@@ -65,7 +66,7 @@ public class HardCodedCalendarTest {
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
-    assertThat(result).isEqualTo(LocalDateTime.of(A_YEAR, 8, 31, 23, 59, 59));
+    assertThat(result).isEqualTo(LocalDateTime.of(LocalDate.of(A_YEAR, 8, 31), LocalTime.MAX));
   }
 
   @Test
