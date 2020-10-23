@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -26,7 +25,8 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
     CampusAccess campusAccess = campusAccesses.get(campusAccessCode);
 
     if (campusAccess == null) {
-      throw new CampusAccessNotFoundException(String.format("No campus access with id %s", campusAccessCode.toString()));
+      throw new CampusAccessNotFoundException(String.format("No campus access with id %s",
+                                                            campusAccessCode.toString()));
     }
 
     return campusAccess;

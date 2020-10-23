@@ -1,5 +1,12 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.MONTHLY;
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.ONE_SEMESTER;
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.THREE_SEMESTERS;
+import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.TWO_SEMESTERS;
+import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
+
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
@@ -7,26 +14,22 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
-
 import java.util.ArrayList;
-
-import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.*;
-import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
 public class PassSaleAssembler {
 
   private final static ArrayList<PeriodType> ACCEPTED_PERIOD_TYPES = newArrayList(
-          SINGLE_DAY_PER_WEEK_PER_SEMESTER,
-          MONTHLY,
-          ONE_SEMESTER,
-          TWO_SEMESTERS,
-          THREE_SEMESTERS);
+      SINGLE_DAY_PER_WEEK_PER_SEMESTER,
+      MONTHLY,
+      ONE_SEMESTER,
+      TWO_SEMESTERS,
+      THREE_SEMESTERS);
   private final DeliveryAssembler deliveryAssembler;
   private final TimePeriodAssembler timePeriodAssembler;
 
@@ -48,7 +51,7 @@ public class PassSaleAssembler {
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {
     final String ERROR_MESSAGE = "make a choice between (single_day_per_week_per_semester, monthly, one_semester," +
-            "two_semester or three_semester) ";
+        "two_semester or three_semester) ";
     TimePeriodDto timePeriodDto;
 
     try {

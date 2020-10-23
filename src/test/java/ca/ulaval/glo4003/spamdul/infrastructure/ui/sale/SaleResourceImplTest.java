@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
-import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.Response;
-
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
+import javax.ws.rs.core.Response;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SaleResourceImplTest {
 

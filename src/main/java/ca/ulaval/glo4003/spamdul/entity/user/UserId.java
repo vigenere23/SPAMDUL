@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
-
 import java.util.Objects;
 
 public class UserId {

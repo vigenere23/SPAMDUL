@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess.car;
 
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
 
 public class CarService {
@@ -18,7 +17,7 @@ public class CarService {
   public Car createCar(CarDto carDto) {
     return carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
 
-//    return carRepository.save(car);
+    //    return carRepository.save(car);
   }
 
   public void saveCar(Car car) {

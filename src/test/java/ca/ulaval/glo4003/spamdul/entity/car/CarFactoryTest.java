@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.entity.car;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.time.LocalDate;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 

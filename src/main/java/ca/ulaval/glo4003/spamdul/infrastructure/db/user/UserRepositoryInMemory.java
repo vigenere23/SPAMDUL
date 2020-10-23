@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
