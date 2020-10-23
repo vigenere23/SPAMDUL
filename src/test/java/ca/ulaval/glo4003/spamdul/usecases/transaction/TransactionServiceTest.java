@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.PassTransaction;
@@ -16,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
+import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
@@ -38,19 +38,18 @@ public class TransactionServiceTest {
   public static final LocalDateTime A_DATETIME = LocalDateTime.now();
   private static final TransactionDto A_TRANSACTION_DTO = new TransactionDto();
   private static final Transaction A_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT_1, A_DATETIME, A_CAR_TYPE);
+  private static final TransactionQueryDto A_TRANSACTION_QUERY_DTO = new TransactionQueryDto();
 
   @Mock
   private TransactionRepository transactionRepository;
   @Mock
   private TransactionFactory transactionFactory;
-  @Mock
-  private Calendar calendar;
 
   private TransactionService transactionService;
 
   @Before
   public void setUp() {
-    transactionService = new TransactionService(transactionRepository, transactionFactory, calendar);
+    transactionService = new TransactionService(transactionRepository, transactionFactory);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
     A_TRANSACTION_DTO.carType = A_CAR_TYPE;
@@ -76,7 +75,7 @@ public class TransactionServiceTest {
   public void givenNoInfractionTransaction_whenGetInfractionsTotalRevenue_thenReturnAmountZero() {
     given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Collections.emptyList());
 
-    Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue();
+    Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
     assertThat(infractionsTotalRevenue).isEqualTo(Amount.valueOf(0));
   }
@@ -85,7 +84,7 @@ public class TransactionServiceTest {
   public void givenNoPassTransaction_whenGetPassTotalRevenue_thenReturnAmountZero() {
     given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Collections.emptyList());
 
-    Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue();
+    Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
     assertThat(infractionsTotalRevenue).isEqualTo(Amount.valueOf(0));
   }
@@ -97,7 +96,7 @@ public class TransactionServiceTest {
     given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Lists.newArrayList(transaction1,
                                                                                                      transaction2));
 
-    Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue();
+    Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
     assertThat(infractionsTotalRevenue).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2));
   }
@@ -109,7 +108,7 @@ public class TransactionServiceTest {
     given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Lists.newArrayList(transaction1,
                                                                                                transaction2));
 
-    Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue();
+    Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
     assertThat(infractionsTotalRevenue).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2));
   }
@@ -118,7 +117,7 @@ public class TransactionServiceTest {
   public void givenNoCampusAccessTransactionsExistsForCarType_whenGetCampusAccessTotalRevenueByCarType_thenReturnAmountZeroForCarType() {
     given(transactionRepository.findAllBy(A_CAR_TYPE)).willReturn(Collections.emptyList());
 
-    Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType();
+    Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType(A_TRANSACTION_QUERY_DTO);
 
     assertThat(revenue.get(A_CAR_TYPE)).isEqualTo(Amount.valueOf(0));
   }
@@ -134,7 +133,7 @@ public class TransactionServiceTest {
     given(transactionRepository.findAllBy(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(
         transactionSansPollution));
 
-    Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType();
+    Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType(A_TRANSACTION_QUERY_DTO);
 
     assertThat(revenue.get(CarType.ECONOMIQUE)).isEqualTo(transactionEconomique.getAmount());
     assertThat(revenue.get(CarType.GOURMANDE)).isEqualTo(transactionGourmande.getAmount());
