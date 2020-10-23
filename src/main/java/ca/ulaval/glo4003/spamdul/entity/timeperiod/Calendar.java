@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public interface Calendar {
@@ -10,7 +11,7 @@ public interface Calendar {
 
   LocalDateTime now();
 
-  LocalDateTime getStartOfScholarYear();
+  LocalDateTime getStartOfSchoolYearAtDate(LocalDate date);
 
-  LocalDateTime getEndOfScholarYear();
+  LocalDateTime getEndOfSchoolYearAtDate(LocalDate date);
 }

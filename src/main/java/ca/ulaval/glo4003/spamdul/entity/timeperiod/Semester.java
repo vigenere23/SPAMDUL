@@ -30,7 +30,7 @@ public class Semester {
       case E:
         return new Semester(Season.A, year);
       default:
-        throw new RuntimeException("Given season is not valid");
+        throw new RuntimeException("The given season is not valid");
     }
   }
 

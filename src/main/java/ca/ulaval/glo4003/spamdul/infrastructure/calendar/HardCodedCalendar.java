@@ -1,9 +1,11 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class HardCodedCalendar implements Calendar {
 
@@ -17,7 +19,7 @@ public class HardCodedCalendar implements Calendar {
       case E:
         return LocalDate.of(semester.getYear(), 5, 1).atStartOfDay();
       default:
-        throw new RuntimeException("bad season");
+        throw new RuntimeException("The given season is not valid");
     }
   }
 
@@ -31,7 +33,7 @@ public class HardCodedCalendar implements Calendar {
       case E:
         return LocalDateTime.of(semester.getYear(), 8, 31, 23, 59, 59);
       default:
-        throw new RuntimeException("bad season");
+        throw new RuntimeException("The given season is not valid");
     }
   }
 
@@ -41,12 +43,32 @@ public class HardCodedCalendar implements Calendar {
   }
 
   @Override
-  public LocalDateTime getStartOfScholarYear() {
-    return null;
+  public LocalDateTime getStartOfSchoolYearAtDate(LocalDate date) {
+    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MAX);
+    Season firstSeason = Season.A;
+
+    int year = datetime.getYear();
+    LocalDateTime startOfYear = getStartOfSemester(new Semester(firstSeason, year));
+
+    if (startOfYear.isAfter(datetime)) {
+      startOfYear = getStartOfSemester(new Semester(firstSeason, year - 1));
+    }
+
+    return startOfYear;
   }
 
   @Override
-  public LocalDateTime getEndOfScholarYear() {
-    return null;
+  public LocalDateTime getEndOfSchoolYearAtDate(LocalDate date) {
+    LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MIN);
+    Season lastSeason = Season.E;
+
+    int year = datetime.getYear();
+    LocalDateTime endOfYear = getEndOfSemester(new Semester(lastSeason, year));
+
+    if (endOfYear.isBefore(datetime)) {
+      endOfYear = getEndOfSemester(new Semester(lastSeason, year + 1));
+    }
+
+    return endOfYear;
   }
 }
