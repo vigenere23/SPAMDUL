@@ -5,11 +5,11 @@ import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalServic
 
 public class DeliveryStrategyFactory {
 
-    public DeliveryStrategy create(DeliveryMode deliveryMode) {
-        if (deliveryMode == DeliveryMode.EMAIL) {
-            return new GmailEmailService();
-        } else {
-            return new LoggerPostalService();
-        }
+  public DeliveryStrategy create(DeliveryMode deliveryMode) {
+    if (deliveryMode == DeliveryMode.EMAIL) {
+      return new GmailEmailService();
+    } else {
+      return new LoggerPostalService();
     }
+  }
 }

@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidDayToAccessCampusExc
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidDayOfCampusAccessArgumentException;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

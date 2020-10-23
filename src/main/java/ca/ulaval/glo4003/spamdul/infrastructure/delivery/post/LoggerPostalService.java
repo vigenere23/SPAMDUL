@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.delivery.post;
 
+import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -26,15 +26,6 @@ public class TimePeriodAssembler {
     return timePeriodDto;
   }
 
-  private void setSingleDayPerWeekPerSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {
-    timePeriodDto.semester = assembleSemester(timePeriodRequest.semester);
-    try {
-      timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
-    } catch (IllegalArgumentException e) {
-      throw new InvalidPeriodArgumentException("Day of the week must be from monday to friday");
-    }
-  }
-
   private Semester assembleSemester(String semester) {
     final String message = "The semester must be in format {A|H|E}XXXX";
     semester = semester.toUpperCase();
@@ -54,5 +45,14 @@ public class TimePeriodAssembler {
     }
 
     return new Semester(season, year);
+  }
+
+  private void setSingleDayPerWeekPerSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {
+    timePeriodDto.semester = assembleSemester(timePeriodRequest.semester);
+    try {
+      timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
+    } catch (IllegalArgumentException e) {
+      throw new InvalidPeriodArgumentException("Day of the week must be from monday to friday");
+    }
   }
 }

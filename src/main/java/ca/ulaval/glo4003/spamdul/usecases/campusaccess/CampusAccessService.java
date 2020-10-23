@@ -84,7 +84,7 @@ public class CampusAccessService extends AccessGrantedObservable {
                                           PassCode passCode,
                                           TimePeriod passTimePeriod) {
     CampusAccess campusAccess = campusAccessRepository.findById(campusAccessCode);
-    campusAccessRepository.save(campusAccess);
     campusAccess.associatePass(passCode, passTimePeriod);
+    campusAccessRepository.save(campusAccess);
   }
 }

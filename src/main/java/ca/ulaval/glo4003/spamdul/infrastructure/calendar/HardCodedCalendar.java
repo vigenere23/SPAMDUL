@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -70,5 +72,10 @@ public class HardCodedCalendar implements Calendar {
     }
 
     return endOfYear;
+  }
+
+  @Override
+  public DayOfWeek getDayOfWeek() {
+    return now().getDayOfWeek();
   }
 }

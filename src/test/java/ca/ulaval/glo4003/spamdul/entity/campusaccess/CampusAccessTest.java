@@ -1,17 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDateTime;
-
-import static com.google.common.truth.Truth.assertThat;
 
 public class CampusAccessTest {
 
@@ -28,9 +27,9 @@ public class CampusAccessTest {
   public void setUp() throws Exception {
     timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(new CampusAccessCode(),
-                                                 new UserId(),
-                                                 new CarId(),
-                                                 timePeriod);
+                                    new UserId(),
+                                    new CarId(),
+                                    timePeriod);
   }
 
   @Test
@@ -50,7 +49,9 @@ public class CampusAccessTest {
 
   @Test
   public void givenPassPeriodIncluded_whenAssociatingSingleDayPerWeekPassOnSameDay_shouldSetPassCode() {
-    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
+    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
+                                                           A_END_DATE_TIME,
+                                                           TimePeriodDayOfWeek.WEDNESDAY);
 
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
 
@@ -59,7 +60,9 @@ public class CampusAccessTest {
 
   @Test(expected = PassAlreadyAssociatedException.class)
   public void givenPassAlreadyAssociated_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
-    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
+    final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
+                                                           A_END_DATE_TIME,
+                                                           TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
 
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
@@ -67,7 +70,9 @@ public class CampusAccessTest {
 
   @Test(expected = PassSaleNotAcceptedByAccessException.class)
   public void givenPassPeriodNotIncluded_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
-    final TimePeriod NOT_INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
+    final TimePeriod NOT_INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
+                                                               A_END_DATE_TIME,
+                                                               TimePeriodDayOfWeek.FRIDAY);
 
     campusAccess.associatePass(A_PASS_CODE, NOT_INCLUDED_TIME_PERIOD);
   }

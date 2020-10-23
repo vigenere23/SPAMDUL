@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 
-import java.util.Objects;
-
 public class Pass {
 
   private final PassCode passCode;
@@ -14,6 +12,10 @@ public class Pass {
     this.passCode = passCode;
     this.parkingZone = parkingZone;
     this.timePeriod = timePeriod;
+  }
+
+  public boolean isAValidParkingZone(ParkingZone parkingZone) {
+    return this.parkingZone.equals(parkingZone);
   }
 
   public PassCode getPassCode() {

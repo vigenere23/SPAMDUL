@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.entity.car;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.util.Objects;
 
 public class CarId {

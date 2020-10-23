@@ -19,7 +19,7 @@ public class CsvReader {
         csvData.add(new ArrayList<>(Arrays.asList(data)));
       }
     } catch (IOException e) {
-      throw new CantFindFileException(String.format("%s is not a valid path", filePath));
+      throw new InvalidCsvFile(String.format("%s is not a valid path", filePath));
     }
 
     return csvData;

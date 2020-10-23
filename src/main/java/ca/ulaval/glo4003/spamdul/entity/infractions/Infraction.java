@@ -1,26 +1,47 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.AlreadyPaidInfractionException;
+
 public class Infraction {
 
-  private String infractionDscription;
+  private InfractionId infractionId;
+  private String infractionDescription;
   private InfractionCode code;
-  private int montant;
+  private double amount;
+  private boolean isPaid = false;
 
-  public Infraction(String infractionDscription, InfractionCode code, int montant) {
-    this.infractionDscription = infractionDscription;
+  public Infraction(InfractionId infractionId, String infractionDescription, InfractionCode code, double amount) {
+    this.infractionId = infractionId;
+    this.infractionDescription = infractionDescription;
     this.code = code;
-    this.montant = montant;
+    this.amount = amount;
   }
 
-  public String getInfractionDscription() {
-    return infractionDscription;
+  public void pay(){
+    if (isPaid) {
+      throw new AlreadyPaidInfractionException("Cette infraction a déjà été payée");
+    }
+
+    isPaid = true;
+  }
+
+  public String getInfractionDescription() {
+    return infractionDescription;
+  }
+
+  public InfractionId getInfractionId() {
+    return infractionId;
   }
 
   public InfractionCode getCode() {
     return code;
   }
 
-  public int getMontant() {
-    return montant;
+  public double getAmount() {
+    return amount;
+  }
+
+  public boolean isPaid() {
+    return isPaid;
   }
 }

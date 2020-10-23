@@ -30,8 +30,7 @@ public enum PeriodType {
       return PeriodType.THREE_SEMESTERS;
     } else if (collator.equals("mensuel", periodTypeString.toLowerCase())) {
       return PeriodType.MONTHLY;
-    }
-    else {
+    } else {
       return null;
     }
   }

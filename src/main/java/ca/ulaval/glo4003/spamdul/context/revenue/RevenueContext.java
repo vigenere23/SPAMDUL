@@ -13,10 +13,11 @@ import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 public class RevenueContext {
 
   private final RevenueResourceImpl revenueResource;
+  private final TransactionRepository transactionRepository;
   private final TransactionPopulator transactionPopulator;
 
   public RevenueContext(boolean populateData) {
-    TransactionRepository transactionRepository = new InMemoryTransactionRepository();
+    transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
     Calendar calendar = new HardCodedCalendar();
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
@@ -32,6 +33,10 @@ public class RevenueContext {
 
   public RevenueResourceImpl getRevenueResource() {
     return revenueResource;
+  }
+
+  public TransactionRepository getTransactionRepository() {
+    return transactionRepository;
   }
 
   private void populateData() {

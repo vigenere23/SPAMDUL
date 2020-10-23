@@ -1,17 +1,23 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess.car;
 
-import ca.ulaval.glo4003.spamdul.entity.car.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
+import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.mockito.Mockito.*;
 
 public class CarServiceTest {
 
   private final String A_CAR_BRAND = "brand";
   private final String A_CAR_MODEL = "model";
   private final String A_LICENSE_PLATE = "license plate";
-  private final CarId A_CAR_ID= CarId.valueOf("1");
+  private final CarId A_CAR_ID = CarId.valueOf("1");
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final int A_YEAR = 2020;
   private final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, A_CAR_BRAND, A_CAR_MODEL, A_YEAR, A_LICENSE_PLATE);
