@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.revenue;
 
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.transactions.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.RevenueResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
@@ -14,7 +16,8 @@ public class RevenueContext {
   public RevenueContext() {
     TransactionRepository transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
+    Calendar calendar = new HardCodedCalendar();
+    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory, calendar);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
     revenueResource = new RevenueResourceImpl(transactionService, revenueAssembler);
   }

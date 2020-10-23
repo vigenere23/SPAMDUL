@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
 import ca.ulaval.glo4003.spamdul.utils.filter.FilterContainer;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,12 +13,12 @@ public class TransactionFilter {
     return this;
   }
 
-  public TransactionFilter betweenDates(LocalDate startDate, LocalDate endDate) {
+  public TransactionFilter betweenDates(LocalDateTime startDate, LocalDateTime endDate) {
     if (startDate != null) {
-      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isBefore(LocalDateTime.from(startDate)));
+      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isBefore(startDate));
     }
     if (endDate != null) {
-      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(LocalDateTime.from(endDate)));
+      filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(endDate));
     }
 
     return this;

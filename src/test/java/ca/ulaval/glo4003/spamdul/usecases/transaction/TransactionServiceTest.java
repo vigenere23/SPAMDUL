@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.PassTransaction;
@@ -37,15 +38,19 @@ public class TransactionServiceTest {
   public static final LocalDateTime A_DATETIME = LocalDateTime.now();
   private static final TransactionDto A_TRANSACTION_DTO = new TransactionDto();
   private static final Transaction A_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT_1, A_DATETIME, A_CAR_TYPE);
+
   @Mock
   private TransactionRepository transactionRepository;
   @Mock
   private TransactionFactory transactionFactory;
+  @Mock
+  private Calendar calendar;
+
   private TransactionService transactionService;
 
   @Before
   public void setUp() {
-    transactionService = new TransactionService(transactionRepository, transactionFactory);
+    transactionService = new TransactionService(transactionRepository, transactionFactory, calendar);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
     A_TRANSACTION_DTO.carType = A_CAR_TYPE;
