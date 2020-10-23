@@ -17,6 +17,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.collect.Lists;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.Before;
@@ -33,8 +34,9 @@ public class TransactionServiceTest {
   public static final Amount AN_AMOUNT_3 = Amount.valueOf(42);
   public static final TransactionType A_TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
+  public static final LocalDateTime A_DATETIME = LocalDateTime.now();
   private static final TransactionDto A_TRANSACTION_DTO = new TransactionDto();
-  private static final Transaction A_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT_1, A_CAR_TYPE);
+  private static final Transaction A_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT_1, A_DATETIME, A_CAR_TYPE);
   @Mock
   private TransactionRepository transactionRepository;
   @Mock
@@ -85,8 +87,8 @@ public class TransactionServiceTest {
 
   @Test
   public void givenInfractionTransactionsExists_whenGetInfractionsTotalRevenue_thenReturnCorrectAmount() {
-    Transaction transaction1 = new InfractionTransaction(AN_AMOUNT_1);
-    Transaction transaction2 = new InfractionTransaction(AN_AMOUNT_2);
+    Transaction transaction1 = new InfractionTransaction(AN_AMOUNT_1, A_DATETIME);
+    Transaction transaction2 = new InfractionTransaction(AN_AMOUNT_2, A_DATETIME);
     given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Lists.newArrayList(transaction1,
                                                                                                      transaction2));
 
@@ -97,8 +99,8 @@ public class TransactionServiceTest {
 
   @Test
   public void givenPassTransactionsExists_whenGetPassTotalRevenue_thenReturnCorrectAmount() {
-    Transaction transaction1 = new PassTransaction(AN_AMOUNT_1);
-    Transaction transaction2 = new PassTransaction(AN_AMOUNT_2);
+    Transaction transaction1 = new PassTransaction(AN_AMOUNT_1, A_DATETIME);
+    Transaction transaction2 = new PassTransaction(AN_AMOUNT_2, A_DATETIME);
     given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Lists.newArrayList(transaction1,
                                                                                                transaction2));
 
@@ -118,13 +120,14 @@ public class TransactionServiceTest {
 
   @Test
   public void givenCampusAccessTransactionsExists_whenGetCampusAccessTotalRevenueByCarType_thenReturnCorrectAmounts() {
-    Transaction transactionEconomique = new CampusAccessTransaction(AN_AMOUNT_1, CarType.ECONOMIQUE);
-    Transaction transactionGourmande = new CampusAccessTransaction(AN_AMOUNT_2, CarType.GOURMANDE);
-    Transaction transactionSansPollution = new CampusAccessTransaction(AN_AMOUNT_3, CarType.SANS_POLLUTION);
+    Transaction transactionEconomique = new CampusAccessTransaction(AN_AMOUNT_1, A_DATETIME, CarType.ECONOMIQUE);
+    Transaction transactionGourmande = new CampusAccessTransaction(AN_AMOUNT_2, A_DATETIME, CarType.GOURMANDE);
+    Transaction transactionSansPollution = new CampusAccessTransaction(AN_AMOUNT_3, A_DATETIME, CarType.SANS_POLLUTION);
 
     given(transactionRepository.findAllBy(CarType.ECONOMIQUE)).willReturn(Lists.newArrayList(transactionEconomique));
     given(transactionRepository.findAllBy(CarType.GOURMANDE)).willReturn(Lists.newArrayList(transactionGourmande));
-    given(transactionRepository.findAllBy(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(transactionSansPollution));
+    given(transactionRepository.findAllBy(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(
+        transactionSansPollution));
 
     Map<CarType, Amount> revenue = transactionService.getTotalCampusAccessRevenueByCarType();
 

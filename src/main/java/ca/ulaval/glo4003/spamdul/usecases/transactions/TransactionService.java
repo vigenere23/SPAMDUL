@@ -26,16 +26,21 @@ public class TransactionService {
   public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType() {
     Map<CarType, Amount> carTypeRevenues = new EnumMap<>(CarType.class);
     Arrays.stream(CarType.values())
-          .forEach(carType -> carTypeRevenues.put(carType, getTotalAmount(this.transactionRepository.findAllBy(carType))));
+          .forEach(carType -> {
+            List<Transaction> transactions = this.transactionRepository.findAllBy(carType);
+            carTypeRevenues.put(carType, getTotalAmount(transactions));
+          });
     return carTypeRevenues;
   }
 
   public Amount getInfractionsTotalRevenue() {
-    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.INFRACTION));
+    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.INFRACTION);
+    return getTotalAmount(transactions);
   }
 
   public Amount getPassTotalRevenue() {
-    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.PASS));
+    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.PASS);
+    return getTotalAmount(transactions);
   }
 
   public void createTransaction(TransactionDto transactionDto) {
