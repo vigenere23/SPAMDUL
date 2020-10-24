@@ -16,7 +16,7 @@ public class EventSchedulerObservable {
   }
 
   public void notifyObservers() {
-    
+
     for (ScheduleObserver observer : observers) {
       observer.listenScheduledEvent();
     }

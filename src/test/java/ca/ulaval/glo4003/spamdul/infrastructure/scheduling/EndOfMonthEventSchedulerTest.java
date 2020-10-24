@@ -82,6 +82,23 @@ public class EndOfMonthEventSchedulerTest {
   }
 
   @Test
+  public void givenNoObservers_whenLaunchJob_shouldNotNotifyOnFirstOfMonth() throws InterruptedException {
+    when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, A_FIRST_OF_THE_MONTH);
+    executorService = Executors.newSingleThreadScheduledExecutor();
+    endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
+    endOfMonthEventScheduler.register(scheduleObserver);
+    endOfMonthEventScheduler.unregister(scheduleObserver);
+
+    endOfMonthEventScheduler.launchJob();
+
+    Thread.sleep(FIVE_MILLIS);
+
+    endOfMonthEventScheduler.stopJob();
+
+    verify(scheduleObserver, never()).listenScheduledEvent();
+  }
+
+  @Test
   public void givenNotFirstOfMonth_whenLaunchJob_shouldNotNotifyObserver() throws InterruptedException {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, NOT_FIRST_OF_MONTH);
     executorService = Executors.newSingleThreadScheduledExecutor();
