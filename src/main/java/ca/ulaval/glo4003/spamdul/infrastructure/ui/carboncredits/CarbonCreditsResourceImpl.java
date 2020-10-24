@@ -4,6 +4,8 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCredi
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 
+import javax.ws.rs.core.Response;
+
 public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
 
   private final CarbonCreditsService carbonCreditsService;
@@ -13,11 +15,10 @@ public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
   }
 
   @Override
-  public CarbonCreditsToggleDto toggleAutomaticTransfer(CarbonCreditsToggleDto request) {
-    CarbonCreditsToggleDto response = new CarbonCreditsToggleDto();
-    response.active = carbonCreditsService.setAutomaticTransfer(request.active);
+  public Response activateAutomaticTransfer(CarbonCreditsToggleDto request) {
+    carbonCreditsService.activateAutomaticTransfer(request.active);
 
-    return response;
+    return Response.status(Response.Status.NO_CONTENT).build();
   }
 
   @Override

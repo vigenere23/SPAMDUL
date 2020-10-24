@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 
 public class EndOfMonthEventScheduler extends EventSchedulerObservable {
 
-  private static EndOfMonthEventScheduler instance = null;
+  private static EndOfMonthEventScheduler instance;
   private static Calendar calendar;
   private static ScheduledExecutorService executorService;
   private ScheduledFuture<?> scheduledFuture;
@@ -51,7 +51,7 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
             TimeUnit.NANOSECONDS);
   }
 
-  private void stopJob() {
+  public void stopJob() {
     scheduledFuture.cancel(true);
     executorService.shutdown();
   }
@@ -64,7 +64,7 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
 
   @Override
   public void register(ScheduleObserver observer) {
-    if (!isBeingObserved()) {
+    if (isNotBeingObserved()) {
       launchJob();
     }
 
@@ -75,7 +75,7 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
   public void unregister(ScheduleObserver observer) {
     super.unregister(observer);
 
-    if (!isBeingObserved()) {
+    if (isNotBeingObserved()) {
       stopJob();
     }
 

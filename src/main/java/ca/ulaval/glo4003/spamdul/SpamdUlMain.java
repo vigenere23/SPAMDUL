@@ -21,8 +21,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePer
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -44,13 +42,12 @@ public class SpamdUlMain {
       throws Exception {
 
     // Setup Task
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(executor);
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
     FundraisingContext fundraisingContext = new FundraisingContext(true);
     RevenueContext revenueContext = new RevenueContext();
     InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository());
@@ -105,7 +102,7 @@ public class SpamdUlMain {
       exception.printStackTrace();
     } finally {
       server.destroy();
-      executor.shutdown();
+      carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
     }
   }
 }

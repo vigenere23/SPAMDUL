@@ -1,22 +1,22 @@
 package ca.ulaval.glo4003.spamdul.entity.carboncredits;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EventSchedulerObservable {
 
-  private List<ScheduleObserver> observers = new ArrayList<>();
+  private final Set<ScheduleObserver> observers = new HashSet<>();
 
   public void register(ScheduleObserver observer) {
-      observers.add(observer);
+    observers.add(observer);
   }
 
   public void unregister(ScheduleObserver observer) {
     observers.remove(observer);
   }
 
-  protected boolean isBeingObserved() {
-    return !observers.isEmpty();
+  protected boolean isNotBeingObserved() {
+    return observers.isEmpty();
   }
 
   public void notifyObservers() {

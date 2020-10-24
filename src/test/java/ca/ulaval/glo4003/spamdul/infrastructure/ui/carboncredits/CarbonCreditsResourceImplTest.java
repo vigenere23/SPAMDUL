@@ -1,16 +1,19 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsToggleDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.ws.rs.core.Response;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditsResourceImplTest {
@@ -32,24 +35,33 @@ public class CarbonCreditsResourceImplTest {
   public void whenGettingTotalTransferredCredits_shouldReturnFromService() {
     when(carbonCreditsService.getTotalCarbonCredits()).thenReturn(AN_AMOUNT);
     CarbonCreditsTransferResponse response = carbonCreditsResource.getAllTransferredCredits();
-    Truth.assertThat(response.transferred).isEqualTo(AN_AMOUNT);
+    assertThat(response.transferred).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void whenTransferringCredits_shouldCallAndReturnFromService() {
     when(carbonCreditsService.transferRemainingBudget()).thenReturn(AN_AMOUNT);
     CarbonCreditsTransferResponse response = carbonCreditsResource.transferFundsToCarbonCredits();
-    Truth.assertThat(response.transferred).isEqualTo(AN_AMOUNT);
+    assertThat(response.transferred).isEqualTo(AN_AMOUNT);
   }
 
   @Test
-  public void whenTogglingFeature_shouldCallAndReturnReturnFromService() {
-    when(carbonCreditsService.setAutomaticTransfer(IS_ACTIVE)).thenReturn(IS_ACTIVE);
+  public void whenActivateAutomaticTransfer_shouldCallService() {
     CarbonCreditsToggleDto request = new CarbonCreditsToggleDto();
     request.active = IS_ACTIVE;
 
-    CarbonCreditsToggleDto response = carbonCreditsResource.toggleAutomaticTransfer(request);
+    carbonCreditsResource.activateAutomaticTransfer(request);
 
-    Truth.assertThat(response.active).isEqualTo(IS_ACTIVE);
+    verify(carbonCreditsService).activateAutomaticTransfer(IS_ACTIVE);
+  }
+
+  @Test
+  public void whenActivateAutomaticTransfer_shouldCReturnResponseWithNoContent() {
+    CarbonCreditsToggleDto request = new CarbonCreditsToggleDto();
+    request.active = IS_ACTIVE;
+
+    Response response = carbonCreditsResource.activateAutomaticTransfer(request);
+
+    assertThat(response.getStatus()).isEqualTo(204);
   }
 }
