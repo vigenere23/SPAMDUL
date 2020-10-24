@@ -40,9 +40,7 @@ public class SpamdUlMain {
 
   public static void main(String[] args)
       throws Exception {
-
-    // Setup Task
-
+    
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
