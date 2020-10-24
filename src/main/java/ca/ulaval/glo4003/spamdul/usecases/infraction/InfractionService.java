@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
-public class InfractionService {
+public class  InfractionService {
 
   private final InfractionInfoRepository infractionInfoRepository;
   private final InfractionRepository infractionRepository;

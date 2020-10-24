@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.banking.AccountService;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
@@ -22,7 +23,9 @@ public class InfractionsContext {
 
   private final InfractionResource infractionResource;
 
-  public InfractionsContext(PassRepository passRepository, TransactionRepository transactionRepository) {
+  public InfractionsContext(PassRepository passRepository,
+                            TransactionRepository transactionRepository,
+                            AccountService accountService) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -30,7 +33,8 @@ public class InfractionsContext {
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
+    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory,
+                                                                   accountService);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,

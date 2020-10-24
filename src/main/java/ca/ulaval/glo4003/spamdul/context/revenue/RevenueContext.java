@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.transactions.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.RevenueResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.banking.AccountService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class RevenueContext {
@@ -13,10 +14,11 @@ public class RevenueContext {
   private TransactionRepository transactionRepository;
 
 
-  public RevenueContext() {
+  public RevenueContext(AccountService accountService) {
     transactionRepository = new InMemoryTransactionRepository();
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
+    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory,
+                                                                   accountService);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
     revenueResource = new RevenueResourceImpl(transactionService, revenueAssembler);
   }

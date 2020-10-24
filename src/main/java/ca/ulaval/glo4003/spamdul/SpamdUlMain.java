@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
@@ -45,10 +46,13 @@ public class SpamdUlMain {
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
+    //TODO: does the service can be inject in other service
+    AccountContext accountContext = new AccountContext();
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    FundraisingContext fundraisingContext = new FundraisingContext(true);
-    RevenueContext revenueContext = new RevenueContext();
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository());
+    FundraisingContext fundraisingContext = new FundraisingContext(true, accountContext.getAccountService());
+    RevenueContext revenueContext = new RevenueContext(accountContext.getAccountService());
+    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository(),
+                                                                   accountContext.getAccountService());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

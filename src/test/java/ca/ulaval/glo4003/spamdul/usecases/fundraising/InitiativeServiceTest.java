@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.usecases.banking.AccountService;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,13 @@ public class InitiativeServiceTest {
   private InitiativeRepository initiativeRepository;
   @Mock
   private InitiativeFactory initiativeFactory;
+  @Mock
+  private AccountService accountService;
+  //TODO::add test to account
 
   @Before
   public void setUp() {
-    initiativeService = new InitiativeService(initiativeRepository, initiativeFactory);
+    initiativeService = new InitiativeService(initiativeRepository, initiativeFactory, accountService);
   }
 
   @Test
