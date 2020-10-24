@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.usecases.banking.AccountService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -17,14 +16,11 @@ public class TransactionService {
 
   private final TransactionRepository transactionRepository;
   private final TransactionFactory transactionFactory;
-  private final AccountService accountService;
 
   public TransactionService(TransactionRepository transactionRepository,
-                            TransactionFactory transactionFactory,
-                            AccountService accountService) {
+                            TransactionFactory transactionFactory) {
     this.transactionRepository = transactionRepository;
     this.transactionFactory = transactionFactory;
-    this.accountService = accountService;
   }
 
   public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType() {
@@ -44,7 +40,6 @@ public class TransactionService {
 
   public void createTransaction(TransactionDto transactionDto) {
     Transaction transaction = transactionFactory.create(transactionDto);
-    accountService.addTransaction(transactionDto);
     transactionRepository.save(transaction);
   }
 

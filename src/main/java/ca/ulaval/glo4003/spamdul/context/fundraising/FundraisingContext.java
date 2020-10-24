@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InitiativeReposit
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResourceImp;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.banking.AccountService;
+import ca.ulaval.glo4003.spamdul.usecases.banking.BankingService;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
 
 public class FundraisingContext {
@@ -15,11 +15,11 @@ public class FundraisingContext {
   private final FundraisingResource fundraisingResource;
 
   public FundraisingContext(boolean populateData,
-                            AccountService accountService) {
+                            BankingService bankingService) {
     InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
     InitiativeFactory initiativeFactory = new InitiativeFactory();
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
-    InitiativeService initiativeService = new InitiativeService(initiativeRepository, initiativeFactory, accountService);
+    InitiativeService initiativeService = new InitiativeService(initiativeRepository, initiativeFactory, bankingService);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService);
     initiativePopulator = new InitiativePopulator(initiativeRepository, initiativeFactory);

@@ -5,15 +5,8 @@ import ca.ulaval.glo4003.spamdul.utils.Amount;
 
 public abstract class Account {
 
-//  private List<Transaction> transactionList;
-  private Amount funds = Amount.valueOf(0);
+  protected Amount funds = Amount.valueOf(0);
 
-
-
-
-//  public void addTransaction(Transaction transaction) {
-//
-//  }
   public void addFunds(Amount amount) {
     funds.add(amount);
   }
