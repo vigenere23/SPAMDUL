@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
@@ -13,7 +14,7 @@ import org.junit.Test;
 
 public class TimePeriodAssemblerTest {
 
-  private TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
+  private final TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
 
   @Test
   public void givenSingleDayPerWeekPeriod_whenAssemblingTimePeriodDto_shouldHaveRightFields() {
@@ -26,7 +27,7 @@ public class TimePeriodAssemblerTest {
 
     assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
     assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.MONDAY);
-    assertThat(timePeriodDto.semester).isEqualTo(new Semester('A', 2020));
+    assertThat(timePeriodDto.semester).isEqualTo(new Semester(Session.AUTUMN, 2020));
   }
 
   @Test(expected = InvalidPeriodArgumentException.class)

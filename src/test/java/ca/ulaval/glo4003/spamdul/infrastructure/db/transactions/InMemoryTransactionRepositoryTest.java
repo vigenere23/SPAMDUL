@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.truth.Truth;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +18,18 @@ public class InMemoryTransactionRepositoryTest {
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   public static final CarType ANOTHER_CAR_TYPE = CarType.ECONOMIQUE;
   public static final Amount AN_AMOUNT = Amount.valueOf(99);
-  private final Transaction A_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
-  private final Transaction ANOTHER_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT, A_CAR_TYPE);
+  public static final LocalDateTime A_DATETIME = LocalDateTime.now();
+  private final Transaction A_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT,
+                                                                                      A_DATETIME,
+                                                                                      A_CAR_TYPE);
+  private final Transaction ANOTHER_CAMPUS_ACCESS_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT,
+                                                                                            A_DATETIME,
+                                                                                            A_CAR_TYPE);
   private final Transaction A_CAMPUS_ACCESS_TRANSACTION_DIFFERENT_CAR_TYPE = new CampusAccessTransaction(AN_AMOUNT,
+                                                                                                         A_DATETIME,
                                                                                                          ANOTHER_CAR_TYPE);
-  private final Transaction A_PASS_TRANSACTION = new PassTransaction(AN_AMOUNT);
-  private final Transaction AN_INFRACTION_TRANSACTION = new InfractionTransaction(AN_AMOUNT);
+  private final Transaction A_PASS_TRANSACTION = new PassTransaction(AN_AMOUNT, A_DATETIME);
+  private final Transaction AN_INFRACTION_TRANSACTION = new InfractionTransaction(AN_AMOUNT, A_DATETIME);
 
   private InMemoryTransactionRepository repository;
 

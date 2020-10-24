@@ -28,21 +28,19 @@ public class UsageReportCreationAssembler {
     if (startDate == null) {
       return LocalDate.now().withDayOfMonth(1);
     }
-
-    try {
-      return LocalDate.parse(startDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
-    } catch (DateTimeParseException e) {
-      throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
-    }
+    return parseDate(startDate);
   }
 
   private LocalDate getEndDate(String endDate) {
     if (endDate == null) {
       return LocalDate.now();
     }
+    return parseDate(endDate);
+  }
 
+  private LocalDate parseDate(String date) {
     try {
-      return LocalDate.parse(endDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
+      return LocalDate.parse(date, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }

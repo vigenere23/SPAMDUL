@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class InMemoryTransactionRepository implements TransactionRepository {
 
-  private Map<TransactionType, List<Transaction>> transactions;
+  private final Map<TransactionType, List<Transaction>> transactions;
 
   public InMemoryTransactionRepository() {
     this.transactions = new HashMap<>();
@@ -26,7 +26,7 @@ public class InMemoryTransactionRepository implements TransactionRepository {
     transactions.put(TransactionType.INFRACTION, infractionTransactions);
   }
 
-  public void save(Transaction transaction) {
+  @Override public void save(Transaction transaction) {
     if (transaction instanceof CampusAccessTransaction) {
       save((CampusAccessTransaction) transaction);
     } else if (transaction instanceof PassTransaction) {
@@ -48,11 +48,11 @@ public class InMemoryTransactionRepository implements TransactionRepository {
     transactions.get(TransactionType.INFRACTION).add(transaction);
   }
 
-  public List<Transaction> findAllBy(TransactionType transactionType) {
+  @Override public List<Transaction> findAllBy(TransactionType transactionType) {
     return transactions.get(transactionType);
   }
 
-  public List<Transaction> findAllBy(CarType carType) {
+  @Override public List<Transaction> findAllBy(CarType carType) {
     List<Transaction> carTypeTransactions = new ArrayList<>();
 
     transactions.get(TransactionType.CAMPUS_ACCESS).forEach(transaction -> {
