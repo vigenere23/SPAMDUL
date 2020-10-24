@@ -1,34 +1,39 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditsServiceTest {
+
+  @Mock
+  private EventSchedulerObservable eventSchedulerObservable;
 
   private CarbonCreditsService carbonCreditsService;
 
+
   @Before
   public void setUp() {
-    carbonCreditsService = new CarbonCreditsService();
+    carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable);
   }
 
   @Test
-  public void givenInitialization_whenTriggeringTransfer_showTransferFunds() {
-    whenTriggeringTransfer_showTransferFunds();
+  public void whenActivateAutomaticTransfer_shouldRegisterToObservable() {
+    carbonCreditsService.activateAutomaticTransfer(true);
+
+    verify(eventSchedulerObservable).register(carbonCreditsService);
   }
 
   @Test
-  public void givenFeatureActive_whenTriggeringTransfer_showTransferFunds() {
-    whenTriggeringTransfer_showTransferFunds();
-  }
+  public void whenDeactivateAutomaticTransfer_shouldUnregisterToObservable() {
+    carbonCreditsService.activateAutomaticTransfer(false);
 
-  private void whenTriggeringTransfer_showTransferFunds() {
-    // TODO
-  }
-
-  @Test(expected = RuntimeException.class)
-  public void givenFeatureDeactivated_whenTriggeringTransfer_showThrowException() {
-    carbonCreditsService.toggle(false);
-    carbonCreditsService.transferRemainingBudget();
+    verify(eventSchedulerObservable).unregister(carbonCreditsService);
   }
 }

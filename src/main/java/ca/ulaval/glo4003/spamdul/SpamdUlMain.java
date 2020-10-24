@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul;
 
-import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
@@ -41,18 +40,16 @@ public class SpamdUlMain {
 
   public static void main(String[] args)
       throws Exception {
-
+    
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
-    //TODO: does the service can be inject in other service
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    AccountContext accountContext = new AccountContext();
-    RevenueContext revenueContext = new RevenueContext(accountContext.getBank());
-    FundraisingContext fundraisingContext = new FundraisingContext(true, accountContext.getSustainableMobilityProjectAccount());
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository(),
-                                                                   accountContext.getBank());
+    FundraisingContext fundraisingContext = new FundraisingContext(false);
+    RevenueContext revenueContext = new RevenueContext(false);
+    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
+                                                                   revenueContext.getTransactionRepository());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -104,6 +101,7 @@ public class SpamdUlMain {
       exception.printStackTrace();
     } finally {
       server.destroy();
+      carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
     }
   }
 }

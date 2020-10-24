@@ -5,8 +5,10 @@ import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
+import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -27,19 +29,29 @@ public class TransactionService {
     this.bank = bank;
   }
 
-  public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType() {
+  public Map<CarType, Amount> getCampusAccessTotalRevenueByCarType(TransactionQueryDto transactionQueryDto) {
     Map<CarType, Amount> carTypeRevenues = new EnumMap<>(CarType.class);
+    TransactionFilter transactionFilter = getFilter(transactionQueryDto);
+
     Arrays.stream(CarType.values())
-          .forEach(carType -> carTypeRevenues.put(carType, getTotalAmount(this.transactionRepository.findAllBy(carType))));
+          .forEach(carType -> {
+            List<Transaction> transactions = this.transactionRepository.findAllBy(carType);
+            transactions = transactionFilter.setData(transactions).getResults();
+            carTypeRevenues.put(carType, getTotalAmount(transactions));
+          });
     return carTypeRevenues;
   }
 
-  public Amount getInfractionsTotalRevenue() {
-    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.INFRACTION));
+  public Amount getInfractionsTotalRevenue(TransactionQueryDto transactionQueryDto) {
+    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.INFRACTION);
+    transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
+    return getTotalAmount(transactions);
   }
 
-  public Amount getPassTotalRevenue() {
-    return getTotalAmount(this.transactionRepository.findAllBy(TransactionType.PASS));
+  public Amount getPassTotalRevenue(TransactionQueryDto transactionQueryDto) {
+    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.PASS);
+    transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
+    return getTotalAmount(transactions);
   }
 
   public void createTransaction(TransactionDto transactionDto) {
@@ -52,5 +64,11 @@ public class TransactionService {
     return transactions.stream()
                        .map(Transaction::getAmount)
                        .reduce(Amount.valueOf(0), Amount::add);
+  }
+
+  private TransactionFilter getFilter(TransactionQueryDto transactionQueryDto) {
+    return new TransactionFilter()
+        .betweenDates(transactionQueryDto.startDate,
+                      transactionQueryDto.endDate);
   }
 }
