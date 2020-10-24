@@ -32,13 +32,6 @@ public class CarbonCreditsResourceImplTest {
   }
 
   @Test
-  public void whenGettingTotalTransferredCredits_shouldReturnFromService() {
-    when(carbonCreditsService.getTotalCarbonCredits()).thenReturn(AN_AMOUNT);
-    CarbonCreditsTransferResponse response = carbonCreditsResource.getAllTransferredCredits();
-    assertThat(response.transferred).isEqualTo(AN_AMOUNT);
-  }
-
-  @Test
   public void whenTransferringCredits_shouldCallAndReturnFromService() {
     when(carbonCreditsService.transferRemainingBudget()).thenReturn(AN_AMOUNT);
     CarbonCreditsTransferResponse response = carbonCreditsResource.transferFundsToCarbonCredits();

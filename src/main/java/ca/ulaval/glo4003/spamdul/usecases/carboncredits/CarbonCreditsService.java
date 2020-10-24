@@ -19,17 +19,10 @@ public class CarbonCreditsService implements ScheduleObserver {
     }
   }
 
-  // TODO:
+
   public double transferRemainingBudget() {
-
+    // TODO:
     return 238.34;
-  }
-
-  public double getTotalCarbonCredits() {
-    // TODO add logic to get total of transferred carbon credits
-    // TODO maybe from TransactionRepository or CarbonCreditBankAccount
-    // TODO
-    return 1233.34;
   }
 
   @Override

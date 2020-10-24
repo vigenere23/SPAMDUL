@@ -27,11 +27,4 @@ public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
     response.transferred = carbonCreditsService.transferRemainingBudget();
     return response;
   }
-
-  @Override
-  public CarbonCreditsTransferResponse getAllTransferredCredits() {
-    CarbonCreditsTransferResponse response = new CarbonCreditsTransferResponse();
-    response.transferred = carbonCreditsService.getTotalCarbonCredits();
-    return response;
-  }
 }

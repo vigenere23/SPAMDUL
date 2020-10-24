@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.context.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.scheduling.EndOfMonthEventScheduler;
@@ -25,7 +24,6 @@ public class CarbonCreditsContext {
             );
     CarbonCreditsService carbonCreditsService = new CarbonCreditsService(endOfMonthEventScheduler);
     carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService);
-
   }
 
   public CarbonCreditsResource getCarbonCreditsResource() {
