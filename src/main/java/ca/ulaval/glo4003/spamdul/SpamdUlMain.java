@@ -48,10 +48,11 @@ public class SpamdUlMain {
                                                                       usageReportContext.getParkingAccessLogger());
     //TODO: does the service can be inject in other service
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    RevenueContext revenueContext = new RevenueContext();
-    AccountContext accountContext = new AccountContext(revenueContext.getTransactionService());
-    FundraisingContext fundraisingContext = new FundraisingContext(true, accountContext.getBankingService());
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository());
+    AccountContext accountContext = new AccountContext();
+    RevenueContext revenueContext = new RevenueContext(accountContext.getBank());
+    FundraisingContext fundraisingContext = new FundraisingContext(true, accountContext.getSustainableMobilityProjectAccount());
+    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository(),
+                                                                   accountContext.getBank());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

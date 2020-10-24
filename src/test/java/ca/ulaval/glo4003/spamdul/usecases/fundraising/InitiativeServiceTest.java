@@ -2,10 +2,10 @@ package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.account.Account;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.usecases.banking.BankingService;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,13 @@ public class InitiativeServiceTest {
   @Mock
   private InitiativeFactory initiativeFactory;
   @Mock
-  private BankingService bankingService;
+  private Account sustainableMobilityProjectAccount;
   //TODO::add test to account
 
   @Before
   public void setUp() {
-    initiativeService = new InitiativeService(initiativeRepository, initiativeFactory, bankingService);
+    initiativeService = new InitiativeService(initiativeRepository, initiativeFactory,
+                                              sustainableMobilityProjectAccount);
   }
 
   @Test

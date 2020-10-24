@@ -1,9 +1,16 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
+import ca.ulaval.glo4003.spamdul.entity.account.Bank;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.*;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.DayOfWeekValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyPassCodeValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassCodeFormatValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassExistsValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidator;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -15,7 +22,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.banking.BankingService;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
@@ -24,7 +30,8 @@ public class InfractionsContext {
   private final InfractionResource infractionResource;
 
   public InfractionsContext(PassRepository passRepository,
-                            TransactionRepository transactionRepository) {
+                            TransactionRepository transactionRepository,
+                            Bank bank) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -32,7 +39,7 @@ public class InfractionsContext {
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory);
+    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory, bank);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,

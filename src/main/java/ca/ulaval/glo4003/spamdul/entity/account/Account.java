@@ -1,24 +1,32 @@
 package ca.ulaval.glo4003.spamdul.entity.account;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-public abstract class Account {
+public class Account {
 
-  protected Amount funds = Amount.valueOf(0);
+  private Amount funds = Amount.valueOf(0);
+  private double percentOfRevenue;
+
+  public Account(double percentOfRevenue) {
+    this.percentOfRevenue = percentOfRevenue;
+  }
 
   public void addFunds(Amount amount) {
-    funds.add(amount);
+    funds = funds.add(amount);
   }
 
   public void withdrawFunds(Amount amount) {
     if (funds.subtract(amount).isNegative()) {
-      throw new InvalidInitiativeAmount("insufficient funds");
+      throw new InsufficientFundsException("Insufficient funds");
     }
     funds = funds.subtract(amount);
   }
 
-  public Amount getTotal() {
+  public double getPercentOfRevenue() {
+    return percentOfRevenue;
+  }
+
+  public Amount getFunds() {
     return funds;
   }
 }

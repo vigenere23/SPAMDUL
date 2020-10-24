@@ -13,7 +13,8 @@ public class Bank {
 
   public void addFunds(Amount amount) {
     for (Account account: accountList) {
-      account.addFunds(amount);
+      double percentOfRevenue = account.getPercentOfRevenue();
+      account.addFunds(amount.multiply(percentOfRevenue));
     }
   }
 }

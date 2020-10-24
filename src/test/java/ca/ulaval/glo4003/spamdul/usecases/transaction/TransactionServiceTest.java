@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.entity.account.Bank;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
@@ -14,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.usecases.banking.BankingService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.collect.Lists;
@@ -42,12 +42,12 @@ public class TransactionServiceTest {
   private TransactionFactory transactionFactory;
   private TransactionService transactionService;
   @Mock
-  private BankingService bankingService;
+  private Bank bank;
   //TODO::add test to account
 
   @Before
   public void setUp() {
-    transactionService = new TransactionService(transactionRepository, transactionFactory);
+    transactionService = new TransactionService(transactionRepository, transactionFactory, bank);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
     A_TRANSACTION_DTO.carType = A_CAR_TYPE;

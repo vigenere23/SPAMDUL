@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.transactions;
 
+import ca.ulaval.glo4003.spamdul.entity.account.Bank;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
@@ -16,11 +17,14 @@ public class TransactionService {
 
   private final TransactionRepository transactionRepository;
   private final TransactionFactory transactionFactory;
+  private final Bank bank;
 
   public TransactionService(TransactionRepository transactionRepository,
-                            TransactionFactory transactionFactory) {
+                            TransactionFactory transactionFactory,
+                            Bank bank) {
     this.transactionRepository = transactionRepository;
     this.transactionFactory = transactionFactory;
+    this.bank = bank;
   }
 
   public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType() {
@@ -41,6 +45,7 @@ public class TransactionService {
   public void createTransaction(TransactionDto transactionDto) {
     Transaction transaction = transactionFactory.create(transactionDto);
     transactionRepository.save(transaction);
+    bank.addFunds(transaction.getAmount());
   }
 
   private Amount getTotalAmount(List<Transaction> transactions) {

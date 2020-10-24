@@ -1,9 +1,11 @@
 package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 
+import ca.ulaval.glo4003.spamdul.entity.account.Account;
+import ca.ulaval.glo4003.spamdul.entity.account.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.usecases.banking.BankingService;
+import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.List;
@@ -12,14 +14,14 @@ public class InitiativeService {
 
   private final InitiativeRepository initiativeRepository;
   private final InitiativeFactory initiativeFactory;
-  private final BankingService bankingService;
+  private final Account sustainableMobilityProjectAccount;
 
   public InitiativeService(InitiativeRepository initiativeRepository,
                            InitiativeFactory initiativeFactory,
-                           BankingService bankingService) {
+                           Account sustainableMobilityProjectAccount) {
     this.initiativeRepository = initiativeRepository;
     this.initiativeFactory = initiativeFactory;
-    this.bankingService = bankingService;
+    this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
   }
 
   public List<Initiative> getAllInitiatives() {
@@ -27,10 +29,13 @@ public class InitiativeService {
   }
 
   public Initiative addInitiative(InitiativeDto initiativeDto) {
-    // TODO check if budget allows it
     // TODO create and save transaction
     // TODO transfer money
-    bankingService.fundInitiative(Amount.valueOf(initiativeDto.amount));
+    try {
+      sustainableMobilityProjectAccount.withdrawFunds(Amount.valueOf(initiativeDto.amount));
+    } catch (InsufficientFundsException e) {
+      throw new InvalidInitiativeAmount("Insufficient funds");
+    }
     Initiative initiative = initiativeFactory.create(initiativeDto.name, Amount.valueOf(initiativeDto.amount));
     initiativeRepository.save(initiative);
     return initiative;
