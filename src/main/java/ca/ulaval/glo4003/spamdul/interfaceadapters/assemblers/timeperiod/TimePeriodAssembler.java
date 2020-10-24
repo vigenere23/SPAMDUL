@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod;
 import static java.lang.Integer.parseInt;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
@@ -37,14 +37,14 @@ public class TimePeriodAssembler {
       throw new InvalidSemesterException(message);
     }
 
-    Season season;
+    Session session;
     try {
-      season = Season.valueOf(semester.substring(0, 1));
+      session = Session.valueOf(semester.substring(0, 1));
     } catch (Exception e) {
       throw new InvalidSemesterException(message);
     }
 
-    return new Semester(season, year);
+    return new Semester(session, year);
   }
 
   private void setSingleDayPerWeekPerSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {

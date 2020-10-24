@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
-
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,13 +46,13 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getStartOfSchoolYearAtDate(LocalDate date) {
     LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MIN);
-    Season firstSeason = Season.A;
+    Session firstSession = Session.A;
 
     int year = datetime.getYear();
-    LocalDateTime startOfYear = getStartOfSemester(new Semester(firstSeason, year));
+    LocalDateTime startOfYear = getStartOfSemester(new Semester(firstSession, year));
 
     if (startOfYear.isAfter(datetime)) {
-      startOfYear = getStartOfSemester(new Semester(firstSeason, year - 1));
+      startOfYear = getStartOfSemester(new Semester(firstSession, year - 1));
     }
 
     return startOfYear;
@@ -62,13 +61,13 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getEndOfSchoolYearAtDate(LocalDate date) {
     LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MAX);
-    Season lastSeason = Season.E;
+    Session lastSession = Session.E;
 
     int year = datetime.getYear();
-    LocalDateTime endOfYear = getEndOfSemester(new Semester(lastSeason, year));
+    LocalDateTime endOfYear = getEndOfSemester(new Semester(lastSession, year));
 
     if (endOfYear.isBefore(datetime)) {
-      endOfYear = getEndOfSemester(new Semester(lastSeason, year + 1));
+      endOfYear = getEndOfSemester(new Semester(lastSession, year + 1));
     }
 
     return endOfYear;

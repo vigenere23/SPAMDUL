@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,7 +17,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenAutumnSemester_whenGettingStartDate_shouldReturn1SeptOfSameYear() {
-    Semester semester = new Semester(Season.A, A_YEAR);
+    Semester semester = new Semester(Session.A, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getStartOfSemester(semester);
 
@@ -26,7 +26,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenWinterSemester_whenGettingStartDate_shouldReturn1JanOfSameYear() {
-    Semester semester = new Semester(Season.H, A_YEAR);
+    Semester semester = new Semester(Session.H, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getStartOfSemester(semester);
 
@@ -35,7 +35,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenSummerSemester_whenGettingStartDate_shouldReturn1MayOfSameYear() {
-    Semester semester = new Semester(Season.E, A_YEAR);
+    Semester semester = new Semester(Session.E, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getStartOfSemester(semester);
 
@@ -44,7 +44,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenAutumnSemester_whenGettingEndDate_shouldReturn31DecOfSameYear() {
-    Semester semester = new Semester(Season.A, A_YEAR);
+    Semester semester = new Semester(Session.A, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
@@ -53,7 +53,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenWinterSemester_whenGettingEndDate_shouldReturn30AprilOfSameYear() {
-    Semester semester = new Semester(Season.H, A_YEAR);
+    Semester semester = new Semester(Session.H, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
@@ -62,7 +62,7 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenSummerSemester_whenGettingEndDate_shouldReturn31AugOfSameYear() {
-    Semester semester = new Semester(Season.E, A_YEAR);
+    Semester semester = new Semester(Session.E, A_YEAR);
 
     LocalDateTime result = hardCodedCalendar.getEndOfSemester(semester);
 
@@ -71,8 +71,8 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenEndOfSummerSemester_whenGettingStartOfSchoolYear_shouldReturnStartOfPreviousYearAutumnSemester() {
-    LocalDate endOfSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Season.E, A_YEAR)).toLocalDate();
-    LocalDateTime startOfPreviousAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Season.A,
+    LocalDate endOfSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Session.E, A_YEAR)).toLocalDate();
+    LocalDateTime startOfPreviousAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Session.A,
                                                                                                     A_YEAR - 1));
 
     LocalDateTime startOfSchoolYear = hardCodedCalendar.getStartOfSchoolYearAtDate(endOfSummerSemester);
@@ -82,23 +82,23 @@ public class HardCodedCalendarTest {
 
   @Test
   public void givenStartOfAutumnSemester_whenGettingStartOfSchoolYear_shouldReturnStartOfThatSemester() {
-    LocalDateTime startOfAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Season.A, A_YEAR));
+    LocalDateTime startOfAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Session.A, A_YEAR));
     LocalDateTime startOfSchoolYear = hardCodedCalendar.getStartOfSchoolYearAtDate(startOfAutumnSemester.toLocalDate());
     assertThat(startOfSchoolYear).isEqualTo(startOfAutumnSemester);
   }
 
   @Test
   public void givenEndOfSummerSemester_whenGettingEndOfSchoolYear_shouldReturnEndOfThatSemester() {
-    LocalDateTime endOfSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Season.E, A_YEAR));
+    LocalDateTime endOfSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Session.E, A_YEAR));
     LocalDateTime endOfSchoolYear = hardCodedCalendar.getEndOfSchoolYearAtDate(endOfSummerSemester.toLocalDate());
     assertThat(endOfSchoolYear).isEqualTo(endOfSummerSemester);
   }
 
   @Test
   public void givenStartOfAutumnSemester_whenGettingEndOfSchoolYear_shouldReturnEndOfNextYearSummerSemester() {
-    LocalDate startOfAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Season.A, A_YEAR))
+    LocalDate startOfAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Session.A, A_YEAR))
                                                        .toLocalDate();
-    LocalDateTime endOfNextSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Season.E, A_YEAR + 1));
+    LocalDateTime endOfNextSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Session.E, A_YEAR + 1));
 
     LocalDateTime endOfSchoolYear = hardCodedCalendar.getEndOfSchoolYearAtDate(startOfAutumnSemester);
 

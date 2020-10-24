@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
-public enum Season {
+public enum Session {
   A,
   H,
   E

@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Season;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
@@ -27,7 +27,7 @@ public class TimePeriodAssemblerTest {
 
     assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
     assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.MONDAY);
-    assertThat(timePeriodDto.semester).isEqualTo(new Semester(Season.A, 2020));
+    assertThat(timePeriodDto.semester).isEqualTo(new Semester(Session.A, 2020));
   }
 
   @Test(expected = InvalidPeriodArgumentException.class)
