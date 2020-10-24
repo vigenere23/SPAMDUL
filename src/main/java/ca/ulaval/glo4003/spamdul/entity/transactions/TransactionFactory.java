@@ -6,20 +6,18 @@ import java.time.LocalDateTime;
 public class TransactionFactory {
 
   public Transaction create(TransactionDto dto) {
-    if (dto.createdAt == null) {
-      dto.createdAt = LocalDateTime.now();
-    }
+    LocalDateTime createdAt = LocalDateTime.now();
 
     if (dto.transactionType.equals(TransactionType.CAMPUS_ACCESS)) {
       if (dto.carType == null) {
         throw new CantCreateCampusAccessTransactionWithoutCarTypeException(
             "A campus access transaction must contain a valid car type");
       }
-      return new CampusAccessTransaction(Amount.valueOf(dto.amount), dto.createdAt, dto.carType);
+      return new CampusAccessTransaction(Amount.valueOf(dto.amount), createdAt, dto.carType);
     } else if (dto.transactionType.equals(TransactionType.PASS)) {
-      return new PassTransaction(Amount.valueOf(dto.amount), dto.createdAt);
+      return new PassTransaction(Amount.valueOf(dto.amount), createdAt);
     } else if (dto.transactionType.equals(TransactionType.INFRACTION)) {
-      return new InfractionTransaction(Amount.valueOf(dto.amount), dto.createdAt);
+      return new InfractionTransaction(Amount.valueOf(dto.amount), createdAt);
     } else {
       throw new CantCreateTransactionException("transaction type must be valid");
     }

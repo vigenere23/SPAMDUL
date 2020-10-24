@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +38,6 @@ public class TransactionPopulator {
                                         List<CarType> allCarTypes,
                                         int maxAmount) {
     TransactionDto dto = new TransactionDto();
-    dto.createdAt = LocalDateTime.now();
     dto.transactionType = allTransactionTypes.get(random.nextInt(allTransactionTypes.size()));
     dto.amount = Math.abs(random.nextDouble() * random.nextInt(maxAmount));
     dto.carType = allCarTypes.get(random.nextInt(allCarTypes.size()));
