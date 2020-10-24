@@ -40,7 +40,7 @@ public class SpamdUlMain {
 
   public static void main(String[] args)
       throws Exception {
-
+    
     UsageReportContext usageReportContext = new UsageReportContext(false);
     SaleContext saleContext = new SaleContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
@@ -101,6 +101,7 @@ public class SpamdUlMain {
       exception.printStackTrace();
     } finally {
       server.destroy();
+      carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
     }
   }
 }
