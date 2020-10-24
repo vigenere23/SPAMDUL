@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.carboncredits;
 
-public interface TransferFundsToCarbonCreditsObserver {
+public interface ScheduleObserver {
 
-    public void transferRemainingFundsToCarbonCredits();
+    public void listenScheduledEvent();
 }

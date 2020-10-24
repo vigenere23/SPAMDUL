@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.TransferFundsToCarbonCreditsObserver;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-public class CarbonCreditsService implements TransferFundsToCarbonCreditsObserver {
+public class CarbonCreditsService implements ScheduleObserver {
 
   private InitiativeService initiativeService;
   private static boolean active = true;
@@ -43,7 +43,7 @@ public class CarbonCreditsService implements TransferFundsToCarbonCreditsObserve
   }
 
   @Override
-  public void transferRemainingFundsToCarbonCredits() {
+  public void listenScheduledEvent() {
 
   }
 }

@@ -1,33 +1,33 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.scheduling;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.TransferFundsToCarbonCreditsObservable;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 
 import java.time.Duration;
 import java.util.concurrent.*;
 
-public class EndOfMonthFundsTransfer extends TransferFundsToCarbonCreditsObservable {
+public class EndOfMonthEventScheduler extends EventSchedulerObservable {
 
-  private static EndOfMonthFundsTransfer instance = null;
+  private static EndOfMonthEventScheduler instance = null;
   private final Calendar calendar;
   private ScheduledExecutorService executorService;
   private ScheduledFuture<?> scheduledFuture;
 
-  private EndOfMonthFundsTransfer(ScheduledExecutorService executorService, Calendar calendar) {
+  private EndOfMonthEventScheduler(ScheduledExecutorService executorService, Calendar calendar) {
     this.executorService = executorService;
     this.calendar = calendar;
   }
 
-  public static EndOfMonthFundsTransfer getInstance(ScheduledExecutorService executorService,
-                                                    Calendar calendar) {
+  public static EndOfMonthEventScheduler getInstance(ScheduledExecutorService executorService,
+                                                     Calendar calendar) {
     if (instance == null) {
-      instance = new EndOfMonthFundsTransfer(executorService, calendar);
+      instance = new EndOfMonthEventScheduler(executorService, calendar);
     }
     return instance;
   }
 
-  public static void setInstance(EndOfMonthFundsTransfer instance) {
-    EndOfMonthFundsTransfer.instance = instance;
+  public static void setInstance(EndOfMonthEventScheduler instance) {
+    EndOfMonthEventScheduler.instance = instance;
   }
 
   public void launchJob() {

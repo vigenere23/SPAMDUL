@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.scheduling;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.TransferFundsToCarbonCreditsObserver;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import org.junit.After;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EndOfMonthFundsTransferTest {
+public class EndOfMonthEventSchedulerTest {
   public static final long FIVE_MILLIS = 1;
   public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2019, 1, 1, 12, 0, 0, 0);
   public static final LocalDateTime A_DATE_ONE_NANO_BEFORE_NEXT_DAY = LocalDateTime.of(2019, 2, 1, 23, 59, 59, 999999999);
@@ -25,25 +25,25 @@ public class EndOfMonthFundsTransferTest {
   public static final LocalDateTime NOT_FIRST_OF_MONTH = LocalDateTime.of(1000, 2, 4, 0, 0);
 
   @Mock
-  private TransferFundsToCarbonCreditsObserver transferFundsToCarbonCreditsObserver;
+  private ScheduleObserver scheduleObserver;
   @Mock
   private Calendar calendar;
   private ScheduledExecutorService executorService;
 
-  private EndOfMonthFundsTransfer endOfMonthFundsTransfer;
+  private EndOfMonthEventScheduler endOfMonthEventScheduler;
 
   @After
   public void stopThread() {
-    EndOfMonthFundsTransfer.setInstance(null);
+    EndOfMonthEventScheduler.setInstance(null);
   }
 
   @Test
   public void whenLaunchJob_shouldCallCalendarNowToComputeDelayUntilNextDay() {
     executorService = mock(ScheduledExecutorService.class);
-    endOfMonthFundsTransfer = EndOfMonthFundsTransfer.getInstance(executorService, calendar);
+    endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
 
-    endOfMonthFundsTransfer.launchJob();
+    endOfMonthEventScheduler.launchJob();
 
     verify(calendar, times(1)).now();
   }
@@ -51,10 +51,10 @@ public class EndOfMonthFundsTransferTest {
   @Test
   public void whenLaunchJob_shouldCallExecutorServiceWithRightParameters() {
     executorService = mock(ScheduledExecutorService.class);
-    endOfMonthFundsTransfer = EndOfMonthFundsTransfer.getInstance(executorService, calendar);
+    endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY);
 
-    endOfMonthFundsTransfer.launchJob();
+    endOfMonthEventScheduler.launchJob();
 
     verify(executorService).scheduleAtFixedRate(
             any(Runnable.class),
@@ -69,31 +69,31 @@ public class EndOfMonthFundsTransferTest {
   public void givenFirstOfMonth_whenLaunchJob_shouldNotifyObserver() throws InterruptedException {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, A_FIRST_OF_THE_MONTH);
     executorService = Executors.newSingleThreadScheduledExecutor();
-    endOfMonthFundsTransfer = EndOfMonthFundsTransfer.getInstance(executorService, calendar);
-    endOfMonthFundsTransfer.register(transferFundsToCarbonCreditsObserver);
+    endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
+    endOfMonthEventScheduler.register(scheduleObserver);
 
-    endOfMonthFundsTransfer.launchJob();
+    endOfMonthEventScheduler.launchJob();
 
     Thread.sleep(FIVE_MILLIS);
 
-    endOfMonthFundsTransfer.stopJob();
+    endOfMonthEventScheduler.stopJob();
 
-    verify(transferFundsToCarbonCreditsObserver).transferRemainingFundsToCarbonCredits();
+    verify(scheduleObserver).listenScheduledEvent();
   }
 
   @Test
   public void givenNotFirstOfMonth_whenLaunchJob_shouldNotNotifyObserver() throws InterruptedException {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, NOT_FIRST_OF_MONTH);
     executorService = Executors.newSingleThreadScheduledExecutor();
-    endOfMonthFundsTransfer = EndOfMonthFundsTransfer.getInstance(executorService, calendar);
-    endOfMonthFundsTransfer.register(transferFundsToCarbonCreditsObserver);
+    endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
+    endOfMonthEventScheduler.register(scheduleObserver);
 
-    endOfMonthFundsTransfer.launchJob();
+    endOfMonthEventScheduler.launchJob();
 
     Thread.sleep(FIVE_MILLIS);
 
-    endOfMonthFundsTransfer.stopJob();
+    endOfMonthEventScheduler.stopJob();
 
-    verify(transferFundsToCarbonCreditsObserver, never()).transferRemainingFundsToCarbonCredits();
+    verify(scheduleObserver, never()).listenScheduledEvent();
   }
 }
