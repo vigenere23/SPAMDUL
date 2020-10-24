@@ -44,15 +44,15 @@ public class InMemoryTransactionRepositoryTest {
     repository.save(A_CAMPUS_ACCESS_TRANSACTION);
     repository.save(AN_INFRACTION_TRANSACTION);
 
-    List<Transaction> campusAccessTransactions = repository.findAllBy(TransactionType.CAMPUS_ACCESS);
+    List<Transaction> campusAccessTransactions = repository.findAllByType(TransactionType.CAMPUS_ACCESS);
     Truth.assertThat(campusAccessTransactions.size()).isEqualTo(1);
     Truth.assertThat(campusAccessTransactions).contains(A_CAMPUS_ACCESS_TRANSACTION);
 
-    List<Transaction> infractionTransactions = repository.findAllBy(TransactionType.INFRACTION);
+    List<Transaction> infractionTransactions = repository.findAllByType(TransactionType.INFRACTION);
     Truth.assertThat(infractionTransactions.size()).isEqualTo(1);
     Truth.assertThat(infractionTransactions).contains(AN_INFRACTION_TRANSACTION);
 
-    List<Transaction> passTransactions = repository.findAllBy(TransactionType.PASS);
+    List<Transaction> passTransactions = repository.findAllByType(TransactionType.PASS);
     Truth.assertThat(passTransactions.size()).isEqualTo(1);
     Truth.assertThat(passTransactions).contains(A_PASS_TRANSACTION);
   }
@@ -63,7 +63,7 @@ public class InMemoryTransactionRepositoryTest {
     repository.save(ANOTHER_CAMPUS_ACCESS_TRANSACTION);
     repository.save(A_CAMPUS_ACCESS_TRANSACTION_DIFFERENT_CAR_TYPE);
 
-    List<Transaction> carTypeTransactions = repository.findAllBy(A_CAR_TYPE);
+    List<Transaction> carTypeTransactions = repository.findAllByCarType(A_CAR_TYPE);
 
     Truth.assertThat(carTypeTransactions.size()).isEqualTo(2);
     Truth.assertThat(carTypeTransactions).contains(A_CAMPUS_ACCESS_TRANSACTION);

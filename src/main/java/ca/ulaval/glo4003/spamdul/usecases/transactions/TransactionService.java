@@ -31,7 +31,7 @@ public class TransactionService {
 
     Arrays.stream(CarType.values())
           .forEach(carType -> {
-            List<Transaction> transactions = this.transactionRepository.findAllBy(carType);
+            List<Transaction> transactions = this.transactionRepository.findAllByCarType(carType);
             transactions = transactionFilter.setData(transactions).getResults();
             carTypeRevenues.put(carType, getTotalAmount(transactions));
           });
@@ -39,13 +39,13 @@ public class TransactionService {
   }
 
   public Amount getInfractionsTotalRevenue(TransactionQueryDto transactionQueryDto) {
-    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.INFRACTION);
+    List<Transaction> transactions = this.transactionRepository.findAllByType(TransactionType.INFRACTION);
     transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
     return getTotalAmount(transactions);
   }
 
   public Amount getPassTotalRevenue(TransactionQueryDto transactionQueryDto) {
-    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.PASS);
+    List<Transaction> transactions = this.transactionRepository.findAllByType(TransactionType.PASS);
     transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
     return getTotalAmount(transactions);
   }
