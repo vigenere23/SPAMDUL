@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Semester {
 
-  private final char season;
+  private final Session session;
   private final int year;
 
-  public Semester(char season, int year) {
-    this.season = season;
+  public Semester(Session session, int year) {
+    this.session = session;
     this.year = year;
   }
 
@@ -16,18 +16,21 @@ public class Semester {
     int remainder = numberOfSemester % 3;
     int plusYear = numberOfSemester / 3;
     if (remainder == 0) {
-      return new Semester(season, year + plusYear);
+      return new Semester(session, year + plusYear);
     }
     return nextSemester().addSemester(numberOfSemester - 1);
   }
 
   private Semester nextSemester() {
-    if (season == 'A') {
-      return new Semester('H', year + 1);
-    } else if (season == 'H') {
-      return new Semester('E', year);
-    } else {
-      return new Semester('A', year);
+    switch (session) {
+      case AUTUMN:
+        return new Semester(Session.WINTER, year + 1);
+      case WINTER:
+        return new Semester(Session.SUMMER, year);
+      case SUMMER:
+        return new Semester(Session.AUTUMN, year);
+      default:
+        throw new RuntimeException("The given season is not valid");
     }
   }
 
@@ -40,17 +43,17 @@ public class Semester {
       return false;
     }
     Semester semester = (Semester) o;
-    return season == semester.season &&
+    return session == semester.session &&
         year == semester.year;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(season, year);
+    return Objects.hash(session, year);
   }
 
-  public char getSeason() {
-    return season;
+  public Session getSeason() {
+    return session;
   }
 
   public int getYear() {

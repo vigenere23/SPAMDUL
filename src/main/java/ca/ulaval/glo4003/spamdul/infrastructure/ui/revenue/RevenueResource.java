@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueRespo
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("/revenue")
@@ -13,20 +14,24 @@ public interface RevenueResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  TotalRevenueResponse getTotalRevenue();
+  TotalRevenueResponse getTotalRevenue(@QueryParam("startDate") String startDate,
+                                       @QueryParam("endDate") String endDate);
 
   @GET
   @Path("/campus-access")
   @Produces(MediaType.APPLICATION_JSON)
-  CarTypeTotalRevenueResponse getCarTypeTotalRevenue();
+  CarTypeTotalRevenueResponse getCarTypeTotalRevenue(@QueryParam("startDate") String startDate,
+                                                     @QueryParam("endDate") String endDate);
 
   @GET
   @Path("/infractions")
   @Produces(MediaType.APPLICATION_JSON)
-  RevenueResponse getInfractionsTotalRevenue();
+  RevenueResponse getInfractionsTotalRevenue(@QueryParam("startDate") String startDate,
+                                             @QueryParam("endDate") String endDate);
 
   @GET
   @Path("/parking-pass")
   @Produces(MediaType.APPLICATION_JSON)
-  RevenueResponse getParkingPassTotalRevenue();
+  RevenueResponse getParkingPassTotalRevenue(@QueryParam("startDate") String startDate,
+                                             @QueryParam("endDate") String endDate);
 }

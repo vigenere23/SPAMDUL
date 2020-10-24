@@ -48,9 +48,10 @@ public class SpamdUlMain {
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger());
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    FundraisingContext fundraisingContext = new FundraisingContext(true);
-    RevenueContext revenueContext = new RevenueContext();
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(), revenueContext.getTransactionRepository());
+    FundraisingContext fundraisingContext = new FundraisingContext(false);
+    RevenueContext revenueContext = new RevenueContext(false);
+    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
+                                                                   revenueContext.getTransactionRepository());
 
     // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
