@@ -30,7 +30,7 @@ public class RevenueResourceImpl implements RevenueResource {
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
     Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(transactionQueryDto);
     Amount passTotalRevenue = transactionService.getPassTotalRevenue(transactionQueryDto);
-    Map<CarType, Amount> revenueByCarType = transactionService.getTotalCampusAccessRevenueByCarType(transactionQueryDto);
+    Map<CarType, Amount> revenueByCarType = transactionService.getCampusAccessTotalRevenueByCarType(transactionQueryDto);
 
     return revenueAssembler.toResponse(passTotalRevenue, infractionsTotalRevenue, revenueByCarType);
   }
@@ -38,7 +38,7 @@ public class RevenueResourceImpl implements RevenueResource {
   @Override
   public CarTypeTotalRevenueResponse getCarTypeTotalRevenue(String startDate, String endDate) {
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
-    Map<CarType, Amount> revenueByCarType = transactionService.getTotalCampusAccessRevenueByCarType(transactionQueryDto);
+    Map<CarType, Amount> revenueByCarType = transactionService.getCampusAccessTotalRevenueByCarType(transactionQueryDto);
 
     return revenueAssembler.toResponse(revenueByCarType);
   }

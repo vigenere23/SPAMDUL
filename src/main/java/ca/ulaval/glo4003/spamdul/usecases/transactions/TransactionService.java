@@ -25,7 +25,7 @@ public class TransactionService {
     this.transactionFactory = transactionFactory;
   }
 
-  public Map<CarType, Amount> getTotalCampusAccessRevenueByCarType(TransactionQueryDto transactionQueryDto) {
+  public Map<CarType, Amount> getCampusAccessTotalRevenueByCarType(TransactionQueryDto transactionQueryDto) {
     Map<CarType, Amount> carTypeRevenues = new EnumMap<>(CarType.class);
     TransactionFilter transactionFilter = getFilter(transactionQueryDto);
 

@@ -55,7 +55,7 @@ public class RevenueResourceImplTest {
 
   @Test
   public void whenGettingCarTypeTotalRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getTotalCampusAccessRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
+    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
         carTypeRevenues);
 
     CarTypeTotalRevenueResponse response = resource.getCarTypeTotalRevenue(null, null);
@@ -90,7 +90,7 @@ public class RevenueResourceImplTest {
 
   @Test
   public void whenGettingTotalRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getTotalCampusAccessRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
+    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
         carTypeRevenues);
     BDDMockito.given(transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_1);
     BDDMockito.given(transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_2);
