@@ -27,7 +27,7 @@ public class TimePeriodAssemblerTest {
 
     assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
     assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.MONDAY);
-    assertThat(timePeriodDto.semester).isEqualTo(new Semester(Session.A, 2020));
+    assertThat(timePeriodDto.semester).isEqualTo(new Semester(Session.AUTUMN, 2020));
   }
 
   @Test(expected = InvalidPeriodArgumentException.class)

@@ -39,7 +39,7 @@ public class TimePeriodAssembler {
 
     Session session;
     try {
-      session = Session.valueOf(semester.substring(0, 1));
+      session = Session.parse(semester.substring(0, 1));
     } catch (Exception e) {
       throw new InvalidSemesterException(message);
     }

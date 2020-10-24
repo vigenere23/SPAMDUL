@@ -13,11 +13,11 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getStartOfSemester(Semester semester) {
     switch (semester.getSeason()) {
-      case A:
+      case AUTUMN:
         return LocalDate.of(semester.getYear(), 9, 1).atStartOfDay();
-      case H:
+      case WINTER:
         return LocalDate.of(semester.getYear(), 1, 1).atStartOfDay();
-      case E:
+      case SUMMER:
         return LocalDate.of(semester.getYear(), 5, 1).atStartOfDay();
       default:
         throw new RuntimeException("The given season is not valid");
@@ -27,11 +27,11 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getEndOfSemester(Semester semester) {
     switch (semester.getSeason()) {
-      case A:
+      case AUTUMN:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 12, 31), LocalTime.MAX);
-      case H:
+      case WINTER:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 4, 30), LocalTime.MAX);
-      case E:
+      case SUMMER:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 8, 31), LocalTime.MAX);
       default:
         throw new RuntimeException("The given season is not valid");
@@ -46,7 +46,7 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getStartOfSchoolYearAtDate(LocalDate date) {
     LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MIN);
-    Session firstSession = Session.A;
+    Session firstSession = Session.AUTUMN;
 
     int year = datetime.getYear();
     LocalDateTime startOfYear = getStartOfSemester(new Semester(firstSession, year));
@@ -61,7 +61,7 @@ public class HardCodedCalendar implements Calendar {
   @Override
   public LocalDateTime getEndOfSchoolYearAtDate(LocalDate date) {
     LocalDateTime datetime = LocalDateTime.of(date, LocalTime.MAX);
-    Session lastSession = Session.E;
+    Session lastSession = Session.SUMMER;
 
     int year = datetime.getYear();
     LocalDateTime endOfYear = getEndOfSemester(new Semester(lastSession, year));

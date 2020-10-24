@@ -23,12 +23,12 @@ public class Semester {
 
   private Semester nextSemester() {
     switch (session) {
-      case A:
-        return new Semester(Session.H, year + 1);
-      case H:
-        return new Semester(Session.E, year);
-      case E:
-        return new Semester(Session.A, year);
+      case AUTUMN:
+        return new Semester(Session.WINTER, year + 1);
+      case WINTER:
+        return new Semester(Session.SUMMER, year);
+      case SUMMER:
+        return new Semester(Session.AUTUMN, year);
       default:
         throw new RuntimeException("The given season is not valid");
     }
