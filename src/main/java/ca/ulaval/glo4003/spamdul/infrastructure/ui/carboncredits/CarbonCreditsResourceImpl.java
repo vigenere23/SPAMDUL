@@ -15,7 +15,7 @@ public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
   @Override
   public CarbonCreditsToggleDto toggleAutomaticTransfer(CarbonCreditsToggleDto request) {
     CarbonCreditsToggleDto response = new CarbonCreditsToggleDto();
-    response.active = carbonCreditsService.toggle(request.active);
+    response.active = carbonCreditsService.setAutomaticTransfer(request.active);
 
     return response;
   }

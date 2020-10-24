@@ -1,9 +1,10 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.TransferFundsToCarbonCreditsObserver;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-public class CarbonCreditsService extends EndOfMonthObserver {
+public class CarbonCreditsService implements TransferFundsToCarbonCreditsObserver {
 
   private InitiativeService initiativeService;
   private static boolean active = true;
@@ -12,19 +13,15 @@ public class CarbonCreditsService extends EndOfMonthObserver {
   public CarbonCreditsService() {
   }
 
-  public boolean toggle(boolean _active) {
-    active = _active;
+  public boolean setAutomaticTransfer(boolean active) {
+    CarbonCreditsService.active = active;
 
     // TODO reactivate thread if true?
 
-    return active;
+    return CarbonCreditsService.active;
   }
 
-  @Override
-  public void update() {
-
-  }
-
+  // TODO:
   public double transferRemainingBudget() {
     if (active) {
       // TODO save bugget in BD
@@ -43,5 +40,10 @@ public class CarbonCreditsService extends EndOfMonthObserver {
     // TODO add logic to get total of transferred carbon credits
     // TODO maybe from TransactionRepository or CarbonCreditBankAccount
     return 1233.34;
+  }
+
+  @Override
+  public void transferRemainingFundsToCarbonCredits() {
+
   }
 }

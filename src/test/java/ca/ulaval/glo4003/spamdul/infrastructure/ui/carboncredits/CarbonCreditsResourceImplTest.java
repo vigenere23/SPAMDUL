@@ -44,7 +44,7 @@ public class CarbonCreditsResourceImplTest {
 
   @Test
   public void whenTogglingFeature_shouldCallAndReturnReturnFromService() {
-    when(carbonCreditsService.toggle(IS_ACTIVE)).thenReturn(IS_ACTIVE);
+    when(carbonCreditsService.setAutomaticTransfer(IS_ACTIVE)).thenReturn(IS_ACTIVE);
     CarbonCreditsToggleDto request = new CarbonCreditsToggleDto();
     request.active = IS_ACTIVE;
 
