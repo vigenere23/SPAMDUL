@@ -14,8 +14,8 @@ public class FundraisingContext {
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
 
-  public FundraisingContext(boolean populateData,
-                            Account sustainableMobilityProjectAccount) {
+  public FundraisingContext(Account sustainableMobilityProjectAccount,
+                            boolean populateData) {
     InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
     InitiativeFactory initiativeFactory = new InitiativeFactory();
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
