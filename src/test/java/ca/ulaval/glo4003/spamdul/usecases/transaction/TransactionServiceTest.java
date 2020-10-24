@@ -73,7 +73,7 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoInfractionTransaction_whenGetInfractionsTotalRevenue_thenReturnAmountZero() {
-    given(transactionRepository.findAllByType(TransactionType.INFRACTION)).willReturn(Collections.emptyList());
+    given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Collections.emptyList());
 
     Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -82,7 +82,7 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoPassTransaction_whenGetPassTotalRevenue_thenReturnAmountZero() {
-    given(transactionRepository.findAllByType(TransactionType.PASS)).willReturn(Collections.emptyList());
+    given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Collections.emptyList());
 
     Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -93,8 +93,8 @@ public class TransactionServiceTest {
   public void givenInfractionTransactionsExists_whenGetInfractionsTotalRevenue_thenReturnCorrectAmount() {
     Transaction transaction1 = new InfractionTransaction(AN_AMOUNT_1, A_DATETIME);
     Transaction transaction2 = new InfractionTransaction(AN_AMOUNT_2, A_DATETIME);
-    given(transactionRepository.findAllByType(TransactionType.INFRACTION)).willReturn(Lists.newArrayList(transaction1,
-                                                                                                         transaction2));
+    given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Lists.newArrayList(transaction1,
+                                                                                                     transaction2));
 
     Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -105,8 +105,8 @@ public class TransactionServiceTest {
   public void givenPassTransactionsExists_whenGetPassTotalRevenue_thenReturnCorrectAmount() {
     Transaction transaction1 = new PassTransaction(AN_AMOUNT_1, A_DATETIME);
     Transaction transaction2 = new PassTransaction(AN_AMOUNT_2, A_DATETIME);
-    given(transactionRepository.findAllByType(TransactionType.PASS)).willReturn(Lists.newArrayList(transaction1,
-                                                                                                   transaction2));
+    given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Lists.newArrayList(transaction1,
+                                                                                               transaction2));
 
     Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -115,7 +115,7 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoCampusAccessTransactionsExistsForCarType_whenGetCampusAccessTotalRevenueByCarType_thenReturnAmountZeroForCarType() {
-    given(transactionRepository.findAllByCarType(A_CAR_TYPE)).willReturn(Collections.emptyList());
+    given(transactionRepository.findAllBy(A_CAR_TYPE)).willReturn(Collections.emptyList());
 
     Map<CarType, Amount> revenue = transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO);
 
@@ -128,10 +128,10 @@ public class TransactionServiceTest {
     Transaction transactionGourmande = new CampusAccessTransaction(AN_AMOUNT_2, A_DATETIME, CarType.GOURMANDE);
     Transaction transactionSansPollution = new CampusAccessTransaction(AN_AMOUNT_3, A_DATETIME, CarType.SANS_POLLUTION);
 
-    given(transactionRepository.findAllByCarType(CarType.ECONOMIQUE)).willReturn(Lists.newArrayList(
+    given(transactionRepository.findAllBy(CarType.ECONOMIQUE)).willReturn(Lists.newArrayList(
         transactionEconomique));
-    given(transactionRepository.findAllByCarType(CarType.GOURMANDE)).willReturn(Lists.newArrayList(transactionGourmande));
-    given(transactionRepository.findAllByCarType(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(
+    given(transactionRepository.findAllBy(CarType.GOURMANDE)).willReturn(Lists.newArrayList(transactionGourmande));
+    given(transactionRepository.findAllBy(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(
         transactionSansPollution));
 
     Map<CarType, Amount> revenue = transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO);

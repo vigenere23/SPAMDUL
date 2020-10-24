@@ -48,11 +48,11 @@ public class InMemoryTransactionRepository implements TransactionRepository {
     transactions.get(TransactionType.INFRACTION).add(transaction);
   }
 
-  @Override public List<Transaction> findAllByType(TransactionType transactionType) {
+  @Override public List<Transaction> findAllBy(TransactionType transactionType) {
     return transactions.get(transactionType);
   }
 
-  @Override public List<Transaction> findAllByCarType(CarType carType) {
+  @Override public List<Transaction> findAllBy(CarType carType) {
     List<Transaction> carTypeTransactions = new ArrayList<>();
 
     transactions.get(TransactionType.CAMPUS_ACCESS).forEach(transaction -> {

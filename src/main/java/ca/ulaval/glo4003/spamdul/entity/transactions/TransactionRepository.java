@@ -7,7 +7,7 @@ public interface TransactionRepository {
 
   void save(Transaction transaction);
 
-  List<Transaction> findAllByType(TransactionType transactionType);
+  List<Transaction> findAllBy(TransactionType transactionType);
 
-  List<Transaction> findAllByCarType(CarType carType);
+  List<Transaction> findAllBy(CarType carType);
 }
