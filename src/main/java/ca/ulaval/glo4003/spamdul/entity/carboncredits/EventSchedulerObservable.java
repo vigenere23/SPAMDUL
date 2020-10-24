@@ -15,6 +15,10 @@ public class EventSchedulerObservable {
     observers.remove(observer);
   }
 
+  protected boolean isBeingObserved() {
+    return !observers.isEmpty();
+  }
+
   public void notifyObservers() {
 
     for (ScheduleObserver observer : observers) {
