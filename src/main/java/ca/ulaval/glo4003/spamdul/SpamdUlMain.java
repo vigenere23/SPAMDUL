@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
-import ca.ulaval.glo4003.spamdul.context.sale.SaleContext;
+import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
@@ -18,7 +18,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
@@ -45,7 +45,7 @@ public class SpamdUlMain {
                                                                       usageReportContext.getParkingAccessLogger(),
                                                                       accountContext.bankRepository()
     );
-    SaleContext saleContext = new SaleContext(accountContext.bankRepository(),
+    PassContext passContext = new PassContext(accountContext.bankRepository(),
                                               globalContext.passRepository,
                                               campusAccessContext.getCampusAccessService());
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(), false);
@@ -62,7 +62,7 @@ public class SpamdUlMain {
       public Set<Object> getSingletons() {
         HashSet<Object> resources = new HashSet<>();
 
-        resources.add(saleContext.getSaleResource());
+        resources.add(passContext.getPassResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());
         resources.add(revenueContext.getRevenueResource());
@@ -73,7 +73,7 @@ public class SpamdUlMain {
         resources.add(new AccessingCampusExceptionAssembler());
         resources.add(new TimePeriodExceptionAssembler());
         resources.add(new GlobalExceptionAssembler());
-        resources.add(new PassSaleExceptionAssembler());
+        resources.add(new PassExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
         resources.add(carbonCreditsContext.getCarbonCreditsResource());
         resources.add(carbonCreditsContext.getCarbonCreditsResourceAdmin());

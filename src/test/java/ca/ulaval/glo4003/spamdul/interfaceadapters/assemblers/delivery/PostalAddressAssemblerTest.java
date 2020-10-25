@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PostalAddressRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PostalAddressRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidPostalAddressException;
 import org.junit.Before;
 import org.junit.Test;

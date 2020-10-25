@@ -41,13 +41,14 @@ public class CarbonCreditsResourceImplTest {
 
   @Test
   public void whenActivateAutomaticTransfer_shouldCReturnResponseWithActiveTrue() {
-    when(carbonCreditsService.activateAutomaticTransfer(true)).thenReturn(true);
+    when(carbonCreditsService.activateAutomaticTransfer(IS_ACTIVE)).thenReturn(IS_ACTIVE);
     CarbonCreditsToggleDto request = new CarbonCreditsToggleDto();
     request.active = IS_ACTIVE;
 
     Response response = carbonCreditsResource.activateAutomaticTransfer(request);
+    CarbonCreditsToggleDto responseObject = (CarbonCreditsToggleDto) response.getEntity();
 
     assertThat(response.getStatus()).isEqualTo(200);
-    assertThat(response.getEntity()).isEqualTo(true);
+    assertThat(responseObject.active).isEqualTo(IS_ACTIVE);
   }
 }

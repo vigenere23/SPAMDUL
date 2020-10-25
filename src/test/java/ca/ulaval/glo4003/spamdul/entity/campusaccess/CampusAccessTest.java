@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -68,7 +68,7 @@ public class CampusAccessTest {
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
   }
 
-  @Test(expected = PassSaleNotAcceptedByAccessException.class)
+  @Test(expected = PassNotAcceptedByAccessException.class)
   public void givenPassPeriodNotIncluded_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
     final TimePeriod NOT_INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
                                                                A_END_DATE_TIME,

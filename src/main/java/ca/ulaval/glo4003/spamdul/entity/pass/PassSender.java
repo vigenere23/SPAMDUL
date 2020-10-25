@@ -1,9 +1,8 @@
-package ca.ulaval.glo4003.spamdul.entity.sale;
+package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 
 public class PassSender {

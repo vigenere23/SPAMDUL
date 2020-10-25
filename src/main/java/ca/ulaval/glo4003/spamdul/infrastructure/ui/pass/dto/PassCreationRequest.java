@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 
-public class PassSaleRequest {
+public class PassCreationRequest {
 
   public String parkingZone;
-  public DeliveryRequest deliveryInfos;
+  public DeliveryRequest delivery;
   public String campusAccessCode;
   public TimePeriodRequest period;
 }
