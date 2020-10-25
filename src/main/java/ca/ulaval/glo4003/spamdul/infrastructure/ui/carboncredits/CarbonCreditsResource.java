@@ -18,8 +18,4 @@ public interface CarbonCreditsResource {
   @Path("/activate")
   @Consumes(MediaType.APPLICATION_JSON)
   Response activateAutomaticTransfer(CarbonCreditsToggleDto request);
-
-  @POST
-  @Path("/transfer")
-  CarbonCreditsTransferResponse transferFundsToCarbonCredits();
 }

@@ -22,19 +22,11 @@ public class CarbonCreditsResourceImplTest {
   @Mock
   private CarbonCreditsService carbonCreditsService;
 
-  private final double AN_AMOUNT = 12345.34;
   private final boolean IS_ACTIVE = true;
 
   @Before
   public void setUp() {
     carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService);
-  }
-
-  @Test
-  public void whenTransferringCredits_shouldCallAndReturnFromService() {
-    when(carbonCreditsService.transferRemainingBudget()).thenReturn(AN_AMOUNT);
-    CarbonCreditsTransferResponse response = carbonCreditsResource.transferFundsToCarbonCredits();
-    assertThat(response.transferred).isEqualTo(AN_AMOUNT);
   }
 
   @Test
