@@ -18,4 +18,11 @@ public class TransactionFactory {
       return new Transaction(Amount.valueOf(dto.amount), createdAt, dto.transactionType);
     }
   }
+
+  public Transaction create(Transaction transaction, Amount newAmount) {
+    if (transaction.getTransactionType().equals(TransactionType.CAMPUS_ACCESS)) {
+      return new CampusAccessTransaction(newAmount, transaction.getCreatedAt(), ((CampusAccessTransaction)transaction).getCarType());
+    }
+    return new Transaction(newAmount, transaction.getCreatedAt(), transaction.getTransactionType());
+  }
 }
