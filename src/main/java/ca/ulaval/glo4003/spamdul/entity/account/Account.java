@@ -15,10 +15,11 @@ public class Account {
   }
 
   public void withdrawFunds(Amount amount) {
-    if (funds.subtract(amount).isNegative()) {
+    Amount fundsAfterWithDraw = funds.subtract(amount);
+    if (fundsAfterWithDraw.isNegative()) {
       throw new InsufficientFundsException("Insufficient funds");
     }
-    funds = funds.subtract(amount);
+    funds = fundsAfterWithDraw;
   }
 
   public Amount getFunds() {
