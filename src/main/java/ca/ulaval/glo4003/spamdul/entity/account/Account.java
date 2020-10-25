@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 
 public class Account {
 
-  // TODO a tester au complet
-
   private final Map<TransactionType, List<Transaction>> transactionsByType;
 
   public Account() {

@@ -42,7 +42,6 @@ public class InitiativeService {
       transactionDto.amount = initiativeDto.amount * -1;
       Transaction transaction = transactionFactory.create(transactionDto);
       bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction);
-      //TODO a tester
 
     } catch (InsufficientFundsException e) {
       throw new InvalidInitiativeAmount("Insufficient funds");

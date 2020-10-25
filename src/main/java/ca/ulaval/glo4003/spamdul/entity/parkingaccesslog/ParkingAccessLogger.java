@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class ParkingAccessLogger implements AccessGrantedObserver {
 
-  private final Logger logger = Logger.getLogger(getClass().getName()); // TODO remove once not needed
+  private final Logger logger = Logger.getLogger(getClass().getName());
   private final ParkingAccessLogFactory parkingAccessLogFactory;
   private final ParkingAccessLogRepository parkingAccessLogRepository;
 

@@ -26,9 +26,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionServiceTest {
 
-  public static final Amount AN_AMOUNT_1 = Amount.valueOf(99);
-  public static final Amount AN_AMOUNT_2 = Amount.valueOf(127);
-  public static final Amount AN_AMOUNT_3 = Amount.valueOf(42);
+  public static final Amount AN_AMOUNT_1 = Amount.valueOf(-99);
+  public static final Amount AN_AMOUNT_2 = Amount.valueOf(-127);
+  public static final Amount AN_AMOUNT_3 = Amount.valueOf(-42);
   public static final TransactionType A_TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   public static final LocalDateTime A_DATETIME = LocalDateTime.now();
@@ -135,7 +135,7 @@ public class TransactionServiceTest {
         transactionCarbonCredit1, transactionCarbonCredit2));
 
     Amount revenue = transactionService.getAllBoughtCarbonCredit();
-    //TODO::change to negative in service
-    assertThat(revenue.asDouble()).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2).asDouble());
+
+    assertThat(revenue.asDouble()).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2).multiply(-1).asDouble());
   }
 }

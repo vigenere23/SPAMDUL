@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class TransactionService {
 
-  //TODO refaire les tests
-
   private final BankRepository bankRepository;
 
   public TransactionService(BankRepository bankRepository) {
@@ -52,7 +50,6 @@ public class TransactionService {
   }
 
   public Amount getAllBoughtCarbonCredit() {
-    //TODO tester
     return getTotalAmount(this.bankRepository.getMainBankAccount()
                                              .findAllBy(TransactionType.CARBON_CREDIT)).multiply(-1);
   }

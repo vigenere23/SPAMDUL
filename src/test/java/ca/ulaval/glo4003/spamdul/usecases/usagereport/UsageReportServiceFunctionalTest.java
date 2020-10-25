@@ -72,7 +72,6 @@ public class UsageReportServiceFunctionalTest {
 
   @Test
   public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
-    // TODO add better testing
     Integer numberOfLogs = 12;
 
     UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();

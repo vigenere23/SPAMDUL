@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
 import java.util.Objects;
 
-// TODO: add to user
 public class PostalAddress {
 
   private String name;

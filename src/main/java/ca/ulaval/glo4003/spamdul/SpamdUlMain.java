@@ -31,13 +31,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-/**
- * RESTApi setup without using DI or spring
- */
 @SuppressWarnings("all")
 public class SpamdUlMain {
-
-  public static boolean isDev = true; // Would be a JVM argument or in a .property file
 
   public static void main(String[] args)
       throws Exception {
@@ -57,13 +52,11 @@ public class SpamdUlMain {
     InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
                                                                    accountContext.bankRepository());
 
-    // Setup API context (JERSEY + JETTY)
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
-        //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
 
         resources.add(saleContext.getSaleResource());
@@ -94,7 +87,6 @@ public class SpamdUlMain {
     ServletHolder servletHolder = new ServletHolder(servletContainer);
     context.addServlet(servletHolder, "/*");
 
-    // Setup http server
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     contexts.setHandlers(new Handler[]{context});
     Server server = new Server(8080);

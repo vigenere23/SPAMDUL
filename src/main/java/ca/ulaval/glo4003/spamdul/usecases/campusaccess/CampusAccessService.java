@@ -97,7 +97,6 @@ public class CampusAccessService extends AccessGrantedObservable {
     if (accessGranted) {
       PassCode passCode = campusAccess.getAssociatedPassCode();
       if (passCode != null) {
-        // TODO: maybe change observer contract to use dateTimes instead for more flexibility
         Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
         notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
       }

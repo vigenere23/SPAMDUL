@@ -14,7 +14,6 @@ public class User {
     this.name = name;
     this.gender = gender;
     this.birthDate = birthDate;
-    //TODO Devrait-on bouger ca dans la passe au moment ou elle est acheter?
     this.userId = userId;
   }
 
@@ -31,7 +30,6 @@ public class User {
   }
 
   public int getAge(LocalDate todaysDate) {
-    //TODO si on passe une date inferieur a la naissance => probleme, age negatif, on veut le gerer?
     return Period.between(birthDate, todaysDate).getYears();
   }
 

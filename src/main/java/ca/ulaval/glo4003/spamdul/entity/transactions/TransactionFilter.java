@@ -25,7 +25,6 @@ public class TransactionFilter {
     return this;
   }
 
-  //TODO a tester
   public TransactionFilter by(CarType carType) {
     filterContainer.addFilter(transaction -> {
       if (transaction.getTransactionType().equals(TransactionType.CAMPUS_ACCESS)) {
