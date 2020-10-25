@@ -30,6 +30,7 @@ public class InitiativeId {
       return false;
     }
     InitiativeId userId = (InitiativeId) o;
+
     return Objects.equals(id, userId.id);
   }
 

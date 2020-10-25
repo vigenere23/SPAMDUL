@@ -5,12 +5,12 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionExcepti
 
 public class EmptyPassCodeValidator extends PassValidator {
 
-    @Override
-    public void validate(PassToValidateDto passToValidateDto) {
-        if (passToValidateDto.passCode.equals("")) {
-            throw new InfractionException("VIG_03");
-        }
-
-        nextValidation(passToValidateDto);
+  @Override
+  public void validate(PassToValidateDto passToValidateDto) {
+    if (passToValidateDto.passCode.equals("")) {
+      throw new InfractionException("VIG_03");
     }
+
+    nextValidation(passToValidateDto);
+  }
 }

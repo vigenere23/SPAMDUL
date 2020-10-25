@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundar
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InMemoryInfractionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
@@ -23,7 +22,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourc
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class InfractionsContext {
 
@@ -37,13 +35,12 @@ public class InfractionsContext {
         new JsonReader());
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
+
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(bankRepository);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,
                                                                 infractionRepository,
-                                                                transactionService,
                                                                 infractionFactory,
                                                                 firstValidationNode,
                                                                 transactionFactory,

@@ -5,5 +5,4 @@ public class InvalidGenderArgumentException extends InvalidUserArgumentException
   public InvalidGenderArgumentException(String message) {
     super(message);
   }
-
 }

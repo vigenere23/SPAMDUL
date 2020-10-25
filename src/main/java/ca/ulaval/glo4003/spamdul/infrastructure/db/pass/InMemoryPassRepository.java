@@ -14,7 +14,6 @@ public class InMemoryPassRepository implements PassRepository {
   private static final Logger logger = Logger.getLogger(InMemoryPassRepository.class.getName());
 
   public void save(Pass pass) {
-
     passes.put(pass.getPassCode(), pass);
     String loggingInfos = String.format("Saving pass: %s", pass.getPassCode().toString());
     logger.info(loggingInfos);
@@ -22,9 +21,11 @@ public class InMemoryPassRepository implements PassRepository {
 
   public Pass findByPassCode(PassCode passCode) {
     Pass pass = passes.get(passCode);
+
     if (pass == null) {
       throw new PassNotFoundException(String.format("No pass with id %s", passCode.toString()));
     }
+
     return pass;
   }
 }

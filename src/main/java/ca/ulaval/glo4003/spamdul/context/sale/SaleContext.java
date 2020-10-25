@@ -1,10 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.sale;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -14,14 +10,8 @@ import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.car.InMemoryCarRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.pass.InMemoryPassRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResourceImpl;
@@ -31,15 +21,15 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAdd
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 
 public class SaleContext {
 
   private final SaleResource saleResource;
 
-  public SaleContext(BankRepository bankRepository, PassRepository passRepository, CampusAccessService campusAccessService) {
+  public SaleContext(BankRepository bankRepository,
+                     PassRepository passRepository,
+                     CampusAccessService campusAccessService) {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     PassFactory passFactory = new PassFactory(timePeriodFactory);

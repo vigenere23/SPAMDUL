@@ -19,10 +19,13 @@ public class InitiativeExceptionMapper implements ExceptionMapper<InvalidInitiat
 
     if (e instanceof InvalidInitiativeName) {
       response.error = "INVALID_INITIATIVE_NAME";
+
     } else if (e instanceof InvalidInitiativeAmount) {
       response.error = "INVALID_INITIATIVE_AMOUNT";
+
     } else if (e instanceof InsufficientFundsException) {
       response.error = "INSUFFICIENT_FUNDS";
+
     } else {
       response.error = "INVALID_INITIATIVE";
     }

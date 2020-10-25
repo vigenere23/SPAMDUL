@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsToggleDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
-
 import javax.ws.rs.core.Response;
 
 public class CarbonCreditsResourceImpl implements CarbonCreditsResource {

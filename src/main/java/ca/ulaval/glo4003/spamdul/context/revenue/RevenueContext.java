@@ -20,6 +20,7 @@ public class RevenueContext {
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
     TransactionService transactionService = new TransactionService(bankRepository);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
+
     transactionPopulator = new TransactionPopulator(transactionFactory, bankRepository);
     revenueResource = new FinancialReportResourceImpl(transactionService, transactionQueryAssembler, revenueAssembler);
 

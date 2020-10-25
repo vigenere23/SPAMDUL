@@ -8,5 +8,4 @@ public class UserDto {
   public String name;
   public Gender gender;
   public LocalDate birthDate;
-
 }

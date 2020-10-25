@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeRepository {
 
-  private Map<Map<CarType, PeriodType>, CampusAccessFee> campusAccessFees;
+  private final Map<Map<CarType, PeriodType>, CampusAccessFee> campusAccessFees;
 
   public HardCodedCampusAccessFeeRepository() {
     campusAccessFees = new HashMap<>();

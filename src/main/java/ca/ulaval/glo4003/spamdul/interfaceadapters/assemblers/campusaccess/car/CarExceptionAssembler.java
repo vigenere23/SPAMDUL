@@ -21,6 +21,7 @@ public class CarExceptionAssembler implements ExceptionMapper<InvalidCarArgument
 
     if (e instanceof InvalidCarTypeArgumentException) {
       exceptionResponse.error = "INVALID_CAR_TYPE";
+
     } else if (e instanceof InvalidCarYearArgumentException || e instanceof InvalidCarYearException) {
       exceptionResponse.error = "INVALID_CAR_YEAR";
     }

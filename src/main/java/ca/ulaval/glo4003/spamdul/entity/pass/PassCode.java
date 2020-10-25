@@ -19,6 +19,7 @@ public class PassCode {
   public static PassCode valueOf(String passCode) {
     try {
       return new PassCode(Long.parseLong(passCode));
+
     } catch (NumberFormatException e) {
       throw new InvalidPassCodeFormat("Invalid pass code format");
     }
@@ -38,6 +39,7 @@ public class PassCode {
       return false;
     }
     PassCode userId = (PassCode) o;
+
     return Objects.equals(code, userId.code);
   }
 

@@ -18,6 +18,7 @@ public class TransactionFilter {
     if (startDate != null) {
       filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isBefore(startDate));
     }
+
     if (endDate != null) {
       filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(endDate));
     }

@@ -19,6 +19,7 @@ public class InfractionId {
   public static InfractionId valueOf(String id) {
     try {
       return new InfractionId(Long.parseLong(id));
+
     } catch (NumberFormatException e) {
       throw new InvalidInfractionIdException("Invalid infraction id format");
     }
@@ -38,6 +39,7 @@ public class InfractionId {
       return false;
     }
     InfractionId infractionId = (InfractionId) o;
+
     return Objects.equals(id, infractionId.id);
   }
 

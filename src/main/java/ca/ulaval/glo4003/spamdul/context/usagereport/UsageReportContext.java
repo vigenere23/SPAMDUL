@@ -22,27 +22,32 @@ public class UsageReportContext {
   private final UsageReportResource usageReportResource;
 
   public UsageReportContext(boolean populateData) {
+    ParkingAccessLogRepository parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
+
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
+
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
     UsageReportFactory usageReportFactory = new UsageReportFactory();
+    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
+
     UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();
     UsageReportCreationAssembler usageReportCreationAssembler = new UsageReportCreationAssembler();
     UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler = new UsageReportSummaryCreationAssembler();
-    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
-    ParkingAccessLogRepository parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
-    parkingAccessLogger = new ParkingAccessLogger(parkingAccessLogFactory, parkingAccessLogRepository);
 
-    UsageReportService usageReportService = new UsageReportService(
-        parkingAccessLogRepository,
-        parkingAccessLogAgglomerator,
-        usageReportSummaryFactory,
-        usageReportSummaryAssembler,
-        usageReportFactory,
-        usageReportAssembler);
-    parkingAccessLogPopulator = new ParkingAccessLogPopulator(
-        parkingAccessLogRepository, parkingAccessLogFactory
-    );
+    parkingAccessLogger = new ParkingAccessLogger(parkingAccessLogFactory,
+                                                  parkingAccessLogRepository);
+
+    UsageReportService usageReportService = new UsageReportService(parkingAccessLogRepository,
+                                                                   parkingAccessLogAgglomerator,
+                                                                   usageReportSummaryFactory,
+                                                                   usageReportSummaryAssembler,
+                                                                   usageReportFactory,
+                                                                   usageReportAssembler);
+
+    parkingAccessLogPopulator = new ParkingAccessLogPopulator(parkingAccessLogRepository,
+                                                              parkingAccessLogFactory);
+
     usageReportResource = new UsageReportResourceImpl(usageReportService,
                                                       usageReportCreationAssembler,
                                                       usageReportSummaryCreationAssembler);

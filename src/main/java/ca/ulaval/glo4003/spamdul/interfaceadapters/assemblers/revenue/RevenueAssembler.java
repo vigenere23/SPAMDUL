@@ -19,16 +19,18 @@ public class RevenueAssembler {
   }
 
   public CarTypeTotalRevenueResponse toResponse(Map<CarType, Amount> revenueByCarType) {
-      CarTypeTotalRevenueResponse response = new CarTypeTotalRevenueResponse();
-      response.byCarType = revenueByCarType.entrySet()
-                                           .stream()
-                                           .collect(Collectors.toMap(Entry::getKey,
-                                                                            e -> e.getValue().asDouble()));
-      response.total = revenueByCarType.values()
-                                       .stream()
-                                       .reduce(Amount.valueOf(0), Amount::add)
-                                       .asDouble();
-      return response;
+    CarTypeTotalRevenueResponse response = new CarTypeTotalRevenueResponse();
+    response.byCarType = revenueByCarType.entrySet()
+                                         .stream()
+                                         .collect(Collectors.toMap(Entry::getKey,
+                                                                   e -> e.getValue().asDouble()));
+
+    response.total = revenueByCarType.values()
+                                     .stream()
+                                     .reduce(Amount.valueOf(0), Amount::add)
+                                     .asDouble();
+
+    return response;
   }
 
   public TotalRevenueResponse toResponse(Amount passTotalRevenue,

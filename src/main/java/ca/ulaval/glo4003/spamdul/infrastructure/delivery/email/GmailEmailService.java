@@ -44,7 +44,9 @@ public class GmailEmailService implements DeliveryStrategy {
                                                     .getResourceAsStream("mail.properties")) {
       Properties props = new Properties();
       props.load(input);
+
       return props;
+
     } catch (IOException e) {
       throw new EmailException();
     }

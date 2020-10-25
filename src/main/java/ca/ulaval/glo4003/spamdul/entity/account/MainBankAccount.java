@@ -15,10 +15,10 @@ public class MainBankAccount {
   private final double sustainableMobilityProjectRatio;
 
   public MainBankAccount(
-          TransactionFactory transactionFactory,
-          Account sustainableMobilityProjectAccount,
-          Account other,
-          double sustainableMobilityProjectRatio) {
+      TransactionFactory transactionFactory,
+      Account sustainableMobilityProjectAccount,
+      Account other,
+      double sustainableMobilityProjectRatio) {
     this.transactionFactory = transactionFactory;
     this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
     this.other = other;

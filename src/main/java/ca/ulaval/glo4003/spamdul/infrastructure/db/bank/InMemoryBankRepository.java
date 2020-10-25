@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.bank;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import java.util.logging.Logger;
 
 public class InMemoryBankRepository implements BankRepository {

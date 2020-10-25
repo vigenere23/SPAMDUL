@@ -16,8 +16,6 @@ public class CarService {
 
   public Car createCar(CarDto carDto) {
     return carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
-
-    //    return carRepository.save(car);
   }
 
   public void saveCar(Car car) {

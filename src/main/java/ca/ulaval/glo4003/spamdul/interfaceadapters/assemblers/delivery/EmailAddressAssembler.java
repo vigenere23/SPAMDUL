@@ -10,6 +10,7 @@ public class EmailAddressAssembler {
   public EmailAddress fromString(String stringAddress) {
     Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$", Pattern.CASE_INSENSITIVE);
     Matcher matcher = pattern.matcher(stringAddress);
+
     if (!matcher.find()) {
       throw new InvalidEmailAddressException("Invalid email");
     }

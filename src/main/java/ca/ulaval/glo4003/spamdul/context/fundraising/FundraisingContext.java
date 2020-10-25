@@ -18,9 +18,11 @@ public class FundraisingContext {
   public FundraisingContext(BankRepository bankRepository,
                             boolean populateData) {
     InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+
     InitiativeFactory initiativeFactory = new InitiativeFactory();
-    InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     TransactionFactory transactionFactory = new TransactionFactory();
+
+    InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     InitiativeService initiativeService = new InitiativeService(initiativeRepository,
                                                                 initiativeFactory,
                                                                 bankRepository,

@@ -15,10 +15,13 @@ public class HardCodedCalendar implements Calendar {
     switch (semester.getSeason()) {
       case AUTUMN:
         return LocalDate.of(semester.getYear(), 9, 1).atStartOfDay();
+
       case WINTER:
         return LocalDate.of(semester.getYear(), 1, 1).atStartOfDay();
+
       case SUMMER:
         return LocalDate.of(semester.getYear(), 5, 1).atStartOfDay();
+
       default:
         throw new RuntimeException("The given season is not valid");
     }
@@ -29,10 +32,13 @@ public class HardCodedCalendar implements Calendar {
     switch (semester.getSeason()) {
       case AUTUMN:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 12, 31), LocalTime.MAX);
+
       case WINTER:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 4, 30), LocalTime.MAX);
+
       case SUMMER:
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 8, 31), LocalTime.MAX);
+
       default:
         throw new RuntimeException("The given season is not valid");
     }

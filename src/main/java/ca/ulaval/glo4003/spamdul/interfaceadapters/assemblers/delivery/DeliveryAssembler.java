@@ -19,6 +19,7 @@ public class DeliveryAssembler {
     DeliveryDto deliveryDto = new DeliveryDto();
     DeliveryMode deliveryMode = getDeliveryMode(deliveryRequest.deliveryMode);
     deliveryDto.deliveryMode = deliveryMode;
+
     if (deliveryMode == DeliveryMode.POST) {
       deliveryDto.postalAddress = postalAddressAssembler.fromDto(deliveryRequest.postalAddress);
     } else {
@@ -31,6 +32,7 @@ public class DeliveryAssembler {
   private DeliveryMode getDeliveryMode(String deliveryMode) {
     try {
       return DeliveryMode.valueOf(deliveryMode.toUpperCase());
+
     } catch (IllegalArgumentException e) {
       throw new InvalidDeliveryModeException("The delivery is either made by post or by mail");
     }

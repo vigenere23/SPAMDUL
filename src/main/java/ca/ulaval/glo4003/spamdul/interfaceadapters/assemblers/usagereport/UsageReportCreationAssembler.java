@@ -28,6 +28,7 @@ public class UsageReportCreationAssembler {
     if (startDate == null) {
       return LocalDate.now().withDayOfMonth(1);
     }
+
     return parseDate(startDate);
   }
 
@@ -35,12 +36,14 @@ public class UsageReportCreationAssembler {
     if (endDate == null) {
       return LocalDate.now();
     }
+
     return parseDate(endDate);
   }
 
   private LocalDate parseDate(String date) {
     try {
       return LocalDate.parse(date, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
+
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }
@@ -53,6 +56,7 @@ public class UsageReportCreationAssembler {
 
     try {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
+
     } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneArgumentException("The Parking zone provided must be ZONE_*number*");
     }

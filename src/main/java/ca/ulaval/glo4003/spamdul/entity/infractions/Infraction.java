@@ -17,7 +17,7 @@ public class Infraction {
     this.amount = amount;
   }
 
-  public void pay(){
+  public void pay() {
     if (isPaid) {
       throw new AlreadyPaidInfractionException("Cette infraction a déjà été payée");
     }

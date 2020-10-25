@@ -14,6 +14,7 @@ public class InitiativeAssembler {
     InitiativeDto initiativeDto = new InitiativeDto();
     initiativeDto.name = request.name;
     initiativeDto.amount = request.amount;
+
     return initiativeDto;
   }
 

@@ -18,8 +18,10 @@ public class AccessingCampusExceptionAssembler implements ExceptionMapper<Invali
 
     if (e instanceof InvalidAccessingCampusDateArgumentException) {
       exceptionResponse.error = "INVALID_ACCESSING_CAMPUS_DATE_FORMAT";
+
     } else if (e instanceof InvalidCampusAccessCodeArgumentException) {
       exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE_FORMAT";
+
     } else if (e instanceof PassNotFoundException) {
       exceptionResponse.error = "PASS_NOT_FOUND";
     }

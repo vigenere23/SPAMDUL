@@ -3,9 +3,10 @@ package ca.ulaval.glo4003.spamdul.infrastructure.scheduling;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-
 import java.time.Duration;
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class EndOfMonthEventScheduler extends EventSchedulerObservable {
 
@@ -14,7 +15,8 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
   private static ScheduledExecutorService executorService;
   private ScheduledFuture<?> scheduledFuture;
 
-  private EndOfMonthEventScheduler() { }
+  private EndOfMonthEventScheduler() {
+  }
 
   public static EndOfMonthEventScheduler getInstance(ScheduledExecutorService executorService,
                                                      Calendar calendar) {
@@ -45,10 +47,10 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
     long scheduleRateInNano = Duration.ofDays(1).toNanos();
 
     this.scheduledFuture = executorService.scheduleAtFixedRate(
-            this::notifyIfFirstOfMonth,
-            initialDelay,
-            scheduleRateInNano,
-            TimeUnit.NANOSECONDS);
+        this::notifyIfFirstOfMonth,
+        initialDelay,
+        scheduleRateInNano,
+        TimeUnit.NANOSECONDS);
   }
 
   public void stopJob() {
@@ -78,6 +80,5 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
     if (isNotBeingObserved()) {
       stopJob();
     }
-
   }
 }

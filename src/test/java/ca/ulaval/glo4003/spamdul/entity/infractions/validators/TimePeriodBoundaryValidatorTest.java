@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
@@ -7,134 +11,131 @@ import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import java.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import java.time.LocalDateTime;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
-
 @RunWith(MockitoJUnitRunner.class)
 public class TimePeriodBoundaryValidatorTest {
 
-    public static final String A_VALID_PASS_CODE_STRING = "9";
-    public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(1000,1,1,0,0);
+  public static final String A_VALID_PASS_CODE_STRING = "9";
+  public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(1000, 1, 1, 0, 0);
 
-    private Calendar calendar = mock(Calendar.class);
+  private Calendar calendar = mock(Calendar.class);
 
-    private TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
-    @Mock
-    private TimePeriod timePeriod;
-    @Mock
-    private PassRepository passRepository;
-    private PassToValidateDto passToValidateDto = new PassToValidateDto();
-    @Mock
-    private Pass pass;
+  private TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
+  @Mock
+  private TimePeriod timePeriod;
+  @Mock
+  private PassRepository passRepository;
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
+  @Mock
+  private Pass pass;
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
+  @Rule
+  public ExpectedException exceptionRule = ExpectedException.none();
 
-    @Before
-    public void setUp() {
-        PassValidator.setPassRepository(passRepository);
-    }
+  @Before
+  public void setUp() {
+    PassValidator.setPassRepository(passRepository);
+  }
 
-    @After
-    public void clearStatic() {
-        PassValidator.setPassRepository(null);
-        PassValidator.passCache.clear();
-    }
+  @After
+  public void clearStatic() {
+    PassValidator.setPassRepository(null);
+    PassValidator.passCache.clear();
+  }
 
-    @Test
-    public void whenValidate_shouldGetCorrespondingPass() {
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+  @Test
+  public void whenValidate_shouldGetCorrespondingPass() {
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
+    timePeriodBoundaryValidator.validate(passToValidateDto);
 
-        verify(passRepository).findByPassCode(passCode);
-    }
+    verify(passRepository).findByPassCode(passCode);
+  }
 
-    @Test
-    public void whenValidate_shouldGetTimePeriodFromPass() {
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+  @Test
+  public void whenValidate_shouldGetTimePeriodFromPass() {
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
+    timePeriodBoundaryValidator.validate(passToValidateDto);
 
-        verify(pass).getTimePeriod();
-    }
+    verify(pass).getTimePeriod();
+  }
 
-    @Test
-    public void whenValidate_shouldCallCalendarNow() {
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+  @Test
+  public void whenValidate_shouldCallCalendarNow() {
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
+    timePeriodBoundaryValidator.validate(passToValidateDto);
 
-        verify(calendar).now();
-    }
+    verify(calendar).now();
+  }
 
-    @Test
-    public void whenValidate_shouldChekIfTimePeriodBoundsNow() {
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+  @Test
+  public void whenValidate_shouldChekIfTimePeriodBoundsNow() {
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
+    timePeriodBoundaryValidator.validate(passToValidateDto);
 
-        verify(timePeriod).bounds(A_LOCAL_DATE_TIME);
-    }
+    verify(timePeriod).bounds(A_LOCAL_DATE_TIME);
+  }
 
-    @Test
-    public void givenNotBoundingTimePeriod_whenValidate_shouldThrowInfractionException() {
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(false);
+  @Test
+  public void givenNotBoundingTimePeriod_whenValidate_shouldThrowInfractionException() {
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(false);
 
-        exceptionRule.expect(InfractionException.class);
-        exceptionRule.expectMessage("VIG_02");
+    exceptionRule.expect(InfractionException.class);
+    exceptionRule.expectMessage("VIG_02");
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
-    }
+    timePeriodBoundaryValidator.validate(passToValidateDto);
+  }
 
-    @Test
-    public void givenValidParkingZone_whenValidate_shouldCallNextValidation() {
-        PassValidator nextPassValidator = mock(PassValidator.class);
-        timePeriodBoundaryValidator.setNextValidator(nextPassValidator);
-        passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-        PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-        when(passRepository.findByPassCode(passCode)).thenReturn(pass);
-        when(pass.getTimePeriod()).thenReturn(timePeriod);
-        when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-        when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+  @Test
+  public void givenValidParkingZone_whenValidate_shouldCallNextValidation() {
+    PassValidator nextPassValidator = mock(PassValidator.class);
+    timePeriodBoundaryValidator.setNextValidator(nextPassValidator);
+    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
+    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
-        timePeriodBoundaryValidator.validate(passToValidateDto);
+    timePeriodBoundaryValidator.validate(passToValidateDto);
 
-        verify(nextPassValidator).validate(passToValidateDto);
-    }
+    verify(nextPassValidator).validate(passToValidateDto);
+  }
 }

@@ -19,9 +19,11 @@ public class PassSender {
 
   public void sendPass(DeliveryDto deliveryDto, PassCode passCode) {
     DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(deliveryDto.deliveryMode);
+
     String CONTENT = "Your pass code is: %s";
     String SUBJECT = "Your new pass code";
     String content = String.format(CONTENT, passCode.toString());
+
     DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, SUBJECT);
     deliveryStrategy.deliver(deliveryOptions, content);
   }

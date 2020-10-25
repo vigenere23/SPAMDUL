@@ -36,6 +36,7 @@ public class ParkingAccessLogFilter {
     if (startDate != null) {
       filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isBefore(startDate));
     }
+
     if (endDate != null) {
       filterContainer.addFilter(parkingAccessLog -> !parkingAccessLog.getAccessDate().isAfter(endDate));
     }

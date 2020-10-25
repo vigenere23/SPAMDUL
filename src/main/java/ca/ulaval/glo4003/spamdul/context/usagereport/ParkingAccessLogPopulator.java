@@ -23,6 +23,7 @@ public class ParkingAccessLogPopulator {
   public void populate(int numberOfRecords) {
     Random random = new Random();
     LocalDate now = LocalDate.now();
+
     List<ParkingZone> allZones = Arrays.asList(ParkingZone.values());
 
     for (int recordNumber = 0; recordNumber < numberOfRecords; recordNumber++) {
@@ -34,6 +35,7 @@ public class ParkingAccessLogPopulator {
   private ParkingAccessLog createRandomLog(Random random, LocalDate now, List<ParkingZone> allZones) {
     LocalDate accessDay = now.minusDays(random.nextInt(40)); // a bit more than a month
     ParkingZone zone = allZones.get(random.nextInt(allZones.size()));
+
     return parkingAccessLogFactory.create(zone, accessDay);
   }
 }

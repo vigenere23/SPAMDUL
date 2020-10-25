@@ -39,6 +39,7 @@ public class PostalAddress {
       return false;
     }
     PostalAddress postalAddress = (PostalAddress) o;
+
     return toString().equals(postalAddress.toString());
   }
 

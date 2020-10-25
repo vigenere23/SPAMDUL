@@ -29,6 +29,7 @@ public class ParkingAccessLogId {
       return false;
     }
     ParkingAccessLogId userId = (ParkingAccessLogId) o;
+
     return Objects.equals(id, userId.id);
   }
 

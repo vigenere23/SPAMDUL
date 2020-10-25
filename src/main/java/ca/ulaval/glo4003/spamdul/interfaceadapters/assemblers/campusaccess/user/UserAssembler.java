@@ -28,6 +28,7 @@ public class UserAssembler {
   private Gender getGender(UserRequest userRequest) {
     try {
       return Gender.valueOf(userRequest.gender.toUpperCase());
+
     } catch (IllegalArgumentException e) {
       throw new InvalidGenderArgumentException("The gender provided must be of type male, female or other");
     }
@@ -36,6 +37,7 @@ public class UserAssembler {
   private LocalDate getBirthDate(UserRequest userRequest) {
     try {
       return LocalDate.parse(userRequest.birthDate, DateTimeFormatter.BIRTHDAY_DATE_TIME_FORMATTER);
+
     } catch (DateTimeParseException e) {
       throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
     }

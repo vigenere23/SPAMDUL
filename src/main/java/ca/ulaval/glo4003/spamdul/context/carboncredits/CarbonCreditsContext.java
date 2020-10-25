@@ -26,6 +26,7 @@ public class CarbonCreditsContext {
     Calendar calendar = new HardCodedCalendar();
     ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     CarbonCreditsPurchaser carbonCreditsPurchaser = new ConsoleLogCarbonCreditsPurchaser();
+
     endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(
         scheduledExecutorService,
         calendar
