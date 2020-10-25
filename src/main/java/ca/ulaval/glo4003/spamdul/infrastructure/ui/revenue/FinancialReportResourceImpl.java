@@ -12,15 +12,15 @@ import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.Map;
 
-public class RevenueResourceImpl implements RevenueResource {
+public class FinancialReportResourceImpl implements FinancialReportResource {
 
   private final TransactionService transactionService;
   private final TransactionQueryAssembler transactionQueryAssembler;
   private final RevenueAssembler revenueAssembler;
 
-  public RevenueResourceImpl(TransactionService transactionService,
-                             TransactionQueryAssembler transactionQueryAssembler,
-                             RevenueAssembler revenueAssembler) {
+  public FinancialReportResourceImpl(TransactionService transactionService,
+                                     TransactionQueryAssembler transactionQueryAssembler,
+                                     RevenueAssembler revenueAssembler) {
     this.transactionService = transactionService;
     this.revenueAssembler = revenueAssembler;
     this.transactionQueryAssembler = transactionQueryAssembler;

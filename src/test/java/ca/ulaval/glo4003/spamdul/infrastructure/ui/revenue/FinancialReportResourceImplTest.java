@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RevenueResourceImplTest {
+public class FinancialReportResourceImplTest {
 
   public static final int AMOUNT_VALUE_1 = 9;
   public static final int AMOUNT_VALUE_2 = 8;
@@ -43,13 +43,13 @@ public class RevenueResourceImplTest {
   private TransactionQueryAssembler transactionQueryAssembler;
 
   private RevenueAssembler revenueAssembler;
-  private RevenueResourceImpl resource;
+  private FinancialReportResourceImpl resource;
   private Map<CarType, Amount> carTypeRevenues;
 
   @Before
   public void setUp() throws Exception {
     revenueAssembler = new RevenueAssembler();
-    resource = new RevenueResourceImpl(transactionService, transactionQueryAssembler, revenueAssembler);
+    resource = new FinancialReportResourceImpl(transactionService, transactionQueryAssembler, revenueAssembler);
     carTypeRevenues = generateCarTypesRevenues();
     BDDMockito.given(transactionQueryAssembler.fromValues(any(), any()))
               .willReturn(A_TRANSACTION_QUERY_DTO);

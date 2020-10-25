@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("/financial-report")
-public interface RevenueResource {
+public interface FinancialReportResource {
 
   @GET
   @Path("revenue")
