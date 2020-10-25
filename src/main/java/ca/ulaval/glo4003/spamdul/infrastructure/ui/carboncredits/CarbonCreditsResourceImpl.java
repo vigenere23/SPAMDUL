@@ -21,12 +21,4 @@ public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
                    .entity(active)
                    .build();
   }
-
-  @Override
-  public CarbonCreditsTransferResponse transferFundsToCarbonCredits() {
-    CarbonCreditsTransferResponse response = new CarbonCreditsTransferResponse();
-    response.transferred = carbonCreditsService.transferRemainingBudget();
-
-    return response;
-  }
 }
