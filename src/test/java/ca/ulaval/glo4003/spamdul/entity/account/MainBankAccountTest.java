@@ -4,7 +4,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
@@ -14,9 +17,11 @@ import org.mockito.Mock;
 public class MainBankAccountTest {
 
   private MainBankAccount mainBankAccount;
-  private Amount FUNDS;
   private double PERCENT_OF_REVENUE = 0.4;
-  private double OTHER_PERCENT_OF_REVENUE = 0.6;
+  private TransactionType A_TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
+  private Amount AN_AMOUNT = Amount.valueOf(100);
+  private LocalDateTime CREATED_AT = LocalDateTime.now();
+
 
   @Mock
   private Account account1 = mock(Account.class);
@@ -26,25 +31,14 @@ public class MainBankAccountTest {
 
   @Before
   public void setUp() throws Exception {
-    FUNDS = Amount.valueOf(1000);
-    Map<Account, Double> accountRatioMap = new HashMap<>();
-    accountRatioMap.put(account1, PERCENT_OF_REVENUE);
-    accountRatioMap.put(account2, OTHER_PERCENT_OF_REVENUE);
-    mainBankAccount = new MainBankAccount(accountRatioMap);
+    mainBankAccount = new MainBankAccount(account1, account2, PERCENT_OF_REVENUE);
   }
 
   @Test
-  public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallAddFundOfEachAccount() {
-    mainBankAccount.addFunds(FUNDS);
-    verify(account1).addFunds(any());
-    verify(account2).addFunds(any());
-  }
+  public void whenAddingTransacton_shouldAddTransactionToAccounts() {
+    Transaction transaction = new Transaction(AN_AMOUNT, CREATED_AT, A_TRANSACTION_TYPE);
+    mainBankAccount.addTransaction(transaction);
 
-  @Test
-  public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallGiveRightPercentFundForEachAccount() {
-    mainBankAccount.addFunds(FUNDS);
 
-    verify(account1).addFunds(FUNDS.multiply(PERCENT_OF_REVENUE));
-    verify(account2).addFunds(FUNDS.multiply(OTHER_PERCENT_OF_REVENUE));
   }
 }

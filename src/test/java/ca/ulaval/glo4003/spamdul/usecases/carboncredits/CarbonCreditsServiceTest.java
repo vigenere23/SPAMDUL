@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +16,17 @@ public class CarbonCreditsServiceTest {
 
   @Mock
   private EventSchedulerObservable eventSchedulerObservable;
+  @Mock
+  private BankRepository bankRepository;
+  @Mock
+  private TransactionFactory transactionFactory;
 
   private CarbonCreditsService carbonCreditsService;
 
 
   @Before
   public void setUp() {
-    carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable);
+    carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable, bankRepository, transactionFactory);
   }
 
   @Test

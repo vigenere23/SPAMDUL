@@ -10,8 +10,10 @@ import org.junit.Test;
 
 public class InMemoryMainBankAccountRepositoryTest {
 
-  private final MainBankAccount a_Main_BANKAccount = new MainBankAccount(new HashMap<>());
   private final Account A_ACCOUNT = new Account();
+  private final Account ANOTHER_ACCOUNT = new Account();
+  private final double A_RATIO = 0.5;
+  private final MainBankAccount a_Main_BANKAccount = new MainBankAccount(A_ACCOUNT, ANOTHER_ACCOUNT, A_RATIO);
 
   private InMemoryBankRepository bankRepository;
 

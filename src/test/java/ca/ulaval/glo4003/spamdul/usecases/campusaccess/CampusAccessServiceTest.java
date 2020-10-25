@@ -6,9 +6,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
@@ -23,6 +25,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -64,6 +67,9 @@ public class CampusAccessServiceTest {
   private AccessingCampusDto accessingCampusDto;
   private PassRepository passRepository;
   private Calendar calendar;
+  private TransactionFactory transactionFactory;
+  private BankRepository bankRepository;
+  private CampusAccessFeeRepository campusAccessFeeRepository;
 
   private CampusAccessService campusAccessService;
 
@@ -81,12 +87,18 @@ public class CampusAccessServiceTest {
     campusAccessFactory = mock(CampusAccessFactory.class);
     passRepository = mock(PassRepository.class);
     calendar = mock(Calendar.class);
+    transactionFactory = mock(TransactionFactory.class);
+    bankRepository = mock(BankRepository.class);
+    campusAccessFeeRepository = mock(CampusAccessFeeRepository.class);
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
                                                   campusAccessRepository,
                                                   passRepository,
-                                                  calendar);
+                                                  calendar,
+                                                  bankRepository,
+                                                  campusAccessFeeRepository,
+                                                  transactionFactory);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
