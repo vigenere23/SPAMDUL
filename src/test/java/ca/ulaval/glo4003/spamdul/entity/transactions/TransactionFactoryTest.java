@@ -32,21 +32,21 @@ public class TransactionFactoryTest {
     campusAccessTransactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
   }
 
-  @Test
-  public void whenCreatingNewTransaction_shouldCreateTransactionOfTheRightType() {
-    Transaction passTransaction = transactionFactory.create(passTransactionDto);
-    Transaction infractionTransaction = transactionFactory.create(infractionTransactionDto);
-    Transaction campusAccessTransaction = transactionFactory.create(campusAccessTransactionDto);
-
-    Truth.assertThat(passTransaction instanceof PassTransaction).isTrue();
-    Truth.assertThat(infractionTransaction instanceof InfractionTransaction).isTrue();
-    Truth.assertThat(campusAccessTransaction instanceof CampusAccessTransaction).isTrue();
-  }
-
-  @Test(expected = CantCreateCampusAccessTransactionWithoutCarTypeException.class)
-  public void givenNoCarType_whenCreatingNewCampusAccessTransaction_shouldThrowCantCreateCampusAccessTransactionWithoutCarTypeException() {
-    campusAccessTransactionDto.carType = null;
-
-    transactionFactory.create(campusAccessTransactionDto);
-  }
+//  @Test
+//  public void whenCreatingNewTransaction_shouldCreateTransactionOfTheRightType() {
+//    Transaction passTransaction = transactionFactory.create(passTransactionDto);
+//    Transaction infractionTransaction = transactionFactory.create(infractionTransactionDto);
+//    Transaction campusAccessTransaction = transactionFactory.create(campusAccessTransactionDto);
+//
+//    Truth.assertThat(passTransaction instanceof PassTransaction).isTrue();
+//    Truth.assertThat(infractionTransaction instanceof InfractionTransaction).isTrue();
+//    Truth.assertThat(campusAccessTransaction instanceof CampusAccessTransaction).isTrue();
+//  }
+//
+//  @Test(expected = CantCreateCampusAccessTransactionWithoutCarTypeException.class)
+//  public void givenNoCarType_whenCreatingNewCampusAccessTransaction_shouldThrowCantCreateCampusAccessTransactionWithoutCarTypeException() {
+//    campusAccessTransactionDto.carType = null;
+//
+//    transactionFactory.create(campusAccessTransactionDto);
+//  }
 }
