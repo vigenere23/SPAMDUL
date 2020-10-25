@@ -19,7 +19,6 @@ public class PassService {
   private final PassFactory passFactory;
   private final CampusAccessService campusAccessService;
   private final PassSender passSender;
-  private TransactionService transactionService;
   private TransactionFactory transactionFactory;
   private BankRepository bankRepository;
   private ParkingZoneFeeRepository parkingZoneFeeRepository;

@@ -1,16 +1,29 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.*;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
 
 public class InfractionServiceTest {
 
@@ -31,6 +44,8 @@ public class InfractionServiceTest {
   private InfractionInfos infractionInfos;
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
+  private TransactionFactory transactionFactory;
+  private BankRepository bankRepository;
 
   @Before
   public void setUp() throws Exception {
@@ -39,12 +54,16 @@ public class InfractionServiceTest {
     infractionRepository = Mockito.mock(InfractionRepository.class);
     transactionService = Mockito.mock(TransactionService.class);
     infractionFactory = Mockito.mock(InfractionFactory.class);
+    transactionFactory = Mockito.mock(TransactionFactory.class);
+    bankRepository = Mockito.mock(BankRepository.class);
 
     infractionService = new InfractionService(infractionInfoRepository,
-                                    infractionRepository,
-                                    transactionService,
-                                    infractionFactory,
-                                    passValidator);
+                                              infractionRepository,
+                                              transactionService,
+                                              infractionFactory,
+                                              passValidator,
+                                              transactionFactory,
+                                              bankRepository);
 
     passToValidateDto = new PassToValidateDto();
     infractionInfos = new InfractionInfos();
@@ -63,8 +82,8 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldFindInfractionInfosInRepository() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(passValidator)
-            .validate(passToValidateDto);
+        .when(passValidator)
+        .validate(passToValidateDto);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto);
 
@@ -74,8 +93,8 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldCreateInfractionWithFactory() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(passValidator)
-            .validate(passToValidateDto);
+        .when(passValidator)
+        .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto);
@@ -86,8 +105,8 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldSaveInfractionsInRepo() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(passValidator)
-            .validate(passToValidateDto);
+        .when(passValidator)
+        .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
@@ -99,8 +118,8 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldReturnInfraction() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-            .when(passValidator)
-            .validate(passToValidateDto);
+        .when(passValidator)
+        .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
@@ -133,7 +152,7 @@ public class InfractionServiceTest {
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(transactionService).createTransaction(any(TransactionDto.class));
+    verify(bankRepository).getMainBankAccount().addTransaction(any(Transaction.class));
   }
 
   @Test
