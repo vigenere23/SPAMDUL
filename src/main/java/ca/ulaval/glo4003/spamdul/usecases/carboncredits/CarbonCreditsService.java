@@ -11,11 +11,13 @@ public class CarbonCreditsService implements ScheduleObserver {
     this.eventSchedulerObservable = eventSchedulerObservable;
   }
 
-  public void activateAutomaticTransfer(boolean active) {
+  public boolean activateAutomaticTransfer(boolean active) {
     if (active) {
       eventSchedulerObservable.register(this);
+      return true;
     } else {
       eventSchedulerObservable.unregister(this);
+      return false;
     }
   }
 

@@ -16,9 +16,11 @@ public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
 
   @Override
   public Response activateAutomaticTransfer(CarbonCreditsToggleDto request) {
-    carbonCreditsService.activateAutomaticTransfer(request.active);
+    boolean active = carbonCreditsService.activateAutomaticTransfer(request.active);
 
-    return Response.status(Response.Status.NO_CONTENT).build();
+    return Response.status(Response.Status.OK)
+                   .entity(active)
+                   .build();
   }
 
   @Override
