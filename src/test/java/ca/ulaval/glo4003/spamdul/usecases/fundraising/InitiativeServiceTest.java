@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
@@ -25,13 +26,13 @@ public class InitiativeServiceTest {
   @Mock
   private InitiativeFactory initiativeFactory;
   @Mock
-  private Account sustainableMobilityProjectAccount;
+  private BankRepository bankRepository;
   //TODO::add test to account
 
   @Before
   public void setUp() {
     initiativeService = new InitiativeService(initiativeRepository, initiativeFactory,
-                                              sustainableMobilityProjectAccount);
+                                              bankRepository);
   }
 
   @Test

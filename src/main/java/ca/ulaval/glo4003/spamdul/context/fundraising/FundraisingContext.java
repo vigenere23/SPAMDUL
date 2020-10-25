@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.account.Account;
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InitiativeRepositoryInMemory;
@@ -14,13 +14,13 @@ public class FundraisingContext {
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
 
-  public FundraisingContext(Account sustainableMobilityProjectAccount,
+  public FundraisingContext(BankRepository bankRepository,
                             boolean populateData) {
     InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
     InitiativeFactory initiativeFactory = new InitiativeFactory();
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     InitiativeService initiativeService = new InitiativeService(initiativeRepository, initiativeFactory,
-                                                                sustainableMobilityProjectAccount);
+                                                                bankRepository);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService);
     initiativePopulator = new InitiativePopulator(initiativeRepository, initiativeFactory);

@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.account.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
@@ -14,14 +15,14 @@ public class InitiativeService {
 
   private final InitiativeRepository initiativeRepository;
   private final InitiativeFactory initiativeFactory;
-  private final Account sustainableMobilityProjectAccount;
+  private BankRepository bankRepository;
 
   public InitiativeService(InitiativeRepository initiativeRepository,
                            InitiativeFactory initiativeFactory,
-                           Account sustainableMobilityProjectAccount) {
+                           BankRepository bankRepository) {
     this.initiativeRepository = initiativeRepository;
     this.initiativeFactory = initiativeFactory;
-    this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
+    this.bankRepository = bankRepository;
   }
 
   public List<Initiative> getAllInitiatives() {
@@ -32,7 +33,9 @@ public class InitiativeService {
     // TODO create and save transaction
     // TODO transfer money
     try {
+      Account sustainableMobilityProjectAccount = bankRepository.getSustainableMobilityProjectAccount();
       sustainableMobilityProjectAccount.withdrawFunds(Amount.valueOf(initiativeDto.amount));
+      bankRepository.saveSustainableMobilityProjectAccount(sustainableMobilityProjectAccount);
     } catch (InsufficientFundsException e) {
       throw new InvalidInitiativeAmount("Insufficient funds");
     }

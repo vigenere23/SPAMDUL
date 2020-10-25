@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Bank;
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
@@ -31,7 +32,7 @@ public class InfractionsContext {
 
   public InfractionsContext(PassRepository passRepository,
                             TransactionRepository transactionRepository,
-                            Bank bank) {
+                            BankRepository bankRepository) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -39,7 +40,7 @@ public class InfractionsContext {
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory, bank);
+    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory, bankRepository);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,

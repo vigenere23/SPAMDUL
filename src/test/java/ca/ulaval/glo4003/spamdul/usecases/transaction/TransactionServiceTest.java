@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Bank;
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
@@ -48,12 +49,14 @@ public class TransactionServiceTest {
 
   private TransactionService transactionService;
   @Mock
+  private BankRepository bankRepository;
+  @Mock
   private Bank bank;
   //TODO::add test to account
 
   @Before
   public void setUp() {
-    transactionService = new TransactionService(transactionRepository, transactionFactory, bank);
+    transactionService = new TransactionService(transactionRepository, transactionFactory, bankRepository);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
     A_TRANSACTION_DTO.carType = A_CAR_TYPE;
@@ -69,6 +72,7 @@ public class TransactionServiceTest {
   @Test
   public void whenCreatingTransaction_shouldSaveTransaction() {
     given(transactionFactory.create(A_TRANSACTION_DTO)).willReturn(A_TRANSACTION);
+    given(bankRepository.getBank()).willReturn(bank);
 
     transactionService.createTransaction(A_TRANSACTION_DTO);
 
