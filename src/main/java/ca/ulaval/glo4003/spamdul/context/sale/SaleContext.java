@@ -38,11 +38,8 @@ import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 public class SaleContext {
 
   private final SaleResource saleResource;
-  private final PassRepository passRepository;
-  private CampusAccessService campusAccessService;
 
-  public SaleContext(BankRepository bankRepository) {
-    passRepository = new InMemoryPassRepository();
+  public SaleContext(BankRepository bankRepository, PassRepository passRepository, CampusAccessService campusAccessService) {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     PassFactory passFactory = new PassFactory(timePeriodFactory);
@@ -74,11 +71,4 @@ public class SaleContext {
     return saleResource;
   }
 
-  public PassRepository getPassRepository() {
-    return passRepository;
-  }
-
-  public void setCampusAccessService(CampusAccessService campusAccessService) {
-    this.campusAccessService = campusAccessService;
-  }
 }

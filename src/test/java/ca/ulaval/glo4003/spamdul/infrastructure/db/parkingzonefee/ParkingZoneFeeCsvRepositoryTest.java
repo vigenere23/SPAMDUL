@@ -36,7 +36,7 @@ public class ParkingZoneFeeCsvRepositoryTest {
 
   private List<List<String>> generateReadCsv() {
     List<List<String>> lines = new ArrayList<>();
-    lines.add(Arrays.asList("zone\temps", "Mensuel", "1j/semaine/session", "3 session", "1 session", "2 session"));
+    lines.add(Arrays.asList("zone\temps", "Mensuel", "1j/sem/session", "3 session", "1 session", "2 session"));
     lines.add(Arrays.asList("Zone2", "121", "163", "872", "366", "604"));
     lines.add(Arrays.asList("Zone1", "183", "163", "1239", "544", "895"));
     lines.add(Arrays.asList("ZoneR", "121", "163", "872", "366", "604"));
