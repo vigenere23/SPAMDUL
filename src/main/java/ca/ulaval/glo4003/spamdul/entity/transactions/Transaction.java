@@ -7,18 +7,12 @@ public class Transaction {
 
   private final Amount amount;
   private final LocalDateTime createdAt;
-  private TransactionType transactionType;
+  private final TransactionType transactionType;
 
   public Transaction(Amount amount, LocalDateTime createdAt, TransactionType transactionType) {
     this.amount = amount;
     this.createdAt = createdAt;
     this.transactionType = transactionType;
-  }
-
-  public Transaction(Transaction transaction, Amount newAmount) {
-    this.amount = newAmount;
-    this.createdAt = transaction.createdAt;
-    this.transactionType = transaction.transactionType;
   }
 
   public TransactionType getTransactionType() {
