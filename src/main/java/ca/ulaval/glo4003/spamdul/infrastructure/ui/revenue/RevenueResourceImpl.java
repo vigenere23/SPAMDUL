@@ -64,7 +64,6 @@ public class RevenueResourceImpl implements RevenueResource {
     CarbonBoughtResponse response = new CarbonBoughtResponse();
     response.total = transactionService.getAllBoughtCarbonCredit().asDouble();
 
-    //TODO a tester
     return response;
   }
 }
