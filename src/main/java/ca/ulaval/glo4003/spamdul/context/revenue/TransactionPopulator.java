@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.context.revenue;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import java.util.Arrays;
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.Random;
 public class TransactionPopulator {
 
   private final TransactionFactory transactionFactory;
-  private final TransactionRepository transactionRepository;
+  private final BankRepository bankRepository;
 
   public TransactionPopulator(TransactionFactory transactionFactory,
-                              TransactionRepository transactionRepository) {
+                              BankRepository bankRepository) {
     this.transactionFactory = transactionFactory;
-    this.transactionRepository = transactionRepository;
+    this.bankRepository = bankRepository;
   }
 
   public void populate(int numberOfRecords) {
@@ -29,7 +29,7 @@ public class TransactionPopulator {
 
     for (int recordNumber = 0; recordNumber < numberOfRecords; recordNumber++) {
       Transaction transaction = createTransaction(random, allTransactionTypes, allCarTypes, MAX_AMOUNT);
-      transactionRepository.save(transaction);
+      bankRepository.getMainBankAccount().addTransaction(transaction);
     }
   }
 

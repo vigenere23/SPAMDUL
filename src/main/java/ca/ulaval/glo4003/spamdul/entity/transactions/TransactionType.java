@@ -4,5 +4,7 @@ public enum TransactionType {
 
   PASS,
   CAMPUS_ACCESS,
-  INFRACTION
+  INFRACTION,
+  INITIATIVE,
+  CARBON_CREDIT
 }

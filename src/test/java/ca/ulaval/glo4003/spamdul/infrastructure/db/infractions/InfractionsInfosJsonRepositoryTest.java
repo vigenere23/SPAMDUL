@@ -1,17 +1,18 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.infractions;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import com.google.common.truth.Truth;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class InfractionsInfosJsonRepositoryTest {
 

@@ -14,12 +14,15 @@ public class TransactionFactory {
             "A campus access transaction must contain a valid car type");
       }
       return new CampusAccessTransaction(Amount.valueOf(dto.amount), createdAt, dto.carType);
-    } else if (dto.transactionType.equals(TransactionType.PASS)) {
-      return new PassTransaction(Amount.valueOf(dto.amount), createdAt);
-    } else if (dto.transactionType.equals(TransactionType.INFRACTION)) {
-      return new InfractionTransaction(Amount.valueOf(dto.amount), createdAt);
-    } else {
-      throw new CantCreateTransactionException("transaction type must be valid");
+    }  else {
+      return new Transaction(Amount.valueOf(dto.amount), createdAt, dto.transactionType);
     }
+  }
+
+  public Transaction create(Transaction transaction, Amount newAmount) {
+    if (transaction.getTransactionType().equals(TransactionType.CAMPUS_ACCESS)) {
+      return new CampusAccessTransaction(newAmount, transaction.getCreatedAt(), ((CampusAccessTransaction)transaction).getCarType());
+    }
+    return new Transaction(newAmount, transaction.getCreatedAt(), transaction.getTransactionType());
   }
 }

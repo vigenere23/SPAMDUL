@@ -22,5 +22,4 @@ public interface CarbonCreditsResource {
   @POST
   @Path("/transfer")
   CarbonCreditsTransferResponse transferFundsToCarbonCredits();
-
 }

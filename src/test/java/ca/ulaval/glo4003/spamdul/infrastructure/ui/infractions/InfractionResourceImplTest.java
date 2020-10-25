@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
@@ -10,16 +14,17 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRes
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ws.rs.core.Response;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class InfractionResourceImplTest {
+
   public static final String AN_INFRACTION_DESCRIPTION = "a description";
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
@@ -29,7 +34,9 @@ public class InfractionResourceImplTest {
   public static final InfractionPaymentRequest AN_INFRACTION_PAYMENT_REQUEST = new InfractionPaymentRequest();
   public static final InfractionPaymentDto AN_INFRACTION_PAYMENT_DTO = new InfractionPaymentDto();
   private InfractionResourceImpl resource;
+  @Mock
   private InfractionAssembler infractionAssembler;
+  @Mock
   private InfractionService infractionService;
   private InfractionRequest infractionRequest;
   private PassToValidateDto passToValidateDto;
@@ -37,8 +44,6 @@ public class InfractionResourceImplTest {
 
   @Before
   public void setUp() throws Exception {
-    infractionAssembler = mock(InfractionAssembler.class);
-    infractionService = mock(InfractionService.class);
     resource = new InfractionResourceImpl(infractionAssembler, infractionService);
     infractionRequest = new InfractionRequest();
     infractionRequest.parkingZone = "Zone1";

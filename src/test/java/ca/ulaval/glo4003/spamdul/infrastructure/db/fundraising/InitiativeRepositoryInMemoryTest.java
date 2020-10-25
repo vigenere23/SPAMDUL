@@ -1,9 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
-import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class InitiativeRepositoryInMemoryTest {
   @Test
   public void givenNewRepository_whenFindingAll_shouldReturnEmptyList() {
     List<Initiative> initiatives = initiativeRepositoryInMemory.findAll();
-    Truth.assertThat(initiatives).isEmpty();
+    assertThat(initiatives).isEmpty();
   }
 
   @Test
@@ -32,7 +33,7 @@ public class InitiativeRepositoryInMemoryTest {
     initiativeRepositoryInMemory.save(initiative);
 
     List<Initiative> initiatives = initiativeRepositoryInMemory.findAll();
-    Truth.assertThat(initiatives).containsExactly(initiative);
+    assertThat(initiatives).containsExactly(initiative);
   }
 
   @Test
@@ -44,6 +45,6 @@ public class InitiativeRepositoryInMemoryTest {
 
     List<Initiative> initiatives = initiativeRepositoryInMemory.findAll();
 
-    Truth.assertThat(initiatives).containsExactly(initiative1, initiative2);
+    assertThat(initiatives).containsExactly(initiative1, initiative2);
   }
 }

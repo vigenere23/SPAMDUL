@@ -12,8 +12,6 @@ public class PassCode {
     code = getNextCode();
   }
 
-  //TODO pas encore utilise mais le sera bientot pour retrouver un user quand il le faudra
-
   private PassCode(long code) {
     this.code = code;
   }

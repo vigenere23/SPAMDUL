@@ -14,9 +14,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.time.LocalDateTime;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TimePeriodBoundaryValidatorTest {
 
     public static final String A_VALID_PASS_CODE_STRING = "9";
@@ -25,10 +29,13 @@ public class TimePeriodBoundaryValidatorTest {
     private Calendar calendar = mock(Calendar.class);
 
     private TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
-    private TimePeriod timePeriod = mock(TimePeriod.class);
-    private PassRepository passRepository = mock(PassRepository.class);
+    @Mock
+    private TimePeriod timePeriod;
+    @Mock
+    private PassRepository passRepository;
     private PassToValidateDto passToValidateDto = new PassToValidateDto();
-    private Pass pass = mock(Pass.class);
+    @Mock
+    private Pass pass;
 
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();

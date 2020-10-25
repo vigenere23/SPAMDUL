@@ -57,15 +57,4 @@ public class CampusAccessFactoryTest {
     assertThat(campusAccess.getCampusAccessCode()).isNotNull();
     assertThat(campusAccess.getTimePeriod()).isEqualTo(A_TIME_PERIOD);
   }
-  // TODO: those tests will go in the assembler!
-/*
-  @Test(expected = InvalidDayToAccessCampusException.class)
-  public void givenSaturdayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
-    campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_PERIOD, DayOfWeek.SATURDAY);
-  }
-
-  @Test(expected = InvalidDayToAccessCampusException.class)
-  public void givenSundayAsAccessCampusDay_whenCreatingCampusAccess_shouldThrowInvalidCampusAccessDayException() {
-    campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_PERIOD, DayOfWeek.SUNDAY);
-  }*/
 }

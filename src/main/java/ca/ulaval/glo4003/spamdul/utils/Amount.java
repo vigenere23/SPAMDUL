@@ -36,6 +36,14 @@ public class Amount {
     return new Amount(value.add(other.value));
   }
 
+  public Amount subtract(Amount other) {
+    return new Amount(value.subtract(other.value));
+  }
+
+  public Amount multiply(double other) {
+    return new Amount(value.multiply(BigDecimal.valueOf(other)));
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

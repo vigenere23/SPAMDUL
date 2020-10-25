@@ -1,18 +1,14 @@
 package ca.ulaval.glo4003.spamdul.usecases.transaction;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.PassTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
@@ -30,50 +26,33 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionServiceTest {
 
-  public static final Amount AN_AMOUNT_1 = Amount.valueOf(99);
-  public static final Amount AN_AMOUNT_2 = Amount.valueOf(127);
-  public static final Amount AN_AMOUNT_3 = Amount.valueOf(42);
+  public static final Amount AN_AMOUNT_1 = Amount.valueOf(-99);
+  public static final Amount AN_AMOUNT_2 = Amount.valueOf(-127);
+  public static final Amount AN_AMOUNT_3 = Amount.valueOf(-42);
   public static final TransactionType A_TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   public static final LocalDateTime A_DATETIME = LocalDateTime.now();
   private static final TransactionDto A_TRANSACTION_DTO = new TransactionDto();
-  private static final Transaction A_TRANSACTION = new CampusAccessTransaction(AN_AMOUNT_1, A_DATETIME, A_CAR_TYPE);
   private static final TransactionQueryDto A_TRANSACTION_QUERY_DTO = new TransactionQueryDto();
 
-  @Mock
-  private TransactionRepository transactionRepository;
-  @Mock
-  private TransactionFactory transactionFactory;
-
   private TransactionService transactionService;
+  @Mock
+  private BankRepository bankRepository;
+  @Mock
+  private MainBankAccount mainBankAccount;
 
   @Before
   public void setUp() {
-    transactionService = new TransactionService(transactionRepository, transactionFactory);
+    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
+    transactionService = new TransactionService(bankRepository);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
     A_TRANSACTION_DTO.carType = A_CAR_TYPE;
   }
 
   @Test
-  public void whenCreatingTransaction_shouldCreateFromFactory() {
-    transactionFactory.create(A_TRANSACTION_DTO);
-
-    verify(transactionFactory, times(1)).create(A_TRANSACTION_DTO);
-  }
-
-  @Test
-  public void whenCreatingTransaction_shouldSaveTransaction() {
-    given(transactionFactory.create(A_TRANSACTION_DTO)).willReturn(A_TRANSACTION);
-
-    transactionService.createTransaction(A_TRANSACTION_DTO);
-
-    verify(transactionRepository, times(1)).save(A_TRANSACTION);
-  }
-
-  @Test
   public void givenNoInfractionTransaction_whenGetInfractionsTotalRevenue_thenReturnAmountZero() {
-    given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Collections.emptyList());
+    when(mainBankAccount.findAllBy(TransactionType.INFRACTION)).thenReturn(Collections.emptyList());
 
     Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -82,7 +61,7 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoPassTransaction_whenGetPassTotalRevenue_thenReturnAmountZero() {
-    given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Collections.emptyList());
+    when(mainBankAccount.findAllBy(TransactionType.PASS)).thenReturn(Collections.emptyList());
 
     Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -91,10 +70,10 @@ public class TransactionServiceTest {
 
   @Test
   public void givenInfractionTransactionsExists_whenGetInfractionsTotalRevenue_thenReturnCorrectAmount() {
-    Transaction transaction1 = new InfractionTransaction(AN_AMOUNT_1, A_DATETIME);
-    Transaction transaction2 = new InfractionTransaction(AN_AMOUNT_2, A_DATETIME);
-    given(transactionRepository.findAllBy(TransactionType.INFRACTION)).willReturn(Lists.newArrayList(transaction1,
-                                                                                                     transaction2));
+    Transaction transaction1 = new Transaction(AN_AMOUNT_1, A_DATETIME, TransactionType.INFRACTION);
+    Transaction transaction2 = new Transaction(AN_AMOUNT_2, A_DATETIME, TransactionType.INFRACTION);
+    when(mainBankAccount.findAllBy(TransactionType.INFRACTION)).thenReturn(Lists.newArrayList(transaction1,
+                                                                                              transaction2));
 
     Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -103,10 +82,10 @@ public class TransactionServiceTest {
 
   @Test
   public void givenPassTransactionsExists_whenGetPassTotalRevenue_thenReturnCorrectAmount() {
-    Transaction transaction1 = new PassTransaction(AN_AMOUNT_1, A_DATETIME);
-    Transaction transaction2 = new PassTransaction(AN_AMOUNT_2, A_DATETIME);
-    given(transactionRepository.findAllBy(TransactionType.PASS)).willReturn(Lists.newArrayList(transaction1,
-                                                                                               transaction2));
+    Transaction transaction1 = new Transaction(AN_AMOUNT_1, A_DATETIME, TransactionType.PASS);
+    Transaction transaction2 = new Transaction(AN_AMOUNT_2, A_DATETIME, TransactionType.PASS);
+    when(mainBankAccount.findAllBy(TransactionType.PASS)).thenReturn(Lists.newArrayList(transaction1,
+                                                                                        transaction2));
 
     Amount infractionsTotalRevenue = transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO);
 
@@ -115,7 +94,7 @@ public class TransactionServiceTest {
 
   @Test
   public void givenNoCampusAccessTransactionsExistsForCarType_whenGetCampusAccessTotalRevenueByCarType_thenReturnAmountZeroForCarType() {
-    given(transactionRepository.findAllBy(A_CAR_TYPE)).willReturn(Collections.emptyList());
+    when(mainBankAccount.findAllBy(TransactionType.CAMPUS_ACCESS)).thenReturn(Collections.emptyList());
 
     Map<CarType, Amount> revenue = transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO);
 
@@ -128,16 +107,35 @@ public class TransactionServiceTest {
     Transaction transactionGourmande = new CampusAccessTransaction(AN_AMOUNT_2, A_DATETIME, CarType.GOURMANDE);
     Transaction transactionSansPollution = new CampusAccessTransaction(AN_AMOUNT_3, A_DATETIME, CarType.SANS_POLLUTION);
 
-    given(transactionRepository.findAllBy(CarType.ECONOMIQUE)).willReturn(Lists.newArrayList(
-        transactionEconomique));
-    given(transactionRepository.findAllBy(CarType.GOURMANDE)).willReturn(Lists.newArrayList(transactionGourmande));
-    given(transactionRepository.findAllBy(CarType.SANS_POLLUTION)).willReturn(Lists.newArrayList(
-        transactionSansPollution));
+    when(mainBankAccount.findAllBy(TransactionType.CAMPUS_ACCESS)).thenReturn(Lists.newArrayList(
+        transactionEconomique, transactionGourmande, transactionSansPollution));
 
     Map<CarType, Amount> revenue = transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO);
 
     assertThat(revenue.get(CarType.ECONOMIQUE)).isEqualTo(transactionEconomique.getAmount());
     assertThat(revenue.get(CarType.GOURMANDE)).isEqualTo(transactionGourmande.getAmount());
     assertThat(revenue.get(CarType.SANS_POLLUTION)).isEqualTo(transactionSansPollution.getAmount());
+  }
+
+  @Test
+  public void givenNoCarbonCreditTransactionsExists_whenGetAllBoughtCarbonCredit_thenReturnAmountZero() {
+    when(mainBankAccount.findAllBy(TransactionType.CARBON_CREDIT)).thenReturn(Collections.emptyList());
+
+    Amount revenue = transactionService.getAllBoughtCarbonCredit();
+
+    assertThat(revenue).isEqualTo(Amount.valueOf(0));
+  }
+
+  @Test
+  public void givenCarbonCreditTransactionsExists_whenGetAllBoughtCarbonCredit_thenReturnCorrectAmounts() {
+    Transaction transactionCarbonCredit1 = new Transaction(AN_AMOUNT_1, A_DATETIME, TransactionType.CARBON_CREDIT);
+    Transaction transactionCarbonCredit2 = new Transaction(AN_AMOUNT_2, A_DATETIME, TransactionType.CARBON_CREDIT);
+
+    when(mainBankAccount.findAllBy(TransactionType.CARBON_CREDIT)).thenReturn(Lists.newArrayList(
+        transactionCarbonCredit1, transactionCarbonCredit2));
+
+    Amount revenue = transactionService.getAllBoughtCarbonCredit();
+
+    assertThat(revenue.asDouble()).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2).multiply(-1).asDouble());
   }
 }

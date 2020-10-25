@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.GlobalContext;
+import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
@@ -30,34 +32,32 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-/**
- * RESTApi setup without using DI or spring
- */
 @SuppressWarnings("all")
 public class SpamdUlMain {
 
-  public static boolean isDev = true; // Would be a JVM argument or in a .property file
-
   public static void main(String[] args)
       throws Exception {
-    
-    UsageReportContext usageReportContext = new UsageReportContext(false);
-    SaleContext saleContext = new SaleContext();
-    CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
-                                                                      usageReportContext.getParkingAccessLogger());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
-    FundraisingContext fundraisingContext = new FundraisingContext(false);
-    RevenueContext revenueContext = new RevenueContext(false);
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
-                                                                   revenueContext.getTransactionRepository());
 
-    // Setup API context (JERSEY + JETTY)
+    GlobalContext globalContext = new GlobalContext();
+    UsageReportContext usageReportContext = new UsageReportContext(false);
+    AccountContext accountContext = new AccountContext();
+    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.passRepository,
+                                                                      usageReportContext.getParkingAccessLogger(),
+                                                                      accountContext.bankRepository()
+    );
+    SaleContext saleContext = new SaleContext(accountContext.bankRepository(), globalContext.passRepository, campusAccessContext.getCampusAccessService());
+   CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
+    FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
+                                                                   false);
+    RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
+    InfractionsContext infractionsContext = new InfractionsContext(globalContext.passRepository,
+                                                                   accountContext.bankRepository());
+
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
-        //TODO Bouger ce qu'il y a ici dans un ServiceLocator
         HashSet<Object> resources = new HashSet<>();
 
         resources.add(saleContext.getSaleResource());
@@ -88,7 +88,6 @@ public class SpamdUlMain {
     ServletHolder servletHolder = new ServletHolder(servletContainer);
     context.addServlet(servletHolder, "/*");
 
-    // Setup http server
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     contexts.setHandlers(new Handler[]{context});
     Server server = new Server(8080);

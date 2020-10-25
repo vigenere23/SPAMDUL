@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
@@ -11,15 +12,15 @@ import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.Map;
 
-public class RevenueResourceImpl implements RevenueResource {
+public class FinancialReportResourceImpl implements FinancialReportResource {
 
   private final TransactionService transactionService;
   private final TransactionQueryAssembler transactionQueryAssembler;
   private final RevenueAssembler revenueAssembler;
 
-  public RevenueResourceImpl(TransactionService transactionService,
-                             TransactionQueryAssembler transactionQueryAssembler,
-                             RevenueAssembler revenueAssembler) {
+  public FinancialReportResourceImpl(TransactionService transactionService,
+                                     TransactionQueryAssembler transactionQueryAssembler,
+                                     RevenueAssembler revenueAssembler) {
     this.transactionService = transactionService;
     this.revenueAssembler = revenueAssembler;
     this.transactionQueryAssembler = transactionQueryAssembler;
@@ -57,5 +58,12 @@ public class RevenueResourceImpl implements RevenueResource {
     Amount amount = transactionService.getPassTotalRevenue(transactionQueryDto);
 
     return revenueAssembler.toResponse(amount);
+  }
+
+  public CarbonBoughtResponse getTotalBoughtCarbonCredit() {
+    CarbonBoughtResponse response = new CarbonBoughtResponse();
+    response.total = transactionService.getAllBoughtCarbonCredit().asDouble();
+
+    return response;
   }
 }

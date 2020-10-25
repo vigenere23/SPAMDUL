@@ -1,11 +1,9 @@
 package ca.ulaval.glo4003.spamdul.usecases.transactions;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
@@ -16,43 +14,44 @@ import java.util.Map;
 
 public class TransactionService {
 
-  private final TransactionRepository transactionRepository;
-  private final TransactionFactory transactionFactory;
+  private final BankRepository bankRepository;
 
-  public TransactionService(TransactionRepository transactionRepository,
-                            TransactionFactory transactionFactory) {
-    this.transactionRepository = transactionRepository;
-    this.transactionFactory = transactionFactory;
+  public TransactionService(BankRepository bankRepository) {
+    this.bankRepository = bankRepository;
   }
 
   public Map<CarType, Amount> getCampusAccessTotalRevenueByCarType(TransactionQueryDto transactionQueryDto) {
     Map<CarType, Amount> carTypeRevenues = new EnumMap<>(CarType.class);
-    TransactionFilter transactionFilter = getFilter(transactionQueryDto);
+    List<Transaction> transactions = bankRepository.getMainBankAccount().findAllBy(TransactionType.CAMPUS_ACCESS);
 
     Arrays.stream(CarType.values())
           .forEach(carType -> {
-            List<Transaction> transactions = this.transactionRepository.findAllBy(carType);
-            transactions = transactionFilter.setData(transactions).getResults();
-            carTypeRevenues.put(carType, getTotalAmount(transactions));
+            List<Transaction> filteredTransactions = getFilter(transactionQueryDto).by(carType)
+                                                                                   .setData(transactions)
+                                                                                   .getResults();
+            carTypeRevenues.put(carType, getTotalAmount(filteredTransactions));
           });
+
     return carTypeRevenues;
   }
 
   public Amount getInfractionsTotalRevenue(TransactionQueryDto transactionQueryDto) {
-    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.INFRACTION);
+    List<Transaction> transactions = this.bankRepository.getMainBankAccount().findAllBy(TransactionType.INFRACTION);
     transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
+
     return getTotalAmount(transactions);
   }
 
   public Amount getPassTotalRevenue(TransactionQueryDto transactionQueryDto) {
-    List<Transaction> transactions = this.transactionRepository.findAllBy(TransactionType.PASS);
+    List<Transaction> transactions = this.bankRepository.getMainBankAccount().findAllBy(TransactionType.PASS);
     transactions = getFilter(transactionQueryDto).setData(transactions).getResults();
+
     return getTotalAmount(transactions);
   }
 
-  public void createTransaction(TransactionDto transactionDto) {
-    Transaction transaction = transactionFactory.create(transactionDto);
-    transactionRepository.save(transaction);
+  public Amount getAllBoughtCarbonCredit() {
+    return getTotalAmount(this.bankRepository.getMainBankAccount()
+                                             .findAllBy(TransactionType.CARBON_CREDIT)).multiply(-1);
   }
 
   private Amount getTotalAmount(List<Transaction> transactions) {

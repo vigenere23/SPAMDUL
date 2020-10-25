@@ -1,7 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,22 +10,18 @@ public class TransactionFactoryTest {
 
   public static final int AN_AMOUNT = 99;
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
+
   private TransactionFactory transactionFactory;
-  private TransactionDto passTransactionDto;
-  private TransactionDto infractionTransactionDto;
+  private TransactionDto a_transactionDto;
   private TransactionDto campusAccessTransactionDto;
 
   @Before
   public void setUp() throws Exception {
     transactionFactory = new TransactionFactory();
 
-    passTransactionDto = new TransactionDto();
-    passTransactionDto.amount = AN_AMOUNT;
-    passTransactionDto.transactionType = TransactionType.PASS;
-
-    infractionTransactionDto = new TransactionDto();
-    infractionTransactionDto.amount = AN_AMOUNT;
-    infractionTransactionDto.transactionType = TransactionType.INFRACTION;
+    a_transactionDto = new TransactionDto();
+    a_transactionDto.amount = AN_AMOUNT;
+    a_transactionDto.transactionType = TransactionType.INFRACTION;
 
     campusAccessTransactionDto = new TransactionDto();
     campusAccessTransactionDto.amount = AN_AMOUNT;
@@ -33,20 +30,23 @@ public class TransactionFactoryTest {
   }
 
   @Test
-  public void whenCreatingNewTransaction_shouldCreateTransactionOfTheRightType() {
-    Transaction passTransaction = transactionFactory.create(passTransactionDto);
-    Transaction infractionTransaction = transactionFactory.create(infractionTransactionDto);
-    Transaction campusAccessTransaction = transactionFactory.create(campusAccessTransactionDto);
+  public void givenACampusAccessTransactionType_shouldReturnTransactionOfTypeCampusAccess() {
+    Transaction transaction = transactionFactory.create(campusAccessTransactionDto);
 
-    Truth.assertThat(passTransaction instanceof PassTransaction).isTrue();
-    Truth.assertThat(infractionTransaction instanceof InfractionTransaction).isTrue();
-    Truth.assertThat(campusAccessTransaction instanceof CampusAccessTransaction).isTrue();
+    assertThat(transaction instanceof CampusAccessTransaction).isTrue();
   }
 
   @Test(expected = CantCreateCampusAccessTransactionWithoutCarTypeException.class)
-  public void givenNoCarType_whenCreatingNewCampusAccessTransaction_shouldThrowCantCreateCampusAccessTransactionWithoutCarTypeException() {
+  public void givenACampusAccessTransactionTypeWithoutCarType_whenCreatingTransaction_shouldThrowCantCreateTransactionException() {
     campusAccessTransactionDto.carType = null;
-
     transactionFactory.create(campusAccessTransactionDto);
+  }
+
+  @Test
+  public void whenCreatingTransaction_shouldCreateTransactionWithTheRightInfos() {
+    Transaction transaction = transactionFactory.create(a_transactionDto);
+
+    assertThat(transaction.getAmount().asDouble()).isEqualTo(a_transactionDto.amount);
+    assertThat(transaction.getTransactionType()).isEqualTo(a_transactionDto.transactionType);
   }
 }

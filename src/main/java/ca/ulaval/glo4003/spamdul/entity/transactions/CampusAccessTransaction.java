@@ -9,7 +9,7 @@ public class CampusAccessTransaction extends Transaction {
   private final CarType carType;
 
   public CampusAccessTransaction(Amount amount, LocalDateTime createdAt, CarType carType) {
-    super(amount, createdAt);
+    super(amount, createdAt, TransactionType.CAMPUS_ACCESS);
     this.carType = carType;
   }
 
