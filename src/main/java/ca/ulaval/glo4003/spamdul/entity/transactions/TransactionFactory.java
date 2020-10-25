@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public class TransactionFactory {
 
   public Transaction create(TransactionDto dto) {
-    //TODO a retester
     LocalDateTime createdAt = LocalDateTime.now();
 
     if (dto.transactionType.equals(TransactionType.CAMPUS_ACCESS)) {
