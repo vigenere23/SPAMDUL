@@ -43,16 +43,18 @@ public class SpamdUlMain {
       throws Exception {
 
     UsageReportContext usageReportContext = new UsageReportContext(false);
-    SaleContext saleContext = new SaleContext();
     AccountContext accountContext = new AccountContext();
+    SaleContext saleContext = new SaleContext(accountContext.bankRepository());
     CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
-                                                                      usageReportContext.getParkingAccessLogger());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext();
+                                                                      usageReportContext.getParkingAccessLogger(),
+                                                                      accountContext.bankRepository()
+                                                                      );
+    saleContext.setCampusAccessService(campusAccessContext.getCampusAccessService());
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
     InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
-                                                                   revenueContext.getTransactionRepository(),
                                                                    accountContext.bankRepository());
 
     // Setup API context (JERSEY + JETTY)

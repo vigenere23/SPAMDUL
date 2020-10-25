@@ -1,9 +1,12 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
+import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.*;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
@@ -14,17 +17,23 @@ public class  InfractionService {
   private final TransactionService transactionService;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
+  private TransactionFactory transactionFactory;
+  private BankRepository bankRepository;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
                            TransactionService transactionService,
                            InfractionFactory infractionFactory,
-                           PassValidator firstValidationNode) {
+                           PassValidator firstValidationNode,
+                           TransactionFactory transactionFactory,
+                           BankRepository bankRepository) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
     this.transactionService = transactionService;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
+    this.transactionFactory = transactionFactory;
+    this.bankRepository = bankRepository;
   }
 
   public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto) {
@@ -53,8 +62,8 @@ public class  InfractionService {
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.amount = infraction.getAmount();
     transactionDto.transactionType = TransactionType.INFRACTION;
-
-    transactionService.createTransaction(transactionDto);
+    Transaction transaction = transactionFactory.create(transactionDto);
+    bankRepository.getMainBankAccount().addTransaction(transaction);
 
     infraction.pay();
   }

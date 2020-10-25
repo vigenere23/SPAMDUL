@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.spamdul.entity.account;
 
 public interface BankRepository {
 
-  void saveBank(Bank bank);
+  void save(MainBankAccount mainBankAccount);
 
-  Bank getBank();
+  MainBankAccount getMainBankAccount();
 
   void saveSustainableMobilityProjectAccount(Account sustainableMobilityProjectAccount);
 

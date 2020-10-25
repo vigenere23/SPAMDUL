@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.account;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
-import ca.ulaval.glo4003.spamdul.entity.account.Bank;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.bank.InMemoryBankRepository;
 import java.util.HashMap;
@@ -13,13 +13,11 @@ public class AccountContext {
 
   public AccountContext() {
     bankRepository = new InMemoryBankRepository();
-    Map<Account, Double> accountRatioMap = new HashMap<>();
-    Account mainAccount = new Account();
-    accountRatioMap.put(mainAccount, 0.6);
-    Account sustainableMobilityProjectAccount = new Account();
-    accountRatioMap.put(sustainableMobilityProjectAccount, 0.4);
-    Bank bank = new Bank(accountRatioMap);
-    bankRepository.saveBank(bank);
+    Account other = new Account(0.6);
+    Account sustainableMobilityProjectAccount = new Account(0.4);
+    MainBankAccount mainBankAccount = new MainBankAccount(sustainableMobilityProjectAccount, other);
+
+    bankRepository.save(mainBankAccount);
     bankRepository.saveSustainableMobilityProjectAccount(sustainableMobilityProjectAccount);
   }
 

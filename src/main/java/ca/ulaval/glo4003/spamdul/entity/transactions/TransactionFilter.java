@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
+import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.utils.filter.FilterContainer;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +21,18 @@ public class TransactionFilter {
     if (endDate != null) {
       filterContainer.addFilter(transaction -> !transaction.getCreatedAt().isAfter(endDate));
     }
+
+    return this;
+  }
+
+  public TransactionFilter by(CarType carType) {
+    filterContainer.addFilter(transaction -> {
+      if (transaction.getTransactionType().equals(TransactionType.CAMPUS_ACCESS)) {
+        return ((CampusAccessTransaction) transaction).getCarType().equals(carType);
+      }
+
+      return false;
+    });
 
     return this;
   }

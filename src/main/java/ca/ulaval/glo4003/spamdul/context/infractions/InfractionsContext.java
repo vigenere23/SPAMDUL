@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.account.Bank;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
@@ -31,7 +30,6 @@ public class InfractionsContext {
   private final InfractionResource infractionResource;
 
   public InfractionsContext(PassRepository passRepository,
-                            TransactionRepository transactionRepository,
                             BankRepository bankRepository) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
@@ -40,14 +38,16 @@ public class InfractionsContext {
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
     TransactionFactory transactionFactory = new TransactionFactory();
-    TransactionService transactionService = new TransactionService(transactionRepository, transactionFactory, bankRepository);
+    TransactionService transactionService = new TransactionService(bankRepository);
     InfractionFactory infractionFactory = new InfractionFactory();
 
     InfractionService infractionService = new InfractionService(infractionInfoRepository,
                                                                 infractionRepository,
                                                                 transactionService,
                                                                 infractionFactory,
-                                                                firstValidationNode);
+                                                                firstValidationNode,
+                                                                transactionFactory,
+                                                                bankRepository);
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService);
 

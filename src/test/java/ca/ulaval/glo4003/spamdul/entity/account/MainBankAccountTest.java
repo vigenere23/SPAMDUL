@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-public class BankTest {
+public class MainBankAccountTest {
 
-  private Bank bank;
+  private MainBankAccount mainBankAccount;
   private Amount FUNDS;
   private double PERCENT_OF_REVENUE = 0.4;
   private double OTHER_PERCENT_OF_REVENUE = 0.6;
@@ -30,19 +30,19 @@ public class BankTest {
     Map<Account, Double> accountRatioMap = new HashMap<>();
     accountRatioMap.put(account1, PERCENT_OF_REVENUE);
     accountRatioMap.put(account2, OTHER_PERCENT_OF_REVENUE);
-    bank = new Bank(accountRatioMap);
+    mainBankAccount = new MainBankAccount(accountRatioMap);
   }
 
   @Test
   public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallAddFundOfEachAccount() {
-    bank.addFunds(FUNDS);
+    mainBankAccount.addFunds(FUNDS);
     verify(account1).addFunds(any());
     verify(account2).addFunds(any());
   }
 
   @Test
   public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallGiveRightPercentFundForEachAccount() {
-    bank.addFunds(FUNDS);
+    mainBankAccount.addFunds(FUNDS);
 
     verify(account1).addFunds(FUNDS.multiply(PERCENT_OF_REVENUE));
     verify(account2).addFunds(FUNDS.multiply(OTHER_PERCENT_OF_REVENUE));

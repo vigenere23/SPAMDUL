@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.transactions;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.InfractionTransaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.PassTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;

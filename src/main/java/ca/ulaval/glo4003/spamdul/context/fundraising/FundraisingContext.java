@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.context.fundraising;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResourceImp;
@@ -19,8 +20,11 @@ public class FundraisingContext {
     InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
     InitiativeFactory initiativeFactory = new InitiativeFactory();
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
-    InitiativeService initiativeService = new InitiativeService(initiativeRepository, initiativeFactory,
-                                                                bankRepository);
+    TransactionFactory transactionFactory = new TransactionFactory();
+    InitiativeService initiativeService = new InitiativeService(initiativeRepository,
+                                                                initiativeFactory,
+                                                                bankRepository,
+                                                                transactionFactory);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService);
     initiativePopulator = new InitiativePopulator(initiativeRepository, initiativeFactory);

@@ -18,6 +18,10 @@ public class TransactionFactory {
       return new PassTransaction(Amount.valueOf(dto.amount), createdAt);
     } else if (dto.transactionType.equals(TransactionType.INFRACTION)) {
       return new InfractionTransaction(Amount.valueOf(dto.amount), createdAt);
+    } else if (dto.transactionType.equals(TransactionType.INITIATIVE)) {
+      return new InitiativeTransaction(Amount.valueOf(dto.amount * -1), createdAt); //TODO pas tester
+    } else if (dto.transactionType.equals(TransactionType.CARBON_CREDIT)) {
+      return new CarbonCreditTransaction(Amount.valueOf(dto.amount * -1), createdAt); // TODO pas tester
     } else {
       throw new CantCreateTransactionException("transaction type must be valid");
     }
