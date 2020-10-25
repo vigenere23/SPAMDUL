@@ -5,12 +5,16 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -29,13 +33,13 @@ public class MainBankAccountTest {
   @Mock
   private TransactionFactory transactionFactory;
   @Mock
-  private Account account1;
+  private Account sustainableAccount;
   @Mock
-  private Account account2;
+  private Account otherAccount;
 
   @Before
   public void setUp() throws Exception {
-    mainBankAccount = new MainBankAccount(transactionFactory, account1, account2, PERCENT_OF_REVENUE);
+    mainBankAccount = new MainBankAccount(transactionFactory, sustainableAccount, otherAccount, PERCENT_OF_REVENUE);
   }
 
   @Test
@@ -48,16 +52,40 @@ public class MainBankAccountTest {
 
     mainBankAccount.addTransaction(transaction);
 
-    verify(account1).addTransaction(A_TRANSACTION);
-    verify(account2).addTransaction(ANOTHER_TRANSACTION);
+    verify(sustainableAccount).addTransaction(A_TRANSACTION);
+    verify(otherAccount).addTransaction(ANOTHER_TRANSACTION);
   }
 
   @Test
-  public void givenAddedTransaction_whenFindingTransaction_shouldBePresent() {
-    Transaction transaction = new Transaction(AN_AMOUNT, CREATED_AT, A_TRANSACTION_TYPE);
+  public void givenAddedTransaction_whenFindingByOtherThanInfractionType_shouldLookInBothAccounts() {
+    TransactionType transactionType = TransactionType.PASS;
+    Transaction transaction = new Transaction(AN_AMOUNT, CREATED_AT, transactionType);
     given(transactionFactory.create(transaction, transaction.getAmount().multiply(PERCENT_OF_REVENUE)))
             .willReturn(A_TRANSACTION);
     given(transactionFactory.create(transaction, transaction.getAmount().multiply(1 - PERCENT_OF_REVENUE)))
             .willReturn(ANOTHER_TRANSACTION);
+    mainBankAccount.addTransaction(transaction);
+    given(sustainableAccount.findAllTransactionsBy(transactionType)).willReturn(Collections.singletonList(A_TRANSACTION));
+    given(otherAccount.findAllTransactionsBy(transactionType)).willReturn(Collections.singletonList(ANOTHER_TRANSACTION));
+
+    List<Transaction> transactions = mainBankAccount.findAllBy(transactionType);
+
+    assertThat(transactions).containsExactly(A_TRANSACTION, ANOTHER_TRANSACTION);
+  }
+
+  @Test
+  public void givenAddedTransaction_whenFindingByInfractionType_shouldOnlyLookInSustainableAccount() {
+    TransactionType transactionType = TransactionType.PASS;
+    Transaction transaction = new Transaction(AN_AMOUNT, CREATED_AT, transactionType);
+    given(transactionFactory.create(transaction, transaction.getAmount().multiply(PERCENT_OF_REVENUE)))
+            .willReturn(A_TRANSACTION);
+    given(transactionFactory.create(transaction, transaction.getAmount().multiply(1 - PERCENT_OF_REVENUE)))
+            .willReturn(ANOTHER_TRANSACTION);
+    mainBankAccount.addTransaction(transaction);
+    given(sustainableAccount.findAllTransactionsBy(transactionType)).willReturn(Collections.singletonList(A_TRANSACTION));
+
+    List<Transaction> transactions = mainBankAccount.findAllBy(transactionType);
+
+    assertThat(transactions).containsExactly(A_TRANSACTION);
   }
 }
