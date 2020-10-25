@@ -4,6 +4,7 @@ import static org.mockito.Matchers.any;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
@@ -34,6 +35,7 @@ public class RevenueResourceImplTest {
   public static final int HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER = 96;
   public static final int SANS_POLLUTION_AMOUNT_NUMBER = 95;
   public static final TransactionQueryDto A_TRANSACTION_QUERY_DTO = new TransactionQueryDto();
+  public static final Amount AN_AMOUNT = Amount.valueOf(100);
 
   @Mock
   private TransactionService transactionService;
@@ -110,6 +112,14 @@ public class RevenueResourceImplTest {
     Truth.assertThat(totalRevenue.campusAccess.byCarType.get(CarType.SANS_POLLUTION)).isEqualTo(
         SANS_POLLUTION_AMOUNT_NUMBER);
     Truth.assertThat(totalRevenue.total).isEqualTo(total);
+  }
+
+  @Test
+  public void whenGettingTotalCarbonCreditsBought_shouldReturnResponseWithCorrectInfo() {
+    BDDMockito.given(transactionService.getAllBoughtCarbonCredit()).willReturn(AN_AMOUNT);
+    CarbonBoughtResponse totalBoughtCarbonCredit = resource.getTotalBoughtCarbonCredit();
+
+    Truth.assertThat(totalBoughtCarbonCredit.total).isEqualTo(AN_AMOUNT.asDouble());
   }
 
   private Map<CarType, Amount> generateCarTypesRevenues() {
