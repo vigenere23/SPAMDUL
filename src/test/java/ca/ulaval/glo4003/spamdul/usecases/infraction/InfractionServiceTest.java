@@ -1,12 +1,14 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -46,6 +48,7 @@ public class InfractionServiceTest {
   private InfractionPaymentDto infractionPaymentDto;
   private TransactionFactory transactionFactory;
   private BankRepository bankRepository;
+  private MainBankAccount mainBankAccount;
 
   @Before
   public void setUp() throws Exception {
@@ -56,6 +59,7 @@ public class InfractionServiceTest {
     infractionFactory = Mockito.mock(InfractionFactory.class);
     transactionFactory = Mockito.mock(TransactionFactory.class);
     bankRepository = Mockito.mock(BankRepository.class);
+    mainBankAccount = Mockito.mock(MainBankAccount.class);
 
     infractionService = new InfractionService(infractionInfoRepository,
                                               infractionRepository,
@@ -69,6 +73,8 @@ public class InfractionServiceTest {
     infractionInfos = new InfractionInfos();
     infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
+
+    willReturn(mainBankAccount).given(bankRepository).getMainBankAccount();
   }
 
 
@@ -146,13 +152,23 @@ public class InfractionServiceTest {
   }
 
   @Test
+  public void whenPayingInfraction_thenShouldRetrieveMainBankAccount(){
+    infractionPaymentDto.infractionId = AN_INFRACTION_ID;
+    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+
+    infractionService.payInfraction(infractionPaymentDto);
+
+    verify(bankRepository).getMainBankAccount();
+  }
+
+  @Test
   public void whenPayingInfraction_shouldCreateTransaction() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
     when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(bankRepository).getMainBankAccount().addTransaction(any(Transaction.class));
+    verify(mainBankAccount).addTransaction(any(Transaction.class));
   }
 
   @Test

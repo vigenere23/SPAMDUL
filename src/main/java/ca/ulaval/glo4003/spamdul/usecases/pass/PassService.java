@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class PassService {
 
@@ -49,7 +48,6 @@ public class PassService {
     transactionDto.amount = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType).getFee();
     Transaction transaction = transactionFactory.create(transactionDto);
     bankRepository.getMainBankAccount().addTransaction(transaction);
-    //TODO pas tester
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());
   }
