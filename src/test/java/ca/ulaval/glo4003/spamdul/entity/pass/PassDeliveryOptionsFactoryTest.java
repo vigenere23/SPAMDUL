@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.sale;
+package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;

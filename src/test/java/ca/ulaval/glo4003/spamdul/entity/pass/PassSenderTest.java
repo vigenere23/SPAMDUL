@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.sale;
+package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -8,6 +8,8 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;

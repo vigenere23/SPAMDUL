@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;

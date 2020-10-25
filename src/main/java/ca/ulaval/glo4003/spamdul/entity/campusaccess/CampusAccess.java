@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassSaleNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.LocalDateTime;
@@ -50,7 +50,7 @@ public class CampusAccess {
       throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
     }
     if (!passTimePeriod.includedIn(timePeriod)) {
-      throw new PassSaleNotAcceptedByAccessException(
+      throw new PassNotAcceptedByAccessException(
           "This user does not have campus access for the dates covered by this pass."
       );
     }

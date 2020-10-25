@@ -14,7 +14,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -43,7 +43,7 @@ public class PassServiceTest {
                                                                  A_END_DATE_TIME,
                                                                  TimePeriodDayOfWeek.MONDAY);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
-  private static final PassDto A_PASS_SALE_DTO = new PassDto();
+  private static final PassDto A_PASS_DTO = new PassDto();
   private static final double A_TRANSACTION_AMOUNT = 5.0;
   private static final ParkingZoneFee A_PARKING_ZONE_FEE = new ParkingZoneFee(A_TRANSACTION_AMOUNT);
 
@@ -71,10 +71,10 @@ public class PassServiceTest {
 
   @Before
   public void setUp() {
-    A_PASS_SALE_DTO.campusAccessCode = A_CAMPUS_ACCESS_CODE;
-    A_PASS_SALE_DTO.deliveryDto = A_DELIVERY_DTO;
-    A_PASS_SALE_DTO.parkingZone = A_PARKING_ZONE;
-    A_PASS_SALE_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
+    A_PASS_DTO.campusAccessCode = A_CAMPUS_ACCESS_CODE;
+    A_PASS_DTO.deliveryDto = A_DELIVERY_DTO;
+    A_PASS_DTO.parkingZone = A_PARKING_ZONE;
+    A_PASS_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
 
     passService = new PassService(passRepository,
                                   passFactory,
@@ -85,63 +85,63 @@ public class PassServiceTest {
                                   parkingZoneFeeRepository);
     when(passFactory.create(A_PARKING_ZONE, A_TIME_PERIOD_DTO)).thenReturn(pass);
 
-    when(parkingZoneFeeRepository.findBy(A_PARKING_ZONE, A_PASS_SALE_DTO.timePeriodDto.periodType)).thenReturn(
+    when(parkingZoneFeeRepository.findBy(A_PARKING_ZONE, A_PASS_DTO.timePeriodDto.periodType)).thenReturn(
         A_PARKING_ZONE_FEE);
     when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
   @Test
   public void whenCreatingPass_shouldCallFactoryToCreateNewPass() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(passFactory).create(A_PARKING_ZONE, A_TIME_PERIOD_DTO);
   }
 
   @Test
   public void whenCreatingPass_shouldCallCampusAccessServiceToAssociatePassToAccess() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(campusAccessService).associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
   }
 
   @Test
   public void whenCreatingPass_shouldAddPassToRepository() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(passRepository).save(pass);
   }
 
   @Test
   public void whenCreatingPass_shouldSendPassCode() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(passSender).sendPass(A_DELIVERY_DTO, A_PASS_CODE);
   }
 
   @Test
   public void whenCreatingPass_thenShouldFindParkingFee() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
-    verify(parkingZoneFeeRepository).findBy(A_PARKING_ZONE, A_PASS_SALE_DTO.timePeriodDto.periodType);
+    verify(parkingZoneFeeRepository).findBy(A_PARKING_ZONE, A_PASS_DTO.timePeriodDto.periodType);
   }
 
   @Test
   public void whenCreatingPass_thenShouldCreateTransaction() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(transactionFactory).create(any(TransactionDto.class));
   }
 
   @Test
   public void whenCreatingPass_thenShouldGetMainBankAccountFromBankRepository() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(bankRepository).getMainBankAccount();
   }
 
   @Test
   public void whenCreatingPass_thenShouldAddTransactionToMainBankAccount() {
-    passService.createPass(A_PASS_SALE_DTO);
+    passService.createPass(A_PASS_DTO);
 
     verify(mainBankAccount).addTransaction(any(Transaction.class));
   }

@@ -1,33 +1,33 @@
-package ca.ulaval.glo4003.spamdul.context.sale;
+package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.sale.PassDeliveryOptionsFactory;
-import ca.ulaval.glo4003.spamdul.entity.sale.PassSender;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.SaleResourceImpl;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAddressAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 
-public class SaleContext {
+public class PassContext {
 
-  private final SaleResource saleResource;
+  private final PassResource passResource;
 
-  public SaleContext(BankRepository bankRepository,
+  public PassContext(BankRepository bankRepository,
                      PassRepository passRepository,
                      CampusAccessService campusAccessService) {
     Calendar calendar = new HardCodedCalendar();
@@ -53,12 +53,11 @@ public class SaleContext {
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
     DeliveryAssembler deliveryAssembler = new DeliveryAssembler(emailAddressAssembler, postalAddressAssembler);
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
-    PassSaleAssembler passSaleAssembler = new PassSaleAssembler(deliveryAssembler, timePeriodAssembler);
-    saleResource = new SaleResourceImpl(passService, passSaleAssembler);
+    PassAssembler passAssembler = new PassAssembler(deliveryAssembler, timePeriodAssembler);
+    passResource = new PassResourceImpl(passService, passAssembler);
   }
 
-  public SaleResource getSaleResource() {
-    return saleResource;
+  public PassResource getPassResource() {
+    return passResource;
   }
-
 }

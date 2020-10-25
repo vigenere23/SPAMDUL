@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass;
 
 import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.MONTHLY;
 import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.ONE_SEMESTER;
@@ -12,17 +12,17 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeForm
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import java.util.ArrayList;
 
-public class PassSaleAssembler {
+public class PassAssembler {
 
   private final static ArrayList<PeriodType> ACCEPTED_PERIOD_TYPES = newArrayList(
       SINGLE_DAY_PER_WEEK_PER_SEMESTER,
@@ -33,18 +33,18 @@ public class PassSaleAssembler {
   private final DeliveryAssembler deliveryAssembler;
   private final TimePeriodAssembler timePeriodAssembler;
 
-  public PassSaleAssembler(DeliveryAssembler deliveryAssembler, TimePeriodAssembler timePeriodAssembler) {
+  public PassAssembler(DeliveryAssembler deliveryAssembler, TimePeriodAssembler timePeriodAssembler) {
     this.deliveryAssembler = deliveryAssembler;
     this.timePeriodAssembler = timePeriodAssembler;
   }
 
-  public PassDto fromRequest(PassSaleRequest passSaleRequest) {
+  public PassDto fromRequest(PassCreationRequest passCreationRequest) {
     PassDto passDto = new PassDto();
 
-    passDto.deliveryDto = deliveryAssembler.fromRequest(passSaleRequest.deliveryInfos);
-    passDto.timePeriodDto = getTimePeriodDto(passSaleRequest.period);
-    passDto.parkingZone = getParkingZone(passSaleRequest.parkingZone);
-    passDto.campusAccessCode = getCampusAccessCode(passSaleRequest.campusAccessCode);
+    passDto.deliveryDto = deliveryAssembler.fromRequest(passCreationRequest.delivery);
+    passDto.timePeriodDto = getTimePeriodDto(passCreationRequest.period);
+    passDto.parkingZone = getParkingZone(passCreationRequest.parkingZone);
+    passDto.campusAccessCode = getCampusAccessCode(passCreationRequest.campusAccessCode);
 
     return passDto;
   }
@@ -73,7 +73,7 @@ public class PassSaleAssembler {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidParkingZoneExceptionSale("The parking zone is invalid");
+      throw new InvalidParkingZoneException("The parking zone is invalid");
     }
   }
 
@@ -82,7 +82,7 @@ public class PassSaleAssembler {
       return CampusAccessCode.valueOf(userId.toUpperCase());
 
     } catch (InvalidCampusAccessCodeFormat e) {
-      throw new InvalidCampusAccessCodeExceptionSale("The campus access code is not in the right format");
+      throw new InvalidCampusAccessCodeException("The campus access code is not in the right format");
     }
   }
 }

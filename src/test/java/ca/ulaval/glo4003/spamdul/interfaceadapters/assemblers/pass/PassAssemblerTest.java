@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
@@ -7,12 +7,12 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.DeliveryRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidCampusAccessCodeExceptionSale;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.exceptions.InvalidParkingZoneExceptionSale;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
@@ -24,32 +24,32 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PassSaleAssemblerTest {
+public class PassAssemblerTest {
 
   private static final String A_PARKING_ZONE_STRING = "zone_1";
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final CampusAccessCode AN_ACCESS_CODE = new CampusAccessCode();
   private static final String AN_ACCESS_CODE_STRING = AN_ACCESS_CODE.toString();
   private static final TimePeriodRequest A_TIME_PERIOD_REQUEST = new TimePeriodRequest();
-  private static final PassSaleRequest A_PASS_SALE_REQUEST = new PassSaleRequest();
+  private static final PassCreationRequest A_PASS_CREATION_REQUEST = new PassCreationRequest();
   private static final DeliveryRequest A_DELIVERY_REQUEST = new DeliveryRequest();
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
 
   private TimePeriodDto timePeriodDto = new TimePeriodDto();
   @Mock
   private TimePeriodAssembler timePeriodAssembler;
-  private PassSaleAssembler passSaleAssembler;
+  private PassAssembler passAssembler;
   @Mock
   private DeliveryAssembler deliveryAssembler;
 
   @Before
   public void setUp() {
-    A_PASS_SALE_REQUEST.parkingZone = A_PARKING_ZONE_STRING;
-    A_PASS_SALE_REQUEST.campusAccessCode = AN_ACCESS_CODE_STRING;
-    A_PASS_SALE_REQUEST.deliveryInfos = A_DELIVERY_REQUEST;
-    A_PASS_SALE_REQUEST.period = A_TIME_PERIOD_REQUEST;
+    A_PASS_CREATION_REQUEST.parkingZone = A_PARKING_ZONE_STRING;
+    A_PASS_CREATION_REQUEST.campusAccessCode = AN_ACCESS_CODE_STRING;
+    A_PASS_CREATION_REQUEST.delivery = A_DELIVERY_REQUEST;
+    A_PASS_CREATION_REQUEST.period = A_TIME_PERIOD_REQUEST;
 
-    passSaleAssembler = new PassSaleAssembler(deliveryAssembler, timePeriodAssembler);
+    passAssembler = new PassAssembler(deliveryAssembler, timePeriodAssembler);
 
     timePeriodDto.periodType = PeriodType.MONTHLY;
     when(deliveryAssembler.fromRequest(A_DELIVERY_REQUEST)).thenReturn(A_DELIVERY_DTO);
@@ -57,8 +57,8 @@ public class PassSaleAssemblerTest {
   }
 
   @Test
-  public void whenCreatingFromDto_thenShouldCreatePassSaleDtoWithRightFields() {
-    PassDto passDto = passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
+  public void whenAssemblingFromRequest_thenShouldCreatePassDtoWithRightFields() {
+    PassDto passDto = passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
 
     assertThat(passDto.parkingZone).isEqualTo(A_PARKING_ZONE);
     assertThat(passDto.timePeriodDto).isEqualTo(timePeriodDto);
@@ -66,24 +66,24 @@ public class PassSaleAssemblerTest {
     assertThat(passDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
   }
 
-  @Test(expected = InvalidParkingZoneExceptionSale.class)
-  public void givenInvalidParkingZone_whenCreatingFromDto_thenShouldThrowInvalidParkingZoneException() {
-    A_PASS_SALE_REQUEST.parkingZone = "invalid";
+  @Test(expected = InvalidParkingZoneException.class)
+  public void givenInvalidParkingZone_whenAssemblingFromRequest_thenShouldThrowInvalidParkingZoneException() {
+    A_PASS_CREATION_REQUEST.parkingZone = "invalid";
 
-    passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
+    passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
-  @Test(expected = InvalidCampusAccessCodeExceptionSale.class)
-  public void givenInvalidCampusAccessCode_whenCreatingFromDto_thenShouldThrowInvalidCampusAccessCodeException() {
-    A_PASS_SALE_REQUEST.campusAccessCode = "invalid";
+  @Test(expected = InvalidCampusAccessCodeException.class)
+  public void givenInvalidCampusAccessCode_whenAssemblingFromRequest_thenShouldThrowInvalidCampusAccessCodeException() {
+    A_PASS_CREATION_REQUEST.campusAccessCode = "invalid";
 
-    passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
+    passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
   @Test(expected = InvalidPeriodArgumentException.class)
   public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
     timePeriodDto.periodType = PeriodType.SINGLE_DAY;
 
-    passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST);
+    passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 }
