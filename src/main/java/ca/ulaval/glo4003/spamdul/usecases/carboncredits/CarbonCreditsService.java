@@ -1,14 +1,18 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 
 public class CarbonCreditsService implements ScheduleObserver {
 
   private final EventSchedulerObservable eventSchedulerObservable;
+  private final CarbonCreditsPurchaser carbonCreditsPurchaser;
 
-  public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable) {
+  public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
+                              CarbonCreditsPurchaser carbonCreditsPurchaser) {
     this.eventSchedulerObservable = eventSchedulerObservable;
+    this.carbonCreditsPurchaser = carbonCreditsPurchaser;
   }
 
   public boolean activateAutomaticTransfer(boolean active) {
@@ -24,7 +28,9 @@ public class CarbonCreditsService implements ScheduleObserver {
 
   public double transferRemainingBudget() {
     // TODO:
-    return 238.34;
+    double amount = 238.34;
+    carbonCreditsPurchaser.purchase(amount);
+    return amount;
   }
 
   @Override
