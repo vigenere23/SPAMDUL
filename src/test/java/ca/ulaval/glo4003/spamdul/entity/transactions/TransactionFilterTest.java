@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static com.google.common.truth.Truth.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class TransactionFilterTest {
 

@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
@@ -20,7 +19,11 @@ import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PassSaleAssemblerTest {
 
   private static final String A_PARKING_ZONE_STRING = "zone_1";
@@ -33,8 +36,10 @@ public class PassSaleAssemblerTest {
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
 
   private TimePeriodDto timePeriodDto = new TimePeriodDto();
+  @Mock
   private TimePeriodAssembler timePeriodAssembler;
   private PassSaleAssembler passSaleAssembler;
+  @Mock
   private DeliveryAssembler deliveryAssembler;
 
   @Before
@@ -44,13 +49,11 @@ public class PassSaleAssemblerTest {
     A_PASS_SALE_REQUEST.deliveryInfos = A_DELIVERY_REQUEST;
     A_PASS_SALE_REQUEST.period = A_TIME_PERIOD_REQUEST;
 
-    deliveryAssembler = mock(DeliveryAssembler.class);
-    timePeriodAssembler = mock(TimePeriodAssembler.class);
     passSaleAssembler = new PassSaleAssembler(deliveryAssembler, timePeriodAssembler);
 
     timePeriodDto.periodType = PeriodType.MONTHLY;
-    given(deliveryAssembler.fromRequest(A_DELIVERY_REQUEST)).willReturn(A_DELIVERY_DTO);
-    given(timePeriodAssembler.fromRequest(A_TIME_PERIOD_REQUEST)).willReturn(timePeriodDto);
+    when(deliveryAssembler.fromRequest(A_DELIVERY_REQUEST)).thenReturn(A_DELIVERY_DTO);
+    when(timePeriodAssembler.fromRequest(A_TIME_PERIOD_REQUEST)).thenReturn(timePeriodDto);
   }
 
   @Test

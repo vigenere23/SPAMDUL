@@ -1,15 +1,12 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidDayToAccessCampusException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.Period;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -18,8 +15,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCam
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car.CarRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
@@ -28,11 +23,13 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePer
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CampusAccessAssemblerTest {
 
   public static final PeriodType INVALID_PERIOD_TYPE = PeriodType.MONTHLY;
@@ -43,8 +40,11 @@ public class CampusAccessAssemblerTest {
   private final String A_CAMPUS_ACCESS_CODE_STRING = "1";
 
   private CampusAccessAssembler campusAccessAssembler;
+  @Mock
   private UserAssembler userAssembler;
+  @Mock
   private CarAssembler carAssembler;
+  @Mock
   private TimePeriodAssembler timePeriodAssembler;
   private CampusAccessRequest campusAccessRequest;
   private CampusAccess campusAccess;
@@ -54,9 +54,6 @@ public class CampusAccessAssemblerTest {
 
   @Before
   public void setUp() throws Exception {
-    userAssembler = mock(UserAssembler.class);
-    carAssembler = mock(CarAssembler.class);
-    timePeriodAssembler = mock(TimePeriodAssembler.class);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, null);
     campusAccessRequest = new CampusAccessRequest();
     campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler, timePeriodAssembler);

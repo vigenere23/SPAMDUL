@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.sale;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.sale.dto.PassSaleRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.sale.PassSaleAssembler;
@@ -12,22 +11,25 @@ import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SaleResourceImplTest {
 
   private PassSaleRequest A_PASS_SALE_REQUEST = new PassSaleRequest();
   private PassDto A_PASS_SALE_DTO = new PassDto();
+  @Mock
   private PassService passService;
+  @Mock
   private PassSaleAssembler passSaleAssembler;
   private SaleResource saleResourceImpl;
 
   @Before
   public void setUp() {
-    passService = mock(PassService.class);
-    passSaleAssembler = mock(PassSaleAssembler.class);
-
     saleResourceImpl = new SaleResourceImpl(passService, passSaleAssembler);
-    given(passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST)).willReturn(A_PASS_SALE_DTO);
+    when(passSaleAssembler.fromRequest(A_PASS_SALE_REQUEST)).thenReturn(A_PASS_SALE_DTO);
   }
 
   @Test

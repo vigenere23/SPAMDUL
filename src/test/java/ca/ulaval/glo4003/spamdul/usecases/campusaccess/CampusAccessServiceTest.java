@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
@@ -44,7 +44,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CampusAccessServiceTest {
 
   private static final PassCode A_PASS_CODE = new PassCode();
@@ -70,19 +74,29 @@ public class CampusAccessServiceTest {
                                                                   TransactionType.CAMPUS_ACCESS);
 
   private CampusAccess campusAccess;
+  @Mock
   private CampusAccessRepository campusAccessRepository;
+  @Mock
   private UserService userService;
+  @Mock
   private CarService carService;
+  @Mock
   private CampusAccessFactory campusAccessFactory;
   private CampusAccessDto campusAccessDto;
   private UserDto userDto;
   private CarDto carDto;
   private AccessingCampusDto accessingCampusDto;
+  @Mock
   private PassRepository passRepository;
+  @Mock
   private Calendar calendar;
+  @Mock
   private TransactionFactory transactionFactory;
+  @Mock
   private BankRepository bankRepository;
+  @Mock
   private CampusAccessFeeRepository campusAccessFeeRepository;
+  @Mock
   private MainBankAccount mainBankAccount;
   private TransactionDto transactionDto;
 
@@ -100,16 +114,6 @@ public class CampusAccessServiceTest {
     transactionDto.carType = A_CAR_TYPE;
     transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
     transactionDto.amount = AN_AMOUNT_VALUE;
-    userService = mock(UserService.class);
-    carService = mock(CarService.class);
-    campusAccessRepository = mock(CampusAccessRepository.class);
-    campusAccessFactory = mock(CampusAccessFactory.class);
-    passRepository = mock(PassRepository.class);
-    calendar = mock(Calendar.class);
-    transactionFactory = mock(TransactionFactory.class);
-    bankRepository = mock(BankRepository.class);
-    campusAccessFeeRepository = mock(CampusAccessFeeRepository.class);
-    mainBankAccount = mock(MainBankAccount.class);
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
@@ -124,10 +128,10 @@ public class CampusAccessServiceTest {
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
 
-    given(userService.createUser(userDto)).willReturn(A_USER);
-    given(carService.createCar(carDto)).willReturn(A_CAR);
-    given(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).willReturn(A_CAMPUS_ACCESS_FEE);
-    given(bankRepository.getMainBankAccount()).willReturn(mainBankAccount);
+    when(userService.createUser(userDto)).thenReturn(A_USER);
+    when(carService.createCar(carDto)).thenReturn(A_CAR);
+    when(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).thenReturn(A_CAMPUS_ACCESS_FEE);
+    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
   @Test
@@ -139,7 +143,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCreateNewCar() {
-    given(bankRepository.getMainBankAccount()).willReturn(mainBankAccount);
+    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
@@ -157,7 +161,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldSaveCampusAccessInRepository() {
-    given(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO)).willReturn(campusAccess);
+    when(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO)).thenReturn(campusAccess);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
@@ -166,7 +170,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldAddNewTransactionToMainBankAccount() {
-    given(transactionFactory.create(any(TransactionDto.class))).willReturn(A_TRANSACTION);
+    when(transactionFactory.create(any(TransactionDto.class))).thenReturn(A_TRANSACTION);
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
     verify(mainBankAccount, times(1)).addTransaction(A_TRANSACTION);
@@ -175,9 +179,9 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
-    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
-    given(calendar.now()).willReturn(A_START_DATE_TIME);
+    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(campusAccessRepository, times(1)).findById(A_CAMPUS_ACCESS_CODE);
@@ -185,9 +189,9 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
-    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
-    given(calendar.now()).willReturn(A_START_DATE_TIME);
+    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(calendar, times(1)).now();
@@ -196,9 +200,9 @@ public class CampusAccessServiceTest {
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldCallPassRepositoryFind() {
     campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
-    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
-    given(calendar.now()).willReturn(A_START_DATE_TIME);
+    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -208,9 +212,9 @@ public class CampusAccessServiceTest {
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
     campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
-    given(passRepository.findByPassCode(A_PASS_CODE)).willReturn(A_PASS);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
-    given(calendar.now()).willReturn(A_START_DATE_TIME);
+    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     boolean result = campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -219,7 +223,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenAnUnregisteredCampusAccessCode_whenVerifyingIfCanAccessCampus_shouldNotGrantAccess() {
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willThrow(CampusAccessNotFoundException.class);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenThrow(CampusAccessNotFoundException.class);
 
     boolean isGrantedAccess = campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -229,7 +233,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToCampusAccess_shouldFindCampusAccessInRepo() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
@@ -239,7 +243,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToCampusAccess_shouldAskCampusAccessToAssociatePass() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
@@ -249,7 +253,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToCampusAccess_shouldSaveCampusAccess() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    given(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).willReturn(campusAccess);
+    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 

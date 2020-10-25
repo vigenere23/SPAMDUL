@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -20,13 +19,16 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InfractionServiceTest {
 
   public static final String ANY_MESSAGE = "test";
@@ -37,30 +39,29 @@ public class InfractionServiceTest {
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
   private InfractionService infractionService;
+  @Mock
   private InfractionInfoRepository infractionInfoRepository;
+  @Mock
   private InfractionRepository infractionRepository;
+  @Mock
   private PassValidator passValidator;
+  @Mock
   private TransactionService transactionService;
   private PassToValidateDto passToValidateDto;
+  @Mock
   private InfractionFactory infractionFactory;
   private InfractionInfos infractionInfos;
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
+  @Mock
   private TransactionFactory transactionFactory;
+  @Mock
   private BankRepository bankRepository;
+  @Mock
   private MainBankAccount mainBankAccount;
 
   @Before
   public void setUp() throws Exception {
-    infractionInfoRepository = Mockito.mock(InfractionInfoRepository.class);
-    passValidator = Mockito.mock(PassValidator.class);
-    infractionRepository = Mockito.mock(InfractionRepository.class);
-    transactionService = Mockito.mock(TransactionService.class);
-    infractionFactory = Mockito.mock(InfractionFactory.class);
-    transactionFactory = Mockito.mock(TransactionFactory.class);
-    bankRepository = Mockito.mock(BankRepository.class);
-    mainBankAccount = Mockito.mock(MainBankAccount.class);
-
     infractionService = new InfractionService(infractionInfoRepository,
                                               infractionRepository,
                                               transactionService,
@@ -74,7 +75,7 @@ public class InfractionServiceTest {
     infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
 
-    willReturn(mainBankAccount).given(bankRepository).getMainBankAccount();
+    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
 
@@ -152,7 +153,7 @@ public class InfractionServiceTest {
   }
 
   @Test
-  public void whenPayingInfraction_thenShouldRetrieveMainBankAccount(){
+  public void whenPayingInfraction_thenShouldRetrieveMainBankAccount() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
     when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
 

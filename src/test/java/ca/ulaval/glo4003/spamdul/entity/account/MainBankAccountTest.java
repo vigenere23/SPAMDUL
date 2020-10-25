@@ -1,19 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.account;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MainBankAccountTest {
 
   private MainBankAccount mainBankAccount;
@@ -22,11 +19,10 @@ public class MainBankAccountTest {
   private Amount AN_AMOUNT = Amount.valueOf(100);
   private LocalDateTime CREATED_AT = LocalDateTime.now();
 
-
   @Mock
-  private Account account1 = mock(Account.class);
+  private Account account1;
   @Mock
-  private Account account2 = mock(Account.class);
+  private Account account2;
 
 
   @Before

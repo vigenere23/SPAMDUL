@@ -1,5 +1,10 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
@@ -11,12 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditsServiceTest {
@@ -40,8 +39,8 @@ public class CarbonCreditsServiceTest {
   public void setUp() {
     carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable, bankRepository, transactionFactory);
 
-    willReturn(account).given(bankRepository).getSustainableMobilityProjectAccount();
-    willReturn(A_AMOUNT).given(account).getTotalAvailableAmount();
+    when(bankRepository.getSustainableMobilityProjectAccount()).thenReturn(account);
+    when(account.getTotalAvailableAmount()).thenReturn(A_AMOUNT);
   }
 
   @Test
@@ -59,21 +58,21 @@ public class CarbonCreditsServiceTest {
   }
 
   @Test
-  public void whenTransferringRemainingBudget_thenShouldGetSustainableMobilityProjectAccountFromRepository(){
+  public void whenTransferringRemainingBudget_thenShouldGetSustainableMobilityProjectAccountFromRepository() {
     carbonCreditsService.transferRemainingBudget();
 
     verify(bankRepository, atLeast(1)).getSustainableMobilityProjectAccount();
   }
 
   @Test
-  public void whenTransferringRemainingBudget_thenShouldGetTotalSustainableMobilityAvailableAmount(){
+  public void whenTransferringRemainingBudget_thenShouldGetTotalSustainableMobilityAvailableAmount() {
     carbonCreditsService.transferRemainingBudget();
 
     verify(account).getTotalAvailableAmount();
   }
 
   @Test
-  public void whenTransferringRemainingBudget_thenShouldAddTransactionToSustainableMobilityProjectAccount(){
+  public void whenTransferringRemainingBudget_thenShouldAddTransactionToSustainableMobilityProjectAccount() {
     carbonCreditsService.transferRemainingBudget();
 
     verify(account).addTransaction(any(Transaction.class));

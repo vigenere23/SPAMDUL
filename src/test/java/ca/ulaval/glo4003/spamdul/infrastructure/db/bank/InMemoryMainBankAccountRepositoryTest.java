@@ -4,7 +4,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
 import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
-import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 

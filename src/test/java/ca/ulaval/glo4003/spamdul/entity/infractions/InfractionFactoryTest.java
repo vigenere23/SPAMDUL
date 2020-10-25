@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import org.junit.Test;
-
 import static com.google.common.truth.Truth.assertThat;
+
+import org.junit.Test;
 
 public class InfractionFactoryTest {
 
@@ -18,7 +18,6 @@ public class InfractionFactoryTest {
     infractionInfos.code = A_VALID_PASS_CODE_STRING;
     infractionInfos.infraction = AN_INFRACTION_DESCRIPTION;
     infractionInfos.montant = AN_AMOUNT;
-
 
     Infraction infraction = infractionFactory.create(infractionInfos);
 

@@ -21,7 +21,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -45,7 +44,6 @@ public class PassServiceTest {
                                                                  TimePeriodDayOfWeek.MONDAY);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
   private static final PassDto A_PASS_SALE_DTO = new PassDto();
-  private static final TransactionType A_TRANSACTION_TYPE = TransactionType.PASS;
   private static final double A_TRANSACTION_AMOUNT = 5.0;
   private static final ParkingZoneFee A_PARKING_ZONE_FEE = new ParkingZoneFee(A_TRANSACTION_AMOUNT);
 
@@ -135,14 +133,14 @@ public class PassServiceTest {
   }
 
   @Test
-  public void whenCreatingPass_thenShouldGetMainBankAccountFromBankRepository(){
+  public void whenCreatingPass_thenShouldGetMainBankAccountFromBankRepository() {
     passService.createPass(A_PASS_SALE_DTO);
 
     verify(bankRepository).getMainBankAccount();
   }
 
   @Test
-  public void whenCreatingPass_thenShouldAddTransactionToMainBankAccount(){
+  public void whenCreatingPass_thenShouldAddTransactionToMainBankAccount() {
     passService.createPass(A_PASS_SALE_DTO);
 
     verify(mainBankAccount).addTransaction(any(Transaction.class));

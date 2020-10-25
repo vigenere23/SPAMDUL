@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport;
 
 
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
@@ -47,9 +47,9 @@ public class UsageReportResourceImplTest {
   @Test
   public void whenGetUsageReport_thenFoundUsageReportDtoFromService() {
     UsageReportCreationDto creationDto = new UsageReportCreationDto();
-    given(usageReportCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING))
-        .willReturn(creationDto);
-    given(usageReportService.getReport(creationDto)).willReturn(usageReportDto);
+    when(usageReportCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING))
+        .thenReturn(creationDto);
+    when(usageReportService.getReport(creationDto)).thenReturn(usageReportDto);
 
     UsageReportDto dto = usageReportResource.getUsageReport(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING);
 
@@ -59,9 +59,9 @@ public class UsageReportResourceImplTest {
   @Test
   public void whenGetUsageReportSummary_thenFoundUsageReportSummaryDtoFromService() {
     UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
-    given(usageReportSummaryCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING))
-        .willReturn(creationDto);
-    given(usageReportService.getReportSummary(creationDto)).willReturn(
+    when(usageReportSummaryCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING))
+        .thenReturn(creationDto);
+    when(usageReportService.getReportSummary(creationDto)).thenReturn(
         usageReportSummaryDto);
 
     UsageReportSummaryDto dto = usageReportResource.getUsageReportSummary(START_DATE_STRING,
