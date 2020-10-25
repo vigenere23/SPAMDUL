@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.account.Account;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -16,6 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditsServiceTest {
@@ -31,12 +35,17 @@ public class CarbonCreditsServiceTest {
   private TransactionFactory transactionFactory;
   @Mock
   private Account account;
+  @Mock
+  private CarbonCreditsPurchaser carbonCreditsPurchaser;
 
   private CarbonCreditsService carbonCreditsService;
 
 
   @Before
   public void setUp() {
+    carbonCreditsService = new CarbonCreditsService(
+            eventSchedulerObservable,
+            carbonCreditsPurchaser);
     carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable, bankRepository, transactionFactory);
 
     when(bankRepository.getSustainableMobilityProjectAccount()).thenReturn(account);
@@ -76,5 +85,13 @@ public class CarbonCreditsServiceTest {
     carbonCreditsService.transferRemainingBudget();
 
     verify(account).addTransaction(any(Transaction.class));
+  }
+
+  @Test
+  public void whenTransferRemainingBudget_shouldPurchaseWithCarbonCreditsPurchaser() {
+    carbonCreditsService.transferRemainingBudget();
+
+    //TODO: remove any for the return value of bank account when the full method is implemented
+    verify(carbonCreditsPurchaser).purchase(anyDouble());
   }
 }

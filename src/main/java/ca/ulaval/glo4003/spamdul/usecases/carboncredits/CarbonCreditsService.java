@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
@@ -13,22 +14,28 @@ import ca.ulaval.glo4003.spamdul.utils.Amount;
 public class CarbonCreditsService implements ScheduleObserver {
 
   private final EventSchedulerObservable eventSchedulerObservable;
+  private final CarbonCreditsPurchaser carbonCreditsPurchaser;
   private BankRepository bankRepository;
   private TransactionFactory transactionFactory;
 
   public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
                               BankRepository bankRepository,
                               TransactionFactory transactionFactory) {
+  public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
+                              CarbonCreditsPurchaser carbonCreditsPurchaser) {
     this.eventSchedulerObservable = eventSchedulerObservable;
+    this.carbonCreditsPurchaser = carbonCreditsPurchaser;
     this.bankRepository = bankRepository;
     this.transactionFactory = transactionFactory;
   }
 
-  public void activateAutomaticTransfer(boolean active) {
+  public boolean activateAutomaticTransfer(boolean active) {
     if (active) {
       eventSchedulerObservable.register(this);
+      return true;
     } else {
       eventSchedulerObservable.unregister(this);
+      return false;
     }
   }
 
@@ -45,6 +52,10 @@ public class CarbonCreditsService implements ScheduleObserver {
     //TODO merger avec PR external carbon service
 
     return totalAvailableAmount.asDouble();
+    // TODO:
+    double amount = 238.34;
+    carbonCreditsPurchaser.purchase(amount);
+    return amount;
   }
 
   @Override
