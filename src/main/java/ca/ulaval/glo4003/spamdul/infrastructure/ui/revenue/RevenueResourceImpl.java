@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
@@ -57,5 +58,13 @@ public class RevenueResourceImpl implements RevenueResource {
     Amount amount = transactionService.getPassTotalRevenue(transactionQueryDto);
 
     return revenueAssembler.toResponse(amount);
+  }
+
+  public CarbonBoughtResponse getTotalBoughtCarbonCredit() {
+    CarbonBoughtResponse response = new CarbonBoughtResponse();
+    response.total = transactionService.getAllBoughtCarbonCredit().asDouble();
+
+    //TODO a tester
+    return response;
   }
 }

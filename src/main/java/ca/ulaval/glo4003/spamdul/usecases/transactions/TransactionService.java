@@ -51,6 +51,12 @@ public class TransactionService {
     return getTotalAmount(transactions);
   }
 
+  public Amount getAllBoughtCarbonCredit() {
+    //TODO tester
+    return getTotalAmount(this.bankRepository.getMainBankAccount()
+                                             .findAllBy(TransactionType.CARBON_CREDIT)).multiply(-1);
+  }
+
   private Amount getTotalAmount(List<Transaction> transactions) {
     return transactions.stream()
                        .map(Transaction::getAmount)

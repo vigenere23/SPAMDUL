@@ -13,30 +13,26 @@ public class Account {
 
   // TODO a tester au complet
 
-  private final double ratio;
   private final Map<TransactionType, List<Transaction>> transactionsByType;
 
-  public Account(double ratio) {
-    this.ratio = ratio;
+  public Account() {
     this.transactionsByType = new EnumMap<>(TransactionType.class);
   }
 
   public void addTransaction(Transaction transaction) {
     Amount total = getTotalAvailableAmount();
-    Amount newTransactionAmount = transaction.getAmount().multiply(ratio);
 
-    if (total.asDouble() < newTransactionAmount.asDouble()) {
+    if (total.asDouble() < transaction.getAmount().asDouble()) {
       throw new InsufficientFundsException("Insufficient funds");
     }
 
-    Transaction newTransaction = new Transaction(transaction, newTransactionAmount);
     List<Transaction> transactions = transactionsByType.get(transaction.getTransactionType());
 
     if (transactions == null) {
       transactions = new ArrayList<>();
     }
 
-    transactions.add(newTransaction);
+    transactions.add(transaction);
   }
 
   public Amount getTotalAvailableAmount() {

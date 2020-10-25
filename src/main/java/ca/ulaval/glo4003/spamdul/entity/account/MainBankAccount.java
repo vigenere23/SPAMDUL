@@ -12,19 +12,23 @@ public class MainBankAccount {
 
   private final Account other;
   private final Account sustainableMobilityProjectAccount;
+  private final double sustainableMobilityProjectRatio;
 
-  public MainBankAccount(Account sustainableMobilityProjectAccount, Account other) {
+  public MainBankAccount(Account sustainableMobilityProjectAccount, Account other, double sustainableMobilityProjectRatio) {
     this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
     this.other = other;
+    this.sustainableMobilityProjectRatio = sustainableMobilityProjectRatio;
   }
 
   public void addTransaction(Transaction transaction) {
-    sustainableMobilityProjectAccount.addTransaction(transaction);
-    other.addTransaction(transaction);
-  }
+    Amount sustainabilityAmount = transaction.getAmount().multiply(sustainableMobilityProjectRatio);
+    Amount otherAmount = transaction.getAmount().multiply(1 - sustainableMobilityProjectRatio);
 
-  public Amount getTotalInitiativesBudget() {
-    return sustainableMobilityProjectAccount.getTotalAvailableAmount();
+    Transaction sustainabilityTransaction = new Transaction(transaction, sustainabilityAmount);
+    Transaction otherTransaction = new Transaction(transaction, otherAmount);
+
+    sustainableMobilityProjectAccount.addTransaction(sustainabilityTransaction);
+    other.addTransaction(otherTransaction);
   }
 
   public List<Transaction> findAllBy(TransactionType transactionType) {
