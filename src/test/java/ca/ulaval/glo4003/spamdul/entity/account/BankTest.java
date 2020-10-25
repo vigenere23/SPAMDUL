@@ -3,11 +3,9 @@ package ca.ulaval.glo4003.spamdul.entity.account;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.mockito.Mock;
 public class BankTest {
 
   private Bank bank;
-  private List<Account> accountList;
   private Amount FUNDS;
   private double PERCENT_OF_REVENUE = 0.4;
   private double OTHER_PERCENT_OF_REVENUE = 0.6;
@@ -38,8 +35,6 @@ public class BankTest {
 
   @Test
   public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallAddFundOfEachAccount() {
-    when(account1.getPercentOfRevenue()).thenReturn(PERCENT_OF_REVENUE);
-    when(account2.getPercentOfRevenue()).thenReturn(PERCENT_OF_REVENUE);
     bank.addFunds(FUNDS);
     verify(account1).addFunds(any());
     verify(account2).addFunds(any());
@@ -47,9 +42,6 @@ public class BankTest {
 
   @Test
   public void givenABankWithMultipleAccount_WhenAddingFunds_shouldShoulsCallGiveRightPercentFundForEachAccount() {
-    when(account1.getPercentOfRevenue()).thenReturn(PERCENT_OF_REVENUE);
-    when(account2.getPercentOfRevenue()).thenReturn(OTHER_PERCENT_OF_REVENUE);
-
     bank.addFunds(FUNDS);
 
     verify(account1).addFunds(FUNDS.multiply(PERCENT_OF_REVENUE));

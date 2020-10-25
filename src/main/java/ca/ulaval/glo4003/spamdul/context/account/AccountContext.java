@@ -14,9 +14,9 @@ public class AccountContext {
 
   public AccountContext() {
     Map<Account, Double> accountRatioMap = new HashMap<>();
-    Account mainAccount = new Account(0.6);
+    Account mainAccount = new Account();
     accountRatioMap.put(mainAccount, 0.6);
-    sustainableMobilityProjectAccount = new Account(0.4);
+    sustainableMobilityProjectAccount = new Account();
     accountRatioMap.put(sustainableMobilityProjectAccount, 0.4);
     bank = new Bank(accountRatioMap);
   }
