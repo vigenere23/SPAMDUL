@@ -20,7 +20,8 @@ public enum PeriodType {
       return PeriodType.ONE_HOUR;
     } else if (collator.equals("1j", periodTypeString.toLowerCase())) {
       return PeriodType.SINGLE_DAY;
-    } else if (collator.equals("1j/semaine/session", periodTypeString.toLowerCase())) {
+    } else if (collator.equals("1j/sem/session", periodTypeString.toLowerCase())
+        || collator.equals("1j/semaine/session", periodTypeString.toLowerCase())) {
       return PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
     } else if (collator.equals("1 session", periodTypeString.toLowerCase())) {
       return PeriodType.ONE_SEMESTER;

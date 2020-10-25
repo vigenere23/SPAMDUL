@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.GlobalContext;
 import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
@@ -37,19 +38,19 @@ public class SpamdUlMain {
   public static void main(String[] args)
       throws Exception {
 
+    GlobalContext globalContext = new GlobalContext();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     AccountContext accountContext = new AccountContext();
-    SaleContext saleContext = new SaleContext(accountContext.bankRepository());
-    CampusAccessContext campusAccessContext = new CampusAccessContext(saleContext.getPassRepository(),
+    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.passRepository,
                                                                       usageReportContext.getParkingAccessLogger(),
                                                                       accountContext.bankRepository()
-                                                                      );
-    saleContext.setCampusAccessService(campusAccessContext.getCampusAccessService());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
+    );
+    SaleContext saleContext = new SaleContext(accountContext.bankRepository(), globalContext.passRepository, campusAccessContext.getCampusAccessService());
+   CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
-    InfractionsContext infractionsContext = new InfractionsContext(saleContext.getPassRepository(),
+    InfractionsContext infractionsContext = new InfractionsContext(globalContext.passRepository,
                                                                    accountContext.bankRepository());
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
