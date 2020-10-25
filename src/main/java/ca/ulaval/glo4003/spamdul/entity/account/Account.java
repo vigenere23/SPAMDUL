@@ -3,10 +3,8 @@ package ca.ulaval.glo4003.spamdul.entity.account;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.util.Map.Entry;
 
 public class Account {
@@ -22,7 +20,7 @@ public class Account {
   public void addTransaction(Transaction transaction) {
     Amount total = getTotalAvailableAmount();
 
-    if (total.asDouble() < transaction.getAmount().asDouble()) {
+    if (total.add(transaction.getAmount()).isNegative()) {
       throw new InsufficientFundsException("Insufficient funds");
     }
 
@@ -30,9 +28,11 @@ public class Account {
 
     if (transactions == null) {
       transactions = new ArrayList<>();
+      transactions.add(transaction);
+      transactionsByType.put(transaction.getTransactionType(), transactions);
+    } else {
+      transactions.add(transaction);
     }
-
-    transactions.add(transaction);
   }
 
   public Amount getTotalAvailableAmount() {
@@ -48,6 +48,6 @@ public class Account {
   }
 
   public List<Transaction> findAllTransactionsBy(TransactionType transactionType) {
-    return transactionsByType.get(transactionType);
+    return Optional.ofNullable(transactionsByType.get(transactionType)).orElse(new ArrayList<>());
   }
 }
