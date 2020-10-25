@@ -2,14 +2,17 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFee;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
@@ -20,12 +23,15 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -33,6 +39,7 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -41,11 +48,11 @@ import org.junit.Test;
 public class CampusAccessServiceTest {
 
   private static final PassCode A_PASS_CODE = new PassCode();
-  private static final PassType A_PASS_TYPE = PassType.MONTHLY;
   private static final UserId A_USER_ID = new UserId();
   private static final CarId A_CAR_ID = new CarId();
   private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
-  private static final Car A_CAR = new Car(A_CAR_ID, CarType.GOURMANDE, "brand", "model", 2020, "xxx xxx");
+  public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
+  private static final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, "brand", "model", 2020, "xxx xxx");
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
@@ -55,6 +62,12 @@ public class CampusAccessServiceTest {
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
+  public static final CampusAccessFee A_CAMPUS_ACCESS_FEE = new CampusAccessFee(10);
+  public static final int AN_AMOUNT_VALUE = 0;
+  public static final Amount AN_AMOUNT = Amount.valueOf(AN_AMOUNT_VALUE);
+  public static final Transaction A_TRANSACTION = new Transaction(AN_AMOUNT,
+                                                                  LocalDateTime.now(),
+                                                                  TransactionType.CAMPUS_ACCESS);
 
   private CampusAccess campusAccess;
   private CampusAccessRepository campusAccessRepository;
@@ -70,6 +83,8 @@ public class CampusAccessServiceTest {
   private TransactionFactory transactionFactory;
   private BankRepository bankRepository;
   private CampusAccessFeeRepository campusAccessFeeRepository;
+  private MainBankAccount mainBankAccount;
+  private TransactionDto transactionDto;
 
   private CampusAccessService campusAccessService;
 
@@ -81,6 +96,10 @@ public class CampusAccessServiceTest {
     campusAccessDto.userDto = userDto;
     campusAccessDto.carDto = carDto;
     campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
+    transactionDto = new TransactionDto();
+    transactionDto.carType = A_CAR_TYPE;
+    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
+    transactionDto.amount = AN_AMOUNT_VALUE;
     userService = mock(UserService.class);
     carService = mock(CarService.class);
     campusAccessRepository = mock(CampusAccessRepository.class);
@@ -90,6 +109,7 @@ public class CampusAccessServiceTest {
     transactionFactory = mock(TransactionFactory.class);
     bankRepository = mock(BankRepository.class);
     campusAccessFeeRepository = mock(CampusAccessFeeRepository.class);
+    mainBankAccount = mock(MainBankAccount.class);
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
@@ -103,13 +123,15 @@ public class CampusAccessServiceTest {
 
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
+
+    given(userService.createUser(userDto)).willReturn(A_USER);
+    given(carService.createCar(carDto)).willReturn(A_CAR);
+    given(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).willReturn(A_CAMPUS_ACCESS_FEE);
+    given(bankRepository.getMainBankAccount()).willReturn(mainBankAccount);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCreateNewUser() {
-    given(userService.createUser(userDto)).willReturn(A_USER);
-    given(carService.createCar(carDto)).willReturn(A_CAR);
-
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
     verify(userService, times(1)).createUser(userDto);
@@ -117,8 +139,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCreateNewCar() {
-    given(userService.createUser(userDto)).willReturn(A_USER);
-    given(carService.createCar(carDto)).willReturn(A_CAR);
+    given(bankRepository.getMainBankAccount()).willReturn(mainBankAccount);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
@@ -127,9 +148,6 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
-    given(userService.createUser(userDto)).willReturn(A_USER);
-    given(carService.createCar(carDto)).willReturn(A_CAR);
-
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
     verify(campusAccessFactory, times(1)).create(A_USER_ID,
@@ -139,13 +157,20 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldSaveCampusAccessInRepository() {
-    given(userService.createUser(userDto)).willReturn(A_USER);
-    given(carService.createCar(carDto)).willReturn(A_CAR);
     given(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO)).willReturn(campusAccess);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
     verify(campusAccessRepository, times(1)).save(campusAccess);
+  }
+
+  @Test
+  public void whenCreatingNewCampusAccess_shouldAddNewTransactionToMainBankAccount() {
+    given(transactionFactory.create(any(TransactionDto.class))).willReturn(A_TRANSACTION);
+    campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
+
+    verify(mainBankAccount, times(1)).addTransaction(A_TRANSACTION);
+    verify(bankRepository, times(1)).save(mainBankAccount);
   }
 
   @Test
