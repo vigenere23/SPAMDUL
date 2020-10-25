@@ -29,13 +29,9 @@ public class CarbonCreditsContext {
     TransactionFactory transactionFactory = new TransactionFactory();
     CarbonCreditsService carbonCreditsService = new CarbonCreditsService(endOfMonthEventScheduler,
                                                                          bankRepository,
-                                                                         transactionFactory);
-                    scheduledExecutorService,
-                    calendar
-            );
-    CarbonCreditsService carbonCreditsService = new CarbonCreditsService(
-            endOfMonthEventScheduler,
-            carbonCreditsPurchaser);
+                                                                         transactionFactory,
+                                                                         carbonCreditsPurchaser);
+
     carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService);
   }
 

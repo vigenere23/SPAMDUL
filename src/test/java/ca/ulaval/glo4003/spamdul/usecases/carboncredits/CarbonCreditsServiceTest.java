@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,9 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.mockito.Matchers.anyDouble;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditsServiceTest {
@@ -43,10 +41,10 @@ public class CarbonCreditsServiceTest {
 
   @Before
   public void setUp() {
-    carbonCreditsService = new CarbonCreditsService(
-            eventSchedulerObservable,
-            carbonCreditsPurchaser);
-    carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable, bankRepository, transactionFactory);
+    carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable,
+                                                    bankRepository,
+                                                    transactionFactory,
+                                                    carbonCreditsPurchaser);
 
     when(bankRepository.getSustainableMobilityProjectAccount()).thenReturn(account);
     when(account.getTotalAvailableAmount()).thenReturn(A_AMOUNT);

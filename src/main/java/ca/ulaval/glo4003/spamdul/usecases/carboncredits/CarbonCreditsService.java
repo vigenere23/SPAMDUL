@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
@@ -20,8 +19,7 @@ public class CarbonCreditsService implements ScheduleObserver {
 
   public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
                               BankRepository bankRepository,
-                              TransactionFactory transactionFactory) {
-  public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
+                              TransactionFactory transactionFactory,
                               CarbonCreditsPurchaser carbonCreditsPurchaser) {
     this.eventSchedulerObservable = eventSchedulerObservable;
     this.carbonCreditsPurchaser = carbonCreditsPurchaser;
@@ -45,17 +43,13 @@ public class CarbonCreditsService implements ScheduleObserver {
 
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.transactionType = TransactionType.CARBON_CREDIT;
-    transactionDto.amount = totalAvailableAmount.asDouble() *-1;
+    transactionDto.amount = totalAvailableAmount.asDouble() * -1;
     Transaction transaction = transactionFactory.create(transactionDto);
     bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction);
 
-    //TODO merger avec PR external carbon service
+    carbonCreditsPurchaser.purchase(totalAvailableAmount.asDouble());
 
     return totalAvailableAmount.asDouble();
-    // TODO:
-    double amount = 238.34;
-    carbonCreditsPurchaser.purchase(amount);
-    return amount;
   }
 
   @Override
