@@ -15,9 +15,11 @@ public class Semester {
   public Semester addSemester(int numberOfSemester) {
     int remainder = numberOfSemester % 3;
     int plusYear = numberOfSemester / 3;
+
     if (remainder == 0) {
       return new Semester(session, year + plusYear);
     }
+
     return nextSemester().addSemester(numberOfSemester - 1);
   }
 
@@ -25,10 +27,13 @@ public class Semester {
     switch (session) {
       case AUTUMN:
         return new Semester(Session.WINTER, year + 1);
+
       case WINTER:
         return new Semester(Session.SUMMER, year);
+
       case SUMMER:
         return new Semester(Session.AUTUMN, year);
+
       default:
         throw new RuntimeException("The given season is not valid");
     }
@@ -43,6 +48,7 @@ public class Semester {
       return false;
     }
     Semester semester = (Semester) o;
+
     return session == semester.session &&
         year == semester.year;
   }

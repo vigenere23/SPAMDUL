@@ -7,6 +7,7 @@ public class IncrementalLongIdGenerator implements IdGenerator<Long> {
   @Override
   public synchronized Long getNextId() {
     lastId += 1;
+
     return lastId;
   }
 }

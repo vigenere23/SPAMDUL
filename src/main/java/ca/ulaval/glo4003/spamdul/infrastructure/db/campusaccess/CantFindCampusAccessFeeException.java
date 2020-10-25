@@ -5,5 +5,4 @@ public class CantFindCampusAccessFeeException extends RuntimeException {
   public CantFindCampusAccessFeeException(String message) {
     super(message);
   }
-
 }

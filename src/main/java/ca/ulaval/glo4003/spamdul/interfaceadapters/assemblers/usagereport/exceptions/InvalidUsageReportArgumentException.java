@@ -5,6 +5,4 @@ public class InvalidUsageReportArgumentException extends RuntimeException {
   public InvalidUsageReportArgumentException(String message) {
     super(message);
   }
-
-
 }

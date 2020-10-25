@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import java.time.LocalDateTime;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

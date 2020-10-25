@@ -17,14 +17,19 @@ public enum CarType {
 
     if (collator.equals("gourmande", carTypeString.toLowerCase())) {
       return CarType.GOURMANDE;
+
     } else if (collator.equals("economique", carTypeString.toLowerCase())) {
       return CarType.ECONOMIQUE;
+
     } else if (collator.equals("hybride economique", carTypeString.toLowerCase())) {
       return CarType.HYBRIDE_ECONOMIQUE;
+
     } else if (collator.equals("super economique", carTypeString.toLowerCase())) {
       return CarType.SUPER_ECONOMIQUE;
+
     } else if (collator.equals("0 pollution", carTypeString.toLowerCase())) {
       return CarType.SANS_POLLUTION;
+
     } else {
       return null;
     }

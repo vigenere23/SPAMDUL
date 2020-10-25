@@ -64,12 +64,14 @@ public class PassSaleAssembler {
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
     }
+
     return timePeriodDto;
   }
 
   private ParkingZone getParkingZone(String parkingZone) {
     try {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
+
     } catch (IllegalArgumentException e) {
       throw new InvalidParkingZoneExceptionSale("The parking zone is invalid");
     }
@@ -78,6 +80,7 @@ public class PassSaleAssembler {
   private CampusAccessCode getCampusAccessCode(String userId) {
     try {
       return CampusAccessCode.valueOf(userId.toUpperCase());
+
     } catch (InvalidCampusAccessCodeFormat e) {
       throw new InvalidCampusAccessCodeExceptionSale("The campus access code is not in the right format");
     }

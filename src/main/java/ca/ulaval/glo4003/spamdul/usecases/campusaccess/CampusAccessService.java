@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
@@ -96,6 +96,7 @@ public class CampusAccessService extends AccessGrantedObservable {
     boolean accessGranted = campusAccess.isAccessGranted(now);
     if (accessGranted) {
       PassCode passCode = campusAccess.getAssociatedPassCode();
+
       if (passCode != null) {
         Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
         notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());

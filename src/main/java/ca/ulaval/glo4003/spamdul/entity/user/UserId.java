@@ -29,6 +29,7 @@ public class UserId {
       return false;
     }
     UserId userId = (UserId) o;
+
     return Objects.equals(id, userId.id);
   }
 

@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class PassValidator {
 
   private static PassRepository passRepository;
-  protected final static Map <PassCode, Pass> passCache = new HashMap<>();
+  protected final static Map<PassCode, Pass> passCache = new HashMap<>();
   protected PassValidator nextPassValidator;
 
 
@@ -42,8 +41,10 @@ public abstract class PassValidator {
     Pass correspondingPass = passCache.get(passCode);
 
     if (correspondingPass == null) {
-      if (passRepository == null) throw new PassRepositoryNotSetException("This validator requires pass repository "+
-              "to be set before usage");
+      if (passRepository == null) {
+        throw new PassRepositoryNotSetException("This validator requires pass repository " +
+                                                    "to be set before usage");
+      }
 
       correspondingPass = passRepository.findByPassCode(passCode);
       passCache.put(passCode, correspondingPass);

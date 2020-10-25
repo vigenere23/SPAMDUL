@@ -29,6 +29,7 @@ public class FundraisingResourceImp implements FundraisingResource {
     InitiativeResponse responseObject = initiativeAssembler.toResponse(initiativeService.addInitiative(
         initiativeAssembler.fromRequest(
             request)));
+
     return Response.status(Status.CREATED).entity(responseObject).build();
   }
 }

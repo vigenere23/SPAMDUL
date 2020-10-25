@@ -5,5 +5,4 @@ public class InvalidInfractionException extends RuntimeException {
   public InvalidInfractionException(String message) {
     super(message);
   }
-
 }

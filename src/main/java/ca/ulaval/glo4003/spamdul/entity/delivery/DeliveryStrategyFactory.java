@@ -8,6 +8,7 @@ public class DeliveryStrategyFactory {
   public DeliveryStrategy create(DeliveryMode deliveryMode) {
     if (deliveryMode == DeliveryMode.EMAIL) {
       return new GmailEmailService();
+
     } else {
       return new LoggerPostalService();
     }

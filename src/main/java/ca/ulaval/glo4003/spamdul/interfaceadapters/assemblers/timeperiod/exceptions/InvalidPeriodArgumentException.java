@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.except
 
 public class InvalidPeriodArgumentException extends InvalidTimePeriodException {
 
-
   public InvalidPeriodArgumentException(String message) {
     super(message);
   }

@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRes
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -28,14 +27,17 @@ public class InfractionResourceImpl implements InfractionResource {
 
     InfractionResponse infractionResponse = infractionAssembler.toResponse(infraction);
 
-    if (infractionResponse == null) return Response
-            .status(Status.NO_CONTENT)
-            .build();
+    if (infractionResponse == null) {
+      return Response
+          .status(Status.NO_CONTENT)
+          .build();
 
-    else return Response
-            .status(Status.OK)
-            .entity(infractionResponse)
-            .build();
+    } else {
+      return Response
+          .status(Status.OK)
+          .entity(infractionResponse)
+          .build();
+    }
   }
 
   public Response payInfraction(InfractionPaymentRequest infractionPaymentRequest) {

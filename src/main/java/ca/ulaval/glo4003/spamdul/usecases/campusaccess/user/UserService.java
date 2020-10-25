@@ -18,8 +18,6 @@ public class UserService {
     return userFactory.create(userDto.name,
                               userDto.gender,
                               userDto.birthDate);
-
-    //    return userRepository.save(createdUser);
   }
 
   public void saveUser(User user) {

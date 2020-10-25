@@ -16,6 +16,7 @@ public class CarTypeRevenueResponse {
       return false;
     }
     CarTypeRevenueResponse that = (CarTypeRevenueResponse) o;
+
     return Double.compare(that.revenue, revenue) == 0 &&
         carType == that.carType;
   }

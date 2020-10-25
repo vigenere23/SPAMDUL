@@ -1,4 +1,5 @@
 package ca.ulaval.glo4003.spamdul.utils;
+
 import static com.google.common.truth.Truth.assertThat;
 
 import org.junit.Test;

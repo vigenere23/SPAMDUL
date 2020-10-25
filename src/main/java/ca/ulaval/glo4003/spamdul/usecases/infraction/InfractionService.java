@@ -1,7 +1,13 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.*;
+import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
@@ -10,11 +16,10 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
-public class  InfractionService {
+public class InfractionService {
 
   private final InfractionInfoRepository infractionInfoRepository;
   private final InfractionRepository infractionRepository;
-  private final TransactionService transactionService;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
   private TransactionFactory transactionFactory;
@@ -22,14 +27,12 @@ public class  InfractionService {
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
-                           TransactionService transactionService,
                            InfractionFactory infractionFactory,
                            PassValidator firstValidationNode,
                            TransactionFactory transactionFactory,
                            BankRepository bankRepository) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
-    this.transactionService = transactionService;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
     this.transactionFactory = transactionFactory;

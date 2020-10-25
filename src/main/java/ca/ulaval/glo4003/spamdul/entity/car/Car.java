@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.spamdul.entity.car;
 
 public class Car {
 
-  private CarId carId;
-  private CarType carType;
-  private String brand;
-  private String model;
-  private int year;
-  private String licencePlate;
+  private final CarId carId;
+  private final CarType carType;
+  private final String brand;
+  private final String model;
+  private final int year;
+  private final String licencePlate;
 
   public Car(CarId carId, CarType carType, String brand, String model, int year, String licencePlate) {
     this.carId = carId;

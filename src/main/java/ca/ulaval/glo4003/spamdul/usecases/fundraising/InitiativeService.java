@@ -49,6 +49,7 @@ public class InitiativeService {
 
     Initiative initiative = initiativeFactory.create(initiativeDto.name, Amount.valueOf(initiativeDto.amount));
     initiativeRepository.save(initiative);
+
     return initiative;
   }
 }

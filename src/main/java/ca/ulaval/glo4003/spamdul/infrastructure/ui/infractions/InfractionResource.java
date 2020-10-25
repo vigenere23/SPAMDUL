@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

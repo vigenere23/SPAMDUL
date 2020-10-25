@@ -45,8 +45,10 @@ public class SpamdUlMain {
                                                                       usageReportContext.getParkingAccessLogger(),
                                                                       accountContext.bankRepository()
     );
-    SaleContext saleContext = new SaleContext(accountContext.bankRepository(), globalContext.passRepository, campusAccessContext.getCampusAccessService());
-   CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
+    SaleContext saleContext = new SaleContext(accountContext.bankRepository(),
+                                              globalContext.passRepository,
+                                              campusAccessContext.getCampusAccessService());
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);

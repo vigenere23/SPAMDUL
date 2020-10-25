@@ -7,14 +7,14 @@ import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 
 public class PassCodeFormatValidator extends PassValidator {
 
-    @Override
-    public void validate(PassToValidateDto passToValidateDto) {
-        try {
-            PassCode.valueOf(passToValidateDto.passCode);
-        } catch (InvalidPassCodeFormat e) {
-            throw new InfractionException("VIG_02");
-        }
-
-        nextValidation(passToValidateDto);
+  @Override
+  public void validate(PassToValidateDto passToValidateDto) {
+    try {
+      PassCode.valueOf(passToValidateDto.passCode);
+    } catch (InvalidPassCodeFormat e) {
+      throw new InfractionException("VIG_02");
     }
+
+    nextValidation(passToValidateDto);
+  }
 }

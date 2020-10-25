@@ -29,7 +29,7 @@ public class TimePeriod {
 
   public boolean bounds(LocalDateTime localDateTime) {
     return !startDateTime.isAfter(localDateTime) &&
-            !endDateTime.isBefore(localDateTime);
+        !endDateTime.isBefore(localDateTime);
   }
 
   @Override
@@ -41,6 +41,7 @@ public class TimePeriod {
       return false;
     }
     TimePeriod that = (TimePeriod) o;
+
     return startDateTime.equals(that.startDateTime) &&
         endDateTime.equals(that.endDateTime) &&
         timePeriodDayOfWeek == that.timePeriodDayOfWeek;

@@ -46,6 +46,7 @@ public class UsageReportService {
     Map<LocalDate, List<ParkingAccessLog>> logsPerDay = getLogsForReport(usageReportSummaryCreationDto.startDate,
                                                                          usageReportSummaryCreationDto.endDate,
                                                                          usageReportSummaryCreationDto.parkingZone);
+
     UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(logsPerDay,
                                                                              usageReportSummaryCreationDto.startDate,
                                                                              usageReportSummaryCreationDto.endDate,
@@ -74,6 +75,7 @@ public class UsageReportService {
         .atZone(parkingZone);
 
     List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.getResults();
+
     return parkingAccessLogAgglomerator.groupByAccessDate(filteredLogs);
   }
 }

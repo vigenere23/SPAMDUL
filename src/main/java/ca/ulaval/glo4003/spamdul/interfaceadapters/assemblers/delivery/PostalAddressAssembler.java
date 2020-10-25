@@ -15,6 +15,7 @@ public class PostalAddressAssembler {
         postalAddressRequest.country == null) {
       throw new InvalidPostalAddressException("Only line 2 field is optional in postal address");
     }
+
     return new PostalAddress(postalAddressRequest.name,
                              postalAddressRequest.line1,
                              postalAddressRequest.line2,

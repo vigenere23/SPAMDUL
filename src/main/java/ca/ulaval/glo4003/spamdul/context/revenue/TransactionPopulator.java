@@ -24,6 +24,7 @@ public class TransactionPopulator {
   public void populate(int numberOfRecords) {
     Random random = new Random();
     int MAX_AMOUNT = 300;
+
     List<TransactionType> allTransactionTypes = Arrays.asList(TransactionType.values());
     List<CarType> allCarTypes = Arrays.asList(CarType.values());
 

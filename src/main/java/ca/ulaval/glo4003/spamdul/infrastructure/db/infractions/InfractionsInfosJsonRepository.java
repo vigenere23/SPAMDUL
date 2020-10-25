@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.*;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InfractionsInfosJsonRepository implements InfractionInfoRepository {
 
@@ -20,7 +20,9 @@ public class InfractionsInfosJsonRepository implements InfractionInfoRepository 
     List<InfractionInfos> infractionInfosList = reader.read(JSON_PATH, InfractionInfos[].class);
 
     for (InfractionInfos infractionInfos : infractionInfosList) {
-      if (infractionCode.equals(InfractionCode.valueOf(infractionInfos.code))) return infractionInfos;
+      if (infractionCode.equals(InfractionCode.valueOf(infractionInfos.code))) {
+        return infractionInfos;
+      }
     }
 
     throw new CantFindInfractionException("The provided infraction code does not correspond to any infraction");

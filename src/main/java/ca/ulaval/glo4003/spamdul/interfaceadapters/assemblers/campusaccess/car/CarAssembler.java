@@ -23,6 +23,7 @@ public class CarAssembler {
   private void setCarType(CarRequest carRequest, CarDto carDto) {
     try {
       carDto.carType = CarType.valueOf(carRequest.type.toUpperCase());
+
     } catch (IllegalArgumentException e) {
       throw new InvalidCarTypeArgumentException(
           "The car type must be gourmande, economique, hybride_economique, super_economique or sans_pollution");
@@ -32,6 +33,7 @@ public class CarAssembler {
   private void setCarYear(CarRequest carRequest, CarDto carDto) {
     try {
       carDto.year = Integer.parseInt(carRequest.year);
+
     } catch (NumberFormatException e) {
       throw new InvalidCarYearArgumentException("Must provide a valid year");
     }

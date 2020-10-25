@@ -5,5 +5,4 @@ public class MissingACarTypeForResponseException extends RuntimeException {
   public MissingACarTypeForResponseException(String message) {
     super(message);
   }
-
 }

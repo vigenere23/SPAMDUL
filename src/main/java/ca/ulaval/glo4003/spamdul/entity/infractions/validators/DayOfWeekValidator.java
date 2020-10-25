@@ -1,12 +1,13 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 
 public class DayOfWeekValidator extends PassValidator {
+
   private final Calendar calendar;
 
   public DayOfWeekValidator(Calendar calendar) {
@@ -24,6 +25,4 @@ public class DayOfWeekValidator extends PassValidator {
 
     nextValidation(passToValidateDto);
   }
-
-
 }

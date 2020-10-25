@@ -37,6 +37,7 @@ public class CampusAccessCode {
       return false;
     }
     CampusAccessCode campusAccessCode = (CampusAccessCode) o;
+
     return Objects.equals(id, campusAccessCode.id);
   }
 

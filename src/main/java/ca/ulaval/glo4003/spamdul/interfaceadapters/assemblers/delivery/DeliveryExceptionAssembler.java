@@ -18,8 +18,10 @@ public class DeliveryExceptionAssembler implements ExceptionMapper<InvalidDelive
 
     if (e instanceof InvalidDeliveryModeException) {
       exceptionResponse.error = "INVALID_DELIVERY_MODE";
+
     } else if (e instanceof InvalidEmailAddressException) {
       exceptionResponse.error = "INVALID_EMAIL_ADDRESS";
+
     } else if (e instanceof InvalidPostalAddressException) {
       exceptionResponse.error = "INVALID_POSTAL_ADDRESS";
     }

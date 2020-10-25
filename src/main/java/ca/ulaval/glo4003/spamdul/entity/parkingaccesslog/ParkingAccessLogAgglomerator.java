@@ -10,8 +10,10 @@ public class ParkingAccessLogAgglomerator {
 
   public Map<LocalDate, List<ParkingAccessLog>> groupByAccessDate(List<ParkingAccessLog> logs) {
     Map<LocalDate, List<ParkingAccessLog>> logsPerDay = new HashMap<>();
+
     logs.forEach(log -> {
       List<ParkingAccessLog> logsForThisDay = logsPerDay.get(log.getAccessDate());
+
       if (logsForThisDay == null) {
         logsForThisDay = new ArrayList<>();
         logsPerDay.put(log.getAccessDate(), logsForThisDay);

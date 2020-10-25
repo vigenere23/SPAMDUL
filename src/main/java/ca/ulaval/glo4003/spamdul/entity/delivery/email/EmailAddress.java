@@ -22,6 +22,7 @@ public class EmailAddress {
       return false;
     }
     EmailAddress emailAddress = (EmailAddress) o;
+
     return toString().equals(emailAddress.toString());
   }
 

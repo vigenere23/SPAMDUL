@@ -5,5 +5,4 @@ public class InvalidAccessingCampusArgumentException extends RuntimeException {
   public InvalidAccessingCampusArgumentException(String message) {
     super(message);
   }
-
 }

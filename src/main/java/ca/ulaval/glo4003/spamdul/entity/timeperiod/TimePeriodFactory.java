@@ -19,6 +19,7 @@ public class TimePeriodFactory {
       startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
       timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;
+
       return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);
     }
 

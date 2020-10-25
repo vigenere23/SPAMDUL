@@ -26,6 +26,7 @@ public class InfractionCode {
       return false;
     }
     InfractionCode that = (InfractionCode) o;
+
     return Objects.equals(codeString, that.codeString);
   }
 

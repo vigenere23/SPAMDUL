@@ -14,10 +14,6 @@ public class FilterContainer<T> {
   public FilterContainer() {
   }
 
-  public FilterContainer(List<T> dataList) {
-    setData(dataList);
-  }
-
   public void setData(List<T> dataList) {
     originalData = dataList;
   }

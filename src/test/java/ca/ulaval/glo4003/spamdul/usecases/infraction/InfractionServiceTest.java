@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionExcepti
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,8 +44,6 @@ public class InfractionServiceTest {
   private InfractionRepository infractionRepository;
   @Mock
   private PassValidator passValidator;
-  @Mock
-  private TransactionService transactionService;
   private PassToValidateDto passToValidateDto;
   @Mock
   private InfractionFactory infractionFactory;
@@ -64,7 +61,6 @@ public class InfractionServiceTest {
   public void setUp() throws Exception {
     infractionService = new InfractionService(infractionInfoRepository,
                                               infractionRepository,
-                                              transactionService,
                                               infractionFactory,
                                               passValidator,
                                               transactionFactory,

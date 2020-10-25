@@ -29,6 +29,7 @@ public class TransactionQueryAssembler {
     if (startDate == null) {
       return calendar.getStartOfSchoolYearAtDate(LocalDate.now());
     }
+
     return parseDate(startDate, LocalTime.MIN);
   }
 
@@ -36,13 +37,16 @@ public class TransactionQueryAssembler {
     if (endDate == null) {
       return calendar.getEndOfSchoolYearAtDate(LocalDate.now());
     }
+
     return parseDate(endDate, LocalTime.MAX);
   }
 
   private LocalDateTime parseDate(String stringDate, LocalTime time) {
     try {
       LocalDate date = LocalDate.parse(stringDate, DateTimeFormatter.TRANSACTION_DATE_TIME_FORMATTER);
+
       return LocalDateTime.of(date, time);
+
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }

@@ -14,10 +14,12 @@ public class CsvReader {
 
     try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))) {
       String row;
+
       while ((row = csvReader.readLine()) != null) {
         String[] data = row.split(",");
         csvData.add(new ArrayList<>(Arrays.asList(data)));
       }
+
     } catch (IOException e) {
       throw new InvalidCsvFile(String.format("%s is not a valid path", filePath));
     }

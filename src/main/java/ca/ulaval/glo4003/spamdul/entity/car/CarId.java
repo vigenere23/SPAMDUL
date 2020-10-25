@@ -33,6 +33,7 @@ public class CarId {
       return false;
     }
     CarId carId = (CarId) o;
+
     return Objects.equals(id, carId.id);
   }
 

@@ -24,14 +24,19 @@ public class PassSaleExceptionAssembler implements ExceptionMapper<InvalidPassSa
 
     if (e instanceof InvalidParkingZoneExceptionSale) {
       exceptionResponse.error = "INVALID_PARKING_ZONE";
+
     } else if (e instanceof InvalidPassSaleTypeException) {
       exceptionResponse.error = "INVALID_PASS_TYPE";
+
     } else if (e instanceof InvalidCampusAccessCodeExceptionSale) {
       exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE";
+
     } else if (e instanceof PassSaleNotAcceptedByAccessException) {
       exceptionResponse.error = "NO_ACCESS";
+
     } else if (e instanceof InvalidPassSaleDayOfWeekException) {
       exceptionResponse.error = "INVALID_DAY_OF_WEEK";
+
     } else if (e instanceof CampusAccessNotFoundException) {
       exceptionResponse.error = "ACCESS_NOT_FOUND";
     }

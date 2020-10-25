@@ -27,6 +27,7 @@ public class UsageReportResourceImpl implements UsageReportResource {
     UsageReportCreationDto creationDto = usageReportCreationAssembler.fromValues(startDate,
                                                                                  endDate,
                                                                                  parkingZone);
+
     return usageReportService.getReport(creationDto);
   }
 
@@ -35,6 +36,7 @@ public class UsageReportResourceImpl implements UsageReportResource {
     UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate,
                                                                                                endDate,
                                                                                                parkingZone);
+
     return usageReportService.getReportSummary(creationDto);
   }
 }
