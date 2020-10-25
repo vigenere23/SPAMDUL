@@ -64,6 +64,7 @@ public class  InfractionService {
     transactionDto.transactionType = TransactionType.INFRACTION;
     Transaction transaction = transactionFactory.create(transactionDto);
     bankRepository.getMainBankAccount().addTransaction(transaction);
+    //TODO a tester
 
     infraction.pay();
   }

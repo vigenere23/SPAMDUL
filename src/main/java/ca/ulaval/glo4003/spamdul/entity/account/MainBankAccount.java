@@ -8,6 +8,8 @@ import java.util.List;
 
 public class MainBankAccount {
 
+  //TODO a tester au complet
+
   private final Account other;
   private final Account sustainableMobilityProjectAccount;
 

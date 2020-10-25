@@ -39,9 +39,10 @@ public class InitiativeService {
     try {
       TransactionDto transactionDto = new TransactionDto();
       transactionDto.transactionType = TransactionType.INITIATIVE;
-      transactionDto.amount = initiativeDto.amount;
+      transactionDto.amount = initiativeDto.amount * -1;
       Transaction transaction = transactionFactory.create(transactionDto);
       bankRepository.getMainBankAccount().addTransaction(transaction);
+      //TODO a tester
 
     } catch (InsufficientFundsException e) {
       throw new InvalidInitiativeAmount("Insufficient funds");

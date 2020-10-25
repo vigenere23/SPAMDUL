@@ -39,7 +39,7 @@ public class CarbonCreditsService implements ScheduleObserver {
 
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.transactionType = TransactionType.CARBON_CREDIT;
-    transactionDto.amount = totalAvailableAmount.asDouble();
+    transactionDto.amount = totalAvailableAmount.asDouble() *-1;
     Transaction transaction = transactionFactory.create(transactionDto);
     mainBankAccount.addTransaction(transaction); //TODO a tester
 
