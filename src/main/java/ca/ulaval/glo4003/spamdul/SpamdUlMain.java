@@ -46,7 +46,7 @@ public class SpamdUlMain {
                                                                       accountContext.bankRepository()
     );
     SaleContext saleContext = new SaleContext(accountContext.bankRepository(), globalContext.passRepository, campusAccessContext.getCampusAccessService());
-   CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository());
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(), false);
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
@@ -74,6 +74,7 @@ public class SpamdUlMain {
         resources.add(new PassSaleExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
         resources.add(carbonCreditsContext.getCarbonCreditsResource());
+        resources.add(carbonCreditsContext.getCarbonCreditsResourceAdmin());
         resources.add(fundraisingContext.getFundraisingResource());
         resources.add(new InitiativeExceptionMapper());
         resources.add(infractionsContext.getInfractionResource());
