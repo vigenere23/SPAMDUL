@@ -6,8 +6,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.utils.Amount;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -29,10 +30,10 @@ public class BankTest {
   @Before
   public void setUp() throws Exception {
     FUNDS = Amount.valueOf(1000);
-    accountList = new ArrayList<>();
-    accountList.add(account1);
-    accountList.add(account2);
-    bank = new Bank(accountList);
+    Map<Account, Double> accountRatioMap = new HashMap<>();
+    accountRatioMap.put(account1, PERCENT_OF_REVENUE);
+    accountRatioMap.put(account2, OTHER_PERCENT_OF_REVENUE);
+    bank = new Bank(accountRatioMap);
   }
 
   @Test

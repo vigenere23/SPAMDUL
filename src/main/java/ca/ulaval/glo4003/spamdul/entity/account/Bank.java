@@ -1,20 +1,19 @@
 package ca.ulaval.glo4003.spamdul.entity.account;
 
 import ca.ulaval.glo4003.spamdul.utils.Amount;
-import java.util.List;
+import java.util.Map;
 
 public class Bank {
 
-  List<Account> accountList;
+  Map<Account, Double> accountRatioMap;
 
-  public Bank(List<Account> accountList) {
-    this.accountList = accountList;
+  public Bank(Map<Account, Double> accountRatioMap) {
+    this.accountRatioMap = accountRatioMap;
   }
 
   public void addFunds(Amount amount) {
-    for (Account account: accountList) {
-      double percentOfRevenue = account.getPercentOfRevenue();
-      account.addFunds(amount.multiply(percentOfRevenue));
+    for (Map.Entry<Account, Double> accountRatio : accountRatioMap.entrySet()) {
+      accountRatio.getKey().addFunds(amount.multiply(accountRatio.getValue()));
     }
   }
 }
