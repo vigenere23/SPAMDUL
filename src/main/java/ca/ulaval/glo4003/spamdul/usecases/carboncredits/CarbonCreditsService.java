@@ -40,7 +40,7 @@ public class CarbonCreditsService implements ScheduleObserver {
     transactionDto.transactionType = TransactionType.CARBON_CREDIT;
     transactionDto.amount = totalAvailableAmount.asDouble() *-1;
     Transaction transaction = transactionFactory.create(transactionDto);
-    bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction); //TODO a tester
+    bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction);
 
     //TODO merger avec PR external carbon service
 
