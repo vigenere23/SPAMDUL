@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class CarbonCredits {
 
@@ -23,5 +24,23 @@ public class CarbonCredits {
 
   public double asDouble() {
     return value.doubleValue();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CarbonCredits credits = (CarbonCredits) o;
+
+    return Objects.equals(value, credits.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
   }
 }

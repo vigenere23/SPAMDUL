@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.transaction;
+package ca.ulaval.glo4003.spamdul.usecases.transactions;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
@@ -6,11 +6,11 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import com.google.common.collect.Lists;
@@ -121,9 +121,9 @@ public class TransactionServiceTest {
   public void givenNoCarbonCreditTransactionsExists_whenGetAllBoughtCarbonCredit_thenReturnAmountZero() {
     when(mainBankAccount.findAllBy(TransactionType.CARBON_CREDIT)).thenReturn(Collections.emptyList());
 
-    Amount revenue = transactionService.getAllBoughtCarbonCredit();
+    CarbonCredits credits = transactionService.getAllBoughtCarbonCredit();
 
-    assertThat(revenue).isEqualTo(Amount.valueOf(0));
+    assertThat(credits.asDouble()).isEqualTo(Amount.valueOf(0).asDouble());
   }
 
   @Test
@@ -134,8 +134,9 @@ public class TransactionServiceTest {
     when(mainBankAccount.findAllBy(TransactionType.CARBON_CREDIT)).thenReturn(Lists.newArrayList(
         transactionCarbonCredit1, transactionCarbonCredit2));
 
-    Amount revenue = transactionService.getAllBoughtCarbonCredit();
+    CarbonCredits credits = transactionService.getAllBoughtCarbonCredit();
+    CarbonCredits expectedCredits = CarbonCredits.valueOf(AN_AMOUNT_1.add(AN_AMOUNT_2).multiply(-1));
 
-    assertThat(revenue.asDouble()).isEqualTo(AN_AMOUNT_1.add(AN_AMOUNT_2).multiply(-1).asDouble());
+    assertThat(credits).isEqualTo(expectedCredits);
   }
 }
