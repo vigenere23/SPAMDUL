@@ -20,7 +20,7 @@ public class InitiativeAssembler {
 
   public InitiativeResponse toResponse(Initiative initiative) {
     InitiativeResponse response = new InitiativeResponse();
-    response.id = initiative.getId().toString();
+    response.code = initiative.getCode();
     response.name = initiative.getName();
     response.amount = initiative.getAmount().asDouble();
 

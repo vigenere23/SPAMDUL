@@ -42,7 +42,7 @@ public class InitiativeAssemblerTest {
   @Test
   public void givenInitiative_whenAssembling_shouldReturnResponse() {
     InitiativeResponse initiativeResponse = initiativeAssembler.toResponse(initiative);
-    Truth.assertThat(initiativeResponse.id).isEqualTo(initiative.getId().toString());
+    Truth.assertThat(initiativeResponse.code).isEqualTo(initiative.getId().toString());
     Truth.assertThat(initiativeResponse.name).isEqualTo(initiative.getName());
     Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.getAmount().asDouble());
   }
