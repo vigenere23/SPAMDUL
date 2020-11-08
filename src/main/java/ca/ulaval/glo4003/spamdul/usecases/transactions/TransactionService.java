@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.transactions;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
@@ -51,9 +51,8 @@ public class TransactionService {
   }
 
   public CarbonCredits getAllBoughtCarbonCredit() {
-    List<Transaction> transactions = this.bankRepository.getMainBankAccount()
-                                                        .findAllBy(TransactionType.CARBON_CREDIT);
-    return CarbonCredits.valueOf(getTotalAmount(transactions).multiply(-1));
+    List<Transaction> transactions = this.bankRepository.getCarbonCreditsBankAccount().findAll();
+    return CarbonCredits.valueOf(getTotalAmount(transactions));
   }
 
   private Amount getTotalAmount(List<Transaction> transactions) {

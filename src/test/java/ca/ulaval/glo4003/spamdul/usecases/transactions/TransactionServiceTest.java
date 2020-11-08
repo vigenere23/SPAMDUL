@@ -3,8 +3,9 @@ package ca.ulaval.glo4003.spamdul.usecases.transactions;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.CarbonCreditsBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.transactions.CampusAccessTransaction;
@@ -40,10 +41,13 @@ public class TransactionServiceTest {
   private BankRepository bankRepository;
   @Mock
   private MainBankAccount mainBankAccount;
+  @Mock
+  private CarbonCreditsBankAccount carbonCreditsBankAccount;
 
   @Before
   public void setUp() {
     when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
+    when(bankRepository.getCarbonCreditsBankAccount()).thenReturn(carbonCreditsBankAccount);
     transactionService = new TransactionService(bankRepository);
     A_TRANSACTION_DTO.amount = AN_AMOUNT_1.asDouble();
     A_TRANSACTION_DTO.transactionType = A_TRANSACTION_TYPE;
@@ -128,15 +132,19 @@ public class TransactionServiceTest {
 
   @Test
   public void givenCarbonCreditTransactionsExists_whenGetAllBoughtCarbonCredit_thenReturnCorrectAmounts() {
-    Transaction transactionCarbonCredit1 = new Transaction(AN_AMOUNT_1, A_DATETIME, TransactionType.CARBON_CREDIT);
-    Transaction transactionCarbonCredit2 = new Transaction(AN_AMOUNT_2, A_DATETIME, TransactionType.CARBON_CREDIT);
+    Transaction transactionCarbonCredit1 = new Transaction(AN_AMOUNT_1.multiply(-1),
+                                                           A_DATETIME,
+                                                           TransactionType.CARBON_CREDIT);
+    Transaction transactionCarbonCredit2 = new Transaction(AN_AMOUNT_2.multiply(-1),
+                                                           A_DATETIME,
+                                                           TransactionType.CARBON_CREDIT);
 
-    when(mainBankAccount.findAllBy(TransactionType.CARBON_CREDIT)).thenReturn(Lists.newArrayList(
+    when(carbonCreditsBankAccount.findAll()).thenReturn(Lists.newArrayList(
         transactionCarbonCredit1, transactionCarbonCredit2));
 
     CarbonCredits credits = transactionService.getAllBoughtCarbonCredit();
     CarbonCredits expectedCredits = CarbonCredits.valueOf(AN_AMOUNT_1.add(AN_AMOUNT_2).multiply(-1));
 
-    assertThat(credits).isEqualTo(expectedCredits);
+    assertThat(credits.asDouble()).isEqualTo(expectedCredits.asDouble());
   }
 }

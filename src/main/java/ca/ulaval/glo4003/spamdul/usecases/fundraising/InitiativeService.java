@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.InsufficientFundsException;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -41,7 +41,7 @@ public class InitiativeService {
       transactionDto.transactionType = TransactionType.INITIATIVE;
       transactionDto.amount = initiativeDto.amount * -1;
       Transaction transaction = transactionFactory.create(transactionDto);
-      bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction);
+      bankRepository.getSustainabilityBankAccount().addTransaction(transaction);
 
     } catch (InsufficientFundsException e) {
       throw new InvalidInitiativeAmount("Insufficient funds");

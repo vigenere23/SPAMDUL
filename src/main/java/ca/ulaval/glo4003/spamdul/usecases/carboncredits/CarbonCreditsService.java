@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -48,7 +48,7 @@ public class CarbonCreditsService implements ScheduleObserver {
   }
 
   public double transferRemainingBudget() {
-    Amount totalAvailableAmount = bankRepository.getSustainableMobilityProjectAccount().getTotalAvailableAmount();
+    Amount totalAvailableAmount = bankRepository.getSustainabilityBankAccount().getTotalAvailableAmount();
     Initiative initiative = initiativeFactory.create("MCARB",
                                                      "Marché du carbone",
                                                      totalAvailableAmount);
@@ -58,7 +58,14 @@ public class CarbonCreditsService implements ScheduleObserver {
     transactionDto.amount = totalAvailableAmount.multiply(-1).asDouble();
     Transaction transaction = transactionFactory.create(transactionDto);
 
-    bankRepository.getSustainableMobilityProjectAccount().addTransaction(transaction);
+    TransactionDto creditsTransactionDto = new TransactionDto();
+    creditsTransactionDto.transactionType = TransactionType.CARBON_CREDIT;
+    creditsTransactionDto.amount = totalAvailableAmount.asDouble();
+    Transaction creditsTransaction = transactionFactory.create(creditsTransactionDto);
+
+    // TODO all this should be a transaction
+    bankRepository.getSustainabilityBankAccount().addTransaction(transaction);
+    bankRepository.getCarbonCreditsBankAccount().save(creditsTransaction);
     carbonCreditsPurchaser.purchase(CarbonCredits.valueOf(totalAvailableAmount));
     initiativeRepository.save(initiative);
 

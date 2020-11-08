@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.entity.fundraising;
+package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeName;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
 public class InitiativeFactory {
