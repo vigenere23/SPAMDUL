@@ -18,8 +18,8 @@ public class InitiativeService {
 
   private final InitiativeRepository initiativeRepository;
   private final InitiativeFactory initiativeFactory;
-  private BankRepository bankRepository;
-  private TransactionFactory transactionFactory;
+  private final BankRepository bankRepository;
+  private final TransactionFactory transactionFactory;
 
   public InitiativeService(InitiativeRepository initiativeRepository,
                            InitiativeFactory initiativeFactory,
@@ -47,7 +47,9 @@ public class InitiativeService {
       throw new InvalidInitiativeAmount("Insufficient funds");
     }
 
-    Initiative initiative = initiativeFactory.create(initiativeDto.name, Amount.valueOf(initiativeDto.amount));
+    Initiative initiative = initiativeFactory.create(initiativeDto.code,
+                                                     initiativeDto.name,
+                                                     Amount.valueOf(initiativeDto.amount));
     initiativeRepository.save(initiative);
 
     return initiative;

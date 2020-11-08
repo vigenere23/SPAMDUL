@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
 import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeId;
+import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
@@ -18,10 +18,10 @@ public class InitiativeAssemblerTest {
   private InitiativeAssembler initiativeAssembler;
   private InitiativeRequest initiativeRequest;
   private Initiative initiative;
+  private final InitiativeFactory initiativeFactory = new InitiativeFactory();
 
   private final String A_VALID_NAME = "Yolo";
   private final Amount A_VALID_AMOUNT = Amount.valueOf(1234.22);
-  private final InitiativeId AN_ID = new InitiativeId();
 
   @Before
   public void setUp() {
@@ -29,7 +29,7 @@ public class InitiativeAssemblerTest {
     initiativeRequest = new InitiativeRequest();
     initiativeRequest.name = A_VALID_NAME;
     initiativeRequest.amount = A_VALID_AMOUNT.asDouble();
-    initiative = new Initiative(AN_ID, A_VALID_NAME, A_VALID_AMOUNT);
+    initiative = initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT);
   }
 
   @Test

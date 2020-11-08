@@ -6,8 +6,8 @@ import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
-import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
+import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
@@ -41,18 +41,23 @@ public class SpamdUlMain {
     GlobalContext globalContext = new GlobalContext();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     AccountContext accountContext = new AccountContext();
-    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.passRepository,
+    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger(),
-                                                                      accountContext.bankRepository()
+                                                                      accountContext.bankRepository(),
+                                                                      globalContext.getTransactionFactory()
     );
     PassContext passContext = new PassContext(accountContext.bankRepository(),
-                                              globalContext.passRepository,
+                                              globalContext.getPassRepository(),
                                               campusAccessContext.getCampusAccessService());
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(), false);
-   FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
+    FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(),
+                                                                         globalContext.getTransactionFactory(),
+                                                                         fundraisingContext.getInitiativeFactory(),
+                                                                         fundraisingContext.getInitiativeRepository(),
+                                                                         false);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
-    InfractionsContext infractionsContext = new InfractionsContext(globalContext.passRepository,
+    InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository());
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

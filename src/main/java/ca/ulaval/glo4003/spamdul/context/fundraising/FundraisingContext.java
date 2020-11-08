@@ -14,12 +14,14 @@ public class FundraisingContext {
 
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
+  private final InitiativeFactory initiativeFactory;
+  private final InitiativeRepository initiativeRepository;
 
   public FundraisingContext(BankRepository bankRepository,
                             boolean populateData) {
-    InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+    initiativeRepository = new InitiativeRepositoryInMemory();
 
-    InitiativeFactory initiativeFactory = new InitiativeFactory();
+    initiativeFactory = new InitiativeFactory();
     TransactionFactory transactionFactory = new TransactionFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
@@ -43,5 +45,13 @@ public class FundraisingContext {
 
   public FundraisingResource getFundraisingResource() {
     return fundraisingResource;
+  }
+
+  public InitiativeRepository getInitiativeRepository() {
+    return initiativeRepository;
+  }
+
+  public InitiativeFactory getInitiativeFactory() {
+    return initiativeFactory;
   }
 }
