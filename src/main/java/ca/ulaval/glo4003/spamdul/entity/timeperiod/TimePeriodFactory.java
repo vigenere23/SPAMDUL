@@ -15,7 +15,11 @@ public class TimePeriodFactory {
     LocalDateTime endDateTime;
     TimePeriodDayOfWeek timePeriodDayOfWeek;
 
-    if (timePeriodDto.periodType == PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER) {
+    if (timePeriodDto.periodType == PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER
+        || timePeriodDto.periodType == PeriodType.ONE_SEMESTER
+        || timePeriodDto.periodType == PeriodType.TWO_SEMESTERS
+        || timePeriodDto.periodType == PeriodType.THREE_SEMESTERS) {
+
       startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
       timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;

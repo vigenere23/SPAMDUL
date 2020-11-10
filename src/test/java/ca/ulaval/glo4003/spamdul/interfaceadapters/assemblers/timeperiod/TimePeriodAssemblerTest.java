@@ -59,4 +59,40 @@ public class TimePeriodAssemblerTest {
 
     timePeriodAssembler.fromRequest(timePeriodRequest);
   }
+
+  @Test
+  public void givenOneSemester_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
+    TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
+    timePeriodRequest.type = "one_semester";
+    timePeriodRequest.semester = "a2020";
+
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
+
+    assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.ONE_SEMESTER);
+    assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
+
+  @Test
+  public void givenTwoSemesters_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
+    TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
+    timePeriodRequest.type = "two_semesters";
+    timePeriodRequest.semester = "a2020";
+
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
+
+    assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.TWO_SEMESTERS);
+    assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
+
+  @Test
+  public void givenThreeSemesters_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
+    TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
+    timePeriodRequest.type = "three_semesters";
+    timePeriodRequest.semester = "a2020";
+
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
+
+    assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.THREE_SEMESTERS);
+    assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
 }
