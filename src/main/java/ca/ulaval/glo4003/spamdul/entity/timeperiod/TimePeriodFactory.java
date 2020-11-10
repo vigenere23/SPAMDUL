@@ -15,18 +15,23 @@ public class TimePeriodFactory {
     LocalDateTime endDateTime;
     TimePeriodDayOfWeek timePeriodDayOfWeek;
 
+    startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
+    timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;
+
     if (timePeriodDto.periodType == PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER
-        || timePeriodDto.periodType == PeriodType.ONE_SEMESTER
-        || timePeriodDto.periodType == PeriodType.TWO_SEMESTERS
-        || timePeriodDto.periodType == PeriodType.THREE_SEMESTERS) {
-
-      startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
+        || timePeriodDto.periodType == PeriodType.ONE_SEMESTER) {
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
-      timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;
 
-      return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);
+    } else if (timePeriodDto.periodType == PeriodType.TWO_SEMESTERS){
+      endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(1));
+
+    } else if (timePeriodDto.periodType == PeriodType.THREE_SEMESTERS) {
+      endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(2));
+
+    } else {
+      return null;
     }
 
-    return null;
+    return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);
   }
 }

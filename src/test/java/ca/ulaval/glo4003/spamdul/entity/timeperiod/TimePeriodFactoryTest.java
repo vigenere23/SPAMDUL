@@ -15,6 +15,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class TimePeriodFactoryTest {
 
   private static final Semester A_SEMESTER = new Semester(Session.AUTUMN, 2050);
+  private static final Semester NEXT_SEMESTER = A_SEMESTER.addSemester(1);
+  private static final Semester NEXT_NEXT_SEMESTER = NEXT_SEMESTER.addSemester(1);
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private static final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.TUESDAY;
@@ -39,17 +41,6 @@ public class TimePeriodFactoryTest {
     timePeriodFactory.createTimePeriod(dto);
 
     verify(calendar).getStartOfSemester(A_SEMESTER);
-  }
-
-  @Test
-  public void whenCreatingPeriodType_shouldCallCalendarEndDateOfSemester() {
-    TimePeriodDto dto = new TimePeriodDto();
-    dto.periodType = A_PERIOD_TYPE;
-    dto.semester = A_SEMESTER;
-
-    timePeriodFactory.createTimePeriod(dto);
-
-    verify(calendar).getEndOfSemester(A_SEMESTER);
   }
 
   @Test
@@ -91,7 +82,7 @@ public class TimePeriodFactoryTest {
     dto.semester = A_SEMESTER;
     dto.timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
     when(calendar.getStartOfSemester(A_SEMESTER)).thenReturn(A_START_DATE_TIME);
-    when(calendar.getEndOfSemester(A_SEMESTER)).thenReturn(A_END_DATE_TIME);
+    when(calendar.getEndOfSemester(NEXT_SEMESTER)).thenReturn(A_END_DATE_TIME);
 
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(dto);
 
@@ -107,7 +98,7 @@ public class TimePeriodFactoryTest {
     dto.semester = A_SEMESTER;
     dto.timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
     when(calendar.getStartOfSemester(A_SEMESTER)).thenReturn(A_START_DATE_TIME);
-    when(calendar.getEndOfSemester(A_SEMESTER)).thenReturn(A_END_DATE_TIME);
+    when(calendar.getEndOfSemester(NEXT_NEXT_SEMESTER)).thenReturn(A_END_DATE_TIME);
 
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(dto);
 
