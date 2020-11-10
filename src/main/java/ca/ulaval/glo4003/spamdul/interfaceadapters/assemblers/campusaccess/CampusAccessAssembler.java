@@ -53,14 +53,13 @@ public class CampusAccessAssembler {
 
   private void setTimePeriodDto(CampusAccessRequest campusAccessRequest, CampusAccessDto campusAccessDto) {
     final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
-        "two_semester or three_semester) ";
+        "two_semesters or three_semesters) ";
     TimePeriodDto timePeriodDto;
 
     try {
       timePeriodDto = timePeriodAssembler.fromRequest(campusAccessRequest.period);
     } catch (IllegalArgumentException e) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
-
     }
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
