@@ -6,8 +6,8 @@ public class LicensePlate {
 
   private String licensePlate;
 
-  public LicensePlate(String licensePlate) {
-    this.licensePlate = licensePlate;
+  public LicensePlate(String licensePlateNumber) {
+    this.licensePlate = licensePlateNumber;
   }
 
   public String toString() {
