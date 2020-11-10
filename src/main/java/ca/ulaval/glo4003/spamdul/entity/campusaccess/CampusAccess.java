@@ -1,36 +1,30 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class CampusAccess {
 
   private CampusAccessCode campusAccessCode;
-  private UserId userId;
-  private CarId carId;
+  private User user;
+  private Car car;
   private TimePeriod timePeriod;
   private PassCode associatedPassCode;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
-                      UserId userId,
-                      CarId carId,
+                      User user,
+                      Car car,
                       TimePeriod timePeriod) {
     this.campusAccessCode = campusAccessCode;
-    this.userId = userId;
-    this.carId = carId;
+    this.user = user;
+    this.car = car;
     this.timePeriod = timePeriod;
-  }
-
-  public UserId getUserId() {
-    return userId;
-  }
-
-  public CarId getCarId() {
-    return carId;
   }
 
   public TimePeriod getTimePeriod() {
@@ -58,7 +52,38 @@ public class CampusAccess {
     associatedPassCode = passCode;
   }
 
+  public boolean validateAssociatedLicensePlate(LicensePlate licensePlate) {
+    return car.validateLicensePlate(licensePlate);
+  }
+
   public PassCode getAssociatedPassCode() {
     return associatedPassCode;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CampusAccess that = (CampusAccess) o;
+    return Objects.equals(campusAccessCode, that.campusAccessCode) &&
+        Objects.equals(user, that.user) &&
+        Objects.equals(car, that.car) &&
+        Objects.equals(timePeriod, that.timePeriod) &&
+        Objects.equals(associatedPassCode, that.associatedPassCode);
+  }
+
+  public int hashCode() {
+    return Objects.hash(campusAccessCode, user, car, timePeriod, associatedPassCode);
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public Car getCar() {
+    return car;
   }
 }

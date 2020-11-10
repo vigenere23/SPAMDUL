@@ -24,6 +24,8 @@ public class AccessingCampusExceptionAssembler implements ExceptionMapper<Invali
 
     } else if (e instanceof PassNotFoundException) {
       exceptionResponse.error = "PASS_NOT_FOUND";
+    } else {
+      exceptionResponse.error = "INVALID_ARGUMENT_TO_ACCESS_CAMPUS";
     }
 
     return Response.status(Status.BAD_REQUEST)

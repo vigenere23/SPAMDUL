@@ -61,12 +61,10 @@ public class CampusAccessService extends AccessGrantedObservable {
     User user = userService.createUser(campusAccessDto.userDto);
     Car car = carService.createCar(campusAccessDto.carDto);
 
-    CampusAccess campusAccess = campusAccessFactory.create(user.getUserId(),
-                                                           car.getCarId(),
+    CampusAccess campusAccess = campusAccessFactory.create(user,
+                                                           car,
                                                            campusAccessDto.timePeriodDto);
 
-    userService.saveUser(user);
-    carService.saveCar(car);
     campusAccessRepository.save(campusAccess);
 
     TransactionDto transactionDto = new TransactionDto();
@@ -87,7 +85,11 @@ public class CampusAccessService extends AccessGrantedObservable {
     CampusAccess campusAccess;
 
     try {
-      campusAccess = campusAccessRepository.findById(accessingCampusDto.campusAccessCode);
+      if (accessingCampusDto.campusAccessCode != null) {
+        campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+      } else {
+        campusAccess = campusAccessRepository.findBy(accessingCampusDto.licensePlate);
+      }
     } catch (CampusAccessNotFoundException e) {
       return false;
     }
@@ -95,22 +97,26 @@ public class CampusAccessService extends AccessGrantedObservable {
     LocalDateTime now = calendar.now();
     boolean accessGranted = campusAccess.isAccessGranted(now);
     if (accessGranted) {
-      PassCode passCode = campusAccess.getAssociatedPassCode();
-
-      if (passCode != null) {
-        Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
-        notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
-      }
-      // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
+      notifyAccessGranted(campusAccess, now);
     }
 
     return accessGranted;
   }
 
+  private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
+    PassCode passCode = campusAccess.getAssociatedPassCode();
+
+    if (passCode != null) {
+      Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
+      notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
+    }
+    // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
+  }
+
   public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
                                           PassCode passCode,
                                           TimePeriod passTimePeriod) {
-    CampusAccess campusAccess = campusAccessRepository.findById(campusAccessCode);
+    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
     campusAccess.associatePass(passCode, passTimePeriod);
     campusAccessRepository.save(campusAccess);
   }

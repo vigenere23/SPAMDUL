@@ -9,6 +9,6 @@ public class CarFactory {
     if (year > LocalDate.now().getYear()) {
       throw new InvalidCarYearException(String.format("The models for %s are not available yet", year));
     }
-    return new Car(new CarId(), carType, brand, model, year, licensePlate);
+    return new Car(new CarId(), carType, brand, model, year, new LicensePlate(licensePlate));
   }
 }

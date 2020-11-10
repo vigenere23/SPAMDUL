@@ -5,6 +5,7 @@ import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
@@ -12,6 +13,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCam
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
@@ -80,9 +82,22 @@ public class CampusAccessAssembler {
   public AccessingCampusDto fromRequest(AccessingCampusRequest accessingCampusRequest) {
     AccessingCampusDto accessingCampusDto = new AccessingCampusDto();
 
-    setCampusAccessCode(accessingCampusRequest, accessingCampusDto);
+    if (accessingCampusRequest.campusAccessCode != null) {
+      setCampusAccessCode(accessingCampusRequest, accessingCampusDto);
+    } else {
+      setCarLicensePlate(accessingCampusRequest, accessingCampusDto);
+    }
 
     return accessingCampusDto;
+  }
+
+  private void setCarLicensePlate(AccessingCampusRequest accessingCampusRequest,
+                                  AccessingCampusDto accessingCampusDto) {
+    if (accessingCampusRequest.licensePlate != null) {
+      accessingCampusDto.licensePlate = new LicensePlate(accessingCampusRequest.licensePlate);
+    } else {
+      throw new InvalidAccessingCampusArgumentException("A campus access code or a license plate must be provided");
+    }
   }
 
   private void setCampusAccessCode(AccessingCampusRequest accessingCampusRequest,

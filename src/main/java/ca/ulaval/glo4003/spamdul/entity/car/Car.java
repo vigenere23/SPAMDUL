@@ -7,9 +7,9 @@ public class Car {
   private final String brand;
   private final String model;
   private final int year;
-  private final String licencePlate;
+  private final LicensePlate licencePlate;
 
-  public Car(CarId carId, CarType carType, String brand, String model, int year, String licencePlate) {
+  public Car(CarId carId, CarType carType, String brand, String model, int year, LicensePlate licencePlate) {
     this.carId = carId;
     this.carType = carType;
     this.brand = brand;
@@ -38,7 +38,11 @@ public class Car {
     return year;
   }
 
-  public String getLicencePlate() {
+  public LicensePlate getLicencePlate() {
     return licencePlate;
+  }
+
+  public boolean validateLicensePlate(LicensePlate licensePlate) {
+    return this.licencePlate.equals(licensePlate);
   }
 }
