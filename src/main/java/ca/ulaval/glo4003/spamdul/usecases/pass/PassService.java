@@ -49,6 +49,8 @@ public class PassService {
     Transaction transaction = transactionFactory.create(transactionDto);
     bankRepository.getMainBankAccount().addTransaction(transaction);
     //TODO il manque l'option d'ajouter 5$ si l'option postal est choisit
+    //TODO il faut resaver le bank account dans le repository apres ajouter la transaction et le faire
+    //TODO dans tous les autres services
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());
   }
