@@ -48,6 +48,7 @@ public class PassService {
     transactionDto.amount = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType).getFee();
     Transaction transaction = transactionFactory.create(transactionDto);
     bankRepository.getMainBankAccount().addTransaction(transaction);
+    //TODO il manque l'option d'ajouter 5$ si l'option postal est choisit
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());
   }

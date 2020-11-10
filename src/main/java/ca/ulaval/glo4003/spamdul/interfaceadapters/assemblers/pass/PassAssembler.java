@@ -51,14 +51,13 @@ public class PassAssembler {
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {
     final String ERROR_MESSAGE = "make a choice between (single_day_per_week_per_semester, monthly, one_semester," +
-        "two_semester or three_semester) ";
+        "two_semesters or three_semesters) ";
     TimePeriodDto timePeriodDto;
 
     try {
       timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
     } catch (IllegalArgumentException e) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
-
     }
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
