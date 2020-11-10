@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class LicensePlate {
 
-  private String licensePlate;
+  private String licensePlateNumber;
 
   public LicensePlate(String licensePlateNumber) {
-    this.licensePlate = licensePlateNumber;
+    this.licensePlateNumber = licensePlateNumber;
   }
 
   public String toString() {
-    return licensePlate;
+    return licensePlateNumber;
   }
 
   public boolean equals(Object o) {
@@ -22,10 +22,10 @@ public class LicensePlate {
       return false;
     }
     LicensePlate that = (LicensePlate) o;
-    return Objects.equals(licensePlate, that.licensePlate);
+    return Objects.equals(licensePlateNumber, that.licensePlateNumber);
   }
 
   public int hashCode() {
-    return Objects.hash(licensePlate);
+    return Objects.hash(licensePlateNumber);
   }
 }
