@@ -22,14 +22,14 @@ public class TimePeriodFactory {
         || timePeriodDto.periodType == PeriodType.ONE_SEMESTER) {
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
 
-    } else if (timePeriodDto.periodType == PeriodType.TWO_SEMESTERS){
+    } else if (timePeriodDto.periodType == PeriodType.TWO_SEMESTERS) {
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(1));
 
     } else if (timePeriodDto.periodType == PeriodType.THREE_SEMESTERS) {
       endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(2));
 
     } else {
-      return null;
+      throw new InvalidPeriodTypeException("The provided period is not valid");
     }
 
     return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);

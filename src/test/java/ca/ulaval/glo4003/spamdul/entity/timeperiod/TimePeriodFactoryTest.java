@@ -33,7 +33,7 @@ public class TimePeriodFactoryTest {
   }
 
   @Test
-  public void whenCreatingPeriodType_shouldCallCalendarStartingDateOfSemester() {
+  public void whenCreatingTimePeriod_shouldCallCalendarStartingDateOfSemester() {
     TimePeriodDto dto = new TimePeriodDto();
     dto.periodType = A_PERIOD_TYPE;
     dto.semester = A_SEMESTER;
@@ -44,7 +44,7 @@ public class TimePeriodFactoryTest {
   }
 
   @Test
-  public void givenSingleDayPerWeekPeriodTypeInDto_whenCreatingPeriodType_shouldCreateTimePeriodWithRightFields() {
+  public void givenSingleDayPerWeekPeriodTypeInDto_whenCreatingTimePeriod_shouldCreateTimePeriodWithRightFields() {
     TimePeriodDto dto = new TimePeriodDto();
     dto.periodType = PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER;
     dto.semester = A_SEMESTER;
@@ -60,7 +60,7 @@ public class TimePeriodFactoryTest {
   }
 
   @Test
-  public void givenOneSemesterPeriodTypeInDto_whenCreatingPeriodType_shouldCreateTimePeriodWithRightFields() {
+  public void givenOneSemesterPeriodTypeInDto_whenCreatingTimePeriod_shouldCreateTimePeriodWithRightFields() {
     TimePeriodDto dto = new TimePeriodDto();
     dto.periodType = PeriodType.ONE_SEMESTER;
     dto.semester = A_SEMESTER;
@@ -76,7 +76,7 @@ public class TimePeriodFactoryTest {
   }
 
   @Test
-  public void givenTwoSemesterPeriodTypeInDto_whenCreatingPeriodType_shouldCreateTimePeriodWithRightFields() {
+  public void givenTwoSemesterPeriodTypeInDto_whenCreatingTimePeriod_shouldCreateTimePeriodWithRightFields() {
     TimePeriodDto dto = new TimePeriodDto();
     dto.periodType = PeriodType.TWO_SEMESTERS;
     dto.semester = A_SEMESTER;
@@ -92,7 +92,7 @@ public class TimePeriodFactoryTest {
   }
 
   @Test
-  public void givenThreeSemesterPeriodTypeInDto_whenCreatingPeriodType_shouldCreateTimePeriodWithRightFields() {
+  public void givenThreeSemesterPeriodTypeInDto_whenCreatingTimePeriod_shouldCreateTimePeriodWithRightFields() {
     TimePeriodDto dto = new TimePeriodDto();
     dto.periodType = PeriodType.THREE_SEMESTERS;
     dto.semester = A_SEMESTER;
@@ -105,5 +105,17 @@ public class TimePeriodFactoryTest {
     assertThat(timePeriod.getStartDateTime()).isEqualTo(A_START_DATE_TIME);
     assertThat(timePeriod.getEndDateTime()).isEqualTo(A_END_DATE_TIME);
     assertThat(timePeriod.getTimePeriodDayOfWeek()).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
+
+  @Test(expected = InvalidPeriodTypeException.class)
+  public void givenAnInvalidPeriodType_whenCreatingPeriodTimePeriod_shouldThrowInvalidPeriodTypeException() {
+    TimePeriodDto dto = new TimePeriodDto();
+    dto.periodType = null;
+    dto.semester = A_SEMESTER;
+    dto.timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
+    when(calendar.getStartOfSemester(A_SEMESTER)).thenReturn(A_START_DATE_TIME);
+    when(calendar.getEndOfSemester(NEXT_NEXT_SEMESTER)).thenReturn(A_END_DATE_TIME);
+
+    timePeriodFactory.createTimePeriod(dto);
   }
 }
