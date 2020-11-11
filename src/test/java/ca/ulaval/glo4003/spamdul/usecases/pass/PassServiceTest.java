@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostFee;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
@@ -53,7 +53,7 @@ public class PassServiceTest {
   private static final double A_TRANSACTION_AMOUNT = 5.0;
   private static final ParkingZoneFee A_PARKING_ZONE_FEE = new ParkingZoneFee(A_TRANSACTION_AMOUNT);
   private static final double A_POST_FEE_AMOUNT = 5.0;
-  private static final PostFee A_POST_FEE = new PostFee(A_POST_FEE_AMOUNT);
+  private static final DeliveryFee A_POST_FEE = new DeliveryFee(A_POST_FEE_AMOUNT);
 
 
   private Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);

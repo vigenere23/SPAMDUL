@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
-public class PostFee {
+public class DeliveryFee {
 
   private final double fee;
 
-  public PostFee(double fee) {
+  public DeliveryFee(double fee) {
     this.fee = fee;
   }
 
