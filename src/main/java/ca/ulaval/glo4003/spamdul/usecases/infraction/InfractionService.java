@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -66,7 +67,9 @@ public class InfractionService {
     transactionDto.amount = infraction.getAmount();
     transactionDto.transactionType = TransactionType.INFRACTION;
     Transaction transaction = transactionFactory.create(transactionDto);
-    bankRepository.getMainBankAccount().addTransaction(transaction);
+    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
+    mainBankAccount.addTransaction(transaction);
+    bankRepository.save(mainBankAccount);
 
     infraction.pay();
   }
