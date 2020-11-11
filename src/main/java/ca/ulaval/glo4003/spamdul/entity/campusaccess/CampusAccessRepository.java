@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import java.util.List;
 
 public interface CampusAccessRepository {
 
@@ -8,5 +9,5 @@ public interface CampusAccessRepository {
 
   CampusAccess findBy(CampusAccessCode campusAccessCode);
 
-  CampusAccess findBy(LicensePlate licensePlate);
+  List<CampusAccess> findBy(LicensePlate licensePlate);
 }

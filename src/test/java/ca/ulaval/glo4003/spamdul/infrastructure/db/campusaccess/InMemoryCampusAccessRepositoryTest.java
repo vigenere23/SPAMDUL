@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,12 +68,15 @@ public class InMemoryCampusAccessRepositoryTest {
   }
 
   @Test
-  public void whenFindingByLicensePlate_shouldReturnCampusAccess() {
+  public void whenFindingByLicensePlate_shouldReturnCampusAccesses() {
+    CampusAccess anotherCampusAccessSameLicensePlate = new CampusAccess(new CampusAccessCode(), A_USER, A_CAR, null);
     campusAccessRepository.save(A_CAMPUS_ACCESS);
+    campusAccessRepository.save(anotherCampusAccessSameLicensePlate);
 
-    CampusAccess campusAccess = campusAccessRepository.findBy(new LicensePlate(A_LICENSE_PLATE_STRING));
+    List<CampusAccess> campusAccesses = campusAccessRepository.findBy(new LicensePlate(A_LICENSE_PLATE_STRING));
 
-    assertThat(campusAccess).isEqualTo(A_CAMPUS_ACCESS);
+    assertThat(campusAccesses.get(0)).isEqualTo(A_CAMPUS_ACCESS);
+    assertThat(campusAccesses.get(1)).isEqualTo(anotherCampusAccessSameLicensePlate);
   }
 
   @Test(expected = CampusAccessNotFoundException.class)

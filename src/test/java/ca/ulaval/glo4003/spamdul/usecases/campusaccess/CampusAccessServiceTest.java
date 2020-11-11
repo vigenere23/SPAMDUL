@@ -43,6 +43,8 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -196,11 +198,13 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenALicensePlate_whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromLicensePlate() {
+    List<CampusAccess> campusAccesses = new ArrayList<>();
+    campusAccesses.add(campusAccess);
     LicensePlate licensePlate = new LicensePlate(A_LICENSE_PLATE_STRING);
     accessingCampusDto.campusAccessCode = null;
     accessingCampusDto.licensePlate = licensePlate;
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findBy(licensePlate)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(licensePlate)).thenReturn(campusAccesses);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     campusAccessService.grantAccessToCampus(accessingCampusDto);

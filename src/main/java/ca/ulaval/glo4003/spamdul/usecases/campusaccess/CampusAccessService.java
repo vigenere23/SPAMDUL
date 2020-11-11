@@ -67,40 +67,77 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     campusAccessRepository.save(campusAccess);
 
-    TransactionDto transactionDto = new TransactionDto();
-    CarType carType = campusAccessDto.carDto.carType;
-    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
-    transactionDto.carType = carType;
-    transactionDto.amount = campusAccessFeeRepository.findBy(carType, campusAccessDto.timePeriodDto.periodType)
-                                                     .getFee();
-    Transaction transaction = transactionFactory.create(transactionDto);
-    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
-    mainBankAccount.addTransaction(transaction);
-    bankRepository.save(mainBankAccount);
+    Transaction transaction = generateTransaction(campusAccessDto);
+    addTransactionToBankAccount(transaction);
 
     return campusAccess;
   }
 
+  private void addTransactionToBankAccount(Transaction transaction) {
+    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
+    mainBankAccount.addTransaction(transaction);
+    bankRepository.save(mainBankAccount);
+  }
+
+  private Transaction generateTransaction(CampusAccessDto campusAccessDto) {
+    TransactionDto transactionDto = new TransactionDto();
+    CarType carType = campusAccessDto.carDto.carType;
+
+    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
+    transactionDto.carType = carType;
+    transactionDto.amount = campusAccessFeeRepository.findBy(carType, campusAccessDto.timePeriodDto.periodType)
+                                                     .getFee();
+
+    return transactionFactory.create(transactionDto);
+  }
+
+  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
+                                          PassCode passCode,
+                                          TimePeriod passTimePeriod) {
+    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
+    campusAccess.associatePass(passCode, passTimePeriod);
+    campusAccessRepository.save(campusAccess);
+  }
+
   public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
-    CampusAccess campusAccess;
+    LocalDateTime now = calendar.now();
+    boolean accessGranted;
 
     try {
       if (accessingCampusDto.campusAccessCode != null) {
-        campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto, now);
       } else {
-        campusAccess = campusAccessRepository.findBy(accessingCampusDto.licensePlate);
+        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto, now);
       }
     } catch (CampusAccessNotFoundException e) {
       return false;
     }
 
-    LocalDateTime now = calendar.now();
-    boolean accessGranted = campusAccess.isAccessGranted(now);
-    if (accessGranted) {
+    return accessGranted;
+  }
+
+  private boolean isAccessGrantedByCampusAccessCode(AccessingCampusDto accessingCampusDto,
+                                                    LocalDateTime now) {
+    CampusAccess campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+
+    if (campusAccess.isAccessGranted(now)) {
       notifyAccessGranted(campusAccess, now);
+      return true;
     }
 
-    return accessGranted;
+    return false;
+  }
+
+  private boolean isAccessGrantedByLicensePlate(AccessingCampusDto accessingCampusDto,
+                                                LocalDateTime now) {
+    for (CampusAccess campusAccess : campusAccessRepository.findBy(accessingCampusDto.licensePlate)) {
+      if (campusAccess.isAccessGranted(now)) {
+        notifyAccessGranted(campusAccess, now);
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
@@ -111,13 +148,5 @@ public class CampusAccessService extends AccessGrantedObservable {
       notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
     }
     // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
-  }
-
-  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
-                                          PassCode passCode,
-                                          TimePeriod passTimePeriod) {
-    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
-    campusAccess.associatePass(passCode, passTimePeriod);
-    campusAccessRepository.save(campusAccess);
   }
 }
