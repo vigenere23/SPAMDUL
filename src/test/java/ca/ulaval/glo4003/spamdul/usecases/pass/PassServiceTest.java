@@ -8,8 +8,8 @@ import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostFee;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
@@ -75,7 +75,7 @@ public class PassServiceTest {
   @Mock
   MainBankAccount mainBankAccount;
   @Mock
-  PostFeeRepository postFeeRepository;
+  DeliveryFeeCalculator deliveryFeeCalculator;
 
   private PassService passService;
 
@@ -99,13 +99,13 @@ public class PassServiceTest {
                                   transactionFactory,
                                   bankRepository,
                                   parkingZoneFeeRepository,
-                                  postFeeRepository);
+                                  deliveryFeeCalculator);
     when(passFactory.create(A_PARKING_ZONE, A_TIME_PERIOD_DTO)).thenReturn(pass);
 
     when(parkingZoneFeeRepository.findBy(A_PARKING_ZONE, A_PASS_DTO.timePeriodDto.periodType)).thenReturn(
         A_PARKING_ZONE_FEE);
     when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
-    when(postFeeRepository.find()).thenReturn(A_POST_FEE);
+    when(deliveryFeeCalculator.calculateBy(any())).thenReturn(A_POST_FEE);
   }
 
   @Test
@@ -168,6 +168,6 @@ public class PassServiceTest {
   public void givenAPostalDeliveryMode_whenCreatingPass_thenShouldCallPostFeeRepositoryToFindFee(){
     passService.createPass(A_SECOND_PASS_DTO);
 
-    verify(postFeeRepository).find();
+    verify(deliveryFeeCalculator).calculateBy(A_POSTAL_DELIVERY_DTO.deliveryMode);
   }
 }

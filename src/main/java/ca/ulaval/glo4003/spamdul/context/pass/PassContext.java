@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.delivery.HardcodedPostFeeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
@@ -43,7 +42,7 @@ public class PassContext {
     ParkingZoneFeeRepository parkingZoneFeeRepository = new ParkingZoneFeeCsvRepository(csvReader,
                                                                                         "src/main/resources/frais-zone.csv");
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
-    PostFeeRepository postFeeRepository = new HardcodedPostFeeRepository();
+    DeliveryFeeCalculator deliveryFeeCalculator = new DeliveryFeeCalculator();
     PassService passService = new PassService(passRepository,
                                               passFactory,
                                               campusAccessService,
@@ -51,7 +50,7 @@ public class PassContext {
                                               transactionFactory,
                                               bankRepository,
                                               parkingZoneFeeRepository,
-                                              postFeeRepository);
+                                              deliveryFeeCalculator);
 
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
