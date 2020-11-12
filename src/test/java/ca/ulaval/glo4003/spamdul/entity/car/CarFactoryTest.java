@@ -31,7 +31,7 @@ public class CarFactoryTest {
     assertThat(car.getBrand()).isEqualTo(A_BRAND);
     assertThat(car.getModel()).isEqualTo(A_MODEL);
     assertThat(car.getYear()).isEqualTo(A_CAR_YEAR);
-    assertThat(car.getLicencePlate()).isEqualTo(A_LICENCE_PLATE);
+    assertThat(car.getLicensePlate()).isEqualTo(A_LICENCE_PLATE);
   }
 
   @Test(expected = InvalidCarYearException.class)
