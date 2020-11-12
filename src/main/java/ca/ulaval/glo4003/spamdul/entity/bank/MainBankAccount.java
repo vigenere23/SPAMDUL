@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.account;
+package ca.ulaval.glo4003.spamdul.entity.bank;
 
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -10,17 +10,17 @@ import java.util.List;
 public class MainBankAccount {
 
   private final TransactionFactory transactionFactory;
-  private final Account other;
-  private final Account sustainableMobilityProjectAccount;
+  private final SustainabilityBankAccount other;
+  private final SustainabilityBankAccount sustainabilityBankAccount;
   private final double sustainableMobilityProjectRatio;
 
   public MainBankAccount(
       TransactionFactory transactionFactory,
-      Account sustainableMobilityProjectAccount,
-      Account other,
+      SustainabilityBankAccount sustainabilityBankAccount,
+      SustainabilityBankAccount other,
       double sustainableMobilityProjectRatio) {
     this.transactionFactory = transactionFactory;
-    this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
+    this.sustainabilityBankAccount = sustainabilityBankAccount;
     this.other = other;
     this.sustainableMobilityProjectRatio = sustainableMobilityProjectRatio;
   }
@@ -32,7 +32,7 @@ public class MainBankAccount {
     Transaction sustainabilityTransaction = transactionFactory.create(transaction, sustainabilityAmount);
     Transaction otherTransaction = transactionFactory.create(transaction, otherAmount);
 
-    sustainableMobilityProjectAccount.addTransaction(sustainabilityTransaction);
+    sustainabilityBankAccount.addTransaction(sustainabilityTransaction);
     other.addTransaction(otherTransaction);
   }
 
@@ -40,10 +40,10 @@ public class MainBankAccount {
     List<Transaction> transactions;
 
     if (transactionType.equals(TransactionType.INFRACTION)) {
-      transactions = sustainableMobilityProjectAccount.findAllTransactionsBy(transactionType);
+      transactions = sustainabilityBankAccount.findAllTransactionsBy(transactionType);
     } else {
       transactions = new ArrayList<>();
-      transactions.addAll(sustainableMobilityProjectAccount.findAllTransactionsBy(transactionType));
+      transactions.addAll(sustainabilityBankAccount.findAllTransactionsBy(transactionType));
       transactions.addAll(other.findAllTransactionsBy(transactionType));
     }
 

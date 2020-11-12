@@ -7,8 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;

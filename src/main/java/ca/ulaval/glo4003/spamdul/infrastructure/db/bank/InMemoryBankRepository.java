@@ -1,33 +1,47 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.bank;
 
-import ca.ulaval.glo4003.spamdul.entity.account.Account;
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.CarbonCreditsBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.SustainabilityBankAccount;
 import java.util.logging.Logger;
 
 public class InMemoryBankRepository implements BankRepository {
 
   private static final Logger logger = Logger.getLogger(InMemoryBankRepository.class.getName());
   private MainBankAccount mainBankAccount;
-  private Account sustainableMobilityProjectAccount;
+  private SustainabilityBankAccount sustainabilityBankAccount;
+  private CarbonCreditsBankAccount carbonCreditsBankAccount;
 
-  public void save(MainBankAccount mainBankAccount) {
-    this.mainBankAccount = mainBankAccount;
-    String loggingInfos = "Saving Bank accounts";
-    logger.info(loggingInfos);
-  }
-
-  public MainBankAccount getMainBankAccount() {
+  @Override public MainBankAccount getMainBankAccount() {
     return mainBankAccount;
   }
 
-  public Account getSustainableMobilityProjectAccount() {
-    return sustainableMobilityProjectAccount;
+  @Override public SustainabilityBankAccount getSustainabilityBankAccount() {
+    return sustainabilityBankAccount;
   }
 
-  public void saveSustainableMobilityProjectAccount(Account sustainableMobilityProjectAccount) {
-    this.sustainableMobilityProjectAccount = sustainableMobilityProjectAccount;
-    String loggingInfos = "Saving sustainable mobility project account";
+  @Override public CarbonCreditsBankAccount getCarbonCreditsBankAccount() {
+    return carbonCreditsBankAccount;
+  }
+
+  @Override public void save(MainBankAccount mainBankAccount) {
+    this.mainBankAccount = mainBankAccount;
+    String loggingInfos = "Saving main bank accounts";
+    logger.info(loggingInfos);
+  }
+
+  @Override
+  public void save(SustainabilityBankAccount sustainabilityBankAccount) {
+    this.sustainabilityBankAccount = sustainabilityBankAccount;
+    String loggingInfos = "Saving sustainable mobility project bank account";
+    logger.info(loggingInfos);
+  }
+
+  @Override
+  public void save(CarbonCreditsBankAccount carbonCreditsBankAccount) {
+    this.carbonCreditsBankAccount = carbonCreditsBankAccount;
+    String loggingInfos = "Saving carbon credits bank account";
     logger.info(loggingInfos);
   }
 }

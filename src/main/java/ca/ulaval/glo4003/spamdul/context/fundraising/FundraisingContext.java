@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
@@ -14,12 +14,14 @@ public class FundraisingContext {
 
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
+  private final InitiativeFactory initiativeFactory;
+  private final InitiativeRepository initiativeRepository;
 
   public FundraisingContext(BankRepository bankRepository,
                             boolean populateData) {
-    InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+    initiativeRepository = new InitiativeRepositoryInMemory();
 
-    InitiativeFactory initiativeFactory = new InitiativeFactory();
+    initiativeFactory = new InitiativeFactory();
     TransactionFactory transactionFactory = new TransactionFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
@@ -43,5 +45,13 @@ public class FundraisingContext {
 
   public FundraisingResource getFundraisingResource() {
     return fundraisingResource;
+  }
+
+  public InitiativeRepository getInitiativeRepository() {
+    return initiativeRepository;
+  }
+
+  public InitiativeFactory getInitiativeFactory() {
+    return initiativeFactory;
   }
 }

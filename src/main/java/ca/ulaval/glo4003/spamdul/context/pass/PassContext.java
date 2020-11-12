@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;

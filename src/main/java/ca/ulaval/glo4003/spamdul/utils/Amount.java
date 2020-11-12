@@ -8,10 +8,6 @@ public class Amount {
 
   private final BigDecimal value;
 
-  public static Amount valueOf(int value) {
-    return new Amount(BigDecimal.valueOf(value));
-  }
-
   public static Amount valueOf(double value) {
     return new Amount(BigDecimal.valueOf(value));
   }
@@ -38,6 +34,10 @@ public class Amount {
 
   public Amount multiply(double other) {
     return new Amount(value.multiply(BigDecimal.valueOf(other)));
+  }
+
+  public Amount divide(double other) {
+    return new Amount(value.divide(BigDecimal.valueOf(other), RoundingMode.HALF_UP));
   }
 
   @Override

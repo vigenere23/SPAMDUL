@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;

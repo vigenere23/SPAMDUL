@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.spamdul.entity.account;
+package ca.ulaval.glo4003.spamdul.entity.bank;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeException;
 
 public class InsufficientFundsException extends InvalidInitiativeException {
 

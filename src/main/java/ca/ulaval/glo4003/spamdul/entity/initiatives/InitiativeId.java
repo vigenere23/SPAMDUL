@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.fundraising;
+package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
@@ -22,16 +22,16 @@ public class InitiativeId {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object object) {
+    if (this == object) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (object == null || getClass() != object.getClass()) {
       return false;
     }
-    InitiativeId userId = (InitiativeId) o;
+    InitiativeId other = (InitiativeId) object;
 
-    return Objects.equals(id, userId.id);
+    return Objects.equals(id, other.id);
   }
 
   @Override
