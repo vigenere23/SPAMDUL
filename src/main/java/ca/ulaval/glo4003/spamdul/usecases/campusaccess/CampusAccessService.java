@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
@@ -33,9 +33,9 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CampusAccessRepository campusAccessRepository;
   private final PassRepository passRepository;
   private final Calendar calendar;
-  private BankRepository bankRepository;
-  private TransactionFactory transactionFactory;
-  private CampusAccessFeeRepository campusAccessFeeRepository;
+  private final BankRepository bankRepository;
+  private final TransactionFactory transactionFactory;
+  private final CampusAccessFeeRepository campusAccessFeeRepository;
 
   public CampusAccessService(UserService userService,
                              CarService carService,

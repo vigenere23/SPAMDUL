@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -18,9 +18,9 @@ public class PassService {
   private final PassFactory passFactory;
   private final CampusAccessService campusAccessService;
   private final PassSender passSender;
-  private TransactionFactory transactionFactory;
-  private BankRepository bankRepository;
-  private ParkingZoneFeeRepository parkingZoneFeeRepository;
+  private final TransactionFactory transactionFactory;
+  private final BankRepository bankRepository;
+  private final ParkingZoneFeeRepository parkingZoneFeeRepository;
 
   public PassService(PassRepository passRepository,
                      PassFactory passFactory,

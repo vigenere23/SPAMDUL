@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
@@ -36,7 +36,8 @@ public class CampusAccessContext {
 
   public CampusAccessContext(PassRepository passRepository,
                              ParkingAccessLogger parkingAccessLogger,
-                             BankRepository bankRepository) {
+                             BankRepository bankRepository,
+                             TransactionFactory transactionFactory) {
     UserRepository userRepository = new UserRepositoryInMemory();
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory, userRepository);
@@ -59,7 +60,6 @@ public class CampusAccessContext {
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,
                                                                                            "src/main/resources/frais-acces.csv");
-    TransactionFactory transactionFactory = new TransactionFactory();
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,

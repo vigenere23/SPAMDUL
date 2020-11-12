@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.entity.fundraising;
+package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeName;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import org.junit.Before;
 import org.junit.Test;

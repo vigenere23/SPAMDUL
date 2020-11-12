@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.account;
+package ca.ulaval.glo4003.spamdul.entity.bank;
 
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-public class Account {
+public class SustainabilityBankAccount {
 
   private final Map<TransactionType, List<Transaction>> transactionsByType;
 
-  public Account() {
+  public SustainabilityBankAccount() {
     this.transactionsByType = new EnumMap<>(TransactionType.class);
   }
 
