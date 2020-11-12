@@ -14,8 +14,15 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.excepti
 public class TimePeriodAssembler {
 
   public TimePeriodDto fromRequest(TimePeriodRequest timePeriodRequest) {
+    final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
+        "two_semester or three_semester) ";
     TimePeriodDto timePeriodDto = new TimePeriodDto();
-    timePeriodDto.periodType = PeriodType.valueOf(timePeriodRequest.type.toUpperCase());
+
+    try {
+      timePeriodDto.periodType = PeriodType.valueOf(timePeriodRequest.type.toUpperCase());
+    } catch (Exception e) {
+      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+    }
 
     if (timePeriodDto.periodType.equals(PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER)) {
       setSingleDayPerWeekPerSemesterDto(timePeriodDto, timePeriodRequest);
@@ -28,6 +35,11 @@ public class TimePeriodAssembler {
 
   private Semester assembleSemester(String semester) {
     final String message = "The semester must be in format {A|H|E}XXXX";
+
+    if (semester == null) {
+      throw new InvalidSemesterException(message);
+    }
+
     semester = semester.toUpperCase();
 
     int year;
@@ -51,7 +63,7 @@ public class TimePeriodAssembler {
     timePeriodDto.semester = assembleSemester(timePeriodRequest.semester);
     try {
       timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
-    } catch (IllegalArgumentException e) {
+    } catch (Exception e) {
       throw new InvalidPeriodArgumentException("Day of the week must be from monday to friday");
     }
   }

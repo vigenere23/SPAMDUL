@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -50,9 +51,15 @@ public class CarbonCreditsService implements ScheduleObserver {
 
   public double transferRemainingBudget() {
     Amount totalAvailableAmount = bankRepository.getSustainabilityBankAccount().getTotalAvailableAmount();
-    Initiative initiative = initiativeFactory.create(new InitiativeCode("MCARB"),
-                                                     "Marché du carbone",
-                                                     totalAvailableAmount);
+    Initiative initiative;
+
+    try {
+      initiative = initiativeFactory.create(new InitiativeCode("MCARB"),
+                                            "Marché du carbone",
+                                            totalAvailableAmount);
+    } catch (InvalidInitiativeAmount exception) {
+      return 0;
+    }
 
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.transactionType = TransactionType.INITIATIVE;

@@ -55,7 +55,7 @@ public class SpamdUlMain {
                                                                          globalContext.getTransactionFactory(),
                                                                          fundraisingContext.getInitiativeFactory(),
                                                                          fundraisingContext.getInitiativeRepository(),
-                                                                         false);
+                                                                         true);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository());

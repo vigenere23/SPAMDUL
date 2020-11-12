@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCam
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
@@ -46,22 +47,16 @@ public class CampusAccessAssembler {
     campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.user);
     campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.car);
 
-    setTimePeriodDto(campusAccessRequest, campusAccessDto);
+    setTimePeriodDto(campusAccessRequest.period, campusAccessDto);
 
     return campusAccessDto;
   }
 
-  private void setTimePeriodDto(CampusAccessRequest campusAccessRequest, CampusAccessDto campusAccessDto) {
+  private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {
     final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
         "two_semester or three_semester) ";
-    TimePeriodDto timePeriodDto;
 
-    try {
-      timePeriodDto = timePeriodAssembler.fromRequest(campusAccessRequest.period);
-    } catch (IllegalArgumentException e) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
-
-    }
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
