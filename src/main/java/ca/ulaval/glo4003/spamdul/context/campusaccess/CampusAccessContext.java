@@ -34,8 +34,6 @@ public class CampusAccessContext {
                              ParkingAccessLogger parkingAccessLogger,
                              BankRepository bankRepository,
                              TransactionFactory transactionFactory) {
-    UserRepository userRepository = new UserRepositoryInMemory();
-                             BankRepository bankRepository) {
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory);
 
