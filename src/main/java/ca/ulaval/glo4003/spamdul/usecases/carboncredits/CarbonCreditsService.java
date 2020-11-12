@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
@@ -49,7 +50,7 @@ public class CarbonCreditsService implements ScheduleObserver {
 
   public double transferRemainingBudget() {
     Amount totalAvailableAmount = bankRepository.getSustainabilityBankAccount().getTotalAvailableAmount();
-    Initiative initiative = initiativeFactory.create("MCARB",
+    Initiative initiative = initiativeFactory.create(new InitiativeCode("MCARB"),
                                                      "Marché du carbone",
                                                      totalAvailableAmount);
 

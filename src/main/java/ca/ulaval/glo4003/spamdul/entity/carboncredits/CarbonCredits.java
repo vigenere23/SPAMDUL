@@ -7,23 +7,23 @@ import java.util.Objects;
 public class CarbonCredits {
 
   private static final double CARBON_CREDIT_TO_AMOUNT_RATIO = 21.81;
-  private final BigDecimal value;
+  private final BigDecimal credits;
 
-  public static CarbonCredits valueOf(double value) {
-    return new CarbonCredits(BigDecimal.valueOf(value));
+  public static CarbonCredits valueOf(double credits) {
+    return new CarbonCredits(BigDecimal.valueOf(credits));
   }
 
   public static CarbonCredits valueOf(Amount amount) {
-    double value = amount.divide(CARBON_CREDIT_TO_AMOUNT_RATIO).asDouble();
-    return new CarbonCredits(BigDecimal.valueOf(value));
+    double credits = amount.divide(CARBON_CREDIT_TO_AMOUNT_RATIO).asDouble();
+    return new CarbonCredits(BigDecimal.valueOf(credits));
   }
 
-  public CarbonCredits(BigDecimal value) {
-    this.value = value;
+  public CarbonCredits(BigDecimal credits) {
+    this.credits = credits;
   }
 
   public double asDouble() {
-    return value.doubleValue();
+    return credits.doubleValue();
   }
 
   @Override
@@ -36,11 +36,11 @@ public class CarbonCredits {
     }
     CarbonCredits credits = (CarbonCredits) o;
 
-    return Objects.equals(value, credits.value);
+    return Objects.equals(this.credits, credits.credits);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value);
+    return Objects.hash(credits);
   }
 }

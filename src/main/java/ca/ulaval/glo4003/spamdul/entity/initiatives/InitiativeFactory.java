@@ -1,21 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
 public class InitiativeFactory {
 
-  private static final IdGenerator<Long> codeGenerator = new IncrementalLongIdGenerator();
-
   public Initiative create(String name, Amount amount) {
-    String code = codeGenerator.getNextId().toString();
+    InitiativeCode code = new InitiativeCode();
     return create(code, name, amount);
   }
 
-  public Initiative create(String code, String name, Amount amount) {
+  public Initiative create(InitiativeCode code, String name, Amount amount) {
     if (name == null || name.isEmpty()) {
       throw new InvalidInitiativeName("A name must be provided");
     }
@@ -25,7 +21,7 @@ public class InitiativeFactory {
     }
 
     if (code == null) {
-      code = codeGenerator.getNextId().toString();
+      code = new InitiativeCode();
     }
 
     return new Initiative(new InitiativeId(), code, name, amount);

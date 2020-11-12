@@ -4,21 +4,23 @@ import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import java.util.Objects;
 
-public class InitiativeId {
+public class InitiativeCode {
 
+  private final String code;
   private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
-  private final Long id;
 
-  public InitiativeId() {
-    id = idGenerator.getNextId();
+
+  public InitiativeCode(String code) {
+    this.code = code;
   }
 
-  private InitiativeId(long id) {
-    this.id = id;
+  public InitiativeCode() {
+    this.code = idGenerator.getNextId().toString();
   }
 
-  public static InitiativeId valueOf(String initiativeId) {
-    return new InitiativeId(Long.parseLong(initiativeId));
+  @Override
+  public String toString() {
+    return code;
   }
 
   @Override
@@ -29,18 +31,13 @@ public class InitiativeId {
     if (object == null || getClass() != object.getClass()) {
       return false;
     }
-    InitiativeId other = (InitiativeId) object;
+    InitiativeCode other = (InitiativeCode) object;
 
-    return Objects.equals(id, other.id);
+    return Objects.equals(this.code, other.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
-  }
-
-  @Override
-  public String toString() {
-    return this.id.toString();
+    return Objects.hash(code);
   }
 }

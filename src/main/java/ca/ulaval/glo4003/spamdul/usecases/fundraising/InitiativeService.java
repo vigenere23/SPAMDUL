@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
@@ -47,7 +48,7 @@ public class InitiativeService {
       throw new InvalidInitiativeAmount("Insufficient funds");
     }
 
-    Initiative initiative = initiativeFactory.create(initiativeDto.code,
+    Initiative initiative = initiativeFactory.create(new InitiativeCode(initiativeDto.code),
                                                      initiativeDto.name,
                                                      Amount.valueOf(initiativeDto.amount));
     initiativeRepository.save(initiative);
