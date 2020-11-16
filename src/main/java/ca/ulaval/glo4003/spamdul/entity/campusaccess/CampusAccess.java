@@ -1,27 +1,33 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.LocalDateTime;
 
 public class CampusAccess {
 
-  private CampusAccessCode campusAccessCode;
-  private UserId userId;
-  private CarId carId;
-  private TimePeriod timePeriod;
+  private final CampusAccessCode campusAccessCode;
+  private final UserId userId;
+  private final CarId carId;
+  private final PeriodType periodType;
+  private final TimePeriod timePeriod;
   private PassCode associatedPassCode;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       UserId userId,
                       CarId carId,
+                      PeriodType periodType,
                       TimePeriod timePeriod) {
     this.campusAccessCode = campusAccessCode;
     this.userId = userId;
     this.carId = carId;
+    this.periodType = periodType;
     this.timePeriod = timePeriod;
   }
 
@@ -60,5 +66,22 @@ public class CampusAccess {
 
   public PassCode getAssociatedPassCode() {
     return associatedPassCode;
+  }
+
+  // TODO: should receive PassService instead
+  public ParkingZone getParkingZone(PassRepository passRepository) {
+    if (associatedPassCode != null) {
+      return passRepository.findByPassCode(associatedPassCode)
+                           .getParkingZone();
+    }
+
+    switch (periodType) {
+      case ONE_HOUR:
+      case SINGLE_DAY:
+        return ParkingZone.ALL;
+      default:
+        return ParkingZone.FREE;
+    }
+
   }
 }

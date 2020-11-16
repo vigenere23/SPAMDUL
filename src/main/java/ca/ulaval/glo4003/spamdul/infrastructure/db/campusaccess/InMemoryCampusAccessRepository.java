@@ -31,4 +31,8 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
 
     return campusAccess;
   }
+
+  public void deleteAll() {
+    campusAccesses.clear();
+  }
 }

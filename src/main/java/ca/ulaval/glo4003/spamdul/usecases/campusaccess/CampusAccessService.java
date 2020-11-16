@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundExcepti
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
@@ -95,13 +94,7 @@ public class CampusAccessService extends AccessGrantedObservable {
     LocalDateTime now = calendar.now();
     boolean accessGranted = campusAccess.isAccessGranted(now);
     if (accessGranted) {
-      PassCode passCode = campusAccess.getAssociatedPassCode();
-
-      if (passCode != null) {
-        Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
-        notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
-      }
-      // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
+      notifyAccessGrantedWithCampusAccess(campusAccess.getParkingZone(passRepository), now.toLocalDate());
     }
 
     return accessGranted;

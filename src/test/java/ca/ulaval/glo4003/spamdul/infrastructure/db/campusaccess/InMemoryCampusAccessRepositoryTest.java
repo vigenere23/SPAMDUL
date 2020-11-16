@@ -6,23 +6,27 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import org.junit.Before;
 import org.junit.Test;
 
 public class InMemoryCampusAccessRepositoryTest {
 
-  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
-  private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
-                                                                new UserId(),
-                                                                new CarId(),
-                                                                null);
+  private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
+  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private static final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
+                                                                       new UserId(),
+                                                                       new CarId(),
+                                                                       A_PERIOD_TYPE,
+                                                                       null);
 
   private InMemoryCampusAccessRepository campusAccessRepository;
 
   @Before
   public void setUp() throws Exception {
     campusAccessRepository = new InMemoryCampusAccessRepository();
+    campusAccessRepository.deleteAll();
   }
 
   @Test
