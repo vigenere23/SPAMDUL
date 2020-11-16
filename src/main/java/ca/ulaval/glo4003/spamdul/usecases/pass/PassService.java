@@ -32,7 +32,7 @@ public class PassService {
                      TransactionFactory transactionFactory,
                      BankRepository bankRepository,
                      ParkingZoneFeeRepository parkingZoneFeeRepository,
-                     DeliveryFeeCalculator postFeeRepository) {
+                     DeliveryFeeCalculator deliveryFeeCalculator) {
     this.passRepository = passRepository;
     this.passFactory = passFactory;
     this.campusAccessService = campusAccessService;
@@ -40,7 +40,7 @@ public class PassService {
     this.transactionFactory = transactionFactory;
     this.bankRepository = bankRepository;
     this.parkingZoneFeeRepository = parkingZoneFeeRepository;
-    this.deliveryFeeCalculator = postFeeRepository;
+    this.deliveryFeeCalculator = deliveryFeeCalculator;
   }
 
   public void createPass(PassDto dto) {
