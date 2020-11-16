@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 
 public class InfractionService {
 
@@ -23,8 +22,8 @@ public class InfractionService {
   private final InfractionRepository infractionRepository;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
-  private TransactionFactory transactionFactory;
-  private BankRepository bankRepository;
+  private final TransactionFactory transactionFactory;
+  private final BankRepository bankRepository;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.account;
+package ca.ulaval.glo4003.spamdul.entity.bank;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
@@ -33,13 +33,15 @@ public class MainBankAccountTest {
   @Mock
   private TransactionFactory transactionFactory;
   @Mock
-  private Account sustainableAccount;
+  private SustainabilityBankAccount sustainableSustainabilityBankAccount;
   @Mock
-  private Account otherAccount;
+  private SustainabilityBankAccount otherSustainabilityBankAccount;
 
   @Before
   public void setUp() throws Exception {
-    mainBankAccount = new MainBankAccount(transactionFactory, sustainableAccount, otherAccount, PERCENT_OF_REVENUE);
+    mainBankAccount = new MainBankAccount(transactionFactory,
+                                          sustainableSustainabilityBankAccount,
+                                          otherSustainabilityBankAccount, PERCENT_OF_REVENUE);
   }
 
   @Test
@@ -52,8 +54,8 @@ public class MainBankAccountTest {
 
     mainBankAccount.addTransaction(transaction);
 
-    verify(sustainableAccount).addTransaction(A_TRANSACTION);
-    verify(otherAccount).addTransaction(ANOTHER_TRANSACTION);
+    verify(sustainableSustainabilityBankAccount).addTransaction(A_TRANSACTION);
+    verify(otherSustainabilityBankAccount).addTransaction(ANOTHER_TRANSACTION);
   }
 
   @Test
@@ -65,8 +67,10 @@ public class MainBankAccountTest {
     when(transactionFactory.create(transaction, transaction.getAmount().multiply(1 - PERCENT_OF_REVENUE)))
         .thenReturn(ANOTHER_TRANSACTION);
     mainBankAccount.addTransaction(transaction);
-    when(sustainableAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(A_TRANSACTION));
-    when(otherAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(ANOTHER_TRANSACTION));
+    when(sustainableSustainabilityBankAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(
+        A_TRANSACTION));
+    when(otherSustainabilityBankAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(
+        ANOTHER_TRANSACTION));
 
     List<Transaction> transactions = mainBankAccount.findAllBy(transactionType);
 
@@ -82,7 +86,8 @@ public class MainBankAccountTest {
     when(transactionFactory.create(transaction, transaction.getAmount().multiply(1 - PERCENT_OF_REVENUE)))
         .thenReturn(ANOTHER_TRANSACTION);
     mainBankAccount.addTransaction(transaction);
-    when(sustainableAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(A_TRANSACTION));
+    when(sustainableSustainabilityBankAccount.findAllTransactionsBy(transactionType)).thenReturn(Collections.singletonList(
+        A_TRANSACTION));
 
     List<Transaction> transactions = mainBankAccount.findAllBy(transactionType);
 

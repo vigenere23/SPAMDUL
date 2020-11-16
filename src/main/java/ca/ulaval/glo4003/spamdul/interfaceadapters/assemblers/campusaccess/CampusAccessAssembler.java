@@ -5,13 +5,16 @@ import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
@@ -46,21 +49,16 @@ public class CampusAccessAssembler {
     campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.user);
     campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.car);
 
-    setTimePeriodDto(campusAccessRequest, campusAccessDto);
+    setTimePeriodDto(campusAccessRequest.period, campusAccessDto);
 
     return campusAccessDto;
   }
 
-  private void setTimePeriodDto(CampusAccessRequest campusAccessRequest, CampusAccessDto campusAccessDto) {
+  private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {
     final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
         "two_semesters or three_semesters) ";
-    TimePeriodDto timePeriodDto;
 
-    try {
-      timePeriodDto = timePeriodAssembler.fromRequest(campusAccessRequest.period);
-    } catch (IllegalArgumentException e) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
-    }
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
@@ -79,9 +77,22 @@ public class CampusAccessAssembler {
   public AccessingCampusDto fromRequest(AccessingCampusRequest accessingCampusRequest) {
     AccessingCampusDto accessingCampusDto = new AccessingCampusDto();
 
-    setCampusAccessCode(accessingCampusRequest, accessingCampusDto);
+    if (accessingCampusRequest.campusAccessCode != null) {
+      setCampusAccessCode(accessingCampusRequest, accessingCampusDto);
+    } else {
+      setCarLicensePlate(accessingCampusRequest, accessingCampusDto);
+    }
 
     return accessingCampusDto;
+  }
+
+  private void setCarLicensePlate(AccessingCampusRequest accessingCampusRequest,
+                                  AccessingCampusDto accessingCampusDto) {
+    if (accessingCampusRequest.licensePlate != null) {
+      accessingCampusDto.licensePlate = new LicensePlate(accessingCampusRequest.licensePlate);
+    } else {
+      throw new InvalidAccessingCampusArgumentException("A campus access code or a license plate must be provided");
+    }
   }
 
   private void setCampusAccessCode(AccessingCampusRequest accessingCampusRequest,

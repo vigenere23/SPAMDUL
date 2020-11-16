@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.fundraising;
+package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import java.util.List;
 

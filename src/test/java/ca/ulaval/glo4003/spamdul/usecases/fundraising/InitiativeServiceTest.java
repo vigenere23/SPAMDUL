@@ -4,13 +4,13 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.account.Account;
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.InsufficientFundsException;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.bank.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -31,14 +31,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class InitiativeServiceTest {
 
   private InitiativeService initiativeService;
-  private InitiativeDto A_INITIATIVE_DTO = new InitiativeDto();
-  private double A_VALUE = 50;
-  private String A_NAME = "initiative vélo";
-  private TransactionDto A_TRANSACTION_DTO = new TransactionDto();
-  private Amount AN_AMOUNT = Amount.valueOf(100);
-  private LocalDateTime NOW = LocalDateTime.now();
-  private TransactionType A_TRANSACTION_TYPE = TransactionType.INITIATIVE;
-  private Transaction A_TRANSACTION = new Transaction(AN_AMOUNT, NOW, A_TRANSACTION_TYPE);
+  private final InitiativeDto A_INITIATIVE_DTO = new InitiativeDto();
+  private final double A_VALUE = 50;
+  private final String A_NAME = "initiative vélo";
+  private final TransactionDto A_TRANSACTION_DTO = new TransactionDto();
+  private final Amount AN_AMOUNT = Amount.valueOf(100);
+  private final LocalDateTime NOW = LocalDateTime.now();
+  private final TransactionType A_TRANSACTION_TYPE = TransactionType.INITIATIVE;
+  private final Transaction A_TRANSACTION = new Transaction(AN_AMOUNT, NOW, A_TRANSACTION_TYPE);
 
   @Mock
   private InitiativeRepository initiativeRepository;
@@ -49,7 +49,7 @@ public class InitiativeServiceTest {
   @Mock
   private TransactionFactory transactionFactory;
   @Mock
-  private Account account;
+  private SustainabilityBankAccount sustainabilityBankAccount;
 
   @Before
   public void setUp() {
@@ -76,18 +76,18 @@ public class InitiativeServiceTest {
   @Test
   public void givenEnoughFunds_whenAddingAInitiative_shouldCallTransactionFactoryWithInitiativeInformation() {
     when(transactionFactory.create(A_TRANSACTION_DTO)).thenReturn(A_TRANSACTION);
-    when(bankRepository.getSustainableMobilityProjectAccount()).thenReturn(account);
+    when(bankRepository.getSustainabilityBankAccount()).thenReturn(sustainabilityBankAccount);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO);
 
     verify(transactionFactory).create(any());
-    verify(account).addTransaction(any());
+    verify(sustainabilityBankAccount).addTransaction(any());
   }
 
   @Test(expected = InvalidInitiativeAmount.class)
   public void givenNotEnoughFunds_whenAddingAInitiative_shouldCallTransactionFactoryWithInitiativeInformation() {
     when(transactionFactory.create(A_TRANSACTION_DTO)).thenReturn(A_TRANSACTION);
-    when(bankRepository.getSustainableMobilityProjectAccount()).thenThrow(InsufficientFundsException.class);
+    when(bankRepository.getSustainabilityBankAccount()).thenThrow(InsufficientFundsException.class);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO);
   }

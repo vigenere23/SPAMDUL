@@ -4,8 +4,12 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 public class InMemoryCampusAccessRepository implements CampusAccessRepository {
@@ -21,7 +25,7 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
     return campusAccess.getCampusAccessCode();
   }
 
-  public CampusAccess findById(CampusAccessCode campusAccessCode) {
+  public CampusAccess findBy(CampusAccessCode campusAccessCode) {
     CampusAccess campusAccess = campusAccesses.get(campusAccessCode);
 
     if (campusAccess == null) {
@@ -30,5 +34,26 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
     }
 
     return campusAccess;
+  }
+
+  public List<CampusAccess> findBy(LicensePlate licensePlate) {
+    List<CampusAccess> campusAccessesAssociatedWithLicensePlate = new ArrayList<>();
+
+    for (Entry<CampusAccessCode, CampusAccess> entry : campusAccesses.entrySet()) {
+      if (entry.getValue().validateAssociatedLicensePlate(licensePlate)) {
+        campusAccessesAssociatedWithLicensePlate.add(entry.getValue());
+      }
+    }
+
+    if (campusAccessesAssociatedWithLicensePlate.isEmpty()) {
+      throw new CampusAccessNotFoundException(String.format("No campus access with license plate %s",
+                                                            licensePlate.toString()));
+    }
+
+    return campusAccessesAssociatedWithLicensePlate;
+  }
+
+  public void clear() {
+    campusAccesses.clear();
   }
 }

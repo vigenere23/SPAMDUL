@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.fundraising.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.List;
 import org.junit.Before;

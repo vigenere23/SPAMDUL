@@ -1,23 +1,19 @@
 package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.CampusAccessFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.car.InMemoryCarRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.user.UserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
@@ -36,14 +32,13 @@ public class CampusAccessContext {
 
   public CampusAccessContext(PassRepository passRepository,
                              ParkingAccessLogger parkingAccessLogger,
-                             BankRepository bankRepository) {
-    UserRepository userRepository = new UserRepositoryInMemory();
+                             BankRepository bankRepository,
+                             TransactionFactory transactionFactory) {
     UserFactory userFactory = new UserFactory();
-    UserService userService = new UserService(userFactory, userRepository);
+    UserService userService = new UserService(userFactory);
 
-    CarRepository carRepository = new InMemoryCarRepository();
     CarFactory carFactory = new CarFactory();
-    CarService carService = new CarService(carFactory, carRepository);
+    CarService carService = new CarService(carFactory);
 
     UserAssembler userAssembler = new UserAssembler();
     CarAssembler carAssembler = new CarAssembler();
@@ -59,7 +54,6 @@ public class CampusAccessContext {
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,
                                                                                            "src/main/resources/frais-acces.csv");
-    TransactionFactory transactionFactory = new TransactionFactory();
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,

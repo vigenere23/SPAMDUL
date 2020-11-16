@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.account.InsufficientFundsException;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeAmount;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeException;
-import ca.ulaval.glo4003.spamdul.entity.fundraising.exceptions.InvalidInitiativeName;
+import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

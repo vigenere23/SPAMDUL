@@ -7,8 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.account.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.account.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -42,6 +43,8 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +59,13 @@ public class CampusAccessServiceTest {
   private static final CarId A_CAR_ID = new CarId();
   private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
   public static final CarType A_CAR_TYPE = CarType.GOURMANDE;
-  private static final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, "brand", "model", 2020, "xxx xxx");
+  public static final String A_LICENSE_PLATE_STRING = "xxx xxx";
+  private static final Car A_CAR = new Car(A_CAR_ID,
+                                           A_CAR_TYPE,
+                                           "brand",
+                                           "model",
+                                           2020,
+                                           new LicensePlate(A_LICENSE_PLATE_STRING));
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
@@ -123,7 +132,7 @@ public class CampusAccessServiceTest {
                                                   bankRepository,
                                                   campusAccessFeeRepository,
                                                   transactionFactory);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
@@ -154,14 +163,14 @@ public class CampusAccessServiceTest {
   public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
-    verify(campusAccessFactory, times(1)).create(A_USER_ID,
-                                                 A_CAR_ID,
+    verify(campusAccessFactory, times(1)).create(A_USER,
+                                                 A_CAR,
                                                  A_TIME_PERIOD_DTO);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldSaveCampusAccessInRepository() {
-    when(campusAccessFactory.create(A_USER_ID, A_CAR_ID, A_TIME_PERIOD_DTO)).thenReturn(campusAccess);
+    when(campusAccessFactory.create(A_USER, A_CAR, A_TIME_PERIOD_DTO)).thenReturn(campusAccess);
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
@@ -178,19 +187,35 @@ public class CampusAccessServiceTest {
   }
 
   @Test
-  public void whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
+  public void givenACampusAccessCode_whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
-    verify(campusAccessRepository, times(1)).findById(A_CAMPUS_ACCESS_CODE);
+    verify(campusAccessRepository, times(1)).findBy(A_CAMPUS_ACCESS_CODE);
+  }
+
+  @Test
+  public void givenALicensePlate_whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromLicensePlate() {
+    List<CampusAccess> campusAccesses = new ArrayList<>();
+    campusAccesses.add(campusAccess);
+    LicensePlate licensePlate = new LicensePlate(A_LICENSE_PLATE_STRING);
+    accessingCampusDto.campusAccessCode = null;
+    accessingCampusDto.licensePlate = licensePlate;
+    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
+    when(campusAccessRepository.findBy(licensePlate)).thenReturn(campusAccesses);
+    when(calendar.now()).thenReturn(A_START_DATE_TIME);
+
+    campusAccessService.grantAccessToCampus(accessingCampusDto);
+
+    verify(campusAccessRepository, times(1)).findBy(licensePlate);
   }
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -201,7 +226,7 @@ public class CampusAccessServiceTest {
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldCallPassRepositoryFind() {
     campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     campusAccessService.grantAccessToCampus(accessingCampusDto);
@@ -213,7 +238,7 @@ public class CampusAccessServiceTest {
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
     campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     boolean result = campusAccessService.grantAccessToCampus(accessingCampusDto);
@@ -223,7 +248,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenAnUnregisteredCampusAccessCode_whenVerifyingIfCanAccessCampus_shouldNotGrantAccess() {
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenThrow(CampusAccessNotFoundException.class);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenThrow(CampusAccessNotFoundException.class);
 
     boolean isGrantedAccess = campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -233,17 +258,17 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToCampusAccess_shouldFindCampusAccessInRepo() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
-    verify(campusAccessRepository).findById(A_CAMPUS_ACCESS_CODE);
+    verify(campusAccessRepository).findBy(A_CAMPUS_ACCESS_CODE);
   }
 
   @Test
   public void whenAssociatingPassToCampusAccess_shouldAskCampusAccessToAssociatePass() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
@@ -253,7 +278,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToCampusAccess_shouldSaveCampusAccess() {
     CampusAccess campusAccess = mock(CampusAccess.class);
-    when(campusAccessRepository.findById(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
+    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
     campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
 
