@@ -61,57 +61,92 @@ public class CampusAccessService extends AccessGrantedObservable {
     User user = userService.createUser(campusAccessDto.userDto);
     Car car = carService.createCar(campusAccessDto.carDto);
 
-    CampusAccess campusAccess = campusAccessFactory.create(user.getUserId(),
-                                                           car.getCarId(),
+    CampusAccess campusAccess = campusAccessFactory.create(user,
+                                                           car,
                                                            campusAccessDto.timePeriodDto);
 
-    userService.saveUser(user);
-    carService.saveCar(car);
     campusAccessRepository.save(campusAccess);
 
-    TransactionDto transactionDto = new TransactionDto();
-    CarType carType = campusAccessDto.carDto.carType;
-    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
-    transactionDto.carType = carType;
-    transactionDto.amount = campusAccessFeeRepository.findBy(carType, campusAccessDto.timePeriodDto.periodType)
-                                                     .getFee();
-    Transaction transaction = transactionFactory.create(transactionDto);
-    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
-    mainBankAccount.addTransaction(transaction);
-    bankRepository.save(mainBankAccount);
+    Transaction transaction = generateTransaction(campusAccessDto);
+    addTransactionToBankAccount(transaction);
 
     return campusAccess;
   }
 
-  public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
-    CampusAccess campusAccess;
+  private void addTransactionToBankAccount(Transaction transaction) {
+    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
+    mainBankAccount.addTransaction(transaction);
+    bankRepository.save(mainBankAccount);
+  }
 
-    try {
-      campusAccess = campusAccessRepository.findById(accessingCampusDto.campusAccessCode);
-    } catch (CampusAccessNotFoundException e) {
-      return false;
-    }
+  private Transaction generateTransaction(CampusAccessDto campusAccessDto) {
+    TransactionDto transactionDto = new TransactionDto();
+    CarType carType = campusAccessDto.carDto.carType;
 
-    LocalDateTime now = calendar.now();
-    boolean accessGranted = campusAccess.isAccessGranted(now);
-    if (accessGranted) {
-      PassCode passCode = campusAccess.getAssociatedPassCode();
+    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
+    transactionDto.carType = carType;
+    transactionDto.amount = campusAccessFeeRepository.findBy(carType, campusAccessDto.timePeriodDto.periodType)
+                                                     .getFee();
 
-      if (passCode != null) {
-        Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
-        notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
-      }
-      // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
-    }
-
-    return accessGranted;
+    return transactionFactory.create(transactionDto);
   }
 
   public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
                                           PassCode passCode,
                                           TimePeriod passTimePeriod) {
-    CampusAccess campusAccess = campusAccessRepository.findById(campusAccessCode);
+    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
     campusAccess.associatePass(passCode, passTimePeriod);
     campusAccessRepository.save(campusAccess);
+  }
+
+  public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
+    LocalDateTime now = calendar.now();
+    boolean accessGranted;
+
+    try {
+      if (accessingCampusDto.campusAccessCode != null) {
+        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto, now);
+      } else {
+        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto, now);
+      }
+    } catch (CampusAccessNotFoundException e) {
+      return false;
+    }
+
+    return accessGranted;
+  }
+
+  private boolean isAccessGrantedByCampusAccessCode(AccessingCampusDto accessingCampusDto,
+                                                    LocalDateTime now) {
+    CampusAccess campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+
+    if (campusAccess.isAccessGranted(now)) {
+      notifyAccessGranted(campusAccess, now);
+      return true;
+    }
+
+    return false;
+  }
+
+  private boolean isAccessGrantedByLicensePlate(AccessingCampusDto accessingCampusDto,
+                                                LocalDateTime now) {
+    for (CampusAccess campusAccess : campusAccessRepository.findBy(accessingCampusDto.licensePlate)) {
+      if (campusAccess.isAccessGranted(now)) {
+        notifyAccessGranted(campusAccess, now);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
+    PassCode passCode = campusAccess.getAssociatedPassCode();
+
+    if (passCode != null) {
+      Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
+      notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
+    }
+    // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
   }
 }
