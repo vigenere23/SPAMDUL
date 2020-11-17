@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -12,7 +13,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResourceImpl;
@@ -36,7 +36,7 @@ public class PassContext {
     PassFactory passFactory = new PassFactory(timePeriodFactory);
 
     DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory(new EmailServiceProvider(System.getenv(
-        "MODE")));
+        "API_MODE")));
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
     TransactionFactory transactionFactory = new TransactionFactory();
     CsvReader csvReader = new CsvReader();

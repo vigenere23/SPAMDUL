@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.EmailServiceProvider;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalService;
 
 public class DeliveryStrategyFactory {

@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.delivery;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.EmailServiceProvider;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.NullEmailService;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalService;
 import org.junit.Before;
