@@ -31,7 +31,9 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Start app
-        run: mvn exec:java &
+        run: |
+          set MODE=ci
+          mvn exec:java &
 
       - name: API test
         run: |
