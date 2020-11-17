@@ -14,8 +14,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.excepti
 public class TimePeriodAssembler {
 
   public TimePeriodDto fromRequest(TimePeriodRequest timePeriodRequest) {
-    final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
-        "two_semester or three_semester) ";
+    final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester, " +
+        "two_semesters or three_semester) ";
     TimePeriodDto timePeriodDto = new TimePeriodDto();
 
     try {
