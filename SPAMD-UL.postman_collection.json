@@ -1,18 +1,109 @@
 {
 	"info": {
-		"_postman_id": "572a7622-f7b5-44f7-8ff1-47ea99acb370",
+		"_postman_id": "3a2084e3-6308-43d4-9b6c-3d2d2f507d09",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Buy campus access",
+			"name": "Server is up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf24089-4f7b-482f-9643-2e7fa57bf27d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "80d369b6-5a62-4875-b24f-fd8b3b480d3a",
+						"exec": [
+							"const today = new Date()",
+							"const yesterday = new Date()",
+							"const tomorrow = new Date()",
+							"",
+							"yesterday.setDate(today.getDate() - 1)",
+							"tomorrow.setDate(today.getDate() + 1)",
+							"",
+							"pm.globals.set(\"weekday\", today.toLocaleDateString('en-US', {weekday: 'long'}).toLowerCase())",
+							"",
+							"pm.globals.set(\"today\", `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)",
+							"pm.globals.set(\"yesterday\", `${yesterday.getFullYear()}-${yesterday.getMonth()+1}-${yesterday.getDate()}`)",
+							"pm.globals.set(\"tomorrow\", `${tomorrow.getFullYear()}-${tomorrow.getMonth()+1}-${tomorrow.getDate()}`)",
+							"",
+							"pm.globals.set(\"parkingZone\", \"ZonE_3\")",
+							"pm.globals.set(\"parkingZone_2\", \"zONe_2\")",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/ping",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy campus access (single day per week per semester)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22bc14c1-8124-46a4-b0ad-d69fd2ad57c0",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Campus access code is present\", function () {",
+							"    pm.expect(pm.response.json()['campusAccessCode']).not.to.be.empty",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40adf9b7-ea67-4d20-adf2-e594587e09fc",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"economique\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licensePlate\": \"123 456\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"economique\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licensePlate\": \"123 456\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,13 +194,32 @@
 			]
 		},
 		{
-			"name": "Buy campus access Copy",
+			"name": "Buy campus access (single day per week per semester) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbbc795e-ef52-481e-bfc1-cb0cb185747a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Campus access code is present\", function () {",
+							"    pm.expect(pm.response.json()['campusAccessCode']).not.to.be.empty",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"gourmande\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"gourmande\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,13 +244,32 @@
 			"response": []
 		},
 		{
-			"name": "Buy campus access Copy 2",
+			"name": "Buy campus access (single day per week per semester) Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d51c4dd0-9e11-43d4-9dae-1243ff1f82ae",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Campus access code is present\", function () {",
+							"    pm.expect(pm.response.json()['campusAccessCode']).not.to.be.empty",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"super_economique\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"super_economique\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -165,13 +294,32 @@
 			"response": []
 		},
 		{
-			"name": "Buy campus access Copy 3",
+			"name": "Buy campus access (two semesters)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b614706b-594a-49a9-aa16-e3b982adc33f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Campus access code is present\", function () {",
+							"    pm.expect(pm.response.json()['campusAccessCode']).not.to.be.empty",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"gourmande\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"two_semester\",\n        \"semester\": \"a2020\"\n    }\n}",
+					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"gourmande\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"two_semesters\",\n        \"semester\": \"a2020\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -196,13 +344,82 @@
 			"response": []
 		},
 		{
-			"name": "Buy pass postal with line2",
+			"name": "Buy campus access (two semesters) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75076838-90da-4d0b-92c9-93f5bcd1b8aa",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Campus access code is present\", function () {",
+							"    pm.expect(pm.response.json()['campusAccessCode']).not.to.be.empty",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"1\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"line2\": \"In the cupboard under the stairs\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n    \"user\": {\n\t    \"name\": \"Bob Ross\",\n\t    \"birthDate\": \"1991-07-10\",\n\t    \"gender\": \"MaLe\"\n    },\n    \"car\" : {\n        \"type\": \"gourmande\",\n        \"brand\": \"toyota\",\n        \"model\": \"corolla\",\n        \"year\": \"2020\",\n        \"licencePlate\": \"xxx xxx\"\n    },\n    \"period\": {\n        \"type\": \"two_semesters\",\n        \"semester\": \"a2020\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/campus-access",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campus-access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy pass postal with line2 (single day per week per semester)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fce82035-a43b-42cb-94d2-06dde9c8bdcf",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"body is empty\", function () {",
+							"    pm.expect(pm.response.body).to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"parkingZone\": \"{{parkingZone}}\",\n    \"campusAccessCode\": \"1\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"line2\": \"In the cupboard under the stairs\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -227,13 +444,32 @@
 			"response": []
 		},
 		{
-			"name": "Buy pass postal with line2 Copy",
+			"name": "Buy pass postal with line2 (one semester)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1117fdf-45dd-4bac-9b4a-2442db1c2668",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"body is empty\", function () {",
+							"    pm.expect(pm.response.body).to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"1\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"line2\": \"In the cupboard under the stairs\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"one_semester\",\n        \"semester\": \"a2020\"\n    }\n}",
+					"raw": "{\n    \"parkingZone\": \"{{parkingZone}}\",\n    \"campusAccessCode\": \"4\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"line2\": \"In the cupboard under the stairs\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"one_semester\",\n        \"semester\": \"a2020\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -258,13 +494,32 @@
 			"response": []
 		},
 		{
-			"name": "Buy pass postal without line2",
+			"name": "Buy pass postal without line2 (single day per week per semester)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f324d8e5-eec8-4096-a80f-6e9cb7c0b510",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"body is empty\", function () {",
+							"    pm.expect(pm.response.body).to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"parkingZone\": \"ZONE_1\",\n    \"campusAccessCode\": \"2\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n    \"parkingZone\": \"{{parkingZone}}\",\n    \"campusAccessCode\": \"2\",\n    \"delivery\": {\n        \"deliveryMode\": \"post\",\n        \"postalAddress\": {\n            \"name\": \"Harry Potter\",\n            \"line1\": \"4 Privet Drive\",\n            \"city\": \"Little Whinging\",\n            \"province\": \"Surrey\",\n            \"postalCode\": \"N0L 1R0\",\n            \"country\": \"England\"\n        }\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -289,13 +544,32 @@
 			"response": []
 		},
 		{
-			"name": "Buy pass email",
+			"name": "Buy pass email (single day per week per semester)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f664e56f-238e-4948-b8ab-677e34de2322",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"body is empty\", function () {",
+							"    pm.expect(pm.response.body).to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"3\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"email\",\n\t    \"emailAddress\": \"sebastien.nantel03@gmail.com\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n\t\"parkingZone\": \"{{parkingZone}}\",\n    \"campusAccessCode\": \"3\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"email\",\n\t    \"emailAddress\": \"example@example.com\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"{{weekday}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -320,13 +594,33 @@
 			"response": []
 		},
 		{
-			"name": "Buy pass ssp office",
+			"name": "Buy pass ssp office (two semesters)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cbf85ebb-fde5-4d7b-96ac-bf05ad4dcf7d",
+						"exec": [
+							"// TODO",
+							"// pm.test(\"Status code is 201\", function () {",
+							"//     pm.response.to.have.status(201);",
+							"// });",
+							"",
+							"// pm.test(\"body is empty\", function () {",
+							"//     pm.expect(pm.response.body).to.be.undefined",
+							"// })",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"1\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"ssp_office\"\n    },\n    \"period\": {\n        \"type\": \"two_semesters\",\n        \"semester\": \"a2020\"\n    }\n}",
+					"raw": "{\n\t\"parkingZone\": \"{{parkingZone}}\",\n    \"campusAccessCode\": \"5\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"ssp_office\"\n    },\n    \"period\": {\n        \"type\": \"two_semesters\",\n        \"semester\": \"a2020\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -352,12 +646,31 @@
 		},
 		{
 			"name": "Invalid buy pass (wrong access code)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b26bce0-4c23-4c18-8473-20f61ebcc57d",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Error is 'ACCESS_NOT_FOUND'\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql('ACCESS_NOT_FOUND')",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"5\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"email\",\n\t    \"emailAddress\": \"sebastien.nantel03@gmail.com\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
+					"raw": "{\n\t\"parkingZone\": \"ZONE_3\",\n    \"campusAccessCode\": \"592386487234\",\n    \"delivery\": {\n\t    \"deliveryMode\": \"email\",\n\t    \"emailAddress\": \"sebastien.nantel03@gmail.com\"\n    },\n    \"period\": {\n        \"type\": \"single_day_per_week_per_semester\",\n        \"semester\": \"a2020\",\n        \"dayOfWeek\": \"tuesday\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -449,7 +762,26 @@
 			]
 		},
 		{
-			"name": "Accessing campus",
+			"name": "Accessing campus with access code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b944e321-b7ac-4266-af5d-822060eb61a6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Access is 'GRANTED'\", function () {",
+							"    pm.expect(pm.response.json()['access']).to.eql('GRANTED')",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -614,7 +946,26 @@
 			]
 		},
 		{
-			"name": "Accessing campus Copy",
+			"name": "Accessing campus with license plate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30226c69-0560-4340-8b3a-adec70ef86dd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Access is 'GRANTED'\", function () {",
+							"    pm.expect(pm.response.json()['access']).to.eql('GRANTED')",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -779,13 +1130,32 @@
 			]
 		},
 		{
-			"name": "Ivanlid accessing campus (wrong code)",
+			"name": "Invalid accessing campus (inexistant campus access code)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89a19714-ab09-4a5a-a6fb-c1fd7ea4d340",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Access is 'NOT GRANTED'\", function () {",
+							"    pm.expect(pm.response.json()['access']).to.eql('NOT GRANTED')",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"campusAccessCode\": \"5\"\n}\n",
+					"raw": "{\n   \"campusAccessCode\": \"5324629384\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -878,7 +1248,34 @@
 			]
 		},
 		{
-			"name": "Usage report (summary)",
+			"name": "Usage report summary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc6dc43d-40ea-4174-9467-9d00e91e6722",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -960,12 +1357,39 @@
 			]
 		},
 		{
-			"name": "Usage report (summary) Copy 2",
+			"name": "Usage report summary (with anterior start date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d23285eb-ad21-4d81-b469-37729afd338a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01",
+					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate={{yesterday}}",
 					"host": [
 						"127",
 						"0",
@@ -981,7 +1405,7 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{yesterday}}"
 						}
 					]
 				},
@@ -1048,12 +1472,39 @@
 			]
 		},
 		{
-			"name": "Usage report (summary) Copy 3",
+			"name": "Usage report summary (with posterior start date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67076109-1474-4453-a9d1-835c3417a3f5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Mean usage is 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&parkingZone=ZoNe_1",
+					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate={{tomorrow}}",
 					"host": [
 						"127",
 						"0",
@@ -1069,11 +1520,126 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{tomorrow}}"
+						}
+					]
+				},
+				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
+			},
+			"response": [
+				{
+					"name": "Usage report (summary)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/summary",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"summary"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:40:44 GMT"
 						},
 						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "96"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-01\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report summary (with parking zone without access)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3104bd61-e7e5-4359-b9f4-ceade086f0a8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Mean usage is 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.eql(0);",
+							"});",
+							"",
+							"pm.test(\"Parking zone is \" + pm.globals.get(\"parkingZone_2\").toUpperCase(), function () {",
+							"    pm.expect(pm.response.json()['parkingZone']).to.eql(pm.globals.get(\"parkingZone_2\").toUpperCase());",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/summary?parkingZone={{parkingZone_2}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"summary"
+					],
+					"query": [
+						{
 							"key": "parkingZone",
-							"value": "ZoNe_1"
+							"value": "{{parkingZone_2}}"
 						}
 					]
 				}
@@ -1153,12 +1719,39 @@
 			]
 		},
 		{
-			"name": "Usage report (summary) Copy 4",
+			"name": "Usage report summary (with posterior end date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99dc1110-b838-4db7-bace-9b569929e770",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZonE_2",
+					"raw": "127.0.0.1:8080/api/usage-report/summary?endDate={{tomorrow}}",
 					"host": [
 						"127",
 						"0",
@@ -1174,11 +1767,7 @@
 					"query": [
 						{
 							"key": "endDate",
-							"value": "2020-10-05"
-						},
-						{
-							"key": "parkingZone",
-							"value": "ZonE_2"
+							"value": "{{tomorrow}}"
 						}
 					]
 				}
@@ -1325,12 +1914,234 @@
 			]
 		},
 		{
-			"name": "Usage report (summary) Copy",
+			"name": "Usage report summary (with anterior end date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06a21e97-7e0f-4ee5-84cd-6b315816282e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is not present\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(undefined);",
+							"});",
+							"",
+							"pm.test(\"Mean usage is 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&parkingZone=Zone_1",
+					"raw": "127.0.0.1:8080/api/usage-report/summary?endDate={{yesterday}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"summary"
+					],
+					"query": [
+						{
+							"key": "endDate",
+							"value": "{{yesterday}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Usage report (summary) Copy 4",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZONE_2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "endDate",
+									"value": "2020-10-05"
+								},
+								{
+									"key": "parkingZone",
+									"value": "ZONE_2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 02 Oct 2020 00:18:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"meanUsagePerDay\": 0,\n    \"parkingZone\": \"ZONE_2\"\n}"
+				},
+				{
+					"name": "Usage report (summary) Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2020-10-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2020-10-31"
+								},
+								{
+									"key": "ZONE_2",
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "103"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report summary (with all correct filters)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49aad3f7-1087-4a63-9c81-0b4821624842",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.globals.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/summary?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 					"host": [
 						"127",
 						"0",
@@ -1346,15 +2157,15 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{today}}"
 						},
 						{
 							"key": "endDate",
-							"value": "2020-10-31"
+							"value": "{{today}}"
 						},
 						{
 							"key": "parkingZone",
-							"value": "Zone_1"
+							"value": "{{parkingZone}}"
 						}
 					]
 				}
@@ -1434,7 +2245,34 @@
 			]
 		},
 		{
-			"name": "Usage report (month)",
+			"name": "Usage report month",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdace522-b192-4438-a51f-0c38b25cbbd2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -1516,7 +2354,34 @@
 			]
 		},
 		{
-			"name": "Usage report (one date)",
+			"name": "Usage report month (with anterior start date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10c60dd9-3b5f-4176-a315-638e353dc51e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1533,7 +2398,7 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
+					"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{yesterday}}",
 					"host": [
 						"127",
 						"0",
@@ -1549,7 +2414,7 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{yesterday}}"
 						}
 					]
 				}
@@ -1560,15 +2425,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
 							"host": [
@@ -1630,7 +2486,34 @@
 			]
 		},
 		{
-			"name": "Usage report (one date and zone)",
+			"name": "Usage report month (with posterior start date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d26818e0-9c35-4ecb-9a80-0be3e14fde51",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1647,7 +2530,7 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&parkingZone=ZONE_1",
+					"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{tomorrow}}",
 					"host": [
 						"127",
 						"0",
@@ -1663,11 +2546,112 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{tomorrow}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Usage report (one date)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"month"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2020-10-01"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:41:02 GMT"
 						},
 						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report month (with parking zone without access)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/month?parkingZone={{parkingZone_2}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"month"
+					],
+					"query": [
+						{
 							"key": "parkingZone",
-							"value": "ZONE_1"
+							"value": "{{parkingZone_2}}"
 						}
 					]
 				}
@@ -1678,15 +2662,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&parkingZone=ZONE_1",
 							"host": [
@@ -1752,7 +2727,34 @@
 			]
 		},
 		{
-			"name": "Usage report (until date)",
+			"name": "Usage report month (with posterior end date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97396163-4527-4278-8433-f8b0d0249380",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1769,7 +2771,7 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
+					"raw": "127.0.0.1:8080/api/usage-report/month?endDate={{tomorrow}}",
 					"host": [
 						"127",
 						"0",
@@ -1784,12 +2786,8 @@
 					],
 					"query": [
 						{
-							"key": "startDate",
-							"value": "2020-10-01"
-						},
-						{
 							"key": "endDate",
-							"value": "2020-10-15"
+							"value": "{{tomorrow}}"
 						}
 					]
 				}
@@ -1800,15 +2798,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
 							"host": [
@@ -1874,7 +2863,34 @@
 			]
 		},
 		{
-			"name": "Usage report (until date and zone)",
+			"name": "Usage report month (with anterior end date)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "045ba6bd-7b32-4ee5-8dd7-cc314e879493",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1891,7 +2907,143 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15&parkingZone=ZONE_3",
+					"raw": "127.0.0.1:8080/api/usage-report/month?endDate={{yesterday}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"month"
+					],
+					"query": [
+						{
+							"key": "endDate",
+							"value": "{{yesterday}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Usage report (until date)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"month"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2020-10-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2020-10-15"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:41:20 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "154"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-05\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 4\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report month (with all filters)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eef6acf1-26c1-4adf-be98-bcd5133783c2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 					"host": [
 						"127",
 						"0",
@@ -1907,15 +3059,15 @@
 					"query": [
 						{
 							"key": "startDate",
-							"value": "2020-10-01"
+							"value": "{{today}}"
 						},
 						{
 							"key": "endDate",
-							"value": "2020-10-15"
+							"value": "{{today}}"
 						},
 						{
 							"key": "parkingZone",
-							"value": "ZONE_3"
+							"value": "{{parkingZone}}"
 						}
 					]
 				}
@@ -1926,15 +3078,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15&parkingZone=ZONE_3",
 							"host": [
@@ -2004,345 +3147,40 @@
 			]
 		},
 		{
-			"name": "get campus access revenue",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/campus-access",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"financial-report",
-						"revenue",
-						"campus-access"
-					]
-				}
-			},
-			"response": [
+			"name": "Infraction (wrong zone)",
+			"event": [
 				{
-					"name": "get campus access revenue",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/campus-access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"financial-report",
-								"revenue",
-								"campus-access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:27 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "223"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"byCarType\": {\n        \"entry\": [\n            {\n                \"key\": \"HYBRIDE_ECONOMIQUE\",\n                \"value\": 0\n            },\n            {\n                \"key\": \"SUPER_ECONOMIQUE\",\n                \"value\": 5\n            },\n            {\n                \"key\": \"GOURMANDE\",\n                \"value\": 65\n            },\n            {\n                \"key\": \"ECONOMIQUE\",\n                \"value\": 30\n            },\n            {\n                \"key\": \"SANS_POLLUTION\",\n                \"value\": 0\n            }\n        ]\n    },\n    \"total\": 100\n}"
+					"listen": "test",
+					"script": {
+						"id": "57531019-38c2-4b04-8eaf-bc9a9bfbb0d6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Code is ZONE_01\", function () {",
+							"    pm.expect(pm.response.json()['code']).to.eql('ZONE_01');",
+							"});",
+							"",
+							"pm.test(\"Reason is 'mauvaise zone'\", function () {",
+							"    pm.expect(pm.response.json()['reason']).to.eql('mauvaise zone');",
+							"});",
+							"",
+							"pm.test(\"Amount is 55$\", function () {",
+							"    pm.expect(pm.response.json()['amount']).to.eql(55);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
-		},
-		{
-			"name": "get pass revenue",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/parking-pass",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"financial-report",
-						"revenue",
-						"parking-pass"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "get pass revenue",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/parking-pass",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"financial-report",
-								"revenue",
-								"parking-pass"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:38 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "17"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"revenue\": 489\n}"
-				}
-			]
-		},
-		{
-			"name": "get infractions revenue",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/infractions",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"financial-report",
-						"revenue",
-						"infractions"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "get infractions revenue",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/infractions",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"financial-report",
-								"revenue",
-								"infractions"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:53:41 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "16"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"revenue\": 52.8\n}"
-				}
-			]
-		},
-		{
-			"name": "get total revenue",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"financial-report",
-						"revenue",
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "get total revenue",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"financial-report",
-								"revenue",
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "284"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
-				}
-			]
-		},
-		{
-			"name": "infraction",
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+					"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"{{parkingZone_2}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2366,13 +3204,13 @@
 			},
 			"response": [
 				{
-					"name": "infraction",
+					"name": "infraction zone",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2400,7 +3238,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
+							"value": "Sat, 24 Oct 2020 18:26:38 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -2420,7 +3258,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "102"
+							"value": "76"
 						},
 						{
 							"key": "Server",
@@ -2428,12 +3266,279 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
+					"body": "{\n    \"infractionId\": \"2\",\n    \"code\": \"ZONE_01\",\n    \"reason\": \"mauvaise zone\",\n    \"amount\": 55\n}"
 				}
 			]
 		},
 		{
-			"name": "pay infraction",
+			"name": "Infraction (empty pass code)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1955c16-adfd-4f07-bf58-2ca8b28111c8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Code is VIG_03\", function () {",
+							"    pm.expect(pm.response.json()['code']).to.eql('VIG_03');",
+							"});",
+							"",
+							"pm.test(\"Reason is 'pas de vignette'\", function () {",
+							"    pm.expect(pm.response.json()['reason']).to.eql('pas de vignette');",
+							"});",
+							"",
+							"pm.test(\"Amount is 55$\", function () {",
+							"    pm.expect(pm.response.json()['amount']).to.eql(55);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passCode\": \"\",\n    \"parkingZone\": \"zone_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/infractions",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"infractions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "infraction no pass code",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passCode\": \"\",\n    \"parkingZone\": \"zone_1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/infractions",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"infractions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:27:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "77"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"infractionId\": \"3\",\n    \"code\": \"VIG_03\",\n    \"reason\": \"pas de vignette\",\n    \"amount\": 55\n}"
+				}
+			]
+		},
+		{
+			"name": "Infraction (invalid pass code)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "261e6184-a9b9-4a6a-9271-867291118a87",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Code is VIG_02\", function () {",
+							"    pm.expect(pm.response.json()['code']).to.eql('VIG_02');",
+							"});",
+							"",
+							"pm.test(\"Reason is 'vignette invalide'\", function () {",
+							"    pm.expect(pm.response.json()['reason']).to.eql('vignette invalide');",
+							"});",
+							"",
+							"pm.test(\"Amount is 45$\", function () {",
+							"    pm.expect(pm.response.json()['amount']).to.eql(45);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passCode\": \"5\",\n    \"parkingZone\": \"zone_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/infractions",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"infractions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "infraction invalid pass code",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"passCode\": \"5\",\n    \"parkingZone\": \"zone_1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/infractions",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"infractions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:27:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "79"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"infractionId\": \"4\",\n    \"code\": \"VIG_02\",\n    \"reason\": \"vignette invalide\",\n    \"amount\": 45\n}"
+				}
+			]
+		},
+		{
+			"name": "Pay infraction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "210c50e8-f1aa-44f1-8e73-5e72a2aadbd5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"body is empty\", function () {",
+							"    pm.expect(pm.response.body).to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2531,13 +3636,32 @@
 			]
 		},
 		{
-			"name": "infraction zone",
+			"name": "Re-pay infraction again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "001e1f67-5e59-4249-8981-e3b487f772d3",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"error is 'ALREADY_PAID_INFRACTION'\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql('ALREADY_PAID_INFRACTION')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_1\"\n}",
+					"raw": "{\n    \"infractionId\": \"1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2545,7 +3669,7 @@
 					}
 				},
 				"url": {
-					"raw": "127.0.0.1:8080/api/infractions",
+					"raw": "127.0.0.1:8080/api/infractions/pay",
 					"host": [
 						"127",
 						"0",
@@ -2555,19 +3679,20 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"infractions"
+						"infractions",
+						"pay"
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "infraction zone",
+					"name": "infraction",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_1\"\n}",
+							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2595,7 +3720,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:38 GMT"
+							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -2615,7 +3740,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "76"
+							"value": "102"
 						},
 						{
 							"key": "Server",
@@ -2623,206 +3748,35 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"2\",\n    \"code\": \"ZONE_01\",\n    \"reason\": \"mauvaise zone\",\n    \"amount\": 55\n}"
+					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
 				}
 			]
 		},
 		{
-			"name": "infraction no pass code",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"passCode\": \"\",\n    \"parkingZone\": \"zone_1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/api/infractions",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"infractions"
-					]
-				}
-			},
-			"response": [
+			"name": "Create initiative",
+			"event": [
 				{
-					"name": "infraction no pass code",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"\",\n    \"parkingZone\": \"zone_1\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"infractions"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:27:07 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "77"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"infractionId\": \"3\",\n    \"code\": \"VIG_03\",\n    \"reason\": \"pas de vignette\",\n    \"amount\": 55\n}"
-				}
-			]
-		},
-		{
-			"name": "infraction invalid pass code",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"passCode\": \"5\",\n    \"parkingZone\": \"zone_1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+					"listen": "test",
+					"script": {
+						"id": "1d2bb901-cab7-4911-8618-b237c2775339",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"name is present\", function () {",
+							"    pm.expect(pm.response.json()['name']).not.to.be.empty",
+							"})",
+							"",
+							"pm.test(\"amount is present\", function () {",
+							"    pm.expect(pm.response.json()['amount']).not.to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/api/infractions",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"infractions"
-					]
 				}
-			},
-			"response": [
-				{
-					"name": "infraction invalid pass code",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"5\",\n    \"parkingZone\": \"zone_1\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"infractions"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:27:37 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "79"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"infractionId\": \"4\",\n    \"code\": \"VIG_02\",\n    \"reason\": \"vignette invalide\",\n    \"amount\": 45\n}"
-				}
-			]
-		},
-		{
-			"name": "initiatives",
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2921,39 +3875,30 @@
 			]
 		},
 		{
-			"name": "initiatives Copy",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"une autre initiative\",\n    \"amount\": \"15\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "Create initiative (with crazy long decimals amount)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c000e63-871c-4d6c-8d89-a9571eefbdf6",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"name is present\", function () {",
+							"    pm.expect(pm.response.json()['name']).not.to.be.empty",
+							"})",
+							"",
+							"pm.test(\"amount is present\", function () {",
+							"    pm.expect(pm.response.json()['amount']).not.to.be.undefined",
+							"})",
+							""
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/api/fundraising/initiatives",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"fundraising",
-						"initiatives"
-					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "initiatives Copy 2",
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2985,13 +3930,32 @@
 			"response": []
 		},
 		{
-			"name": "initiatives not enough money",
+			"name": "Create initiative (without name)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e98eec5-ce84-410d-8522-41a9887a2cea",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"error is 'INVALID_INITIATIVE_NAME'\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_INITIATIVE_NAME')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"encore une initiative\",\n    \"amount\": \"1000000\"\n}",
+					"raw": "{\n    \"name\": \"\",\n    \"amount\": \"15\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -3017,7 +3981,78 @@
 			"response": []
 		},
 		{
-			"name": "initiatives Copy 3",
+			"name": "Create initiative (with too big amount)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08448905-9a05-4dd2-807a-e108c2885032",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"error is 'INVALID_INITIATIVE_AMOUNT'\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_INITIATIVE_AMOUNT')",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"encore une initiative\",\n    \"amount\": \"10000000000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/fundraising/initiatives",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"fundraising",
+						"initiatives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get initiatives",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecb22f27-41cf-48c9-9120-2a185ed55d36",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"initiatives is not empty\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['initiatives'])).to.be.true",
+							"    pm.expect(pm.response.json()['initiatives']).not.to.eql([])",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -3098,7 +4133,144 @@
 			]
 		},
 		{
-			"name": "carbon credit",
+			"name": "Deactivate carbon credits auto-tranfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59f873bf-c454-4c10-ad85-e9e78db8c2c9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"active is 'false'\", function () {",
+							"    pm.expect(pm.response.json()['active']).to.not.be.true",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"active\": \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/carbon-credits/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carbon-credits",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "carbon credit",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"active\": \"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/carbon-credits/activate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carbon-credits",
+								"activate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 22:22:20 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"active\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate carbon credits auto-tranfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e76ea49-ccb1-4430-9a74-af99658ca516",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"active is 'true'\", function () {",
+							"    pm.expect(pm.response.json()['active']).to.be.true",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -3197,7 +4369,26 @@
 			]
 		},
 		{
-			"name": "carbon credit Copy",
+			"name": "Transfer carbon credits",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39397d35-dccb-4270-ac71-b41cf002fdde",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"amount transferred is not empty\", function () {",
+							"    pm.expect(pm.response.json()['transferred']).to.be.greaterThan(0)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -3279,7 +4470,127 @@
 			]
 		},
 		{
-			"name": "carbon credit Copy 2",
+			"name": "Re-transfer carbon credits",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef948d30-488f-4249-8a9b-08ccbfb3a707",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"amount transferred is 0\", function () {",
+							"    pm.expect(pm.response.json()['transferred']).to.eql(0)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/admin/carbon-credits/transfer",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"carbon-credits",
+						"transfer"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "carbon credit Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/carbon-credits/transfer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carbon-credits",
+								"transfer"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:32:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "22"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transferred\": 238.34\n}"
+				}
+			]
+		},
+		{
+			"name": "Get total credits transfered",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a9518f59-f8ce-4974-85f9-18361f1e73cc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"total is not empty\", function () {",
+							"    pm.expect(pm.response.json()['total']).to.be.greaterThan(0)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -3358,6 +4669,437 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"total\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Revenue (pass)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e5825149-1968-42d7-b253-862c52a33e19",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "618daf75-e165-4d2c-a227-b3183d207384",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'revenue' is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['revenue']).to.be.greaterThan(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/financial-report/revenue/parking-pass",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"financial-report",
+						"revenue",
+						"parking-pass"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get pass revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/parking-pass",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								"parking-pass"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "17"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"revenue\": 489\n}"
+				}
+			]
+		},
+		{
+			"name": "Revenue (infractions)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e5a5427-77a5-4fff-babc-e341d1d8670e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'revenue' is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['revenue']).to.be.greaterThan(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/financial-report/revenue/infractions",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"financial-report",
+						"revenue",
+						"infractions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get infractions revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/infractions",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								"infractions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:53:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"revenue\": 52.8\n}"
+				}
+			]
+		},
+		{
+			"name": "Revenue (campus access)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "affce5f4-9920-4eec-9838-457bba236920",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'byCarType' has entries\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['byCarType']['entry'])).to.be.true",
+							"    pm.expect(Array.isArray(pm.response.json()['byCarType']['entry'])).to.not.eql([])",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/financial-report/revenue/campus-access",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"financial-report",
+						"revenue",
+						"campus-access"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get campus access revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/campus-access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								"campus-access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "223"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"byCarType\": {\n        \"entry\": [\n            {\n                \"key\": \"HYBRIDE_ECONOMIQUE\",\n                \"value\": 0\n            },\n            {\n                \"key\": \"SUPER_ECONOMIQUE\",\n                \"value\": 5\n            },\n            {\n                \"key\": \"GOURMANDE\",\n                \"value\": 65\n            },\n            {\n                \"key\": \"ECONOMIQUE\",\n                \"value\": 30\n            },\n            {\n                \"key\": \"SANS_POLLUTION\",\n                \"value\": 0\n            }\n        ]\n    },\n    \"total\": 100\n}"
+				}
+			]
+		},
+		{
+			"name": "Revenue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f464829-34f7-4082-90b4-379d2b685c0c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'campusAccess' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['campusAccess']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'pass' is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['pass']).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test(\"'infraction' is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['infraction']).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test(\"'total' is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['total']).to.be.greaterThan(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"financial-report",
+						"revenue",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
 				}
 			]
 		}

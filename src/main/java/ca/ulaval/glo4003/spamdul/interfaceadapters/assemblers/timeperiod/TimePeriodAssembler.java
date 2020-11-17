@@ -15,7 +15,7 @@ public class TimePeriodAssembler {
 
   public TimePeriodDto fromRequest(TimePeriodRequest timePeriodRequest) {
     final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester, " +
-        "two_semesters or three_semester) ";
+        "two_semesters or three_semesters) ";
     TimePeriodDto timePeriodDto = new TimePeriodDto();
 
     try {
