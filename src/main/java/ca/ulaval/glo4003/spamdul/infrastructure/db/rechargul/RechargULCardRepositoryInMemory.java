@@ -13,7 +13,7 @@ public class RechargULCardRepositoryInMemory implements RechargULCardRepository 
   private final Map<RechargULCardId, RechargULCard> rechargULCards = new HashMap<>();
 
   @Override
-  public RechargULCard find(RechargULCardId id) {
+  public RechargULCard findBy(RechargULCardId id) {
     if (!rechargULCards.containsKey(id)) {
       throw new RechargULCardNotFoundException();
     }
@@ -35,7 +35,7 @@ public class RechargULCardRepositoryInMemory implements RechargULCardRepository 
     if (!rechargULCards.containsKey(rechargULCard.getId())) {
       throw new RechargULCardNotFoundException();
     }
-    
+
     rechargULCards.put(rechargULCard.getId(), rechargULCard);
   }
 }

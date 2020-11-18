@@ -24,8 +24,8 @@ public class ChargingUseCase {
   }
 
   public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
-    RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
 
     chargingPoint.activate(rechargULCard);
 
@@ -34,14 +34,14 @@ public class ChargingUseCase {
   }
 
   public ChargingPoint startRecharging(ChargingPointId chargingPointId) {
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
     chargingPoint.connect();
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }
 
   public ChargingPoint stopRecharging(ChargingPointId chargingPointId) {
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
     chargingPoint.disconnect();
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;

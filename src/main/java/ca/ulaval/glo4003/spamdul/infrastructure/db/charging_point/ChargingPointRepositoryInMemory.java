@@ -18,7 +18,7 @@ public class ChargingPointRepositoryInMemory implements ChargingPointRepository 
     return Lists.newArrayList(chargingPoints.values());
   }
 
-  @Override public ChargingPoint find(ChargingPointId id) {
+  @Override public ChargingPoint findBy(ChargingPointId id) {
     if (!chargingPoints.containsKey(id)) {
       throw new ChargingPointNotFoundException();
     }

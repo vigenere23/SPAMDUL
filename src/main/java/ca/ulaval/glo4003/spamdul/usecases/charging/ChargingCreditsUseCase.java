@@ -15,13 +15,13 @@ public class ChargingCreditsUseCase {
 
   public RechargULCard getRechargeULCard(String rechargULCardIdString) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
-    RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
+    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
     return rechargULCard;
   }
 
   public RechargULCard addCredits(String rechargULCardIdString, double amount) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
-    RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
+    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
     Amount credits = Amount.valueOf(amount);
 
     rechargULCard.addCredits(credits);

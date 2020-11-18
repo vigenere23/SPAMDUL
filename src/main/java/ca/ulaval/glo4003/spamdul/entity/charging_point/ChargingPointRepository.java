@@ -6,7 +6,7 @@ public interface ChargingPointRepository {
 
   List<ChargingPoint> findAll();
 
-  ChargingPoint find(ChargingPointId id);
+  ChargingPoint findBy(ChargingPointId id);
 
   void save(ChargingPoint chargingPoint);
 
