@@ -61,12 +61,11 @@ public class CampusAccessTest {
 
   @Before
   public void setUp() throws Exception {
-    timePeriod = new TimePeriod(A_START_DATE_TIME, AN_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                     A_USER,
                                     A_CAR,
                                     A_PERIOD_TYPE,
-                                    timePeriod);
+                                    A_TIME_PERIOD);
   }
 
   @Test
@@ -120,7 +119,8 @@ public class CampusAccessTest {
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                     A_USER,
                                     car,
-                                    timePeriod);
+                                    A_PERIOD_TYPE,
+                                    A_TIME_PERIOD);
 
     campusAccess.validateAssociatedLicensePlate(A_LICENSE_PLATE);
 
@@ -131,7 +131,7 @@ public class CampusAccessTest {
   public void givenCampusAccessWithAssociatedPass_whenGetParkingZone_shouldReturnPassParkingZone() {
     Pass pass = new Pass(A_PASS_CODE, ParkingZone.ZONE_1, A_TIME_PERIOD);
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(pass);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, A_PERIOD_TYPE, A_TIME_PERIOD);
     campusAccess.associatePass(pass.getPassCode(), A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone(passRepository);
@@ -142,7 +142,7 @@ public class CampusAccessTest {
   @Test
   public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsHourly_whenGetParkingZone_shouldReturnParkingZoneAll() {
     PeriodType periodType = PeriodType.HOURLY;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, periodType, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, periodType, A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone(passRepository);
 
@@ -152,7 +152,7 @@ public class CampusAccessTest {
   @Test
   public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsSingleDay_whenGetParkingZone_shouldReturnParkingZoneAll() {
     PeriodType periodType = PeriodType.SINGLE_DAY;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, periodType, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, periodType, A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone(passRepository);
 
@@ -162,7 +162,7 @@ public class CampusAccessTest {
   @Test
   public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsOneSemester_whenGetParkingZone_shouldReturnParkingZoneFree() {
     PeriodType periodType = PeriodType.ONE_SEMESTER;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, periodType, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, periodType, A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone(passRepository);
 

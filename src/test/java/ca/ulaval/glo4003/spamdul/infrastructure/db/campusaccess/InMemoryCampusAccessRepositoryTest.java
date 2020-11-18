@@ -7,7 +7,11 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.entity.user.Gender;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import java.time.LocalDate;
 import java.util.List;
@@ -68,7 +72,7 @@ public class InMemoryCampusAccessRepositoryTest {
 
   @Test
   public void whenFindingByLicensePlate_shouldReturnCampusAccesses() {
-    CampusAccess anotherCampusAccessSameLicensePlate = new CampusAccess(new CampusAccessCode(), A_USER, A_CAR, null);
+    CampusAccess anotherCampusAccessSameLicensePlate = new CampusAccess(new CampusAccessCode(), A_USER, A_CAR, A_PERIOD_TYPE, null);
     campusAccessRepository.save(A_CAMPUS_ACCESS);
     campusAccessRepository.save(anotherCampusAccessSameLicensePlate);
 
