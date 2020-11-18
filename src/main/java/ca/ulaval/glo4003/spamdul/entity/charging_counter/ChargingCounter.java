@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-public class ChargingCounter implements ChargingCounterState {
+public class ChargingCounter {
 
   private final Amount hourlyFee = Amount.valueOf(1);
 
@@ -16,12 +16,12 @@ public class ChargingCounter implements ChargingCounterState {
     this.rechargULCard = rechargULCard;
   }
 
-  @Override public void start() {
-    this.state.start();
+  public void start() {
+    state.start();
   }
 
-  @Override public void stop() {
-    this.state.stop();
+  public void stop() {
+    state.stop();
   }
 
   public void pay(long hours) {

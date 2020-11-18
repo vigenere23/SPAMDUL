@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 
-public class ChargingPoint implements ChargingPointState {
+public class ChargingPoint {
 
   private final ChargingPointId id;
   private ChargingPointState state = new ChargingPointStateIdle(this);
@@ -11,15 +11,15 @@ public class ChargingPoint implements ChargingPointState {
     this.id = id;
   }
 
-  @Override public void activate(RechargULCard card) {
+  public void activate(RechargULCard card) {
     state.activate(card);
   }
 
-  @Override public void connect() {
+  public void connect() {
     state.connect();
   }
 
-  @Override public void disconnect() {
+  public void disconnect() {
     state.disconnect();
   }
 
