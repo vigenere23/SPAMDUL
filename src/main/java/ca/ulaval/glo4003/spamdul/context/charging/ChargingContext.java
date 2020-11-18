@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingP
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULUseCase;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.concurrent.TimeUnit;
 
@@ -35,9 +36,10 @@ public class ChargingContext {
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     ChargingUseCase chargingUseCase = new ChargingUseCase(chargingPointRepository, rechargULCardRepository);
+    RechargULUseCase rechargULUseCase = new RechargULUseCase(rechargULCardRepository);
 
     chargingPointResource = new ChargingPointResourceImpl(chargingUseCase, chargingPointAssembler);
-    rechargULResource = new RechargULResourceImpl(chargingUseCase, rechargULCardAssembler);
+    rechargULResource = new RechargULResourceImpl(chargingUseCase, rechargULUseCase, rechargULCardAssembler);
     chargingPointExceptionMapper = new ChargingPointExceptionMapper();
     rechargULExceptionMapper = new RechargULExceptionMapper();
 

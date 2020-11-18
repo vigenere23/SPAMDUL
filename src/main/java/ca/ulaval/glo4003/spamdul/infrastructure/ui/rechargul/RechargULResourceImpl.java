@@ -6,24 +6,28 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCardRe
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCreditsRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULUseCase;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import javax.ws.rs.core.Response;
 
 public class RechargULResourceImpl implements RechargULResource {
 
   private final ChargingUseCase chargingUseCase;
+  private final RechargULUseCase rechargULUseCase;
   private final RechargULCardAssembler rechargULCardAssembler;
 
   public RechargULResourceImpl(ChargingUseCase chargingUseCase,
+                               RechargULUseCase rechargULUseCase,
                                RechargULCardAssembler rechargULCardAssembler) {
     this.chargingUseCase = chargingUseCase;
+    this.rechargULUseCase = rechargULUseCase;
     this.rechargULCardAssembler = rechargULCardAssembler;
   }
 
   @Override public Response getCard(String rechargULCardIdString) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = chargingUseCase.getRechargULCard(rechargULCardId);
+    RechargULCard card = rechargULUseCase.getRechargULCard(rechargULCardId);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();
@@ -34,7 +38,7 @@ public class RechargULResourceImpl implements RechargULResource {
     Amount amount = Amount.valueOf(amountDouble);
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = chargingUseCase.addCredits(rechargULCardId, amount);
+    RechargULCard card = rechargULUseCase.addCredits(rechargULCardId, amount);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();
