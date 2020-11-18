@@ -22,7 +22,7 @@ public class DeliveryAssembler {
 
     if (deliveryMode == DeliveryMode.POST) {
       deliveryDto.postalAddress = postalAddressAssembler.fromDto(deliveryRequest.postalAddress);
-    } else {
+    } else if (deliveryMode == DeliveryMode.EMAIL){
       deliveryDto.emailAddress = emailAddressAssembler.fromString(deliveryRequest.emailAddress);
     }
 
