@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.pass;
 
+import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
@@ -18,9 +20,10 @@ public class PassService {
   private final PassFactory passFactory;
   private final CampusAccessService campusAccessService;
   private final PassSender passSender;
-  private final TransactionFactory transactionFactory;
-  private final BankRepository bankRepository;
-  private final ParkingZoneFeeRepository parkingZoneFeeRepository;
+  private TransactionFactory transactionFactory;
+  private BankRepository bankRepository;
+  private ParkingZoneFeeRepository parkingZoneFeeRepository;
+  private DeliveryFeeCalculator deliveryFeeCalculator;
 
   public PassService(PassRepository passRepository,
                      PassFactory passFactory,
@@ -28,7 +31,8 @@ public class PassService {
                      PassSender passSender,
                      TransactionFactory transactionFactory,
                      BankRepository bankRepository,
-                     ParkingZoneFeeRepository parkingZoneFeeRepository) {
+                     ParkingZoneFeeRepository parkingZoneFeeRepository,
+                     DeliveryFeeCalculator deliveryFeeCalculator) {
     this.passRepository = passRepository;
     this.passFactory = passFactory;
     this.campusAccessService = campusAccessService;
@@ -36,6 +40,7 @@ public class PassService {
     this.transactionFactory = transactionFactory;
     this.bankRepository = bankRepository;
     this.parkingZoneFeeRepository = parkingZoneFeeRepository;
+    this.deliveryFeeCalculator = deliveryFeeCalculator;
   }
 
   public void createPass(PassDto dto) {
@@ -45,9 +50,15 @@ public class PassService {
 
     TransactionDto transactionDto = new TransactionDto();
     transactionDto.transactionType = TransactionType.PASS;
-    transactionDto.amount = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType).getFee();
+
+    double deliveryFee = deliveryFeeCalculator.calculateBy(dto.deliveryDto.deliveryMode).getFee();
+    double parkingZoneFee = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType).getFee();
+    transactionDto.amount = parkingZoneFee + deliveryFee;
+
     Transaction transaction = transactionFactory.create(transactionDto);
-    bankRepository.getMainBankAccount().addTransaction(transaction);
+    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
+    mainBankAccount.addTransaction(transaction);
+    bankRepository.save(mainBankAccount);
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());
   }
