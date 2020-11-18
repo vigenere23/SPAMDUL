@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
-
 public interface ChargingPointState {
 
-  void activate(RechargULCard card);
+  void activate();
 
   void connect();
 
   void disconnect();
+
+  long deactivate();
 }
