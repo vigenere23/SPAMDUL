@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 
 public class ChargingUseCase {
@@ -19,7 +20,7 @@ public class ChargingUseCase {
     this.rechargULCardRepository = rechargULCardRepository;
   }
 
-  public List<ChargingPoint> getAll() {
+  public List<ChargingPoint> getAllChargingPoints() {
     return chargingPointRepository.findAll();
   }
 
@@ -45,5 +46,25 @@ public class ChargingUseCase {
     chargingPoint.disconnect();
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
+  }
+
+  public ChargingPoint deactivateChargingPoint(ChargingPointId chargingPointId) {
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+    chargingPoint.deactivate();
+    chargingPointRepository.update(chargingPoint);
+    return chargingPoint;
+  }
+
+  public RechargULCard getRechargeULCard(RechargULCardId rechargULCardId) {
+    return rechargULCardRepository.findBy(rechargULCardId);
+  }
+
+  public RechargULCard addCredits(RechargULCardId rechargULCardId, Amount amount) {
+    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
+
+    rechargULCard.addCredits(amount);
+
+    rechargULCardRepository.update(rechargULCard);
+    return rechargULCard;
   }
 }

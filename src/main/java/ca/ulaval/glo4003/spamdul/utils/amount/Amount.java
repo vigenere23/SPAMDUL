@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.utils;
+package ca.ulaval.glo4003.spamdul.utils.amount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,7 +9,11 @@ public class Amount {
   private final BigDecimal value;
 
   public static Amount valueOf(double value) {
-    return new Amount(BigDecimal.valueOf(value));
+    try {
+      return new Amount(BigDecimal.valueOf(value));
+    } catch (Exception e) {
+      throw new InvalidAmountException();
+    }
   }
 
   private Amount(BigDecimal value) {

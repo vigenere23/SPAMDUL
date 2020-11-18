@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.bank;
 
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;

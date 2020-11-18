@@ -17,13 +17,17 @@ public interface ChargingPointResource {
   @Path("/{id}/activate")
   @POST
   @Consumes("application/json")
-  Response activateCharging(@PathParam("id") String chargingPointId, ChargingPointActivationRequest request);
+  Response activateCharging(@PathParam("id") String chargingPointIdString, ChargingPointActivationRequest request);
 
-  @Path("/{id}/start")
+  @Path("/{id}/connect")
   @POST
-  Response startCharging(@PathParam("id") String chargingPointId);
+  Response startCharging(@PathParam("id") String chargingPointIdString);
 
-  @Path("/{id}/stop")
+  @Path("/{id}/disconnect")
   @POST
-  Response stopCharging(@PathParam("id") String chargingPointId);
+  Response stopCharging(@PathParam("id") String chargingPointIdString);
+
+  @Path("/{id}/deactivate")
+  @POST
+  Response deactivateCharging(@PathParam("id") String chargingPointIdString);
 }

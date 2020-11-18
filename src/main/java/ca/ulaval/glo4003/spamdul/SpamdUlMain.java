@@ -60,7 +60,7 @@ public class SpamdUlMain {
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository());
-    ChargingContext chargingContext = new ChargingContext();
+    ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -89,6 +89,7 @@ public class SpamdUlMain {
         resources.add(infractionsContext.getInfractionResource());
         resources.add(new InfractionExceptionAssembler());
         resources.add(chargingContext.getChargingPointResource());
+        resources.add(chargingContext.getRechargULResource());
 
         return resources;
       }

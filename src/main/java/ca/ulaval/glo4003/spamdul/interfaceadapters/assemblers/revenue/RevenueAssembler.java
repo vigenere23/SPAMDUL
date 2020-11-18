@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;

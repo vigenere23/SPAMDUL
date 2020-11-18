@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.transactions;
 
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 
 public class TransactionFactory {

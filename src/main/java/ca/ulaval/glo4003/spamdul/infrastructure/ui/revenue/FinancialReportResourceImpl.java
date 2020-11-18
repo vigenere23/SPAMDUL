@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAss
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Map;
 
 public class FinancialReportResourceImpl implements FinancialReportResource {
@@ -60,7 +60,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
     return revenueAssembler.toResponse(amount);
   }
 
-  public CarbonBoughtResponse getTotalBoughtCarbonCredit() {
+  @Override public CarbonBoughtResponse getTotalBoughtCarbonCredit() {
     CarbonBoughtResponse response = new CarbonBoughtResponse();
     response.total = transactionService.getAllBoughtCarbonCredit().asDouble();
 

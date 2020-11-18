@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.charging;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class ChargingCreditsUseCase {
 

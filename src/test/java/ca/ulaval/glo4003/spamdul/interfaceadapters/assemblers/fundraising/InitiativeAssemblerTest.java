@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

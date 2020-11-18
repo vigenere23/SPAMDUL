@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

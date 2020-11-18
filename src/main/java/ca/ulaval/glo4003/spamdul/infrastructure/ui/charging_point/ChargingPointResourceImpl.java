@@ -23,7 +23,7 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
   }
 
   @Override public Response getAll() {
-    List<ChargingPoint> chargingPoints = chargingUseCase.getAll();
+    List<ChargingPoint> chargingPoints = chargingUseCase.getAllChargingPoints();
     ChargingPointsResponse response = chargingPointAssembler.toResponse(chargingPoints);
     return Response.ok(response).build();
   }
@@ -52,6 +52,15 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
     ChargingPoint chargingPoint = chargingUseCase.stopRecharging(chargingPointId);
+
+    ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+    return Response.ok(response).build();
+  }
+
+  @Override public Response deactivateCharging(String chargingPointIdString) {
+    ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
+
+    ChargingPoint chargingPoint = chargingUseCase.deactivateChargingPoint(chargingPointId);
 
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
