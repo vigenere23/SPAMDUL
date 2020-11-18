@@ -8,10 +8,10 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
@@ -48,10 +48,10 @@ public class CampusAccessTest {
   private static final PassCode A_PASS_CODE = new PassCode();
   private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
-  private static final LocalDateTime AN_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
+  private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private static final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
   private static final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
-  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, AN_END_DATE_TIME, TimePeriodDayOfWeek.ALL);
+  private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.ALL);
   public static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
 
   @Mock
@@ -62,7 +62,7 @@ public class CampusAccessTest {
 
   @Before
   public void setUp() throws Exception {
-    timePeriod = new TimePeriod(A_START_DATE_TIME, AN_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
+    timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                     A_USER,
                                     A_CAR,
@@ -88,7 +88,7 @@ public class CampusAccessTest {
   @Test
   public void givenPassPeriodIncluded_whenAssociatingSingleDayPerWeekPassOnSameDay_shouldSetPassCode() {
     final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
-                                                           AN_END_DATE_TIME,
+                                                           A_END_DATE_TIME,
                                                            TimePeriodDayOfWeek.WEDNESDAY);
 
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
@@ -99,7 +99,7 @@ public class CampusAccessTest {
   @Test(expected = PassAlreadyAssociatedException.class)
   public void givenPassAlreadyAssociated_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
     final TimePeriod INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
-                                                           AN_END_DATE_TIME,
+                                                           A_END_DATE_TIME,
                                                            TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess.associatePass(A_PASS_CODE, INCLUDED_TIME_PERIOD);
 
@@ -109,7 +109,7 @@ public class CampusAccessTest {
   @Test(expected = PassNotAcceptedByAccessException.class)
   public void givenPassPeriodNotIncluded_whenAssociatingSingleDayPerWeekPassOnOtherDay_shouldThrow() {
     final TimePeriod NOT_INCLUDED_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
-                                                               AN_END_DATE_TIME,
+                                                               A_END_DATE_TIME,
                                                                TimePeriodDayOfWeek.FRIDAY);
 
     campusAccess.associatePass(A_PASS_CODE, NOT_INCLUDED_TIME_PERIOD);
@@ -122,7 +122,7 @@ public class CampusAccessTest {
                                     A_USER,
                                     car,
                                     A_PERIOD_TYPE,
-                                    A_TIME_PERIOD);
+                                    timePeriod);
 
     campusAccess.validateAssociatedLicensePlate(A_LICENSE_PLATE);
 

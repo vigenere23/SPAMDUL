@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
