@@ -18,7 +18,7 @@ public class ChargingPoint {
   }
 
   public void activate(RechargULCard card) {
-    if (card.hasUnpaidCharges()) {
+    if (card.hasEnoughCredits()) {
       throw new NotEnoughCreditsException();
     }
 

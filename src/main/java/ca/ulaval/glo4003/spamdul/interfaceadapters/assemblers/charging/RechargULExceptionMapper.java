@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCredits;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebiting;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardIdException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardAlreadyExistsException;
@@ -30,6 +31,8 @@ public class RechargULExceptionMapper implements ExceptionMapper<RechargULExcept
       status = Status.NOT_FOUND;
     } else if (e instanceof InvalidRechargULCardCredits) {
       response.error = "INVALID_RECHARGUL_CREDITS";
+    } else if (e instanceof InvalidRechargULCardDebiting) {
+      response.error = "INVALID_RECHARGUL_DEBITING";
     } else {
       response.error = "INVALID_RECHARGUL_OPERATION";
     }
