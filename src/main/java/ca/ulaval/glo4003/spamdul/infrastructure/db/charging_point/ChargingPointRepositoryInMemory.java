@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 
 public class ChargingPointRepositoryInMemory implements ChargingPointRepository {
 
-  @Override public ChargingPoint find(ChargingPointId id) {
+  @Override public ChargingPoint findBy(ChargingPointId id) {
     return null;
   }
 

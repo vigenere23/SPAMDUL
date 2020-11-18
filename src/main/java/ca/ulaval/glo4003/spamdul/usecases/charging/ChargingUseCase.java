@@ -20,10 +20,10 @@ public class ChargingUseCase {
 
   public void activateChargingPoint(String chargingPointIdString, String rechargULCardIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
 
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
-    RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
+    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
 
     chargingPoint.activate(rechargULCard);
 
@@ -32,8 +32,8 @@ public class ChargingUseCase {
 
   public void startRecharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
-
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+    
     chargingPoint.connect();
 
     chargingPointRepository.update(chargingPoint);
@@ -41,7 +41,7 @@ public class ChargingUseCase {
 
   public void stopRecharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
 
     chargingPoint.disconnect();
 

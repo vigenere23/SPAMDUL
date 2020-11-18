@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 public class RechargULCardRepositoryInMemory implements RechargULCardRepository {
 
   @Override
-  public RechargULCard find(RechargULCardId id) {
+  public RechargULCard findBy(RechargULCardId id) {
     return null;
   }
 

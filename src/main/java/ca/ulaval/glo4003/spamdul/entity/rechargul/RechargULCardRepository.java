@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 public interface RechargULCardRepository {
 
-  RechargULCard find(RechargULCardId id);
+  RechargULCard findBy(RechargULCardId id);
 
   void save(RechargULCard rechargULCard);
 
