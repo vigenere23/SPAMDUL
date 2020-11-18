@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
+import java.util.List;
 
 public class ChargingUseCase {
 
@@ -18,25 +19,31 @@ public class ChargingUseCase {
     this.rechargULCardRepository = rechargULCardRepository;
   }
 
-  public void activateChargingPoint(String chargingPointIdString, String rechargULCardIdString) {
-    ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
-    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+  public List<ChargingPoint> getAll() {
+    return chargingPointRepository.findAll();
+  }
 
-    RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
+  public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
+    ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
     RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
 
     chargingPoint.activate(rechargULCard);
+
+    chargingPointRepository.update(chargingPoint);
+    return chargingPoint;
   }
 
-  public void startRecharging(String chargingPointIdString) {
-    ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
+  public ChargingPoint startRecharging(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
     chargingPoint.connect();
+    chargingPointRepository.update(chargingPoint);
+    return chargingPoint;
   }
 
-  public void stopRecharging(String chargingPointIdString) {
-    ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
+  public ChargingPoint stopRecharging(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
     chargingPoint.disconnect();
+    chargingPointRepository.update(chargingPoint);
+    return chargingPoint;
   }
 }

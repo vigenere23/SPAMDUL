@@ -25,4 +25,8 @@ public class ChargingPointStateIdle implements ChargingPointState {
   @Override public void disconnect() {
     throw new ChargingPointNotChargingException();
   }
+
+  @Override public String toString() {
+    return "idle";
+  }
 }

@@ -26,4 +26,8 @@ public class ChargingPointStateActivated implements ChargingPointState {
   @Override public void disconnect() {
     chargingPoint.setState(new ChargingPointStateIdle(chargingPoint));
   }
+
+  @Override public String toString() {
+    return "activated";
+  }
 }

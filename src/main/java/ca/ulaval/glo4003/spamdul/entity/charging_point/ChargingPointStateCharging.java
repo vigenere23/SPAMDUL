@@ -27,4 +27,8 @@ public class ChargingPointStateCharging implements ChargingPointState {
     counter.stop();
     chargingPoint.setState(new ChargingPointStateIdle(chargingPoint));
   }
+
+  @Override public String toString() {
+    return "charging";
+  }
 }

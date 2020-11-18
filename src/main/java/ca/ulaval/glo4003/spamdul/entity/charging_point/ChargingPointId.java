@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
+import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.InvalidChargingPointIdException;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import java.util.Objects;
@@ -17,12 +18,12 @@ public class ChargingPointId {
     this.value = value;
   }
 
-  private ChargingPointId(String value) {
-    this.value = Long.parseLong(value);
-  }
-
   public static ChargingPointId valueOf(String parkingAccessLogId) {
-    return new ChargingPointId(Long.parseLong(parkingAccessLogId));
+    try {
+      return new ChargingPointId(Long.parseLong(parkingAccessLogId));
+    } catch (Exception e) {
+      throw new InvalidChargingPointIdException();
+    }
   }
 
   @Override public boolean equals(Object o) {

@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point;
 
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPointActivationRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,7 +16,8 @@ public interface ChargingPointResource {
 
   @Path("/{id}/activate")
   @POST
-  Response activateCharging(@PathParam("id") String chargingPointId);
+  @Consumes("application/json")
+  Response activateCharging(@PathParam("id") String chargingPointId, ChargingPointActivationRequest request);
 
   @Path("/{id}/start")
   @POST

@@ -30,4 +30,8 @@ public class ChargingPoint implements ChargingPointState {
   public ChargingPointId getId() {
     return id;
   }
+
+  public String getState() {
+    return state.toString();
+  }
 }
