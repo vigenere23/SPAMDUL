@@ -58,7 +58,6 @@ public class PassAssembler {
       timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
     } catch (IllegalArgumentException e) {
       throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
-
     }
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {

@@ -4,9 +4,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
+import ca.ulaval.glo4003.spamdul.entity.delivery.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,23 +33,41 @@ public class PassDeliveryOptionsFactoryTest {
 
   }
 
-  @Test
-  public void whenCreatingDeliveryOptions_shouldCreateWithRightFields() {
-    DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
-    assertThat(deliveryOptions.subject).isEqualTo(A_SUBJECT);
+  @Test(expected = InvalidDeliveryModeException.class)
+  public void givenInvalidDeliveryStrategy_whenCreatingDeliveryOptions_shouldThrowInvalidDeliveryStrategyException() {
+    passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
   }
 
   @Test
   public void givenPostalDelivery_whenCreatingDeliveryOptions_shouldCopyPostalAddress() {
     deliveryDto.deliveryMode = DeliveryMode.POST;
+
     DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
+
+    assertThat(deliveryOptions.subject).isEqualTo(A_SUBJECT);
     assertThat(deliveryOptions.postalAddress).isEqualTo(postalAddress);
+    assertThat(deliveryOptions.emailAddress).isNull();
   }
 
   @Test
   public void givenEmailDelivery_whenCreatingDeliveryOptions_shouldCopyPostalAddress() {
     deliveryDto.deliveryMode = DeliveryMode.EMAIL;
+
     DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
+
+    assertThat(deliveryOptions.subject).isEqualTo(A_SUBJECT);
     assertThat(deliveryOptions.emailAddress).isEqualTo(emailAddress);
+    assertThat(deliveryOptions.postalAddress).isNull();
+  }
+
+  @Test
+  public void givenSSPOfficeDeliveryMode_whenCreatingDeliveryOptions_shouldOnlySetSubject() {
+    deliveryDto.deliveryMode = DeliveryMode.SSP_OFFICE;
+
+    DeliveryOptions deliveryOptions = passDeliveryOptionsFactory.create(deliveryDto, A_SUBJECT);
+
+    assertThat(deliveryOptions.subject).isEqualTo(A_SUBJECT);
+    assertThat(deliveryOptions.emailAddress).isNull();
+    assertThat(deliveryOptions.postalAddress).isNull();
   }
 }
