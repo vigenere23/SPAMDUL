@@ -26,17 +26,25 @@ public class ChargingUseCase {
     RechargULCard rechargULCard = rechargULCardRepository.find(rechargULCardId);
 
     chargingPoint.activate(rechargULCard);
+
+    chargingPointRepository.update(chargingPoint);
   }
 
   public void startRecharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
     ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+
     chargingPoint.connect();
+
+    chargingPointRepository.update(chargingPoint);
   }
 
   public void stopRecharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
     ChargingPoint chargingPoint = chargingPointRepository.find(chargingPointId);
+
     chargingPoint.disconnect();
+
+    chargingPointRepository.update(chargingPoint);
   }
 }
