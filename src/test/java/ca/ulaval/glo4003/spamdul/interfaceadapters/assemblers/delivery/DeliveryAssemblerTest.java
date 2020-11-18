@@ -1,6 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -70,5 +73,16 @@ public class DeliveryAssemblerTest {
     deliveryRequest.deliveryMode = "test";
 
     deliveryAssembler.fromRequest(deliveryRequest);
+  }
+
+  @Test
+  public void givenSSPOfficeDeliveryMode_whenCreatingFromRequest_thenSSPOfficeDeliveryAssembler() {
+    deliveryRequest.deliveryMode = "ssp_office";
+
+    DeliveryDto deliveryDto = deliveryAssembler.fromRequest(deliveryRequest);
+
+    verify(emailAddressAssembler, never()).fromString(anyString());
+    verify(postalAddressAssembler, never()).fromDto(any());
+    assertThat(deliveryDto.deliveryMode).isEqualTo(DeliveryMode.SSP_OFFICE);
   }
 }
