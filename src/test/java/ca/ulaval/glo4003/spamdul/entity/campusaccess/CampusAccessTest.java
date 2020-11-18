@@ -57,15 +57,17 @@ public class CampusAccessTest {
   @Mock
   PassRepository passRepository;
 
+  private TimePeriod timePeriod;
   private CampusAccess campusAccess;
 
   @Before
   public void setUp() throws Exception {
+    timePeriod = new TimePeriod(A_START_DATE_TIME, AN_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(new CampusAccessCode(),
                                     A_USER,
                                     A_CAR,
                                     A_PERIOD_TYPE,
-                                    A_TIME_PERIOD);
+                                    timePeriod);
   }
 
   @Test
