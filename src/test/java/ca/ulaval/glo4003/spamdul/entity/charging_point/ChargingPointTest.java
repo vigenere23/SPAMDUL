@@ -1,18 +1,13 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyActivatedException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyChargingException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotActivatedException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotDisconnectedException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,10 +21,16 @@ public class ChargingPointTest {
 
   @Mock
   private RechargULCard rechargULCard;
+  @Mock
+  private ChargingPointState state;
+  @Mock
+  private MillisecondsCounter counter;
+  @Mock
+  private ChargingRate chargingRate;
 
   @Before
   public void setUp() {
-    chargingPoint = new ChargingPoint(new ChargingPointId());
+    chargingPoint = new ChargingPoint(new ChargingPointId(), chargingRate);
   }
 
   @Test
@@ -54,76 +55,56 @@ public class ChargingPointTest {
     chargingPoint.disconnect();
   }
 
-  @Test
-  public void givenActivated_whenConnecting_shouldStartCount() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-    chargingPoint.connect();
+  @Test(expected = ChargingPointNotActivatedException.class)
+  public void givenInitialized_whenDeactivating_shouldThrowException() {
+    chargingPoint.deactivate();
   }
 
   @Test
-  public void givenActivated_whenDisconnecting_shouldNotDebit() {
+  public void givenEnoughCreditsCard_whenActivating_shouldDelegateToState() {
     when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-    
-    chargingPoint.disconnect();
-
-    verify(rechargULCard, times(0)).debit(any(Amount.class));
-  }
-
-  @Test(expected = ChargingPointNotChargingException.class)
-  public void givenDisconnected_whenDisconnecting_shouldThrowError() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-    chargingPoint.disconnect();
-
-    chargingPoint.disconnect();
-  }
-
-  @Test(expected = ChargingPointAlreadyActivatedException.class)
-  public void givenActivated_whenActivating_shouldThrowException() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.setState(state);
 
     chargingPoint.activate(rechargULCard);
+
+    verify(state).activate();
   }
 
   @Test
-  public void givenActivated_whenConnecting_shouldNotDebit() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-
+  public void whenConnecting_shouldDelegateToState() {
+    chargingPoint.setState(state);
     chargingPoint.connect();
-
-    verify(rechargULCard, times(0)).debit(any(Amount.class));
-  }
-
-  @Test(expected = ChargingPointAlreadyChargingException.class)
-  public void givenConnected_whenConnecting_shouldThrowException() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-    chargingPoint.connect();
-
-    chargingPoint.connect();
-  }
-
-  @Test(expected = ChargingPointNotDisconnectedException.class)
-  public void givenConnected_whenActivating_shouldThrowException() {
-    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
-    chargingPoint.activate(rechargULCard);
-    chargingPoint.connect();
-
-    chargingPoint.activate(rechargULCard);
+    verify(state).connect();
   }
 
   @Test
-  public void givenConnected_whenDisconnected_shouldDebit() {
+  public void whenDisconnecting_shouldDelegateToState() {
+    chargingPoint.setState(state);
+    chargingPoint.disconnect();
+    verify(state).disconnect();
+  }
+
+  @Test
+  public void whenDeactivating_shouldDelegateToState() {
     when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
     chargingPoint.activate(rechargULCard);
-    chargingPoint.connect();
+    chargingPoint.setState(state);
 
-    chargingPoint.disconnect();
+    chargingPoint.deactivate();
 
-    verify(rechargULCard, times(1)).debit(any(Amount.class));
+    verify(state).deactivate();
+  }
+
+  @Test
+  public void givenCharged_whenDeactivating_shouldDelegatePaymentToChargingRate() {
+    long millisecondsUsed = 123471239;
+    when(state.deactivate()).thenReturn(millisecondsUsed);
+    when(rechargULCard.hasUnpaidCharges()).thenReturn(false);
+    chargingPoint.activate(rechargULCard);
+    chargingPoint.setState(state);
+
+    chargingPoint.deactivate();
+
+    verify(chargingRate).pay(millisecondsUsed, rechargULCard);
   }
 }

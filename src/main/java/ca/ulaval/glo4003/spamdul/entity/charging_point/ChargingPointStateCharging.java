@@ -1,21 +1,20 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
-import ca.ulaval.glo4003.spamdul.entity.charging_counter.ChargingCounter;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyChargingException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotDisconnectedException;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
 
 public class ChargingPointStateCharging implements ChargingPointState {
 
   private final ChargingPoint chargingPoint;
-  private final ChargingCounter counter;
+  private final MillisecondsCounter counter;
 
-  public ChargingPointStateCharging(ChargingPoint chargingPoint, ChargingCounter counter) {
+  public ChargingPointStateCharging(ChargingPoint chargingPoint, MillisecondsCounter counter) {
     this.chargingPoint = chargingPoint;
     this.counter = counter;
   }
 
-  @Override public void activate(RechargULCard card) {
+  @Override public void activate() {
     throw new ChargingPointNotDisconnectedException();
   }
 
@@ -24,8 +23,12 @@ public class ChargingPointStateCharging implements ChargingPointState {
   }
 
   @Override public void disconnect() {
-    counter.stop();
-    chargingPoint.setState(new ChargingPointStateIdle(chargingPoint));
+    long millisecondsUsed = counter.stop();
+    chargingPoint.setState(new ChargingPointStateActivated(chargingPoint, counter, millisecondsUsed));
+  }
+
+  @Override public long deactivate() {
+    throw new ChargingPointNotDisconnectedException();
   }
 
   @Override public String toString() {
