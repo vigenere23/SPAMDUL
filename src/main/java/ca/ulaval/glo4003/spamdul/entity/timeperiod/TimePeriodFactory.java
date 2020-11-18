@@ -32,6 +32,6 @@ public class TimePeriodFactory {
       throw new InvalidPeriodTypeException("The provided period is not valid");
     }
 
-    return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek);
+    return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek, timePeriodDto.numberOfHours);
   }
 }

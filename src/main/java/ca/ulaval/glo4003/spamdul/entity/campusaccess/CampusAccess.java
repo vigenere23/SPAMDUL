@@ -76,7 +76,7 @@ public class CampusAccess {
     }
 
     switch (periodType) {
-      case ONE_HOUR:
+      case HOURLY:
       case SINGLE_DAY:
         return ParkingZone.ALL;
       default:

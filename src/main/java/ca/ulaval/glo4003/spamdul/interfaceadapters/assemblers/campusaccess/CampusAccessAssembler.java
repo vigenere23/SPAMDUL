@@ -24,11 +24,13 @@ import java.util.ArrayList;
 public class CampusAccessAssembler {
 
   private static final ArrayList<PeriodType> ACCEPTED_PERIOD_TYPES = newArrayList(
+      PeriodType.HOURLY,
       PeriodType.SINGLE_DAY,
       PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER,
       PeriodType.ONE_SEMESTER,
       PeriodType.TWO_SEMESTERS,
-      PeriodType.THREE_SEMESTERS);
+      PeriodType.THREE_SEMESTERS
+  );
 
   private final UserAssembler userAssembler;
   private final CarAssembler carAssembler;
@@ -53,8 +55,7 @@ public class CampusAccessAssembler {
   }
 
   private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {
-    final String ERROR_MESSAGE = "make a choice between (single_day, single_day_per_week_per_semester, one_semester," +
-        "two_semesters or three_semesters) ";
+    final String ERROR_MESSAGE = "make a choice between: " + ACCEPTED_PERIOD_TYPES.toString();
 
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 

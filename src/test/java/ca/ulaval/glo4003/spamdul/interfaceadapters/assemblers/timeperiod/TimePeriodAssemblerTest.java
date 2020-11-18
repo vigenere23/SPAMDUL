@@ -10,10 +10,12 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidSemesterException;
+import java.math.BigDecimal;
 import org.junit.Test;
 
 public class TimePeriodAssemblerTest {
 
+  private static final String A_VALID_SEMESTER = "a2020";
   private final TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
 
   @Test
@@ -21,7 +23,7 @@ public class TimePeriodAssemblerTest {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "single_day_per_week_per_semester";
     timePeriodRequest.dayOfWeek = "monday";
-    timePeriodRequest.semester = "a2020";
+    timePeriodRequest.semester = A_VALID_SEMESTER;
 
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
@@ -35,7 +37,7 @@ public class TimePeriodAssemblerTest {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "single_day_per_week_per_semester";
     timePeriodRequest.dayOfWeek = "saturday";
-    timePeriodRequest.semester = "a2020";
+    timePeriodRequest.semester = A_VALID_SEMESTER;
 
     timePeriodAssembler.fromRequest(timePeriodRequest);
   }
@@ -64,7 +66,7 @@ public class TimePeriodAssemblerTest {
   public void givenOneSemester_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "one_semester";
-    timePeriodRequest.semester = "a2020";
+    timePeriodRequest.semester = A_VALID_SEMESTER;
 
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
@@ -76,7 +78,7 @@ public class TimePeriodAssemblerTest {
   public void givenTwoSemesters_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "two_semesters";
-    timePeriodRequest.semester = "a2020";
+    timePeriodRequest.semester = A_VALID_SEMESTER;
 
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
@@ -88,11 +90,33 @@ public class TimePeriodAssemblerTest {
   public void givenThreeSemesters_whenAssemblingTimePeriodDto_shouldSetTheRightFields() {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "three_semesters";
-    timePeriodRequest.semester = "a2020";
+    timePeriodRequest.semester = A_VALID_SEMESTER;
 
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     assertThat(timePeriodDto.periodType).isEqualTo(PeriodType.THREE_SEMESTERS);
     assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
+
+  @Test
+  public void givenHourlyPeriod_whenAssemblingTimePeriodDtoWithValidNumberOfHours_shouldSetTheRightFields() {
+    TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
+    timePeriodRequest.type = "hourly";
+    timePeriodRequest.numberOfHours = 15;
+    timePeriodRequest.semester = A_VALID_SEMESTER;
+
+    TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
+
+    assertThat(timePeriodDto.numberOfHours).isEqualTo(BigDecimal.valueOf(15));
+    assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
+  }
+
+  @Test(expected = InvalidPeriodArgumentException.class)
+  public void givenHourlyPeriod_whenAssemblingTimePeriodDtoWithInvalidNumberOfHours_shouldThrow() {
+    TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
+    timePeriodRequest.type = "hourly";
+    timePeriodRequest.numberOfHours = 24;
+    timePeriodRequest.semester = A_VALID_SEMESTER;
+    timePeriodAssembler.fromRequest(timePeriodRequest);
   }
 }

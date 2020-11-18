@@ -5,7 +5,7 @@ public class TimePeriodRequest {
   public String type;
   public String startDate;
   public String date;
-  public String startSemester;
   public String semester;
   public String dayOfWeek;
+  public int numberOfHours;
 }

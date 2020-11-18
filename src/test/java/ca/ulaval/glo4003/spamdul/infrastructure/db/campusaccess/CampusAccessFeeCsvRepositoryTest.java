@@ -41,8 +41,8 @@ public class CampusAccessFeeCsvRepositoryTest {
   }
 
   @Test
-  public void givenGourmandeAndOneHour_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.GOURMANDE, PeriodType.ONE_HOUR);
+  public void givenGourmandeAndHourly_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
+    CampusAccessFee fee = repository.findBy(CarType.GOURMANDE, PeriodType.HOURLY);
 
     Truth.assertThat(fee.getFee()).isEqualTo(3);
   }

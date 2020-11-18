@@ -103,8 +103,8 @@ public class CampusAccessTest {
   }
 
   @Test
-  public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsOneHour_whenGetParkingZone_shouldReturnParkingZoneAll() {
-    PeriodType periodType = PeriodType.ONE_HOUR;
+  public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsHourly_whenGetParkingZone_shouldReturnParkingZoneAll() {
+    PeriodType periodType = PeriodType.HOURLY;
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER_ID, A_CAR_ID, periodType, A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone(passRepository);
