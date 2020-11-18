@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.NullEmailService;
+import ca.ulaval.glo4003.spamdul.entity.delivery.sspoffice.LoggerSSPOfficeService;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalService;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,5 +41,12 @@ public class DeliveryStrategyFactoryTest {
     DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(DeliveryMode.POST);
 
     assertThat(deliveryStrategy instanceof LoggerPostalService).isTrue();
+  }
+
+  @Test
+  public void givenSSPOfficeDeliveryMode_whenCreatingStrategy_shouldReturnLoggerSSPOfficeService() {
+    DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(DeliveryMode.SSP_OFFICE);
+
+    assertThat(deliveryStrategy instanceof LoggerSSPOfficeService).isTrue();
   }
 }

@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -43,13 +44,15 @@ public class PassContext {
     ParkingZoneFeeRepository parkingZoneFeeRepository = new ParkingZoneFeeCsvRepository(csvReader,
                                                                                         "src/main/resources/frais-zone.csv");
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
+    DeliveryFeeCalculator deliveryFeeCalculator = new DeliveryFeeCalculator();
     PassService passService = new PassService(passRepository,
                                               passFactory,
                                               campusAccessService,
                                               passSender,
                                               transactionFactory,
                                               bankRepository,
-                                              parkingZoneFeeRepository);
+                                              parkingZoneFeeRepository,
+                                              deliveryFeeCalculator);
 
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
     PostalAddressAssembler postalAddressAssembler = new PostalAddressAssembler();
