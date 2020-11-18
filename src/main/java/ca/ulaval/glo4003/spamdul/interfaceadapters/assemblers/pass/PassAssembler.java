@@ -51,7 +51,7 @@ public class PassAssembler {
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {
     final String ERROR_MESSAGE = "make a choice between (single_day_per_week_per_semester, monthly, one_semester," +
-        "two_semester or three_semester) ";
+        "two_semesters or three_semesters) ";
     TimePeriodDto timePeriodDto;
 
     try {
