@@ -55,7 +55,7 @@ public class ChargingUseCase {
     return chargingPoint;
   }
 
-  public RechargULCard getRechargeULCard(RechargULCardId rechargULCardId) {
+  public RechargULCard getRechargULCard(RechargULCardId rechargULCardId) {
     return rechargULCardRepository.findBy(rechargULCardId);
   }
 

@@ -23,7 +23,7 @@ public class RechargULResourceImpl implements RechargULResource {
   @Override public Response getCard(String rechargULCardIdString) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = chargingUseCase.getRechargeULCard(rechargULCardId);
+    RechargULCard card = chargingUseCase.getRechargULCard(rechargULCardId);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();

@@ -15,7 +15,9 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointR
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +26,8 @@ public class ChargingContext {
 
   private final ChargingPointResource chargingPointResource;
   private final RechargULResource rechargULResource;
+  private final ChargingPointExceptionMapper chargingPointExceptionMapper;
+  private final RechargULExceptionMapper rechargULExceptionMapper;
 
   public ChargingContext(TransactionFactory transactionFactory, boolean populateCards) {
     ChargingPointRepository chargingPointRepository = new ChargingPointRepositoryInMemory();
@@ -31,8 +35,11 @@ public class ChargingContext {
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     ChargingUseCase chargingUseCase = new ChargingUseCase(chargingPointRepository, rechargULCardRepository);
+
     chargingPointResource = new ChargingPointResourceImpl(chargingUseCase, chargingPointAssembler);
     rechargULResource = new RechargULResourceImpl(chargingUseCase, rechargULCardAssembler);
+    chargingPointExceptionMapper = new ChargingPointExceptionMapper();
+    rechargULExceptionMapper = new RechargULExceptionMapper();
 
     createChargingPoints(chargingPointRepository);
 
@@ -45,9 +52,17 @@ public class ChargingContext {
   public ChargingPointResource getChargingPointResource() {
     return chargingPointResource;
   }
-  
+
   public RechargULResource getRechargULResource() {
     return rechargULResource;
+  }
+
+  public ChargingPointExceptionMapper getChargingPointExceptionMapper() {
+    return chargingPointExceptionMapper;
+  }
+
+  public RechargULExceptionMapper getRechargULExceptionMapper() {
+    return rechargULExceptionMapper;
   }
 
   private void createChargingPoints(ChargingPointRepository chargingPointRepository) {

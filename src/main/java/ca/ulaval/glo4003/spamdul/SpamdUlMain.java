@@ -90,6 +90,8 @@ public class SpamdUlMain {
         resources.add(new InfractionExceptionAssembler());
         resources.add(chargingContext.getChargingPointResource());
         resources.add(chargingContext.getRechargULResource());
+        resources.add(chargingContext.getChargingPointExceptionMapper());
+        resources.add(chargingContext.getRechargULExceptionMapper());
 
         return resources;
       }
