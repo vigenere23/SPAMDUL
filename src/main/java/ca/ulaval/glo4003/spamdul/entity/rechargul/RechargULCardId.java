@@ -17,6 +17,10 @@ public class RechargULCardId {
     this.value = value;
   }
 
+  private RechargULCardId(String value) {
+    this.value = Long.parseLong(value);
+  }
+
   public static RechargULCardId valueOf(String parkingAccessLogId) {
     return new RechargULCardId(Long.parseLong(parkingAccessLogId));
   }

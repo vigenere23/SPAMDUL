@@ -1,49 +1,33 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
-import java.util.Optional;
 
-public class ChargingPoint {
+public class ChargingPoint implements ChargingPointState {
 
   private final ChargingPointId id;
-  private Optional<ChargingCounter> counter = Optional.empty();
+  private ChargingPointState state = new ChargingPointStateIdle(this);
 
   public ChargingPoint(ChargingPointId id) {
     this.id = id;
   }
 
-  public void activate(RechargULCard card) {
-    verifyNotActivated();
-
-    counter = Optional.of(new ChargingCounter(card));
+  @Override public void activate(RechargULCard card) {
+    state.activate(card);
   }
 
-  public void connect() {
-    verifyActivated();
-
-    counter.get().start();
+  @Override public void connect() {
+    state.connect();
   }
 
-  public void disconnect() {
-    verifyActivated();
+  @Override public void disconnect() {
+    state.disconnect();
+  }
 
-    counter.get().stop();
-    counter = Optional.empty();
+  public void setState(ChargingPointState state) {
+    this.state = state;
   }
 
   public ChargingPointId getId() {
     return id;
-  }
-
-  private void verifyNotActivated() {
-    if (counter.isPresent()) {
-      throw new RuntimeException("Charging point is already activated");
-    }
-  }
-
-  private void verifyActivated() {
-    if (!counter.isPresent()) {
-      throw new RuntimeException("Charging point is not activated");
-    }
   }
 }

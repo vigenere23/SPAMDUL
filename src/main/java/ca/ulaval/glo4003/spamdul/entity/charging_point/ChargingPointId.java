@@ -17,6 +17,10 @@ public class ChargingPointId {
     this.value = value;
   }
 
+  private ChargingPointId(String value) {
+    this.value = Long.parseLong(value);
+  }
+
   public static ChargingPointId valueOf(String parkingAccessLogId) {
     return new ChargingPointId(Long.parseLong(parkingAccessLogId));
   }
