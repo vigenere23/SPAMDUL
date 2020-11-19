@@ -59,9 +59,6 @@ public class UsageReportServiceFunctionalTest {
   public void whenGettingUsageReportSummary_shouldCallAccessLevelValidator() {
     LocalDate reportStartDate = LocalDate.of(2010, 1, 1);
     LocalDate reportEndDate = reportStartDate.plusDays(21);
-//    LocalDate mostPopularDate = reportStartDate.plusDays(15);
-//    LocalDate leastPopularDate = reportStartDate.plusDays(7);
-//    LocalDate randomDate = reportStartDate.plusDays(9);
     UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
     creationDto.startDate = reportStartDate;
     creationDto.endDate = reportEndDate;
