@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingRate;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
@@ -71,10 +71,10 @@ public class ChargingContext {
   private void createChargingPoints(ChargingPointRepository chargingPointRepository) {
     final int NUMBER_OF_CHARGING_POINTS = 10;
     ChargingPointFactory chargingPointFactory = new ChargingPointFactory();
-    ChargingRate chargingRate = new ChargingRate(Amount.valueOf(1), TimeUnit.HOURS);
+    ChargingPaymentService chargingPaymentService = new ChargingPaymentService(Amount.valueOf(1), TimeUnit.HOURS);
 
     for (int chargingPointNumber = 0; chargingPointNumber < NUMBER_OF_CHARGING_POINTS; chargingPointNumber++) {
-      ChargingPoint chargingPoint = chargingPointFactory.create(chargingRate);
+      ChargingPoint chargingPoint = chargingPointFactory.create(chargingPaymentService);
       chargingPointRepository.save(chargingPoint);
     }
   }

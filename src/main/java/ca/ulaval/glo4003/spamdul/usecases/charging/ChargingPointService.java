@@ -39,21 +39,27 @@ public class ChargingPointService {
 
   public ChargingPoint startRecharging(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+
     chargingPoint.connect();
+
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }
 
   public ChargingPoint stopRecharging(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+
     chargingPoint.disconnect();
+
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }
 
   public ChargingPoint deactivateChargingPoint(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
+
     chargingPoint.deactivate();
+    
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }

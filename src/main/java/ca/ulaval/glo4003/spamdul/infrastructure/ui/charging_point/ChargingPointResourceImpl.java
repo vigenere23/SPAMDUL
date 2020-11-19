@@ -30,7 +30,9 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
 
   @Override public Response getSingle(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
+
     ChargingPoint chargingPoint = chargingPointService.getChargingPoint(chargingPointId);
+    
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
   }

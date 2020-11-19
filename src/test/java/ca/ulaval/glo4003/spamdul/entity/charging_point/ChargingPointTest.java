@@ -26,11 +26,11 @@ public class ChargingPointTest {
   @Mock
   private MillisecondsCounter counter;
   @Mock
-  private ChargingRate chargingRate;
+  private ChargingPaymentService chargingPaymentService;
 
   @Before
   public void setUp() {
-    chargingPoint = new ChargingPoint(new ChargingPointId(), chargingRate);
+    chargingPoint = new ChargingPoint(new ChargingPointId(), chargingPaymentService);
   }
 
   @Test
@@ -105,6 +105,6 @@ public class ChargingPointTest {
 
     chargingPoint.deactivate();
 
-    verify(chargingRate).pay(millisecondsUsed, rechargULCard);
+    verify(chargingPaymentService).pay(millisecondsUsed, rechargULCard);
   }
 }
