@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAss
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.HashMap;
 import java.util.Map;

@@ -33,4 +33,8 @@ public class ChargingPointStateActivated implements ChargingPointState {
     chargingPoint.setState(new ChargingPointStateIdle(chargingPoint));
     return millisecondsUsed;
   }
+
+  @Override public String toString() {
+    return "activated";
+  }
 }

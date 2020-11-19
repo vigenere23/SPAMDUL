@@ -15,7 +15,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

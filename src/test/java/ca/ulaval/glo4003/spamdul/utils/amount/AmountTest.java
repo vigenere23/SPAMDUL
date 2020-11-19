@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.utils;
+package ca.ulaval.glo4003.spamdul.utils.amount;
 
 import static com.google.common.truth.Truth.assertThat;
 
