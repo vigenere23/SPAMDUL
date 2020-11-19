@@ -45,7 +45,7 @@ public class PassService {
 
   public void createPass(PassDto dto) {
     Pass pass = passFactory.create(dto.parkingZone, dto.timePeriodDto);
-    campusAccessService.associatePassToCampusAccess(dto.campusAccessCode, pass.getPassCode(), pass.getTimePeriod());
+    campusAccessService.associatePassToCampusAccess(dto.campusAccessCode, pass);
     passRepository.save(pass);
 
     TransactionDto transactionDto = new TransactionDto();

@@ -224,20 +224,8 @@ public class CampusAccessServiceTest {
   }
 
   @Test
-  public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldCallPassRepositoryFind() {
-    campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
-    when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
-    when(calendar.now()).thenReturn(A_START_DATE_TIME);
-
-    campusAccessService.grantAccessToCampus(accessingCampusDto);
-
-    verify(passRepository, times(1)).findByPassCode(A_PASS_CODE);
-  }
-
-  @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
-    campusAccess.associatePass(A_PASS_CODE, A_TIME_PERIOD);
+    campusAccess.associatePass(A_PASS);
     when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
@@ -261,7 +249,7 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS);
 
     verify(campusAccessRepository).findBy(A_CAMPUS_ACCESS_CODE);
   }
@@ -271,9 +259,9 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS);
 
-    verify(campusAccess).associatePass(A_PASS_CODE, A_TIME_PERIOD);
+    verify(campusAccess).associatePass(A_PASS);
   }
 
   @Test
@@ -281,7 +269,7 @@ public class CampusAccessServiceTest {
     CampusAccess campusAccess = mock(CampusAccess.class);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
 
-    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
+    campusAccessService.associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS);
 
     verify(campusAccessRepository).save(campusAccess);
   }

@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundExcepti
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
@@ -90,11 +90,9 @@ public class CampusAccessService extends AccessGrantedObservable {
     return transactionFactory.create(transactionDto);
   }
 
-  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
-                                          PassCode passCode,
-                                          TimePeriod passTimePeriod) {
+  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, Pass pass) {
     CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
-    campusAccess.associatePass(passCode, passTimePeriod);
+    campusAccess.associatePass(pass);
     campusAccessRepository.save(campusAccess);
   }
 
@@ -140,6 +138,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   }
 
   private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
-    notifyAccessGrantedWithCampusAccess(campusAccess.getParkingZone(passRepository), now.toLocalDate());
+    notifyAccessGrantedWithCampusAccess(campusAccess.getParkingZone(), now.toLocalDate());
   }
 }

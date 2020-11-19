@@ -119,7 +119,7 @@ public class PassServiceTest {
   public void whenCreatingPass_shouldCallCampusAccessServiceToAssociatePassToAccess() {
     passService.createPass(A_PASS_DTO);
 
-    verify(campusAccessService).associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, A_PASS_CODE, A_TIME_PERIOD);
+    verify(campusAccessService).associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, pass);
   }
 
   @Test
