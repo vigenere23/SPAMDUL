@@ -8,7 +8,7 @@ public class TimePeriod {
 
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
-  private TimePeriodDayOfWeek timePeriodDayOfWeek;
+  private final TimePeriodDayOfWeek timePeriodDayOfWeek;
   private BigDecimal numberOfHours;
 
   public TimePeriod(LocalDateTime startDateTime,
@@ -76,5 +76,10 @@ public class TimePeriod {
 
   public TimePeriodDayOfWeek getTimePeriodDayOfWeek() {
     return timePeriodDayOfWeek;
+  }
+
+  public void restrainHourlyPeriod(LocalDateTime dateTimeOfAccess) {
+    startDateTime = dateTimeOfAccess;
+    endDateTime = dateTimeOfAccess.plusHours(numberOfHours.longValue());
   }
 }

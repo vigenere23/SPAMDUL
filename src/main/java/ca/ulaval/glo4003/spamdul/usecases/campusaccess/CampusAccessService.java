@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundExcepti
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
@@ -97,9 +98,9 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     try {
       if (accessingCampusDto.campusAccessCode != null) {
-        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto, now);
+        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto.campusAccessCode, now);
       } else {
-        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto, now);
+        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto.licensePlate, now);
       }
     } catch (CampusAccessNotFoundException e) {
       return false;
@@ -108,27 +109,24 @@ public class CampusAccessService extends AccessGrantedObservable {
     return accessGranted;
   }
 
-  private boolean isAccessGrantedByCampusAccessCode(AccessingCampusDto accessingCampusDto,
-                                                    LocalDateTime now) {
-    CampusAccess campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+  private boolean isAccessGrantedByCampusAccessCode(CampusAccessCode campusAccessCode, LocalDateTime dateTime) {
+    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
+    boolean accessGranted = campusAccess.grantAccess(dateTime);
 
-    if (campusAccess.isAccessGranted(now)) {
-      notifyAccessGranted(campusAccess, now);
-      return true;
+    if (accessGranted) {
+      notifyAccessGranted(campusAccess, dateTime);
     }
 
-    return false;
+    return accessGranted;
   }
 
-  private boolean isAccessGrantedByLicensePlate(AccessingCampusDto accessingCampusDto,
-                                                LocalDateTime now) {
-    for (CampusAccess campusAccess : campusAccessRepository.findBy(accessingCampusDto.licensePlate)) {
-      if (campusAccess.isAccessGranted(now)) {
-        notifyAccessGranted(campusAccess, now);
-        return true;
+  private boolean isAccessGrantedByLicensePlate(LicensePlate licensePlate, LocalDateTime dateTime) {
+    for (CampusAccess campusAccess : campusAccessRepository.findBy(licensePlate)) {
+      if (campusAccess.grantAccess(dateTime)) {
+          notifyAccessGranted(campusAccess, dateTime);
+          return true;
       }
     }
-
     return false;
   }
 

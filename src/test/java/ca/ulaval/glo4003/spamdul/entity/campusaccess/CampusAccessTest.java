@@ -71,7 +71,7 @@ public class CampusAccessTest {
 
   @Test
   public void givenDateTimeIncludedInPeriod_whenVerifyingIfGrantedAccess_shouldGrantAccess() {
-    boolean grantedAccess = campusAccess.isAccessGranted(A_WEDNESDAY_IN_THE_MIDDLE);
+    boolean grantedAccess = campusAccess.grantAccess(A_WEDNESDAY_IN_THE_MIDDLE);
 
     assertThat(grantedAccess).isTrue();
   }
@@ -79,7 +79,7 @@ public class CampusAccessTest {
   @Test
   public void givenDateNotTimeIncludedInPeriod_whenVerifyingIfGrantedAccess_shouldNotGrantAccess() {
 
-    boolean grantedAccess = campusAccess.isAccessGranted(A_DATE_TIME_BEFORE);
+    boolean grantedAccess = campusAccess.grantAccess(A_DATE_TIME_BEFORE);
 
     assertThat(grantedAccess).isFalse();
   }

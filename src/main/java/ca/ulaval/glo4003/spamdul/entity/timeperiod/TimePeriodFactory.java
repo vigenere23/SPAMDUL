@@ -11,27 +11,37 @@ public class TimePeriodFactory {
   }
 
   public TimePeriod createTimePeriod(TimePeriodDto timePeriodDto) {
-    LocalDateTime startDateTime;
-    LocalDateTime endDateTime;
-    TimePeriodDayOfWeek timePeriodDayOfWeek;
-
-    startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
-    timePeriodDayOfWeek = timePeriodDto.timePeriodDayOfWeek;
-
-    if (timePeriodDto.periodType == PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER
-        || timePeriodDto.periodType == PeriodType.ONE_SEMESTER) {
-      endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
-
-    } else if (timePeriodDto.periodType == PeriodType.TWO_SEMESTERS) {
-      endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(1));
-
-    } else if (timePeriodDto.periodType == PeriodType.THREE_SEMESTERS) {
-      endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(2));
-
-    } else {
-      throw new InvalidPeriodTypeException("The provided period is not valid");
+    if (timePeriodDto.periodType == null) {
+      throw new InvalidPeriodTypeException();
     }
 
-    return new TimePeriod(startDateTime, endDateTime, timePeriodDayOfWeek, timePeriodDto.numberOfHours);
+    LocalDateTime startDateTime;
+    LocalDateTime endDateTime;
+    switch (timePeriodDto.periodType) {
+      case HOURLY:
+        startDateTime = LocalDateTime.now();
+        endDateTime = LocalDateTime.MAX;
+        break;
+      case SINGLE_DAY_PER_WEEK_PER_SEMESTER:
+      case ONE_SEMESTER:
+        startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
+        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester);
+        break;
+      case TWO_SEMESTERS:
+        startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
+        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(1));
+        break;
+      case THREE_SEMESTERS:
+        startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
+        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(2));
+        break;
+      default:
+        throw new InvalidPeriodTypeException();
+    }
+
+    return new TimePeriod(startDateTime,
+                          endDateTime,
+                          timePeriodDto.timePeriodDayOfWeek,
+                          timePeriodDto.numberOfHours);
   }
 }

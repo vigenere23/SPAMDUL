@@ -13,12 +13,13 @@ import java.util.Objects;
 
 public class CampusAccess {
 
-  private CampusAccessCode campusAccessCode;
-  private User user;
-  private Car car;
-  private PeriodType periodType;
-  private TimePeriod timePeriod;
+  private final CampusAccessCode campusAccessCode;
+  private final User user;
+  private final Car car;
+  private final PeriodType periodType;
+  private final TimePeriod timePeriod;
   private Pass associatedPass;
+  private boolean hasBeenAccessed = false;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       User user,
@@ -40,8 +41,15 @@ public class CampusAccess {
     return campusAccessCode;
   }
 
-  public boolean isAccessGranted(LocalDateTime dateOfAccess) {
-    return timePeriod.includes(dateOfAccess);
+  public boolean grantAccess(LocalDateTime dateOfAccess) {
+    boolean accessGranted = timePeriod.includes(dateOfAccess);
+    if (accessGranted && !hasBeenAccessed) {
+      if (periodType.equals(PeriodType.HOURLY)) {
+        timePeriod.restrainHourlyPeriod(dateOfAccess);
+      }
+      hasBeenAccessed = true;
+    }
+    return accessGranted;
   }
 
   public void associatePass(Pass pass) {

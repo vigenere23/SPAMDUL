@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.Test;
 
@@ -149,5 +150,20 @@ public class TimePeriodTest {
     boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_NOT_SAME_DAY);
 
     assertThat(result).isFalse();
+  }
+
+  @Test
+  public void givenTimePeriod_whenRestrainingHourlyPeriod_shouldSetStartAndEnd() {
+    LocalDateTime now = LocalDateTime.of(2020, 1, 1, 0, 0);
+    BigDecimal numberOfHours = BigDecimal.valueOf(4);
+    TimePeriod timePeriod = new TimePeriod(LocalDateTime.MIN,
+                                           LocalDateTime.MAX,
+                                           TimePeriodDayOfWeek.FRIDAY,
+                                           numberOfHours);
+
+    timePeriod.restrainHourlyPeriod(now);
+
+    assertThat(timePeriod.getStartDateTime()).isEqualTo(now);
+    assertThat(timePeriod.getEndDateTime()).isEqualTo(now.plusHours(numberOfHours.longValue()));
   }
 }
