@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.ChargingPointR
 import ca.ulaval.glo4003.spamdul.infrastructure.db.rechargul.RechargULCardRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
-import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 
 public class ChargingContext {
 
@@ -15,8 +15,9 @@ public class ChargingContext {
   public ChargingContext() {
     ChargingPointRepository chargingPointRepository = new ChargingPointRepositoryInMemory();
     RechargULCardRepository rechargULCardRepository = new RechargULCardRepositoryInMemory();
-    ChargingUseCase chargingUseCase = new ChargingUseCase(chargingPointRepository, rechargULCardRepository);
-    chargingPointResource = new ChargingPointResourceImpl(chargingUseCase);
+    ChargingPointService chargingPointService = new ChargingPointService(chargingPointRepository,
+                                                                         rechargULCardRepository);
+    chargingPointResource = new ChargingPointResourceImpl(chargingPointService);
   }
 
   public ChargingPointResource getChargingPointResource() {

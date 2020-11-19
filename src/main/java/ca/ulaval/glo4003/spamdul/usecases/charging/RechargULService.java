@@ -5,11 +5,11 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 
-public class ChargingCreditsUseCase {
+public class RechargULService {
 
   private final RechargULCardRepository rechargULCardRepository;
 
-  public ChargingCreditsUseCase(RechargULCardRepository rechargULCardRepository) {
+  public RechargULService(RechargULCardRepository rechargULCardRepository) {
     this.rechargULCardRepository = rechargULCardRepository;
   }
 

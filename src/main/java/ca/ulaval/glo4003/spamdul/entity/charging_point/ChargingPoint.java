@@ -7,14 +7,14 @@ import java.util.Optional;
 public class ChargingPoint {
 
   private final ChargingPointId id;
-  private final ChargingRate chargingRate;
+  private final ChargingPaymentService chargingPaymentService;
 
   private Optional<RechargULCard> card = Optional.empty();
   private ChargingPointState state = new ChargingPointStateIdle(this);
 
-  public ChargingPoint(ChargingPointId id, ChargingRate chargingRate) {
+  public ChargingPoint(ChargingPointId id, ChargingPaymentService chargingPaymentService) {
     this.id = id;
-    this.chargingRate = chargingRate;
+    this.chargingPaymentService = chargingPaymentService;
   }
 
   public void activate(RechargULCard card) {
@@ -36,7 +36,7 @@ public class ChargingPoint {
 
   public void deactivate() {
     long millisecondsUsed = state.deactivate();
-    chargingRate.pay(millisecondsUsed, card.get());
+    chargingPaymentService.pay(millisecondsUsed, card.get());
     card = Optional.empty();
   }
 

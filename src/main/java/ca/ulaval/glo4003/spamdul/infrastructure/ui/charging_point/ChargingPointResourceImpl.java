@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point;
 
-import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import javax.ws.rs.core.Response;
 
 public class ChargingPointResourceImpl implements
     ChargingPointResource {
 
-  private final ChargingUseCase chargingUseCase;
+  private final ChargingPointService chargingPointService;
 
-  public ChargingPointResourceImpl(ChargingUseCase chargingUseCase) {
-    this.chargingUseCase = chargingUseCase;
+  public ChargingPointResourceImpl(ChargingPointService chargingPointService) {
+    this.chargingPointService = chargingPointService;
   }
 
   @Override public Response getAll() {

@@ -14,16 +14,16 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChargingRateTest {
+public class ChargingPaymentServiceTest {
 
   private final Amount hourlyFee = Amount.valueOf(2.44);
   private final long oneHourInMilliseconds = 60 * 60 * 1000;
 
-  private ChargingRate oneDollarPerHourRate;
+  private ChargingPaymentService oneDollarPerHourRate;
 
   @Before
   public void setUp() {
-    oneDollarPerHourRate = new ChargingRate(hourlyFee, TimeUnit.HOURS);
+    oneDollarPerHourRate = new ChargingPaymentService(hourlyFee, TimeUnit.HOURS);
   }
 
   @Mock

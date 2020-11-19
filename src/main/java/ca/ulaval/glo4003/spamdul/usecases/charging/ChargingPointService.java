@@ -7,13 +7,13 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 
-public class ChargingUseCase {
+public class ChargingPointService {
 
   private final ChargingPointRepository chargingPointRepository;
   private final RechargULCardRepository rechargULCardRepository;
 
-  public ChargingUseCase(ChargingPointRepository chargingPointRepository,
-                         RechargULCardRepository rechargULCardRepository) {
+  public ChargingPointService(ChargingPointRepository chargingPointRepository,
+                              RechargULCardRepository rechargULCardRepository) {
     this.chargingPointRepository = chargingPointRepository;
     this.rechargULCardRepository = rechargULCardRepository;
   }
@@ -33,7 +33,7 @@ public class ChargingUseCase {
   public void startRecharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
-    
+
     chargingPoint.connect();
 
     chargingPointRepository.update(chargingPoint);

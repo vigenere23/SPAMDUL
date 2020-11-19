@@ -4,12 +4,12 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.utils.Amount;
 import java.util.concurrent.TimeUnit;
 
-public class ChargingRate {
+public class ChargingPaymentService {
 
   private final Amount timeUnitFee;
   private final TimeUnit timeUnit;
 
-  public ChargingRate(Amount timeUnitFee, TimeUnit timeUnit) {
+  public ChargingPaymentService(Amount timeUnitFee, TimeUnit timeUnit) {
     this.timeUnitFee = timeUnitFee;
     this.timeUnit = timeUnit;
   }
