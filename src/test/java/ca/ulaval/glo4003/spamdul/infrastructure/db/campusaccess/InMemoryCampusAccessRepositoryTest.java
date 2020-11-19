@@ -80,8 +80,7 @@ public class InMemoryCampusAccessRepositoryTest {
 
     List<CampusAccess> campusAccesses = campusAccessRepository.findBy(new LicensePlate(A_LICENSE_PLATE_STRING));
 
-    assertThat(campusAccesses.get(0)).isEqualTo(A_CAMPUS_ACCESS);
-    assertThat(campusAccesses.get(1)).isEqualTo(anotherCampusAccessSameLicensePlate);
+    assertThat(campusAccesses).containsExactly(A_CAMPUS_ACCESS, anotherCampusAccessSameLicensePlate);
   }
 
   @Test(expected = CampusAccessNotFoundException.class)
