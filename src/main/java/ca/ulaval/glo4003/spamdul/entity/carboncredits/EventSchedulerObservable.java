@@ -25,5 +25,4 @@ public class EventSchedulerObservable {
       observer.listenScheduledEvent();
     }
   }
-
 }
