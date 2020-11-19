@@ -28,6 +28,13 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
     return Response.ok(response).build();
   }
 
+  @Override public Response getSingle(String chargingPointIdString) {
+    ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
+    ChargingPoint chargingPoint = chargingUseCase.getChargingPoint(chargingPointId);
+    ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+    return Response.ok(response).build();
+  }
+
   @Override public Response activateCharging(String chargingPointIdString, ChargingPointActivationRequest request) {
     String rechargULCardIdString = request == null ? null : request.rechargULCardId;
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);

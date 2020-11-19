@@ -23,6 +23,10 @@ public class ChargingUseCase {
     return chargingPointRepository.findAll();
   }
 
+  public ChargingPoint getChargingPoint(ChargingPointId chargingPointId) {
+    return chargingPointRepository.findBy(chargingPointId);
+  }
+
   public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
     RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);

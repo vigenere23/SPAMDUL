@@ -14,6 +14,10 @@ public interface ChargingPointResource {
   @GET
   Response getAll();
 
+  @Path("/{id}")
+  @GET
+  Response getSingle(@PathParam("id") String chargingPointIdString);
+
   @Path("/{id}/activate")
   @POST
   @Consumes("application/json")

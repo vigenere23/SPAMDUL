@@ -5101,36 +5101,1566 @@
 					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
 				}
 			]
+		},
+		{
+			"name": "Create rechargUL card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3a0ed3c-9135-4876-994b-0c241bae62a7",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Get rechargUL card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15849ee2-bee7-401f-9b38-b02fcbbe9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Get charging points",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ae6f26a-92b6-457d-bc75-f567659d5177",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'chargingPoints' is not empty\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['chargingPoints'])).to.be.true",
+							"    pm.expect(pm.response.json()['chargingPoints']).to.not.eql([])",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Get single charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4da7d28f-c3e5-49de-8d7e-688320679855",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is idle\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"idle\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with invalid card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd328059-648d-4d60-b320-58a36ea54bc1",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"INVALID_RECHARGUL_CARD_ID\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with non-existant card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24057cf2-f7e4-46f6-87ab-6029e2d0b45b",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"RECHARGUL_CARD_NOT_FOUND\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1234234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with no credits card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "845ec95e-3bf2-4845-9ac1-ae38ff403ab0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"NOT_ENOUGH_CREDITS\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Add credits to card (with invalid amount)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2cd779d-d77b-4dc7-8ccf-32fa95dc1fdd",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is INVALID_RECHARGUL_CREDITS\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"INVALID_RECHARGUL_CREDITS\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credits\": -1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1",
+						"credits"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Add credits to card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "906d41ec-b948-40bb-bdc6-ebb9374edaf9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is not 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.be.greaterThan(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credits\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1",
+						"credits"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b330eaac-c5e7-43ed-b077-dab8b6b75dc1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is activated\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"activated\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Connect charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67e13d29-3840-42da-b181-ab46f056018f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is charging\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"charging\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/connect",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"connect"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Disconnect charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "046d051a-e8e9-49be-b0f2-b200114cd716",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is activated\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"activated\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/disconnect",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"disconnect"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Deactivate charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f97cb2ca-bcf9-4c16-a2f1-2969117ec5b9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is idle\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"idle\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/deactivate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"deactivate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
+		},
+		{
+			"name": "Get rechargUL card (after debited)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d1cedf4-b98d-4989-a180-9b94c8a4941e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get total revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financial-report",
+								"revenue",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+				}
+			]
 		}
 	],
 	"variable": [
 		{
-			"id": "2f291b3f-22de-4cd9-bdd9-2aeb16673d6b",
+			"id": "49cd55c6-b146-4f86-8840-b0ebdc4ac187",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "241e00cf-dea3-40a0-8961-391ac782aa2d",
+			"id": "40725457-0696-4c1c-b9ab-196e5ccbf175",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "368e49db-b149-4c88-a2a5-7c7272202a07",
+			"id": "c2a6ca8c-6eeb-4757-90c7-c778642414c7",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "18df9f01-7cd0-4c8b-a703-4423ce232d9e",
+			"id": "0fdfdbbf-f7c9-4712-aa51-a6b132fdc4de",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "6c083689-a79f-4bc4-9c23-11ce158c5451",
+			"id": "b667bd9b-651f-40e0-b621-483d71910c4b",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "15f7923d-225b-4e19-97c7-bdfb3aa88f48",
+			"id": "916945e6-6d4f-4065-ba0a-cefcbc9809ff",
 			"key": "yesterday",
 			"value": ""
 		}
