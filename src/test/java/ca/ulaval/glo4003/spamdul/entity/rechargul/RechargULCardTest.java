@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCredits;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebiting;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
@@ -23,22 +23,22 @@ public class RechargULCardTest {
     card = new RechargULCard(new RechargULCardId(), new TransactionFactory());
   }
 
-  @Test(expected = InvalidRechargULCardCredits.class)
+  @Test(expected = InvalidRechargULCardCreditsException.class)
   public void whenAddingNegativeCredits_shouldThrowException() {
     card.addCredits(Amount.valueOf(-1));
   }
 
-  @Test(expected = InvalidRechargULCardCredits.class)
+  @Test(expected = InvalidRechargULCardCreditsException.class)
   public void whenAddingZeroCredits_shouldThrowException() {
     card.addCredits(Amount.valueOf(0));
   }
 
-  @Test(expected = InvalidRechargULCardDebiting.class)
+  @Test(expected = InvalidRechargULCardDebitingException.class)
   public void whenDebitingNegativeAmount_shouldThrowException() {
     card.debit(Amount.valueOf(-1));
   }
 
-  @Test(expected = InvalidRechargULCardDebiting.class)
+  @Test(expected = InvalidRechargULCardDebitingException.class)
   public void whenDebitingZeroAmount_shouldThrowException() {
     card.debit(Amount.valueOf(0));
   }

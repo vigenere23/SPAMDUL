@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCredits;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebiting;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
@@ -24,7 +24,7 @@ public class RechargULCard {
 
   public void debit(Amount amount) {
     if (amount.isStrictlyNegative() || amount.isZero()) {
-      throw new InvalidRechargULCardDebiting();
+      throw new InvalidRechargULCardDebitingException();
     }
 
     Transaction transaction = transactionFactory.create(TransactionType.RECHARGE, amount.multiply(-1));
@@ -33,7 +33,7 @@ public class RechargULCard {
 
   public void addCredits(Amount amount) {
     if (amount.isStrictlyNegative() || amount.isZero()) {
-      throw new InvalidRechargULCardCredits();
+      throw new InvalidRechargULCardCreditsException();
     }
 
     Transaction transaction = transactionFactory.create(TransactionType.RECHARGE_CREDITS, amount);
