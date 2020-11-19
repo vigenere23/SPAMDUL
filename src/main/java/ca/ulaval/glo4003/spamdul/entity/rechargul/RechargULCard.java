@@ -23,7 +23,7 @@ public class RechargULCard {
   }
 
   public void debit(Amount amount) {
-    if (amount.isNegative() || amount.isZero()) {
+    if (amount.isStrictlyNegative() || amount.isZero()) {
       throw new InvalidRechargULCardDebiting();
     }
 
@@ -32,7 +32,7 @@ public class RechargULCard {
   }
 
   public void addCredits(Amount amount) {
-    if (amount.isNegative() || amount.isZero()) {
+    if (amount.isStrictlyNegative() || amount.isZero()) {
       throw new InvalidRechargULCardCredits();
     }
 
@@ -41,7 +41,7 @@ public class RechargULCard {
   }
 
   public boolean hasEnoughCredits() {
-    return total().isNegative() || total().isZero();
+    return total().isStrictlyPositive();
   }
 
   public RechargULCardId getId() {

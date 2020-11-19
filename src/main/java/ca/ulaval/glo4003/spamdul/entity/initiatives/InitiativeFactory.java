@@ -16,7 +16,7 @@ public class InitiativeFactory {
       throw new InvalidInitiativeName("A name must be provided");
     }
 
-    if (amount.isZero() || amount.isNegative()) {
+    if (amount.isZero() || amount.isStrictlyNegative()) {
       throw new InvalidInitiativeAmount("Amount must be greather than zero");
     }
 

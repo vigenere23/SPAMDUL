@@ -21,7 +21,7 @@ public class SustainabilityBankAccount {
   public void addTransaction(Transaction transaction) {
     Amount total = getTotalAvailableAmount();
 
-    if (total.add(transaction.getAmount()).isNegative()) {
+    if (total.add(transaction.getAmount()).isStrictlyNegative()) {
       throw new InsufficientFundsException("Insufficient funds");
     }
 

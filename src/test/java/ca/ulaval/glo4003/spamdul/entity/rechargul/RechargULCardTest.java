@@ -52,14 +52,14 @@ public class RechargULCardTest {
   public void whenAddingCredits_shouldAddToCredits() {
     card.addCredits(AN_AMOUNT);
     assertThat(card.total()).isEqualTo(AN_AMOUNT);
-    assertThat(card.hasEnoughCredits()).isFalse();
+    assertThat(card.hasEnoughCredits()).isTrue();
   }
 
   @Test
   public void whenDebiting_shouldSubtractFromCredits() {
     card.debit(AN_AMOUNT);
     assertThat(card.total()).isEqualTo(AN_AMOUNT.multiply(-1));
-    assertThat(card.hasEnoughCredits()).isTrue();
+    assertThat(card.hasEnoughCredits()).isFalse();
   }
 
   @Test
@@ -67,6 +67,6 @@ public class RechargULCardTest {
     card.addCredits(AN_AMOUNT);
     card.debit(AN_AMOUNT);
     assertThat(card.total()).isEqualTo(Amount.valueOf(0));
-    assertThat(card.hasEnoughCredits()).isTrue();
+    assertThat(card.hasEnoughCredits()).isFalse();
   }
 }

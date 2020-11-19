@@ -24,8 +24,12 @@ public class Amount {
     return value.doubleValue();
   }
 
-  public boolean isNegative() {
+  public boolean isStrictlyNegative() {
     return value.compareTo(BigDecimal.ZERO) < 0;
+  }
+
+  public boolean isStrictlyPositive() {
+    return value.compareTo(BigDecimal.ZERO) > 0;
   }
 
   public boolean isZero() {
