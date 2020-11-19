@@ -30,8 +30,7 @@ public class CampusAccessContext {
   private final CampusAccessResource campusAccessResource;
   private final CampusAccessService campusAccessService;
 
-  public CampusAccessContext(PassRepository passRepository,
-                             ParkingAccessLogger parkingAccessLogger,
+  public CampusAccessContext(ParkingAccessLogger parkingAccessLogger,
                              BankRepository bankRepository,
                              TransactionFactory transactionFactory) {
     UserFactory userFactory = new UserFactory();
@@ -58,7 +57,6 @@ public class CampusAccessContext {
                                                   carService,
                                                   campusAccessFactory,
                                                   campusAccessRepository,
-                                                  passRepository,
                                                   calendar,
                                                   bankRepository,
                                                   campusAccessFeeRepository,

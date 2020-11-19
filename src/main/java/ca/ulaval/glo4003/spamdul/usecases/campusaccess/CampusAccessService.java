@@ -12,9 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -30,7 +28,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CarService carService;
   private final CampusAccessFactory campusAccessFactory;
   private final CampusAccessRepository campusAccessRepository;
-  private final PassRepository passRepository;
   private final Calendar calendar;
   private final BankRepository bankRepository;
   private final TransactionFactory transactionFactory;
@@ -40,7 +37,6 @@ public class CampusAccessService extends AccessGrantedObservable {
                              CarService carService,
                              CampusAccessFactory campusAccessFactory,
                              CampusAccessRepository campusAccessRepository,
-                             PassRepository passRepository,
                              Calendar calendar,
                              BankRepository bankRepository,
                              CampusAccessFeeRepository campusAccessFeeRepository,
@@ -49,7 +45,6 @@ public class CampusAccessService extends AccessGrantedObservable {
     this.carService = carService;
     this.campusAccessFactory = campusAccessFactory;
     this.campusAccessRepository = campusAccessRepository;
-    this.passRepository = passRepository;
     this.calendar = calendar;
     this.bankRepository = bankRepository;
     this.transactionFactory = transactionFactory;

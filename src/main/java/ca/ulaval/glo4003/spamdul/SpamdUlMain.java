@@ -43,8 +43,7 @@ public class SpamdUlMain {
     GlobalContext globalContext = new GlobalContext();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     AccountContext accountContext = new AccountContext();
-    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.getPassRepository(),
-                                                                      usageReportContext.getParkingAccessLogger(),
+    CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
                                                                       accountContext.bankRepository(),
                                                                       globalContext.getTransactionFactory()
     );

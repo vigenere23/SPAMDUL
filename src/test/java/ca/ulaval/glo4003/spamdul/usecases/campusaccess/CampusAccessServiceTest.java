@@ -97,8 +97,6 @@ public class CampusAccessServiceTest {
   private CarDto carDto;
   private AccessingCampusDto accessingCampusDto;
   @Mock
-  private PassRepository passRepository;
-  @Mock
   private Calendar calendar;
   @Mock
   private TransactionFactory transactionFactory;
@@ -128,7 +126,6 @@ public class CampusAccessServiceTest {
                                                   carService,
                                                   campusAccessFactory,
                                                   campusAccessRepository,
-                                                  passRepository,
                                                   calendar,
                                                   bankRepository,
                                                   campusAccessFeeRepository,
@@ -189,7 +186,6 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenACampusAccessCode_whenVerifyingIfCanAccessCampus_shouldFindTheRightCampusAccessFromCode() {
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
@@ -204,7 +200,6 @@ public class CampusAccessServiceTest {
     LicensePlate licensePlate = new LicensePlate(A_LICENSE_PLATE_STRING);
     accessingCampusDto.campusAccessCode = null;
     accessingCampusDto.licensePlate = licensePlate;
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
     when(campusAccessRepository.findBy(licensePlate)).thenReturn(campusAccesses);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
@@ -215,7 +210,6 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
@@ -226,7 +220,6 @@ public class CampusAccessServiceTest {
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
     campusAccess.associatePass(A_PASS);
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(A_PASS);
     when(campusAccessRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(campusAccess);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
