@@ -1658,6 +1658,20 @@
 		},
 		{
 			"name": "Karine login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "853ab55d-25fb-484f-b9bd-0e39c51cb62f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -1802,6 +1816,20 @@
 		},
 		{
 			"name": "Karine login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daa979dc-44c0-4e24-8d3b-4930353f596c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2942,6 +2970,20 @@
 		},
 		{
 			"name": "Dominique login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55b54a0d-bd7a-4f77-b06d-b52d2de18147",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -3271,6 +3313,20 @@
 		},
 		{
 			"name": "Dominique login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c15c2c02-5429-4cbf-9849-0ae831a863db",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -3907,6 +3963,20 @@
 		},
 		{
 			"name": "Karine login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ae7ff9e-ce9b-45f2-90c0-c098b3df9670",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -6977,32 +7047,32 @@
 	],
 	"variable": [
 		{
-			"id": "ab8247c0-bea6-4762-aee1-a59a97e869c8",
+			"id": "ed521f1b-1055-4a83-a00d-d588696540b4",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "81984376-1e0e-465b-afc2-c3b7d40a5df2",
+			"id": "d79d80e3-807e-4589-9533-82e94d29a958",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "ba784d10-3174-4c20-a697-5aebe80441c4",
+			"id": "bf92acd5-10c8-4855-b08d-c32d47fe5d50",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "b533aada-ef8f-4c97-b013-3d181e72509d",
+			"id": "95425337-891f-4885-9938-962fbe5e8749",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "61656ff5-7e13-4233-9653-5a35f4457bf0",
+			"id": "369de247-1b30-4506-bbcb-c359904c4169",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "5e135ee0-f5cc-4347-a763-830f74cd1b56",
+			"id": "e5418756-f8de-444a-bb84-216243e53b35",
 			"key": "yesterday",
 			"value": ""
 		}
