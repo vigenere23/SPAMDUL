@@ -64,7 +64,6 @@ public class SpamdUlMain {
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository(),
                                                                    authenticationContext.getAuthenticationRepository());
-                                                                   accountContext.bankRepository());
     ChargingContext chargingContext = new ChargingContext();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
