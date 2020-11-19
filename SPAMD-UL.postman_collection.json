@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "344b0447-05fc-473e-bc62-b9ecdc128cb6",
+		"_postman_id": "0895df76-1926-42bb-8626-4a757f66a3e8",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "339f3671-2ebd-4c0c-9774-55fac1898e9f",
+						"id": "0f5bec1d-bbd9-4a66-a3d2-9267f636eb35",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -24,7 +24,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "09f154f3-8022-4017-9661-0928b38f896e",
+						"id": "66fd4209-a8cb-43e4-9b9c-10bafb84a55a",
 						"exec": [
 							"const today = new Date()",
 							"const yesterday = new Date()",
@@ -73,7 +73,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "641bee6a-351d-4773-808e-c1605b1fab70",
+						"id": "f7fe085f-7b70-4b65-b506-bbf204d34cf1",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -90,7 +90,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "7f8a7839-fee0-44c9-b506-7dace4d88c10",
+						"id": "d7b9ae6d-3c55-4f48-976f-81f0a6ba0008",
 						"exec": [
 							""
 						],
@@ -199,7 +199,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "399dd4a3-ef5e-4fce-8f9c-0349f45ff062",
+						"id": "f830b56b-69b9-40ca-b37e-f73309c3db1f",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -249,7 +249,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5767c59d-c680-4463-ba17-915a2c356870",
+						"id": "d5ea9c2d-494f-4bc1-8713-fc3383a03a5d",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -299,7 +299,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6129c9a6-25be-47df-9558-022a3d20e0b0",
+						"id": "ba4ecd75-2eac-481f-8e18-9c433489de13",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -349,7 +349,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9884a493-baf7-4858-9ab9-525471d42310",
+						"id": "e61d90b2-e7ad-478f-9e47-09c82fa50c2c",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -399,7 +399,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "11823ad4-4da6-4eb9-a8e1-20dc90b6ffe2",
+						"id": "1eb2cd68-f3c3-407c-a8e0-3aa3269c4dde",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -449,7 +449,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7fba3418-a5dd-4399-be25-c1b2e85c6924",
+						"id": "fac9b133-9640-409a-90de-89c6caaeef49",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -499,7 +499,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ea6ece0c-6e8f-478a-b81f-32e8590fa212",
+						"id": "e3f87813-3221-4905-8bab-bf4f8fc3c036",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -549,7 +549,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "131262e9-625c-44ae-9793-fb915474b06a",
+						"id": "faf477ef-d15d-420c-99cc-2c1e6734755e",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -599,7 +599,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "41feadce-fcc3-4786-ab15-c1dded246f0c",
+						"id": "32eeb209-6d21-45b1-b772-688632801649",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -649,7 +649,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0e967f44-77ca-4710-b61b-69219912f231",
+						"id": "7280fa80-9f21-454e-a814-75490ba9857e",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -766,7 +766,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4fe2ae14-cfe2-48db-b094-41584e5c0d21",
+						"id": "bc154558-1415-47e5-be90-67d79906c588",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -817,72 +817,6 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "20"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"GRANTED\"\n}"
-				},
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
 							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
 							"options": {
 								"raw": {
@@ -941,6 +875,72 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
+				},
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"GRANTED\"\n}"
 				}
 			]
 		},
@@ -950,7 +950,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "70d369ca-6764-4e76-9a7c-393e4f9df9cd",
+						"id": "ad20921c-eed2-4b7c-ad15-6fa090659a4a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1001,72 +1001,6 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "24"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
-				},
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
 							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
 							"options": {
 								"raw": {
@@ -1125,6 +1059,72 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"access\": \"GRANTED\"\n}"
+				},
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "24"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
 				}
 			]
 		},
@@ -1134,7 +1134,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6b8898bc-6d94-48a4-b42d-33837f0467c1",
+						"id": "9ad4918b-bc83-4cac-9e97-b6e1246626a9",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1252,7 +1252,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9356f490-aa3a-491c-a825-1d85510a5e42",
+						"id": "40bbf99b-fe2f-4ff1-910a-17fed147eb6f",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -1356,7 +1356,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "af38267d-9424-4ffb-a123-072e1992c0da",
+						"id": "77a7e95d-6f45-4cd2-9200-f4f21abf238f",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -1468,7 +1468,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "196348b9-d16b-4058-abda-a9c7c72fa7b1",
+						"id": "43157625-048d-411f-a3c0-32fee31be86f",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -1564,7 +1564,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "72781ff1-70e5-4e5d-abe1-25d14be7b863",
+						"id": "443b4390-a47b-43de-9f81-ac6c819fa866",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -1694,7 +1694,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "62ab4913-43c8-461a-8fec-0df3524a3828",
+						"id": "f42c0ca5-6729-4ea4-bc1c-e9054762cec7",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -1838,7 +1838,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c9999750-6456-4dc8-8bab-73c9307a0b61",
+						"id": "a196a5f6-bf85-47f0-bf9c-e1e82611684f",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1954,7 +1954,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e9936c0-2815-45e6-ac57-495c694cb8e0",
+						"id": "20b4156b-8122-437c-9068-d0793a6dab7f",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2011,7 +2011,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c2179036-11a1-4dc8-a37e-d4cb10f3a2b0",
+						"id": "09c5a977-e75f-4573-a9ab-bff5e73a8d4e",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2068,7 +2068,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "76e17c89-8257-47d5-9556-622bb0889c38",
+						"id": "33afacce-e6f9-4daa-bfc1-dcef4e635898",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2128,7 +2128,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bc9b18d1-4005-4087-b58c-4bedd7003e7d",
+						"id": "a30d77c0-c156-4a3d-9336-8adae95b5daa",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2184,7 +2184,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8bca62c1-4482-4353-9cd8-715c8f17722a",
+						"id": "ed26d3e5-b796-4bd9-bf26-775140bf1d04",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2240,7 +2240,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b7865aa9-b459-4399-94ca-5a59feaa4e78",
+						"id": "a2016af4-d91e-4ff7-87a0-5ed97ed363a7",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2376,7 +2376,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "69dbf8e1-1840-481e-9d5f-70db891e50df",
+						"id": "4a834556-5eaa-4684-8285-37f02c8851b8",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2485,7 +2485,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3cdbaeab-5864-436c-9b98-5a2ae1538d25",
+						"id": "3b5ff695-605e-4df1-beb5-2cfe5f9233a4",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2553,7 +2553,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "441832f0-b20c-4d5a-99a0-857d77f59b72",
+						"id": "30ced565-d380-4818-a3c6-09141155a148",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2662,7 +2662,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f954c3b9-67d9-4633-910d-dbd60ed3f0e7",
+						"id": "3c056218-5ed1-4604-b38e-19b031b04f88",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2730,7 +2730,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2bb65f50-14b2-4750-80fd-a7df94a88c7c",
+						"id": "add2a721-5dcf-40ef-9930-9ff9246a55a1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2798,7 +2798,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "065e6b6d-8696-4ea8-80c0-4852f3e02b08",
+						"id": "6bb0b2d9-1214-4c50-a213-5ce311c39432",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2872,15 +2872,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 							"host": [
@@ -2987,7 +2978,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5234b2b8-32ec-4654-88a6-e93497ff88d7",
+						"id": "f9ee9409-ac4f-422f-8580-d6c3b9a1025e",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -3091,7 +3082,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b45185a-a330-4bdf-ac36-1f7b69fb572b",
+						"id": "b4c2c6b1-b043-44ee-a0e2-caf6e5a99e54",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -3187,7 +3178,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "459ae186-73ba-4ef6-891b-6148adc056f2",
+						"id": "04f44546-1b33-4f2c-a6a2-085e4862c23d",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -3316,7 +3307,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cff6f7a2-a1ac-4e7c-a5bd-4beb15e2329d",
+						"id": "c1b067d6-7f69-40d5-aa33-726edb614e65",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3440,7 +3431,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "76f183c1-7bcf-4a91-9e61-25364d7e5105",
+						"id": "9b2d7d72-a2be-4e79-be86-61809e06cddd",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3564,7 +3555,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "fe030249-25f0-41c1-8e54-282b84c35f40",
+						"id": "b40c9db9-1631-44fd-8776-4bce5a8d39ef",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3688,7 +3679,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d0bc902f-ceb8-42b7-80c8-5b3b510b5cb8",
+						"id": "9f602d95-5830-4fb7-801b-11b2ed66dbcc",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3792,7 +3783,7 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
@@ -3802,7 +3793,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e2fde5f3-96ee-4c5a-8b8a-5e1f75ecca8c",
+						"id": "4d71a416-2d16-4b30-987c-b690cec399e1",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -3952,7 +3943,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0f7fbe82-0107-4dd3-bd25-b33fd57ca4b4",
+						"id": "fcca6a23-5a6f-408d-9685-21f47673bcad",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -4074,7 +4065,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0e13ef69-77db-483d-8c8b-824f3eaa7255",
+						"id": "5d9c100b-baa1-4931-aa2d-92d6b1f304f1",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -4129,7 +4120,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "15226248-fb93-431b-b437-5c10f610ac5d",
+						"id": "a7f7f1bd-f98d-4966-b5a2-1b0ceab439bd",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -4180,7 +4171,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a7a942d9-4bd4-494c-aecb-2d075d2ee8f3",
+						"id": "846fb47f-1ee8-433d-b742-fa126cc71584",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -4231,7 +4222,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6ce1561e-5170-4051-8bce-b2222df661a1",
+						"id": "b4dbc59b-5380-4695-8a4a-9e3551f8ed74",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4332,7 +4323,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5efedf77-6692-4cd4-a6e2-d158af3d8095",
+						"id": "9a6cb0b7-89cf-4bc0-ad13-e2208c71617d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4450,7 +4441,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "26c3a676-3cd8-441e-a43e-5d30aed0fb06",
+						"id": "72b3d09a-f2fb-42ad-9036-b65f1cf16e43",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4568,7 +4559,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "708378d9-f100-4f92-84be-7e1f941bff5a",
+						"id": "a6c586c9-2e94-4ed1-bc6f-7e77f754afa5",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4727,7 +4718,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a0e40ed3-1ee6-4456-b894-0794567935f1",
+						"id": "55fffe52-08c4-4a54-bbfa-23b275b81291",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4829,7 +4820,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "44222d62-a8b9-41d6-86fc-f39dce938091",
+						"id": "60042c46-9e5f-4268-9a9b-11a4ea30cf9d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4931,7 +4922,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0fa8df0d-a499-4ab9-a903-5268859f0879",
+						"id": "e08703d2-523a-43cf-9fad-f1014a77c41f",
 						"exec": [
 							""
 						],
@@ -4941,7 +4932,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "659b82dd-3b95-45d2-8a7d-4a926e8f328f",
+						"id": "1428f54c-2180-4825-b7d9-2b8c360a6dbf",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5043,7 +5034,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0dca678a-6d51-43f0-87e5-b29e1123509d",
+						"id": "62005e49-4fae-4354-8208-836e6bcb8e4e",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5145,7 +5136,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "452a8c3a-4c4e-4fdc-968c-4b75bcf81769",
+						"id": "f91fbe14-0846-4e22-b560-4f89b0e677e7",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5248,7 +5239,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0fc6a7d1-9558-4f26-beb3-44aa4d412047",
+						"id": "d9343983-ebad-479e-abc7-2a6406d9aab1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5360,7 +5351,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b3a0ed3c-9135-4876-994b-0c241bae62a7",
+						"id": "f082a3bb-a58a-4548-b4f6-857a28a44fb8",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -5462,7 +5453,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "15849ee2-bee7-401f-9b38-b02fcbbe9646",
+						"id": "fb026fca-2a8c-4849-b30c-a05d25ab09ad",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5566,7 +5557,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7ae6f26a-92b6-457d-bc75-f567659d5177",
+						"id": "f3f9d4b4-d2a1-448f-a775-b017075acd63",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5665,7 +5656,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4da7d28f-c3e5-49de-8d7e-688320679855",
+						"id": "1139ae60-ab68-4685-b794-3c3164cccd03",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5769,7 +5760,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dd328059-648d-4d60-b320-58a36ea54bc1",
+						"id": "a357ef1a-07e2-4ae9-97f6-5e488bd2796f",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -5871,7 +5862,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "24057cf2-f7e4-46f6-87ab-6029e2d0b45b",
+						"id": "2d347758-e3e7-4837-b341-c1cde5e6067b",
 						"exec": [
 							"pm.test(\"Status code is 404\", function () {",
 							"    pm.response.to.have.status(404);",
@@ -5991,7 +5982,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "845ec95e-3bf2-4845-9ac1-ae38ff403ab0",
+						"id": "be104595-e18b-4d99-adfb-76ab18e7306b",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -6111,7 +6102,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b2cd779d-d77b-4dc7-8ccf-32fa95dc1fdd",
+						"id": "a6bb4581-30db-4df1-b584-7bed8a8cd795",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -6231,7 +6222,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "906d41ec-b948-40bb-bdc6-ebb9374edaf9",
+						"id": "ecadf096-47e4-4f52-8ed9-9600d03841d1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6355,7 +6346,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b330eaac-c5e7-43ed-b077-dab8b6b75dc1",
+						"id": "3be3f2ef-ef10-485c-a30f-08d21d8e19e2",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6479,7 +6470,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "67e13d29-3840-42da-b181-ab46f056018f",
+						"id": "d661ad9f-327a-4378-9b69-c80db82af137",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6603,7 +6594,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "046d051a-e8e9-49be-b0f2-b200114cd716",
+						"id": "ce5fdb8c-8354-4859-a5a2-60310fad703d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6727,7 +6718,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f97cb2ca-bcf9-4c16-a2f1-2969117ec5b9",
+						"id": "b318b251-909b-43c9-bc0c-c914f5a06836",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6851,7 +6842,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6d1cedf4-b98d-4989-a180-9b94c8a4941e",
+						"id": "94c1ea51-0ccd-475f-b58c-d8d7625b852d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6869,7 +6860,27 @@
 						"type": "text/javascript"
 					}
 				}
-			]
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1"
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "wrong username login",
@@ -6877,7 +6888,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6d5ef283-18ef-4811-b48a-12460bdb0c75",
+						"id": "087681d6-9545-4612-84ba-c69a36bcbd9d",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -6923,7 +6934,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9f7ac3eb-56b7-4825-9301-f77e881d2f36",
+						"id": "97abcb6e-30e4-4880-94e8-66fb08ae286f",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -6938,7 +6949,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"Karine\",\n    \"hashedPassword\": \"wrong pass\"\n}",
+					"raw": "{\n    \"username\": \"Karine\",\n    \"hashedPassword\": \"wrong password\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -6962,57 +6973,36 @@
 				}
 			},
 			"response": []
-			,
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:8080/api/rechargul/1",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"rechargul",
-						"1"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "4469f206-0f34-408e-adc6-dab5004ecb16",
+			"id": "ab8247c0-bea6-4762-aee1-a59a97e869c8",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "b3f405dd-690d-469a-a312-8c1a20d42e7e",
+			"id": "81984376-1e0e-465b-afc2-c3b7d40a5df2",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "efb7000a-765c-4678-a087-7f7cf0b85024",
+			"id": "ba784d10-3174-4c20-a697-5aebe80441c4",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "4e82f06f-977b-49e3-9d4a-3ab6d3b0780f",
+			"id": "b533aada-ef8f-4c97-b013-3d181e72509d",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "5fa187f7-9443-469a-8ebf-f23e43c89f55",
+			"id": "61656ff5-7e13-4233-9653-5a35f4457bf0",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "1f1b5358-8396-43c9-9879-ef45689107b6",
+			"id": "5e135ee0-f5cc-4347-a763-830f74cd1b56",
 			"key": "yesterday",
 			"value": ""
 		}
