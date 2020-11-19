@@ -61,8 +61,6 @@ public class PassServiceTest {
   @Mock
   private PassFactory passFactory;
   @Mock
-  private PassRepository passRepository;
-  @Mock
   private CampusAccessService campusAccessService;
   @Mock
   private PassSender passSender;
@@ -92,8 +90,7 @@ public class PassServiceTest {
     A_SECOND_PASS_DTO.parkingZone = A_PARKING_ZONE;
     A_SECOND_PASS_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
 
-    passService = new PassService(passRepository,
-                                  passFactory,
+    passService = new PassService(passFactory,
                                   campusAccessService,
                                   passSender,
                                   transactionFactory,
@@ -120,13 +117,6 @@ public class PassServiceTest {
     passService.createPass(A_PASS_DTO);
 
     verify(campusAccessService).associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, pass);
-  }
-
-  @Test
-  public void whenCreatingPass_shouldAddPassToRepository() {
-    passService.createPass(A_PASS_DTO);
-
-    verify(passRepository).save(pass);
   }
 
   @Test

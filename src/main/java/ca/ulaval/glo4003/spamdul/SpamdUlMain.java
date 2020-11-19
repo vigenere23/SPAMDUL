@@ -47,7 +47,6 @@ public class SpamdUlMain {
                                                                       globalContext.getTransactionFactory()
     );
     PassContext passContext = new PassContext(accountContext.bankRepository(),
-                                              globalContext.getPassRepository(),
                                               campusAccessContext.getCampusAccessService());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    false);

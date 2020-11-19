@@ -9,6 +9,8 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
@@ -85,5 +87,10 @@ public class InMemoryCampusAccessRepositoryTest {
   @Test(expected = CampusAccessNotFoundException.class)
   public void givenNoCampusAccessCorrespondingToLicensePlate_whenFindingLicensePlate_shouldThrowCampusAccessNotFoundExcetpion() {
     campusAccessRepository.findBy(new LicensePlate(A_LICENSE_PLATE_STRING));
+  }
+
+  @Test(expected = PassNotFoundException.class)
+  public void whenFindingPassByPassCodeAndNotFound_shouldThrow() {
+    campusAccessRepository.findByPassCode(new PassCode());
   }
 }

@@ -29,7 +29,6 @@ public class PassContext {
   private final PassResource passResource;
 
   public PassContext(BankRepository bankRepository,
-                     PassRepository passRepository,
                      CampusAccessService campusAccessService) {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
@@ -43,8 +42,7 @@ public class PassContext {
                                                                                         "src/main/resources/frais-zone.csv");
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
     DeliveryFeeCalculator deliveryFeeCalculator = new DeliveryFeeCalculator();
-    PassService passService = new PassService(passRepository,
-                                              passFactory,
+    PassService passService = new PassService(passFactory,
                                               campusAccessService,
                                               passSender,
                                               transactionFactory,

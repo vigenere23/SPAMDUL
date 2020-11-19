@@ -65,6 +65,10 @@ public class CampusAccess {
     return associatedPass;
   }
 
+  public boolean hasAssociatedPass() {
+    return associatedPass != null;
+  }
+
   public User getUser() {
     return user;
   }
