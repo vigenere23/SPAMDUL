@@ -22,6 +22,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthen
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InMemoryInfractionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
@@ -33,7 +34,8 @@ public class InfractionsContext {
 
   public InfractionsContext(PassRepository passRepository,
                             BankRepository bankRepository,
-                            AuthenticationRepository authenticationRepository) {
+                            AuthenticationRepository authenticationRepository,
+                            AccessTokenCookieAssembler cookieAssembler) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -54,7 +56,7 @@ public class InfractionsContext {
                                                                 bankRepository,
                                                                 accessLevelValidator);
 
-    infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService);
+    infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
 
   }
 

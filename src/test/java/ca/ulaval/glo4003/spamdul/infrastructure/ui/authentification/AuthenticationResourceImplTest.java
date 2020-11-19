@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.dto.AuthenticationResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.dto.LoginRequest;
 import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationService;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
@@ -34,7 +33,7 @@ public class AuthenticationResourceImplTest {
   public void setUp() throws Exception {
     authenticationResource = new AuthenticationResourceImpl(service);
     loginRequest = new LoginRequest();
-    loginRequest.userName = A_USERNAME;
+    loginRequest.username = A_USERNAME;
     loginRequest.hashedPassword = AN_HASHED_PASSWORD;
   }
 

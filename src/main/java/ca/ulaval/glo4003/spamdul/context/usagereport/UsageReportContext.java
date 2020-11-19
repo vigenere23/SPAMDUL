@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
@@ -7,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
@@ -21,7 +25,9 @@ public class UsageReportContext {
   private final ParkingAccessLogger parkingAccessLogger;
   private final UsageReportResource usageReportResource;
 
-  public UsageReportContext(boolean populateData) {
+  public UsageReportContext(AuthenticationRepository authenticationRepository,
+                            AccessTokenCookieAssembler cookieAssembler,
+                            boolean populateData) {
     ParkingAccessLogRepository parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
 
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
@@ -38,19 +44,23 @@ public class UsageReportContext {
     parkingAccessLogger = new ParkingAccessLogger(parkingAccessLogFactory,
                                                   parkingAccessLogRepository);
 
+    AccessLevelValidator accessLevelValidator = new UsageReportAccessLevelValidator(authenticationRepository);
+
     UsageReportService usageReportService = new UsageReportService(parkingAccessLogRepository,
                                                                    parkingAccessLogAgglomerator,
                                                                    usageReportSummaryFactory,
                                                                    usageReportSummaryAssembler,
                                                                    usageReportFactory,
-                                                                   usageReportAssembler);
+                                                                   usageReportAssembler,
+                                                                   accessLevelValidator);
 
     parkingAccessLogPopulator = new ParkingAccessLogPopulator(parkingAccessLogRepository,
                                                               parkingAccessLogFactory);
 
     usageReportResource = new UsageReportResourceImpl(usageReportService,
                                                       usageReportCreationAssembler,
-                                                      usageReportSummaryCreationAssembler);
+                                                      usageReportSummaryCreationAssembler,
+                                                      cookieAssembler);
 
     if (populateData) {
       this.populateData();

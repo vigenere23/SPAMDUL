@@ -15,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InfractionsAccessLevelValidatorTest {
+public class UsageReportAccessLevelValidatorTest {
 
   public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
-  private InfractionsAccessLevelValidator validator;
+  private UsageReportAccessLevelValidator validator;
   private RegisteredUser registeredUserWithRightAccess;
   private RegisteredUser registeredUserWithWrongAccess;
 
@@ -27,9 +27,9 @@ public class InfractionsAccessLevelValidatorTest {
 
   @Before
   public void setUp() throws Exception {
-    validator = new InfractionsAccessLevelValidator(authenticationRepository);
-    registeredUserWithRightAccess = new RegisteredUser("username", AccessLevel.SSP_AGENT);
-    registeredUserWithWrongAccess = new RegisteredUser("username", AccessLevel.ADMIN);
+    validator = new UsageReportAccessLevelValidator(authenticationRepository);
+    registeredUserWithRightAccess = new RegisteredUser("username", AccessLevel.ADMIN);
+    registeredUserWithWrongAccess = new RegisteredUser("username", AccessLevel.SSP_AGENT);
   }
 
   @Test

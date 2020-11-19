@@ -33,8 +33,11 @@ public class TemporaryToken {
     this.token = value;
   }
 
-  //TODO a tester
   public static TemporaryToken valueOf(String value) {
+    if (value.isEmpty()) {
+      throw new NoRegisteredUserLoggedInException();
+    }
+
     return new TemporaryToken(value);
   }
 

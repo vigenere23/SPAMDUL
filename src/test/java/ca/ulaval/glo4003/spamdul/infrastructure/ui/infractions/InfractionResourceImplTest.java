@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
@@ -47,10 +48,12 @@ public class InfractionResourceImplTest {
   private InfractionRequest infractionRequest;
   private PassToValidateDto passToValidateDto;
   private Infraction infraction;
+  private AccessTokenCookieAssembler cookieAssembler;
 
   @Before
   public void setUp() throws Exception {
-    resource = new InfractionResourceImpl(infractionAssembler, infractionService);
+    cookieAssembler = new AccessTokenCookieAssembler();
+    resource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
     infractionRequest = new InfractionRequest();
     infractionRequest.parkingZone = "Zone1";
     infractionRequest.passCode = "1";

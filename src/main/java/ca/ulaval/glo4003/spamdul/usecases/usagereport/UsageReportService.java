@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.usagereport;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFilter;
@@ -27,22 +29,28 @@ public class UsageReportService {
   private final UsageReportSummaryAssembler usageReportSummaryAssembler;
   private final UsageReportFactory usageReportFactory;
   private final UsageReportAssembler usageReportAssembler;
+  private final AccessLevelValidator accessLevelValidator;
 
   public UsageReportService(ParkingAccessLogRepository parkingAccessLogRepository,
                             ParkingAccessLogAgglomerator parkingAccessLogAgglomerator,
                             UsageReportSummaryFactory usageReportSummaryFactory,
                             UsageReportSummaryAssembler usageReportSummaryAssembler,
                             UsageReportFactory usageReportFactory,
-                            UsageReportAssembler usageReportAssembler) {
+                            UsageReportAssembler usageReportAssembler,
+                            AccessLevelValidator accessLevelValidator) {
     this.parkingAccessLogRepository = parkingAccessLogRepository;
     this.parkingAccessLogAgglomerator = parkingAccessLogAgglomerator;
     this.usageReportSummaryFactory = usageReportSummaryFactory;
     this.usageReportSummaryAssembler = usageReportSummaryAssembler;
     this.usageReportFactory = usageReportFactory;
     this.usageReportAssembler = usageReportAssembler;
+    this.accessLevelValidator = accessLevelValidator;
   }
 
-  public UsageReportSummaryDto getReportSummary(UsageReportSummaryCreationDto usageReportSummaryCreationDto) {
+  public UsageReportSummaryDto getReportSummary(UsageReportSummaryCreationDto usageReportSummaryCreationDto,
+                                                TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     Map<LocalDate, List<ParkingAccessLog>> logsPerDay = getLogsForReport(usageReportSummaryCreationDto.startDate,
                                                                          usageReportSummaryCreationDto.endDate,
                                                                          usageReportSummaryCreationDto.parkingZone);
@@ -55,7 +63,9 @@ public class UsageReportService {
     return usageReportSummaryAssembler.toDto(usageReportSummary);
   }
 
-  public UsageReportDto getReport(UsageReportCreationDto usageReportCreationDto) {
+  public UsageReportDto getReport(UsageReportCreationDto usageReportCreationDto, TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     Map<LocalDate, List<ParkingAccessLog>> LogsPerDay = getLogsForReport(usageReportCreationDto.startDate,
                                                                          usageReportCreationDto.endDate,
                                                                          usageReportCreationDto.parkingZone);

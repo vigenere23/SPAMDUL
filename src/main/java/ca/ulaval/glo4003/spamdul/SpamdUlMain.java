@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
@@ -43,7 +44,9 @@ public class SpamdUlMain {
 
     GlobalContext globalContext = new GlobalContext();
     AuthenticationContext authenticationContext = new AuthenticationContext();
-    UsageReportContext usageReportContext = new UsageReportContext(false);
+    UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
+                                                                   globalContext.getCookieAssembler(),
+                                                                   false);
     AccountContext accountContext = new AccountContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.getPassRepository(),
                                                                       usageReportContext.getParkingAccessLogger(),
@@ -54,16 +57,24 @@ public class SpamdUlMain {
                                               globalContext.getPassRepository(),
                                               campusAccessContext.getCampusAccessService());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
+                                                                   authenticationContext.getAuthenticationRepository(),
+                                                                   globalContext.getCookieAssembler(),
                                                                    false);
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(),
                                                                          globalContext.getTransactionFactory(),
                                                                          fundraisingContext.getInitiativeFactory(),
                                                                          fundraisingContext.getInitiativeRepository(),
+                                                                         authenticationContext.getAuthenticationRepository(),
+                                                                         globalContext.getCookieAssembler(),
                                                                          true);
-    RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
+    RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(),
+                                                       authenticationContext.getAuthenticationRepository(),
+                                                       globalContext.getCookieAssembler(),
+                                                       false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository(),
-                                                                   authenticationContext.getAuthenticationRepository());
+                                                                   authenticationContext.getAuthenticationRepository(),
+                                                                   globalContext.getCookieAssembler());
     ChargingContext chargingContext = new ChargingContext();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -87,6 +98,7 @@ public class SpamdUlMain {
         resources.add(new GlobalExceptionAssembler());
         resources.add(new PassExceptionAssembler());
         resources.add(new DeliveryExceptionAssembler());
+        resources.add(new AuthenticationExceptionAssembler());
         resources.add(carbonCreditsContext.getCarbonCreditsResource());
         resources.add(carbonCreditsContext.getCarbonCreditsResourceAdmin());
         resources.add(fundraisingContext.getFundraisingResource());
