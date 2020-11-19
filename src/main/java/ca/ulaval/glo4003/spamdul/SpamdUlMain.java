@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
@@ -67,6 +68,7 @@ public class SpamdUlMain {
       public Set<Object> getSingletons() {
         HashSet<Object> resources = new HashSet<>();
 
+        resources.add(new PingResource());
         resources.add(passContext.getPassResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());

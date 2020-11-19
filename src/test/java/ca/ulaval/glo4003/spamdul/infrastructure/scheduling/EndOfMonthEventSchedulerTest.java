@@ -140,7 +140,6 @@ public class EndOfMonthEventSchedulerTest {
     endOfMonthEventScheduler.register(scheduleObserver);
     endOfMonthEventScheduler.unregister(scheduleObserver);
 
-    verify(executorService).shutdown();
     verify(future).cancel(true);
   }
 }

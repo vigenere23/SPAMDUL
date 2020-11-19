@@ -1,8 +1,7 @@
-package ca.ulaval.glo4003.spamdul.entity.delivery;
+package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
 import org.junit.Test;
 
 public class PostalAddressTest {
