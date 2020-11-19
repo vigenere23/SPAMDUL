@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotActivatedException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
@@ -30,7 +29,6 @@ public class ChargingPointStateIdleTest {
 
   @Test
   public void whenActivatingWithEnoughCreditsCard_shouldSwitchToActivatedState() {
-    when(card.hasEnoughCredits()).thenReturn(true);
     state.activate();
     verify(chargingPoint).setState(any(ChargingPointStateActivated.class));
   }

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
@@ -40,8 +41,10 @@ public class RechargULCard {
     transactions.add(transaction);
   }
 
-  public boolean hasEnoughCredits() {
-    return total().isStrictlyPositive();
+  public void verifyHasEnoughCredits() {
+    if (!total().isStrictlyPositive()) {
+      throw new NotEnoughCreditsException();
+    }
   }
 
   public RechargULCardId getId() {

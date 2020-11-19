@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,13 +36,12 @@ public class ChargingPointTest {
 
   @Test
   public void givenInitialized_whenActivatingWithEnoughCreditsCard_shouldActivate() {
-    when(rechargULCard.hasEnoughCredits()).thenReturn(true);
     chargingPoint.activate(rechargULCard);
   }
 
   @Test(expected = NotEnoughCreditsException.class)
   public void givenInitialized_whenActivatingWithNotEnoughCreditsCard_shouldThrowException() {
-    when(rechargULCard.hasEnoughCredits()).thenReturn(false);
+    doThrow(NotEnoughCreditsException.class).when(rechargULCard).verifyHasEnoughCredits();
     chargingPoint.activate(rechargULCard);
   }
 
@@ -62,7 +62,6 @@ public class ChargingPointTest {
 
   @Test
   public void givenEnoughCreditsCard_whenActivating_shouldDelegateToState() {
-    when(rechargULCard.hasEnoughCredits()).thenReturn(true);
     chargingPoint.setState(state);
 
     chargingPoint.activate(rechargULCard);
@@ -86,7 +85,6 @@ public class ChargingPointTest {
 
   @Test
   public void whenDeactivating_shouldDelegateToState() {
-    when(rechargULCard.hasEnoughCredits()).thenReturn(true);
     chargingPoint.activate(rechargULCard);
     chargingPoint.setState(state);
 
@@ -99,7 +97,6 @@ public class ChargingPointTest {
   public void givenCharged_whenDeactivating_shouldDelegatePaymentToChargingRate() {
     long millisecondsUsed = 123471239;
     when(state.deactivate()).thenReturn(millisecondsUsed);
-    when(rechargULCard.hasEnoughCredits()).thenReturn(true);
     chargingPoint.activate(rechargULCard);
     chargingPoint.setState(state);
 
