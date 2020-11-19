@@ -43,6 +43,10 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
   }
 
   private void launchJob() {
+    if (scheduledFuture != null) {
+      return;
+    }
+
     long initialDelay = Duration.ofDays(1).toNanos() - calendar.now().toLocalTime().toNanoOfDay();
     long scheduleRateInNano = Duration.ofDays(1).toNanos();
 
@@ -54,8 +58,12 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
   }
 
   public void stopJob() {
-    scheduledFuture.cancel(true);
-    executorService.shutdown();
+    if (scheduledFuture != null) {
+      scheduledFuture.cancel(true);
+      // TODO either we don't call .shutdown() or we call it AND recreate the executorService
+      //  TODO else we can't reschedule events on it
+      // executorService.shutdown();
+    }
   }
 
   private void notifyIfFirstOfMonth() {

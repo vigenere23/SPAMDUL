@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
@@ -35,7 +36,8 @@ public class PassContext {
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     PassFactory passFactory = new PassFactory(timePeriodFactory);
 
-    DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory();
+    DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory(new EmailServiceProvider(System.getenv(
+        "API_MODE")));
     PassDeliveryOptionsFactory passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
     TransactionFactory transactionFactory = new TransactionFactory();
     CsvReader csvReader = new CsvReader();
