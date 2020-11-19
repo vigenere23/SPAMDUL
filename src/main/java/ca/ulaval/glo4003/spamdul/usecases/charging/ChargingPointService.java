@@ -8,13 +8,13 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import java.util.List;
 
-public class ChargingUseCase {
+public class ChargingPointService {
 
   private final ChargingPointRepository chargingPointRepository;
   private final RechargULCardRepository rechargULCardRepository;
 
-  public ChargingUseCase(ChargingPointRepository chargingPointRepository,
-                         RechargULCardRepository rechargULCardRepository) {
+  public ChargingPointService(ChargingPointRepository chargingPointRepository,
+                              RechargULCardRepository rechargULCardRepository) {
     this.chargingPointRepository = chargingPointRepository;
     this.rechargULCardRepository = rechargULCardRepository;
   }

@@ -6,12 +6,12 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
-public class RechargULUseCase {
+public class RechargULService {
 
   private final RechargULCardRepository rechargULCardRepository;
   private final RechargULCardFactory rechargULCardFactory;
 
-  public RechargULUseCase(RechargULCardRepository rechargULCardRepository,
+  public RechargULService(RechargULCardRepository rechargULCardRepository,
                           RechargULCardFactory rechargULCardFactory) {
     this.rechargULCardRepository = rechargULCardRepository;
     this.rechargULCardFactory = rechargULCardFactory;

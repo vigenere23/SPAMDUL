@@ -18,8 +18,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingP
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
-import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
-import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
+import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.concurrent.TimeUnit;
 
@@ -36,11 +36,12 @@ public class ChargingContext {
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
-    ChargingUseCase chargingUseCase = new ChargingUseCase(chargingPointRepository, rechargULCardRepository);
-    RechargULUseCase rechargULUseCase = new RechargULUseCase(rechargULCardRepository, rechargULCardFactory);
+    ChargingPointService chargingPointService = new ChargingPointService(chargingPointRepository,
+                                                                         rechargULCardRepository);
+    RechargULService rechargULService = new RechargULService(rechargULCardRepository, rechargULCardFactory);
 
-    chargingPointResource = new ChargingPointResourceImpl(chargingUseCase, chargingPointAssembler);
-    rechargULResource = new RechargULResourceImpl(rechargULUseCase, rechargULCardAssembler);
+    chargingPointResource = new ChargingPointResourceImpl(chargingPointService, chargingPointAssembler);
+    rechargULResource = new RechargULResourceImpl(rechargULService, rechargULCardAssembler);
     chargingPointExceptionMapper = new ChargingPointExceptionMapper();
     rechargULExceptionMapper = new RechargULExceptionMapper();
 

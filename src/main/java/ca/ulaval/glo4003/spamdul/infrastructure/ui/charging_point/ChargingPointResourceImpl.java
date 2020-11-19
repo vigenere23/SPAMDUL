@@ -7,30 +7,30 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPo
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPointResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPointsResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import java.util.List;
 import javax.ws.rs.core.Response;
 
 public class ChargingPointResourceImpl implements ChargingPointResource {
 
-  private final ChargingUseCase chargingUseCase;
+  private final ChargingPointService chargingPointService;
   private final ChargingPointAssembler chargingPointAssembler;
 
-  public ChargingPointResourceImpl(ChargingUseCase chargingUseCase,
+  public ChargingPointResourceImpl(ChargingPointService chargingPointService,
                                    ChargingPointAssembler chargingPointAssembler) {
-    this.chargingUseCase = chargingUseCase;
+    this.chargingPointService = chargingPointService;
     this.chargingPointAssembler = chargingPointAssembler;
   }
 
   @Override public Response getAll() {
-    List<ChargingPoint> chargingPoints = chargingUseCase.getAllChargingPoints();
+    List<ChargingPoint> chargingPoints = chargingPointService.getAllChargingPoints();
     ChargingPointsResponse response = chargingPointAssembler.toResponse(chargingPoints);
     return Response.ok(response).build();
   }
 
   @Override public Response getSingle(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
-    ChargingPoint chargingPoint = chargingUseCase.getChargingPoint(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointService.getChargingPoint(chargingPointId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
   }
@@ -40,7 +40,7 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    ChargingPoint chargingPoint = chargingUseCase.activateChargingPoint(chargingPointId, rechargULCardId);
+    ChargingPoint chargingPoint = chargingPointService.activateChargingPoint(chargingPointId, rechargULCardId);
 
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
@@ -49,7 +49,7 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
   @Override public Response startCharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingUseCase.startRecharging(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointService.startRecharging(chargingPointId);
 
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
@@ -58,7 +58,7 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
   @Override public Response stopCharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingUseCase.stopRecharging(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointService.stopRecharging(chargingPointId);
 
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();
@@ -67,7 +67,7 @@ public class ChargingPointResourceImpl implements ChargingPointResource {
   @Override public Response deactivateCharging(String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingUseCase.deactivateChargingPoint(chargingPointId);
+    ChargingPoint chargingPoint = chargingPointService.deactivateChargingPoint(chargingPointId);
 
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
     return Response.ok(response).build();

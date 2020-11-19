@@ -5,23 +5,23 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCardResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCreditsRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULUseCase;
+import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 public class RechargULResourceImpl implements RechargULResource {
 
-  private final RechargULUseCase rechargULUseCase;
+  private final RechargULService rechargULService;
   private final RechargULCardAssembler rechargULCardAssembler;
 
-  public RechargULResourceImpl(RechargULUseCase rechargULUseCase, RechargULCardAssembler rechargULCardAssembler) {
-    this.rechargULUseCase = rechargULUseCase;
+  public RechargULResourceImpl(RechargULService rechargULService, RechargULCardAssembler rechargULCardAssembler) {
+    this.rechargULService = rechargULService;
     this.rechargULCardAssembler = rechargULCardAssembler;
   }
 
   @Override public Response createCard() {
-    RechargULCard card = rechargULUseCase.createCard();
+    RechargULCard card = rechargULService.createCard();
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.status(Status.CREATED).entity(response).build();
   }
@@ -29,7 +29,7 @@ public class RechargULResourceImpl implements RechargULResource {
   @Override public Response getCard(String rechargULCardIdString) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = rechargULUseCase.getRechargULCard(rechargULCardId);
+    RechargULCard card = rechargULService.getRechargULCard(rechargULCardId);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();
@@ -40,7 +40,7 @@ public class RechargULResourceImpl implements RechargULResource {
     Amount amount = Amount.valueOf(amountDouble);
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = rechargULUseCase.addCredits(rechargULCardId, amount);
+    RechargULCard card = rechargULService.addCredits(rechargULCardId, amount);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();
