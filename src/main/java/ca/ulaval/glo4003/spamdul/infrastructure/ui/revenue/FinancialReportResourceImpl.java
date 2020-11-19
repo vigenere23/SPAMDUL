@@ -76,7 +76,6 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
 
   public CarbonBoughtResponse getTotalBoughtCarbonCredit(Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
-  @Override public CarbonBoughtResponse getTotalBoughtCarbonCredit() {
     CarbonBoughtResponse response = new CarbonBoughtResponse();
     response.total = transactionService.getAllBoughtCarbonCredit(temporaryToken).asDouble();
 

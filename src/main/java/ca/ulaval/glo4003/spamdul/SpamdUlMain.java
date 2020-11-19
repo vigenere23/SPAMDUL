@@ -75,8 +75,7 @@ public class SpamdUlMain {
                                                                    accountContext.bankRepository(),
                                                                    authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler());
-    ChargingContext chargingContext = new ChargingContext();
-                                                                   accountContext.bankRepository());
+
     ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
