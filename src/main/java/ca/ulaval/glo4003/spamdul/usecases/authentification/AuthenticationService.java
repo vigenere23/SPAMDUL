@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.authentification;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 
 public class AuthenticationService {
 

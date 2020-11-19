@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionPaymentRequest;
@@ -8,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRes
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -21,9 +23,10 @@ public class InfractionResourceImpl implements InfractionResource {
     this.infractionService = infractionService;
   }
 
-  public Response validateParkingPass(InfractionRequest infractionRequest) {
+  public Response validateParkingPass(InfractionRequest infractionRequest, Cookie cookie) {
+    TemporaryToken token = TemporaryToken.valueOf(cookie.getValue());
     PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
-    Infraction infraction = infractionService.giveInfractionIfNotValid(passToValidateDto);
+    Infraction infraction = infractionService.giveInfractionIfNotValid(passToValidateDto, token);
 
     InfractionResponse infractionResponse = infractionAssembler.toResponse(infraction);
 

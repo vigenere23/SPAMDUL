@@ -1,9 +1,10 @@
-package ca.ulaval.glo4003.spamdul.usecases.authentification;
+package ca.ulaval.glo4003.spamdul.entity.authentication;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -28,7 +29,31 @@ public class TemporaryToken {
     token = String.format("%064x", new BigInteger(1, digest));
   }
 
+  private TemporaryToken(String value) {
+    this.token = value;
+  }
+
+  //TODO a tester
+  public static TemporaryToken valueOf(String value) {
+    return new TemporaryToken(value);
+  }
+
   public String toString() {
     return token;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TemporaryToken token1 = (TemporaryToken) o;
+    return Objects.equals(token, token1.token);
+  }
+
+  public int hashCode() {
+    return Objects.hash(token);
   }
 }

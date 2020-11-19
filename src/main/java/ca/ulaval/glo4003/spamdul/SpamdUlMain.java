@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.GlobalContext;
 import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
+import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
@@ -40,6 +41,7 @@ public class SpamdUlMain {
       throws Exception {
 
     GlobalContext globalContext = new GlobalContext();
+    AuthenticationContext authenticationContext = new AuthenticationContext();
     UsageReportContext usageReportContext = new UsageReportContext(false);
     AccountContext accountContext = new AccountContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.getPassRepository(),
@@ -59,7 +61,8 @@ public class SpamdUlMain {
                                                                          true);
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
-                                                                   accountContext.bankRepository());
+                                                                   accountContext.bankRepository(),
+                                                                   authenticationContext.getAuthenticationRepository());
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -88,6 +91,7 @@ public class SpamdUlMain {
         resources.add(new InitiativeExceptionMapper());
         resources.add(infractionsContext.getInfractionResource());
         resources.add(new InfractionExceptionAssembler());
+        resources.add(authenticationContext.getAuthenticationResource());
 
         return resources;
       }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AccessLevel;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

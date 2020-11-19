@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.entity.authentication;
 
-import ca.ulaval.glo4003.spamdul.usecases.authentification.TemporaryToken;
 import java.util.Objects;
 
 public class RegisteredUser {

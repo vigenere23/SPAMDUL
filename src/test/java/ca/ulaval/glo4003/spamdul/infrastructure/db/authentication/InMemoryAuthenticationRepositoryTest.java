@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AccessLevel;
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
-import ca.ulaval.glo4003.spamdul.usecases.authentification.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import org.junit.Before;
 import org.junit.Test;
 

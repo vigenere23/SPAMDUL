@@ -8,7 +8,8 @@ import static org.mockito.Mockito.verify;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.dto.AuthenticationResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.dto.LoginRequest;
 import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationService;
-import ca.ulaval.glo4003.spamdul.usecases.authentification.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,8 +50,8 @@ public class AuthenticationResourceImplTest {
   public void whenLoginIn_shouldReturnResponseWithTheRightTemporaryToken() {
     given(service.login(A_USERNAME, AN_HASHED_PASSWORD)).willReturn(A_TEMPORARY_TOKEN);
 
-    AuthenticationResponse authenticationResponse = authenticationResource.login(loginRequest);
+    Response authenticationResponse = authenticationResource.login(loginRequest);
 
-    assertThat(authenticationResponse.temporaryToken).isEqualTo(A_TEMPORARY_TOKEN.toString());
+    assertThat(authenticationResponse.getCookies().get("accessToken").getValue()).isEqualTo(A_TEMPORARY_TOKEN.toString());
   }
 }
