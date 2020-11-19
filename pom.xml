@@ -120,6 +120,11 @@
       <artifactId>activation</artifactId>
       <version>1.1.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.stefanbirkner</groupId>
+      <artifactId>system-lambda</artifactId>
+      <version>1.1.1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -149,7 +154,7 @@
           <configLocation>google_checks.xml</configLocation>
           <failOnViolation>true</failOnViolation>
           <logViolationsToConsole>true</logViolationsToConsole>
-<!--          <violationSeverity>warning</violationSeverity> TODO uncomment for lot of checkstyle errors-->
+          <!--          <violationSeverity>warning</violationSeverity> TODO uncomment for lot of checkstyle errors-->
         </configuration>
         <executions>
           <execution>
