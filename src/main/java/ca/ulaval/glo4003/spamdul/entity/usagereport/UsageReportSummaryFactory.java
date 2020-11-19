@@ -41,6 +41,9 @@ public class UsageReportSummaryFactory {
     }
 
     long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+    if (numberOfDays <= 0) {
+      numberOfDays = 1;
+    }
     float meanUsage = totalUsage / numberOfDays;
 
     return new UsageReportSummary(meanUsage, leastPopularDayOfMonth, mostPopularDayOfMonth, parkingZone);
