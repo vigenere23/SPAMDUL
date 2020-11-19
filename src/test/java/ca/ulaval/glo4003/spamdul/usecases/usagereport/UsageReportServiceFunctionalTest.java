@@ -59,21 +59,9 @@ public class UsageReportServiceFunctionalTest {
   public void whenGettingUsageReportSummary_shouldCallAccessLevelValidator() {
     LocalDate reportStartDate = LocalDate.of(2010, 1, 1);
     LocalDate reportEndDate = reportStartDate.plusDays(21);
-//    LocalDate mostPopularDate = reportStartDate.plusDays(15);
-//    LocalDate leastPopularDate = reportStartDate.plusDays(7);
-//    LocalDate randomDate = reportStartDate.plusDays(9);
     UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
     creationDto.startDate = reportStartDate;
     creationDto.endDate = reportEndDate;
-//    int numberOfMostPopularDateLogs = 13;
-//    int numberOfLeastPopularDateLogs = 5;
-//    int numberOfRandomLogs = 7;
-//    long numberOfMonthDays = ChronoUnit.DAYS.between(reportStartDate, reportEndDate) + 1;
-//    float meanUsage =
-//        (float) (numberOfMostPopularDateLogs + numberOfLeastPopularDateLogs + numberOfRandomLogs) / numberOfMonthDays;
-//    createLogs(mostPopularDate, numberOfMostPopularDateLogs);
-//    createLogs(leastPopularDate, numberOfLeastPopularDateLogs);
-//    createLogs(randomDate, numberOfRandomLogs);
 
     usageReportService.getReportSummary(creationDto, A_TEMPORARY_TOKEN);
 
@@ -117,7 +105,7 @@ public class UsageReportServiceFunctionalTest {
 
     createLogs(A_DATE, numberOfLogs);
 
-    UsageReportDto usageReportDto = usageReportService.getReport(usageReportCreationDto, A_TEMPORARY_TOKEN);
+    usageReportService.getReport(usageReportCreationDto, A_TEMPORARY_TOKEN);
 
     verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
   }
