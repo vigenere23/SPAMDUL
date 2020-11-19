@@ -1297,7 +1297,7 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (summary)",
+					"name": "Usage report summary",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -1410,65 +1410,7 @@
 				},
 				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
 			},
-			"response": [
-				{
-					"name": "Usage report (summary)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "96"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-01\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with posterior start date)",
@@ -1525,65 +1467,7 @@
 				},
 				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
 			},
-			"response": [
-				{
-					"name": "Usage report (summary)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "96"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-01\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with parking zone without access)",
@@ -1643,79 +1527,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with posterior end date)",
@@ -1771,146 +1583,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy 4",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "endDate",
-									"value": "2020-10-05"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_2"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Fri, 02 Oct 2020 00:18:53 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "46"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0,\n    \"parkingZone\": \"ZONE_2\"\n}"
-				},
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with anterior end date)",
@@ -1966,146 +1639,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy 4",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "endDate",
-									"value": "2020-10-05"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_2"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Fri, 02 Oct 2020 00:18:53 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "46"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0,\n    \"parkingZone\": \"ZONE_2\"\n}"
-				},
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with all correct filters)",
@@ -2171,12 +1705,12 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (summary) Copy",
+					"name": "Usage report summary (with all correct filters)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
+							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 							"host": [
 								"127",
 								"0",
@@ -2192,15 +1726,15 @@
 							"query": [
 								{
 									"key": "startDate",
-									"value": "2020-10-01"
+									"value": "{{today}}"
 								},
 								{
 									"key": "endDate",
-									"value": "2020-10-31"
+									"value": "{{today}}"
 								},
 								{
-									"key": "ZONE_2",
-									"value": null
+									"key": "parkingZone",
+									"value": "{{parkingZone}}"
 								}
 							]
 						}
@@ -2211,7 +1745,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
+							"value": "Thu, 19 Nov 2020 01:17:20 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -2231,7 +1765,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "103"
+							"value": "119"
 						},
 						{
 							"key": "Server",
@@ -2239,7 +1773,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
+					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-11-18\",\n    \"leastPopularMonthDate\": \"2020-11-18\",\n    \"parkingZone\": \"ZONE_3\"\n}"
 				}
 			]
 		},
@@ -2294,7 +1828,7 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (month)",
+					"name": "Usage report month",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -2418,71 +1952,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:02 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "74"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with posterior start date)",
@@ -2550,71 +2020,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:02 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "74"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with parking zone without access)",
@@ -2655,75 +2061,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date and zone)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&parkingZone=ZONE_1",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_1"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:13 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "97"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"parkingZone\": \"ZONE_1\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with posterior end date)",
@@ -2791,75 +2129,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (until date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-15"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:20 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "154"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-05\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 4\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with anterior end date)",
@@ -2927,75 +2197,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (until date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-15"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:20 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "154"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-05\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 4\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with all filters)",
@@ -3073,12 +2275,21 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (until date and zone)",
+					"name": "Usage report month (with all filters)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15&parkingZone=ZONE_3",
+							"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 							"host": [
 								"127",
 								"0",
@@ -3094,15 +2305,15 @@
 							"query": [
 								{
 									"key": "startDate",
-									"value": "2020-10-01"
+									"value": "{{today}}"
 								},
 								{
 									"key": "endDate",
-									"value": "2020-10-15"
+									"value": "{{today}}"
 								},
 								{
 									"key": "parkingZone",
-									"value": "ZONE_3"
+									"value": "{{parkingZone}}"
 								}
 							]
 						}
@@ -3113,7 +2324,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:38 GMT"
+							"value": "Thu, 19 Nov 2020 01:18:41 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -3141,7 +2352,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        }\n    ],\n    \"totalOfEntry\": 1\n}"
+					"body": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-11-18\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
 				}
 			]
 		},
@@ -3203,7 +2414,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction zone",
+					"name": "Infraction (wrong zone)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -3327,7 +2538,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction no pass code",
+					"name": "Infraction (empty pass code)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -3451,7 +2662,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction invalid pass code",
+					"name": "Infraction (invalid pass code)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -3568,13 +2779,13 @@
 			},
 			"response": [
 				{
-					"name": "infraction",
+					"name": "Pay infraction",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+							"raw": "{\n    \"infractionId\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3582,7 +2793,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
+							"raw": "127.0.0.1:8080/api/infractions/pay",
 							"host": [
 								"127",
 								"0",
@@ -3592,21 +2803,18 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"infractions"
+								"infractions",
+								"pay"
 							]
 						}
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": "json",
+					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"value": "Thu, 19 Nov 2020 01:22:35 GMT"
 						},
 						{
 							"key": "Access-Control-Allow-Origin",
@@ -3622,7 +2830,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "102"
+							"value": "0"
 						},
 						{
 							"key": "Server",
@@ -3630,7 +2838,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
+					"body": null
 				}
 			]
 		},
@@ -3685,13 +2893,13 @@
 			},
 			"response": [
 				{
-					"name": "infraction",
+					"name": "Re-pay infraction again",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+							"raw": "{\n    \"infractionId\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3699,7 +2907,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
+							"raw": "127.0.0.1:8080/api/infractions/pay",
 							"host": [
 								"127",
 								"0",
@@ -3709,17 +2917,18 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"infractions"
+								"infractions",
+								"pay"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Bad Request",
+					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
+							"value": "Thu, 19 Nov 2020 01:21:10 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -3739,7 +2948,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "102"
+							"value": "90"
 						},
 						{
 							"key": "Server",
@@ -3747,7 +2956,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
+					"body": "{\n    \"error\": \"ALREADY_PAID_INFRACTION\",\n    \"description\": \"Cette infraction a déjà été payée\"\n}"
 				}
 			]
 		},
@@ -3806,7 +3015,7 @@
 			},
 			"response": [
 				{
-					"name": "initiatives",
+					"name": "Create initiative",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -4073,7 +3282,7 @@
 			},
 			"response": [
 				{
-					"name": "initiatives Copy 3",
+					"name": "Get initiatives",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -4182,13 +3391,13 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit",
+					"name": "Deactivate carbon credits auto-tranfer",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"active\": \"true\"\n}",
+							"raw": "{\n    \"active\": \"false\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4217,7 +3426,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 22:22:20 GMT"
+							"value": "Thu, 19 Nov 2020 01:25:10 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -4237,7 +3446,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "15"
+							"value": "16"
 						},
 						{
 							"key": "Server",
@@ -4245,7 +3454,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"active\": true\n}"
+					"body": "{\n    \"active\": false\n}"
 				}
 			]
 		},
@@ -4300,7 +3509,7 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit",
+					"name": "Activate carbon credits auto-transfer",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -4410,6 +3619,64 @@
 			},
 			"response": [
 				{
+					"name": "Transfer carbon credits",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/admin/carbon-credits/transfer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"carbon-credits",
+								"transfer"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:25:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transferred\": 951.2\n}"
+				},
+				{
 					"name": "carbon credit Copy",
 					"originalRequest": {
 						"method": "POST",
@@ -4511,12 +3778,12 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit Copy",
+					"name": "Re-transfer carbon credits",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/carbon-credits/transfer",
+							"raw": "127.0.0.1:8080/api/admin/carbon-credits/transfer",
 							"host": [
 								"127",
 								"0",
@@ -4526,6 +3793,7 @@
 							"port": "8080",
 							"path": [
 								"api",
+								"admin",
 								"carbon-credits",
 								"transfer"
 							]
@@ -4537,7 +3805,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:32:19 GMT"
+							"value": "Thu, 19 Nov 2020 01:25:47 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -4557,7 +3825,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "22"
+							"value": "19"
 						},
 						{
 							"key": "Server",
@@ -4565,7 +3833,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"transferred\": 238.34\n}"
+					"body": "{\n    \"transferred\": 0\n}"
 				}
 			]
 		},
@@ -4612,7 +3880,7 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit Copy 2",
+					"name": "Get total credits transfered",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -4639,7 +3907,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:56:15 GMT"
+							"value": "Thu, 19 Nov 2020 01:26:09 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -4659,7 +3927,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "13"
+							"value": "15"
 						},
 						{
 							"key": "Server",
@@ -4667,7 +3935,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"total\": 0\n}"
+					"body": "{\n    \"total\": 43.61\n}"
 				}
 			]
 		},
@@ -4724,7 +3992,7 @@
 			},
 			"response": [
 				{
-					"name": "get pass revenue",
+					"name": "Revenue (pass)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -4826,7 +4094,7 @@
 			},
 			"response": [
 				{
-					"name": "get infractions revenue",
+					"name": "Revenue (infractions)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -4929,7 +4197,7 @@
 			},
 			"response": [
 				{
-					"name": "get campus access revenue",
+					"name": "Revenue (campus access)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5025,7 +4293,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+					"raw": "127.0.0.1:8080/api/financial-report/revenue",
 					"host": [
 						"127",
 						"0",
@@ -5036,19 +4304,18 @@
 					"path": [
 						"api",
 						"financial-report",
-						"revenue",
-						""
+						"revenue"
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Revenue",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/financial-report/revenue",
 							"host": [
 								"127",
 								"0",
@@ -5059,8 +4326,7 @@
 							"path": [
 								"api",
 								"financial-report",
-								"revenue",
-								""
+								"revenue"
 							]
 						}
 					},
@@ -5070,7 +4336,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:27:14 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5090,7 +4356,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "290"
 						},
 						{
 							"key": "Server",
@@ -5098,7 +4364,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 1065\n                },\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 1100\n    },\n    \"pass\": 1223,\n    \"infraction\": 22,\n    \"total\": 2345\n}"
 				}
 			]
 		},
@@ -5147,12 +4413,12 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Create rechargUL card",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/rechargul",
 							"host": [
 								"127",
 								"0",
@@ -5162,19 +4428,17 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"rechargul"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Created",
+					"code": 201,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:27:32 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5194,7 +4458,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "25"
 						},
 						{
 							"key": "Server",
@@ -5202,7 +4466,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"11\",\n    \"credits\": 0\n}"
 				}
 			]
 		},
@@ -5252,12 +4516,12 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Get rechargUL card",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/rechargul/1",
 							"host": [
 								"127",
 								"0",
@@ -5267,9 +4531,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"rechargul",
+								"1"
 							]
 						}
 					},
@@ -5279,7 +4542,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:27:48 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5299,7 +4562,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "24"
 						},
 						{
 							"key": "Server",
@@ -5307,7 +4570,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"credits\": 0\n}"
 				}
 			]
 		},
@@ -5353,12 +4616,12 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Get charging points",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points",
 							"host": [
 								"127",
 								"0",
@@ -5368,9 +4631,7 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points"
 							]
 						}
 					},
@@ -5380,7 +4641,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:28:03 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5400,7 +4661,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "281"
 						},
 						{
 							"key": "Server",
@@ -5408,7 +4669,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"chargingPoints\": [\n        {\n            \"id\": \"1\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"2\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"3\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"4\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"5\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"6\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"7\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"8\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"9\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"10\",\n            \"state\": \"idle\"\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -5458,12 +4719,12 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Get single charging point",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1",
 							"host": [
 								"127",
 								"0",
@@ -5473,9 +4734,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1"
 							]
 						}
 					},
@@ -5485,7 +4745,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:28:13 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5505,7 +4765,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "25"
 						},
 						{
 							"key": "Server",
@@ -5513,7 +4773,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"idle\"\n}"
 				}
 			]
 		},
@@ -5560,12 +4820,12 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Activate charging point (with invalid card)",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
 							"host": [
 								"127",
 								"0",
@@ -5575,19 +4835,19 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"activate"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Bad Request",
+					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:28:35 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5607,7 +4867,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "87"
 						},
 						{
 							"key": "Server",
@@ -5615,7 +4875,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"error\": \"INVALID_RECHARGUL_CARD_ID\",\n    \"description\": \"This rechargUL card id is invalid\"\n}"
 				}
 			]
 		},
@@ -5671,12 +4931,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Activate charging point (with non-existant card)",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1234234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
 							"host": [
 								"127",
 								"0",
@@ -5686,19 +4955,19 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"activate"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Not Found",
+					"code": 404,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:28:47 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5718,7 +4987,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "87"
 						},
 						{
 							"key": "Server",
@@ -5726,7 +4995,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"error\": \"RECHARGUL_CARD_NOT_FOUND\",\n    \"description\": \"This rechargUL card does not exist\"\n}"
 				}
 			]
 		},
@@ -5782,12 +5051,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Activate charging point (with no credits card)",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
 							"host": [
 								"127",
 								"0",
@@ -5797,19 +5075,19 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"activate"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Bad Request",
+					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:28:55 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5829,7 +5107,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "95"
 						},
 						{
 							"key": "Server",
@@ -5837,7 +5115,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"error\": \"NOT_ENOUGH_CREDITS\",\n    \"description\": \"This rechargUL card does not have enough credits\"\n}"
 				}
 			]
 		},
@@ -5893,12 +5171,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Add credits to card (with invalid amount)",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credits\": -1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/rechargul/1/credits",
 							"host": [
 								"127",
 								"0",
@@ -5908,19 +5195,19 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"rechargul",
+								"1",
+								"credits"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Bad Request",
+					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:29:08 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5940,7 +5227,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "88"
 						},
 						{
 							"key": "Server",
@@ -5948,7 +5235,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"error\": \"INVALID_RECHARGUL_CREDITS\",\n    \"description\": \"Invalid credits for rechargUL card\"\n}"
 				}
 			]
 		},
@@ -6008,12 +5295,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Add credits to card",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credits\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/rechargul/1/credits",
 							"host": [
 								"127",
 								"0",
@@ -6023,9 +5319,9 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"rechargul",
+								"1",
+								"credits"
 							]
 						}
 					},
@@ -6035,7 +5331,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:29:26 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6055,7 +5351,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "24"
 						},
 						{
 							"key": "Server",
@@ -6063,7 +5359,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"credits\": 1\n}"
 				}
 			]
 		},
@@ -6123,12 +5419,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Activate charging point",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
 							"host": [
 								"127",
 								"0",
@@ -6138,9 +5443,9 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"activate"
 							]
 						}
 					},
@@ -6150,7 +5455,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:29:37 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6170,7 +5475,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "30"
 						},
 						{
 							"key": "Server",
@@ -6178,7 +5483,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"activated\"\n}"
 				}
 			]
 		},
@@ -6238,12 +5543,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Connect charging point",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/connect",
 							"host": [
 								"127",
 								"0",
@@ -6253,9 +5567,9 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"connect"
 							]
 						}
 					},
@@ -6265,7 +5579,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:29:57 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6285,7 +5599,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "29"
 						},
 						{
 							"key": "Server",
@@ -6293,7 +5607,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"charging\"\n}"
 				}
 			]
 		},
@@ -6353,12 +5667,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Disconnect charging point",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/disconnect",
 							"host": [
 								"127",
 								"0",
@@ -6368,9 +5691,9 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"disconnect"
 							]
 						}
 					},
@@ -6380,7 +5703,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:30:09 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6400,7 +5723,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "30"
 						},
 						{
 							"key": "Server",
@@ -6408,7 +5731,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"activated\"\n}"
 				}
 			]
 		},
@@ -6468,12 +5791,21 @@
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Deactivate charging point",
 					"originalRequest": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/charging-points/1/deactivate",
 							"host": [
 								"127",
 								"0",
@@ -6483,9 +5815,9 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financial-report",
-								"revenue",
-								""
+								"charging-points",
+								"1",
+								"deactivate"
 							]
 						}
 					},
@@ -6495,7 +5827,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:30:22 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6515,7 +5847,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "25"
 						},
 						{
 							"key": "Server",
@@ -6523,7 +5855,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"idle\"\n}"
 				}
 			]
 		},
@@ -6571,96 +5903,37 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "get total revenue",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"financial-report",
-								"revenue",
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "284"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
-				}
-			]
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "49cd55c6-b146-4f86-8840-b0ebdc4ac187",
+			"id": "4469f206-0f34-408e-adc6-dab5004ecb16",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "40725457-0696-4c1c-b9ab-196e5ccbf175",
+			"id": "b3f405dd-690d-469a-a312-8c1a20d42e7e",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "c2a6ca8c-6eeb-4757-90c7-c778642414c7",
+			"id": "efb7000a-765c-4678-a087-7f7cf0b85024",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "0fdfdbbf-f7c9-4712-aa51-a6b132fdc4de",
+			"id": "4e82f06f-977b-49e3-9d4a-3ab6d3b0780f",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "b667bd9b-651f-40e0-b621-483d71910c4b",
+			"id": "5fa187f7-9443-469a-8ebf-f23e43c89f55",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "916945e6-6d4f-4065-ba0a-cefcbc9809ff",
+			"id": "1f1b5358-8396-43c9-9879-ef45689107b6",
 			"key": "yesterday",
 			"value": ""
 		}
