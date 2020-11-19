@@ -1,9 +1,12 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,25 +23,35 @@ public class RechargULCard {
     this.transactionFactory = transactionFactory;
   }
 
-  public RechargULCardId getId() {
-    return id;
-  }
-
   public void debit(Amount amount) {
+    if (amount.isStrictlyNegative() || amount.isZero()) {
+      throw new InvalidRechargULCardDebitingException();
+    }
+
     Transaction transaction = transactionFactory.create(TransactionType.RECHARGE, amount.multiply(-1));
     transactions.add(transaction);
   }
 
   public void addCredits(Amount amount) {
+    if (amount.isStrictlyNegative() || amount.isZero()) {
+      throw new InvalidRechargULCardCreditsException();
+    }
+
     Transaction transaction = transactionFactory.create(TransactionType.RECHARGE_CREDITS, amount);
     transactions.add(transaction);
   }
 
-  public boolean hasUnpaidCharges() {
-    return total().isNegative() || total().isZero();
+  public void verifyHasEnoughCredits() {
+    if (!total().isStrictlyPositive()) {
+      throw new NotEnoughCreditsException();
+    }
   }
 
-  private Amount total() {
+  public RechargULCardId getId() {
+    return id;
+  }
+
+  public Amount total() {
     return transactions.stream()
                        .map(Transaction::getAmount)
                        .reduce(Amount::add)

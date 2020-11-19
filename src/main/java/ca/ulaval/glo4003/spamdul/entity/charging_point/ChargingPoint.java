@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
 import java.util.Optional;
 
 public class ChargingPoint {
@@ -18,9 +17,7 @@ public class ChargingPoint {
   }
 
   public void activate(RechargULCard card) {
-    if (card.hasUnpaidCharges()) {
-      throw new NotEnoughCreditsException();
-    }
+    card.verifyHasEnoughCredits();
 
     this.card = Optional.of(card);
     state.activate();
@@ -46,5 +43,9 @@ public class ChargingPoint {
 
   public ChargingPointId getId() {
     return id;
+  }
+
+  public String getState() {
+    return state.toString();
   }
 }

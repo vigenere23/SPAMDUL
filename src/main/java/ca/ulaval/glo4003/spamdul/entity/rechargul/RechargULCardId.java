@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardIdException;
 import java.util.Objects;
 
 public class RechargULCardId {
@@ -17,12 +18,12 @@ public class RechargULCardId {
     this.value = value;
   }
 
-  private RechargULCardId(String value) {
-    this.value = Long.parseLong(value);
-  }
-
   public static RechargULCardId valueOf(String parkingAccessLogId) {
-    return new RechargULCardId(Long.parseLong(parkingAccessLogId));
+    try {
+      return new RechargULCardId(Long.parseLong(parkingAccessLogId));
+    } catch (Exception e) {
+      throw new InvalidRechargULCardIdException();
+    }
   }
 
   @Override public boolean equals(Object o) {

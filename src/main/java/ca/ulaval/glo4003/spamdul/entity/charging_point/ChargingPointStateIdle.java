@@ -29,4 +29,8 @@ public class ChargingPointStateIdle implements ChargingPointState {
   @Override public long deactivate() {
     throw new ChargingPointNotActivatedException();
   }
+
+  @Override public String toString() {
+    return "idle";
+  }
 }

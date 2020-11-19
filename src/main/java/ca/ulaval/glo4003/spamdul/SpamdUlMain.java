@@ -76,6 +76,8 @@ public class SpamdUlMain {
                                                                    authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler());
     ChargingContext chargingContext = new ChargingContext();
+                                                                   accountContext.bankRepository());
+    ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -107,6 +109,9 @@ public class SpamdUlMain {
         resources.add(new InfractionExceptionAssembler());
         resources.add(chargingContext.getChargingPointResource());
         resources.add(authenticationContext.getAuthenticationResource());
+        resources.add(chargingContext.getRechargULResource());
+        resources.add(chargingContext.getChargingPointExceptionMapper());
+        resources.add(chargingContext.getRechargULExceptionMapper());
 
         return resources;
       }

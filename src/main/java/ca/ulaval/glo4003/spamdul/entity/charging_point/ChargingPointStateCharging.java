@@ -30,4 +30,8 @@ public class ChargingPointStateCharging implements ChargingPointState {
   @Override public long deactivate() {
     throw new ChargingPointNotDisconnectedException();
   }
+
+  @Override public String toString() {
+    return "charging";
+  }
 }

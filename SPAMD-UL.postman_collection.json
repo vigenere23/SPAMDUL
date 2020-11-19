@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c3e5fc0f-b490-41f6-8c9c-ab9520af94f1",
-		"name": "SPAMD-UL Copy",
+		"_postman_id": "344b0447-05fc-473e-bc62-b9ecdc128cb6",
+		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f2b4c73a-348d-43f6-820a-5d25730fb6d0",
+						"id": "339f3671-2ebd-4c0c-9774-55fac1898e9f",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -24,7 +24,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "d6b259f0-658d-47c9-834a-16642aa173df",
+						"id": "09f154f3-8022-4017-9661-0928b38f896e",
 						"exec": [
 							"const today = new Date()",
 							"const yesterday = new Date()",
@@ -73,7 +73,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7e1ae965-ac04-4590-81a0-3449da73033a",
+						"id": "641bee6a-351d-4773-808e-c1605b1fab70",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -90,7 +90,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "bd0a256c-0e4d-49d3-850c-7da2eb5ca259",
+						"id": "7f8a7839-fee0-44c9-b506-7dace4d88c10",
 						"exec": [
 							""
 						],
@@ -199,7 +199,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c1782f41-16a0-4b6c-9704-d670d49d726c",
+						"id": "399dd4a3-ef5e-4fce-8f9c-0349f45ff062",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -249,7 +249,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b129038a-5314-41ed-a339-a93d3bc2531c",
+						"id": "5767c59d-c680-4463-ba17-915a2c356870",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -299,7 +299,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c2bff9df-4e5c-49e5-a5b8-d1f2d8188996",
+						"id": "6129c9a6-25be-47df-9558-022a3d20e0b0",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -349,7 +349,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "82f19f02-36b5-4678-92ce-50324460c4f1",
+						"id": "9884a493-baf7-4858-9ab9-525471d42310",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -399,7 +399,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8cbada5b-69d6-4abe-857f-0279de2aa47e",
+						"id": "11823ad4-4da6-4eb9-a8e1-20dc90b6ffe2",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -449,7 +449,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4a2302dc-6f19-4722-811c-abe7b7eb7992",
+						"id": "7fba3418-a5dd-4399-be25-c1b2e85c6924",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -499,7 +499,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bbbc11e0-85ee-4858-a894-8e66e34be59a",
+						"id": "ea6ece0c-6e8f-478a-b81f-32e8590fa212",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -549,7 +549,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e3a325a4-35a2-4027-9ea0-a9fe64413aaa",
+						"id": "131262e9-625c-44ae-9793-fb915474b06a",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -599,7 +599,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "578a177a-9f2a-4541-bdf7-998acf66107d",
+						"id": "41feadce-fcc3-4786-ab15-c1dded246f0c",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -649,7 +649,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "31277ca7-e96e-4666-ba46-ac62f6c09b92",
+						"id": "0e967f44-77ca-4710-b61b-69219912f231",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -766,7 +766,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b10131d2-2d7b-4aeb-b7a9-5256b38a26f7",
+						"id": "4fe2ae14-cfe2-48db-b094-41584e5c0d21",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -817,72 +817,6 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "24"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
-				},
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
 							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
 							"options": {
 								"raw": {
@@ -941,6 +875,72 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"access\": \"GRANTED\"\n}"
+				},
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "24"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
 				}
 			]
 		},
@@ -950,7 +950,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "addbb5ad-0fbd-4bfc-b8a6-c875cd3b078e",
+						"id": "70d369ca-6764-4e76-9a7c-393e4f9df9cd",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1001,72 +1001,6 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "20"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"GRANTED\"\n}"
-				},
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
 							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
 							"options": {
 								"raw": {
@@ -1125,6 +1059,72 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
+				},
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"GRANTED\"\n}"
 				}
 			]
 		},
@@ -1134,7 +1134,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "79c6ab71-41b6-4ce6-904f-6c15cb5576f3",
+						"id": "6b8898bc-6d94-48a4-b42d-33837f0467c1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1838,7 +1838,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5083843b-93cc-4a6f-b5aa-b5839c2f990c",
+						"id": "c9999750-6456-4dc8-8bab-73c9307a0b61",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1890,7 +1890,7 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (summary)",
+					"name": "Usage report summary",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -1954,7 +1954,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed2d73a6-c30e-446b-b6bd-9a156ae67255",
+						"id": "3e9936c0-2815-45e6-ac57-495c694cb8e0",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2003,65 +2003,7 @@
 				},
 				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
 			},
-			"response": [
-				{
-					"name": "Usage report (summary)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "96"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-01\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with posterior start date)",
@@ -2069,7 +2011,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5907c7d3-000f-4190-8d76-7a4db406282e",
+						"id": "c2179036-11a1-4dc8-a37e-d4cb10f3a2b0",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2118,65 +2060,7 @@
 				},
 				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
 			},
-			"response": [
-				{
-					"name": "Usage report (summary)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:44 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "96"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-01\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with parking zone without access)",
@@ -2184,7 +2068,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "01ab3644-1734-49fc-8a6d-532037f541f0",
+						"id": "76e17c89-8257-47d5-9556-622bb0889c38",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2236,79 +2120,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with posterior end date)",
@@ -2316,7 +2128,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d0ef324a-b7ad-44b5-92a9-4fc490fac917",
+						"id": "bc9b18d1-4005-4087-b58c-4bedd7003e7d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2364,146 +2176,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy 4",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "endDate",
-									"value": "2020-10-05"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_2"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Fri, 02 Oct 2020 00:18:53 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "46"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0,\n    \"parkingZone\": \"ZONE_2\"\n}"
-				},
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with anterior end date)",
@@ -2511,7 +2184,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "696881da-2111-4385-add9-92e988368273",
+						"id": "8bca62c1-4482-4353-9cd8-715c8f17722a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2559,146 +2232,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (summary) Copy",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-31"
-								},
-								{
-									"key": "ZONE_2",
-									"value": null
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "103"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
-				},
-				{
-					"name": "Usage report (summary) Copy 4",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?endDate=2020-10-05&parkingZone=ZONE_2",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"summary"
-							],
-							"query": [
-								{
-									"key": "endDate",
-									"value": "2020-10-05"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_2"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Fri, 02 Oct 2020 00:18:53 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "46"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0,\n    \"parkingZone\": \"ZONE_2\"\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report summary (with all correct filters)",
@@ -2706,7 +2240,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f580b1c0-ca3f-4f36-8116-c9a69f7c5c1c",
+						"id": "b7865aa9-b459-4399-94ca-5a59feaa4e78",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2764,12 +2298,12 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (summary) Copy",
+					"name": "Usage report summary (with all correct filters)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate=2020-10-01&endDate=2020-10-31&ZONE_2",
+							"raw": "127.0.0.1:8080/api/usage-report/summary?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 							"host": [
 								"127",
 								"0",
@@ -2785,15 +2319,15 @@
 							"query": [
 								{
 									"key": "startDate",
-									"value": "2020-10-01"
+									"value": "{{today}}"
 								},
 								{
 									"key": "endDate",
-									"value": "2020-10-31"
+									"value": "{{today}}"
 								},
 								{
-									"key": "ZONE_2",
-									"value": null
+									"key": "parkingZone",
+									"value": "{{parkingZone}}"
 								}
 							]
 						}
@@ -2804,7 +2338,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:48 GMT"
+							"value": "Thu, 19 Nov 2020 01:17:20 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -2824,7 +2358,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "103"
+							"value": "119"
 						},
 						{
 							"key": "Server",
@@ -2832,7 +2366,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"meanUsagePerDay\": 0.12903225,\n    \"mostPopularMonthDate\": \"2020-10-01\",\n    \"leastPopularMonthDate\": \"2020-10-05\"\n}"
+					"body": "{\n    \"meanUsagePerDay\": 2,\n    \"mostPopularMonthDate\": \"2020-11-18\",\n    \"leastPopularMonthDate\": \"2020-11-18\",\n    \"parkingZone\": \"ZONE_3\"\n}"
 				}
 			]
 		},
@@ -2887,7 +2421,7 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (month)",
+					"name": "Usage report month",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -2951,7 +2485,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5c323c6f-0eba-48b0-892e-121b9e44bf8d",
+						"id": "3cdbaeab-5864-436c-9b98-5a2ae1538d25",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3011,71 +2545,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:02 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "74"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with posterior start date)",
@@ -3083,7 +2553,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "92a60c9c-05d2-4cb7-8cb5-0ccbe4aa230b",
+						"id": "441832f0-b20c-4d5a-99a0-857d77f59b72",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3143,71 +2613,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:02 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "74"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with parking zone without access)",
@@ -3248,75 +2654,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (one date and zone)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&parkingZone=ZONE_1",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "parkingZone",
-									"value": "ZONE_1"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:13 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "97"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"parkingZone\": \"ZONE_1\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with posterior end date)",
@@ -3324,7 +2662,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "07fcaede-0a01-4d6d-9cc8-0e74b2f10797",
+						"id": "f954c3b9-67d9-4633-910d-dbd60ed3f0e7",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3384,75 +2722,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (until date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-15"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:20 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "154"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-05\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 4\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with anterior end date)",
@@ -3460,7 +2730,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e0c3c70a-928e-45db-95d5-215b7fecddf1",
+						"id": "2bb65f50-14b2-4750-80fd-a7df94a88c7c",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3520,75 +2790,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Usage report (until date)",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usage-report",
-								"month"
-							],
-							"query": [
-								{
-									"key": "startDate",
-									"value": "2020-10-01"
-								},
-								{
-									"key": "endDate",
-									"value": "2020-10-15"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:20 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "154"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-05\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        },\n        {\n            \"date\": \"2020-10-01\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 4\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Usage report month (with all filters)",
@@ -3596,7 +2798,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "33649afd-a6ed-43f0-acba-c189f000a63e",
+						"id": "065e6b6d-8696-4ea8-80c0-4852f3e02b08",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3666,12 +2868,21 @@
 			},
 			"response": [
 				{
-					"name": "Usage report (until date and zone)",
+					"name": "Usage report month (with all filters)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/usage-report/month?startDate=2020-10-01&endDate=2020-10-15&parkingZone=ZONE_3",
+							"raw": "127.0.0.1:8080/api/usage-report/month?startDate={{today}}&endDate={{today}}&parkingZone={{parkingZone}}",
 							"host": [
 								"127",
 								"0",
@@ -3687,15 +2898,15 @@
 							"query": [
 								{
 									"key": "startDate",
-									"value": "2020-10-01"
+									"value": "{{today}}"
 								},
 								{
 									"key": "endDate",
-									"value": "2020-10-15"
+									"value": "{{today}}"
 								},
 								{
 									"key": "parkingZone",
-									"value": "ZONE_3"
+									"value": "{{parkingZone}}"
 								}
 							]
 						}
@@ -3706,7 +2917,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:41:38 GMT"
+							"value": "Thu, 19 Nov 2020 01:18:41 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -3734,7 +2945,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-10-02\",\n            \"numberOfEntry\": 1\n        }\n    ],\n    \"totalOfEntry\": 1\n}"
+					"body": "{\n    \"parkingZone\": \"ZONE_3\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-11-18\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
 				}
 			]
 		},
@@ -4105,7 +3316,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7e0186c4-18ea-4e7f-a9d2-ab96d76d6195",
+						"id": "cff6f7a2-a1ac-4e7c-a5bd-4beb15e2329d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4157,7 +3368,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction zone",
+					"name": "Infraction (wrong zone)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -4229,7 +3440,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "26104a2a-54f4-4caf-9bba-a3163c1d6fca",
+						"id": "76f183c1-7bcf-4a91-9e61-25364d7e5105",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4281,7 +3492,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction no pass code",
+					"name": "Infraction (empty pass code)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -4353,7 +3564,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4d0ab62a-0682-4aed-bd93-af128055533c",
+						"id": "fe030249-25f0-41c1-8e54-282b84c35f40",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4405,7 +3616,7 @@
 			},
 			"response": [
 				{
-					"name": "infraction invalid pass code",
+					"name": "Infraction (invalid pass code)",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -4477,7 +3688,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3ba2ad63-556f-452f-9e91-c236ca79bdf2",
+						"id": "d0bc902f-ceb8-42b7-80c8-5b3b510b5cb8",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4522,13 +3733,13 @@
 			},
 			"response": [
 				{
-					"name": "infraction",
+					"name": "Pay infraction",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+							"raw": "{\n    \"infractionId\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4536,7 +3747,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
+							"raw": "127.0.0.1:8080/api/infractions/pay",
 							"host": [
 								"127",
 								"0",
@@ -4546,21 +3757,18 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"infractions"
+								"infractions",
+								"pay"
 							]
 						}
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": "json",
+					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"value": "Thu, 19 Nov 2020 01:22:35 GMT"
 						},
 						{
 							"key": "Access-Control-Allow-Origin",
@@ -4576,7 +3784,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "102"
+							"value": "0"
 						},
 						{
 							"key": "Server",
@@ -4584,7 +3792,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
+					"body": null
 				}
 			]
 		},
@@ -4594,7 +3802,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6b8c1953-c6be-467d-9d15-b59fb6db17ec",
+						"id": "e2fde5f3-96ee-4c5a-8b8a-5e1f75ecca8c",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -4639,13 +3847,13 @@
 			},
 			"response": [
 				{
-					"name": "infraction",
+					"name": "Re-pay infraction again",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"passCode\": \"1\",\n    \"parkingZone\": \"zone_r\"\n}",
+							"raw": "{\n    \"infractionId\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4653,7 +3861,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/infractions",
+							"raw": "127.0.0.1:8080/api/infractions/pay",
 							"host": [
 								"127",
 								"0",
@@ -4663,17 +3871,18 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"infractions"
+								"infractions",
+								"pay"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Bad Request",
+					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:26:21 GMT"
+							"value": "Thu, 19 Nov 2020 01:21:10 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -4693,7 +3902,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "102"
+							"value": "90"
 						},
 						{
 							"key": "Server",
@@ -4701,7 +3910,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"infractionId\": \"1\",\n    \"code\": \"VIG_01\",\n    \"reason\": \"vignette pas admissible pour la journée\",\n    \"amount\": 22\n}"
+					"body": "{\n    \"error\": \"ALREADY_PAID_INFRACTION\",\n    \"description\": \"Cette infraction a déjà été payée\"\n}"
 				}
 			]
 		},
@@ -4743,7 +3952,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0dd1fa1f-dbe0-4b69-bc26-8e77b8a24a3f",
+						"id": "0f7fbe82-0107-4dd3-bd25-b33fd57ca4b4",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -4792,7 +4001,7 @@
 			},
 			"response": [
 				{
-					"name": "initiatives",
+					"name": "Create initiative",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -4865,7 +4074,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "43220546-8ed9-43cd-a29c-350de06460c1",
+						"id": "0e13ef69-77db-483d-8c8b-824f3eaa7255",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -4920,7 +4129,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9c18ec46-64b9-44ea-a6cc-15e6e9c451a9",
+						"id": "15226248-fb93-431b-b437-5c10f610ac5d",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -4971,7 +4180,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "02477ce0-faa8-4a51-8c50-e123fdc395a4",
+						"id": "a7a942d9-4bd4-494c-aecb-2d075d2ee8f3",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -5022,7 +4231,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "09427f05-8b03-4d18-aa07-c8052019f2aa",
+						"id": "6ce1561e-5170-4051-8bce-b2222df661a1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5059,7 +4268,7 @@
 			},
 			"response": [
 				{
-					"name": "initiatives Copy 3",
+					"name": "Get initiatives",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5123,7 +4332,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "18d424b5-0943-458a-a646-ad71a1e8e290",
+						"id": "5efedf77-6692-4cd4-a6e2-d158af3d8095",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5168,13 +4377,13 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit",
+					"name": "Deactivate carbon credits auto-tranfer",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"active\": \"true\"\n}",
+							"raw": "{\n    \"active\": \"false\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5203,7 +4412,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 22:22:20 GMT"
+							"value": "Thu, 19 Nov 2020 01:25:10 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5223,7 +4432,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "15"
+							"value": "16"
 						},
 						{
 							"key": "Server",
@@ -5231,7 +4440,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"active\": true\n}"
+					"body": "{\n    \"active\": false\n}"
 				}
 			]
 		},
@@ -5241,7 +4450,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "428af1a7-fcf5-46c1-97d7-63c4699fef6a",
+						"id": "26c3a676-3cd8-441e-a43e-5d30aed0fb06",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5286,7 +4495,7 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit",
+					"name": "Activate carbon credits auto-transfer",
 					"originalRequest": {
 						"method": "PUT",
 						"header": [],
@@ -5359,7 +4568,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b267a55f-ef17-417a-af9b-7146dfb9780b",
+						"id": "708378d9-f100-4f92-84be-7e1f941bff5a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5395,6 +4604,64 @@
 				}
 			},
 			"response": [
+				{
+					"name": "Transfer carbon credits",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/admin/carbon-credits/transfer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"carbon-credits",
+								"transfer"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:25:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "21"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transferred\": 951.2\n}"
+				},
 				{
 					"name": "carbon credit Copy",
 					"originalRequest": {
@@ -5460,7 +4727,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "416457c4-5651-4d58-af2b-22237072b3b8",
+						"id": "a0e40ed3-1ee6-4456-b894-0794567935f1",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5497,12 +4764,12 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit Copy",
+					"name": "Re-transfer carbon credits",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/carbon-credits/transfer",
+							"raw": "127.0.0.1:8080/api/admin/carbon-credits/transfer",
 							"host": [
 								"127",
 								"0",
@@ -5512,6 +4779,7 @@
 							"port": "8080",
 							"path": [
 								"api",
+								"admin",
 								"carbon-credits",
 								"transfer"
 							]
@@ -5523,7 +4791,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:32:19 GMT"
+							"value": "Thu, 19 Nov 2020 01:25:47 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5543,7 +4811,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "22"
+							"value": "19"
 						},
 						{
 							"key": "Server",
@@ -5551,7 +4819,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"transferred\": 238.34\n}"
+					"body": "{\n    \"transferred\": 0\n}"
 				}
 			]
 		},
@@ -5561,7 +4829,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d37c8c6e-17cf-456c-aba1-1a3865a7c4a0",
+						"id": "44222d62-a8b9-41d6-86fc-f39dce938091",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5598,7 +4866,7 @@
 			},
 			"response": [
 				{
-					"name": "carbon credit Copy 2",
+					"name": "Get total credits transfered",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5625,7 +4893,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:56:15 GMT"
+							"value": "Thu, 19 Nov 2020 01:26:09 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -5645,7 +4913,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "13"
+							"value": "15"
 						},
 						{
 							"key": "Server",
@@ -5653,7 +4921,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"total\": 0\n}"
+					"body": "{\n    \"total\": 43.61\n}"
 				}
 			]
 		},
@@ -5663,7 +4931,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "39bd1b56-f6e2-4263-a195-2145d6695d6a",
+						"id": "0fa8df0d-a499-4ab9-a903-5268859f0879",
 						"exec": [
 							""
 						],
@@ -5673,7 +4941,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cce58294-f24b-4d31-8d6f-fda6820f5837",
+						"id": "659b82dd-3b95-45d2-8a7d-4a926e8f328f",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5710,7 +4978,7 @@
 			},
 			"response": [
 				{
-					"name": "get pass revenue",
+					"name": "Revenue (pass)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5775,7 +5043,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b141950e-ea0b-4cba-9713-910a9978d6e4",
+						"id": "0dca678a-6d51-43f0-87e5-b29e1123509d",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5812,7 +5080,7 @@
 			},
 			"response": [
 				{
-					"name": "get infractions revenue",
+					"name": "Revenue (infractions)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5877,7 +5145,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "716149e9-323c-4e9d-a4ec-c822d73e2a01",
+						"id": "452a8c3a-4c4e-4fdc-968c-4b75bcf81769",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5915,7 +5183,7 @@
 			},
 			"response": [
 				{
-					"name": "get campus access revenue",
+					"name": "Revenue (campus access)",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -5980,7 +5248,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e1c60554-c7e1-4218-adbe-3a0d1079e73c",
+						"id": "0fc6a7d1-9558-4f26-beb3-44aa4d412047",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6011,7 +5279,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+					"raw": "127.0.0.1:8080/api/financial-report/revenue",
 					"host": [
 						"127",
 						"0",
@@ -6022,19 +5290,18 @@
 					"path": [
 						"api",
 						"financial-report",
-						"revenue",
-						""
+						"revenue"
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "get total revenue",
+					"name": "Revenue",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/financial-report/revenue/",
+							"raw": "127.0.0.1:8080/api/financial-report/revenue",
 							"host": [
 								"127",
 								"0",
@@ -6045,8 +5312,7 @@
 							"path": [
 								"api",
 								"financial-report",
-								"revenue",
-								""
+								"revenue"
 							]
 						}
 					},
@@ -6056,7 +5322,7 @@
 					"header": [
 						{
 							"key": "Date",
-							"value": "Sun, 25 Oct 2020 21:52:44 GMT"
+							"value": "Thu, 19 Nov 2020 01:27:14 GMT"
 						},
 						{
 							"key": "Content-Type",
@@ -6076,7 +5342,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "284"
+							"value": "290"
 						},
 						{
 							"key": "Server",
@@ -6084,7 +5350,1524 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 65\n                },\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 100\n    },\n    \"pass\": 489,\n    \"infraction\": 0,\n    \"total\": 589\n}"
+					"body": "{\n    \"campusAccess\": {\n        \"byCarType\": {\n            \"entry\": [\n                {\n                    \"key\": \"ECONOMIQUE\",\n                    \"value\": 30\n                },\n                {\n                    \"key\": \"GOURMANDE\",\n                    \"value\": 1065\n                },\n                {\n                    \"key\": \"HYBRIDE_ECONOMIQUE\",\n                    \"value\": 0\n                },\n                {\n                    \"key\": \"SUPER_ECONOMIQUE\",\n                    \"value\": 5\n                },\n                {\n                    \"key\": \"SANS_POLLUTION\",\n                    \"value\": 0\n                }\n            ]\n        },\n        \"total\": 1100\n    },\n    \"pass\": 1223,\n    \"infraction\": 22,\n    \"total\": 2345\n}"
+				}
+			]
+		},
+		{
+			"name": "Create rechargUL card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3a0ed3c-9135-4876-994b-0c241bae62a7",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create rechargUL card",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/rechargul",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rechargul"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:27:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"11\",\n    \"credits\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Get rechargUL card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15849ee2-bee7-401f-9b38-b02fcbbe9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get rechargUL card",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/rechargul/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rechargul",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:27:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "24"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"credits\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Get charging points",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ae6f26a-92b6-457d-bc75-f567659d5177",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'chargingPoints' is not empty\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['chargingPoints'])).to.be.true",
+							"    pm.expect(pm.response.json()['chargingPoints']).to.not.eql([])",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get charging points",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:28:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "281"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"chargingPoints\": [\n        {\n            \"id\": \"1\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"2\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"3\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"4\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"5\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"6\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"7\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"8\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"9\",\n            \"state\": \"idle\"\n        },\n        {\n            \"id\": \"10\",\n            \"state\": \"idle\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get single charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4da7d28f-c3e5-49de-8d7e-688320679855",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is idle\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"idle\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get single charging point",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:28:13 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"idle\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with invalid card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd328059-648d-4d60-b320-58a36ea54bc1",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"INVALID_RECHARGUL_CARD_ID\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Activate charging point (with invalid card)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:28:35 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "87"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"INVALID_RECHARGUL_CARD_ID\",\n    \"description\": \"This rechargUL card id is invalid\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with non-existant card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24057cf2-f7e4-46f6-87ab-6029e2d0b45b",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"RECHARGUL_CARD_NOT_FOUND\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1234234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Activate charging point (with non-existant card)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1234234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:28:47 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "87"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"RECHARGUL_CARD_NOT_FOUND\",\n    \"description\": \"This rechargUL card does not exist\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point (with no credits card)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "845ec95e-3bf2-4845-9ac1-ae38ff403ab0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is \", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"NOT_ENOUGH_CREDITS\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Activate charging point (with no credits card)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:28:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "95"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"NOT_ENOUGH_CREDITS\",\n    \"description\": \"This rechargUL card does not have enough credits\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add credits to card (with invalid amount)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2cd779d-d77b-4dc7-8ccf-32fa95dc1fdd",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"'error' is INVALID_RECHARGUL_CREDITS\", function () {",
+							"    pm.expect(pm.response.json()['error']).to.eql(\"INVALID_RECHARGUL_CREDITS\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credits\": -1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1",
+						"credits"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add credits to card (with invalid amount)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credits\": -1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rechargul",
+								"1",
+								"credits"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:29:08 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "88"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"INVALID_RECHARGUL_CREDITS\",\n    \"description\": \"Invalid credits for rechargUL card\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add credits to card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "906d41ec-b948-40bb-bdc6-ebb9374edaf9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is not 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.be.greaterThan(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credits\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1",
+						"credits"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add credits to card",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credits\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/rechargul/1/credits",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rechargul",
+								"1",
+								"credits"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:29:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "24"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"credits\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Activate charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b330eaac-c5e7-43ed-b077-dab8b6b75dc1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is activated\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"activated\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"activate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Activate charging point",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/activate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:29:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"activated\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Connect charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67e13d29-3840-42da-b181-ab46f056018f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is charging\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"charging\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/connect",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"connect"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Connect charging point",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/connect",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"connect"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:29:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"charging\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Disconnect charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "046d051a-e8e9-49be-b0f2-b200114cd716",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is activated\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"activated\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/disconnect",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"disconnect"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Disconnect charging point",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/disconnect",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"disconnect"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:30:09 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"activated\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Deactivate charging point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f97cb2ca-bcf9-4c16-a2f1-2969117ec5b9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'state' is idle\", function () {",
+							"    pm.expect(pm.response.json()['state']).to.eql(\"idle\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/charging-points/1/deactivate",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"charging-points",
+						"1",
+						"deactivate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Deactivate charging point",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rechargULCardId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/charging-points/1/deactivate",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"charging-points",
+								"1",
+								"deactivate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 19 Nov 2020 01:30:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"1\",\n    \"state\": \"idle\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get rechargUL card (after debited)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d1cedf4-b98d-4989-a180-9b94c8a4941e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'id' is not empty\", function () {",
+							"    pm.expect(pm.response.json()['id']).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"'credits' is 0\", function () {",
+							"    pm.expect(pm.response.json()['credits']).to.eql(0)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			]
 		},
@@ -6179,36 +6962,57 @@
 				}
 			},
 			"response": []
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/rechargul/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"rechargul",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "7cab2498-bfdf-4903-82ac-bd5c8f3a9170",
+			"id": "4469f206-0f34-408e-adc6-dab5004ecb16",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "98f3abd6-9551-46b0-b290-631437498053",
+			"id": "b3f405dd-690d-469a-a312-8c1a20d42e7e",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "f66efa85-91a6-4c2b-874b-dea26cccfe23",
+			"id": "efb7000a-765c-4678-a087-7f7cf0b85024",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "41c9c86a-cafa-4abc-a671-afddafa3f22f",
+			"id": "4e82f06f-977b-49e3-9d4a-3ab6d3b0780f",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "72da241a-d71d-417b-a959-18aec238ab1b",
+			"id": "5fa187f7-9443-469a-8ebf-f23e43c89f55",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "bdcc0b34-8890-40bc-8630-538d218fe426",
+			"id": "1f1b5358-8396-43c9-9879-ef45689107b6",
 			"key": "yesterday",
 			"value": ""
 		}
