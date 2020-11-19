@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.context.GlobalContext;
 import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
+import ca.ulaval.glo4003.spamdul.context.charging.ChargingContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
@@ -60,6 +61,7 @@ public class SpamdUlMain {
     RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(), false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    accountContext.bankRepository());
+    ChargingContext chargingContext = new ChargingContext();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -88,6 +90,7 @@ public class SpamdUlMain {
         resources.add(new InitiativeExceptionMapper());
         resources.add(infractionsContext.getInfractionResource());
         resources.add(new InfractionExceptionAssembler());
+        resources.add(chargingContext.getChargingPointResource());
 
         return resources;
       }

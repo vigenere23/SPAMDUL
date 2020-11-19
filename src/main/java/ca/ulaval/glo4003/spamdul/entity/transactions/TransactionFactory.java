@@ -30,4 +30,10 @@ public class TransactionFactory {
 
     return new Transaction(newAmount, transaction.getCreatedAt(), transaction.getTransactionType());
   }
+
+  public Transaction create(TransactionType transactionType, Amount amount) {
+    LocalDateTime createdAt = LocalDateTime.now();
+
+    return new Transaction(amount, createdAt, transactionType);
+  }
 }
