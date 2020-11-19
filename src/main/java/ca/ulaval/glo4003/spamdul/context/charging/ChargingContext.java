@@ -35,18 +35,18 @@ public class ChargingContext {
     RechargULCardRepository rechargULCardRepository = new RechargULCardRepositoryInMemory();
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
+    RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
     ChargingUseCase chargingUseCase = new ChargingUseCase(chargingPointRepository, rechargULCardRepository);
-    RechargULUseCase rechargULUseCase = new RechargULUseCase(rechargULCardRepository);
+    RechargULUseCase rechargULUseCase = new RechargULUseCase(rechargULCardRepository, rechargULCardFactory);
 
     chargingPointResource = new ChargingPointResourceImpl(chargingUseCase, chargingPointAssembler);
-    rechargULResource = new RechargULResourceImpl(chargingUseCase, rechargULUseCase, rechargULCardAssembler);
+    rechargULResource = new RechargULResourceImpl(rechargULUseCase, rechargULCardAssembler);
     chargingPointExceptionMapper = new ChargingPointExceptionMapper();
     rechargULExceptionMapper = new RechargULExceptionMapper();
 
     createChargingPoints(chargingPointRepository);
 
     if (populateCards) {
-      RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
       createCards(rechargULCardFactory, rechargULCardRepository);
     }
   }

@@ -10,6 +10,9 @@ import javax.ws.rs.core.Response;
 @Path("/rechargul")
 public interface RechargULResource {
 
+  @POST
+  Response createCard();
+
   @Path("/{id}")
   @GET
   Response getCard(@PathParam("id") String rechargULCardIdString);

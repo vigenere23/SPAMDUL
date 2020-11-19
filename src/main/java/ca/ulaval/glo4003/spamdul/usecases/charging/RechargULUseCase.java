@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -8,9 +9,12 @@ import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 public class RechargULUseCase {
 
   private final RechargULCardRepository rechargULCardRepository;
+  private final RechargULCardFactory rechargULCardFactory;
 
-  public RechargULUseCase(RechargULCardRepository rechargULCardRepository) {
+  public RechargULUseCase(RechargULCardRepository rechargULCardRepository,
+                          RechargULCardFactory rechargULCardFactory) {
     this.rechargULCardRepository = rechargULCardRepository;
+    this.rechargULCardFactory = rechargULCardFactory;
   }
 
   public RechargULCard getRechargULCard(RechargULCardId rechargULCardId) {
@@ -24,5 +28,11 @@ public class RechargULUseCase {
 
     rechargULCardRepository.update(rechargULCard);
     return rechargULCard;
+  }
+
+  public RechargULCard createCard() {
+    RechargULCard card = rechargULCardFactory.create();
+    rechargULCardRepository.save(card);
+    return card;
   }
 }
