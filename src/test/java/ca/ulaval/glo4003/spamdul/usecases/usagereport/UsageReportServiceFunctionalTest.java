@@ -105,7 +105,7 @@ public class UsageReportServiceFunctionalTest {
 
     createLogs(A_DATE, numberOfLogs);
 
-    UsageReportDto usageReportDto = usageReportService.getReport(usageReportCreationDto, A_TEMPORARY_TOKEN);
+    usageReportService.getReport(usageReportCreationDto, A_TEMPORARY_TOKEN);
 
     verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
   }
