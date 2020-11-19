@@ -1254,20 +1254,8 @@
 					"script": {
 						"id": "9356f490-aa3a-491c-a825-1d85510a5e42",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Most popular usage is today\", function () {",
-							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
-							"});",
-							"",
-							"pm.test(\"Least popular usage is today\", function () {",
-							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
-							"});",
-							"",
-							"pm.test(\"Mean usage is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
 							"});",
 							""
 						],
@@ -1370,20 +1358,8 @@
 					"script": {
 						"id": "af38267d-9424-4ffb-a123-072e1992c0da",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Code is ZONE_01\", function () {",
-							"    pm.expect(pm.response.json()['code']).to.eql('ZONE_01');",
-							"});",
-							"",
-							"pm.test(\"Reason is 'mauvaise zone'\", function () {",
-							"    pm.expect(pm.response.json()['reason']).to.eql('mauvaise zone');",
-							"});",
-							"",
-							"pm.test(\"Amount is 55$\", function () {",
-							"    pm.expect(pm.response.json()['amount']).to.eql(55);",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
 							"});",
 							""
 						],
@@ -1494,14 +1470,9 @@
 					"script": {
 						"id": "196348b9-d16b-4058-abda-a9c7c72fa7b1",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
 							"});",
-							"",
-							"pm.test(\"initiatives is not empty\", function () {",
-							"    pm.expect(Array.isArray(pm.response.json()['initiatives'])).to.be.true",
-							"    pm.expect(pm.response.json()['initiatives']).not.to.eql([])",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -1595,24 +1566,8 @@
 					"script": {
 						"id": "72781ff1-70e5-4e5d-abe1-25d14be7b863",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"'campusAccess' is not empty\", function () {",
-							"    pm.expect(pm.response.json()['campusAccess']).to.not.be.empty",
-							"});",
-							"",
-							"pm.test(\"'pass' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['pass']).to.be.greaterThan(0)",
-							"});",
-							"",
-							"pm.test(\"'infraction' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['infraction']).to.be.greaterThan(0)",
-							"});",
-							"",
-							"pm.test(\"'total' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['total']).to.be.greaterThan(0)",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
 							"});",
 							""
 						],
@@ -1741,20 +1696,8 @@
 					"script": {
 						"id": "62ab4913-43c8-461a-8fec-0df3524a3828",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Code is ZONE_01\", function () {",
-							"    pm.expect(pm.response.json()['code']).to.eql('ZONE_01');",
-							"});",
-							"",
-							"pm.test(\"Reason is 'mauvaise zone'\", function () {",
-							"    pm.expect(pm.response.json()['reason']).to.eql('mauvaise zone');",
-							"});",
-							"",
-							"pm.test(\"Amount is 55$\", function () {",
-							"    pm.expect(pm.response.json()['amount']).to.eql(55);",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"});",
 							""
 						],
@@ -3835,20 +3778,8 @@
 					"script": {
 						"id": "5234b2b8-32ec-4654-88a6-e93497ff88d7",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Most popular usage is today\", function () {",
-							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
-							"});",
-							"",
-							"pm.test(\"Least popular usage is today\", function () {",
-							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
-							"});",
-							"",
-							"pm.test(\"Mean usage is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"});",
 							""
 						],
@@ -3951,13 +3882,8 @@
 					"script": {
 						"id": "4b45185a-a330-4bdf-ac36-1f7b69fb572b",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"initiatives is not empty\", function () {",
-							"    pm.expect(Array.isArray(pm.response.json()['initiatives'])).to.be.true",
-							"    pm.expect(pm.response.json()['initiatives']).not.to.eql([])",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"})",
 							""
 						],
@@ -4052,26 +3978,9 @@
 					"script": {
 						"id": "459ae186-73ba-4ef6-891b-6148adc056f2",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"'campusAccess' is not empty\", function () {",
-							"    pm.expect(pm.response.json()['campusAccess']).to.not.be.empty",
-							"});",
-							"",
-							"pm.test(\"'pass' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['pass']).to.be.greaterThan(0)",
-							"});",
-							"",
-							"pm.test(\"'infraction' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['infraction']).to.be.greaterThan(0)",
-							"});",
-							"",
-							"pm.test(\"'total' is more than 0\", function () {",
-							"    pm.expect(pm.response.json()['total']).to.be.greaterThan(0)",
-							"});",
-							""
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -6181,6 +6090,20 @@
 		},
 		{
 			"name": "wrong username login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d5ef283-18ef-4811-b48a-12460bdb0c75",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -6213,6 +6136,20 @@
 		},
 		{
 			"name": "wrong password login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f7ac3eb-56b7-4825-9301-f77e881d2f36",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -6246,32 +6183,32 @@
 	],
 	"variable": [
 		{
-			"id": "377c3dd0-9508-465c-83ea-a9b9fc8d9deb",
+			"id": "7cab2498-bfdf-4903-82ac-bd5c8f3a9170",
 			"key": "parkingZone",
 			"value": ""
 		},
 		{
-			"id": "d2cc8d4c-7439-4c90-ab6d-7cd466a074f1",
+			"id": "98f3abd6-9551-46b0-b290-631437498053",
 			"key": "parkingZone_2",
 			"value": ""
 		},
 		{
-			"id": "71257f55-07c3-4121-973b-5809b5620567",
+			"id": "f66efa85-91a6-4c2b-874b-dea26cccfe23",
 			"key": "today",
 			"value": ""
 		},
 		{
-			"id": "eabf8e54-a183-4567-bfed-ef436afd8a70",
+			"id": "41c9c86a-cafa-4abc-a671-afddafa3f22f",
 			"key": "tomorrow",
 			"value": ""
 		},
 		{
-			"id": "366b697f-8cb2-40d1-a45c-efc8b93edcbf",
+			"id": "72da241a-d71d-417b-a959-18aec238ab1b",
 			"key": "weekday",
 			"value": ""
 		},
 		{
-			"id": "52222b15-696c-46aa-887c-ef652669496b",
+			"id": "bdcc0b34-8890-40bc-8630-538d218fe426",
 			"key": "yesterday",
 			"value": ""
 		}
