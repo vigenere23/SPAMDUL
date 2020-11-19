@@ -62,15 +62,6 @@ public class UsageReportServiceFunctionalTest {
     UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
     creationDto.startDate = reportStartDate;
     creationDto.endDate = reportEndDate;
-//    int numberOfMostPopularDateLogs = 13;
-//    int numberOfLeastPopularDateLogs = 5;
-//    int numberOfRandomLogs = 7;
-//    long numberOfMonthDays = ChronoUnit.DAYS.between(reportStartDate, reportEndDate) + 1;
-//    float meanUsage =
-//        (float) (numberOfMostPopularDateLogs + numberOfLeastPopularDateLogs + numberOfRandomLogs) / numberOfMonthDays;
-//    createLogs(mostPopularDate, numberOfMostPopularDateLogs);
-//    createLogs(leastPopularDate, numberOfLeastPopularDateLogs);
-//    createLogs(randomDate, numberOfRandomLogs);
 
     usageReportService.getReportSummary(creationDto, A_TEMPORARY_TOKEN);
 
