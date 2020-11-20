@@ -1,32 +1,38 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class RechargULService {
 
   private final RechargULCardRepository rechargULCardRepository;
+  private final RechargULCardFactory rechargULCardFactory;
 
-  public RechargULService(RechargULCardRepository rechargULCardRepository) {
+  public RechargULService(RechargULCardRepository rechargULCardRepository,
+                          RechargULCardFactory rechargULCardFactory) {
     this.rechargULCardRepository = rechargULCardRepository;
+    this.rechargULCardFactory = rechargULCardFactory;
   }
 
-  public RechargULCard getRechargeULCard(String rechargULCardIdString) {
-    RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
-    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
-    return rechargULCard;
+  public RechargULCard getRechargULCard(RechargULCardId rechargULCardId) {
+    return rechargULCardRepository.findBy(rechargULCardId);
   }
 
-  public RechargULCard addCredits(String rechargULCardIdString, double amount) {
-    RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
+  public RechargULCard addCredits(RechargULCardId rechargULCardId, Amount amount) {
     RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
-    Amount credits = Amount.valueOf(amount);
 
-    rechargULCard.addCredits(credits);
+    rechargULCard.addCredits(amount);
 
     rechargULCardRepository.update(rechargULCard);
     return rechargULCard;
+  }
+
+  public RechargULCard createCard() {
+    RechargULCard card = rechargULCardFactory.create();
+    rechargULCardRepository.save(card);
+    return card;
   }
 }

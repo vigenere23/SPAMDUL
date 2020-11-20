@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
@@ -14,7 +16,7 @@ import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class CarbonCreditsService implements ScheduleObserver {
 
@@ -24,22 +26,27 @@ public class CarbonCreditsService implements ScheduleObserver {
   private final TransactionFactory transactionFactory;
   private final InitiativeFactory initiativeFactory;
   private final InitiativeRepository initiativeRepository;
+  private AccessLevelValidator accessLevelValidator;
 
   public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
                               BankRepository bankRepository,
                               TransactionFactory transactionFactory,
                               CarbonCreditsPurchaser carbonCreditsPurchaser,
                               InitiativeFactory initiativeFactory,
-                              InitiativeRepository initiativeRepository) {
+                              InitiativeRepository initiativeRepository,
+                              AccessLevelValidator accessLevelValidator) {
     this.eventSchedulerObservable = eventSchedulerObservable;
     this.carbonCreditsPurchaser = carbonCreditsPurchaser;
     this.bankRepository = bankRepository;
     this.transactionFactory = transactionFactory;
     this.initiativeFactory = initiativeFactory;
     this.initiativeRepository = initiativeRepository;
+    this.accessLevelValidator = accessLevelValidator;
   }
 
-  public boolean activateAutomaticTransfer(boolean active) {
+  public boolean activateAutomaticTransfer(boolean active, TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     if (active) {
       eventSchedulerObservable.register(this);
       return true;

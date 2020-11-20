@@ -40,7 +40,7 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

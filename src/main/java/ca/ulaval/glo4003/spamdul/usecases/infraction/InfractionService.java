@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
@@ -24,22 +26,27 @@ public class InfractionService {
   private final PassValidator firstValidationNode;
   private final TransactionFactory transactionFactory;
   private final BankRepository bankRepository;
+  private final AccessLevelValidator accessLevelValidator;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
                            InfractionFactory infractionFactory,
                            PassValidator firstValidationNode,
                            TransactionFactory transactionFactory,
-                           BankRepository bankRepository) {
+                           BankRepository bankRepository,
+                           AccessLevelValidator accessLevelValidator) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
     this.transactionFactory = transactionFactory;
     this.bankRepository = bankRepository;
+    this.accessLevelValidator = accessLevelValidator;
   }
 
-  public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto) {
+  public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     Infraction infraction = null;
 
     try {

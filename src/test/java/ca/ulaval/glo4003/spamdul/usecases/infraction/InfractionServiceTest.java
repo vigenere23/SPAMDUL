@@ -3,9 +3,12 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
@@ -33,6 +36,7 @@ public class InfractionServiceTest {
   public static final String ANY_MESSAGE = "test";
   public static final double ANY_AMOUNT = 598.65;
   public static final InfractionId AN_INFRACTION_ID = new InfractionId();
+  public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
 
   public final String AN_INFRACTION_CODE_VALUE = "00";
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
@@ -56,6 +60,8 @@ public class InfractionServiceTest {
   private BankRepository bankRepository;
   @Mock
   private MainBankAccount mainBankAccount;
+  @Mock
+  private AccessLevelValidator accessLevelValidator;
 
   @Before
   public void setUp() throws Exception {
@@ -64,7 +70,8 @@ public class InfractionServiceTest {
                                               infractionFactory,
                                               passValidator,
                                               transactionFactory,
-                                              bankRepository);
+                                              bankRepository,
+                                              accessLevelValidator);
 
     passToValidateDto = new PassToValidateDto();
     infractionInfos = new InfractionInfos();
@@ -74,10 +81,16 @@ public class InfractionServiceTest {
     when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
+  @Test
+  public void whenGivingInfraction_shouldValidateCallIsMadeWithTheRightAccessLevel() {
+    infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
+
+    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+  }
 
   @Test
   public void whenGivingInfractionIfNotValid_shouldCallValidationChainValidate() {
-    infractionService.giveInfractionIfNotValid(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     verify(passValidator, Mockito.times(1)).validate(passToValidateDto);
   }
@@ -88,7 +101,7 @@ public class InfractionServiceTest {
         .when(passValidator)
         .validate(passToValidateDto);
 
-    infractionService.giveInfractionIfNotValid(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     verify(infractionInfoRepository).findBy(InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE));
   }
@@ -100,7 +113,7 @@ public class InfractionServiceTest {
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
 
-    infractionService.giveInfractionIfNotValid(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     verify(infractionFactory, Mockito.times(1)).create(infractionInfos);
   }
@@ -113,7 +126,7 @@ public class InfractionServiceTest {
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
-    infractionService.giveInfractionIfNotValid(passToValidateDto);
+    infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     verify(infractionRepository, Mockito.times(1)).save(infraction);
   }
@@ -126,14 +139,14 @@ public class InfractionServiceTest {
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
 
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto);
+    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNotNull();
   }
 
   @Test
   public void givenNoInfractionException_whenGivingInfractionIfNotValid_shouldReturnNull() {
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto);
+    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNull();
   }

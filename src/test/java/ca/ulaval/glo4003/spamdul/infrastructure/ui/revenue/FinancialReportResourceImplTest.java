@@ -2,8 +2,10 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue;
 
 import static org.mockito.Matchers.any;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
@@ -12,10 +14,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAss
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.Amount;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.HashMap;
 import java.util.Map;
+import javax.ws.rs.core.Cookie;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +41,9 @@ public class FinancialReportResourceImplTest {
   public static final TransactionQueryDto A_TRANSACTION_QUERY_DTO = new TransactionQueryDto();
   public static final Amount AN_AMOUNT = Amount.valueOf(100);
   public static final CarbonCredits SOME_CREDITS = CarbonCredits.valueOf(AN_AMOUNT);
+  public static final String TOKEN_CODE = "token_code";
+  public static final Cookie A_COOKIE = new Cookie("accessToken", TOKEN_CODE);
+  public static final TemporaryToken A_TEMPORARY_TOKEN = TemporaryToken.valueOf(TOKEN_CODE);
 
   @Mock
   private TransactionService transactionService;
@@ -45,13 +51,18 @@ public class FinancialReportResourceImplTest {
   private TransactionQueryAssembler transactionQueryAssembler;
 
   private RevenueAssembler revenueAssembler;
+  private AccessTokenCookieAssembler cookieAssembler;
   private FinancialReportResourceImpl resource;
   private Map<CarType, Amount> carTypeRevenues;
 
   @Before
   public void setUp() throws Exception {
     revenueAssembler = new RevenueAssembler();
-    resource = new FinancialReportResourceImpl(transactionService, transactionQueryAssembler, revenueAssembler);
+    cookieAssembler = new AccessTokenCookieAssembler();
+    resource = new FinancialReportResourceImpl(transactionService,
+                                               transactionQueryAssembler,
+                                               revenueAssembler,
+                                               cookieAssembler);
     carTypeRevenues = generateCarTypesRevenues();
     BDDMockito.given(transactionQueryAssembler.fromValues(any(), any()))
               .willReturn(A_TRANSACTION_QUERY_DTO);
@@ -59,10 +70,11 @@ public class FinancialReportResourceImplTest {
 
   @Test
   public void whenGettingCarTypeTotalRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
+    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO,
+                                                                             A_TEMPORARY_TOKEN)).willReturn(
         carTypeRevenues);
 
-    CarTypeTotalRevenueResponse response = resource.getCarTypeTotalRevenue(null, null);
+    CarTypeTotalRevenueResponse response = resource.getCarTypeTotalRevenue(null, null, A_COOKIE);
 
     double total = GOUMANDE_AMOUNT_NUMBER + ECONOMIQUE_AMOUNT_NUMBER + SUPER_ECONOMIQUE_AMOUNT_NUMBER
         + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER;
@@ -76,30 +88,35 @@ public class FinancialReportResourceImplTest {
 
   @Test
   public void whenGettingTotalInfractionsRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_1);
+    BDDMockito.given(transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO, A_TEMPORARY_TOKEN))
+              .willReturn(AMOUNT_1);
 
-    RevenueResponse infractionsTotalRevenue = resource.getInfractionsTotalRevenue(null, null);
+    RevenueResponse infractionsTotalRevenue = resource.getInfractionsTotalRevenue(null, null, A_COOKIE);
 
     Truth.assertThat(infractionsTotalRevenue.revenue).isEqualTo(AMOUNT_VALUE_1);
   }
 
   @Test
   public void whenGettingTotalPassRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_1);
+    BDDMockito.given(transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO, A_TEMPORARY_TOKEN)).willReturn(
+        AMOUNT_1);
 
-    RevenueResponse parkingPassTotalRevenue = resource.getParkingPassTotalRevenue(null, null);
+    RevenueResponse parkingPassTotalRevenue = resource.getParkingPassTotalRevenue(null, null, A_COOKIE);
 
     Truth.assertThat(parkingPassTotalRevenue.revenue).isEqualTo(AMOUNT_VALUE_1);
   }
 
   @Test
   public void whenGettingTotalRevenue_shouldReturnResponseWithCorrectInfos() {
-    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO)).willReturn(
+    BDDMockito.given(transactionService.getCampusAccessTotalRevenueByCarType(A_TRANSACTION_QUERY_DTO,
+                                                                             A_TEMPORARY_TOKEN)).willReturn(
         carTypeRevenues);
-    BDDMockito.given(transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_1);
-    BDDMockito.given(transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO)).willReturn(AMOUNT_2);
+    BDDMockito.given(transactionService.getInfractionsTotalRevenue(A_TRANSACTION_QUERY_DTO, A_TEMPORARY_TOKEN))
+              .willReturn(AMOUNT_1);
+    BDDMockito.given(transactionService.getPassTotalRevenue(A_TRANSACTION_QUERY_DTO, A_TEMPORARY_TOKEN)).willReturn(
+        AMOUNT_2);
 
-    TotalRevenueResponse totalRevenue = resource.getTotalRevenue(null, null);
+    TotalRevenueResponse totalRevenue = resource.getTotalRevenue(null, null, A_COOKIE);
 
     double total = GOUMANDE_AMOUNT_NUMBER + ECONOMIQUE_AMOUNT_NUMBER + SUPER_ECONOMIQUE_AMOUNT_NUMBER
         + HYBRIDE_ECONOMIQUE_AMOUNT_NUMBER + SANS_POLLUTION_AMOUNT_NUMBER + AMOUNT_VALUE_1 + AMOUNT_VALUE_2;
@@ -118,8 +135,9 @@ public class FinancialReportResourceImplTest {
 
   @Test
   public void whenGettingTotalCarbonCreditsBought_shouldReturnResponseWithCorrectInfo() {
-    BDDMockito.given(transactionService.getAllBoughtCarbonCredit()).willReturn(SOME_CREDITS);
-    CarbonBoughtResponse totalBoughtCarbonCredit = resource.getTotalBoughtCarbonCredit();
+    BDDMockito.given(transactionService.getAllBoughtCarbonCredit(A_TEMPORARY_TOKEN)).willReturn(SOME_CREDITS);
+
+    CarbonBoughtResponse totalBoughtCarbonCredit = resource.getTotalBoughtCarbonCredit(A_COOKIE);
 
     Truth.assertThat(totalBoughtCarbonCredit.total).isEqualTo(SOME_CREDITS.asDouble());
   }
