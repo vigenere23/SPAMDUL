@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class EndOfMonthEventSchedulerTest {
 
   public static final long ONE_NANO = 1;
-  public static final int THREAD_SLEEP_TIME_IN_MILLIS = 5;
+  public static final int THREAD_SLEEP_TIME_IN_MILLIS = 15;
   public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2019, 1, 1, 12, 0, 0, 0);
   public static final LocalDateTime A_DATE_ONE_NANO_BEFORE_NEXT_DAY = LocalDateTime.of(2019,
                                                                                        2,

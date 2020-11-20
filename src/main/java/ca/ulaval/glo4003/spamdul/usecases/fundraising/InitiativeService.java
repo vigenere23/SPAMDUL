@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.fundraising;
 
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
@@ -21,22 +23,29 @@ public class InitiativeService {
   private final InitiativeFactory initiativeFactory;
   private final BankRepository bankRepository;
   private final TransactionFactory transactionFactory;
+  private AccessLevelValidator accessLevelValidator;
 
   public InitiativeService(InitiativeRepository initiativeRepository,
                            InitiativeFactory initiativeFactory,
                            BankRepository bankRepository,
-                           TransactionFactory transactionFactory) {
+                           TransactionFactory transactionFactory,
+                           AccessLevelValidator accessLevelValidator) {
     this.initiativeRepository = initiativeRepository;
     this.initiativeFactory = initiativeFactory;
     this.bankRepository = bankRepository;
     this.transactionFactory = transactionFactory;
+    this.accessLevelValidator = accessLevelValidator;
   }
 
-  public List<Initiative> getAllInitiatives() {
+  public List<Initiative> getAllInitiatives(TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     return initiativeRepository.findAll();
   }
 
-  public Initiative addInitiative(InitiativeDto initiativeDto) {
+  public Initiative addInitiative(InitiativeDto initiativeDto, TemporaryToken temporaryToken) {
+    accessLevelValidator.validate(temporaryToken);
+
     try {
       TransactionDto transactionDto = new TransactionDto();
       transactionDto.transactionType = TransactionType.INITIATIVE;
