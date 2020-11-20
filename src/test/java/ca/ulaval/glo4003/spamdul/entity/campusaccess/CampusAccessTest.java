@@ -53,9 +53,6 @@ public class CampusAccessTest {
                                                                  TimePeriodDayOfWeek.ALL);
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
 
-  @Mock
-  PassRepository passRepository;
-
   private TimePeriod timePeriod;
   private CampusAccess campusAccess;
 
@@ -134,7 +131,6 @@ public class CampusAccessTest {
   @Test
   public void givenCampusAccessWithAssociatedPass_whenGetParkingZone_shouldReturnPassParkingZone() {
     Pass pass = new Pass(A_PASS_CODE, ParkingZone.ZONE_1, A_TIME_PERIOD);
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(pass);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, A_PERIOD_TYPE, A_TIME_PERIOD);
     campusAccess.associatePass(pass);
 

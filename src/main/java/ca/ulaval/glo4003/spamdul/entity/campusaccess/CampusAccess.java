@@ -18,9 +18,9 @@ public class CampusAccess {
   private final User user;
   private final Car car;
   private final PeriodType periodType;
-  private final TimePeriod timePeriod;
+  protected final TimePeriod timePeriod;
   private Pass associatedPass;
-  private boolean hasBeenAccessed = false;
+
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       User user,
@@ -43,14 +43,8 @@ public class CampusAccess {
   }
 
   public boolean grantAccess(LocalDateTime dateOfAccess) {
-    boolean accessGranted = timePeriod.includes(dateOfAccess);
-    if (accessGranted && !hasBeenAccessed) {
-      if (periodType.equals(PeriodType.HOURLY)) {
-        timePeriod.restrainHourlyPeriod(dateOfAccess);
-      }
-      hasBeenAccessed = true;
-    }
-    return accessGranted;
+
+    return  timePeriod.includes(dateOfAccess);
   }
 
   public void associatePass(Pass pass) {

@@ -9,7 +9,6 @@ public class TimePeriod {
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
   private final TimePeriodDayOfWeek timePeriodDayOfWeek;
-  private BigDecimal numberOfHours;
 
   public TimePeriod(LocalDateTime startDateTime,
                     LocalDateTime endDateTime,
@@ -17,16 +16,6 @@ public class TimePeriod {
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
     this.timePeriodDayOfWeek = timePeriodDayOfWeek;
-  }
-
-  public TimePeriod(LocalDateTime startDateTime,
-                    LocalDateTime endDateTime,
-                    TimePeriodDayOfWeek timePeriodDayOfWeek,
-                    BigDecimal numberOfHours) {
-    this.startDateTime = startDateTime;
-    this.endDateTime = endDateTime;
-    this.timePeriodDayOfWeek = timePeriodDayOfWeek;
-    this.numberOfHours = numberOfHours;
   }
 
   public boolean includedIn(TimePeriod that) {
@@ -78,7 +67,7 @@ public class TimePeriod {
     return timePeriodDayOfWeek;
   }
 
-  public void restrainHourlyPeriod(LocalDateTime dateTimeOfAccess) {
+  public void restrainHourlyPeriod(LocalDateTime dateTimeOfAccess, BigDecimal numberOfHours) {
     startDateTime = dateTimeOfAccess;
     endDateTime = dateTimeOfAccess.plusHours(numberOfHours.longValue());
   }

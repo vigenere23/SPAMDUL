@@ -158,10 +158,9 @@ public class TimePeriodTest {
     BigDecimal numberOfHours = BigDecimal.valueOf(4);
     TimePeriod timePeriod = new TimePeriod(LocalDateTime.MIN,
                                            LocalDateTime.MAX,
-                                           TimePeriodDayOfWeek.FRIDAY,
-                                           numberOfHours);
+                                           TimePeriodDayOfWeek.FRIDAY);
 
-    timePeriod.restrainHourlyPeriod(now);
+    timePeriod.restrainHourlyPeriod(now, numberOfHours);
 
     assertThat(timePeriod.getStartDateTime()).isEqualTo(now);
     assertThat(timePeriod.getEndDateTime()).isEqualTo(now.plusHours(numberOfHours.longValue()));

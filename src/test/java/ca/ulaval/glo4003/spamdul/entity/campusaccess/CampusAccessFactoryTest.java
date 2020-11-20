@@ -8,10 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.*;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -73,5 +70,15 @@ public class CampusAccessFactoryTest {
     assertThat(campusAccess.getCar()).isEqualTo(A_CAR);
     assertThat(campusAccess.getCampusAccessCode()).isNotNull();
     assertThat(campusAccess.getTimePeriod()).isEqualTo(A_TIME_PERIOD);
+  }
+
+  @Test
+  public void whenHourlyCampusAccessWithHourlyTimePeriodDto_shouldCreateHourlyCamusAccess() {
+    when(timePeriodFactory.createTimePeriod(A_TIME_PERIOD_DTO)).thenReturn(A_TIME_PERIOD);
+    A_TIME_PERIOD_DTO.periodType = PeriodType.HOURLY;
+
+    CampusAccess campusAccess = campusAccessFactory.create(A_USER, A_CAR, A_TIME_PERIOD_DTO);
+
+    assertThat(campusAccess).isInstanceOf(HourlyCampusAccess.class);
   }
 }

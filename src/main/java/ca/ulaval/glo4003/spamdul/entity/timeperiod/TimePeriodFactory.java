@@ -41,7 +41,6 @@ public class TimePeriodFactory {
 
     return new TimePeriod(startDateTime,
                           endDateTime,
-                          timePeriodDto.timePeriodDayOfWeek,
-                          timePeriodDto.numberOfHours);
+                          timePeriodDto.timePeriodDayOfWeek);
   }
 }
