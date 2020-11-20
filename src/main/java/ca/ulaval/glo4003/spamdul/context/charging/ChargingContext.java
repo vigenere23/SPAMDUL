@@ -8,8 +8,8 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.ChargingPointRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.rechargul.RechargULCardRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.rechargul.InMemoryRechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
@@ -31,8 +31,8 @@ public class ChargingContext {
   private final RechargULExceptionMapper rechargULExceptionMapper;
 
   public ChargingContext(TransactionFactory transactionFactory, boolean populateCards) {
-    ChargingPointRepository chargingPointRepository = new ChargingPointRepositoryInMemory();
-    RechargULCardRepository rechargULCardRepository = new RechargULCardRepositoryInMemory();
+    ChargingPointRepository chargingPointRepository = new InMemoryChargingPointRepository();
+    RechargULCardRepository rechargULCardRepository = new InMemoryRechargULCardRepository();
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);

@@ -4,7 +4,7 @@ import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -100,7 +100,7 @@ public class CampusAccessAssembler {
                                    AccessingCampusDto accessingCampusDto) {
     try {
       accessingCampusDto.campusAccessCode = CampusAccessCode.valueOf(accessingCampusRequest.campusAccessCode);
-    } catch (InvalidCampusAccessCodeFormat e) {
+    } catch (InvalidCampusAccessCodeFormatException e) {
       throw new InvalidCampusAccessCodeArgumentException("The access campus code is not in the right format");
     }
   }

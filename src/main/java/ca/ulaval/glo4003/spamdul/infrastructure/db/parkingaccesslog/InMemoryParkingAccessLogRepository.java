@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import jersey.repackaged.com.google.common.collect.Lists;
 
-public class ParkingAccessLogRepositoryInMemory implements ParkingAccessLogRepository {
+public class InMemoryParkingAccessLogRepository implements ParkingAccessLogRepository {
 
   private static final Map<ParkingAccessLogId, ParkingAccessLog> parkingAccessLogsById = new HashMap<>();
 

@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFou
 import java.util.HashMap;
 import java.util.Map;
 
-public class RechargULCardRepositoryInMemory implements RechargULCardRepository {
+public class InMemoryRechargULCardRepository implements RechargULCardRepository {
 
   private final Map<RechargULCardId, RechargULCard> rechargULCards = new HashMap<>();
 

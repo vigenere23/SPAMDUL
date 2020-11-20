@@ -8,7 +8,7 @@ import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.TWO_SEMESTE
 import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -80,7 +80,7 @@ public class PassAssembler {
     try {
       return CampusAccessCode.valueOf(userId.toUpperCase());
 
-    } catch (InvalidCampusAccessCodeFormat e) {
+    } catch (InvalidCampusAccessCodeFormatException e) {
       throw new InvalidCampusAccessCodeException("The campus access code is not in the right format");
     }
   }

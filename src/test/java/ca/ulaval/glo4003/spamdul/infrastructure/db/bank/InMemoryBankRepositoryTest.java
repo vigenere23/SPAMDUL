@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InMemoryMainBankSustainabilityBankAccountRepositoryTest {
+public class InMemoryBankRepositoryTest {
 
   private final SustainabilityBankAccount a_SustainabilityBank_ACCOUNT = new SustainabilityBankAccount();
   private final SustainabilityBankAccount ANOTHER_SustainabilityBank_ACCOUNT = new SustainabilityBankAccount();

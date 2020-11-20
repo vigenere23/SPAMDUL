@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InitiativeRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResourceImp;
@@ -25,7 +25,7 @@ public class FundraisingContext {
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler,
                             boolean populateData) {
-    initiativeRepository = new InitiativeRepositoryInMemory();
+    initiativeRepository = new InMemoryInitiativeRepository();
 
     initiativeFactory = new InitiativeFactory();
     TransactionFactory transactionFactory = new TransactionFactory();
