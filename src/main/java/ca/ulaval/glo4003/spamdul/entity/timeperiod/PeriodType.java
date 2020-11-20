@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 import java.text.Collator;
 
 public enum PeriodType {
-  ONE_HOUR,
+  HOURLY,
   SINGLE_DAY,
   SINGLE_DAY_PER_WEEK_PER_SEMESTER,
   MONTHLY,
@@ -17,7 +17,7 @@ public enum PeriodType {
     collator.setStrength(Collator.NO_DECOMPOSITION);
 
     if (collator.equals("1h", periodTypeString.toLowerCase())) {
-      return PeriodType.ONE_HOUR;
+      return PeriodType.HOURLY;
 
     } else if (collator.equals("1j", periodTypeString.toLowerCase())) {
       return PeriodType.SINGLE_DAY;

@@ -2,28 +2,35 @@ package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+// TODO: make subclasses depending on PeriodType instead of a having it as an attribute
 public class CampusAccess {
 
-  private CampusAccessCode campusAccessCode;
-  private User user;
-  private Car car;
-  private TimePeriod timePeriod;
-  private PassCode associatedPassCode;
+  private final CampusAccessCode campusAccessCode;
+  private final User user;
+  private final Car car;
+  private final PeriodType periodType;
+  private final TimePeriod timePeriod;
+  private Pass associatedPass;
+  private boolean hasBeenAccessed = false;
 
   public CampusAccess(CampusAccessCode campusAccessCode,
                       User user,
                       Car car,
+                      PeriodType periodType,
                       TimePeriod timePeriod) {
     this.campusAccessCode = campusAccessCode;
     this.user = user;
     this.car = car;
+    this.periodType = periodType;
     this.timePeriod = timePeriod;
   }
 
@@ -35,31 +42,65 @@ public class CampusAccess {
     return campusAccessCode;
   }
 
-  public boolean isAccessGranted(LocalDateTime dateOfAccess) {
-    return timePeriod.includes(dateOfAccess);
+  public boolean grantAccess(LocalDateTime dateOfAccess) {
+    boolean accessGranted = timePeriod.includes(dateOfAccess);
+    if (accessGranted && !hasBeenAccessed) {
+      if (periodType.equals(PeriodType.HOURLY)) {
+        timePeriod.restrainHourlyPeriod(dateOfAccess);
+      }
+      hasBeenAccessed = true;
+    }
+    return accessGranted;
   }
 
-  public void associatePass(PassCode passCode, TimePeriod passTimePeriod) {
-    if (associatedPassCode != null) {
+  public void associatePass(Pass pass) {
+    if (associatedPass != null) {
       throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
     }
-    if (!passTimePeriod.includedIn(timePeriod)) {
+    if (!pass.getTimePeriod().includedIn(timePeriod)) {
       throw new PassNotAcceptedByAccessException(
           "This user does not have campus access for the dates covered by this pass."
       );
     }
 
-    associatedPassCode = passCode;
+    associatedPass = pass;
   }
 
   public boolean validateAssociatedLicensePlate(LicensePlate licensePlate) {
     return car.validateLicensePlate(licensePlate);
   }
 
-  public PassCode getAssociatedPassCode() {
-    return associatedPassCode;
+  public Pass getAssociatedPass() {
+    return associatedPass;
   }
 
+  public boolean hasAssociatedPass() {
+    return associatedPass != null;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public Car getCar() {
+    return car;
+  }
+
+  public ParkingZone getParkingZone() {
+    if (associatedPass != null) {
+      return associatedPass.getParkingZone();
+    }
+
+    switch (periodType) {
+      case HOURLY:
+      case SINGLE_DAY:
+        return ParkingZone.ALL;
+      default:
+        return ParkingZone.FREE;
+    }
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -72,18 +113,11 @@ public class CampusAccess {
         Objects.equals(user, that.user) &&
         Objects.equals(car, that.car) &&
         Objects.equals(timePeriod, that.timePeriod) &&
-        Objects.equals(associatedPassCode, that.associatedPassCode);
+        Objects.equals(associatedPass, that.associatedPass);
   }
 
+  @Override
   public int hashCode() {
-    return Objects.hash(campusAccessCode, user, car, timePeriod, associatedPassCode);
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public Car getCar() {
-    return car;
+    return Objects.hash(campusAccessCode, user, car, timePeriod, associatedPass);
   }
 }

@@ -72,7 +72,7 @@ public class CampusAccessAssemblerTest {
 
   @Before
   public void setUp() throws Exception {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, null);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, null, null);
     campusAccessRequest = new CampusAccessRequest();
     campusAccessAssembler = new CampusAccessAssembler(userAssembler, carAssembler, timePeriodAssembler);
     accessingCampusRequest = new AccessingCampusRequest();

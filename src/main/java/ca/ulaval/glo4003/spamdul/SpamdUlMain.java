@@ -48,13 +48,11 @@ public class SpamdUlMain {
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
     AccountContext accountContext = new AccountContext();
-    CampusAccessContext campusAccessContext = new CampusAccessContext(globalContext.getPassRepository(),
-                                                                      usageReportContext.getParkingAccessLogger(),
+    CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
                                                                       accountContext.bankRepository(),
                                                                       globalContext.getTransactionFactory()
     );
     PassContext passContext = new PassContext(accountContext.bankRepository(),
-                                              globalContext.getPassRepository(),
                                               campusAccessContext.getCampusAccessService());
     FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
                                                                    authenticationContext.getAuthenticationRepository(),

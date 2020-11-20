@@ -17,6 +17,10 @@ public class CampusAccessFactory {
   public CampusAccess create(User user, Car car, TimePeriodDto timePeriodDto) {
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
 
-    return new CampusAccess(new CampusAccessCode(), user, car, timePeriod);
+    return new CampusAccess(new CampusAccessCode(),
+                            user,
+                            car,
+                            timePeriodDto.periodType,
+                            timePeriod);
   }
 }

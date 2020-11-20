@@ -5,14 +5,19 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.logging.Logger;
 
-public class InMemoryCampusAccessRepository implements CampusAccessRepository {
+public class InMemoryCampusAccessRepository implements CampusAccessRepository, PassRepository {
 
   private static final Map<CampusAccessCode, CampusAccess> campusAccesses = new HashMap<>();
   private static final Logger logger = Logger.getLogger(InMemoryCampusAccessRepository.class.getName());
@@ -53,7 +58,21 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository {
     return campusAccessesAssociatedWithLicensePlate;
   }
 
-  public void clear() {
+  public Pass findByPassCode(PassCode passCode) {
+    Optional<Pass> optionalPass = campusAccesses.values()
+                                                .stream()
+                                                .filter(CampusAccess::hasAssociatedPass)
+                                                .map(CampusAccess::getAssociatedPass)
+                                                .filter(pass -> pass.getPassCode().equals(passCode))
+                                                .findFirst();
+    if (optionalPass.isPresent()) {
+      return optionalPass.get();
+    } else {
+      throw new PassNotFoundException(String.format("No pass with id %s", passCode.toString()));
+    }
+  }
+
+  public void deleteAll() {
     campusAccesses.clear();
   }
 }

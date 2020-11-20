@@ -11,11 +11,9 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundExcepti
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
 import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
@@ -31,7 +29,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CarService carService;
   private final CampusAccessFactory campusAccessFactory;
   private final CampusAccessRepository campusAccessRepository;
-  private final PassRepository passRepository;
   private final Calendar calendar;
   private final BankRepository bankRepository;
   private final TransactionFactory transactionFactory;
@@ -41,7 +38,6 @@ public class CampusAccessService extends AccessGrantedObservable {
                              CarService carService,
                              CampusAccessFactory campusAccessFactory,
                              CampusAccessRepository campusAccessRepository,
-                             PassRepository passRepository,
                              Calendar calendar,
                              BankRepository bankRepository,
                              CampusAccessFeeRepository campusAccessFeeRepository,
@@ -50,7 +46,6 @@ public class CampusAccessService extends AccessGrantedObservable {
     this.carService = carService;
     this.campusAccessFactory = campusAccessFactory;
     this.campusAccessRepository = campusAccessRepository;
-    this.passRepository = passRepository;
     this.calendar = calendar;
     this.bankRepository = bankRepository;
     this.transactionFactory = transactionFactory;
@@ -91,11 +86,9 @@ public class CampusAccessService extends AccessGrantedObservable {
     return transactionFactory.create(transactionDto);
   }
 
-  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode,
-                                          PassCode passCode,
-                                          TimePeriod passTimePeriod) {
+  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, Pass pass) {
     CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
-    campusAccess.associatePass(passCode, passTimePeriod);
+    campusAccess.associatePass(pass);
     campusAccessRepository.save(campusAccess);
   }
 
@@ -105,9 +98,9 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     try {
       if (accessingCampusDto.campusAccessCode != null) {
-        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto, now);
+        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto.campusAccessCode, now);
       } else {
-        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto, now);
+        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto.licensePlate, now);
       }
     } catch (CampusAccessNotFoundException e) {
       return false;
@@ -116,37 +109,28 @@ public class CampusAccessService extends AccessGrantedObservable {
     return accessGranted;
   }
 
-  private boolean isAccessGrantedByCampusAccessCode(AccessingCampusDto accessingCampusDto,
-                                                    LocalDateTime now) {
-    CampusAccess campusAccess = campusAccessRepository.findBy(accessingCampusDto.campusAccessCode);
+  private boolean isAccessGrantedByCampusAccessCode(CampusAccessCode campusAccessCode, LocalDateTime dateTime) {
+    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
+    boolean accessGranted = campusAccess.grantAccess(dateTime);
 
-    if (campusAccess.isAccessGranted(now)) {
-      notifyAccessGranted(campusAccess, now);
-      return true;
+    if (accessGranted) {
+      notifyAccessGranted(campusAccess, dateTime);
     }
 
-    return false;
+    return accessGranted;
   }
 
-  private boolean isAccessGrantedByLicensePlate(AccessingCampusDto accessingCampusDto,
-                                                LocalDateTime now) {
-    for (CampusAccess campusAccess : campusAccessRepository.findBy(accessingCampusDto.licensePlate)) {
-      if (campusAccess.isAccessGranted(now)) {
-        notifyAccessGranted(campusAccess, now);
-        return true;
+  private boolean isAccessGrantedByLicensePlate(LicensePlate licensePlate, LocalDateTime dateTime) {
+    for (CampusAccess campusAccess : campusAccessRepository.findBy(licensePlate)) {
+      if (campusAccess.grantAccess(dateTime)) {
+          notifyAccessGranted(campusAccess, dateTime);
+          return true;
       }
     }
-
     return false;
   }
 
   private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
-    PassCode passCode = campusAccess.getAssociatedPassCode();
-
-    if (passCode != null) {
-      Pass pass = passRepository.findByPassCode(campusAccess.getAssociatedPassCode());
-      notifyAccessGrantedWithCampusAccess(pass.getParkingZone(), now.toLocalDate());
-    }
-    // TODO: mais le passCode peut aussi être nul dans d'autres aventure, à implémenter (NullObject pattern)
+    notifyAccessGrantedWithCampusAccess(campusAccess.getParkingZone(), now.toLocalDate());
   }
 }

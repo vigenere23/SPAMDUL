@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,12 +8,25 @@ public class TimePeriod {
 
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
-  private TimePeriodDayOfWeek timePeriodDayOfWeek;
+  private final TimePeriodDayOfWeek timePeriodDayOfWeek;
+  private BigDecimal numberOfHours;
 
-  public TimePeriod(LocalDateTime startDateTime, LocalDateTime endDateTime, TimePeriodDayOfWeek timePeriodDayOfWeek) {
+  public TimePeriod(LocalDateTime startDateTime,
+                    LocalDateTime endDateTime,
+                    TimePeriodDayOfWeek timePeriodDayOfWeek) {
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
     this.timePeriodDayOfWeek = timePeriodDayOfWeek;
+  }
+
+  public TimePeriod(LocalDateTime startDateTime,
+                    LocalDateTime endDateTime,
+                    TimePeriodDayOfWeek timePeriodDayOfWeek,
+                    BigDecimal numberOfHours) {
+    this.startDateTime = startDateTime;
+    this.endDateTime = endDateTime;
+    this.timePeriodDayOfWeek = timePeriodDayOfWeek;
+    this.numberOfHours = numberOfHours;
   }
 
   public boolean includedIn(TimePeriod that) {
@@ -62,5 +76,10 @@ public class TimePeriod {
 
   public TimePeriodDayOfWeek getTimePeriodDayOfWeek() {
     return timePeriodDayOfWeek;
+  }
+
+  public void restrainHourlyPeriod(LocalDateTime dateTimeOfAccess) {
+    startDateTime = dateTimeOfAccess;
+    endDateTime = dateTimeOfAccess.plusHours(numberOfHours.longValue());
   }
 }

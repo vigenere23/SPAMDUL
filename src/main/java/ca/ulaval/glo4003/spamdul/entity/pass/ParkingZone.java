@@ -3,10 +3,12 @@ package ca.ulaval.glo4003.spamdul.entity.pass;
 import java.text.Collator;
 
 public enum ParkingZone {
+  ALL,
   ZONE_1,
   ZONE_2,
   ZONE_3,
-  ZONE_R;
+  ZONE_R,
+  FREE;
 
   private static final Collator collator = Collator.getInstance();
 

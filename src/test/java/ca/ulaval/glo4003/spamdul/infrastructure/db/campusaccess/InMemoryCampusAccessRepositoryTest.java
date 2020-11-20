@@ -9,6 +9,9 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -32,10 +35,12 @@ public class InMemoryCampusAccessRepositoryTest {
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final int A_YEAR = 2020;
   private final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, A_CAR_BRAND, A_CAR_MODEL, A_YEAR, A_LICENSE_PLATE);
+  private final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_USER,
                                                                 A_CAR,
+                                                                A_PERIOD_TYPE,
                                                                 null);
 
   private InMemoryCampusAccessRepository campusAccessRepository;
@@ -43,7 +48,7 @@ public class InMemoryCampusAccessRepositoryTest {
   @Before
   public void setUp() throws Exception {
     campusAccessRepository = new InMemoryCampusAccessRepository();
-    campusAccessRepository.clear();
+    campusAccessRepository.deleteAll();
   }
 
   @Test
@@ -69,7 +74,7 @@ public class InMemoryCampusAccessRepositoryTest {
 
   @Test
   public void whenFindingByLicensePlate_shouldReturnCampusAccesses() {
-    CampusAccess anotherCampusAccessSameLicensePlate = new CampusAccess(new CampusAccessCode(), A_USER, A_CAR, null);
+    CampusAccess anotherCampusAccessSameLicensePlate = new CampusAccess(new CampusAccessCode(), A_USER, A_CAR, A_PERIOD_TYPE, null);
     campusAccessRepository.save(A_CAMPUS_ACCESS);
     campusAccessRepository.save(anotherCampusAccessSameLicensePlate);
 
@@ -81,5 +86,10 @@ public class InMemoryCampusAccessRepositoryTest {
   @Test(expected = CampusAccessNotFoundException.class)
   public void givenNoCampusAccessCorrespondingToLicensePlate_whenFindingLicensePlate_shouldThrowCampusAccessNotFoundExcetpion() {
     campusAccessRepository.findBy(new LicensePlate(A_LICENSE_PLATE_STRING));
+  }
+
+  @Test(expected = PassNotFoundException.class)
+  public void whenFindingPassByPassCodeAndNotFound_shouldThrow() {
+    campusAccessRepository.findByPassCode(new PassCode());
   }
 }
