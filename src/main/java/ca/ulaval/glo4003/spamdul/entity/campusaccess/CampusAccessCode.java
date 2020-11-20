@@ -19,7 +19,7 @@ public class CampusAccessCode {
     try {
       return new CampusAccessCode(Long.parseLong(userId));
     } catch (NumberFormatException e) {
-      throw new InvalidCampusAccessCodeFormat("invalid campus code format");
+      throw new InvalidCampusAccessCodeFormatException("invalid campus code format");
     }
   }
 
@@ -29,7 +29,7 @@ public class CampusAccessCode {
     return lastId;
   }
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -41,11 +41,11 @@ public class CampusAccessCode {
     return Objects.equals(id, campusAccessCode.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import jersey.repackaged.com.google.common.collect.Lists;
 
-public class ChargingPointRepositoryInMemory implements ChargingPointRepository {
+public class InMemoryChargingPointRepository implements ChargingPointRepository {
 
   private final Map<ChargingPointId, ChargingPoint> chargingPoints = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ChargingPointRepositoryInMemory implements ChargingPointRepository 
     if (chargingPoints.containsKey(chargingPoint.getId())) {
       throw new ChargingPointAlreadyExistsException();
     }
-    
+
     chargingPoints.put(chargingPoint.getId(), chargingPoint);
   }
 
