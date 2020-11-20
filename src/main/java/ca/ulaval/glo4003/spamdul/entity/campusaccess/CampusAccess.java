@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+// TODO: make subclasses depending on PeriodType instead of a having it as an attribute
 public class CampusAccess {
 
   private final CampusAccessCode campusAccessCode;
