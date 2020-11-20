@@ -7,11 +7,12 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryAuthenticationRepository implements AuthenticationRepository {
 
   private HashMap<String, HashMap<String, RegisteredUser>> registeredUsers;
-  private static HashMap<TemporaryToken, RegisteredUser> loggedInRegisteredUsers = new HashMap<>();
+  private static Map<TemporaryToken, RegisteredUser> loggedInRegisteredUsers = new HashMap<>();
 
   public InMemoryAuthenticationRepository() {
     HashMap<String, RegisteredUser> karine = new HashMap<>();

@@ -17,5 +17,5 @@ public interface CarbonCreditsResource {
   @PUT
   @Path("/activate")
   @Consumes(MediaType.APPLICATION_JSON)
-  Response activateAutomaticTransfer(CarbonCreditsToggleDto request, @CookieParam("accessToken")Cookie cookie);
+  Response activateAutomaticTransfer(CarbonCreditsToggleDto request, @CookieParam("accessToken")Cookie accessToken);
 }
