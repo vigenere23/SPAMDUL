@@ -4,30 +4,29 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AccessLevel;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryAuthenticationRepository implements AuthenticationRepository {
 
-  private HashMap<String, HashMap<String, RegisteredUser>> registeredUsers;
-  private static Map<TemporaryToken, RegisteredUser> loggedInRegisteredUsers = new HashMap<>();
+  private final Map<String, Map<String, RegisteredUser>> registeredUsers = new HashMap<>();
+  private static final Map<TemporaryToken, RegisteredUser> loggedInRegisteredUsers = new HashMap<>();
 
   public InMemoryAuthenticationRepository() {
-    HashMap<String, RegisteredUser> karine = new HashMap<>();
+    Map<String, RegisteredUser> karine = new HashMap<>();
     karine.put("hashed_password", new RegisteredUser("Karine", AccessLevel.ADMIN));
 
-    HashMap<String, RegisteredUser> dominique = new HashMap<>();
+    Map<String, RegisteredUser> dominique = new HashMap<>();
     dominique.put("hashed_password", new RegisteredUser("Dominique", AccessLevel.SSP_AGENT));
 
-    registeredUsers = new HashMap<>();
     registeredUsers.put("Karine", karine);
     registeredUsers.put("Dominique", dominique);
   }
 
-  public RegisteredUser findBy(String username, String hashedPassword) {
-    HashMap<String, RegisteredUser> usernameInfos = registeredUsers.get(username);
+  @Override public RegisteredUser findBy(String username, String hashedPassword) {
+    Map<String, RegisteredUser> usernameInfos = registeredUsers.get(username);
 
     if (usernameInfos == null) {
       throw new WrongCredentialsException();
@@ -42,11 +41,11 @@ public class InMemoryAuthenticationRepository implements AuthenticationRepositor
     return registeredUser;
   }
 
-  public void save(TemporaryToken temporaryToken, RegisteredUser registeredUser) {
+  @Override public void save(TemporaryToken temporaryToken, RegisteredUser registeredUser) {
     loggedInRegisteredUsers.put(temporaryToken, registeredUser);
   }
 
-  public RegisteredUser findBy(TemporaryToken temporaryToken) {
+  @Override public RegisteredUser findBy(TemporaryToken temporaryToken) {
     RegisteredUser registeredUser = loggedInRegisteredUsers.get(temporaryToken);
 
     if (registeredUser == null) {
