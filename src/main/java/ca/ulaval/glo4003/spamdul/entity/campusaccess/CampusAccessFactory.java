@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
@@ -17,10 +18,19 @@ public class CampusAccessFactory {
   public CampusAccess create(User user, Car car, TimePeriodDto timePeriodDto) {
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
 
-    return new CampusAccess(new CampusAccessCode(),
-                            user,
-                            car,
-                            timePeriodDto.periodType,
-                            timePeriod);
+    if (timePeriodDto.periodType == PeriodType.HOURLY) {
+      return new HourlyCampusAccess(new CampusAccessCode(),
+              user,
+              car,
+              timePeriodDto.periodType,
+              timePeriod,
+              timePeriodDto.numberOfHours);
+    } else {
+      return new CampusAccess(new CampusAccessCode(),
+                              user,
+                              car,
+                              timePeriodDto.periodType,
+                              timePeriod);
+    }
   }
 }
