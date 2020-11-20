@@ -9,13 +9,13 @@ import javax.ws.rs.core.Response.Status;
 
 public class AuthenticationResourceImpl implements AuthenticationResource {
 
-  private AuthenticationService authenticationService;
+  private final AuthenticationService authenticationService;
 
   public AuthenticationResourceImpl(AuthenticationService authenticationService) {
     this.authenticationService = authenticationService;
   }
 
-  public Response login(LoginRequest loginRequest) {
+  @Override public Response login(LoginRequest loginRequest) {
     TemporaryToken temporaryToken = authenticationService.login(loginRequest.username, loginRequest.hashedPassword);
 
     // retourner un objet json au lieu de mettre le token dans le cookie

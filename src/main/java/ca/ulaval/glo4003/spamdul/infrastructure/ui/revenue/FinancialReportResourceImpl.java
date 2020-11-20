@@ -19,7 +19,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
 
   private final TransactionService transactionService;
   private final TransactionQueryAssembler transactionQueryAssembler;
-  private AccessTokenCookieAssembler cookieAssembler;
+  private final AccessTokenCookieAssembler cookieAssembler;
   private final RevenueAssembler revenueAssembler;
 
   public FinancialReportResourceImpl(TransactionService transactionService,
@@ -74,7 +74,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
     return revenueAssembler.toResponse(amount);
   }
 
-  public CarbonBoughtResponse getTotalBoughtCarbonCredit(Cookie accessToken) {
+  @Override public CarbonBoughtResponse getTotalBoughtCarbonCredit(Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
     CarbonBoughtResponse response = new CarbonBoughtResponse();
     response.total = transactionService.getAllBoughtCarbonCredit(temporaryToken).asDouble();

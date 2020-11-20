@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsToggleDto;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;

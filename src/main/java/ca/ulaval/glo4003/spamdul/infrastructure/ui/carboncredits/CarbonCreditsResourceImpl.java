@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 public class CarbonCreditsResourceImpl implements CarbonCreditsResource {
 
   private final CarbonCreditsService carbonCreditsService;
-  private AccessTokenCookieAssembler cookieAssembler;
+  private final AccessTokenCookieAssembler cookieAssembler;
 
   public CarbonCreditsResourceImpl(CarbonCreditsService carbonCreditsService,
                                    AccessTokenCookieAssembler cookieAssembler) {

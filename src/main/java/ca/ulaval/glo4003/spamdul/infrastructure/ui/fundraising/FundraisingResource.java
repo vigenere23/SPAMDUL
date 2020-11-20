@@ -18,11 +18,11 @@ public interface FundraisingResource {
   @GET
   @Path("/initiatives")
   @Produces(MediaType.APPLICATION_JSON)
-  InitiativesResponse getInitiatives(@CookieParam("accessToken")Cookie accessToken);
+  InitiativesResponse getInitiatives(@CookieParam("accessToken") Cookie accessToken);
 
   @POST
   @Path("/initiatives")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response createInitiative(InitiativeRequest request, @CookieParam("accessToken")Cookie accessToken);
+  Response createInitiative(InitiativeRequest request, @CookieParam("accessToken") Cookie accessToken);
 }

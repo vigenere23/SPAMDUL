@@ -16,7 +16,7 @@ public class UsageReportResourceImpl implements UsageReportResource {
   private final UsageReportService usageReportService;
   private final UsageReportCreationAssembler usageReportCreationAssembler;
   private final UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler;
-  private AccessTokenCookieAssembler cookieAssembler;
+  private final AccessTokenCookieAssembler cookieAssembler;
 
   public UsageReportResourceImpl(UsageReportService usageReportService,
                                  UsageReportCreationAssembler usageReportCreationAssembler,
@@ -39,7 +39,10 @@ public class UsageReportResourceImpl implements UsageReportResource {
   }
 
   @Override
-  public UsageReportSummaryDto getUsageReportSummary(String startDate, String endDate, String parkingZone, Cookie accessToken) {
+  public UsageReportSummaryDto getUsageReportSummary(String startDate,
+                                                     String endDate,
+                                                     String parkingZone,
+                                                     Cookie accessToken) {
     TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
     UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate,
                                                                                                endDate,

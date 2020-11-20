@@ -15,7 +15,7 @@ public interface InfractionResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  Response validateParkingPass(InfractionRequest infractionRequest, @CookieParam("accessToken")Cookie accessToken);
+  Response validateParkingPass(InfractionRequest infractionRequest, @CookieParam("accessToken") Cookie accessToken);
 
   @POST
   @Path("/pay")

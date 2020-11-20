@@ -18,7 +18,7 @@ public class InfractionResourceImpl implements InfractionResource {
 
   private final InfractionAssembler infractionAssembler;
   private final InfractionService infractionService;
-  private AccessTokenCookieAssembler cookieAssembler;
+  private final AccessTokenCookieAssembler cookieAssembler;
 
   public InfractionResourceImpl(InfractionAssembler infractionAssembler,
                                 InfractionService infractionService,
@@ -28,7 +28,7 @@ public class InfractionResourceImpl implements InfractionResource {
     this.cookieAssembler = cookieAssembler;
   }
 
-  public Response validateParkingPass(InfractionRequest infractionRequest, Cookie accessToken) {
+  @Override public Response validateParkingPass(InfractionRequest infractionRequest, Cookie accessToken) {
     TemporaryToken token = cookieAssembler.from(accessToken);
     PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
     Infraction infraction = infractionService.giveInfractionIfNotValid(passToValidateDto, token);
@@ -48,7 +48,7 @@ public class InfractionResourceImpl implements InfractionResource {
     }
   }
 
-  public Response payInfraction(InfractionPaymentRequest infractionPaymentRequest) {
+  @Override public Response payInfraction(InfractionPaymentRequest infractionPaymentRequest) {
     InfractionPaymentDto infractionPaymentDto = infractionAssembler.fromRequest(infractionPaymentRequest);
     infractionService.payInfraction(infractionPaymentDto);
 

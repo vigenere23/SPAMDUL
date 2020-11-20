@@ -16,7 +16,7 @@ public class FundraisingResourceImp implements FundraisingResource {
 
   private final InitiativeAssembler initiativeAssembler;
   private final InitiativeService initiativeService;
-  private AccessTokenCookieAssembler cookieAssembler;
+  private final AccessTokenCookieAssembler cookieAssembler;
 
   public FundraisingResourceImp(InitiativeAssembler initiativeAssembler,
                                 InitiativeService initiativeService,
