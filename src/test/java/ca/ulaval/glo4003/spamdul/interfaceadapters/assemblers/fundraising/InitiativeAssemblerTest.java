@@ -36,7 +36,7 @@ public class InitiativeAssemblerTest {
   public void givenInitiativeRequest_whenAssembling_shouldReturnEntityFromFactory() {
     InitiativeDto initiativeDto = initiativeAssembler.fromRequest(initiativeRequest);
     Truth.assertThat(initiativeDto.name).isEqualTo(initiativeRequest.name);
-    Truth.assertThat(initiativeDto.amount).isEqualTo(initiativeRequest.amount);
+    Truth.assertThat(initiativeDto.amount).isEqualTo(Amount.valueOf(initiativeRequest.amount));
   }
 
   @Test

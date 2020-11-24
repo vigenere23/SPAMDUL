@@ -3,10 +3,9 @@ package ca.ulaval.glo4003.spamdul.context.fundraising;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativesBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
@@ -21,21 +20,19 @@ public class FundraisingContext {
   private final InitiativeFactory initiativeFactory;
   private final InitiativeRepository initiativeRepository;
 
-  public FundraisingContext(BankRepository bankRepository,
+  public FundraisingContext(InitiativesBankAccount initiativesBankAccount,
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler,
                             boolean populateData) {
     initiativeRepository = new InMemoryInitiativeRepository();
 
     initiativeFactory = new InitiativeFactory();
-    TransactionFactory transactionFactory = new TransactionFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
     InitiativeService initiativeService = new InitiativeService(initiativeRepository,
                                                                 initiativeFactory,
-                                                                bankRepository,
-                                                                transactionFactory,
+                                                                initiativesBankAccount,
                                                                 accessLevelValidator);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);

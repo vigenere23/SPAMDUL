@@ -2,46 +2,43 @@ package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class CarbonCreditsService implements ScheduleObserver {
 
   private final EventSchedulerObservable eventSchedulerObservable;
   private final CarbonCreditsPurchaser carbonCreditsPurchaser;
-  private final BankRepository bankRepository;
-  private final TransactionFactory transactionFactory;
   private final InitiativeFactory initiativeFactory;
   private final InitiativeRepository initiativeRepository;
-  private AccessLevelValidator accessLevelValidator;
+  private final AccessLevelValidator accessLevelValidator;
+  private final CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private final SustainabilityBankAccount sustainabilityBankAccount;
 
   public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
-                              BankRepository bankRepository,
-                              TransactionFactory transactionFactory,
                               CarbonCreditsPurchaser carbonCreditsPurchaser,
                               InitiativeFactory initiativeFactory,
                               InitiativeRepository initiativeRepository,
-                              AccessLevelValidator accessLevelValidator) {
+                              AccessLevelValidator accessLevelValidator,
+                              CarbonCreditsBankAccount carbonCreditsBankAccount,
+                              SustainabilityBankAccount sustainabilityBankAccount) {
     this.eventSchedulerObservable = eventSchedulerObservable;
     this.carbonCreditsPurchaser = carbonCreditsPurchaser;
-    this.bankRepository = bankRepository;
-    this.transactionFactory = transactionFactory;
     this.initiativeFactory = initiativeFactory;
     this.initiativeRepository = initiativeRepository;
     this.accessLevelValidator = accessLevelValidator;
+    this.carbonCreditsBankAccount = carbonCreditsBankAccount;
+    this.sustainabilityBankAccount = sustainabilityBankAccount;
   }
 
   public boolean activateAutomaticTransfer(boolean active, TemporaryToken temporaryToken) {
@@ -57,7 +54,7 @@ public class CarbonCreditsService implements ScheduleObserver {
   }
 
   public double transferRemainingBudget() {
-    Amount totalAvailableAmount = bankRepository.getSustainabilityBankAccount().getTotalAvailableAmount();
+    Amount totalAvailableAmount = sustainabilityBankAccount.getBalance();
     Initiative initiative;
 
     try {
@@ -68,19 +65,7 @@ public class CarbonCreditsService implements ScheduleObserver {
       return 0;
     }
 
-    TransactionDto transactionDto = new TransactionDto();
-    transactionDto.transactionType = TransactionType.INITIATIVE;
-    transactionDto.amount = totalAvailableAmount.multiply(-1).asDouble();
-    Transaction transaction = transactionFactory.create(transactionDto);
-
-    TransactionDto creditsTransactionDto = new TransactionDto();
-    creditsTransactionDto.transactionType = TransactionType.CARBON_CREDIT;
-    creditsTransactionDto.amount = totalAvailableAmount.asDouble();
-    Transaction creditsTransaction = transactionFactory.create(creditsTransactionDto);
-
-    // TODO all this should be a transaction
-    bankRepository.getSustainabilityBankAccount().addTransaction(transaction);
-    bankRepository.getCarbonCreditsBankAccount().save(creditsTransaction);
+    carbonCreditsBankAccount.addRevenue(totalAvailableAmount);
     carbonCreditsPurchaser.purchase(CarbonCredits.valueOf(totalAvailableAmount));
     initiativeRepository.save(initiative);
 

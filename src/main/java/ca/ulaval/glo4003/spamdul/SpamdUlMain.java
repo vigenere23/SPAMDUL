@@ -55,12 +55,12 @@ public class SpamdUlMain {
     );
     PassContext passContext = new PassContext(accountContext.bankRepository(),
                                               campusAccessContext.getCampusAccessService());
-    FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
+    FundraisingContext fundraisingContext = new FundraisingContext(financeContext.getInitiativesBankAccount(),
                                                                    authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(),
-                                                                         globalContext.getTransactionFactory(),
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(financeContext.getCarbonCreditsBankAccount(),
+                                                                         financeContext.getSustainabilityBankAccount(),
                                                                          fundraisingContext.getInitiativeFactory(),
                                                                          fundraisingContext.getInitiativeRepository(),
                                                                          authenticationContext.getAuthenticationRepository(),

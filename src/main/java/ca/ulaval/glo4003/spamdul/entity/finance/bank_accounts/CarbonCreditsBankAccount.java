@@ -6,36 +6,32 @@ import ca.ulaval.glo4003.spamdul.entity.finance.TransactionList;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
-import java.util.List;
 
-public class MainBankAccount {
+public class CarbonCreditsBankAccount {
 
+  private final TransactionType TRANSACTION_TYPE = TransactionType.INFRACTION;
+
+  private final InitiativesBankAccount initiativesBankAccount;
   private final TransactionFactory transactionFactory;
   private final TransactionRepository transactionRepository;
 
-  public MainBankAccount(TransactionFactory transactionFactory, TransactionRepository transactionRepository) {
+  public CarbonCreditsBankAccount(TransactionFactory transactionFactory,
+                                  InitiativesBankAccount initiativesBankAccount,
+                                  TransactionRepository transactionRepository) {
     this.transactionFactory = transactionFactory;
+    this.initiativesBankAccount = initiativesBankAccount;
     this.transactionRepository = transactionRepository;
   }
 
-  public Transaction addExpense(Amount amount, TransactionType transactionType) {
-    Transaction transaction = transactionFactory.create(transactionType, amount.multiply(-1));
-    transactionRepository.save(transaction);
-    return transaction;
-  }
+  public void addRevenue(Amount amount) {
+    initiativesBankAccount.addExpense(amount);
 
-  public Transaction addRevenue(Amount amount, TransactionType transactionType) {
-    Transaction transaction = transactionFactory.create(transactionType, amount);
-    transactionRepository.save(transaction);
-    return transaction;
+    Transaction revenueTransaction = transactionFactory.create(TRANSACTION_TYPE, amount);
+    transactionRepository.save(revenueTransaction);
   }
 
   public Amount getBalance() {
     TransactionList transactionList = new TransactionList(transactionRepository.findAll());
     return transactionList.getBalance();
-  }
-
-  public List<Transaction> getTransactionsOfType(TransactionType transactionType) {
-    return transactionRepository.findAllBy(transactionType);
   }
 }
