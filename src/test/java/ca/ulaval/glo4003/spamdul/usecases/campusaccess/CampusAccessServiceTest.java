@@ -20,19 +20,17 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -76,12 +74,12 @@ public class CampusAccessServiceTest {
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
-  private static final CampusAccessFee A_CAMPUS_ACCESS_FEE = new CampusAccessFee(10);
-  private static final int AN_AMOUNT_VALUE = 0;
+  private static final int AN_AMOUNT_VALUE = 120;
+  private static final CampusAccessFee A_CAMPUS_ACCESS_FEE = new CampusAccessFee(AN_AMOUNT_VALUE);
   private static final Amount AN_AMOUNT = Amount.valueOf(AN_AMOUNT_VALUE);
   private static final Transaction A_TRANSACTION = new Transaction(AN_AMOUNT,
-                                                                  LocalDateTime.now(),
-                                                                  TransactionType.CAMPUS_ACCESS);
+                                                                   LocalDateTime.now(),
+                                                                   TransactionType.CAMPUS_ACCESS);
 
   private CampusAccess campusAccess;
   @Mock
@@ -99,14 +97,13 @@ public class CampusAccessServiceTest {
   @Mock
   private Calendar calendar;
   @Mock
-  private TransactionFactory transactionFactory;
-  @Mock
   private BankRepository bankRepository;
   @Mock
   private CampusAccessFeeRepository campusAccessFeeRepository;
   @Mock
   private MainBankAccount mainBankAccount;
-  private TransactionDto transactionDto;
+  @Mock
+  private CampusAccessBankAccount campusAccessBankAccount;
 
   private CampusAccessService campusAccessService;
 
@@ -118,18 +115,13 @@ public class CampusAccessServiceTest {
     campusAccessDto.userDto = userDto;
     campusAccessDto.carDto = carDto;
     campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
-    transactionDto = new TransactionDto();
-    transactionDto.carType = A_CAR_TYPE;
-    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
-    transactionDto.amount = AN_AMOUNT_VALUE;
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
                                                   campusAccessRepository,
                                                   calendar,
-                                                  bankRepository,
                                                   campusAccessFeeRepository,
-                                                  transactionFactory);
+                                                  campusAccessBankAccount);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, A_PERIOD_TYPE, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
@@ -176,12 +168,14 @@ public class CampusAccessServiceTest {
   }
 
   @Test
-  public void whenCreatingNewCampusAccess_shouldAddNewTransactionToMainBankAccount() {
-    when(transactionFactory.create(any(TransactionDto.class))).thenReturn(A_TRANSACTION);
+  public void whenCreatingNewCampusAccess_shouldAddRevenueToCampusAccessBankAccount() {
+    campusAccessDto.carDto.carType = A_CAR_TYPE;
+    when(campusAccessFeeRepository.findBy(A_CAR_TYPE, campusAccessDto.timePeriodDto.periodType)).thenReturn(
+        A_CAMPUS_ACCESS_FEE);
+
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
-    verify(mainBankAccount, times(1)).addTransaction(A_TRANSACTION);
-    verify(bankRepository, times(1)).save(mainBankAccount);
+    verify(campusAccessBankAccount, times(1)).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
   }
 
   @Test

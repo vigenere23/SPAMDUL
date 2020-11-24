@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -13,10 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InfractionService {
 
@@ -24,24 +20,21 @@ public class InfractionService {
   private final InfractionRepository infractionRepository;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
-  private final TransactionFactory transactionFactory;
-  private final BankRepository bankRepository;
   private final AccessLevelValidator accessLevelValidator;
+  private final InfractionBankAccount infractionBankAccount;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
                            InfractionFactory infractionFactory,
                            PassValidator firstValidationNode,
-                           TransactionFactory transactionFactory,
-                           BankRepository bankRepository,
-                           AccessLevelValidator accessLevelValidator) {
+                           AccessLevelValidator accessLevelValidator,
+                           InfractionBankAccount infractionBankAccount) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
-    this.transactionFactory = transactionFactory;
-    this.bankRepository = bankRepository;
     this.accessLevelValidator = accessLevelValidator;
+    this.infractionBankAccount = infractionBankAccount;
   }
 
   public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
@@ -68,15 +61,7 @@ public class InfractionService {
 
   public void payInfraction(InfractionPaymentDto infractionPaymentDto) {
     Infraction infraction = infractionRepository.findBy(infractionPaymentDto.infractionId);
-
-    TransactionDto transactionDto = new TransactionDto();
-    transactionDto.amount = infraction.getAmount();
-    transactionDto.transactionType = TransactionType.INFRACTION;
-    Transaction transaction = transactionFactory.create(transactionDto);
-    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
-    mainBankAccount.addTransaction(transaction);
-    bankRepository.save(mainBankAccount);
-
     infraction.pay();
+    infractionBankAccount.addRevenue(Amount.valueOf(infraction.getAmount()));
   }
 }

@@ -1,15 +1,13 @@
 package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.CampusAccessFeeCsvRepository;
@@ -31,8 +29,7 @@ public class CampusAccessContext {
   private final CampusAccessService campusAccessService;
 
   public CampusAccessContext(ParkingAccessLogger parkingAccessLogger,
-                             BankRepository bankRepository,
-                             TransactionFactory transactionFactory) {
+                             CampusAccessBankAccount campusAccessBankAccount) {
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory);
 
@@ -58,9 +55,8 @@ public class CampusAccessContext {
                                                   campusAccessFactory,
                                                   campusAccessRepository,
                                                   calendar,
-                                                  bankRepository,
                                                   campusAccessFeeRepository,
-                                                  transactionFactory);
+                                                  campusAccessBankAccount);
     campusAccessService.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                         campusAccessService);

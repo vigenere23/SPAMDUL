@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
@@ -12,15 +10,14 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionDto;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 
 public class CampusAccessService extends AccessGrantedObservable {
@@ -30,26 +27,23 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CampusAccessFactory campusAccessFactory;
   private final CampusAccessRepository campusAccessRepository;
   private final Calendar calendar;
-  private final BankRepository bankRepository;
-  private final TransactionFactory transactionFactory;
   private final CampusAccessFeeRepository campusAccessFeeRepository;
+  private final CampusAccessBankAccount campusAccessBankAccount;
 
   public CampusAccessService(UserService userService,
                              CarService carService,
                              CampusAccessFactory campusAccessFactory,
                              CampusAccessRepository campusAccessRepository,
                              Calendar calendar,
-                             BankRepository bankRepository,
                              CampusAccessFeeRepository campusAccessFeeRepository,
-                             TransactionFactory transactionFactory) {
+                             CampusAccessBankAccount campusAccessBankAccount) {
     this.userService = userService;
     this.carService = carService;
     this.campusAccessFactory = campusAccessFactory;
     this.campusAccessRepository = campusAccessRepository;
     this.calendar = calendar;
-    this.bankRepository = bankRepository;
-    this.transactionFactory = transactionFactory;
     this.campusAccessFeeRepository = campusAccessFeeRepository;
+    this.campusAccessBankAccount = campusAccessBankAccount;
   }
 
   public CampusAccess createAndSaveNewCampusAccess(CampusAccessDto campusAccessDto) {
@@ -62,28 +56,15 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     campusAccessRepository.save(campusAccess);
 
-    Transaction transaction = generateTransaction(campusAccessDto);
-    addTransactionToBankAccount(transaction);
+    addRevenue(campusAccessDto.carDto.carType, campusAccessDto.timePeriodDto.periodType);
 
     return campusAccess;
   }
 
-  private void addTransactionToBankAccount(Transaction transaction) {
-    MainBankAccount mainBankAccount = bankRepository.getMainBankAccount();
-    mainBankAccount.addTransaction(transaction);
-    bankRepository.save(mainBankAccount);
-  }
-
-  private Transaction generateTransaction(CampusAccessDto campusAccessDto) {
-    TransactionDto transactionDto = new TransactionDto();
-    CarType carType = campusAccessDto.carDto.carType;
-
-    transactionDto.transactionType = TransactionType.CAMPUS_ACCESS;
-    transactionDto.carType = carType;
-    transactionDto.amount = campusAccessFeeRepository.findBy(carType, campusAccessDto.timePeriodDto.periodType)
-                                                     .getFee();
-
-    return transactionFactory.create(transactionDto);
+  private void addRevenue(CarType carType, PeriodType periodType) {
+    Amount amount = Amount.valueOf(campusAccessFeeRepository.findBy(carType, periodType).getFee());
+    
+    campusAccessBankAccount.addRevenue(amount, carType);
   }
 
   public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, Pass pass) {
@@ -123,8 +104,8 @@ public class CampusAccessService extends AccessGrantedObservable {
   private boolean isAccessGrantedByLicensePlate(LicensePlate licensePlate, LocalDateTime dateTime) {
     for (CampusAccess campusAccess : campusAccessRepository.findBy(licensePlate)) {
       if (campusAccess.grantAccess(dateTime)) {
-          notifyAccessGranted(campusAccess, dateTime);
-          return true;
+        notifyAccessGranted(campusAccess, dateTime);
+        return true;
       }
     }
     return false;

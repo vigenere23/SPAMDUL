@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.charging.ChargingContext;
+import ca.ulaval.glo4003.spamdul.context.finance.FinanceContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
@@ -43,14 +44,14 @@ public class SpamdUlMain {
       throws Exception {
 
     GlobalContext globalContext = new GlobalContext();
+    FinanceContext financeContext = new FinanceContext();
     AuthenticationContext authenticationContext = new AuthenticationContext();
     UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
     AccountContext accountContext = new AccountContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
-                                                                      accountContext.bankRepository(),
-                                                                      globalContext.getTransactionFactory()
+                                                                      financeContext.getCampusAccessBankAccount()
     );
     PassContext passContext = new PassContext(accountContext.bankRepository(),
                                               campusAccessContext.getCampusAccessService());
@@ -70,9 +71,9 @@ public class SpamdUlMain {
                                                        globalContext.getCookieAssembler(),
                                                        false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
-                                                                   accountContext.bankRepository(),
                                                                    authenticationContext.getAuthenticationRepository(),
-                                                                   globalContext.getCookieAssembler());
+                                                                   globalContext.getCookieAssembler(),
+                                                                   financeContext.getInfractionBankAccount());
 
     ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
 
