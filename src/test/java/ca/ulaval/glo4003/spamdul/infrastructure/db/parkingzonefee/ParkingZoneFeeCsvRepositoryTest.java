@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +18,11 @@ import org.junit.Test;
 
 public class ParkingZoneFeeCsvRepositoryTest {
 
-  public static final int MONTHLY_ZONE_2_FEE = 121;
-  public static final int ONE_DAY_PER_WEEK_PER_SEMESTER_ZONE_1 = 163;
-  public static final int THREE_SEMESTER_ZONE_R = 872;
-  public static final int ONE_SEMESTER_ZONE_3 = 272;
-  public static final int TWO_SEMESTER_ZONE_1 = 895;
+  public static final Amount MONTHLY_ZONE_2_FEE = Amount.valueOf(121);
+  public static final Amount ONE_DAY_PER_WEEK_PER_SEMESTER_ZONE_1 = Amount.valueOf(163);
+  public static final Amount THREE_SEMESTER_ZONE_R = Amount.valueOf(872);
+  public static final Amount ONE_SEMESTER_ZONE_3 = Amount.valueOf(272);
+  public static final Amount TWO_SEMESTER_ZONE_1 = Amount.valueOf(895);
   public static final String A_PATH = "a/path";
 
   private ParkingZoneFeeCsvRepository repository;

@@ -53,7 +53,7 @@ public class SpamdUlMain {
     CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
                                                                       financeContext.getCampusAccessBankAccount()
     );
-    PassContext passContext = new PassContext(accountContext.bankRepository(),
+    PassContext passContext = new PassContext(financeContext.getPassBankAccount(),
                                               campusAccessContext.getCampusAccessService());
     FundraisingContext fundraisingContext = new FundraisingContext(financeContext.getInitiativesBankAccount(),
                                                                    authenticationContext.getAuthenticationRepository(),

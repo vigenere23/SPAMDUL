@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
   }
 
 
-  public ParkingZoneFee findBy(ParkingZone parkingZone, PeriodType period) {
+  @Override public ParkingZoneFee findBy(ParkingZone parkingZone, PeriodType period) {
     Map<ParkingZone, Map<PeriodType, ParkingZoneFee>> fees = readAndParseCsv();
     Map<PeriodType, ParkingZoneFee> periodTypeParkingZoneFeeMap = fees.get(parkingZone);
 
@@ -53,7 +54,8 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
       ParkingZone parkingZone = ParkingZone.parse(line.get(0));
 
       for (Entry<PeriodType, Integer> entry : periodTypeColumnMap.entrySet()) {
-        ParkingZoneFee fee = new ParkingZoneFee(Double.parseDouble(line.get(entry.getValue())));
+        String stringAmount = line.get(entry.getValue());
+        ParkingZoneFee fee = new ParkingZoneFee(Amount.valueOf(stringAmount));
 
         if (fees.get(parkingZone) != null) {
           fees.get(parkingZone).put(entry.getKey(), fee);

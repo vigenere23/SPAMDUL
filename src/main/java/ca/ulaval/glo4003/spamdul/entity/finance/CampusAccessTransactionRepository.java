@@ -9,5 +9,7 @@ public interface CampusAccessTransactionRepository {
 
   List<Transaction> findAllBy(CarType carType);
 
+  List<Transaction> findAllBy(CarType carType, TransactionFilter transactionFilter);
+
   void save(Transaction transaction, CarType carType);
 }

@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankA
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativesBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
@@ -19,12 +20,14 @@ public class FinanceContext {
   private final CampusAccessBankAccount campusAccessBankAccount;
   private final InfractionBankAccount infractionBankAccount;
   private final InitiativesBankAccount initiativesBankAccount;
+  private final PassBankAccount passBankAccount;
 
   public FinanceContext() {
     TransactionFactory transactionFactory = new TransactionFactory();
 
     mainBankAccount = new MainBankAccount(transactionFactory, new InMemoryTransactionRepository());
-    sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory, new InMemoryTransactionRepository());
+    sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory, new InMemoryTransactionRepository(),
+                                                              new InMemoryTransactionRepository());
     initiativesBankAccount = new InitiativesBankAccount(sustainabilityBankAccount);
     carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory,
                                                             initiativesBankAccount,
@@ -33,6 +36,7 @@ public class FinanceContext {
                                                           sustainabilityBankAccount,
                                                           new InMemoryCampusAccessTransactionRepository());
     infractionBankAccount = new InfractionBankAccount(mainBankAccount, sustainabilityBankAccount);
+    passBankAccount = new PassBankAccount(mainBankAccount, sustainabilityBankAccount);
   }
 
   public MainBankAccount getMainBankAccount() {
@@ -57,5 +61,9 @@ public class FinanceContext {
 
   public InitiativesBankAccount getInitiativesBankAccount() {
     return initiativesBankAccount;
+  }
+
+  public PassBankAccount getPassBankAccount() {
+    return passBankAccount;
   }
 }

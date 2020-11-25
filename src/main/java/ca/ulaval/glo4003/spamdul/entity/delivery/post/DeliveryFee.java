@@ -1,14 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+
 public class DeliveryFee {
 
-  private final double fee;
+  private final Amount fee;
 
-  public DeliveryFee(double fee) {
+  public DeliveryFee(Amount fee) {
     this.fee = fee;
   }
 
-  public double getFee() {
+  public Amount getFee() {
     return fee;
   }
 

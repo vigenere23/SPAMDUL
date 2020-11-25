@@ -3,11 +3,15 @@ package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.CampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionList;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import java.util.List;
 
 public class CampusAccessBankAccount {
+
+  private final TransactionType TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
 
   private final MainBankAccount mainBankAccount;
   private final SustainabilityBankAccount sustainabilityBankAccount;
@@ -25,21 +29,20 @@ public class CampusAccessBankAccount {
     Amount sustainableAmount = amount.multiply(0.4);
     Amount remainderAmount = amount.multiply(0.6);
 
-    Transaction sustainableTransaction = sustainabilityBankAccount.addRevenue(sustainableAmount,
-                                                                              TransactionType.CAMPUS_ACCESS);
-    Transaction reminderTransaction = mainBankAccount.addRevenue(remainderAmount, TransactionType.CAMPUS_ACCESS);
+    Transaction sustainableTransaction = sustainabilityBankAccount.addRevenue(sustainableAmount, TRANSACTION_TYPE);
+    Transaction reminderTransaction = mainBankAccount.addRevenue(remainderAmount, TRANSACTION_TYPE);
 
     campusAccessTransactionRepository.save(sustainableTransaction, carType);
     campusAccessTransactionRepository.save(reminderTransaction, carType);
   }
 
-  public Amount getBalance(CarType carType) {
-    TransactionList transactionList = new TransactionList(campusAccessTransactionRepository.findAllBy(carType));
-    return transactionList.getBalance();
+  public Amount getRevenue(CarType carType, TransactionFilter transactionFilter) {
+    List<Transaction> transactions = campusAccessTransactionRepository.findAllBy(carType, transactionFilter);
+    return new TransactionList(transactions).getBalance();
   }
 
-  public Amount getBalance() {
-    TransactionList transactionList = new TransactionList(campusAccessTransactionRepository.findAll());
-    return transactionList.getBalance();
+  public Amount getRevenue() {
+    List<Transaction> transactions = campusAccessTransactionRepository.findAll();
+    return new TransactionList(transactions).getBalance();
   }
 }

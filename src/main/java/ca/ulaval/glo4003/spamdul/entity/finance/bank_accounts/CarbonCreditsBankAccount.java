@@ -6,10 +6,11 @@ import ca.ulaval.glo4003.spamdul.entity.finance.TransactionList;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import java.util.List;
 
 public class CarbonCreditsBankAccount {
 
-  private final TransactionType TRANSACTION_TYPE = TransactionType.INFRACTION;
+  private final TransactionType TRANSACTION_TYPE = TransactionType.CARBON_CREDIT;
 
   private final InitiativesBankAccount initiativesBankAccount;
   private final TransactionFactory transactionFactory;
@@ -30,8 +31,8 @@ public class CarbonCreditsBankAccount {
     transactionRepository.save(revenueTransaction);
   }
 
-  public Amount getBalance() {
-    TransactionList transactionList = new TransactionList(transactionRepository.findAll());
-    return transactionList.getBalance();
+  public Amount getRevenue() {
+    List<Transaction> transactions = transactionRepository.findAll();
+    return new TransactionList(transactions).getBalance();
   }
 }
