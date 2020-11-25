@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.Carb
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
@@ -30,8 +30,8 @@ public class CarbonCreditsContext {
 
   public CarbonCreditsContext(CarbonCreditsBankAccount carbonCreditsBankAccount,
                               SustainabilityBankAccount sustainabilityBankAccount,
-                              InitiativeFactory initiativeFactory,
                               InitiativeRepository initiativeRepository,
+                              InitiativeCreator initiativeCreator,
                               AuthenticationRepository authenticationRepository,
                               AccessTokenCookieAssembler cookieAssembler,
                               boolean asAdmin) {
@@ -48,8 +48,8 @@ public class CarbonCreditsContext {
 
     CarbonCreditsService carbonCreditsService = new CarbonCreditsService(endOfMonthEventScheduler,
                                                                          carbonCreditsPurchaser,
-                                                                         initiativeFactory,
                                                                          initiativeRepository,
+                                                                         initiativeCreator,
                                                                          accessLevelValidator,
                                                                          carbonCreditsBankAccount,
                                                                          sustainabilityBankAccount);

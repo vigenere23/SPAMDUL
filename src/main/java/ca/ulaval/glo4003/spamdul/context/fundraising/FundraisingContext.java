@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativesBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
@@ -17,7 +18,7 @@ public class FundraisingContext {
 
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
-  private final InitiativeFactory initiativeFactory;
+  private final InitiativeCreator initiativeCreator;
   private final InitiativeRepository initiativeRepository;
 
   public FundraisingContext(InitiativesBankAccount initiativesBankAccount,
@@ -26,13 +27,13 @@ public class FundraisingContext {
                             boolean populateData) {
     initiativeRepository = new InMemoryInitiativeRepository();
 
-    initiativeFactory = new InitiativeFactory();
+    InitiativeFactory initiativeFactory = new InitiativeFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
+    initiativeCreator = new InitiativeCreator(initiativesBankAccount, initiativeFactory);
     InitiativeService initiativeService = new InitiativeService(initiativeRepository,
-                                                                initiativeFactory,
-                                                                initiativesBankAccount,
+                                                                initiativeCreator,
                                                                 accessLevelValidator);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);
@@ -56,7 +57,7 @@ public class FundraisingContext {
     return initiativeRepository;
   }
 
-  public InitiativeFactory getInitiativeFactory() {
-    return initiativeFactory;
+  public InitiativeCreator getInitiativeCreator() {
+    return initiativeCreator;
   }
 }

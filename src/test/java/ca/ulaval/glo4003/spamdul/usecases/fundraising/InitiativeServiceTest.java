@@ -7,13 +7,11 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativesBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
@@ -38,19 +36,16 @@ public class InitiativeServiceTest {
   @Mock
   private InitiativeRepository initiativeRepository;
   @Mock
-  private InitiativeFactory initiativeFactory;
-  @Mock
   private Initiative initiative;
   @Mock
-  private InitiativesBankAccount initiativesBankAccount;
+  private InitiativeCreator initiativeCreator;
   @Mock
   AccessLevelValidator accessLevelValidator;
 
   @Before
   public void setUp() {
     initiativeService = new InitiativeService(initiativeRepository,
-                                              initiativeFactory,
-                                              initiativesBankAccount,
+                                              initiativeCreator,
                                               accessLevelValidator);
     A_INITIATIVE_DTO.amount = AN_AMOUNT;
     A_INITIATIVE_DTO.name = A_NAME;
@@ -82,25 +77,17 @@ public class InitiativeServiceTest {
   }
 
   @Test
-  public void whenAddingInitiative_shouldAddExpenseToInitiativeBankAccount() {
-    initiativeService.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
-
-    verify(initiativesBankAccount, times(1)).addExpense(AN_AMOUNT);
-  }
-
-  @Test
   public void givenEnoughFunds_whenAddingInitiative_shouldSaveInitiative() {
-    when(initiativeFactory.create(A_CODE, A_NAME, AN_AMOUNT)).thenReturn(initiative);
+    when(initiativeCreator.createInitiative(A_CODE, A_NAME, AN_AMOUNT)).thenReturn(initiative);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 
     verify(initiativeRepository, times(1)).save(initiative);
   }
 
-  @Test(expected = InvalidInitiativeAmount.class)
+  @Test(expected = InsufficientFundsException.class)
   public void givenNotEnoughFunds_whenAddingInitiative_shouldNotSaveInitiative() {
-    when(initiativeFactory.create(A_CODE, A_NAME, AN_AMOUNT)).thenReturn(initiative);
-    doThrow(InsufficientFundsException.class).when(initiativesBankAccount).addExpense(AN_AMOUNT);
+    doThrow(InsufficientFundsException.class).when(initiativeCreator).createInitiative(A_CODE, A_NAME, AN_AMOUNT);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 

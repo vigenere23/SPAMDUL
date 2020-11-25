@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class CarbonCreditsServiceTest {
   @Mock
   private EventSchedulerObservable eventSchedulerObservable;
   @Mock
-  private InitiativeFactory initiativeFactory;
+  private InitiativeCreator initiativeCreator;
   @Mock
   private InitiativeRepository initiativeRepository;
   @Mock
@@ -48,8 +48,8 @@ public class CarbonCreditsServiceTest {
   public void setUp() {
     carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable,
                                                     carbonCreditsPurchaser,
-                                                    initiativeFactory,
                                                     initiativeRepository,
+                                                    initiativeCreator,
                                                     accessLevelValidator,
                                                     carbonCreditsBankAccount,
                                                     sustainabilityBankAccount);

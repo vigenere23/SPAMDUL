@@ -29,9 +29,7 @@ public class FinanceContext {
     sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory, new InMemoryTransactionRepository(),
                                                               new InMemoryTransactionRepository());
     initiativesBankAccount = new InitiativesBankAccount(sustainabilityBankAccount);
-    carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory,
-                                                            initiativesBankAccount,
-                                                            new InMemoryTransactionRepository());
+    carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory, new InMemoryTransactionRepository());
     campusAccessBankAccount = new CampusAccessBankAccount(mainBankAccount,
                                                           sustainabilityBankAccount,
                                                           new InMemoryCampusAccessTransactionRepository());

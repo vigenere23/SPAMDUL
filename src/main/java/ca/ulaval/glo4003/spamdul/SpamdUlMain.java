@@ -61,8 +61,8 @@ public class SpamdUlMain {
                                                                    false);
     CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(financeContext.getCarbonCreditsBankAccount(),
                                                                          financeContext.getSustainabilityBankAccount(),
-                                                                         fundraisingContext.getInitiativeFactory(),
                                                                          fundraisingContext.getInitiativeRepository(),
+                                                                         fundraisingContext.getInitiativeCreator(),
                                                                          authenticationContext.getAuthenticationRepository(),
                                                                          globalContext.getCookieAssembler(),
                                                                          true);

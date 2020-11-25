@@ -12,21 +12,16 @@ public class CarbonCreditsBankAccount {
 
   private final TransactionType TRANSACTION_TYPE = TransactionType.CARBON_CREDIT;
 
-  private final InitiativesBankAccount initiativesBankAccount;
   private final TransactionFactory transactionFactory;
   private final TransactionRepository transactionRepository;
 
   public CarbonCreditsBankAccount(TransactionFactory transactionFactory,
-                                  InitiativesBankAccount initiativesBankAccount,
                                   TransactionRepository transactionRepository) {
     this.transactionFactory = transactionFactory;
-    this.initiativesBankAccount = initiativesBankAccount;
     this.transactionRepository = transactionRepository;
   }
 
   public void addRevenue(Amount amount) {
-    initiativesBankAccount.addExpense(amount);
-
     Transaction revenueTransaction = transactionFactory.create(TRANSACTION_TYPE, amount);
     transactionRepository.save(revenueTransaction);
   }
