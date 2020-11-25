@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto;
 
 public class TotalRevenueResponse {
 

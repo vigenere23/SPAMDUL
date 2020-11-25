@@ -10,7 +10,6 @@ import ca.ulaval.glo4003.spamdul.context.finance.FinanceContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
-import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
@@ -44,8 +43,9 @@ public class SpamdUlMain {
       throws Exception {
 
     GlobalContext globalContext = new GlobalContext();
-    FinanceContext financeContext = new FinanceContext();
     AuthenticationContext authenticationContext = new AuthenticationContext();
+    FinanceContext financeContext = new FinanceContext(authenticationContext.getAuthenticationRepository(),
+                                                       globalContext.getCookieAssembler());
     UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
@@ -66,10 +66,6 @@ public class SpamdUlMain {
                                                                          authenticationContext.getAuthenticationRepository(),
                                                                          globalContext.getCookieAssembler(),
                                                                          true);
-    RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(),
-                                                       authenticationContext.getAuthenticationRepository(),
-                                                       globalContext.getCookieAssembler(),
-                                                       false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
                                                                    authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
@@ -88,7 +84,7 @@ public class SpamdUlMain {
         resources.add(passContext.getPassResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());
-        resources.add(revenueContext.getRevenueResource());
+        resources.add(financeContext.getRevenueResource());
         resources.add(new UsageReportExceptionAssembler());
         resources.add(new UserExceptionAssembler());
         resources.add(new CarExceptionAssembler());

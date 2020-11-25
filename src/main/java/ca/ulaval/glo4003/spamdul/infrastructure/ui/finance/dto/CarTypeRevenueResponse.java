@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import java.util.Objects;
@@ -8,7 +8,7 @@ public class CarTypeRevenueResponse {
   public CarType carType;
   public double revenue;
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -21,7 +21,7 @@ public class CarTypeRevenueResponse {
         carType == that.carType;
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(carType, revenue);
   }
 }

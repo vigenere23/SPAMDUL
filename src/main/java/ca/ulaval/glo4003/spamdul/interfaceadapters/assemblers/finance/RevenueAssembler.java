@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.RevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.TotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Map;
 import java.util.Map.Entry;

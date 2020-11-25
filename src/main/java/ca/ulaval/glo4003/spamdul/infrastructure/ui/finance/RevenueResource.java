@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.finance;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarbonBoughtResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.RevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.TotalRevenueResponse;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 
 @Path("/financial-report")
-public interface FinancialReportResource {
+public interface RevenueResource {
 
   @GET
   @Path("revenue")

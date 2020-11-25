@@ -1,32 +1,32 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue;
+package ca.ulaval.glo4003.spamdul.infrastructure.ui.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarTypeTotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.CarbonBoughtResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.RevenueResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.revenue.dto.TotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.RevenueAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue.TransactionQueryAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.TransactionService;
-import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarbonBoughtResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.RevenueResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.TotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
+import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Map;
 import javax.ws.rs.core.Cookie;
 
-public class FinancialReportResourceImpl implements FinancialReportResource {
+public class RevenueResourceImpl implements RevenueResource {
 
-  private final TransactionService transactionService;
+  private final RevenueService revenueService;
   private final TransactionQueryAssembler transactionQueryAssembler;
   private final AccessTokenCookieAssembler cookieAssembler;
   private final RevenueAssembler revenueAssembler;
 
-  public FinancialReportResourceImpl(TransactionService transactionService,
-                                     TransactionQueryAssembler transactionQueryAssembler,
-                                     RevenueAssembler revenueAssembler,
-                                     AccessTokenCookieAssembler cookieAssembler) {
-    this.transactionService = transactionService;
+  public RevenueResourceImpl(RevenueService revenueService,
+                             TransactionQueryAssembler transactionQueryAssembler,
+                             RevenueAssembler revenueAssembler,
+                             AccessTokenCookieAssembler cookieAssembler) {
+    this.revenueService = revenueService;
     this.revenueAssembler = revenueAssembler;
     this.transactionQueryAssembler = transactionQueryAssembler;
     this.cookieAssembler = cookieAssembler;
@@ -36,12 +36,12 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
   public TotalRevenueResponse getTotalRevenue(String startDate, String endDate, Cookie accessToken) {
     TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
-    Amount infractionsTotalRevenue = transactionService.getInfractionsTotalRevenue(transactionQueryDto,
-                                                                                   temporaryToken);
-    Amount passTotalRevenue = transactionService.getPassTotalRevenue(transactionQueryDto,
-                                                                     temporaryToken);
-    Map<CarType, Amount> revenueByCarType = transactionService.getCampusAccessTotalRevenueByCarType(transactionQueryDto,
-                                                                                                    temporaryToken);
+    Amount infractionsTotalRevenue = revenueService.getInfractionsTotalRevenue(transactionQueryDto,
+                                                                               temporaryToken);
+    Amount passTotalRevenue = revenueService.getPassTotalRevenue(transactionQueryDto,
+                                                                 temporaryToken);
+    Map<CarType, Amount> revenueByCarType = revenueService.getCampusAccessTotalRevenueByCarType(transactionQueryDto,
+                                                                                                temporaryToken);
 
     return revenueAssembler.toResponse(passTotalRevenue, infractionsTotalRevenue, revenueByCarType);
   }
@@ -50,8 +50,8 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
   public CarTypeTotalRevenueResponse getCarTypeTotalRevenue(String startDate, String endDate, Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
-    Map<CarType, Amount> revenueByCarType = transactionService.getCampusAccessTotalRevenueByCarType(transactionQueryDto,
-                                                                                                    temporaryToken);
+    Map<CarType, Amount> revenueByCarType = revenueService.getCampusAccessTotalRevenueByCarType(transactionQueryDto,
+                                                                                                temporaryToken);
 
     return revenueAssembler.toResponse(revenueByCarType);
   }
@@ -60,7 +60,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
   public RevenueResponse getInfractionsTotalRevenue(String startDate, String endDate, Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
-    Amount amount = transactionService.getInfractionsTotalRevenue(transactionQueryDto, temporaryToken);
+    Amount amount = revenueService.getInfractionsTotalRevenue(transactionQueryDto, temporaryToken);
 
     return revenueAssembler.toResponse(amount);
   }
@@ -69,7 +69,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
   public RevenueResponse getParkingPassTotalRevenue(String startDate, String endDate, Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
-    Amount amount = transactionService.getPassTotalRevenue(transactionQueryDto, temporaryToken);
+    Amount amount = revenueService.getPassTotalRevenue(transactionQueryDto, temporaryToken);
 
     return revenueAssembler.toResponse(amount);
   }
@@ -77,7 +77,7 @@ public class FinancialReportResourceImpl implements FinancialReportResource {
   @Override public CarbonBoughtResponse getTotalBoughtCarbonCredit(Cookie accessToken) {
     TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
     CarbonBoughtResponse response = new CarbonBoughtResponse();
-    response.total = transactionService.getAllBoughtCarbonCredit(temporaryToken).asDouble();
+    response.total = revenueService.getAllBoughtCarbonCredit(temporaryToken).asDouble();
 
     return response;
   }

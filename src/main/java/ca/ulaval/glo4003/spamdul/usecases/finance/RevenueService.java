@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAc
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Arrays;
@@ -19,19 +18,16 @@ import java.util.Map;
 public class RevenueService {
 
   private final AccessLevelValidator accessLevelValidator;
-  private final SustainabilityBankAccount sustainabilityBankAccount;
   private final CampusAccessBankAccount campusAccessBankAccount;
   private final InfractionBankAccount infractionBankAccount;
   private final PassBankAccount passBankAccount;
   private final CarbonCreditsBankAccount carbonCreditsBankAccount;
 
-  public RevenueService(SustainabilityBankAccount sustainabilityBankAccount,
-                        AccessLevelValidator accessLevelValidator,
+  public RevenueService(AccessLevelValidator accessLevelValidator,
                         CampusAccessBankAccount campusAccessBankAccount,
                         InfractionBankAccount infractionBankAccount,
                         PassBankAccount passBankAccount,
                         CarbonCreditsBankAccount carbonCreditsBankAccount) {
-    this.sustainabilityBankAccount = sustainabilityBankAccount;
     this.accessLevelValidator = accessLevelValidator;
     this.campusAccessBankAccount = campusAccessBankAccount;
     this.infractionBankAccount = infractionBankAccount;
