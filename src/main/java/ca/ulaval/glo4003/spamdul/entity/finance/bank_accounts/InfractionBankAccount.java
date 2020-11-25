@@ -22,10 +22,6 @@ public class InfractionBankAccount {
     sustainabilityBankAccount.addRevenue(amount.multiply(0.4), TRANSACTION_TYPE);
   }
 
-  public Amount getRevenueForSustainability() {
-    return sustainabilityBankAccount.getRevenue(TRANSACTION_TYPE);
-  }
-
   public Amount getRevenueForSustainability(TransactionFilter transactionFilter) {
     return sustainabilityBankAccount.getRevenue(TRANSACTION_TYPE, transactionFilter);
   }

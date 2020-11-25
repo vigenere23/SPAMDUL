@@ -22,24 +22,12 @@ public class PassBankAccount {
     sustainabilityBankAccount.addRevenue(amount.multiply(0.4), TRANSACTION_TYPE);
   }
 
-  public Amount getRevenueForSustainability() {
-    return sustainabilityBankAccount.getRevenue(TRANSACTION_TYPE);
-  }
-
   public Amount getRevenueForSustainability(TransactionFilter transactionFilter) {
     return sustainabilityBankAccount.getRevenue(TRANSACTION_TYPE, transactionFilter);
   }
 
-  public Amount getRevenueForMainBankAccount() {
-    return mainBankAccount.getRevenue(TRANSACTION_TYPE);
-  }
-
-  public Amount getRevenueForMainBankAccount(TransactionFilter transactionFilter) {
+  private Amount getRevenueForMainBankAccount(TransactionFilter transactionFilter) {
     return mainBankAccount.getRevenue(TRANSACTION_TYPE, transactionFilter);
-  }
-
-  public Amount getRevenue() {
-    return getRevenueForMainBankAccount().add(getRevenueForSustainability());
   }
 
   public Amount getRevenue(TransactionFilter transactionFilter) {
