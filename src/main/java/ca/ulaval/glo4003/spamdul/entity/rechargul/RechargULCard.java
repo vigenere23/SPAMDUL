@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
+import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
 import java.util.List;

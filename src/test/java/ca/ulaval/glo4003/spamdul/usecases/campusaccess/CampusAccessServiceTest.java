@@ -7,8 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
@@ -97,11 +95,7 @@ public class CampusAccessServiceTest {
   @Mock
   private Calendar calendar;
   @Mock
-  private BankRepository bankRepository;
-  @Mock
   private CampusAccessFeeRepository campusAccessFeeRepository;
-  @Mock
-  private MainBankAccount mainBankAccount;
   @Mock
   private CampusAccessBankAccount campusAccessBankAccount;
 
@@ -130,7 +124,6 @@ public class CampusAccessServiceTest {
     when(userService.createUser(userDto)).thenReturn(A_USER);
     when(carService.createCar(carDto)).thenReturn(A_CAR);
     when(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).thenReturn(A_CAMPUS_ACCESS_FEE);
-    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
   @Test
@@ -142,8 +135,6 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCreateNewCar() {
-    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
-
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
     verify(carService, times(1)).createCar(carDto);

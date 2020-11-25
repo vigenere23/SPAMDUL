@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
@@ -22,9 +21,6 @@ public class InitiativeExceptionMapper implements ExceptionMapper<InvalidInitiat
 
     } else if (e instanceof InvalidInitiativeAmount) {
       response.error = "INVALID_INITIATIVE_AMOUNT";
-
-    } else if (e instanceof InsufficientFundsException) {
-      response.error = "INSUFFICIENT_FUNDS";
 
     } else {
       response.error = "INVALID_INITIATIVE";

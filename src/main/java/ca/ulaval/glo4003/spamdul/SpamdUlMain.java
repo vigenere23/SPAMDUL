@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.GlobalContext;
-import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
@@ -20,6 +19,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.Campu
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
@@ -49,7 +49,6 @@ public class SpamdUlMain {
     UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
-    AccountContext accountContext = new AccountContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
                                                                       financeContext.getCampusAccessBankAccount()
     );
@@ -106,6 +105,7 @@ public class SpamdUlMain {
         resources.add(chargingContext.getRechargULResource());
         resources.add(chargingContext.getChargingPointExceptionMapper());
         resources.add(chargingContext.getRechargULExceptionMapper());
+        resources.add(new FinanceExceptionMapper());
 
         return resources;
       }
