@@ -23,7 +23,7 @@ public class TransactionListTest {
 
   @Test
   public void givenASingleTransaction_whenGettingBalance_shouldReturnThatTransactionAmount() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     TransactionList transactionList = new TransactionList(transactions);
 
     Amount balance = transactionList.getBalance();
@@ -33,7 +33,7 @@ public class TransactionListTest {
 
   @Test
   public void givenMultiplePositiveTransactions_whenGettingBalance_shouldReturnPositiveSumOfTransactionAmounts() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(SMALL_AMOUNT, BIG_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(SMALL_AMOUNT, BIG_AMOUNT);
     TransactionList transactionList = new TransactionList(transactions);
 
     Amount balance = transactionList.getBalance();
@@ -43,8 +43,8 @@ public class TransactionListTest {
 
   @Test
   public void givenMultipleNegativeTransactions_whenGettingBalance_shouldReturnNegativeSumOfTransactionAmounts() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(SMALL_AMOUNT.multiply(-1),
-                                                                                BIG_AMOUNT.multiply(-1));
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(SMALL_AMOUNT.multiply(-1),
+                                                                                 BIG_AMOUNT.multiply(-1));
     TransactionList transactionList = new TransactionList(transactions);
 
     Amount balance = transactionList.getBalance();
@@ -55,8 +55,8 @@ public class TransactionListTest {
 
   @Test
   public void givenOppositeTransactions_whenGettingBalance_shouldReturnZero() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(SMALL_AMOUNT,
-                                                                                SMALL_AMOUNT.multiply(-1));
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(SMALL_AMOUNT,
+                                                                                 SMALL_AMOUNT.multiply(-1));
     TransactionList transactionList = new TransactionList(transactions);
 
     Amount balance = transactionList.getBalance();

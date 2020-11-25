@@ -74,7 +74,7 @@ public class CampusAccessBankAccountTest {
 
   @Test
   public void whenGettingRevenue_returnsFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(campusAccessTransactionRepository.findAll()).thenReturn(transactions);
 
     Amount revenue = campusAccessBankAccount.getRevenue();
@@ -84,7 +84,7 @@ public class CampusAccessBankAccountTest {
 
   @Test
   public void whenGettingRevenueWithCarTypeAndFilter_returnsFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(campusAccessTransactionRepository.findAllBy(A_CAR_TYPE, A_TRANSACTION_FILTER)).thenReturn(transactions);
 
     Amount revenue = campusAccessBankAccount.getRevenue(A_CAR_TYPE, A_TRANSACTION_FILTER);

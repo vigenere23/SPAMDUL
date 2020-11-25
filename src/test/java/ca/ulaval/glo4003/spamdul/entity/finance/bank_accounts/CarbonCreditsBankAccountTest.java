@@ -46,7 +46,7 @@ public class CarbonCreditsBankAccountTest {
 
   @Test
   public void whenGettingRevenue_shouldReturnFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(transactionRepository.findAll()).thenReturn(transactions);
 
     Amount revenue = carbonCreditsBankAccount.getRevenue();

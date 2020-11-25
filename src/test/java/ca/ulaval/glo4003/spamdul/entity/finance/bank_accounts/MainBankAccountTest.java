@@ -50,7 +50,7 @@ public class MainBankAccountTest {
 
   @Test
   public void whenGettingRevenue_shouldReturnFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(transactionRepository.findAll()).thenReturn(transactions);
 
     Amount revenue = mainBankAccount.getRevenue();
@@ -60,7 +60,7 @@ public class MainBankAccountTest {
 
   @Test
   public void whenGettingRevenueOfType_shouldReturnFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(transactionRepository.findAllBy(A_TRANSACTION_TYPE)).thenReturn(transactions);
 
     Amount revenue = mainBankAccount.getRevenue(A_TRANSACTION_TYPE);
@@ -70,7 +70,7 @@ public class MainBankAccountTest {
 
   @Test
   public void whenGettingRevenueOfTypeWithFilter_shouldReturnFromRepository() {
-    List<Transaction> transactions = TestTransactionsCreator.createTransactions(AN_AMOUNT);
+    List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(transactionRepository.findAllBy(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER)).thenReturn(transactions);
 
     Amount revenue = mainBankAccount.getRevenue(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);

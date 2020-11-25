@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TestTransactionsCreator {
 
-  public static List<Transaction> createTransactions(Amount... amounts) {
+  public static List<Transaction> createMultipleMocks(Amount... amounts) {
     List<Transaction> transactions = new ArrayList<>();
 
     for (Amount amount : amounts) {
@@ -19,5 +19,17 @@ public class TestTransactionsCreator {
     }
 
     return transactions;
+  }
+
+  public static Transaction createSingleMock(Amount amount) {
+    Transaction transaction = mock(Transaction.class);
+    when(transaction.getAmount()).thenReturn(amount);
+    return transaction;
+  }
+
+  public static Transaction createSingleMock(TransactionType transactionType) {
+    Transaction transaction = mock(Transaction.class);
+    when(transaction.getTransactionType()).thenReturn(transactionType);
+    return transaction;
   }
 }
