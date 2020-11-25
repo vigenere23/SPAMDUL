@@ -15,26 +15,24 @@ public class InMemoryCampusAccessTransactionRepository implements CampusAccessTr
 
   @Override
   public List<Transaction> findAll() {
-    return transactionsByCarType.values().stream().reduce((allTransactions, transactionList) -> {
-      allTransactions.addAll(transactionList);
-      return allTransactions;
-    }).orElse(new ArrayList<>());
+    List<Transaction> allTransactions = new ArrayList<>();
+    transactionsByCarType.values().forEach(allTransactions::addAll);
+    return allTransactions;
   }
 
   @Override
   public List<Transaction> findAllBy(CarType carType) {
-    return new ArrayList<>(transactionsByCarType.get(carType));
+    return new ArrayList<>(transactionsByCarType.getOrDefault(carType, new ArrayList<>()));
   }
 
   @Override
   public List<Transaction> findAllBy(CarType carType, TransactionFilter transactionFilter) {
-    List<Transaction> transactions = new ArrayList<>(transactionsByCarType.get(carType));
-    return transactionFilter.setData(transactions).getResults();
+    return transactionFilter.setData(findAllBy(carType)).getResults();
   }
 
   @Override
   public void save(Transaction transaction, CarType carType) {
-    List<Transaction> transactions = transactionsByCarType.getOrDefault(carType, new ArrayList<>());
+    List<Transaction> transactions = findAllBy(carType);
     transactions.add(transaction);
     transactionsByCarType.put(carType, transactions);
   }

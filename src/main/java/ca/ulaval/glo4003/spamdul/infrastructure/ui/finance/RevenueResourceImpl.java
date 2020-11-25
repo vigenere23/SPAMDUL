@@ -35,6 +35,7 @@ public class RevenueResourceImpl implements RevenueResource {
   @Override
   public TotalRevenueResponse getTotalRevenue(String startDate, String endDate, Cookie accessToken) {
     TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
+    
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
     Amount infractionsTotalRevenue = revenueService.getInfractionsTotalRevenue(transactionQueryDto,
                                                                                temporaryToken);
@@ -48,7 +49,8 @@ public class RevenueResourceImpl implements RevenueResource {
 
   @Override
   public CarTypeTotalRevenueResponse getCarTypeTotalRevenue(String startDate, String endDate, Cookie accessToken) {
-    TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
+    TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
+
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
     Map<CarType, Amount> revenueByCarType = revenueService.getCampusAccessTotalRevenueByCarType(transactionQueryDto,
                                                                                                 temporaryToken);
@@ -58,7 +60,8 @@ public class RevenueResourceImpl implements RevenueResource {
 
   @Override
   public RevenueResponse getInfractionsTotalRevenue(String startDate, String endDate, Cookie accessToken) {
-    TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
+    TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
+
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
     Amount amount = revenueService.getInfractionsTotalRevenue(transactionQueryDto, temporaryToken);
 
@@ -67,7 +70,8 @@ public class RevenueResourceImpl implements RevenueResource {
 
   @Override
   public RevenueResponse getParkingPassTotalRevenue(String startDate, String endDate, Cookie accessToken) {
-    TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
+    TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
+
     TransactionQueryDto transactionQueryDto = transactionQueryAssembler.fromValues(startDate, endDate);
     Amount amount = revenueService.getPassTotalRevenue(transactionQueryDto, temporaryToken);
 
@@ -75,7 +79,8 @@ public class RevenueResourceImpl implements RevenueResource {
   }
 
   @Override public CarbonBoughtResponse getTotalBoughtCarbonCredit(Cookie accessToken) {
-    TemporaryToken temporaryToken = TemporaryToken.valueOf(accessToken.getValue());
+    TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
+
     CarbonBoughtResponse response = new CarbonBoughtResponse();
     response.total = revenueService.getAllBoughtCarbonCredit(temporaryToken).asDouble();
 

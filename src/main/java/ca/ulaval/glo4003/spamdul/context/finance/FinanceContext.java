@@ -42,11 +42,12 @@ public class FinanceContext {
     mainBankAccount = new MainBankAccount(transactionFactory, new InMemoryTransactionRepository());
     sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory, new InMemoryTransactionRepository(),
                                                               new InMemoryTransactionRepository());
-    initiativesBankAccount = new InitiativesBankAccount(sustainabilityBankAccount);
     carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory, new InMemoryTransactionRepository());
+
     campusAccessBankAccount = new CampusAccessBankAccount(mainBankAccount,
                                                           sustainabilityBankAccount,
                                                           new InMemoryCampusAccessTransactionRepository());
+    initiativesBankAccount = new InitiativesBankAccount(sustainabilityBankAccount);
     infractionBankAccount = new InfractionBankAccount(mainBankAccount, sustainabilityBankAccount);
     passBankAccount = new PassBankAccount(mainBankAccount, sustainabilityBankAccount);
 
@@ -64,10 +65,6 @@ public class FinanceContext {
                                               transactionQueryAssembler,
                                               revenueAssembler,
                                               cookieAssembler);
-  }
-
-  public MainBankAccount getMainBankAccount() {
-    return mainBankAccount;
   }
 
   public SustainabilityBankAccount getSustainabilityBankAccount() {

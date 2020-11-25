@@ -13,5 +13,4 @@ public class AccessTokenCookieAssembler {
 
     return TemporaryToken.valueOf(accessToken.getValue());
   }
-
 }
