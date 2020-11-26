@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.revenue;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.transactions.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
+import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,7 +43,7 @@ public class TransactionQueryAssembler {
 
   private LocalDateTime parseDate(String stringDate, LocalTime time) {
     try {
-      LocalDate date = LocalDate.parse(stringDate, DateTimeFormatter.TRANSACTION_DATE_TIME_FORMATTER);
+      LocalDate date = LocalDate.parse(stringDate, Formatters.DATE_FORMATTER);
 
       return LocalDateTime.of(date, time);
 
