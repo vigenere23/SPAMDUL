@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.http;
 
-import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
@@ -14,10 +13,8 @@ import javax.ws.rs.core.MultivaluedMap;
  */
 public class CORSResponseFilter implements ContainerResponseFilter {
 
-
-  public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
-      throws IOException {
-
+  @Override
+  public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
     MultivaluedMap<String, Object> headers = responseContext.getHeaders();
 
     headers.add("Access-Control-Allow-Origin", "*");
