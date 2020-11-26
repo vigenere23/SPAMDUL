@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativesBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativeBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
@@ -30,7 +30,7 @@ public class FinanceContext {
 
   private final CampusAccessBankAccount campusAccessBankAccount;
   private final InfractionBankAccount infractionBankAccount;
-  private final InitiativesBankAccount initiativesBankAccount;
+  private final InitiativeBankAccount initiativeBankAccount;
   private final PassBankAccount passBankAccount;
 
   private final RevenueResource revenueResource;
@@ -47,7 +47,7 @@ public class FinanceContext {
     campusAccessBankAccount = new CampusAccessBankAccount(mainBankAccount,
                                                           sustainabilityBankAccount,
                                                           new InMemoryCampusAccessTransactionRepository());
-    initiativesBankAccount = new InitiativesBankAccount(sustainabilityBankAccount);
+    initiativeBankAccount = new InitiativeBankAccount(sustainabilityBankAccount);
     infractionBankAccount = new InfractionBankAccount(mainBankAccount, sustainabilityBankAccount);
     passBankAccount = new PassBankAccount(mainBankAccount, sustainabilityBankAccount);
 
@@ -83,8 +83,8 @@ public class FinanceContext {
     return carbonCreditsBankAccount;
   }
 
-  public InitiativesBankAccount getInitiativesBankAccount() {
-    return initiativesBankAccount;
+  public InitiativeBankAccount getInitiativesBankAccount() {
+    return initiativeBankAccount;
   }
 
   public PassBankAccount getPassBankAccount() {
