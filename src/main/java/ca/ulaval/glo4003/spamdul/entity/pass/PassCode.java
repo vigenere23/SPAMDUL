@@ -1,15 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
 import java.util.Objects;
 
 public class PassCode {
 
-  private static Long lastCode = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long code;
 
   public PassCode() {
-    code = getNextCode();
+    code = idGenerator.getNextId();
   }
 
   private PassCode(long code) {
@@ -25,13 +27,7 @@ public class PassCode {
     }
   }
 
-  private static synchronized Long getNextCode() {
-    lastCode += 1;
-
-    return lastCode;
-  }
-
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -43,11 +39,11 @@ public class PassCode {
     return Objects.equals(code, userId.code);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(code);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.code.toString();
   }
 }
