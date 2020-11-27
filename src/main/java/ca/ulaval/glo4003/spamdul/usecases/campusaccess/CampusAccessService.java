@@ -62,8 +62,8 @@ public class CampusAccessService extends AccessGrantedObservable {
   }
 
   private void addRevenue(CarType carType, PeriodType periodType) {
-    Amount amount = Amount.valueOf(campusAccessFeeRepository.findBy(carType, periodType).getFee());
-    
+    Amount amount = campusAccessFeeRepository.findBy(carType, periodType);
+
     campusAccessBankAccount.addRevenue(amount, carType);
   }
 

@@ -4,10 +4,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFee;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,37 +42,37 @@ public class CampusAccessFeeCsvRepositoryTest {
 
   @Test
   public void givenGourmandeAndHourly_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.GOURMANDE, PeriodType.HOURLY);
+    Amount fee = repository.findBy(CarType.GOURMANDE, PeriodType.HOURLY);
 
-    Truth.assertThat(fee.getFee()).isEqualTo(3);
+    Truth.assertThat(fee).isEqualTo(Amount.valueOf(3));
   }
 
   @Test
   public void givenEconomiqueAndOneOneDayPerWeekPerSemester_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Amount fee = repository.findBy(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
 
-    Truth.assertThat(fee.getFee()).isEqualTo(30);
+    Truth.assertThat(fee).isEqualTo(Amount.valueOf(30));
   }
 
   @Test
   public void givenHybrideEconomiqueAndOneOneSemester_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.HYBRIDE_ECONOMIQUE, PeriodType.ONE_SEMESTER);
+    Amount fee = repository.findBy(CarType.HYBRIDE_ECONOMIQUE, PeriodType.ONE_SEMESTER);
 
-    Truth.assertThat(fee.getFee()).isEqualTo(75);
+    Truth.assertThat(fee).isEqualTo(Amount.valueOf(75));
   }
 
   @Test
   public void givenSuperEconomiqueAndTwoSemester_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.SUPER_ECONOMIQUE, PeriodType.TWO_SEMESTERS);
+    Amount fee = repository.findBy(CarType.SUPER_ECONOMIQUE, PeriodType.TWO_SEMESTERS);
 
-    Truth.assertThat(fee.getFee()).isEqualTo(40);
+    Truth.assertThat(fee).isEqualTo(Amount.valueOf(40));
   }
 
   @Test
   public void givenZeroPollutionAndThreeSemester_whenFindingBy_shouldReturnTheRightCampusAccessFee() {
-    CampusAccessFee fee = repository.findBy(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
+    Amount fee = repository.findBy(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
 
-    Truth.assertThat(fee.getFee()).isEqualTo(0);
+    Truth.assertThat(fee).isEqualTo(Amount.valueOf(0));
   }
 
   @Test(expected = CantFindCampusAccessFeeException.class)

@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFee;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
@@ -73,8 +72,8 @@ public class CampusAccessServiceTest {
   private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
   private static final int AN_AMOUNT_VALUE = 120;
-  private static final CampusAccessFee A_CAMPUS_ACCESS_FEE = new CampusAccessFee(AN_AMOUNT_VALUE);
   private static final Amount AN_AMOUNT = Amount.valueOf(AN_AMOUNT_VALUE);
+  private static final Amount A_CAMPUS_ACCESS_FEE = AN_AMOUNT;
   private static final Transaction A_TRANSACTION = new Transaction(AN_AMOUNT,
                                                                    LocalDateTime.now(),
                                                                    TransactionType.CAMPUS_ACCESS);

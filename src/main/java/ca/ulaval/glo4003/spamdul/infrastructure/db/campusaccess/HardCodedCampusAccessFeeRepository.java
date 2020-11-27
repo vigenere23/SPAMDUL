@@ -1,15 +1,16 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFee;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.utils.MapUtil;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeRepository {
 
-  private final Map<Map<CarType, PeriodType>, CampusAccessFee> campusAccessFees;
+  private final Map<Map<CarType, PeriodType>, Amount> campusAccessFees;
 
   public HardCodedCampusAccessFeeRepository() {
     campusAccessFees = new HashMap<>();
@@ -20,7 +21,7 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
     setSansPollution();
   }
 
-  public CampusAccessFee findBy(CarType carType, PeriodType PeriodType) {
+  @Override public Amount findBy(CarType carType, PeriodType PeriodType) {
     Map<CarType, PeriodType> key = new HashMap<>();
     key.put(carType, PeriodType);
 
@@ -28,117 +29,83 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setSansPollution() {
-    Map<CarType, PeriodType> singleSansPollution = new HashMap<>();
-    Map<CarType, PeriodType> singleWeekSemesterSansPollution = new HashMap<>();
-    Map<CarType, PeriodType> session1SansPollution = new HashMap<>();
-    Map<CarType, PeriodType> session2SansPollution = new HashMap<>();
-    Map<CarType, PeriodType> session3SansPollution = new HashMap<>();
+    Map<CarType, PeriodType> singleSansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterSansPollution = MapUtil.asMap(CarType.SANS_POLLUTION,
+                                                                             PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Map<CarType, PeriodType> session1SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
 
-    singleSansPollution.put(CarType.SANS_POLLUTION, PeriodType.SINGLE_DAY);
-    campusAccessFees.put(singleSansPollution, new CampusAccessFee(0));
-
-    singleWeekSemesterSansPollution.put(CarType.SANS_POLLUTION, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    campusAccessFees.put(singleWeekSemesterSansPollution, new CampusAccessFee(0));
-
-    session1SansPollution.put(CarType.SANS_POLLUTION, PeriodType.ONE_SEMESTER);
-    campusAccessFees.put(session1SansPollution, new CampusAccessFee(0));
-
-    session2SansPollution.put(CarType.SANS_POLLUTION, PeriodType.TWO_SEMESTERS);
-    campusAccessFees.put(session2SansPollution, new CampusAccessFee(0));
-
-    session3SansPollution.put(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
-    campusAccessFees.put(session3SansPollution, new CampusAccessFee(0));
+    campusAccessFees.put(singleSansPollution, Amount.valueOf(0));
+    campusAccessFees.put(singleWeekSemesterSansPollution, Amount.valueOf(0));
+    campusAccessFees.put(session1SansPollution, Amount.valueOf(0));
+    campusAccessFees.put(session2SansPollution, Amount.valueOf(0));
+    campusAccessFees.put(session3SansPollution, Amount.valueOf(0));
   }
 
   private void setSuperEconomique() {
-    Map<CarType, PeriodType> singleSuperEconomique = new HashMap<>();
-    Map<CarType, PeriodType> singleWeekSemesterSuperEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session1SuperEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session2SuperEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session3SuperEconomique = new HashMap<>();
+    Map<CarType, PeriodType> singleSuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterSuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+                                                                               PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Map<CarType, PeriodType> session1SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+                                                                     PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+                                                                     PeriodType.THREE_SEMESTERS);
 
-    singleSuperEconomique.put(CarType.SUPER_ECONOMIQUE, PeriodType.SINGLE_DAY);
-    campusAccessFees.put(singleSuperEconomique, new CampusAccessFee(2));
-
-    singleWeekSemesterSuperEconomique.put(CarType.SUPER_ECONOMIQUE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    campusAccessFees.put(singleWeekSemesterSuperEconomique, new CampusAccessFee(5));
-
-    session1SuperEconomique.put(CarType.SUPER_ECONOMIQUE, PeriodType.ONE_SEMESTER);
-    campusAccessFees.put(session1SuperEconomique, new CampusAccessFee(20));
-
-    session2SuperEconomique.put(CarType.SUPER_ECONOMIQUE, PeriodType.TWO_SEMESTERS);
-    campusAccessFees.put(session2SuperEconomique, new CampusAccessFee(40));
-
-    session3SuperEconomique.put(CarType.SUPER_ECONOMIQUE, PeriodType.THREE_SEMESTERS);
-    campusAccessFees.put(session3SuperEconomique, new CampusAccessFee(50));
+    campusAccessFees.put(singleSuperEconomique, Amount.valueOf(2));
+    campusAccessFees.put(singleWeekSemesterSuperEconomique, Amount.valueOf(5));
+    campusAccessFees.put(session1SuperEconomique, Amount.valueOf(20));
+    campusAccessFees.put(session2SuperEconomique, Amount.valueOf(40));
+    campusAccessFees.put(session3SuperEconomique, Amount.valueOf(50));
   }
 
   private void setHybrideEconomique() {
-    Map<CarType, PeriodType> singleHybrideEconomique = new HashMap<>();
-    Map<CarType, PeriodType> singleWeekSemesterHybridEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session1HybrideEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session2HybrideEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session3HybrideEconomique = new HashMap<>();
+    Map<CarType, PeriodType> singleHybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterHybridEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+                                                                                PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Map<CarType, PeriodType> session1HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+                                                                       PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+                                                                       PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+                                                                       PeriodType.THREE_SEMESTERS);
 
-    singleHybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, PeriodType.SINGLE_DAY);
-    campusAccessFees.put(singleHybrideEconomique, new CampusAccessFee(4));
-
-    singleWeekSemesterHybridEconomique.put(CarType.HYBRIDE_ECONOMIQUE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    campusAccessFees.put(singleWeekSemesterHybridEconomique, new CampusAccessFee(15));
-
-    session1HybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, PeriodType.ONE_SEMESTER);
-    campusAccessFees.put(session1HybrideEconomique, new CampusAccessFee(75));
-
-    session2HybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, PeriodType.TWO_SEMESTERS);
-    campusAccessFees.put(session2HybrideEconomique, new CampusAccessFee(150));
-
-    session3HybrideEconomique.put(CarType.HYBRIDE_ECONOMIQUE, PeriodType.THREE_SEMESTERS);
-    campusAccessFees.put(session3HybrideEconomique, new CampusAccessFee(200));
+    campusAccessFees.put(singleHybrideEconomique, Amount.valueOf(4));
+    campusAccessFees.put(singleWeekSemesterHybridEconomique, Amount.valueOf(15));
+    campusAccessFees.put(session1HybrideEconomique, Amount.valueOf(75));
+    campusAccessFees.put(session2HybrideEconomique, Amount.valueOf(150));
+    campusAccessFees.put(session3HybrideEconomique, Amount.valueOf(200));
   }
 
   private void setEconomique() {
-    Map<CarType, PeriodType> singleEconomique = new HashMap<>();
-    Map<CarType, PeriodType> singleWeekSemesterEconomique = new HashMap<>();
-    Map<CarType, PeriodType> session1Economique = new HashMap<>();
-    Map<CarType, PeriodType> session2Economique = new HashMap<>();
-    Map<CarType, PeriodType> session3Economique = new HashMap<>();
+    Map<CarType, PeriodType> singleEconomique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterEconomique = MapUtil.asMap(CarType.ECONOMIQUE,
+                                                                          PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Map<CarType, PeriodType> session1Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.THREE_SEMESTERS);
 
-    singleEconomique.put(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY);
-    campusAccessFees.put(singleEconomique, new CampusAccessFee(8));
-
-    singleWeekSemesterEconomique.put(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    campusAccessFees.put(singleWeekSemesterEconomique, new CampusAccessFee(30));
-
-    session1Economique.put(CarType.ECONOMIQUE, PeriodType.ONE_SEMESTER);
-    campusAccessFees.put(session1Economique, new CampusAccessFee(120));
-
-    session2Economique.put(CarType.ECONOMIQUE, PeriodType.TWO_SEMESTERS);
-    campusAccessFees.put(session2Economique, new CampusAccessFee(240));
-
-    session3Economique.put(CarType.ECONOMIQUE, PeriodType.THREE_SEMESTERS);
-    campusAccessFees.put(session3Economique, new CampusAccessFee(300));
+    campusAccessFees.put(singleEconomique, Amount.valueOf(8));
+    campusAccessFees.put(singleWeekSemesterEconomique, Amount.valueOf(30));
+    campusAccessFees.put(session1Economique, Amount.valueOf(120));
+    campusAccessFees.put(session2Economique, Amount.valueOf(240));
+    campusAccessFees.put(session3Economique, Amount.valueOf(300));
   }
 
   private void setGourmande() {
-    Map<CarType, PeriodType> singleGourmande = new HashMap<>();
-    singleGourmande.put(CarType.GOURMANDE, PeriodType.SINGLE_DAY);
-    campusAccessFees.put(singleGourmande, new CampusAccessFee(12));
+    Map<CarType, PeriodType> singleGourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterGourmande = MapUtil.asMap(CarType.GOURMANDE,
+                                                                         PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
+    Map<CarType, PeriodType> session1Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.THREE_SEMESTERS);
 
-    Map<CarType, PeriodType> singleWeekSemesterGourmande = new HashMap<>();
-    singleWeekSemesterGourmande.put(CarType.GOURMANDE, PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    campusAccessFees.put(singleWeekSemesterGourmande, new CampusAccessFee(65));
-
-    Map<CarType, PeriodType> session1Gourmande = new HashMap<>();
-    session1Gourmande.put(CarType.GOURMANDE, PeriodType.ONE_SEMESTER);
-    campusAccessFees.put(session1Gourmande, new CampusAccessFee(250));
-
-    Map<CarType, PeriodType> session2Gourmande = new HashMap<>();
-    session2Gourmande.put(CarType.GOURMANDE, PeriodType.TWO_SEMESTERS);
-    campusAccessFees.put(session2Gourmande, new CampusAccessFee(500));
-
-    Map<CarType, PeriodType> session3Gourmande = new HashMap<>();
-    session3Gourmande.put(CarType.GOURMANDE, PeriodType.THREE_SEMESTERS);
-    campusAccessFees.put(session3Gourmande, new CampusAccessFee(725));
+    campusAccessFees.put(singleGourmande, Amount.valueOf(12));
+    campusAccessFees.put(singleWeekSemesterGourmande, Amount.valueOf(65));
+    campusAccessFees.put(session1Gourmande, Amount.valueOf(250));
+    campusAccessFees.put(session2Gourmande, Amount.valueOf(500));
+    campusAccessFees.put(session3Gourmande, Amount.valueOf(725));
   }
 
 
