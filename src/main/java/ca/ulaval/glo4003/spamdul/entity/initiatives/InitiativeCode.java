@@ -14,6 +14,10 @@ public class InitiativeCode {
     this.code = code;
   }
 
+  public InitiativeCode(ReservedInitiativeCode code) {
+    this.code = code.getValue().toString();
+  }
+
   public InitiativeCode() {
     this.code = idGenerator.getNextId().toString();
   }

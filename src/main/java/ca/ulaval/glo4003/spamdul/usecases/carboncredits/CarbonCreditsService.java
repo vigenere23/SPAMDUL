@@ -13,7 +13,8 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.ReservedInitiativeCode;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class CarbonCreditsService implements ScheduleObserver {
@@ -59,10 +60,10 @@ public class CarbonCreditsService implements ScheduleObserver {
     Initiative initiative;
 
     try {
-      initiative = initiativeCreator.createInitiative(new InitiativeCode("MCARB"),
+      initiative = initiativeCreator.createInitiative(new InitiativeCode(ReservedInitiativeCode.CARBON_CREDITS),
                                                       "Marché du carbone",
                                                       totalAvailableAmount);
-    } catch (InvalidInitiativeAmount | InsufficientFundsException exception) {
+    } catch (InvalidInitiativeAmountException | InsufficientFundsException exception) {
       return 0;
     }
 
