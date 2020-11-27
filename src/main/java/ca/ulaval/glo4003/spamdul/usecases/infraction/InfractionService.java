@@ -62,6 +62,7 @@ public class InfractionService {
   public void payInfraction(InfractionPaymentDto infractionPaymentDto) {
     Infraction infraction = infractionRepository.findBy(infractionPaymentDto.infractionId);
     infraction.pay();
+    infractionRepository.save(infraction);
     infractionBankAccount.addRevenue(Amount.valueOf(infraction.getAmount()));
   }
 }
