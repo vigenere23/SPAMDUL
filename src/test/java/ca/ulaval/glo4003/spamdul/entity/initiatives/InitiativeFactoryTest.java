@@ -42,7 +42,7 @@ public class InitiativeFactoryTest {
 
   @Test
   public void givenReservedCode_whenCreatingWithReservedCode_shouldReturnInitiative() {
-    initiativeFactory.createWithReservedCode(ReservedInitiativeCode.CARBON_CREDITS, A_VALID_NAME, A_VALID_AMOUNT);
+    initiativeFactory.create(ReservedInitiativeCode.CARBON_CREDITS, A_VALID_NAME, A_VALID_AMOUNT);
   }
 
   @Test

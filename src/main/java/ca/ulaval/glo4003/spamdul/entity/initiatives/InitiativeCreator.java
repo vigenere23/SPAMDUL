@@ -16,16 +16,22 @@ public class InitiativeCreator {
     this.initiativeFactory = initiativeFactory;
   }
 
+  public Initiative createInitiative(String name, Amount amount) {
+    addExpense(amount);
+
+    return initiativeFactory.create(name, amount);
+  }
+
   public Initiative createInitiative(InitiativeCode code, String name, Amount amount) {
     addExpense(amount);
 
     return initiativeFactory.create(code, name, amount);
   }
 
-  public Initiative createInitiative(ReservedInitiativeCode code, String name, Amount amount) {
+  public Initiative createInitiative(ReservedInitiativeCode reservedCode, String name, Amount amount) {
     addExpense(amount);
 
-    return initiativeFactory.createWithReservedCode(code, name, amount);
+    return initiativeFactory.create(reservedCode, name, amount);
   }
 
   private void addExpense(Amount amount) {

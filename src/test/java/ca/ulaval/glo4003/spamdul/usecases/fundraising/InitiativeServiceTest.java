@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
@@ -29,7 +28,6 @@ public class InitiativeServiceTest {
   private InitiativeService initiativeService;
   private final InitiativeDto A_INITIATIVE_DTO = new InitiativeDto();
   private final String A_NAME = "initiative vélo";
-  private final InitiativeCode A_CODE = new InitiativeCode("ASDHJA-12");
   private final Amount AN_AMOUNT = Amount.valueOf(510);
   private final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
 
@@ -49,7 +47,6 @@ public class InitiativeServiceTest {
                                               accessLevelValidator);
     A_INITIATIVE_DTO.amount = AN_AMOUNT;
     A_INITIATIVE_DTO.name = A_NAME;
-    A_INITIATIVE_DTO.code = A_CODE;
   }
 
   @Test
@@ -78,7 +75,7 @@ public class InitiativeServiceTest {
 
   @Test
   public void givenEnoughFunds_whenAddingInitiative_shouldSaveInitiative() {
-    when(initiativeCreator.createInitiative(A_CODE, A_NAME, AN_AMOUNT)).thenReturn(initiative);
+    when(initiativeCreator.createInitiative(A_NAME, AN_AMOUNT)).thenReturn(initiative);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 
@@ -87,7 +84,7 @@ public class InitiativeServiceTest {
 
   @Test(expected = InsufficientFundsException.class)
   public void givenNotEnoughFunds_whenAddingInitiative_shouldNotSaveInitiative() {
-    doThrow(InsufficientFundsException.class).when(initiativeCreator).createInitiative(A_CODE, A_NAME, AN_AMOUNT);
+    doThrow(InsufficientFundsException.class).when(initiativeCreator).createInitiative(A_NAME, AN_AMOUNT);
 
     initiativeService.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 

@@ -31,8 +31,7 @@ public class InitiativeService {
   public Initiative addInitiative(InitiativeDto initiativeDto, TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);
 
-    Initiative initiative = initiativeCreator.createInitiative(initiativeDto.code,
-                                                               initiativeDto.name,
+    Initiative initiative = initiativeCreator.createInitiative(initiativeDto.name,
                                                                initiativeDto.amount);
     initiativeRepository.save(initiative);
 

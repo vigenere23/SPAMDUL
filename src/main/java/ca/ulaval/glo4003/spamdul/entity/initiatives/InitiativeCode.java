@@ -10,16 +10,20 @@ public class InitiativeCode {
   private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
 
 
-  public InitiativeCode(String code) {
-    this.code = code;
+  public static InitiativeCode valueOf(String code) {
+    return new InitiativeCode(code);
   }
 
-  public InitiativeCode(ReservedInitiativeCode code) {
-    this.code = code.getValue().toString();
+  public static InitiativeCode valueOf(ReservedInitiativeCode code) {
+    return new InitiativeCode(code.getValue().toString());
   }
 
   public InitiativeCode() {
     this.code = idGenerator.getNextId().toString();
+  }
+
+  private InitiativeCode(String code) {
+    this.code = code;
   }
 
   @Override

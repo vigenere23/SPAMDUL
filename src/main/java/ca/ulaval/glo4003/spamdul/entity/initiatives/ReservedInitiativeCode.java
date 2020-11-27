@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum ReservedInitiativeCode {
-  CARBON_CREDITS(new InitiativeCode("MCARB"));
+  CARBON_CREDITS(InitiativeCode.valueOf("MCARB"));
 
   private final InitiativeCode value;
 
