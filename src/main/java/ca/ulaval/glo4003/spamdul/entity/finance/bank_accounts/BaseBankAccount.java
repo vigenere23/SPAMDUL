@@ -25,12 +25,14 @@ public abstract class BaseBankAccount {
   public Transaction addRevenue(Amount amount, TransactionType transactionType) {
     Transaction transaction = transactionFactory.create(transactionType, amount);
     revenueTransactionRepository.save(transaction);
+
     return transaction;
   }
 
   public Transaction addExpense(Amount amount, TransactionType transactionType) {
     Transaction transaction = transactionFactory.create(transactionType, amount.multiply(-1));
     expensesTransactionRepository.save(transaction);
+
     return transaction;
   }
 

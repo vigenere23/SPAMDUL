@@ -38,11 +38,13 @@ public class CampusAccessBankAccount {
 
   public Amount getRevenue(CarType carType, TransactionFilter transactionFilter) {
     List<Transaction> transactions = campusAccessTransactionRepository.findAllBy(carType, transactionFilter);
+
     return new TransactionList(transactions).getBalance();
   }
 
   public Amount getRevenue() {
     List<Transaction> transactions = campusAccessTransactionRepository.findAll();
+
     return new TransactionList(transactions).getBalance();
   }
 }

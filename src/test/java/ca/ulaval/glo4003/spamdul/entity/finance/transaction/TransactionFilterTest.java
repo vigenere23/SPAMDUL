@@ -56,7 +56,9 @@ public class TransactionFilterTest {
   public void givenTransactionTooEarly_whenFilteringBetweenDates_shouldReturnEmptyList() {
     Transaction transactionTooEarly = createLogAtDate(BEFORE_DATE);
     transactionFilter.setData(Collections.singletonList(transactionTooEarly));
+
     List<Transaction> filteredTransactions = transactionFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredTransactions).isEmpty();
   }
 
@@ -64,7 +66,9 @@ public class TransactionFilterTest {
   public void givenTransactionTooLate_whenFilteringBetweenDates_shouldReturnEmptyList() {
     Transaction transactionTooEarly = createLogAtDate(AFTER_DATE);
     transactionFilter.setData(Collections.singletonList(transactionTooEarly));
+
     List<Transaction> filteredTransactions = transactionFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredTransactions).isEmpty();
   }
 
@@ -72,7 +76,9 @@ public class TransactionFilterTest {
   public void givenTransactionBetweenDates_whenFilteringBetweenDates_shouldReturnTheGivenLog() {
     Transaction transactionTooEarly = createLogAtDate(BETWEEN_DATE);
     transactionFilter.setData(Collections.singletonList(transactionTooEarly));
+
     List<Transaction> filteredTransactions = transactionFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredTransactions).containsExactly(transactionTooEarly);
   }
 

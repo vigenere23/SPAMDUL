@@ -10,6 +10,7 @@ public class ListUtil {
   public static <T> List<T> toList(T... items) {
     List<T> list = new ArrayList<>();
     Collections.addAll(list, items);
+
     return list;
   }
 }

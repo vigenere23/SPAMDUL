@@ -28,6 +28,7 @@ public class CarbonCreditsBankAccount {
 
   public Amount getRevenue() {
     List<Transaction> transactions = transactionRepository.findAll();
+    
     return new TransactionList(transactions).getBalance();
   }
 }

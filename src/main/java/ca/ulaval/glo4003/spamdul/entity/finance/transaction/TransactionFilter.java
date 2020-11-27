@@ -10,6 +10,7 @@ public class TransactionFilter {
 
   public TransactionFilter setData(List<Transaction> transactions) {
     filterContainer.setData(transactions);
+
     return this;
   }
 
