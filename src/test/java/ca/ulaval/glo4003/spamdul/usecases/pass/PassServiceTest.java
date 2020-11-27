@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFee;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFee;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -50,7 +49,7 @@ public class PassServiceTest {
   private static final PassDto A_SECOND_PASS_DTO = new PassDto();
   private static final Amount AN_AMOUNT = Amount.valueOf(5.23);
   private static final Amount ANOTHER_AMOUNT = Amount.valueOf(15.34);
-  private static final ParkingZoneFee A_PARKING_ZONE_FEE = new ParkingZoneFee(AN_AMOUNT);
+  private static final Amount A_PARKING_ZONE_FEE = AN_AMOUNT;
   private static final DeliveryFee A_DELIVERY_FEE = new DeliveryFee(ANOTHER_AMOUNT);
 
   private final Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);

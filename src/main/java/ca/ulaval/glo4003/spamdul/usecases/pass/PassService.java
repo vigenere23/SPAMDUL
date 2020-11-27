@@ -43,7 +43,7 @@ public class PassService {
 
   private void addRevenue(PassDto dto) {
     Amount deliveryFee = deliveryFeeCalculator.calculateBy(dto.deliveryDto.deliveryMode).getFee();
-    Amount parkingZoneFee = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType).getFee();
+    Amount parkingZoneFee = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType);
     Amount total = deliveryFee.add(parkingZoneFee);
 
     passBankAccount.addRevenue(total);

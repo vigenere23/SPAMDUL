@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public interface ParkingZoneFeeRepository {
 
-  ParkingZoneFee findBy(ParkingZone parkingZone, PeriodType periodType);
-
+  Amount findBy(ParkingZone parkingZone, PeriodType periodType);
 }
