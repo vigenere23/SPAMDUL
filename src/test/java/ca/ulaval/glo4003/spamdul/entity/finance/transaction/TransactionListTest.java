@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.finance;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
 import static com.google.common.truth.Truth.assertThat;
 

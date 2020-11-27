@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionList;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionList;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 

@@ -5,13 +5,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TestTransactionsCreator;
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TestTransactionsCreator;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class SustainabilityBankAccountTest {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(revenueRepository.findAll()).thenReturn(transactions);
 
-    Amount revenue = sustainabilityBankAccount.getRevenue();
+    Amount revenue = sustainabilityBankAccount.getRevenue().total();
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
@@ -88,7 +88,7 @@ public class SustainabilityBankAccountTest {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(revenueRepository.findAllBy(A_TRANSACTION_TYPE)).thenReturn(transactions);
 
-    Amount revenue = sustainabilityBankAccount.getRevenue(A_TRANSACTION_TYPE);
+    Amount revenue = sustainabilityBankAccount.getRevenue().with(A_TRANSACTION_TYPE);
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
@@ -98,7 +98,7 @@ public class SustainabilityBankAccountTest {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(revenueRepository.findAllBy(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER)).thenReturn(transactions);
 
-    Amount revenue = sustainabilityBankAccount.getRevenue(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);
+    Amount revenue = sustainabilityBankAccount.getRevenue().with(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
@@ -108,7 +108,7 @@ public class SustainabilityBankAccountTest {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(expensesRepository.findAll()).thenReturn(transactions);
 
-    Amount revenue = sustainabilityBankAccount.getExpenses();
+    Amount revenue = sustainabilityBankAccount.getExpenses().total();
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }

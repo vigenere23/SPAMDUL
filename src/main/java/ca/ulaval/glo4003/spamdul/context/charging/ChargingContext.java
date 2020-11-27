@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;

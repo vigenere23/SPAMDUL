@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InfractionBankAccount {
@@ -23,6 +23,6 @@ public class InfractionBankAccount {
   }
 
   public Amount getRevenueForSustainability(TransactionFilter transactionFilter) {
-    return sustainabilityBankAccount.getRevenue(TRANSACTION_TYPE, transactionFilter);
+    return sustainabilityBankAccount.getRevenue().with(TRANSACTION_TYPE, transactionFilter);
   }
 }

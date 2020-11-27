@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.finance;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
 import ca.ulaval.glo4003.spamdul.utils.filter.FilterContainer;
 import java.time.LocalDateTime;

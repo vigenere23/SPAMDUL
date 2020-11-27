@@ -4,10 +4,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.finance.TestTransactionsCreator;
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TestTransactionsCreator;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.ListUtil;
 import java.util.List;
 import org.junit.Before;

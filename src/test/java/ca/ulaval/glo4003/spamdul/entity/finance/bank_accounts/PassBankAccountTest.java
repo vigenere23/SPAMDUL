@@ -5,8 +5,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQueryer;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,10 @@ public class PassBankAccountTest {
   private SustainabilityBankAccount sustainabilityBankAccount;
   @Mock
   private TransactionFilter A_TRANSACTION_FILTER;
+  @Mock
+  private TransactionAmountQueryer A_TRANSACTION_AMOUNT_QUERYER;
+  @Mock
+  private TransactionAmountQueryer ANOTHER_TRANSACTION_AMOUNT_QUERYER;
 
   private PassBankAccount passBankAccount;
 
@@ -48,15 +53,18 @@ public class PassBankAccountTest {
 
   @Test
   public void whenGettingRevenueForSustainability_shouldReturnFromSustainableAccount() {
-    when(sustainabilityBankAccount.getRevenue(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
+    when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
+    when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
     Amount revenue = passBankAccount.getRevenueForSustainability(A_TRANSACTION_FILTER);
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void whenGettingRevenue_shouldReturnFromSustainableAndMainAccounts() {
-    when(mainBankAccount.getRevenue(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
-    when(sustainabilityBankAccount.getRevenue(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(ANOTHER_AMOUNT);
+    when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
+    when(mainBankAccount.getRevenue()).thenReturn(ANOTHER_TRANSACTION_AMOUNT_QUERYER);
+    when(ANOTHER_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
+    when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(ANOTHER_AMOUNT);
 
     Amount revenue = passBankAccount.getRevenue(A_TRANSACTION_FILTER);
 

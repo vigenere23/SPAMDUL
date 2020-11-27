@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.finance;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

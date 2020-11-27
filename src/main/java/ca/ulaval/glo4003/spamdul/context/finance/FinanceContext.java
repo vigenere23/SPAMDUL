@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.context.finance;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FinanceAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
@@ -11,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativeBankAcco
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
@@ -39,8 +39,11 @@ public class FinanceContext {
                         AccessTokenCookieAssembler cookieAssembler) {
     TransactionFactory transactionFactory = new TransactionFactory();
 
-    mainBankAccount = new MainBankAccount(transactionFactory, new InMemoryTransactionRepository());
-    sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory, new InMemoryTransactionRepository(),
+    mainBankAccount = new MainBankAccount(transactionFactory,
+                                          new InMemoryTransactionRepository(),
+                                          new InMemoryTransactionRepository());
+    sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory,
+                                                              new InMemoryTransactionRepository(),
                                                               new InMemoryTransactionRepository());
     carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory, new InMemoryTransactionRepository());
 

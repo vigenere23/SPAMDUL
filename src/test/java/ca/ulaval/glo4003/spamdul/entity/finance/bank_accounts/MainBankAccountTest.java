@@ -5,12 +5,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TestTransactionsCreator;
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TestTransactionsCreator;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 import org.junit.Before;
@@ -28,7 +28,9 @@ public class MainBankAccountTest {
   @Mock
   private TransactionFactory transactionFactory;
   @Mock
-  private TransactionRepository transactionRepository;
+  private TransactionRepository revenueTransactionRepository;
+  @Mock
+  private TransactionRepository expensesTransactionRepository;
   @Mock
   private Transaction A_TRANSACTION;
   @Mock
@@ -38,22 +40,24 @@ public class MainBankAccountTest {
 
   @Before
   public void setUp() {
-    mainBankAccount = new MainBankAccount(transactionFactory, transactionRepository);
+    mainBankAccount = new MainBankAccount(transactionFactory,
+                                          revenueTransactionRepository,
+                                          expensesTransactionRepository);
   }
 
   @Test
   public void whenAddingRevenue_shouldCreateAndSaveTransactionToRepo() {
     when(transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT)).thenReturn(A_TRANSACTION);
     mainBankAccount.addRevenue(AN_AMOUNT, A_TRANSACTION_TYPE);
-    verify(transactionRepository, times(1)).save(A_TRANSACTION);
+    verify(revenueTransactionRepository, times(1)).save(A_TRANSACTION);
   }
 
   @Test
   public void whenGettingRevenue_shouldReturnFromRepository() {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
-    when(transactionRepository.findAll()).thenReturn(transactions);
+    when(revenueTransactionRepository.findAll()).thenReturn(transactions);
 
-    Amount revenue = mainBankAccount.getRevenue();
+    Amount revenue = mainBankAccount.getRevenue().total();
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
@@ -61,9 +65,9 @@ public class MainBankAccountTest {
   @Test
   public void whenGettingRevenueOfType_shouldReturnFromRepository() {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
-    when(transactionRepository.findAllBy(A_TRANSACTION_TYPE)).thenReturn(transactions);
+    when(revenueTransactionRepository.findAllBy(A_TRANSACTION_TYPE)).thenReturn(transactions);
 
-    Amount revenue = mainBankAccount.getRevenue(A_TRANSACTION_TYPE);
+    Amount revenue = mainBankAccount.getRevenue().with(A_TRANSACTION_TYPE);
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
@@ -71,9 +75,9 @@ public class MainBankAccountTest {
   @Test
   public void whenGettingRevenueOfTypeWithFilter_shouldReturnFromRepository() {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
-    when(transactionRepository.findAllBy(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER)).thenReturn(transactions);
+    when(revenueTransactionRepository.findAllBy(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER)).thenReturn(transactions);
 
-    Amount revenue = mainBankAccount.getRevenue(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);
+    Amount revenue = mainBankAccount.getRevenue().with(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }

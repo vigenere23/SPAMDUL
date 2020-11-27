@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.finance;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -24,7 +24,7 @@ public class TransactionFactoryTest {
     LocalDateTime aBitBeforeNow = LocalDateTime.now();
     Transaction transaction = transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT);
     LocalDateTime aBitAfterNow = LocalDateTime.now();
-    
+
     assertThat(transaction.getCreatedAt()).isAtLeast(aBitBeforeNow);
     assertThat(transaction.getCreatedAt()).isAtMost(aBitAfterNow);
   }

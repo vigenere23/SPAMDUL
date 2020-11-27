@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.finance.CampusAccessTransactionRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.CampusAccessTransactionRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;

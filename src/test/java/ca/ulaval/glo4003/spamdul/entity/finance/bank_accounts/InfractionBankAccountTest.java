@@ -5,8 +5,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFilter;
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQueryer;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,8 @@ public class InfractionBankAccountTest {
   private SustainabilityBankAccount sustainabilityBankAccount;
   @Mock
   private TransactionFilter A_TRANSACTION_FILTER;
+  @Mock
+  private TransactionAmountQueryer A_TRANSACTION_AMOUNT_QUERYER;
 
   private InfractionBankAccount infractionBankAccount;
 
@@ -47,7 +50,8 @@ public class InfractionBankAccountTest {
 
   @Test
   public void whenGettingRevenueForSustainability_shouldReturnFromSustainabilityAccount() {
-    when(sustainabilityBankAccount.getRevenue(TransactionType.INFRACTION, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
+    when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
+    when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.INFRACTION, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
     Amount revenue = infractionBankAccount.getRevenueForSustainability(A_TRANSACTION_FILTER);
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }

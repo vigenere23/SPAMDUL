@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;

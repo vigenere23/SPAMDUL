@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 
 public class RechargULCardFactory {
 

@@ -29,12 +29,12 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setSansPollution() {
-    Map<CarType, PeriodType> singleSansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.SINGLE_DAY);
-    Map<CarType, PeriodType> singleWeekSemesterSansPollution = MapUtil.asMap(CarType.SANS_POLLUTION,
+    Map<CarType, PeriodType> singleSansPollution = MapUtil.toMap(CarType.SANS_POLLUTION, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterSansPollution = MapUtil.toMap(CarType.SANS_POLLUTION,
                                                                              PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    Map<CarType, PeriodType> session1SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.ONE_SEMESTER);
-    Map<CarType, PeriodType> session2SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.TWO_SEMESTERS);
-    Map<CarType, PeriodType> session3SansPollution = MapUtil.asMap(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
+    Map<CarType, PeriodType> session1SansPollution = MapUtil.toMap(CarType.SANS_POLLUTION, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2SansPollution = MapUtil.toMap(CarType.SANS_POLLUTION, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3SansPollution = MapUtil.toMap(CarType.SANS_POLLUTION, PeriodType.THREE_SEMESTERS);
 
     campusAccessFees.put(singleSansPollution, Amount.valueOf(0));
     campusAccessFees.put(singleWeekSemesterSansPollution, Amount.valueOf(0));
@@ -44,13 +44,13 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setSuperEconomique() {
-    Map<CarType, PeriodType> singleSuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE, PeriodType.SINGLE_DAY);
-    Map<CarType, PeriodType> singleWeekSemesterSuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+    Map<CarType, PeriodType> singleSuperEconomique = MapUtil.toMap(CarType.SUPER_ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterSuperEconomique = MapUtil.toMap(CarType.SUPER_ECONOMIQUE,
                                                                                PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    Map<CarType, PeriodType> session1SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE, PeriodType.ONE_SEMESTER);
-    Map<CarType, PeriodType> session2SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+    Map<CarType, PeriodType> session1SuperEconomique = MapUtil.toMap(CarType.SUPER_ECONOMIQUE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2SuperEconomique = MapUtil.toMap(CarType.SUPER_ECONOMIQUE,
                                                                      PeriodType.TWO_SEMESTERS);
-    Map<CarType, PeriodType> session3SuperEconomique = MapUtil.asMap(CarType.SUPER_ECONOMIQUE,
+    Map<CarType, PeriodType> session3SuperEconomique = MapUtil.toMap(CarType.SUPER_ECONOMIQUE,
                                                                      PeriodType.THREE_SEMESTERS);
 
     campusAccessFees.put(singleSuperEconomique, Amount.valueOf(2));
@@ -61,14 +61,14 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setHybrideEconomique() {
-    Map<CarType, PeriodType> singleHybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE, PeriodType.SINGLE_DAY);
-    Map<CarType, PeriodType> singleWeekSemesterHybridEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+    Map<CarType, PeriodType> singleHybrideEconomique = MapUtil.toMap(CarType.HYBRIDE_ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterHybridEconomique = MapUtil.toMap(CarType.HYBRIDE_ECONOMIQUE,
                                                                                 PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    Map<CarType, PeriodType> session1HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+    Map<CarType, PeriodType> session1HybrideEconomique = MapUtil.toMap(CarType.HYBRIDE_ECONOMIQUE,
                                                                        PeriodType.ONE_SEMESTER);
-    Map<CarType, PeriodType> session2HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+    Map<CarType, PeriodType> session2HybrideEconomique = MapUtil.toMap(CarType.HYBRIDE_ECONOMIQUE,
                                                                        PeriodType.TWO_SEMESTERS);
-    Map<CarType, PeriodType> session3HybrideEconomique = MapUtil.asMap(CarType.HYBRIDE_ECONOMIQUE,
+    Map<CarType, PeriodType> session3HybrideEconomique = MapUtil.toMap(CarType.HYBRIDE_ECONOMIQUE,
                                                                        PeriodType.THREE_SEMESTERS);
 
     campusAccessFees.put(singleHybrideEconomique, Amount.valueOf(4));
@@ -79,12 +79,12 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setEconomique() {
-    Map<CarType, PeriodType> singleEconomique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY);
-    Map<CarType, PeriodType> singleWeekSemesterEconomique = MapUtil.asMap(CarType.ECONOMIQUE,
+    Map<CarType, PeriodType> singleEconomique = MapUtil.toMap(CarType.ECONOMIQUE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterEconomique = MapUtil.toMap(CarType.ECONOMIQUE,
                                                                           PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    Map<CarType, PeriodType> session1Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.ONE_SEMESTER);
-    Map<CarType, PeriodType> session2Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.TWO_SEMESTERS);
-    Map<CarType, PeriodType> session3Economique = MapUtil.asMap(CarType.ECONOMIQUE, PeriodType.THREE_SEMESTERS);
+    Map<CarType, PeriodType> session1Economique = MapUtil.toMap(CarType.ECONOMIQUE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2Economique = MapUtil.toMap(CarType.ECONOMIQUE, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3Economique = MapUtil.toMap(CarType.ECONOMIQUE, PeriodType.THREE_SEMESTERS);
 
     campusAccessFees.put(singleEconomique, Amount.valueOf(8));
     campusAccessFees.put(singleWeekSemesterEconomique, Amount.valueOf(30));
@@ -94,12 +94,12 @@ public class HardCodedCampusAccessFeeRepository implements CampusAccessFeeReposi
   }
 
   private void setGourmande() {
-    Map<CarType, PeriodType> singleGourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.SINGLE_DAY);
-    Map<CarType, PeriodType> singleWeekSemesterGourmande = MapUtil.asMap(CarType.GOURMANDE,
+    Map<CarType, PeriodType> singleGourmande = MapUtil.toMap(CarType.GOURMANDE, PeriodType.SINGLE_DAY);
+    Map<CarType, PeriodType> singleWeekSemesterGourmande = MapUtil.toMap(CarType.GOURMANDE,
                                                                          PeriodType.SINGLE_DAY_PER_WEEK_PER_SEMESTER);
-    Map<CarType, PeriodType> session1Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.ONE_SEMESTER);
-    Map<CarType, PeriodType> session2Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.TWO_SEMESTERS);
-    Map<CarType, PeriodType> session3Gourmande = MapUtil.asMap(CarType.GOURMANDE, PeriodType.THREE_SEMESTERS);
+    Map<CarType, PeriodType> session1Gourmande = MapUtil.toMap(CarType.GOURMANDE, PeriodType.ONE_SEMESTER);
+    Map<CarType, PeriodType> session2Gourmande = MapUtil.toMap(CarType.GOURMANDE, PeriodType.TWO_SEMESTERS);
+    Map<CarType, PeriodType> session3Gourmande = MapUtil.toMap(CarType.GOURMANDE, PeriodType.THREE_SEMESTERS);
 
     campusAccessFees.put(singleGourmande, Amount.valueOf(12));
     campusAccessFees.put(singleWeekSemesterGourmande, Amount.valueOf(65));

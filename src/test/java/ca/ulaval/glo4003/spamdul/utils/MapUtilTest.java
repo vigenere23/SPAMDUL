@@ -12,7 +12,7 @@ public class MapUtilTest {
 
   @Test
   public void givenKeyAndValue_whenConvertingToMap_shouldReturnRightMap() {
-    Map<String, Integer> map = MapUtil.asMap(A_KEY, A_VALUE);
+    Map<String, Integer> map = MapUtil.toMap(A_KEY, A_VALUE);
     assertThat(map.get(A_KEY)).isEqualTo(A_VALUE);
   }
 }

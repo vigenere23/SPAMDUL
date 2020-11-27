@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InitiativeBankAccount {
