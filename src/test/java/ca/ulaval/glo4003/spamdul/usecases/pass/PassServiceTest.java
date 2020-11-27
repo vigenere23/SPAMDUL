@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFee;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
@@ -50,7 +49,7 @@ public class PassServiceTest {
   private static final Amount AN_AMOUNT = Amount.valueOf(5.23);
   private static final Amount ANOTHER_AMOUNT = Amount.valueOf(15.34);
   private static final Amount A_PARKING_ZONE_FEE = AN_AMOUNT;
-  private static final DeliveryFee A_DELIVERY_FEE = new DeliveryFee(ANOTHER_AMOUNT);
+  private static final Amount A_DELIVERY_FEE = ANOTHER_AMOUNT;
 
   private final Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
 
