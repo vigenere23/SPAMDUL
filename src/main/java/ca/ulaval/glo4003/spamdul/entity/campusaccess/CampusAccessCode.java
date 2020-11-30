@@ -1,14 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import java.util.Objects;
 
 public class CampusAccessCode {
 
-  private static Long lastId = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
   public CampusAccessCode() {
-    id = getNextId();
+    id = idGenerator.getNextId();
   }
 
   private CampusAccessCode(long id) {
@@ -21,12 +23,6 @@ public class CampusAccessCode {
     } catch (NumberFormatException e) {
       throw new InvalidCampusAccessCodeFormatException("invalid campus code format");
     }
-  }
-
-  private static synchronized Long getNextId() {
-    lastId += 1;
-
-    return lastId;
   }
 
   @Override public boolean equals(Object o) {

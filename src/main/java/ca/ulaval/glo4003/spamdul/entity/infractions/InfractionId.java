@@ -1,15 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidInfractionIdException;
 import java.util.Objects;
 
 public class InfractionId {
 
-  private static Long lastCode = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
   public InfractionId() {
-    id = getNextCode();
+    id = idGenerator.getNextId();
   }
 
   private InfractionId(long id) {
@@ -25,13 +27,7 @@ public class InfractionId {
     }
   }
 
-  private static synchronized Long getNextCode() {
-    lastCode += 1;
-
-    return lastCode;
-  }
-
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -43,11 +39,11 @@ public class InfractionId {
     return Objects.equals(id, infractionId.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
 }

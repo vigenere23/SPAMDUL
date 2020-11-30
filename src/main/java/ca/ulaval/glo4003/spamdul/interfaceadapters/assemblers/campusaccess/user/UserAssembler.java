@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserReq
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidGenderArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
-import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
+import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -36,7 +36,7 @@ public class UserAssembler {
 
   private LocalDate getBirthDate(UserRequest userRequest) {
     try {
-      return LocalDate.parse(userRequest.birthDate, DateTimeFormatter.BIRTHDAY_DATE_TIME_FORMATTER);
+      return LocalDate.parse(userRequest.birthDate, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
       throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
