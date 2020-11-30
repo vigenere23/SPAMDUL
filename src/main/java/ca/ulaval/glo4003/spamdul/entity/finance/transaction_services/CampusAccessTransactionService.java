@@ -1,6 +1,8 @@
-package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction_services;
 
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.CampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
@@ -9,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 
-public class CampusAccessBankAccount {
+public class CampusAccessTransactionService {
 
   private final TransactionType TRANSACTION_TYPE = TransactionType.CAMPUS_ACCESS;
 
@@ -17,9 +19,9 @@ public class CampusAccessBankAccount {
   private final SustainabilityBankAccount sustainabilityBankAccount;
   private final CampusAccessTransactionRepository campusAccessTransactionRepository;
 
-  public CampusAccessBankAccount(MainBankAccount mainBankAccount,
-                                 SustainabilityBankAccount sustainabilityBankAccount,
-                                 CampusAccessTransactionRepository campusAccessTransactionRepository) {
+  public CampusAccessTransactionService(MainBankAccount mainBankAccount,
+                                        SustainabilityBankAccount sustainabilityBankAccount,
+                                        CampusAccessTransactionRepository campusAccessTransactionRepository) {
     this.mainBankAccount = mainBankAccount;
     this.sustainabilityBankAccount = sustainabilityBankAccount;
     this.campusAccessTransactionRepository = campusAccessTransactionRepository;

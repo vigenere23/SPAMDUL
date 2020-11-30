@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TransactionAmountQueryerTest {
+public class TransactionAmountQuerierTest {
 
   private static final Amount AN_AMOUNT = Amount.valueOf(5423.21);
   private static final Transaction A_TRANSACTION = TestTransactionsCreator.createSingleMock(
@@ -26,11 +26,11 @@ public class TransactionAmountQueryerTest {
   @Mock
   private TransactionFilter A_TRANSACTION_FILTER;
 
-  private TransactionAmountQueryer queryer;
+  private TransactionAmountQuerier queryer;
 
   @Before
   public void setUp() {
-    queryer = new TransactionAmountQueryer(transactionRepository);
+    queryer = new TransactionAmountQuerier(transactionRepository);
   }
 
   @Test

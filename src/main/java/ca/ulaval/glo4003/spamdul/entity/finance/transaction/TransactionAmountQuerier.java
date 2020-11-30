@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
-public class TransactionAmountQueryer {
+public class TransactionAmountQuerier {
 
   private final TransactionRepository transactionRepository;
 
-  public TransactionAmountQueryer(TransactionRepository transactionRepository) {
+  public TransactionAmountQuerier(TransactionRepository transactionRepository) {
     this.transactionRepository = transactionRepository;
   }
 

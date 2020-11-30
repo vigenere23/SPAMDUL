@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
@@ -28,7 +28,7 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CampusAccessRepository campusAccessRepository;
   private final Calendar calendar;
   private final CampusAccessFeeRepository campusAccessFeeRepository;
-  private final CampusAccessBankAccount campusAccessBankAccount;
+  private final CampusAccessTransactionService campusAccessTransactionService;
 
   public CampusAccessService(UserService userService,
                              CarService carService,
@@ -36,14 +36,14 @@ public class CampusAccessService extends AccessGrantedObservable {
                              CampusAccessRepository campusAccessRepository,
                              Calendar calendar,
                              CampusAccessFeeRepository campusAccessFeeRepository,
-                             CampusAccessBankAccount campusAccessBankAccount) {
+                             CampusAccessTransactionService campusAccessTransactionService) {
     this.userService = userService;
     this.carService = carService;
     this.campusAccessFactory = campusAccessFactory;
     this.campusAccessRepository = campusAccessRepository;
     this.calendar = calendar;
     this.campusAccessFeeRepository = campusAccessFeeRepository;
-    this.campusAccessBankAccount = campusAccessBankAccount;
+    this.campusAccessTransactionService = campusAccessTransactionService;
   }
 
   public CampusAccess createAndSaveNewCampusAccess(CampusAccessDto campusAccessDto) {
@@ -64,7 +64,7 @@ public class CampusAccessService extends AccessGrantedObservable {
   private void addRevenue(CarType carType, PeriodType periodType) {
     Amount amount = campusAccessFeeRepository.findBy(carType, periodType);
 
-    campusAccessBankAccount.addRevenue(amount, carType);
+    campusAccessTransactionService.addRevenue(amount, carType);
   }
 
   public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, Pass pass) {

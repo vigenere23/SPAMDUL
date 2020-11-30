@@ -3,14 +3,14 @@ package ca.ulaval.glo4003.spamdul.context.finance;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FinanceAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativeBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
@@ -26,12 +26,12 @@ public class FinanceContext {
 
   private final MainBankAccount mainBankAccount;
   private final SustainabilityBankAccount sustainabilityBankAccount;
-  private final CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private final CarbonCreditsTransactionService carbonCreditsTransactionService;
 
-  private final CampusAccessBankAccount campusAccessBankAccount;
-  private final InfractionBankAccount infractionBankAccount;
-  private final InitiativeBankAccount initiativeBankAccount;
-  private final PassBankAccount passBankAccount;
+  private final CampusAccessTransactionService campusAccessTransactionService;
+  private final InfractionTransactionService infractionTransactionService;
+  private final InitiativeTransactionService initiativeTransactionService;
+  private final PassTransactionService passTransactionService;
 
   private final RevenueResource revenueResource;
 
@@ -45,21 +45,22 @@ public class FinanceContext {
     sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory,
                                                               new InMemoryTransactionRepository(),
                                                               new InMemoryTransactionRepository());
-    carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory, new InMemoryTransactionRepository());
+    carbonCreditsTransactionService = new CarbonCreditsTransactionService(transactionFactory,
+                                                                          new InMemoryTransactionRepository());
 
-    campusAccessBankAccount = new CampusAccessBankAccount(mainBankAccount,
-                                                          sustainabilityBankAccount,
-                                                          new InMemoryCampusAccessTransactionRepository());
-    initiativeBankAccount = new InitiativeBankAccount(sustainabilityBankAccount);
-    infractionBankAccount = new InfractionBankAccount(mainBankAccount, sustainabilityBankAccount);
-    passBankAccount = new PassBankAccount(mainBankAccount, sustainabilityBankAccount);
+    campusAccessTransactionService = new CampusAccessTransactionService(mainBankAccount,
+                                                                        sustainabilityBankAccount,
+                                                                        new InMemoryCampusAccessTransactionRepository());
+    initiativeTransactionService = new InitiativeTransactionService(sustainabilityBankAccount);
+    infractionTransactionService = new InfractionTransactionService(mainBankAccount, sustainabilityBankAccount);
+    passTransactionService = new PassTransactionService(mainBankAccount, sustainabilityBankAccount);
 
     AccessLevelValidator accessLevelValidator = new FinanceAccessValidator(authenticationRepository);
     RevenueService revenueService = new RevenueService(accessLevelValidator,
-                                                       campusAccessBankAccount,
-                                                       infractionBankAccount,
-                                                       passBankAccount,
-                                                       carbonCreditsBankAccount);
+                                                       campusAccessTransactionService,
+                                                       infractionTransactionService,
+                                                       passTransactionService,
+                                                       carbonCreditsTransactionService);
 
     Calendar calendar = new HardCodedCalendar();
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
@@ -74,24 +75,24 @@ public class FinanceContext {
     return sustainabilityBankAccount;
   }
 
-  public CampusAccessBankAccount getCampusAccessBankAccount() {
-    return campusAccessBankAccount;
+  public CampusAccessTransactionService getCampusAccessBankAccount() {
+    return campusAccessTransactionService;
   }
 
-  public InfractionBankAccount getInfractionBankAccount() {
-    return infractionBankAccount;
+  public InfractionTransactionService getInfractionBankAccount() {
+    return infractionTransactionService;
   }
 
-  public CarbonCreditsBankAccount getCarbonCreditsBankAccount() {
-    return carbonCreditsBankAccount;
+  public CarbonCreditsTransactionService getCarbonCreditsBankAccount() {
+    return carbonCreditsTransactionService;
   }
 
-  public InitiativeBankAccount getInitiativesBankAccount() {
-    return initiativeBankAccount;
+  public InitiativeTransactionService getInitiativesBankAccount() {
+    return initiativeTransactionService;
   }
 
-  public PassBankAccount getPassBankAccount() {
-    return passBankAccount;
+  public PassTransactionService getPassBankAccount() {
+    return passTransactionService;
   }
 
   public RevenueResource getRevenueResource() {

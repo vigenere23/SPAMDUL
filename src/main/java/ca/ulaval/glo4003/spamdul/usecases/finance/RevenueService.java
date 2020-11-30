@@ -4,11 +4,11 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.Arrays;
@@ -18,21 +18,21 @@ import java.util.Map;
 public class RevenueService {
 
   private final AccessLevelValidator accessLevelValidator;
-  private final CampusAccessBankAccount campusAccessBankAccount;
-  private final InfractionBankAccount infractionBankAccount;
-  private final PassBankAccount passBankAccount;
-  private final CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private final CampusAccessTransactionService campusAccessTransactionService;
+  private final InfractionTransactionService infractionTransactionService;
+  private final PassTransactionService passTransactionService;
+  private final CarbonCreditsTransactionService carbonCreditsTransactionService;
 
   public RevenueService(AccessLevelValidator accessLevelValidator,
-                        CampusAccessBankAccount campusAccessBankAccount,
-                        InfractionBankAccount infractionBankAccount,
-                        PassBankAccount passBankAccount,
-                        CarbonCreditsBankAccount carbonCreditsBankAccount) {
+                        CampusAccessTransactionService campusAccessTransactionService,
+                        InfractionTransactionService infractionTransactionService,
+                        PassTransactionService passTransactionService,
+                        CarbonCreditsTransactionService carbonCreditsTransactionService) {
     this.accessLevelValidator = accessLevelValidator;
-    this.campusAccessBankAccount = campusAccessBankAccount;
-    this.infractionBankAccount = infractionBankAccount;
-    this.passBankAccount = passBankAccount;
-    this.carbonCreditsBankAccount = carbonCreditsBankAccount;
+    this.campusAccessTransactionService = campusAccessTransactionService;
+    this.infractionTransactionService = infractionTransactionService;
+    this.passTransactionService = passTransactionService;
+    this.carbonCreditsTransactionService = carbonCreditsTransactionService;
   }
 
   public Map<CarType, Amount> getCampusAccessTotalRevenueByCarType(TransactionQueryDto transactionQueryDto,
@@ -43,7 +43,7 @@ public class RevenueService {
 
     Arrays.stream(CarType.values())
           .forEach(carType -> {
-            Amount amount = campusAccessBankAccount.getRevenue(carType, getFilter(transactionQueryDto));
+            Amount amount = campusAccessTransactionService.getRevenue(carType, getFilter(transactionQueryDto));
             carTypeRevenues.put(carType, amount);
           });
 
@@ -53,19 +53,19 @@ public class RevenueService {
   public Amount getInfractionsTotalRevenue(TransactionQueryDto transactionQueryDto, TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);
 
-    return infractionBankAccount.getRevenueForSustainability(getFilter(transactionQueryDto));
+    return infractionTransactionService.getRevenueForSustainability(getFilter(transactionQueryDto));
   }
 
   public Amount getPassTotalRevenue(TransactionQueryDto transactionQueryDto, TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);
 
-    return passBankAccount.getRevenue(getFilter(transactionQueryDto));
+    return passTransactionService.getRevenue(getFilter(transactionQueryDto));
   }
 
   public CarbonCredits getAllBoughtCarbonCredit(TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);
 
-    Amount total = carbonCreditsBankAccount.getRevenue();
+    Amount total = carbonCreditsTransactionService.getRevenue();
     return CarbonCredits.valueOf(total);
   }
 

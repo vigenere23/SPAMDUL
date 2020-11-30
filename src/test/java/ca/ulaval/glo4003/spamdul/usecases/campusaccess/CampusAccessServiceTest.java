@@ -17,9 +17,9 @@ import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -96,7 +96,7 @@ public class CampusAccessServiceTest {
   @Mock
   private CampusAccessFeeRepository campusAccessFeeRepository;
   @Mock
-  private CampusAccessBankAccount campusAccessBankAccount;
+  private CampusAccessTransactionService campusAccessTransactionService;
 
   private CampusAccessService campusAccessService;
 
@@ -114,7 +114,7 @@ public class CampusAccessServiceTest {
                                                   campusAccessRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,
-                                                  campusAccessBankAccount);
+                                                  campusAccessTransactionService);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_USER, A_CAR, A_PERIOD_TYPE, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
@@ -165,7 +165,7 @@ public class CampusAccessServiceTest {
 
     campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
 
-    verify(campusAccessBankAccount, times(1)).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
+    verify(campusAccessTransactionService, times(1)).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
   }
 
   @Test

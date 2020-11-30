@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -14,20 +14,20 @@ public class PassService {
   private final PassFactory passFactory;
   private final CampusAccessService campusAccessService;
   private final PassSender passSender;
-  private final PassBankAccount passBankAccount;
+  private final PassTransactionService passTransactionService;
   private final ParkingZoneFeeRepository parkingZoneFeeRepository;
   private final DeliveryFeeCalculator deliveryFeeCalculator;
 
   public PassService(PassFactory passFactory,
                      CampusAccessService campusAccessService,
                      PassSender passSender,
-                     PassBankAccount passBankAccount,
+                     PassTransactionService passTransactionService,
                      ParkingZoneFeeRepository parkingZoneFeeRepository,
                      DeliveryFeeCalculator deliveryFeeCalculator) {
     this.passFactory = passFactory;
     this.campusAccessService = campusAccessService;
     this.passSender = passSender;
-    this.passBankAccount = passBankAccount;
+    this.passTransactionService = passTransactionService;
     this.parkingZoneFeeRepository = parkingZoneFeeRepository;
     this.deliveryFeeCalculator = deliveryFeeCalculator;
   }
@@ -46,6 +46,6 @@ public class PassService {
     Amount parkingZoneFee = parkingZoneFeeRepository.findBy(dto.parkingZone, dto.timePeriodDto.periodType);
     Amount total = deliveryFee.add(parkingZoneFee);
 
-    passBankAccount.addRevenue(total);
+    passTransactionService.addRevenue(total);
   }
 }

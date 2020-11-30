@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction_services;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.times;
@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CarbonCreditsBankAccountTest {
+public class CarbonCreditsTransactionServiceTest {
 
   private final Amount AN_AMOUNT = Amount.valueOf(123.43);
 
@@ -30,17 +30,17 @@ public class CarbonCreditsBankAccountTest {
   @Mock
   private Transaction A_TRANSACTION;
 
-  private CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private CarbonCreditsTransactionService carbonCreditsTransactionService;
 
   @Before
   public void setUp() {
-    carbonCreditsBankAccount = new CarbonCreditsBankAccount(transactionFactory, transactionRepository);
+    carbonCreditsTransactionService = new CarbonCreditsTransactionService(transactionFactory, transactionRepository);
   }
 
   @Test
   public void whenAddingRevenue_shouldCreateAndSaveTransactionToRepo() {
     when(transactionFactory.create(TransactionType.CARBON_CREDIT, AN_AMOUNT)).thenReturn(A_TRANSACTION);
-    carbonCreditsBankAccount.addRevenue(AN_AMOUNT);
+    carbonCreditsTransactionService.addRevenue(AN_AMOUNT);
     verify(transactionRepository, times(1)).save(A_TRANSACTION);
   }
 
@@ -49,7 +49,7 @@ public class CarbonCreditsBankAccountTest {
     List<Transaction> transactions = TestTransactionsCreator.createMultipleMocks(AN_AMOUNT);
     when(transactionRepository.findAll()).thenReturn(transactions);
 
-    Amount revenue = carbonCreditsBankAccount.getRevenue();
+    Amount revenue = carbonCreditsTransactionService.getRevenue();
 
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }

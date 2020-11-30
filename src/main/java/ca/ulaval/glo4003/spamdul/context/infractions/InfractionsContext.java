@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.context.infractions;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
@@ -34,7 +34,7 @@ public class InfractionsContext {
   public InfractionsContext(PassRepository passRepository,
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler,
-                            InfractionBankAccount infractionBankAccount) {
+                            InfractionTransactionService infractionTransactionService) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -52,7 +52,7 @@ public class InfractionsContext {
                                                                 infractionFactory,
                                                                 firstValidationNode,
                                                                 accessLevelValidator,
-                                                                infractionBankAccount);
+                                                                infractionTransactionService);
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
 

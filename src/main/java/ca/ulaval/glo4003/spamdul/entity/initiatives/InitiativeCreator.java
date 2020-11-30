@@ -1,18 +1,18 @@
 package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InitiativeBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InitiativeCreator {
 
-  private final InitiativeBankAccount initiativeBankAccount;
+  private final InitiativeTransactionService initiativeTransactionService;
   private final InitiativeFactory initiativeFactory;
 
-  public InitiativeCreator(InitiativeBankAccount initiativeBankAccount,
+  public InitiativeCreator(InitiativeTransactionService initiativeTransactionService,
                            InitiativeFactory initiativeFactory) {
-    this.initiativeBankAccount = initiativeBankAccount;
+    this.initiativeTransactionService = initiativeTransactionService;
     this.initiativeFactory = initiativeFactory;
   }
 
@@ -36,7 +36,7 @@ public class InitiativeCreator {
 
   private void addExpense(Amount amount) {
     try {
-      initiativeBankAccount.addExpense(amount);
+      initiativeTransactionService.addExpense(amount);
     } catch (InsufficientFundsException e) {
       throw new InvalidInitiativeAmountException("Insufficient funds");
     }

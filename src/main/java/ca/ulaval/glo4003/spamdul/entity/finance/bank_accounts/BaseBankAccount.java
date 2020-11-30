@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
 
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQueryer;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQuerier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
@@ -43,12 +43,12 @@ public abstract class BaseBankAccount {
     }
   }
 
-  public TransactionAmountQueryer getRevenue() {
-    return new TransactionAmountQueryer(revenueTransactionRepository);
+  public TransactionAmountQuerier getRevenue() {
+    return new TransactionAmountQuerier(revenueTransactionRepository);
   }
 
-  public TransactionAmountQueryer getExpenses() {
-    return new TransactionAmountQueryer(expensesTransactionRepository);
+  public TransactionAmountQuerier getExpenses() {
+    return new TransactionAmountQuerier(expensesTransactionRepository);
   }
 
   public Amount getBalance() {

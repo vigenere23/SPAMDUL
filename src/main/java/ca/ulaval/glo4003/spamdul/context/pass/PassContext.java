@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
 import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceProvider;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -28,7 +28,7 @@ public class PassContext {
 
   private final PassResource passResource;
 
-  public PassContext(PassBankAccount passBankAccount,
+  public PassContext(PassTransactionService passTransactionService,
                      CampusAccessService campusAccessService) {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
@@ -46,7 +46,7 @@ public class PassContext {
     PassService passService = new PassService(passFactory,
                                               campusAccessService,
                                               passSender,
-                                              passBankAccount,
+                                              passTransactionService,
                                               parkingZoneFeeRepository,
                                               deliveryFeeCalculator);
 

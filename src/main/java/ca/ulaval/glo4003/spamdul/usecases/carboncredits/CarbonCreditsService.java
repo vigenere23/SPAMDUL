@@ -6,9 +6,9 @@ import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
@@ -23,7 +23,7 @@ public class CarbonCreditsService implements ScheduleObserver {
   private final InitiativeRepository initiativeRepository;
   private final InitiativeCreator initiativeCreator;
   private final AccessLevelValidator accessLevelValidator;
-  private final CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private final CarbonCreditsTransactionService carbonCreditsTransactionService;
   private final SustainabilityBankAccount sustainabilityBankAccount;
 
   public CarbonCreditsService(EventSchedulerObservable eventSchedulerObservable,
@@ -31,14 +31,14 @@ public class CarbonCreditsService implements ScheduleObserver {
                               InitiativeRepository initiativeRepository,
                               InitiativeCreator initiativeCreator,
                               AccessLevelValidator accessLevelValidator,
-                              CarbonCreditsBankAccount carbonCreditsBankAccount,
+                              CarbonCreditsTransactionService carbonCreditsTransactionService,
                               SustainabilityBankAccount sustainabilityBankAccount) {
     this.eventSchedulerObservable = eventSchedulerObservable;
     this.carbonCreditsPurchaser = carbonCreditsPurchaser;
     this.initiativeRepository = initiativeRepository;
     this.initiativeCreator = initiativeCreator;
     this.accessLevelValidator = accessLevelValidator;
-    this.carbonCreditsBankAccount = carbonCreditsBankAccount;
+    this.carbonCreditsTransactionService = carbonCreditsTransactionService;
     this.sustainabilityBankAccount = sustainabilityBankAccount;
   }
 
@@ -67,7 +67,7 @@ public class CarbonCreditsService implements ScheduleObserver {
     }
 
     carbonCreditsPurchaser.purchase(CarbonCredits.valueOf(totalAvailableAmount));
-    carbonCreditsBankAccount.addRevenue(totalAvailableAmount);
+    carbonCreditsTransactionService.addRevenue(totalAvailableAmount);
     initiativeRepository.save(initiative); // TODO should be done by InitiativeCreator?
 
     return totalAvailableAmount.asDouble();

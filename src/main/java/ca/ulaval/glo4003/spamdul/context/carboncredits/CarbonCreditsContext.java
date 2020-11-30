@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.CarbonCreditsAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
@@ -28,7 +28,7 @@ public class CarbonCreditsContext {
   private CarbonCreditsResourceAdmin carbonCreditsResourceAdmin = new NullCarbonCreditsResourceAdmin();
   private final EndOfMonthEventScheduler endOfMonthEventScheduler;
 
-  public CarbonCreditsContext(CarbonCreditsBankAccount carbonCreditsBankAccount,
+  public CarbonCreditsContext(CarbonCreditsTransactionService carbonCreditsTransactionService,
                               SustainabilityBankAccount sustainabilityBankAccount,
                               InitiativeRepository initiativeRepository,
                               InitiativeCreator initiativeCreator,
@@ -51,7 +51,7 @@ public class CarbonCreditsContext {
                                                                          initiativeRepository,
                                                                          initiativeCreator,
                                                                          accessLevelValidator,
-                                                                         carbonCreditsBankAccount,
+                                                                         carbonCreditsTransactionService,
                                                                          sustainabilityBankAccount);
 
     carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService, cookieAssembler);

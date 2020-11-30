@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CampusAccessBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
@@ -29,7 +29,7 @@ public class CampusAccessContext {
   private final CampusAccessService campusAccessService;
 
   public CampusAccessContext(ParkingAccessLogger parkingAccessLogger,
-                             CampusAccessBankAccount campusAccessBankAccount) {
+                             CampusAccessTransactionService campusAccessTransactionService) {
     UserFactory userFactory = new UserFactory();
     UserService userService = new UserService(userFactory);
 
@@ -56,7 +56,7 @@ public class CampusAccessContext {
                                                   campusAccessRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,
-                                                  campusAccessBankAccount);
+                                                  campusAccessTransactionService);
     campusAccessService.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                         campusAccessService);

@@ -9,8 +9,8 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.Acce
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.CarbonCreditsBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -36,7 +36,7 @@ public class CarbonCreditsServiceTest {
   @Mock
   private SustainabilityBankAccount sustainabilityBankAccount;
   @Mock
-  private CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private CarbonCreditsTransactionService carbonCreditsTransactionService;
   @Mock
   private CarbonCreditsPurchaser carbonCreditsPurchaser;
   @Mock
@@ -51,7 +51,7 @@ public class CarbonCreditsServiceTest {
                                                     initiativeRepository,
                                                     initiativeCreator,
                                                     accessLevelValidator,
-                                                    carbonCreditsBankAccount,
+                                                    carbonCreditsTransactionService,
                                                     sustainabilityBankAccount);
 
     when(sustainabilityBankAccount.getBalance()).thenReturn(A_AMOUNT);
@@ -82,7 +82,7 @@ public class CarbonCreditsServiceTest {
   public void whenTransferringRemainingBudget_shouldAddCarbonCreditsRevenueToCarbonCreditsBankAccount() {
     carbonCreditsService.transferRemainingBudget();
 
-    verify(carbonCreditsBankAccount, times(1)).addRevenue(A_AMOUNT);
+    verify(carbonCreditsTransactionService, times(1)).addRevenue(A_AMOUNT);
   }
 
   @Test

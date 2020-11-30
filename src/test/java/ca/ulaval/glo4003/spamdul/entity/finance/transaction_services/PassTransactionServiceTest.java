@@ -1,11 +1,13 @@
-package ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts;
+package ca.ulaval.glo4003.spamdul.entity.finance.transaction_services;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQueryer;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionAmountQuerier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -16,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PassBankAccountTest {
+public class PassTransactionServiceTest {
 
   private final Amount AN_AMOUNT = Amount.valueOf(234.23);
   private final Amount ANOTHER_AMOUNT = Amount.valueOf(42.21);
@@ -28,26 +30,26 @@ public class PassBankAccountTest {
   @Mock
   private TransactionFilter A_TRANSACTION_FILTER;
   @Mock
-  private TransactionAmountQueryer A_TRANSACTION_AMOUNT_QUERYER;
+  private TransactionAmountQuerier A_TRANSACTION_AMOUNT_QUERYER;
   @Mock
-  private TransactionAmountQueryer ANOTHER_TRANSACTION_AMOUNT_QUERYER;
+  private TransactionAmountQuerier ANOTHER_TRANSACTION_AMOUNT_QUERYER;
 
-  private PassBankAccount passBankAccount;
+  private PassTransactionService passTransactionService;
 
   @Before
   public void setUp() {
-    passBankAccount = new PassBankAccount(mainBankAccount, sustainabilityBankAccount);
+    passTransactionService = new PassTransactionService(mainBankAccount, sustainabilityBankAccount);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
-    passBankAccount.addRevenue(AN_AMOUNT);
+    passTransactionService.addRevenue(AN_AMOUNT);
     verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.PASS);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
-    passBankAccount.addRevenue(AN_AMOUNT);
+    passTransactionService.addRevenue(AN_AMOUNT);
     verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.PASS);
   }
 
@@ -55,7 +57,7 @@ public class PassBankAccountTest {
   public void whenGettingRevenueForSustainability_shouldReturnFromSustainableAccount() {
     when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
     when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
-    Amount revenue = passBankAccount.getRevenueForSustainability(A_TRANSACTION_FILTER);
+    Amount revenue = passTransactionService.getRevenueForSustainability(A_TRANSACTION_FILTER);
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
 
@@ -66,7 +68,7 @@ public class PassBankAccountTest {
     when(ANOTHER_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
     when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(ANOTHER_AMOUNT);
 
-    Amount revenue = passBankAccount.getRevenue(A_TRANSACTION_FILTER);
+    Amount revenue = passTransactionService.getRevenue(A_TRANSACTION_FILTER);
 
     assertThat(revenue).isEqualTo(AN_AMOUNT.add(ANOTHER_AMOUNT));
   }

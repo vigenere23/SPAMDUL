@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.PassBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
@@ -60,7 +60,7 @@ public class PassServiceTest {
   @Mock
   private PassSender passSender;
   @Mock
-  PassBankAccount passBankAccount;
+  PassTransactionService passTransactionService;
   @Mock
   ParkingZoneFeeRepository parkingZoneFeeRepository;
   @Mock
@@ -84,7 +84,7 @@ public class PassServiceTest {
     passService = new PassService(passFactory,
                                   campusAccessService,
                                   passSender,
-                                  passBankAccount,
+                                  passTransactionService,
                                   parkingZoneFeeRepository,
                                   deliveryFeeCalculator);
     when(passFactory.create(A_PARKING_ZONE, A_TIME_PERIOD_DTO)).thenReturn(pass);
@@ -130,7 +130,7 @@ public class PassServiceTest {
 
     passService.createPass(A_PASS_DTO);
 
-    verify(passBankAccount, times(1)).addRevenue(expectedTotal);
+    verify(passTransactionService, times(1)).addRevenue(expectedTotal);
   }
 
   @Test

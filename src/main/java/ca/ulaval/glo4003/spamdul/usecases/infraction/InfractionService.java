@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -21,20 +21,20 @@ public class InfractionService {
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;
-  private final InfractionBankAccount infractionBankAccount;
+  private final InfractionTransactionService infractionTransactionService;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            InfractionRepository infractionRepository,
                            InfractionFactory infractionFactory,
                            PassValidator firstValidationNode,
                            AccessLevelValidator accessLevelValidator,
-                           InfractionBankAccount infractionBankAccount) {
+                           InfractionTransactionService infractionTransactionService) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.infractionRepository = infractionRepository;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
     this.accessLevelValidator = accessLevelValidator;
-    this.infractionBankAccount = infractionBankAccount;
+    this.infractionTransactionService = infractionTransactionService;
   }
 
   public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
@@ -63,6 +63,6 @@ public class InfractionService {
     Infraction infraction = infractionRepository.findBy(infractionPaymentDto.infractionId);
     infraction.pay();
     infractionRepository.save(infraction);
-    infractionBankAccount.addRevenue(Amount.valueOf(infraction.getAmount()));
+    infractionTransactionService.addRevenue(Amount.valueOf(infraction.getAmount()));
   }
 }

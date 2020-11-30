@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.InfractionBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -54,7 +54,7 @@ public class InfractionServiceTest {
   @Mock
   private AccessLevelValidator accessLevelValidator;
   @Mock
-  private InfractionBankAccount infractionBankAccount;
+  private InfractionTransactionService infractionTransactionService;
 
   @Before
   public void setUp() throws Exception {
@@ -63,7 +63,7 @@ public class InfractionServiceTest {
                                               infractionFactory,
                                               passValidator,
                                               accessLevelValidator,
-                                              infractionBankAccount);
+                                              infractionTransactionService);
 
     passToValidateDto = new PassToValidateDto();
     infractionInfos = new InfractionInfos();
@@ -158,7 +158,7 @@ public class InfractionServiceTest {
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(infractionBankAccount, times(1)).addRevenue(Amount.valueOf(infraction.getAmount()));
+    verify(infractionTransactionService, times(1)).addRevenue(Amount.valueOf(infraction.getAmount()));
   }
 
   @Test
