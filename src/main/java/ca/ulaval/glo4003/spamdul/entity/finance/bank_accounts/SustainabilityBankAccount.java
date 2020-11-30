@@ -20,4 +20,9 @@ public class SustainabilityBankAccount extends BaseBankAccount {
 
     return super.addExpense(amount, transactionType);
   }
+
+  @Override
+  public String getName() {
+    return "sustainability";
+  }
 }

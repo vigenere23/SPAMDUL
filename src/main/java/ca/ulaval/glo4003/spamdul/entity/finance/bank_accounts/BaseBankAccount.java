@@ -39,7 +39,7 @@ public abstract class BaseBankAccount {
   protected void verifyEnoughFundsForAmount(Amount amount) {
     Amount balance = getBalance();
     if (balance.subtract(amount).isStrictlyNegative()) {
-      throw new InsufficientFundsException("sustainability account", amount, balance);
+      throw new InsufficientFundsException(getName(), amount, balance);
     }
   }
 
@@ -54,4 +54,6 @@ public abstract class BaseBankAccount {
   public Amount getBalance() {
     return getRevenue().total().add(getExpenses().total());
   }
+
+  public abstract String getName();
 }

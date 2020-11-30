@@ -11,4 +11,9 @@ public class MainBankAccount extends BaseBankAccount {
                          TransactionRepository expensesTransactionRepository) {
     super(transactionFactory, revenueTransactionRepository, expensesTransactionRepository);
   }
+
+  @Override
+  public String getName() {
+    return "main";
+  }
 }
