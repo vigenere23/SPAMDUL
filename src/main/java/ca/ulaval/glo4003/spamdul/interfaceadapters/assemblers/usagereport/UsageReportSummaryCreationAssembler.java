@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
-import ca.ulaval.glo4003.spamdul.utils.DateTimeFormatter;
+import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -30,7 +30,7 @@ public class UsageReportSummaryCreationAssembler {
     }
 
     try {
-      return LocalDate.parse(startDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
+      return LocalDate.parse(startDate, Formatters.DATE_FORMATTER);
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
     }
@@ -42,7 +42,7 @@ public class UsageReportSummaryCreationAssembler {
     }
 
     try {
-      return LocalDate.parse(endDate, DateTimeFormatter.USAGE_REPORT_DATE_TIME_FORMATTER);
+      return LocalDate.parse(endDate, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
       throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");

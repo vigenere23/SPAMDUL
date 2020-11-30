@@ -1,14 +1,16 @@
 package ca.ulaval.glo4003.spamdul.entity.car;
 
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
 import java.util.Objects;
 
 public class CarId {
 
-  private static Long lastId = 0L;
+  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
   private final Long id;
 
   public CarId() {
-    id = getNextId();
+    id = idGenerator.getNextId();
   }
 
   private CarId(long id) {
@@ -19,13 +21,7 @@ public class CarId {
     return new CarId(Long.parseLong(userId));
   }
 
-  private static synchronized Long getNextId() {
-    lastId += 1;
-
-    return lastId;
-  }
-
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -37,12 +33,11 @@ public class CarId {
     return Objects.equals(id, carId.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
-
 }
