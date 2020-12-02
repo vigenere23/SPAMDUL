@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormatException;
 
 public class PassCodeFormatValidator extends PassValidator {
 
@@ -11,7 +11,7 @@ public class PassCodeFormatValidator extends PassValidator {
   public void validate(PassToValidateDto passToValidateDto) {
     try {
       PassCode.valueOf(passToValidateDto.passCode);
-    } catch (InvalidPassCodeFormat e) {
+    } catch (InvalidPassCodeFormatException e) {
       throw new InfractionException("VIG_02");
     }
 

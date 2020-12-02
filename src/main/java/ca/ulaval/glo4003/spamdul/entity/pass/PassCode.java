@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassCodeFormatException;
 import java.util.Objects;
 
 public class PassCode {
@@ -23,7 +23,7 @@ public class PassCode {
       return new PassCode(Long.parseLong(passCode));
 
     } catch (NumberFormatException e) {
-      throw new InvalidPassCodeFormat("Invalid pass code format");
+      throw new InvalidPassCodeFormatException("Invalid pass code format");
     }
   }
 

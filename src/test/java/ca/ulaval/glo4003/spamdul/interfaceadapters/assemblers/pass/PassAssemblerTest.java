@@ -81,8 +81,8 @@ public class PassAssemblerTest {
   }
 
   @Test(expected = InvalidPeriodArgumentException.class)
-  public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
-    timePeriodDto.periodType = PeriodType.SINGLE_DAY;
+  public void givenAnInvalidArgumentWhileAssemblingTimePeriod_whenAssemblingFromRequest_shouldThrow() {
+    when(timePeriodAssembler.fromRequest(A_TIME_PERIOD_REQUEST)).thenThrow(new IllegalArgumentException());
 
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
