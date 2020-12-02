@@ -10,9 +10,9 @@ import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.ProdPassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.ProdUsageReportContext;
 
-public class ProdMainContext extends MainContext {
+public class ProdContext extends MainContext {
 
-  public ProdMainContext() {
+  public ProdContext() {
     authContext = new AuthenticationContext();
     usageReportContext = new ProdUsageReportContext(authContext.getAuthenticationRepository(),
                                                     authContext.getAccessTokenCookieAssembler());

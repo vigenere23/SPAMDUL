@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul;
 
+import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
-import ca.ulaval.glo4003.spamdul.context.main.MainContextFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,12 +17,12 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 public class JettyJerseyApp implements SpamdUlApplication {
 
-  private final MainContext mainContext;
+  private final MainContext context;
   private final Server server;
 
   public JettyJerseyApp() {
     ContextType contextType = ContextType.parse(System.getenv("SPAMDUL_API_MODE"));
-    mainContext = new MainContextFactory().create(contextType);
+    context = new ContextFactory().create(contextType);
 
     ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
     contextHandler.setContextPath("/api/");
@@ -30,7 +30,7 @@ public class JettyJerseyApp implements SpamdUlApplication {
       @Override
       public Set<Object> getSingletons() {
         Set<Object> resources = new HashSet<>();
-        mainContext.registerResources(resources);
+        context.registerResources(resources);
         return resources;
       }
     });
@@ -54,7 +54,7 @@ public class JettyJerseyApp implements SpamdUlApplication {
       exception.printStackTrace();
     } finally {
       server.destroy();
-      mainContext.destroy();
+      context.destroy();
     }
   }
 }
