@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
@@ -27,18 +28,15 @@ public abstract class UsageReportContext implements ResourceContext {
   private final ParkingAccessLogger parkingAccessLogger;
   private final UsageReportResource usageReportResource;
 
-  protected final ParkingAccessLogRepository parkingAccessLogRepository;
-  protected final ParkingAccessLogFactory parkingAccessLogFactory;
-
   public UsageReportContext(AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler) {
-    parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
+    ParkingAccessLogRepository parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
 
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
 
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
     UsageReportFactory usageReportFactory = new UsageReportFactory();
-    parkingAccessLogFactory = new ParkingAccessLogFactory();
+    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
 
     UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();
@@ -62,15 +60,16 @@ public abstract class UsageReportContext implements ResourceContext {
                                                       usageReportCreationAssembler,
                                                       usageReportSummaryCreationAssembler,
                                                       cookieAssembler);
+    Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);
 
-    this.populateData();
+    this.populateData(populator);
   }
 
   public ParkingAccessLogger getParkingAccessLogger() {
     return parkingAccessLogger;
   }
 
-  protected abstract void populateData();
+  protected abstract void populateData(Populator populator);
 
   @Override public void registerResources(Set<Object> resources) {
     resources.add(usageReportResource);

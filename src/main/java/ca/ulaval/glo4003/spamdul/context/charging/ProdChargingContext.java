@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import java.util.Set;
 
 public class ProdChargingContext extends ChargingContext {
 
@@ -9,15 +9,11 @@ public class ProdChargingContext extends ChargingContext {
     super(transactionFactory);
   }
 
-  @Override protected void populateChargingPoints() {
+  @Override protected void populateChargingPoints(Populator populator) {
 
   }
 
-  @Override protected void populateRechargULCards() {
-
-  }
-
-  @Override public void registerResources(Set<Object> resources) {
+  @Override protected void populateRechargULCards(Populator populator) {
 
   }
 }

@@ -1,9 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
-import java.util.Set;
 
 public class DevChargingContext extends ChargingContext {
 
@@ -14,18 +12,11 @@ public class DevChargingContext extends ChargingContext {
     super(transactionFactory);
   }
 
-  @Override protected void populateChargingPoints() {
-    new ChargingPointPopulator(chargingPointFactory, chargingPointRepository).populate(NUMBER_OF_CHARGING_POINTS);
+  @Override protected void populateChargingPoints(Populator populator) {
+    populator.populate(NUMBER_OF_CHARGING_POINTS);
   }
 
-  @Override protected void populateRechargULCards() {
-    new RechargULCardPopulator(rechargULCardFactory, rechargULCardRepository).populate(NUMBER_OF_CARDS);
-  }
-
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(chargingPointResource);
-    resources.add(new ChargingPointExceptionMapper());
-    resources.add(rechargULResource);
-    resources.add(new RechargULExceptionMapper());
+  @Override protected void populateRechargULCards(Populator populator) {
+    populator.populate(NUMBER_OF_CARDS);
   }
 }

@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
@@ -21,13 +22,12 @@ public abstract class FundraisingContext implements ResourceContext {
 
   private final FundraisingResource fundraisingResource;
   private final InitiativeCreator initiativeCreator;
-  protected final InitiativeFactory initiativeFactory;
-  protected final InitiativeRepository initiativeRepository;
+  private final InitiativeRepository initiativeRepository;
 
   public FundraisingContext(InitiativeTransactionService initiativeTransactionService,
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler) {
-    initiativeFactory = new InitiativeFactory();
+    InitiativeFactory initiativeFactory = new InitiativeFactory();
     initiativeRepository = new InMemoryInitiativeRepository();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
@@ -39,7 +39,9 @@ public abstract class FundraisingContext implements ResourceContext {
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);
 
-    this.populateData();
+    InitiativePopulator populator = new InitiativePopulator(initiativeRepository, initiativeFactory);
+
+    this.populateData(populator);
   }
 
   public InitiativeRepository getInitiativeRepository() {
@@ -50,7 +52,7 @@ public abstract class FundraisingContext implements ResourceContext {
     return initiativeCreator;
   }
 
-  protected abstract void populateData();
+  protected abstract void populateData(Populator populator);
 
   @Override public void registerResources(Set<Object> resources) {
     resources.add(fundraisingResource);

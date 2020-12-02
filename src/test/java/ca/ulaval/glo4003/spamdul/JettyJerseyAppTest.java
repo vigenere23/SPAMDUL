@@ -94,5 +94,6 @@ public class JettyJerseyAppTest {
     Thread appThread = new Thread(app::start);
     appThread.start();
     appThread.join(SERVER_UP_TIME_IN_MILLIS);
+    appThread.interrupt();
   }
 }
