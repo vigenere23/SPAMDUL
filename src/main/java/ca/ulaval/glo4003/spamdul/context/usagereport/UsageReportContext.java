@@ -72,7 +72,7 @@ public abstract class UsageReportContext implements ResourceContext {
   protected abstract void populateData(Populator populator);
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(UsageReportResource.class, usageReportResource);
+    resources.add(usageReportResource);
     resources.add(new UsageReportExceptionAssembler());
   }
 }

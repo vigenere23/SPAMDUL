@@ -102,7 +102,7 @@ public class FinanceContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(RevenueResource.class, revenueResource);
+    resources.add(revenueResource);
     resources.add(new FinanceExceptionMapper());
   }
 }

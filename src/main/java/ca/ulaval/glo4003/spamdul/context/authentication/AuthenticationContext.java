@@ -33,7 +33,7 @@ public class AuthenticationContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(AuthenticationResource.class, authenticationResource);
+    resources.add(authenticationResource);
     resources.add(new AuthenticationExceptionAssembler());
     resources.add(new UserExceptionAssembler());
   }

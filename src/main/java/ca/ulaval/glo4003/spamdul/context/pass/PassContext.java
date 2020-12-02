@@ -58,7 +58,7 @@ public abstract class PassContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(PassResource.class, passResource);
+    resources.add(passResource);
     resources.add(new PassExceptionAssembler());
     resources.add(new DeliveryExceptionAssembler());
   }

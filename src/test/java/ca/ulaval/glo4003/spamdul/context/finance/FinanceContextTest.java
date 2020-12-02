@@ -1,22 +1,19 @@
-package ca.ulaval.glo4003.spamdul.context.usagereport;
+package ca.ulaval.glo4003.spamdul.context.finance;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResource;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
-public class DevUsageReportContextTest {
+public class FinanceContextTest {
 
-  private DevUsageReportContext context;
+  private FinanceContext context;
   private InstanceMap resources;
 
   @Mock
@@ -27,14 +24,13 @@ public class DevUsageReportContextTest {
   @Before
   public void setUp() {
     resources = new InstanceMap();
-    context = new DevUsageReportContext(authenticationRepository, cookieAssembler);
+    context = new FinanceContext(authenticationRepository, cookieAssembler);
   }
 
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
     assertContainsExactlyInstancesOf(resources.getValues(),
-                                     UsageReportResource.class,
-                                     UsageReportExceptionAssembler.class);
+                                     RevenueResource.class, FinanceExceptionMapper.class);
   }
 }

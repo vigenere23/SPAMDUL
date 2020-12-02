@@ -18,6 +18,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessReso
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
@@ -71,7 +72,8 @@ public class CampusAccessContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(CampusAccessResource.class, campusAccessResource);
+    resources.add(campusAccessResource);
+    resources.add(new CampusAccessExceptionAssembler());
     resources.add(new AccessingCampusExceptionAssembler());
     resources.add(new CarExceptionAssembler());
   }

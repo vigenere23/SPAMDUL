@@ -16,23 +16,23 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ProdUsageReportContextTest {
 
+  private ProdUsageReportContext context;
+  private InstanceMap resources;
+
   @Mock
   private AuthenticationRepository authenticationRepository;
   @Mock
   private AccessTokenCookieAssembler cookieAssembler;
 
-  private ProdUsageReportContext prodUsageReportContext;
-  private InstanceMap resources;
-
   @Before
   public void setUp() {
-    prodUsageReportContext = new ProdUsageReportContext(authenticationRepository, cookieAssembler);
     resources = new InstanceMap();
+    context = new ProdUsageReportContext(authenticationRepository, cookieAssembler);
   }
 
   @Test
-  public void whenRegisteringResources_shouldAddAllResources() {
-    prodUsageReportContext.registerResources(resources);
+  public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
+    context.registerResources(resources);
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      UsageReportResource.class,
                                      UsageReportExceptionAssembler.class);

@@ -54,9 +54,9 @@ public abstract class ChargingContext implements ResourceContext {
   protected abstract void populateRechargULCards(Populator populator);
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(ChargingPointResource.class, chargingPointResource);
+    resources.add(chargingPointResource);
     resources.add(new ChargingPointExceptionMapper());
-    resources.add(RechargULResource.class, rechargULResource);
+    resources.add(rechargULResource);
     resources.add(new RechargULExceptionMapper());
   }
 }

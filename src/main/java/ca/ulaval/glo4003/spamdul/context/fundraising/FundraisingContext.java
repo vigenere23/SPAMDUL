@@ -55,7 +55,7 @@ public abstract class FundraisingContext implements ResourceContext {
   protected abstract void populateData(Populator populator);
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(FundraisingResource.class, fundraisingResource);
+    resources.add(fundraisingResource);
     resources.add(new InitiativeExceptionMapper());
   }
 }

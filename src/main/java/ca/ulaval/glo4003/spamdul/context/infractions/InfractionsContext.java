@@ -80,7 +80,7 @@ public class InfractionsContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(InfractionResource.class, infractionResource);
+    resources.add(infractionResource);
     resources.add(new InfractionExceptionAssembler());
   }
 }

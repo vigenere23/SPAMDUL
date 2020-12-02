@@ -22,7 +22,7 @@ public class Matchers {
       }
     });
 
-    assertThat(checkedClasses).isEqualTo(classesToCheck);
-    assertThat(checkedObjects).isEqualTo(objectsToCheck);
+    assertThat(checkedObjects).isEqualTo(objectsToCheck); // checks if required classes present
+    assertThat(classesToCheck).isEqualTo(checkedClasses); // checks if there are too many classes
   }
 }
