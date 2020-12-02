@@ -27,8 +27,11 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build
-        run: mvn -B package --file pom.xml
+      - name: Compile
+        run: mvn clean compile
+
+      - name: Test
+        run: mvn test
 
       - name: Start app
         run: mvn exec:java &

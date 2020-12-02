@@ -18,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class JettyJerseyAppTest {
 
   private static final String MODE_VAR_NAME = "SPAMDUL_API_MODE";
-  private static final int SERVER_UP_TIME_IN_MILLIS = 200;
+  private static final int SERVER_UP_TIME_IN_MILLIS = 300;
 
   @Mock
   private ContextFactory contextFactory;
