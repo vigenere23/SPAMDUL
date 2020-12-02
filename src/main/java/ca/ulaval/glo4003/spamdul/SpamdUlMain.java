@@ -1,30 +1,9 @@
 package ca.ulaval.glo4003.spamdul;
 
-import ca.ulaval.glo4003.spamdul.context.GlobalContext;
-import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
-import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
-import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
-import ca.ulaval.glo4003.spamdul.context.charging.ChargingContext;
-import ca.ulaval.glo4003.spamdul.context.finance.FinanceContext;
-import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
-import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
-import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
-import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
+import ca.ulaval.glo4003.spamdul.context.main.ContextType;
+import ca.ulaval.glo4003.spamdul.context.main.MainContext;
+import ca.ulaval.glo4003.spamdul.context.main.MainContextFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -39,74 +18,17 @@ import org.glassfish.jersey.servlet.ServletContainer;
 @SuppressWarnings("all")
 public class SpamdUlMain {
 
-  public static void main(String[] args)
-      throws Exception {
+  public static void main(String[] args) throws Exception {
+    ContextType contextType = ContextType.parse(System.getenv("SPAMDUL_API_MODE"));
+    MainContext mainContext = new MainContextFactory().create(contextType);
 
-    GlobalContext globalContext = new GlobalContext();
-    AuthenticationContext authenticationContext = new AuthenticationContext();
-    FinanceContext financeContext = new FinanceContext(authenticationContext.getAuthenticationRepository(),
-                                                       globalContext.getCookieAssembler());
-    UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
-                                                                   globalContext.getCookieAssembler(),
-                                                                   false);
-    CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
-                                                                      financeContext.getCampusAccessBankAccount()
-    );
-    PassContext passContext = new PassContext(financeContext.getPassBankAccount(),
-                                              campusAccessContext.getCampusAccessService());
-    FundraisingContext fundraisingContext = new FundraisingContext(financeContext.getInitiativesBankAccount(),
-                                                                   authenticationContext.getAuthenticationRepository(),
-                                                                   globalContext.getCookieAssembler(),
-                                                                   false);
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(financeContext.getCarbonCreditsBankAccount(),
-                                                                         financeContext.getSustainabilityBankAccount(),
-                                                                         fundraisingContext.getInitiativeRepository(),
-                                                                         fundraisingContext.getInitiativeCreator(),
-                                                                         authenticationContext.getAuthenticationRepository(),
-                                                                         globalContext.getCookieAssembler(),
-                                                                         true);
-    InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
-                                                                   authenticationContext.getAuthenticationRepository(),
-                                                                   globalContext.getCookieAssembler(),
-                                                                   financeContext.getInfractionBankAccount());
-
-    ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
-
-    ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    context.setContextPath("/api/");
+    ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    contextHandler.setContextPath("/api/");
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
-        HashSet<Object> resources = new HashSet<>();
-
-        resources.add(new PingResource());
-        resources.add(passContext.getPassResource());
-        resources.add(campusAccessContext.getCampusAccessResource());
-        resources.add(usageReportContext.getUsageReportResource());
-        resources.add(financeContext.getRevenueResource());
-        resources.add(new UsageReportExceptionAssembler());
-        resources.add(new UserExceptionAssembler());
-        resources.add(new CarExceptionAssembler());
-        resources.add(new CampusAccessExceptionAssembler());
-        resources.add(new AccessingCampusExceptionAssembler());
-        resources.add(new TimePeriodExceptionAssembler());
-        resources.add(new GlobalExceptionAssembler());
-        resources.add(new PassExceptionAssembler());
-        resources.add(new DeliveryExceptionAssembler());
-        resources.add(new AuthenticationExceptionAssembler());
-        resources.add(carbonCreditsContext.getCarbonCreditsResource());
-        resources.add(carbonCreditsContext.getCarbonCreditsResourceAdmin());
-        resources.add(fundraisingContext.getFundraisingResource());
-        resources.add(new InitiativeExceptionMapper());
-        resources.add(infractionsContext.getInfractionResource());
-        resources.add(new InfractionExceptionAssembler());
-        resources.add(chargingContext.getChargingPointResource());
-        resources.add(authenticationContext.getAuthenticationResource());
-        resources.add(chargingContext.getRechargULResource());
-        resources.add(chargingContext.getChargingPointExceptionMapper());
-        resources.add(chargingContext.getRechargULExceptionMapper());
-        resources.add(new FinanceExceptionMapper());
-
+        Set<Object> resources = new HashSet<>();
+        mainContext.registerResources(resources);
         return resources;
       }
     });
@@ -114,10 +36,10 @@ public class SpamdUlMain {
 
     ServletContainer servletContainer = new ServletContainer(resourceConfig);
     ServletHolder servletHolder = new ServletHolder(servletContainer);
-    context.addServlet(servletHolder, "/*");
+    contextHandler.addServlet(servletHolder, "/*");
 
     ContextHandlerCollection contexts = new ContextHandlerCollection();
-    contexts.setHandlers(new Handler[]{context});
+    contexts.setHandlers(new Handler[]{contextHandler});
     Server server = new Server(8080);
     server.setHandler(contexts);
 
@@ -128,7 +50,7 @@ public class SpamdUlMain {
       exception.printStackTrace();
     } finally {
       server.destroy();
-      carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
+      mainContext.destroy();
     }
   }
 }

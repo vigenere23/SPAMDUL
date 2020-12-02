@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
@@ -15,15 +16,18 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAc
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+import java.util.Set;
 
-public class CampusAccessContext {
+public class CampusAccessContext implements ResourceContext {
 
   private final CampusAccessResource campusAccessResource;
   private final CampusAccessService campusAccessService;
@@ -66,7 +70,9 @@ public class CampusAccessContext {
     return campusAccessService;
   }
 
-  public CampusAccessResource getCampusAccessResource() {
-    return campusAccessResource;
+  @Override public void registerResources(Set<Object> resources) {
+    resources.add(campusAccessResource);
+    resources.add(new AccessingCampusExceptionAssembler());
+    resources.add(new CarExceptionAssembler());
   }
 }

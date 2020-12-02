@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
@@ -15,26 +16,29 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResour
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
+import java.util.Set;
 
-public class UsageReportContext {
+public abstract class UsageReportContext implements ResourceContext {
 
-  private final ParkingAccessLogPopulator parkingAccessLogPopulator;
   private final ParkingAccessLogger parkingAccessLogger;
   private final UsageReportResource usageReportResource;
 
+  protected final ParkingAccessLogRepository parkingAccessLogRepository;
+  protected final ParkingAccessLogFactory parkingAccessLogFactory;
+
   public UsageReportContext(AuthenticationRepository authenticationRepository,
-                            AccessTokenCookieAssembler cookieAssembler,
-                            boolean populateData) {
-    ParkingAccessLogRepository parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
+                            AccessTokenCookieAssembler cookieAssembler) {
+    parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
 
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
 
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
     UsageReportFactory usageReportFactory = new UsageReportFactory();
-    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
+    parkingAccessLogFactory = new ParkingAccessLogFactory();
 
     UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();
@@ -54,29 +58,22 @@ public class UsageReportContext {
                                                                    usageReportAssembler,
                                                                    accessLevelValidator);
 
-    parkingAccessLogPopulator = new ParkingAccessLogPopulator(parkingAccessLogRepository,
-                                                              parkingAccessLogFactory);
-
     usageReportResource = new UsageReportResourceImpl(usageReportService,
                                                       usageReportCreationAssembler,
                                                       usageReportSummaryCreationAssembler,
                                                       cookieAssembler);
 
-    if (populateData) {
-      this.populateData();
-    }
-  }
-
-  public UsageReportResource getUsageReportResource() {
-    return usageReportResource;
+    this.populateData();
   }
 
   public ParkingAccessLogger getParkingAccessLogger() {
     return parkingAccessLogger;
   }
 
-  private void populateData() {
-    final int NUMBER_OF_ACCESS_LOGS = 300;
-    parkingAccessLogPopulator.populate(NUMBER_OF_ACCESS_LOGS);
+  protected abstract void populateData();
+
+  @Override public void registerResources(Set<Object> resources) {
+    resources.add(usageReportResource);
+    resources.add(new UsageReportExceptionAssembler());
   }
 }

@@ -33,7 +33,7 @@ jobs:
       - name: Start app
         run: mvn exec:java &
         env:
-          API_MODE: ci
+          SPAMDUL_API_MODE: test
 
       - name: API test
         run: |

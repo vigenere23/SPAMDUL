@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
@@ -12,22 +13,22 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenC
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResourceImp;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
+import java.util.Set;
 
-public class FundraisingContext {
+public abstract class FundraisingContext implements ResourceContext {
 
-  private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
   private final InitiativeCreator initiativeCreator;
-  private final InitiativeRepository initiativeRepository;
+  protected final InitiativeFactory initiativeFactory;
+  protected final InitiativeRepository initiativeRepository;
 
   public FundraisingContext(InitiativeTransactionService initiativeTransactionService,
                             AuthenticationRepository authenticationRepository,
-                            AccessTokenCookieAssembler cookieAssembler,
-                            boolean populateData) {
+                            AccessTokenCookieAssembler cookieAssembler) {
+    initiativeFactory = new InitiativeFactory();
     initiativeRepository = new InMemoryInitiativeRepository();
-
-    InitiativeFactory initiativeFactory = new InitiativeFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
@@ -37,20 +38,8 @@ public class FundraisingContext {
                                                                 accessLevelValidator);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);
-    initiativePopulator = new InitiativePopulator(initiativeRepository, initiativeFactory);
 
-    if (populateData) {
-      this.populateData();
-    }
-  }
-
-  private void populateData() {
-    final int NUMBER_OF_RECORDS = 30;
-    initiativePopulator.populate(NUMBER_OF_RECORDS);
-  }
-
-  public FundraisingResource getFundraisingResource() {
-    return fundraisingResource;
+    this.populateData();
   }
 
   public InitiativeRepository getInitiativeRepository() {
@@ -59,5 +48,12 @@ public class FundraisingContext {
 
   public InitiativeCreator getInitiativeCreator() {
     return initiativeCreator;
+  }
+
+  protected abstract void populateData();
+
+  @Override public void registerResources(Set<Object> resources) {
+    resources.add(fundraisingResource);
+    resources.add(new InitiativeExceptionMapper());
   }
 }

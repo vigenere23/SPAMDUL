@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
@@ -25,9 +25,11 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenC
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import java.util.Set;
 
-public class InfractionsContext {
+public class InfractionsContext implements ResourceContext {
 
   private final InfractionResource infractionResource;
 
@@ -42,7 +44,6 @@ public class InfractionsContext {
     InfractionRepository infractionRepository = new InMemoryInfractionRepository();
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(passRepository);
 
-    TransactionFactory transactionFactory = new TransactionFactory();
     InfractionFactory infractionFactory = new InfractionFactory();
 
     AccessLevelValidator accessLevelValidator = new InfractionsAccessLevelValidator(authenticationRepository);
@@ -56,10 +57,6 @@ public class InfractionsContext {
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
 
-  }
-
-  public InfractionResource getInfractionResource() {
-    return infractionResource;
   }
 
   private PassValidator initializeValidationChainAndReturnFirstNode(PassRepository passRepository) {
@@ -80,5 +77,10 @@ public class InfractionsContext {
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);
 
     return emptyPassCodeValidator;
+  }
+
+  @Override public void registerResources(Set<Object> resources) {
+    resources.add(infractionResource);
+    resources.add(new InfractionExceptionAssembler());
   }
 }
