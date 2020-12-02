@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
@@ -21,8 +20,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAdd
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class PassContext implements ResourceContext {
 
@@ -34,8 +32,7 @@ public abstract class PassContext implements ResourceContext {
   protected final PassAssembler passAssembler;
   protected PassResource passResource;
 
-  protected PassContext(PassTransactionService passTransactionService,
-                        CampusAccessService campusAccessService) {
+  protected PassContext() {
     passRepository = new InMemoryCampusAccessRepository();
 
     Calendar calendar = new HardCodedCalendar();
@@ -60,8 +57,8 @@ public abstract class PassContext implements ResourceContext {
     return passRepository;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(passResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(PassResource.class, passResource);
     resources.add(new PassExceptionAssembler());
     resources.add(new DeliveryExceptionAssembler());
   }

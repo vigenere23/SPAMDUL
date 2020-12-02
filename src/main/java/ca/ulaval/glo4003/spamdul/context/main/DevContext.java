@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.DevPassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.DevUsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class DevContext extends MainContext {
 
@@ -42,7 +42,7 @@ public class DevContext extends MainContext {
   }
 
   @Override
-  public void registerResources(Set<Object> resources) {
+  public void registerResources(InstanceMap resources) {
     super.registerResources(resources);
     resources.add(new PingResource());
   }

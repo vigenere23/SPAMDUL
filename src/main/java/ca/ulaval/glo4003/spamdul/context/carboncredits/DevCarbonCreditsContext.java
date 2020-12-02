@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceAdmin;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceAdminImpl;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class DevCarbonCreditsContext extends CarbonCreditsContext {
 
@@ -30,7 +30,7 @@ public class DevCarbonCreditsContext extends CarbonCreditsContext {
     carbonCreditsResourceAdmin = new CarbonCreditsResourceAdminImpl(carbonCreditsService);
   }
 
-  @Override public void registerResources(Set<Object> resources) {
+  @Override public void registerResources(InstanceMap resources) {
     super.registerResources(resources);
     resources.add(carbonCreditsResourceAdmin);
   }

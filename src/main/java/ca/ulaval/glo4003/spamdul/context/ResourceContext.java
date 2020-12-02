@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.context;
 
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public interface ResourceContext {
 
-  void registerResources(Set<Object> resources);
+  void registerResources(InstanceMap instanceMap);
 }

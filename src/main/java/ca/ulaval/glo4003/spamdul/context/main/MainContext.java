@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class MainContext implements ResourceContext {
 
@@ -26,7 +26,7 @@ public abstract class MainContext implements ResourceContext {
   protected InfractionsContext infractionsContext;
   protected CarbonCreditsContext carbonCreditsContext;
 
-  @Override public void registerResources(Set<Object> resources) {
+  @Override public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
     resources.add(new TimePeriodExceptionAssembler());
 

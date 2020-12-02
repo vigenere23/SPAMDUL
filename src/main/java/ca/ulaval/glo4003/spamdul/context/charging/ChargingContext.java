@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargUL
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class ChargingContext implements ResourceContext {
 
@@ -53,10 +53,10 @@ public abstract class ChargingContext implements ResourceContext {
 
   protected abstract void populateRechargULCards(Populator populator);
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(chargingPointResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(ChargingPointResource.class, chargingPointResource);
     resources.add(new ChargingPointExceptionMapper());
-    resources.add(rechargULResource);
+    resources.add(RechargULResource.class, rechargULResource);
     resources.add(new RechargULExceptionMapper());
   }
 }

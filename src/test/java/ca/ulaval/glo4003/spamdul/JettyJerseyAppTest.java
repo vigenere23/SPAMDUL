@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.withEnvironmentVariable;
-import static org.mockito.Matchers.anySet;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -47,7 +48,7 @@ public class JettyJerseyAppTest {
 
     startApp(app);
 
-    verify(context, times(2)).registerResources(anySet());
+    verify(context, times(2)).registerResources(any(InstanceMap.class));
   }
 
   @Test
@@ -67,7 +68,7 @@ public class JettyJerseyAppTest {
 
     startApp(app);
 
-    verify(context, times(2)).registerResources(anySet());
+    verify(context, times(2)).registerResources(any(InstanceMap.class));
   }
 
   @Test
@@ -87,7 +88,7 @@ public class JettyJerseyAppTest {
 
     startApp(app);
 
-    verify(context, times(2)).registerResources(anySet());
+    verify(context, times(2)).registerResources(any(InstanceMap.class));
   }
 
   private void startApp(SpamdUlApplication app) throws InterruptedException {

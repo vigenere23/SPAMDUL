@@ -25,7 +25,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePer
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class CampusAccessContext implements ResourceContext {
 
@@ -70,8 +70,8 @@ public class CampusAccessContext implements ResourceContext {
     return campusAccessService;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(campusAccessResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(CampusAccessResource.class, campusAccessResource);
     resources.add(new AccessingCampusExceptionAssembler());
     resources.add(new CarExceptionAssembler());
   }

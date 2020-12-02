@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResour
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class FundraisingContext implements ResourceContext {
 
@@ -54,8 +54,8 @@ public abstract class FundraisingContext implements ResourceContext {
 
   protected abstract void populateData(Populator populator);
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(fundraisingResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(FundraisingResource.class, fundraisingResource);
     resources.add(new InitiativeExceptionMapper());
   }
 }

@@ -27,7 +27,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourc
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class InfractionsContext implements ResourceContext {
 
@@ -79,8 +79,8 @@ public class InfractionsContext implements ResourceContext {
     return emptyPassCodeValidator;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(infractionResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(InfractionResource.class, infractionResource);
     resources.add(new InfractionExceptionAssembler());
   }
 }

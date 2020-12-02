@@ -13,8 +13,6 @@ public class ProdPassContext extends PassContext {
 
   public ProdPassContext(PassTransactionService passTransactionService,
                          CampusAccessService campusAccessService) {
-    super(passTransactionService, campusAccessService);
-
     DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory(new EmailServiceFactory(new GmailEmailService()));
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
     PassService passService = new PassService(passFactory,

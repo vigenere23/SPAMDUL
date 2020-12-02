@@ -1,14 +1,12 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,25 +20,21 @@ public class DevUsageReportContextTest {
   private AuthenticationRepository authenticationRepository;
   @Mock
   private AccessTokenCookieAssembler cookieAssembler;
-  @Mock
-  private Set<Object> resources;
 
   private DevUsageReportContext devUsageReportContext;
+  private InstanceMap resources;
 
   @Before
   public void setUp() {
     devUsageReportContext = new DevUsageReportContext(authenticationRepository, cookieAssembler);
+    resources = new InstanceMap();
   }
 
   @Test
-  public void whenRegisteringResources_shouldAddResource() {
+  public void whenRegisteringResources_shouldAddAllResources() {
     devUsageReportContext.registerResources(resources);
-    verify(resources, times(2)).add(any(UsageReportResource.class));
-  }
-
-  @Test
-  public void whenRegisteringResources_shouldAddExceptionMapper() {
-    devUsageReportContext.registerResources(resources);
-    verify(resources, times(2)).add(any(UsageReportExceptionAssembler.class));
+    assertContainsExactlyInstancesOf(resources.getValues(),
+                                     UsageReportResource.class,
+                                     UsageReportExceptionAssembler.class);
   }
 }

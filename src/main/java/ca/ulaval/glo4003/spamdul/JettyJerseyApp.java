@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
-import java.util.HashSet;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -29,9 +29,9 @@ public class JettyJerseyApp implements SpamdUlApplication {
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
-        Set<Object> resources = new HashSet<>();
-        context.registerResources(resources);
-        return resources;
+        InstanceMap instanceMap = new InstanceMap();
+        context.registerResources(instanceMap);
+        return instanceMap.getValues();
       }
     });
     resourceConfig.register(CORSResponseFilter.class);

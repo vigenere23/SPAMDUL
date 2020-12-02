@@ -17,7 +17,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenC
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceImpl;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -60,7 +60,7 @@ public abstract class CarbonCreditsContext implements ResourceContext {
     return endOfMonthEventScheduler;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
+  @Override public void registerResources(InstanceMap resources) {
     resources.add(carbonCreditsResource);
   }
 }

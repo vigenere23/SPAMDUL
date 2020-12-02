@@ -13,8 +13,6 @@ public class DevPassContext extends PassContext {
 
   public DevPassContext(PassTransactionService passTransactionService,
                         CampusAccessService campusAccessService) {
-    super(passTransactionService, campusAccessService);
-
     DeliveryStrategyFactory deliveryStrategyFactory = new DeliveryStrategyFactory(new EmailServiceFactory(new NullEmailService()));
     PassSender passSender = new PassSender(passDeliveryOptionsFactory, deliveryStrategyFactory);
     PassService passService = new PassService(passFactory,

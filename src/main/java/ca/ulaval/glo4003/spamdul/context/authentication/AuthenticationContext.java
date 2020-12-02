@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.Authenticati
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class AuthenticationContext implements ResourceContext {
 
@@ -32,8 +32,8 @@ public class AuthenticationContext implements ResourceContext {
     return accessTokenCookieAssembler;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(authenticationResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(AuthenticationResource.class, authenticationResource);
     resources.add(new AuthenticationExceptionAssembler());
     resources.add(new UserExceptionAssembler());
   }

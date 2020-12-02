@@ -21,7 +21,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageR
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class UsageReportContext implements ResourceContext {
 
@@ -71,8 +71,8 @@ public abstract class UsageReportContext implements ResourceContext {
 
   protected abstract void populateData(Populator populator);
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(usageReportResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(UsageReportResource.class, usageReportResource);
     resources.add(new UsageReportExceptionAssembler());
   }
 }

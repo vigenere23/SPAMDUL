@@ -23,7 +23,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExc
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
-import java.util.Set;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class FinanceContext implements ResourceContext {
 
@@ -101,8 +101,8 @@ public class FinanceContext implements ResourceContext {
     return passTransactionService;
   }
 
-  @Override public void registerResources(Set<Object> resources) {
-    resources.add(revenueResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(RevenueResource.class, revenueResource);
     resources.add(new FinanceExceptionMapper());
   }
 }
