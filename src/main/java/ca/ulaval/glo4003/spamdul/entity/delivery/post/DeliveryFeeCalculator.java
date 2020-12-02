@@ -1,26 +1,23 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DeliveryFeeCalculator {
 
-  private Map<DeliveryMode, DeliveryFee> deliveryFees = new HashMap<>();
+  private final Map<DeliveryMode, Amount> deliveryFees = new HashMap<>();
 
   public DeliveryFeeCalculator() {
     setDeliveryFees();
   }
 
-  public DeliveryFee calculateBy(DeliveryMode deliveryMode) {
-    return deliveryFees.get(deliveryMode);
+  public Amount calculateBy(DeliveryMode deliveryMode) {
+    return deliveryFees.getOrDefault(deliveryMode, Amount.valueOf(0));
   }
 
   private void setDeliveryFees() {
-    this.deliveryFees.put(DeliveryMode.POST, new DeliveryFee(5.0));
-    this.deliveryFees.put(DeliveryMode.SSP_OFFICE, new DeliveryFee(0.0));
-    this.deliveryFees.put(DeliveryMode.EMAIL, new DeliveryFee(0.0));
+    this.deliveryFees.put(DeliveryMode.POST, Amount.valueOf(5.0));
   }
-
-
 }

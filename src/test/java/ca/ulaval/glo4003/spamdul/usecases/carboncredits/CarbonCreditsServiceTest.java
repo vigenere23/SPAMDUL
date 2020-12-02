@@ -1,23 +1,18 @@
 package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.bank.CarbonCreditsBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.bank.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,17 +30,13 @@ public class CarbonCreditsServiceTest {
   @Mock
   private EventSchedulerObservable eventSchedulerObservable;
   @Mock
-  private BankRepository bankRepository;
-  @Mock
-  private TransactionFactory transactionFactory;
-  @Mock
-  private InitiativeFactory initiativeFactory;
+  private InitiativeCreator initiativeCreator;
   @Mock
   private InitiativeRepository initiativeRepository;
   @Mock
   private SustainabilityBankAccount sustainabilityBankAccount;
   @Mock
-  private CarbonCreditsBankAccount carbonCreditsBankAccount;
+  private CarbonCreditsTransactionService carbonCreditsTransactionService;
   @Mock
   private CarbonCreditsPurchaser carbonCreditsPurchaser;
   @Mock
@@ -53,20 +44,17 @@ public class CarbonCreditsServiceTest {
 
   private CarbonCreditsService carbonCreditsService;
 
-
   @Before
   public void setUp() {
     carbonCreditsService = new CarbonCreditsService(eventSchedulerObservable,
-                                                    bankRepository,
-                                                    transactionFactory,
                                                     carbonCreditsPurchaser,
-                                                    initiativeFactory,
                                                     initiativeRepository,
-                                                    accessLevelValidator);
+                                                    initiativeCreator,
+                                                    accessLevelValidator,
+                                                    carbonCreditsTransactionService,
+                                                    sustainabilityBankAccount);
 
-    when(bankRepository.getSustainabilityBankAccount()).thenReturn(sustainabilityBankAccount);
-    when(bankRepository.getCarbonCreditsBankAccount()).thenReturn(carbonCreditsBankAccount);
-    when(sustainabilityBankAccount.getTotalAvailableAmount()).thenReturn(A_AMOUNT);
+    when(sustainabilityBankAccount.getBalance()).thenReturn(A_AMOUNT);
   }
 
   @Test
@@ -91,32 +79,17 @@ public class CarbonCreditsServiceTest {
   }
 
   @Test
-  public void whenTransferringRemainingBudget_thenShouldGetSustainableMobilityProjectAccountFromRepository() {
+  public void whenTransferringRemainingBudget_shouldAddCarbonCreditsRevenueToCarbonCreditsBankAccount() {
     carbonCreditsService.transferRemainingBudget();
 
-    verify(bankRepository, atLeast(1)).getSustainabilityBankAccount();
+    verify(carbonCreditsTransactionService, times(1)).addRevenue(A_AMOUNT);
   }
-
-  @Test
-  public void whenTransferringRemainingBudget_thenShouldGetTotalSustainableMobilityAvailableAmount() {
-    carbonCreditsService.transferRemainingBudget();
-
-    verify(sustainabilityBankAccount).getTotalAvailableAmount();
-  }
-
-  @Test
-  public void whenTransferringRemainingBudget_thenShouldAddTransactionToSustainableMobilityProjectAccount() {
-    carbonCreditsService.transferRemainingBudget();
-
-    verify(sustainabilityBankAccount).addTransaction(any(Transaction.class));
-  }
-
 
   @Test
   public void whenTransferRemainingBudget_shouldPurchaseWithCarbonCreditsPurchaser() {
     carbonCreditsService.transferRemainingBudget();
 
     //TODO: remove any for the return value of bank account when the full method is implemented
-    verify(carbonCreditsPurchaser).purchase(any(CarbonCredits.class));
+    verify(carbonCreditsPurchaser, times(1)).purchase(CarbonCredits.valueOf(A_AMOUNT));
   }
 }

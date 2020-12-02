@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.bank.InsufficientFundsException;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeCodeException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeException;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,14 +17,14 @@ public class InitiativeExceptionMapper implements ExceptionMapper<InvalidInitiat
     ExceptionResponse response = new ExceptionResponse();
     response.description = e.getMessage();
 
-    if (e instanceof InvalidInitiativeName) {
+    if (e instanceof InvalidInitiativeNameException) {
       response.error = "INVALID_INITIATIVE_NAME";
 
-    } else if (e instanceof InvalidInitiativeAmount) {
+    } else if (e instanceof InvalidInitiativeAmountException) {
       response.error = "INVALID_INITIATIVE_AMOUNT";
 
-    } else if (e instanceof InsufficientFundsException) {
-      response.error = "INSUFFICIENT_FUNDS";
+    } else if (e instanceof InvalidInitiativeCodeException) {
+      response.error = "INVALID_INITIATIVE_CODE";
 
     } else {
       response.error = "INVALID_INITIATIVE";

@@ -16,6 +16,14 @@ public class Amount {
     }
   }
 
+  public static Amount valueOf(String value) {
+    try {
+      return new Amount(new BigDecimal(value));
+    } catch (Exception e) {
+      throw new InvalidAmountException();
+    }
+  }
+
   private Amount(BigDecimal value) {
     this.value = value.setScale(2, RoundingMode.HALF_EVEN);
   }
@@ -38,6 +46,10 @@ public class Amount {
 
   public Amount add(Amount other) {
     return new Amount(value.add(other.value));
+  }
+
+  public Amount subtract(Amount other) {
+    return new Amount(value.subtract(other.value));
   }
 
   public Amount multiply(double other) {

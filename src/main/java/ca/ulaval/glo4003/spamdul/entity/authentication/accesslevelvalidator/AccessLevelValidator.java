@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.usecases.infraction.UnauthorizedUserException;
 
 public abstract class AccessLevelValidator {
 
-  private AuthenticationRepository authenticationRepository;
+  private final AuthenticationRepository authenticationRepository;
 
   public AccessLevelValidator(AuthenticationRepository authenticationRepository) {
     this.authenticationRepository = authenticationRepository;

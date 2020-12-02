@@ -3,12 +3,12 @@ package ca.ulaval.glo4003.spamdul.context.carboncredits;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.CarbonCreditsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.carboncredits.ConsoleLogCarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.infrastructure.scheduling.EndOfMonthEventScheduler;
@@ -28,10 +28,10 @@ public class CarbonCreditsContext {
   private CarbonCreditsResourceAdmin carbonCreditsResourceAdmin = new NullCarbonCreditsResourceAdmin();
   private final EndOfMonthEventScheduler endOfMonthEventScheduler;
 
-  public CarbonCreditsContext(BankRepository bankRepository,
-                              TransactionFactory transactionFactory,
-                              InitiativeFactory initiativeFactory,
+  public CarbonCreditsContext(CarbonCreditsTransactionService carbonCreditsTransactionService,
+                              SustainabilityBankAccount sustainabilityBankAccount,
                               InitiativeRepository initiativeRepository,
+                              InitiativeCreator initiativeCreator,
                               AuthenticationRepository authenticationRepository,
                               AccessTokenCookieAssembler cookieAssembler,
                               boolean asAdmin) {
@@ -47,12 +47,12 @@ public class CarbonCreditsContext {
     AccessLevelValidator accessLevelValidator = new CarbonCreditsAccessLevelValidator(authenticationRepository);
 
     CarbonCreditsService carbonCreditsService = new CarbonCreditsService(endOfMonthEventScheduler,
-                                                                         bankRepository,
-                                                                         transactionFactory,
                                                                          carbonCreditsPurchaser,
-                                                                         initiativeFactory,
                                                                          initiativeRepository,
-                                                                         accessLevelValidator);
+                                                                         initiativeCreator,
+                                                                         accessLevelValidator,
+                                                                         carbonCreditsTransactionService,
+                                                                         sustainabilityBankAccount);
 
     carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService, cookieAssembler);
 

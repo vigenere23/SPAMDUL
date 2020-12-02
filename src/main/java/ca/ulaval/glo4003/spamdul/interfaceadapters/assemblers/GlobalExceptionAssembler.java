@@ -19,6 +19,7 @@ public class GlobalExceptionAssembler implements ExceptionMapper<RuntimeExceptio
     } else if (e instanceof InvalidAmountException) {
       exceptionResponse.error = "INVALID_AMOUNT";
     } else {
+      e.printStackTrace();
       exceptionResponse.error = e.getClass().getName();
     }
 

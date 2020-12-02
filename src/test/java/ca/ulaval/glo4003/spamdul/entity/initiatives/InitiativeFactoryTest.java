@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmount;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeName;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,24 +20,29 @@ public class InitiativeFactoryTest {
     initiativeFactory = new InitiativeFactory();
   }
 
-  @Test(expected = InvalidInitiativeName.class)
+  @Test(expected = InvalidInitiativeNameException.class)
   public void givenNullName_whenCreating_shouldThrowInvalidInitiativeNameException() {
     initiativeFactory.create(null, A_VALID_AMOUNT);
   }
 
-  @Test(expected = InvalidInitiativeName.class)
+  @Test(expected = InvalidInitiativeNameException.class)
   public void givenEmptyName_whenCreating_shouldThrowInvalidInitiativeNameException() {
     initiativeFactory.create("", A_VALID_AMOUNT);
   }
 
-  @Test(expected = InvalidInitiativeAmount.class)
+  @Test(expected = InvalidInitiativeAmountException.class)
   public void givenNegativeAmount_whenCreating_shouldThrowInvalidInitiativeAmountException() {
     initiativeFactory.create(A_VALID_NAME, Amount.valueOf(-45.21));
   }
 
-  @Test(expected = InvalidInitiativeAmount.class)
+  @Test(expected = InvalidInitiativeAmountException.class)
   public void givenZeroAmount_whenCreating_shouldThrowInvalidInitiativeAmountException() {
     initiativeFactory.create(A_VALID_NAME, Amount.valueOf(0));
+  }
+
+  @Test
+  public void givenReservedCode_whenCreatingWithReservedCode_shouldReturnInitiative() {
+    initiativeFactory.create(ReservedInitiativeCode.CARBON_CREDITS, A_VALID_NAME, A_VALID_AMOUNT);
   }
 
   @Test

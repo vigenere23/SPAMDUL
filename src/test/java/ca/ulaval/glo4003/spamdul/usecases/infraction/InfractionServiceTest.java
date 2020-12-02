@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -9,8 +8,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
-import ca.ulaval.glo4003.spamdul.entity.bank.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -21,8 +19,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
-import ca.ulaval.glo4003.spamdul.entity.transactions.Transaction;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,13 +52,9 @@ public class InfractionServiceTest {
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
   @Mock
-  private TransactionFactory transactionFactory;
-  @Mock
-  private BankRepository bankRepository;
-  @Mock
-  private MainBankAccount mainBankAccount;
-  @Mock
   private AccessLevelValidator accessLevelValidator;
+  @Mock
+  private InfractionTransactionService infractionTransactionService;
 
   @Before
   public void setUp() throws Exception {
@@ -69,16 +62,13 @@ public class InfractionServiceTest {
                                               infractionRepository,
                                               infractionFactory,
                                               passValidator,
-                                              transactionFactory,
-                                              bankRepository,
-                                              accessLevelValidator);
+                                              accessLevelValidator,
+                                              infractionTransactionService);
 
     passToValidateDto = new PassToValidateDto();
     infractionInfos = new InfractionInfos();
     infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
-
-    when(bankRepository.getMainBankAccount()).thenReturn(mainBankAccount);
   }
 
   @Test
@@ -162,23 +152,13 @@ public class InfractionServiceTest {
   }
 
   @Test
-  public void whenPayingInfraction_thenShouldRetrieveMainBankAccount() {
+  public void whenPayingInfraction_shouldAddRevenueToInfractionBankAccount() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
     when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(bankRepository).getMainBankAccount();
-  }
-
-  @Test
-  public void whenPayingInfraction_shouldCreateTransaction() {
-    infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
-
-    infractionService.payInfraction(infractionPaymentDto);
-
-    verify(mainBankAccount).addTransaction(any(Transaction.class));
+    verify(infractionTransactionService, times(1)).addRevenue(Amount.valueOf(infraction.getAmount()));
   }
 
   @Test

@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.spamdul.usecases.fundraising.dto;
 
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+
 public class InitiativeDto {
 
-  public String code;
   public String name;
-  public double amount;
+  public Amount amount;
 }

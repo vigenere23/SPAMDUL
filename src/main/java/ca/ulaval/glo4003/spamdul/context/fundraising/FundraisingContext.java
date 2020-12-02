@@ -3,10 +3,10 @@ package ca.ulaval.glo4003.spamdul.context.fundraising;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
@@ -18,24 +18,22 @@ public class FundraisingContext {
 
   private final InitiativePopulator initiativePopulator;
   private final FundraisingResource fundraisingResource;
-  private final InitiativeFactory initiativeFactory;
+  private final InitiativeCreator initiativeCreator;
   private final InitiativeRepository initiativeRepository;
 
-  public FundraisingContext(BankRepository bankRepository,
+  public FundraisingContext(InitiativeTransactionService initiativeTransactionService,
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler,
                             boolean populateData) {
     initiativeRepository = new InMemoryInitiativeRepository();
 
-    initiativeFactory = new InitiativeFactory();
-    TransactionFactory transactionFactory = new TransactionFactory();
+    InitiativeFactory initiativeFactory = new InitiativeFactory();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
+    initiativeCreator = new InitiativeCreator(initiativeTransactionService, initiativeFactory);
     InitiativeService initiativeService = new InitiativeService(initiativeRepository,
-                                                                initiativeFactory,
-                                                                bankRepository,
-                                                                transactionFactory,
+                                                                initiativeCreator,
                                                                 accessLevelValidator);
 
     fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);
@@ -59,7 +57,7 @@ public class FundraisingContext {
     return initiativeRepository;
   }
 
-  public InitiativeFactory getInitiativeFactory() {
-    return initiativeFactory;
+  public InitiativeCreator getInitiativeCreator() {
+    return initiativeCreator;
   }
 }

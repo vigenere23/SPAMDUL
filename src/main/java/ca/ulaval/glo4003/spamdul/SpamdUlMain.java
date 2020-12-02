@@ -1,15 +1,14 @@
 package ca.ulaval.glo4003.spamdul;
 
 import ca.ulaval.glo4003.spamdul.context.GlobalContext;
-import ca.ulaval.glo4003.spamdul.context.account.AccountContext;
 import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.charging.ChargingContext;
+import ca.ulaval.glo4003.spamdul.context.finance.FinanceContext;
 import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
-import ca.ulaval.glo4003.spamdul.context.revenue.RevenueContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
@@ -20,6 +19,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.Campu
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
@@ -44,35 +44,31 @@ public class SpamdUlMain {
 
     GlobalContext globalContext = new GlobalContext();
     AuthenticationContext authenticationContext = new AuthenticationContext();
+    FinanceContext financeContext = new FinanceContext(authenticationContext.getAuthenticationRepository(),
+                                                       globalContext.getCookieAssembler());
     UsageReportContext usageReportContext = new UsageReportContext(authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
-    AccountContext accountContext = new AccountContext();
     CampusAccessContext campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
-                                                                      accountContext.bankRepository(),
-                                                                      globalContext.getTransactionFactory()
+                                                                      financeContext.getCampusAccessBankAccount()
     );
-    PassContext passContext = new PassContext(accountContext.bankRepository(),
+    PassContext passContext = new PassContext(financeContext.getPassBankAccount(),
                                               campusAccessContext.getCampusAccessService());
-    FundraisingContext fundraisingContext = new FundraisingContext(accountContext.bankRepository(),
+    FundraisingContext fundraisingContext = new FundraisingContext(financeContext.getInitiativesBankAccount(),
                                                                    authenticationContext.getAuthenticationRepository(),
                                                                    globalContext.getCookieAssembler(),
                                                                    false);
-    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(accountContext.bankRepository(),
-                                                                         globalContext.getTransactionFactory(),
-                                                                         fundraisingContext.getInitiativeFactory(),
+    CarbonCreditsContext carbonCreditsContext = new CarbonCreditsContext(financeContext.getCarbonCreditsBankAccount(),
+                                                                         financeContext.getSustainabilityBankAccount(),
                                                                          fundraisingContext.getInitiativeRepository(),
+                                                                         fundraisingContext.getInitiativeCreator(),
                                                                          authenticationContext.getAuthenticationRepository(),
                                                                          globalContext.getCookieAssembler(),
                                                                          true);
-    RevenueContext revenueContext = new RevenueContext(accountContext.bankRepository(),
-                                                       authenticationContext.getAuthenticationRepository(),
-                                                       globalContext.getCookieAssembler(),
-                                                       false);
     InfractionsContext infractionsContext = new InfractionsContext(globalContext.getPassRepository(),
-                                                                   accountContext.bankRepository(),
                                                                    authenticationContext.getAuthenticationRepository(),
-                                                                   globalContext.getCookieAssembler());
+                                                                   globalContext.getCookieAssembler(),
+                                                                   financeContext.getInfractionBankAccount());
 
     ChargingContext chargingContext = new ChargingContext(globalContext.getTransactionFactory(), true);
 
@@ -87,7 +83,7 @@ public class SpamdUlMain {
         resources.add(passContext.getPassResource());
         resources.add(campusAccessContext.getCampusAccessResource());
         resources.add(usageReportContext.getUsageReportResource());
-        resources.add(revenueContext.getRevenueResource());
+        resources.add(financeContext.getRevenueResource());
         resources.add(new UsageReportExceptionAssembler());
         resources.add(new UserExceptionAssembler());
         resources.add(new CarExceptionAssembler());
@@ -109,6 +105,7 @@ public class SpamdUlMain {
         resources.add(chargingContext.getRechargULResource());
         resources.add(chargingContext.getChargingPointExceptionMapper());
         resources.add(chargingContext.getRechargULExceptionMapper());
+        resources.add(new FinanceExceptionMapper());
 
         return resources;
       }

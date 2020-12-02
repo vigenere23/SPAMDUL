@@ -3,7 +3,8 @@ package ca.ulaval.glo4003.spamdul.context.infractions;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.bank.BankRepository;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
@@ -16,9 +17,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidator;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InMemoryInfractionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
@@ -33,9 +32,9 @@ public class InfractionsContext {
   private final InfractionResource infractionResource;
 
   public InfractionsContext(PassRepository passRepository,
-                            BankRepository bankRepository,
                             AuthenticationRepository authenticationRepository,
-                            AccessTokenCookieAssembler cookieAssembler) {
+                            AccessTokenCookieAssembler cookieAssembler,
+                            InfractionTransactionService infractionTransactionService) {
     InfractionAssembler infractionAssembler = new InfractionAssembler();
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
@@ -52,9 +51,8 @@ public class InfractionsContext {
                                                                 infractionRepository,
                                                                 infractionFactory,
                                                                 firstValidationNode,
-                                                                transactionFactory,
-                                                                bankRepository,
-                                                                accessLevelValidator);
+                                                                accessLevelValidator,
+                                                                infractionTransactionService);
 
     infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
 

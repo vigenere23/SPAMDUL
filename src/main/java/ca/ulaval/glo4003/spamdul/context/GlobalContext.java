@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context;
 
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.entity.transactions.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 
