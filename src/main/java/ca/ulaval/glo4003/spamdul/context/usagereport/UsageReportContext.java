@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
@@ -15,19 +17,19 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResour
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
-public class UsageReportContext {
+public abstract class UsageReportContext implements ResourceContext {
 
-  private final ParkingAccessLogPopulator parkingAccessLogPopulator;
   private final ParkingAccessLogger parkingAccessLogger;
   private final UsageReportResource usageReportResource;
 
   public UsageReportContext(AuthenticationRepository authenticationRepository,
-                            AccessTokenCookieAssembler cookieAssembler,
-                            boolean populateData) {
+                            AccessTokenCookieAssembler cookieAssembler) {
     ParkingAccessLogRepository parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
 
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
@@ -54,29 +56,23 @@ public class UsageReportContext {
                                                                    usageReportAssembler,
                                                                    accessLevelValidator);
 
-    parkingAccessLogPopulator = new ParkingAccessLogPopulator(parkingAccessLogRepository,
-                                                              parkingAccessLogFactory);
-
     usageReportResource = new UsageReportResourceImpl(usageReportService,
                                                       usageReportCreationAssembler,
                                                       usageReportSummaryCreationAssembler,
                                                       cookieAssembler);
+    Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);
 
-    if (populateData) {
-      this.populateData();
-    }
-  }
-
-  public UsageReportResource getUsageReportResource() {
-    return usageReportResource;
+    this.populateData(populator);
   }
 
   public ParkingAccessLogger getParkingAccessLogger() {
     return parkingAccessLogger;
   }
 
-  private void populateData() {
-    final int NUMBER_OF_ACCESS_LOGS = 300;
-    parkingAccessLogPopulator.populate(NUMBER_OF_ACCESS_LOGS);
+  protected abstract void populateData(Populator populator);
+
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(usageReportResource);
+    resources.add(new UsageReportExceptionAssembler());
   }
 }
