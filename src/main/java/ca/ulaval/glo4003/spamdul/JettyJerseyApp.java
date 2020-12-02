@@ -20,9 +20,9 @@ public class JettyJerseyApp implements SpamdUlApplication {
   private final MainContext context;
   private final Server server;
 
-  public JettyJerseyApp() {
+  public JettyJerseyApp(ContextFactory contextFactory) {
     ContextType contextType = ContextType.parse(System.getenv("SPAMDUL_API_MODE"));
-    context = new ContextFactory().create(contextType);
+    context = contextFactory.create(contextType);
 
     ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
     contextHandler.setContextPath("/api/");
