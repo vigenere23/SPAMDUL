@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.excep
 
 public class PassNotFoundException extends InvalidAccessingCampusArgumentException {
 
-  public PassNotFoundException(String message) {
-    super(message);
+  public PassNotFoundException(String passCode) {
+    super(String.format("No pass with id %s", passCode));
   }
 }

@@ -30,7 +30,7 @@ public class UserAssembler {
       return Gender.valueOf(userRequest.gender.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidGenderArgumentException("The gender provided must be of type male, female or other");
+      throw new InvalidGenderArgumentException();
     }
   }
 
@@ -39,7 +39,7 @@ public class UserAssembler {
       return LocalDate.parse(userRequest.birthDate, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
-      throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
+      throw new InvalidBirthDateArgumentException();
     }
   }
 }

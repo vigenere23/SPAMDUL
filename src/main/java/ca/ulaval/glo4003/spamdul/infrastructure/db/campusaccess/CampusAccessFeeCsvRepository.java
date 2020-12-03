@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.exception.CantFindCarTypeAccessFeeException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
@@ -26,15 +27,13 @@ public class CampusAccessFeeCsvRepository implements CampusAccessFeeRepository {
     Map<PeriodType, Amount> periodTypeCampusAccessFeeMap = fees.get(carType);
 
     if (periodTypeCampusAccessFeeMap == null) {
-      throw new CantFindCampusAccessFeeException(
-          "Cant find a campus access fee associated with the given car type and periode");
+      throw new CantFindCarTypeAccessFeeException();
     }
 
     Amount fee = periodTypeCampusAccessFeeMap.get(period);
 
     if (fee == null) {
-      throw new CantFindCampusAccessFeeException(
-          "Cant find a campus access fee associated with the given car type and periode");
+      throw new CantFindCarTypeAccessFeeException();
     }
 
     return fee;

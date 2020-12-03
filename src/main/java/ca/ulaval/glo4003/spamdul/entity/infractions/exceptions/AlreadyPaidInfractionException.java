@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.excepti
 
 public class AlreadyPaidInfractionException extends InvalidInfractionException {
 
-  public AlreadyPaidInfractionException(String s) {
-    super(s);
+  public AlreadyPaidInfractionException() {
+    super("infraction already paid");
   }
 }

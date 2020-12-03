@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.except
 
 public class InvalidSemesterException extends InvalidTimePeriodException {
 
-  public InvalidSemesterException(String message) {
-    super(message);
+  public InvalidSemesterException() {
+    super("The semester must be in format {A|H|E}XXXX");
   }
 }

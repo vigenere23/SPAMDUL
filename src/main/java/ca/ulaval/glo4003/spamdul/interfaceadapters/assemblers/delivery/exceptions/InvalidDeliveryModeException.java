@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptio
 
 public class InvalidDeliveryModeException extends InvalidDeliveryArgumentException {
 
-  public InvalidDeliveryModeException(String message) {
-    super(message);
+  public InvalidDeliveryModeException() {
+    super("The delivery is either made by post or by mail");
   }
 }

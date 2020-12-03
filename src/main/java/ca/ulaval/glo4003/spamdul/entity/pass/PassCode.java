@@ -23,7 +23,7 @@ public class PassCode {
       return new PassCode(Long.parseLong(passCode));
 
     } catch (NumberFormatException e) {
-      throw new InvalidPassCodeFormat("Invalid pass code format");
+      throw new InvalidPassCodeFormat();
     }
   }
 

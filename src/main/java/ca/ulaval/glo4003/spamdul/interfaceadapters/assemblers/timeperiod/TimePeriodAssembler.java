@@ -68,10 +68,8 @@ public class TimePeriodAssembler {
   }
 
   private Semester assembleSemester(String semester) {
-    final String message = "The semester must be in format {A|H|E}XXXX";
-
     if (semester == null) {
-      throw new InvalidSemesterException(message);
+      throw new InvalidSemesterException();
     }
 
     semester = semester.toUpperCase();
@@ -80,14 +78,14 @@ public class TimePeriodAssembler {
     try {
       year = parseInt(semester.substring(1));
     } catch (Exception e) {
-      throw new InvalidSemesterException(message);
+      throw new InvalidSemesterException();
     }
 
     Session session;
     try {
       session = Session.parse(semester.substring(0, 1));
     } catch (Exception e) {
-      throw new InvalidSemesterException(message);
+      throw new InvalidSemesterException();
     }
 
     return new Semester(session, year);

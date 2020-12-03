@@ -49,12 +49,10 @@ public class CampusAccess {
 
   public void associatePass(Pass pass) {
     if (associatedPass != null) {
-      throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
+      throw new PassAlreadyAssociatedException();
     }
     if (!pass.getTimePeriod().includedIn(timePeriod)) {
-      throw new PassNotAcceptedByAccessException(
-          "This user does not have campus access for the dates covered by this pass."
-      );
+      throw new PassNotAcceptedByAccessException();
     }
 
     associatedPass = pass;

@@ -45,7 +45,7 @@ public class UsageReportCreationAssembler {
       return LocalDate.parse(date, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
-      throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
+      throw new InvalidDateArgumentException();
     }
   }
 
@@ -58,7 +58,7 @@ public class UsageReportCreationAssembler {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidParkingZoneArgumentException("The Parking zone provided must be ZONE_*number*");
+      throw new InvalidParkingZoneArgumentException();
     }
   }
 }

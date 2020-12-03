@@ -27,7 +27,7 @@ public class InMemoryInfractionRepository implements InfractionRepository {
     Infraction infraction = infractionMap.get(infractionId);
 
     if (infraction == null) {
-      throw new InfractionNotFoundException(String.format("No infraction with id: %s", infractionId));
+      throw new InfractionNotFoundException(infractionId);
     }
 
     return infraction;

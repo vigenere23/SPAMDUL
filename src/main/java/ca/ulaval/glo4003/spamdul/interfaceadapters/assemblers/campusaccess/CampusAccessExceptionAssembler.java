@@ -18,6 +18,7 @@ public class CampusAccessExceptionAssembler implements ExceptionMapper<InvalidCa
     ExceptionResponse exceptionResponse = new ExceptionResponse();
     exceptionResponse.description = e.getMessage();
 
+    //TODO::never trigger
     if (e instanceof InvalidDayOfCampusAccessArgumentException || e instanceof InvalidDayToAccessCampusException) {
       exceptionResponse.error = "INVALID_DAY_TO_ACCESS_CAMPUS";
     }

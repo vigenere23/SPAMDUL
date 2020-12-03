@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeFormatException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -19,7 +19,7 @@ public class AccessingCampusExceptionAssembler implements ExceptionMapper<Invali
     if (e instanceof InvalidAccessingCampusDateArgumentException) {
       exceptionResponse.error = "INVALID_ACCESSING_CAMPUS_DATE_FORMAT";
 
-    } else if (e instanceof InvalidCampusAccessCodeArgumentException) {
+    } else if (e instanceof InvalidCampusAccessCodeFormatException) {
       exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE_FORMAT";
 
     } else if (e instanceof PassNotFoundException) {

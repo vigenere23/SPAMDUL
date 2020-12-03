@@ -28,7 +28,7 @@ public class InfractionAssembler {
       return ParkingZone.valueOf(infractionRequest.parkingZone.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidInfractionParkingZoneException("Invalid parking zone");
+      throw new InvalidInfractionParkingZoneException();
     }
   }
 
@@ -59,7 +59,7 @@ public class InfractionAssembler {
       return InfractionId.valueOf(infractionPaymentRequest.infractionId.toUpperCase());
 
     } catch (InvalidInfractionIdException e) {
-      throw new InvalidInfractionIdFormatException("The infraction id format is invalid");
+      throw new InvalidInfractionIdFormatException();
     }
   }
 }

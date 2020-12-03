@@ -68,7 +68,7 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository, P
     if (optionalPass.isPresent()) {
       return optionalPass.get();
     } else {
-      throw new PassNotFoundException(String.format("No pass with id %s", passCode.toString()));
+      throw new PassNotFoundException(passCode.toString());
     }
   }
 

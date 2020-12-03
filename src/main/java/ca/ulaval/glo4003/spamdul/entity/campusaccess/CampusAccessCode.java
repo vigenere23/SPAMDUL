@@ -21,7 +21,7 @@ public class CampusAccessCode {
     try {
       return new CampusAccessCode(Long.parseLong(userId));
     } catch (NumberFormatException e) {
-      throw new InvalidCampusAccessCodeFormatException("invalid campus code format");
+      throw new InvalidCampusAccessCodeFormatException();
     }
   }
 

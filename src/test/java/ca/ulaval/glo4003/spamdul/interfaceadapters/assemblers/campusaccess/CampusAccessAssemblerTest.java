@@ -23,7 +23,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccess
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
@@ -138,7 +138,7 @@ public class CampusAccessAssemblerTest {
     assertThat(accessingCampusDto.licensePlate).isEqualTo(A_LICENSE_PLATE);
   }
 
-  @Test(expected = InvalidCampusAccessCodeArgumentException.class)
+  @Test(expected = InvalidCampusAccessCodeFormatException.class)
   public void givenAnInvalidCampusAccessCodeFormat_whenAssemblingFromRequest_shouldThrowInvalidCampusAccessCodeArgumentException() {
     accessingCampusRequest.campusAccessCode = INVALID_ACCESS_CODE_FORMAT;
 

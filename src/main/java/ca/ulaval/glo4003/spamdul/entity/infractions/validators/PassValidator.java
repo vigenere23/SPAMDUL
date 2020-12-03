@@ -42,8 +42,7 @@ public abstract class PassValidator {
 
     if (correspondingPass == null) {
       if (passRepository == null) {
-        throw new PassRepositoryNotSetException("This validator requires pass repository " +
-                                                    "to be set before usage");
+        throw new PassRepositoryNotSetException();
       }
 
       correspondingPass = passRepository.findByPassCode(passCode);

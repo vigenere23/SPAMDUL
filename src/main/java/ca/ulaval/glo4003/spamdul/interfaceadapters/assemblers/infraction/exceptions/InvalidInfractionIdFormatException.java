@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.except
 
 public class InvalidInfractionIdFormatException extends InvalidInfractionException {
 
-  public InvalidInfractionIdFormatException(String message) {
-    super(message);
+  public InvalidInfractionIdFormatException() {
+    super("Invalid infraction id format");
   }
 }

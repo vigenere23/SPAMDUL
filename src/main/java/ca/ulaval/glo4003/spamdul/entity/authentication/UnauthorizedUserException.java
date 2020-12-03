@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.infraction;
+package ca.ulaval.glo4003.spamdul.entity.authentication;
 
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationException;
 

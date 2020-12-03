@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.e
 
 public class InvalidCarYearException extends InvalidCarArgumentException {
 
-  public InvalidCarYearException(String message) {
-    super(message);
+  public InvalidCarYearException(int year) {
+    super(String.format("The models for %s are not available yet", year));
   }
 }

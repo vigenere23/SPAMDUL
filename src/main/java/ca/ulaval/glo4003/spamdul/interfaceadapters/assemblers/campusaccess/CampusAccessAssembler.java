@@ -4,7 +4,6 @@ import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -14,8 +13,8 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccess
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidAccessCodeCampusArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
@@ -92,7 +91,7 @@ public class CampusAccessAssembler {
     if (accessingCampusRequest.licensePlate != null) {
       accessingCampusDto.licensePlate = new LicensePlate(accessingCampusRequest.licensePlate);
     } else {
-      throw new InvalidAccessingCampusArgumentException("A campus access code or a license plate must be provided");
+      throw new InvalidAccessCodeCampusArgumentException();
     }
   }
 
@@ -100,8 +99,8 @@ public class CampusAccessAssembler {
                                    AccessingCampusDto accessingCampusDto) {
     try {
       accessingCampusDto.campusAccessCode = CampusAccessCode.valueOf(accessingCampusRequest.campusAccessCode);
-    } catch (InvalidCampusAccessCodeFormatException e) {
-      throw new InvalidCampusAccessCodeArgumentException("The access campus code is not in the right format");
+    } catch (ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormatException e) {
+      throw new InvalidCampusAccessCodeFormatException();
     }
   }
 

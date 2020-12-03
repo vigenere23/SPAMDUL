@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.exception.CantFindInfractionException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;

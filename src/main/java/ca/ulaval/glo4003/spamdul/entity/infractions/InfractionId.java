@@ -23,7 +23,7 @@ public class InfractionId {
       return new InfractionId(Long.parseLong(id));
 
     } catch (NumberFormatException e) {
-      throw new InvalidInfractionIdException("Invalid infraction id format");
+      throw new InvalidInfractionIdException();
     }
   }
 

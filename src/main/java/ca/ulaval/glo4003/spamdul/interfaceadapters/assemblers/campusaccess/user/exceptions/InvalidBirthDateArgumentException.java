@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user
 
 public class InvalidBirthDateArgumentException extends InvalidUserArgumentException {
 
-  public InvalidBirthDateArgumentException(String message) {
-    super(message);
+  public InvalidBirthDateArgumentException() {
+    super("The birthday date provided must be yyyy-MM-dd");
   }
 }
