@@ -6,8 +6,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidPassArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidPassDayOfWeekException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidPassTypeException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -24,19 +22,10 @@ public class PassExceptionAssembler implements ExceptionMapper<InvalidPassArgume
 
     if (e instanceof InvalidParkingZoneException) {
       exceptionResponse.error = "INVALID_PARKING_ZONE";
-
-    } else if (e instanceof InvalidPassTypeException) {
-      exceptionResponse.error = "INVALID_PASS_TYPE";
-
     } else if (e instanceof InvalidCampusAccessCodeException) {
       exceptionResponse.error = "INVALID_CAMPUS_ACCESS_CODE";
-
     } else if (e instanceof PassNotAcceptedByAccessException) {
       exceptionResponse.error = "NO_ACCESS";
-
-    } else if (e instanceof InvalidPassDayOfWeekException) {
-      exceptionResponse.error = "INVALID_DAY_OF_WEEK";
-
     } else if (e instanceof CampusAccessNotFoundException) {
       exceptionResponse.error = "ACCESS_NOT_FOUND";
     }

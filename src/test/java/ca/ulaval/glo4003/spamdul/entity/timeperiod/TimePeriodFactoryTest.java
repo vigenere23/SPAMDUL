@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.exception.InvalidPeriodTypeException;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;

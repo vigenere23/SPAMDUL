@@ -14,7 +14,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import org.junit.Before;
@@ -80,7 +80,7 @@ public class PassAssemblerTest {
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
-  @Test(expected = InvalidPeriodArgumentException.class)
+  @Test(expected = InvalidTimePeriodArgumentException.class)
   public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
     timePeriodDto.periodType = PeriodType.SINGLE_DAY;
 

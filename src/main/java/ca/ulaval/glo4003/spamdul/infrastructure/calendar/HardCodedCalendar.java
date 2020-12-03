@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.calendar;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.exception.InvalidSeasonException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import java.time.DayOfWeek;
@@ -23,7 +24,7 @@ public class HardCodedCalendar implements Calendar {
         return LocalDate.of(semester.getYear(), 5, 1).atStartOfDay();
 
       default:
-        throw new RuntimeException("The given season is not valid");
+        throw new InvalidSeasonException();
     }
   }
 
@@ -40,7 +41,7 @@ public class HardCodedCalendar implements Calendar {
         return LocalDateTime.of(LocalDate.of(semester.getYear(), 8, 31), LocalTime.MAX);
 
       default:
-        throw new RuntimeException("The given season is not valid");
+        throw new InvalidSeasonException();
     }
   }
 

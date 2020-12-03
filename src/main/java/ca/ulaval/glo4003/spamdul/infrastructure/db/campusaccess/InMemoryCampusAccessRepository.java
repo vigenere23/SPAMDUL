@@ -34,8 +34,7 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository, P
     CampusAccess campusAccess = campusAccesses.get(campusAccessCode);
 
     if (campusAccess == null) {
-      throw new CampusAccessNotFoundException(String.format("No campus access with id %s",
-                                                            campusAccessCode.toString()));
+      throw new CampusAccessNotFoundException();
     }
 
     return campusAccess;
@@ -51,8 +50,7 @@ public class InMemoryCampusAccessRepository implements CampusAccessRepository, P
     }
 
     if (campusAccessesAssociatedWithLicensePlate.isEmpty()) {
-      throw new CampusAccessNotFoundException(String.format("No campus access with license plate %s",
-                                                            licensePlate.toString()));
+      throw new CampusAccessNotFoundException();
     }
 
     return campusAccessesAssociatedWithLicensePlate;

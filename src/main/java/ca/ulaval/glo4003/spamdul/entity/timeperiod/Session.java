@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.exception.InvalidSeasonException;
+
 public enum Session {
   AUTUMN,
   WINTER,
@@ -24,7 +26,7 @@ public enum Session {
         return Session.SUMMER;
 
       default:
-        throw new RuntimeException(String.format("%s is not a valid session", session));
+        throw new InvalidSeasonException();
     }
   }
 }

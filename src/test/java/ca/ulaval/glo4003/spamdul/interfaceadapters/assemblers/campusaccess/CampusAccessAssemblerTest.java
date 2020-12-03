@@ -26,7 +26,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.excep
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import java.time.LocalDate;
@@ -107,7 +107,7 @@ public class CampusAccessAssemblerTest {
   }
 
 
-  @Test(expected = InvalidPeriodArgumentException.class)
+  @Test(expected = InvalidTimePeriodArgumentException.class)
   public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
     timePeriodDto.periodType = INVALID_PERIOD_TYPE;
 

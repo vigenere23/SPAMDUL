@@ -18,7 +18,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import java.util.ArrayList;
@@ -56,11 +55,11 @@ public class PassAssembler {
     try {
       timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
     } catch (IllegalArgumentException e) {
-      throw new InvalidTimePeriodArgumentException();
+      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
     }
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
-      throw new InvalidTimePeriodArgumentException();
+      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
     }
 
     return timePeriodDto;

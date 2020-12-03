@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.In
 
 public class CampusAccessNotFoundException extends InvalidPassArgumentException {
 
-  public CampusAccessNotFoundException(String message) {
-    super(message);
+  public CampusAccessNotFoundException() {
+    super("No campus access found");
   }
 }

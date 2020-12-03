@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.exception.InvalidPeriodTypeException;
 import java.time.LocalDateTime;
 
 public class TimePeriodFactory {

@@ -5,6 +5,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.excep
 public class InvalidDayToAccessCampusException extends InvalidCampusAccessArgumentException {
 
   public InvalidDayToAccessCampusException() {
-    super("invalid day to access campus");
+    super("Invalid day to access campus");
   }
 }

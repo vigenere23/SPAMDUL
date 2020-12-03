@@ -8,21 +8,22 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidSemesterException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidDayOfWeekArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidNumberOfHoursArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidSemesterArgumentException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class TimePeriodAssembler {
 
   public TimePeriodDto fromRequest(TimePeriodRequest timePeriodRequest) {
-    final String ERROR_MESSAGE = "make a choice between: " + Arrays.toString(PeriodType.values());
     TimePeriodDto timePeriodDto = new TimePeriodDto();
 
     try {
       timePeriodDto.periodType = PeriodType.valueOf(timePeriodRequest.type.toUpperCase());
     } catch (Exception e) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+      throw new InvalidTimePeriodArgumentException(Arrays.toString(PeriodType.values()));
     }
 
     switch (timePeriodDto.periodType) {
@@ -46,7 +47,7 @@ public class TimePeriodAssembler {
 
   private void setHourlyDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {
     if (timePeriodRequest.numberOfHours < 1 || timePeriodRequest.numberOfHours > 23) {
-      throw new InvalidPeriodArgumentException("Number of hours must be between 1 and 23");
+      throw new InvalidNumberOfHoursArgumentException();
     }
     timePeriodDto.numberOfHours = BigDecimal.valueOf(timePeriodRequest.numberOfHours);
     timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
@@ -63,13 +64,13 @@ public class TimePeriodAssembler {
     try {
       timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.valueOf(timePeriodRequest.dayOfWeek.toUpperCase());
     } catch (Exception e) {
-      throw new InvalidPeriodArgumentException("Day of the week must be from monday to friday");
+      throw new InvalidDayOfWeekArgumentException();
     }
   }
 
   private Semester assembleSemester(String semester) {
     if (semester == null) {
-      throw new InvalidSemesterException();
+      throw new InvalidSemesterArgumentException();
     }
 
     semester = semester.toUpperCase();
@@ -78,14 +79,14 @@ public class TimePeriodAssembler {
     try {
       year = parseInt(semester.substring(1));
     } catch (Exception e) {
-      throw new InvalidSemesterException();
+      throw new InvalidSemesterArgumentException();
     }
 
     Session session;
     try {
       session = Session.parse(semester.substring(0, 1));
     } catch (Exception e) {
-      throw new InvalidSemesterException();
+      throw new InvalidSemesterArgumentException();
     }
 
     return new Semester(session, year);

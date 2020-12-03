@@ -17,7 +17,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.excep
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.exceptions.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
 import java.util.ArrayList;
@@ -56,12 +56,10 @@ public class CampusAccessAssembler {
   }
 
   private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {
-    final String ERROR_MESSAGE = "make a choice between: " + ACCEPTED_PERIOD_TYPES.toString();
-
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
     }
 
     campusAccessDto.timePeriodDto = timePeriodDto;

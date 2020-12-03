@@ -5,6 +5,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.excep
 public class InvalidCampusAccessCodeFormatException extends InvalidAccessingCampusArgumentException {
 
   public InvalidCampusAccessCodeFormatException() {
-    super("invalid campus code format");
+    super("Invalid campus code format");
   }
 }
