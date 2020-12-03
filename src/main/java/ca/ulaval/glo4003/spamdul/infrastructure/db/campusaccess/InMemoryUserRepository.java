@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;

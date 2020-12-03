@@ -2,14 +2,12 @@ package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.rechargul.InMemoryRechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;

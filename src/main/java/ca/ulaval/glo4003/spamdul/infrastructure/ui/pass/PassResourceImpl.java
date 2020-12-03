@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.pass;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

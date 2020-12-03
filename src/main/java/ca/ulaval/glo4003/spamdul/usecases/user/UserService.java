@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.usecases.user;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.user.UserDto;
 
 public class UserService {
 
@@ -16,7 +16,7 @@ public class UserService {
     this.userFactory = userFactory;
   }
 
-  public UserId createNewUser(UserDto userDto) {
+  public UserId createUser(UserDto userDto) {
     User user = userFactory.create(userDto.name, userDto.gender, userDto.birthDate, userDto.carDto);
     userRepository.save(user);
 

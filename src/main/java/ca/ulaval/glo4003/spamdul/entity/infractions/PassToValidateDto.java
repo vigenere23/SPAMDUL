@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 
 public class PassToValidateDto {
 

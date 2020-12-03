@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;

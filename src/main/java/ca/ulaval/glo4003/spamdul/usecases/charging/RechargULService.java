@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.usecases.charging.dto.RechargUlDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class RechargULService {
@@ -39,9 +39,9 @@ public class RechargULService {
     return rechargULCard;
   }
 
-  public RechargULCard createCard(RechargUlDto rechargUlDto) {
+  public RechargULCard createCard(UserId userId) {
     RechargULCard card = rechargULCardFactory.create();
-    User user = userRepository.findBy(rechargUlDto.userId);
+    User user = userRepository.findBy(userId);
     user.associate(card);
     userRepository.save(user);
 

@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderException;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.car.CarDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

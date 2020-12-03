@@ -4,7 +4,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;

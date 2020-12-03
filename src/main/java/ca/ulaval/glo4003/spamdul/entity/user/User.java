@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;

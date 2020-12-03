@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -33,7 +33,7 @@ public class UserResource {
   public Response createNewUser(UserRequest userRequest) {
     //TODO a tester
     UserDto userDto = userAssembler.fromRequest(userRequest);
-    UserId newUserId = userService.createNewUser(userDto);
+    UserId newUserId = userService.createUser(userDto);
 
     UserResponse userResponse = new UserResponse();
     userResponse.userId = newUserId.toString();

@@ -2,24 +2,25 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -137,7 +138,7 @@ public class UserTest {
   }
 
   @Test
-  public void givenNoRechargUlCard_whenVerifyingIfUserOwnsCard_userShouldNotOwnsCard() {
+  public void givenNoRechargULCard_whenVerifyingIfUserOwnsCard_userShouldNotOwnsCard() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
 
     boolean doesOwns = user.doesOwn(RECHARG_UL_CARD_ID);
@@ -177,5 +178,15 @@ public class UserTest {
     user.pay(INFRACTION_ID);
 
     assertThat(infraction.isPaid()).isTrue();
+  }
+
+  @Test(expected = UserAlreadyHasARechargULCard.class)
+  public void givenAnAssociatedRechargULCard_whenAssociatingAnotherCard_shouldThrowException() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    RechargULCard rechargULCard = new RechargULCard(RECHARG_UL_CARD_ID, TRANSACTION_FACTORY);
+    RechargULCard anotherRechargULCard = new RechargULCard(RECHARG_UL_CARD_ID, TRANSACTION_FACTORY);
+    user.associate(rechargULCard);
+
+    user.associate(anotherRechargULCard);
   }
 }

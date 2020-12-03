@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateException;
@@ -25,6 +26,8 @@ public class UserExceptionAssembler implements ExceptionMapper<InvalidUserExcept
       exceptionResponse.error = "INVALID_BIRTHDAY_DATE";
     } else if (e instanceof UserNotFoundException) {
       exceptionResponse.error = "INVALID_USER_ID";
+    } else if (e instanceof InvalidUserIdFormatException) {
+      exceptionResponse.error = "INVALID_USER_ID_FORMAT";
     }
 
     return Response.status(Status.BAD_REQUEST)

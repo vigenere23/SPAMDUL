@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassService;
 import javax.ws.rs.core.Response;

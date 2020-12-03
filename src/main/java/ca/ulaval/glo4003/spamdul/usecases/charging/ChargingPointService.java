@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
