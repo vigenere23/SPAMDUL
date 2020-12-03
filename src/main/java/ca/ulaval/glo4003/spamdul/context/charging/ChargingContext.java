@@ -3,13 +3,13 @@ package ca.ulaval.glo4003.spamdul.context.charging;
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.rechargul.InMemoryRechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
@@ -21,6 +21,9 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargUL
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+
+import java.util.concurrent.TimeUnit;
 
 public abstract class ChargingContext implements ResourceContext {
 
@@ -33,8 +36,16 @@ public abstract class ChargingContext implements ResourceContext {
     RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
+    ChargingPaymentService chargingPaymentService = new ChargingPaymentService(
+            Amount.valueOf(1),
+            TimeUnit.HOURS,
+            userRepository);
+    EnoughCreditForChargingVerifier enoughCreditForChargingVerifier = new EnoughCreditForChargingVerifier(
+            userRepository
+    );
     ChargingPointService chargingPointService = new ChargingPointService(chargingPointRepository,
-                                                                         userRepository);
+                                                                         enoughCreditForChargingVerifier,
+                                                                         chargingPaymentService);
     RechargULService rechargULService = new RechargULService(userRepository, rechargULCardFactory);
 
     chargingPointResource = new ChargingPointResourceImpl(chargingPointService, chargingPointAssembler);

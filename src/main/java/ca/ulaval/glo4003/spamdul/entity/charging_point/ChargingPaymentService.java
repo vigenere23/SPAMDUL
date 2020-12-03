@@ -1,6 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.concurrent.TimeUnit;
 
@@ -8,13 +11,15 @@ public class ChargingPaymentService {
 
   private final Amount timeUnitFee;
   private final TimeUnit timeUnit;
+  private final UserRepository userRepository;
 
-  public ChargingPaymentService(Amount timeUnitFee, TimeUnit timeUnit) {
+  public ChargingPaymentService(Amount timeUnitFee, TimeUnit timeUnit, UserRepository userRepository) {
     this.timeUnitFee = timeUnitFee;
     this.timeUnit = timeUnit;
+    this.userRepository = userRepository;
   }
 
-  public void pay(long milliseconds, RechargULCard card) {
+  public void pay(long milliseconds, RechargULCardId rechargULCardId) {
     if (milliseconds <= 0) {
       return;
     }
@@ -22,6 +27,8 @@ public class ChargingPaymentService {
     long duration = timeUnit.convert(milliseconds, TimeUnit.MILLISECONDS) + 1; // upper rounding
     Amount amount = timeUnitFee.multiply(duration);
 
-    card.debit(amount);
+    User user = userRepository.findBy(rechargULCardId);
+    user.payForCharging(amount);
+    userRepository.save(user);
   }
 }

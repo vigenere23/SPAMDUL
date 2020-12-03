@@ -4,8 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointActivator;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
@@ -145,7 +143,11 @@ public class User {
     return infraction != null;
   }
 
-  public void activateChargingPoint(ChargingPointId chargingPointId, ChargingPointActivator chargingPointActivator) {
-    chargingPointActivator.activate(rechargULCard, chargingPointId);
+  public void verifyEnoughCreditsForCharging() {
+    rechargULCard.verifyEnoughCreditsForCharging();
+  }
+
+  public void payForCharging(Amount amount) {
+    rechargULCard.debit(amount);
   }
 }
