@@ -4,15 +4,13 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 
@@ -44,7 +42,6 @@ public class CampusAccessService extends AccessGrantedObservable {
     user.associate(campusAccess);
     userRepository.save(user);
 
-    //TODO revoir pour ne plus violer le TDA
     addRevenue(user.getCar().getCarType(), campusAccessDto.timePeriodDto.periodType);
 
     return campusAccess;
@@ -55,12 +52,6 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     campusAccessTransactionService.addRevenue(amount, carType);
   }
-
-//  public void associatePassToUser(UserId userId, Pass pass) {
-//    User user = userRepository.findBy(userId);
-//    user.associate(pass);
-//    userRepository.save(user);
-//  }
 
   public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
     LocalDateTime now = calendar.now();

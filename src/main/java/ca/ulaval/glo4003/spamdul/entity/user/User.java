@@ -26,10 +26,10 @@ public class User {
   private final Gender gender;
   private final LocalDate birthDate;
   private final UserId userId;
+  private final Map<InfractionId, Infraction> infractions;
   private Car car;
   private CampusAccess campusAccess;
   private RechargULCard rechargULCard;
-  private Map<InfractionId, Infraction> infractions;
 
   public User(UserId userId, String name, Gender gender, LocalDate birthDate, Car car) {
     this.name = name;
@@ -38,6 +38,25 @@ public class User {
     this.userId = userId;
     this.car = car;
     this.infractions = new HashMap<>();
+  }
+
+  public Amount pay(InfractionId infractionId) {
+    return infractions.get(infractionId).pay();
+  }
+
+  public RechargULCard addRechargULCredits(Amount amount) {
+    //TODO a tester
+    rechargULCard.addCredits(amount);
+
+    return rechargULCard;
+  }
+
+  public boolean isAccessGrantedToCampus(LocalDateTime dateTime) {
+    if (campusAccess == null) {
+      return false;
+    } else {
+      return campusAccess.grantAccess(dateTime);
+    }
   }
 
   public void associate(Pass pass) {
@@ -60,29 +79,6 @@ public class User {
     this.car = car;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public LocalDate getBirthDate() {
-    return birthDate;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public int getAge(LocalDate todaysDate) {
-    return Period.between(birthDate, todaysDate).getYears();
-  }
-
-  public Pass getPass() {
-    return campusAccess.getAssociatedPass();
-  }
-
-  public UserId getUserId() {
-    return userId;
-  }
 
   public boolean doesOwn(LicensePlate licensePlate) {
     return car.getLicensePlate().equals(licensePlate);
@@ -102,16 +98,34 @@ public class User {
     return campusAccess != null && campusAccess.getCampusAccessCode().equals(campusAccessCode);
   }
 
-  public Car getCar() {
-    return car;
+  public boolean hasInfractionWith(InfractionId infractionId) {
+    Infraction infraction = infractions.get(infractionId);
+
+    return infraction != null;
   }
 
-  public boolean isAccessGrantedToCampus(LocalDateTime dateTime) {
-    if (campusAccess == null) {
-      return false;
-    } else {
-      return campusAccess.grantAccess(dateTime);
-    }
+  public String getName() {
+    return name;
+  }
+
+  public LocalDate getBirthDate() {
+    return birthDate;
+  }
+
+  public Gender getGender() {
+    return gender;
+  }
+
+  public int getAge(LocalDate todayDate) {
+    return Period.between(birthDate, todayDate).getYears();
+  }
+
+  public Pass getPass() {
+    return campusAccess.getAssociatedPass();
+  }
+
+  public UserId getUserId() {
+    return userId;
   }
 
   public ParkingZone getParkingZone() {
@@ -122,24 +136,11 @@ public class User {
     return new ArrayList<>(infractions.values());
   }
 
-  public Amount pay(InfractionId infractionId) {
-    return infractions.get(infractionId).pay();
+  public Car getCar() {
+    return car;
   }
 
-  public RechargULCard addRechargUlCredits(Amount amount) {
-    //TODO a tester
-    rechargULCard.addCredits(amount);
-
+  public RechargULCard getRechargULCard() {
     return rechargULCard;
-  }
-
-  public RechargULCard getRechargUlCard() {
-    return rechargULCard;
-  }
-
-  public boolean hasInfractionWith(InfractionId infractionId) {
-    Infraction infraction = infractions.get(infractionId);
-
-    return infraction != null;
   }
 }

@@ -1,13 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -38,7 +35,7 @@ public class CampusAccess {
 
   public boolean grantAccess(LocalDateTime dateOfAccess) {
 
-    return  timePeriod.includes(dateOfAccess);
+    return timePeriod.includes(dateOfAccess);
   }
 
   public void associatePass(Pass pass) {
@@ -54,26 +51,10 @@ public class CampusAccess {
     associatedPass = pass;
   }
 
-//  public boolean validateAssociatedLicensePlate(LicensePlate licensePlate) {
-//    return car.validateLicensePlate(licensePlate);
-//  }
-
   public Pass getAssociatedPass() {
     return associatedPass;
   }
-//
-//  public boolean hasAssociatedPass() {
-//    return associatedPass != null;
-//  }
-//
-//  public User getUser() {
-//    return user;
-//  }
-//
-//  public Car getCar() {
-//    return car;
-//  }
-//
+
   public ParkingZone getParkingZone() {
     if (associatedPass != null) {
       return associatedPass.getParkingZone();
@@ -87,28 +68,6 @@ public class CampusAccess {
         return ParkingZone.FREE;
     }
   }
-
-//  @Override
-//  public boolean equals(Object o) {
-//    if (this == o) {
-//      return true;
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false;
-//    }
-//    CampusAccess that = (CampusAccess) o;
-//    return Objects.equals(campusAccessCode, that.campusAccessCode) &&
-//        Objects.equals(user, that.user) &&
-//        Objects.equals(car, that.car) &&
-//        Objects.equals(timePeriod, that.timePeriod) &&
-//        Objects.equals(associatedPass, that.associatedPass);
-//  }
-//
-//  @Override
-//  public int hashCode() {
-//    return Objects.hash(campusAccessCode, user, car, timePeriod, associatedPass);
-//  }
-
 
   public boolean equals(Object o) {
     if (this == o) {

@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
@@ -24,7 +23,7 @@ public class RechargULService {
 
   public RechargULCard getRechargULCard(RechargULCardId rechargULCardId) {
     try {
-      return userRepository.findBy(rechargULCardId).getRechargUlCard();
+      return userRepository.findBy(rechargULCardId).getRechargULCard();
     } catch (UserNotFoundException e) {
       throw new RechargULCardNotFoundException();
     }
@@ -33,7 +32,7 @@ public class RechargULService {
   public RechargULCard addCredits(RechargULCardId rechargULCardId, Amount amount) {
     User user = userRepository.findBy(rechargULCardId);
 
-    RechargULCard rechargULCard = user.addRechargUlCredits(amount);
+    RechargULCard rechargULCard = user.addRechargULCredits(amount);
 
     userRepository.save(user);
 

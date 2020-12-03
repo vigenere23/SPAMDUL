@@ -17,22 +17,15 @@ public class CarFactoryTest {
   private final LicensePlate A_LICENCE_PLATE = new LicensePlate(A_LICENSE_PLATE_STRING);
 
   private CarFactory carFactory;
-  private CarDto carDto;
 
   @Before
   public void setUp() throws Exception {
-    carDto = new CarDto();
-    carDto.licensePlate = A_LICENSE_PLATE_STRING;
-    carDto.carType = A_CAR_TYPE;
-    carDto.model = A_MODEL;
-    carDto.brand = A_BRAND;
-    carDto.year = A_CAR_YEAR;
     carFactory = new CarFactory();
   }
 
   @Test
   public void whenCreatingNewCar_shouldCreateCarWithRightInfos() {
-    Car car = carFactory.create(carDto);
+    Car car = carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, A_CAR_YEAR, A_LICENSE_PLATE_STRING);
 
     assertThat(car.getCarId()).isNotNull();
     assertThat(car.getCarType()).isEqualTo(A_CAR_TYPE);
@@ -44,8 +37,8 @@ public class CarFactoryTest {
 
   @Test(expected = InvalidCarYearException.class)
   public void givenACarYearOverCurrentYear_whenCreatingCar_shouldThrowInvalidCarYearException() {
-    carDto.year = LocalDate.now().getYear() + 1;
+    int invalidYear = LocalDate.now().getYear() + 1;
 
-    carFactory.create(carDto);
+    carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, invalidYear, A_LICENSE_PLATE_STRING);
   }
 }

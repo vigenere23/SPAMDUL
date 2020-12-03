@@ -55,11 +55,11 @@ public class UserFactoryTest {
 
   @Test
   public void whenCreatingUser_shouldCreateUserWithTheRightInfos() {
-    User user = userFactory.create(userDto);
+    User user = userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, carDto);
 
     assertThat(user.getName()).isEqualTo(A_NAME);
     assertThat(user.getGender()).isEqualTo(A_GENDER);
     assertThat(user.getBirthDate()).isEqualTo(A_BIRTHDAY_DATE);
-    verify(carFactory, times(1)).create(carDto);
+    verify(carFactory, times(1)).create(CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE);
   }
 }

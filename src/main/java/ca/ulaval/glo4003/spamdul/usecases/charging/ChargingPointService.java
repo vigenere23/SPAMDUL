@@ -32,7 +32,7 @@ public class ChargingPointService {
   public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
     try {
-      RechargULCard rechargULCard = userRepository.findBy(rechargULCardId).getRechargUlCard();
+      RechargULCard rechargULCard = userRepository.findBy(rechargULCardId).getRechargULCard();
 
       chargingPoint.activate(rechargULCard);
 

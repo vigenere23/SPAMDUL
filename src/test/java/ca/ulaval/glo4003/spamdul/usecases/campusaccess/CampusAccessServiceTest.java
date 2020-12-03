@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,7 +10,6 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
@@ -30,8 +28,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
@@ -74,16 +72,14 @@ public class CampusAccessServiceTest {
                                                                    LocalDateTime.now(),
                                                                    TransactionType.CAMPUS_ACCESS);
 
+  private CampusAccessService campusAccessService;
+  private AccessingCampusDto accessingCampusDto;
+  private CampusAccessDto campusAccessDto;
   private CampusAccess campusAccess;
   @Mock
   private UserRepository userRepository;
   @Mock
   private CampusAccessFactory campusAccessFactory;
-  @Mock
-  private UserFactory userFactory;
-  private CampusAccessDto campusAccessDto;
-  private UserDto userDto;
-  private AccessingCampusDto accessingCampusDto;
   @Mock
   private Calendar calendar;
   @Mock
@@ -91,11 +87,9 @@ public class CampusAccessServiceTest {
   @Mock
   private CampusAccessTransactionService campusAccessTransactionService;
 
-  private CampusAccessService campusAccessService;
 
   @Before
   public void setUp() throws Exception {
-    userDto = new UserDto();
     campusAccessDto = new CampusAccessDto();
     campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
     campusAccessDto.userId = A_USER_ID;
@@ -112,13 +106,6 @@ public class CampusAccessServiceTest {
     when(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).thenReturn(A_CAMPUS_ACCESS_FEE);
     when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
-  }
-
-  @Test
-  public void whenCreatingNewUser_shouldCallUserFactory() {
-    userFactory.create(userDto);
-
-    verify(userFactory, times(1)).create(userDto);
   }
 
   @Test

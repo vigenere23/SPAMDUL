@@ -8,8 +8,8 @@ import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 
 public class UserService {
 
-  private UserRepository userRepository;
-  private UserFactory userFactory;
+  private final UserRepository userRepository;
+  private final UserFactory userFactory;
 
   public UserService(UserRepository userRepository, UserFactory userFactory) {
     this.userRepository = userRepository;
@@ -17,10 +17,9 @@ public class UserService {
   }
 
   public UserId createNewUser(UserDto userDto) {
-    User user = userFactory.create(userDto);
+    User user = userFactory.create(userDto.name, userDto.gender, userDto.birthDate, userDto.carDto);
     userRepository.save(user);
 
     return user.getUserId();
   }
-
 }
