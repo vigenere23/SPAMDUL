@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 public class PassService {
 
   private final PassFactory passFactory;
-  private final CampusAccessService campusAccessService;
   private final PassSender passSender;
   private final PassTransactionService passTransactionService;
   private final ParkingZoneFeeRepository parkingZoneFeeRepository;
@@ -22,14 +21,12 @@ public class PassService {
   private UserRepository userRepository;
 
   public PassService(PassFactory passFactory,
-                     CampusAccessService campusAccessService,
                      PassSender passSender,
                      PassTransactionService passTransactionService,
                      ParkingZoneFeeRepository parkingZoneFeeRepository,
                      DeliveryFeeCalculator deliveryFeeCalculator,
                      UserRepository userRepository) {
     this.passFactory = passFactory;
-    this.campusAccessService = campusAccessService;
     this.passSender = passSender;
     this.passTransactionService = passTransactionService;
     this.parkingZoneFeeRepository = parkingZoneFeeRepository;
@@ -42,6 +39,7 @@ public class PassService {
     User user = userRepository.findBy(dto.userId);
 
     user.associate(pass);
+    userRepository.save(user);
     addRevenue(dto);
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());

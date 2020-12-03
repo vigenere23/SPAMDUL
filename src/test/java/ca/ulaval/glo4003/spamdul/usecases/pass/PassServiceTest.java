@@ -5,7 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
@@ -19,8 +19,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -57,8 +57,6 @@ public class PassServiceTest {
   @Mock
   private PassFactory passFactory;
   @Mock
-  private CampusAccessService campusAccessService;
-  @Mock
   private PassSender passSender;
   @Mock
   PassTransactionService passTransactionService;
@@ -66,6 +64,10 @@ public class PassServiceTest {
   ParkingZoneFeeRepository parkingZoneFeeRepository;
   @Mock
   DeliveryFeeCalculator deliveryFeeCalculator;
+  @Mock
+  UserRepository userRepository;
+  @Mock
+  User user;
 
   private PassService passService;
 
@@ -83,11 +85,11 @@ public class PassServiceTest {
     A_SECOND_PASS_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
 
     passService = new PassService(passFactory,
-                                  campusAccessService,
                                   passSender,
                                   passTransactionService,
                                   parkingZoneFeeRepository,
-                                  deliveryFeeCalculator);
+                                  deliveryFeeCalculator,
+                                  userRepository);
     when(passFactory.create(A_PARKING_ZONE, A_TIME_PERIOD_DTO)).thenReturn(pass);
 
     when(parkingZoneFeeRepository.findBy(A_PARKING_ZONE, A_PASS_DTO.timePeriodDto.periodType)).thenReturn(
@@ -97,20 +99,17 @@ public class PassServiceTest {
 
   @Test
   public void whenCreatingPass_shouldCallFactoryToCreateNewPass() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
     passService.createPass(A_PASS_DTO);
 
     verify(passFactory).create(A_PARKING_ZONE, A_TIME_PERIOD_DTO);
   }
 
   @Test
-  public void whenCreatingPass_shouldCallCampusAccessServiceToAssociatePassToAccess() {
-    passService.createPass(A_PASS_DTO);
-
-    verify(campusAccessService).associatePassToUser(USER_ID, pass);
-  }
-
-  @Test
   public void whenCreatingPass_shouldSendPassCode() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
     passService.createPass(A_PASS_DTO);
 
     verify(passSender).sendPass(A_DELIVERY_DTO, A_PASS_CODE);
@@ -118,6 +117,8 @@ public class PassServiceTest {
 
   @Test
   public void whenCreatingPass_shouldFindParkingFee() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
     passService.createPass(A_PASS_DTO);
 
     verify(parkingZoneFeeRepository).findBy(A_PARKING_ZONE, A_PASS_DTO.timePeriodDto.periodType);
@@ -125,6 +126,7 @@ public class PassServiceTest {
 
   @Test
   public void whenCreatingPass_shouldAddRevenueToPassBankAccount() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
     when(deliveryFeeCalculator.calculateBy(any(DeliveryMode.class))).thenReturn(A_DELIVERY_FEE);
     when(parkingZoneFeeRepository.findBy(any(ParkingZone.class), any(PeriodType.class))).thenReturn(A_PARKING_ZONE_FEE);
     Amount expectedTotal = AN_AMOUNT.add(ANOTHER_AMOUNT);
@@ -136,8 +138,37 @@ public class PassServiceTest {
 
   @Test
   public void givenAPostalDeliveryMode_whenCreatingPass_shouldCallPostFeeRepositoryToFindFee() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
     passService.createPass(A_SECOND_PASS_DTO);
 
     verify(deliveryFeeCalculator).calculateBy(A_POSTAL_DELIVERY_DTO.deliveryMode);
+  }
+
+  @Test
+  public void whenCreatingPass_shouldFindUserInRepo() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
+    passService.createPass(A_SECOND_PASS_DTO);
+
+    verify(userRepository).findBy(USER_ID);
+  }
+
+  @Test
+  public void whenCreatingPass_shouldAskUserToAssociatePass() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
+    passService.createPass(A_SECOND_PASS_DTO);
+
+    verify(user).associate(pass);
+  }
+
+  @Test
+  public void whenAssociatingPassToUser_shouldSaveUser() {
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+
+    passService.createPass(A_SECOND_PASS_DTO);
+
+    verify(userRepository).save(user);
   }
 }

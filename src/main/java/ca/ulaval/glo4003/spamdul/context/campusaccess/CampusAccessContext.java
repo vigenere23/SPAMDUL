@@ -27,7 +27,6 @@ import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 public class CampusAccessContext implements ResourceContext {
 
   private final CampusAccessResource campusAccessResource;
-  private final CampusAccessService campusAccessService;
 
   public CampusAccessContext(UserRepository userRepository, ParkingAccessLogger parkingAccessLogger,
                              CampusAccessTransactionService campusAccessTransactionService) {
@@ -41,18 +40,14 @@ public class CampusAccessContext implements ResourceContext {
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,
                                                                                            "src/main/resources/frais-acces.csv");
-    campusAccessService = new CampusAccessService(campusAccessFactory,
-                                                  userRepository,
-                                                  calendar,
-                                                  campusAccessFeeRepository,
-                                                  campusAccessTransactionService);
+    CampusAccessService campusAccessService = new CampusAccessService(campusAccessFactory,
+                                                                      userRepository,
+                                                                      calendar,
+                                                                      campusAccessFeeRepository,
+                                                                      campusAccessTransactionService);
     campusAccessService.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
                                                         campusAccessService);
-  }
-
-  public CampusAccessService getCampusAccessService() {
-    return campusAccessService;
   }
 
   @Override public void registerResources(InstanceMap resources) {

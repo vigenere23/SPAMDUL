@@ -27,7 +27,7 @@ public class DevContext extends MainContext {
                                                   financeContext.getCampusAccessBankAccount()
     );
     passContext = new DevPassContext(financeContext.getPassBankAccount(),
-                                     campusAccessContext.getCampusAccessService());
+                                     userContext.getUserRepository());
     chargingContext = new DevChargingContext(financeContext.getTransactionFactory(),
                                              userContext.getUserRepository());
     fundraisingContext = new DevFundraisingContext(financeContext.getInitiativesBankAccount(),

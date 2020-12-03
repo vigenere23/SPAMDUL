@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
@@ -20,12 +21,12 @@ public class ProdPassContextTest {
   @Mock
   private PassTransactionService passTransactionService;
   @Mock
-  private CampusAccessService campusAccessService;
+  UserRepository userRepository;
 
   @Before
   public void setUp() {
     resources = new InstanceMap();
-    context = new ProdPassContext(passTransactionService, campusAccessService);
+    context = new ProdPassContext(passTransactionService, userRepository);
   }
 
   @Test

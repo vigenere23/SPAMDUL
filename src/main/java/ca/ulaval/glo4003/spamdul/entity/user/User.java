@@ -89,7 +89,9 @@ public class User {
   }
 
   public boolean doesOwn(PassCode passCode) {
-    return campusAccess.getAssociatedPass() != null && campusAccess.getAssociatedPass().getPassCode().equals(passCode);
+    return campusAccess != null && campusAccess.getAssociatedPass() != null && campusAccess.getAssociatedPass()
+                                                                                           .getPassCode()
+                                                                                           .equals(passCode);
   }
 
   public boolean doesOwn(RechargULCardId rechargULCardId) {

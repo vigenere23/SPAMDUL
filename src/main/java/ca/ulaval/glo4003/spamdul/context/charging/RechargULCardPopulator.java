@@ -28,7 +28,7 @@ public class RechargULCardPopulator implements Populator {
   @Override public void populate(int numberOfRecords) {
     for (int cardNumber = 0; cardNumber < numberOfRecords; cardNumber++) {
       RechargULCard card = rechargULCardFactory.create();
-      User user = new User(new UserId(),
+      User user = new User(UserId.valueOf(Integer.toString(cardNumber + 100)),
                            "name",
                            Gender.MALE,
                            LocalDate.MAX,

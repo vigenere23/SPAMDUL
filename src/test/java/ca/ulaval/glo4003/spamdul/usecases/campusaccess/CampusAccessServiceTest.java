@@ -201,33 +201,5 @@ public class CampusAccessServiceTest {
     assertThat(isGrantedAccess).isFalse();
   }
 
-  @Test
-  public void whenAssociatingPassToUser_shouldFindUserInRepo() {
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
-    A_USER.associate(campusAccess);
 
-    campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
-
-    verify(userRepository).findBy(A_USER_ID);
-  }
-
-  @Test
-  public void whenAssociatingPassToUser_shouldAskUserToAssociatePass() {
-    User user = mock(User.class);
-    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
-
-    campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
-
-    verify(user).associate(A_PASS);
-  }
-
-  @Test
-  public void whenAssociatingPassToUser_shouldSaveUser() {
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
-    A_USER.associate(campusAccess);
-
-    campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
-
-    verify(userRepository).save(A_USER);
-  }
 }
