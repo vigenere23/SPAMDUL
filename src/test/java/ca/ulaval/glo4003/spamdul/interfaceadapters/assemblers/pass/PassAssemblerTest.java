@@ -7,12 +7,13 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidUserIdException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
@@ -28,8 +29,8 @@ public class PassAssemblerTest {
 
   private static final String A_PARKING_ZONE_STRING = "zone_1";
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final CampusAccessCode AN_ACCESS_CODE = new CampusAccessCode();
-  private static final String AN_ACCESS_CODE_STRING = AN_ACCESS_CODE.toString();
+  private static final UserId A_USER_ID = new UserId();
+  private static final String A_USER_ID_STRING = A_USER_ID.toString();
   private static final TimePeriodRequest A_TIME_PERIOD_REQUEST = new TimePeriodRequest();
   private static final PassCreationRequest A_PASS_CREATION_REQUEST = new PassCreationRequest();
   private static final DeliveryRequest A_DELIVERY_REQUEST = new DeliveryRequest();
@@ -45,7 +46,7 @@ public class PassAssemblerTest {
   @Before
   public void setUp() {
     A_PASS_CREATION_REQUEST.parkingZone = A_PARKING_ZONE_STRING;
-    A_PASS_CREATION_REQUEST.campusAccessCode = AN_ACCESS_CODE_STRING;
+    A_PASS_CREATION_REQUEST.userId = A_USER_ID_STRING;
     A_PASS_CREATION_REQUEST.delivery = A_DELIVERY_REQUEST;
     A_PASS_CREATION_REQUEST.period = A_TIME_PERIOD_REQUEST;
 
@@ -62,7 +63,7 @@ public class PassAssemblerTest {
 
     assertThat(passDto.parkingZone).isEqualTo(A_PARKING_ZONE);
     assertThat(passDto.timePeriodDto).isEqualTo(timePeriodDto);
-    assertThat(passDto.campusAccessCode).isEqualTo(AN_ACCESS_CODE);
+    assertThat(passDto.userId).isEqualTo(A_USER_ID);
     assertThat(passDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
   }
 
@@ -73,9 +74,9 @@ public class PassAssemblerTest {
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
-  @Test(expected = InvalidCampusAccessCodeException.class)
+  @Test(expected = InvalidUserIdException.class)
   public void givenInvalidCampusAccessCode_whenAssemblingFromRequest_thenShouldThrowInvalidCampusAccessCodeException() {
-    A_PASS_CREATION_REQUEST.campusAccessCode = "invalid";
+    A_PASS_CREATION_REQUEST.userId = "invalid";
 
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }

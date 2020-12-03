@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.charging;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
@@ -19,11 +20,13 @@ public class ProdChargingContextTest {
 
   @Mock
   private TransactionFactory transactionFactory;
+  @Mock
+  private UserRepository userRepository;
 
   @Before
   public void setUp() {
     resources = new InstanceMap();
-    context = new ProdChargingContext(transactionFactory);
+    context = new ProdChargingContext(transactionFactory, userRepository);
   }
 
   @Test

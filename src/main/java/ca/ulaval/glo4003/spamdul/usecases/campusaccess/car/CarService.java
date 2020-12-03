@@ -11,7 +11,7 @@ public class CarService {
     this.carfactory = carfactory;
   }
 
-  public Car createCar(CarDto carDto) {
-    return carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
-  }
+//  public Car createCar(CarDto carDto) {
+//    return carfactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
+//  }
 }

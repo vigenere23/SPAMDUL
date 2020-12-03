@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
@@ -98,8 +98,8 @@ public class CampusAccessServiceTest {
     userDto = new UserDto();
     campusAccessDto = new CampusAccessDto();
     campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
-    campusAccessService = new CampusAccessService(userFactory,
-                                                  campusAccessFactory,
+    campusAccessDto.userId = A_USER_ID;
+    campusAccessService = new CampusAccessService(campusAccessFactory,
                                                   userRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,
@@ -124,6 +124,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
     campusAccessService.createNewCampusAccess(campusAccessDto);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
 
     verify(campusAccessFactory, times(1)).create(A_TIME_PERIOD_DTO);
   }
@@ -131,6 +132,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenCreatingNewCampusAccess_associateCampusAccessToUser() {
     when(campusAccessFactory.create(A_TIME_PERIOD_DTO)).thenReturn(campusAccess);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
 
     campusAccessService.createNewCampusAccess(campusAccessDto);
 
@@ -141,6 +143,7 @@ public class CampusAccessServiceTest {
   public void whenCreatingNewCampusAccess_shouldAddRevenueToCampusAccessBankAccount() {
     when(campusAccessFeeRepository.findBy(A_CAR_TYPE, campusAccessDto.timePeriodDto.periodType)).thenReturn(
         A_CAMPUS_ACCESS_FEE);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
 
     campusAccessService.createNewCampusAccess(campusAccessDto);
 
@@ -179,6 +182,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
+    A_USER.associate(campusAccess);
     A_USER.associate(A_PASS);
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
@@ -200,16 +204,17 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToUser_shouldFindUserInRepo() {
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    A_USER.associate(campusAccess);
 
     campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
 
-    verify(userRepository).findBy(A_CAMPUS_ACCESS_CODE);
+    verify(userRepository).findBy(A_USER_ID);
   }
 
   @Test
   public void whenAssociatingPassToUser_shouldAskUserToAssociatePass() {
     User user = mock(User.class);
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
 
     campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
 
@@ -219,6 +224,7 @@ public class CampusAccessServiceTest {
   @Test
   public void whenAssociatingPassToUser_shouldSaveUser() {
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    A_USER.associate(campusAccess);
 
     campusAccessService.associatePassToUser(A_USER_ID, A_PASS);
 

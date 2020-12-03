@@ -19,13 +19,9 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessReso
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class CampusAccessContext implements ResourceContext {
@@ -33,31 +29,19 @@ public class CampusAccessContext implements ResourceContext {
   private final CampusAccessResource campusAccessResource;
   private final CampusAccessService campusAccessService;
 
-  public CampusAccessContext(ParkingAccessLogger parkingAccessLogger,
+  public CampusAccessContext(UserRepository userRepository, ParkingAccessLogger parkingAccessLogger,
                              CampusAccessTransactionService campusAccessTransactionService) {
-    UserFactory userFactory = new UserFactory(carFactory);
-    UserService userService = new UserService(userFactory);
 
-    CarFactory carFactory = new CarFactory();
-    CarService carService = new CarService(carFactory);
-
-    UserAssembler userAssembler = new UserAssembler();
-    CarAssembler carAssembler = new CarAssembler();
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
-    CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(userAssembler,
-                                                                            carAssembler,
-                                                                            timePeriodAssembler);
+    CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(timePeriodAssembler);
 
-    UserRepository userRepository = new InMemoryUserRepository();
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory(timePeriodFactory);
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,
                                                                                            "src/main/resources/frais-acces.csv");
-    campusAccessService = new CampusAccessService(userService,
-                                                  carService,
-                                                  campusAccessFactory,
+    campusAccessService = new CampusAccessService(campusAccessFactory,
                                                   userRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
@@ -9,9 +10,9 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -19,7 +20,6 @@ import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 public class InfractionService {
 
   private final InfractionInfoRepository infractionInfoRepository;
-  private final InfractionRepository infractionRepository;
   private UserRepository userRepository;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
@@ -27,14 +27,12 @@ public class InfractionService {
   private final InfractionTransactionService infractionTransactionService;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
-                           InfractionRepository infractionRepository,
                            UserRepository userRepository,
                            InfractionFactory infractionFactory,
                            PassValidator firstValidationNode,
                            AccessLevelValidator accessLevelValidator,
                            InfractionTransactionService infractionTransactionService) {
     this.infractionInfoRepository = infractionInfoRepository;
-    this.infractionRepository = infractionRepository;
     this.userRepository = userRepository;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
@@ -57,6 +55,7 @@ public class InfractionService {
       //TODO a tester
       User user = userRepository.findBy(passToValidateDto.licensePlate);
       user.associate(infraction);
+      userRepository.save(user);
     }
 
     return infraction;
@@ -64,16 +63,19 @@ public class InfractionService {
 
   private Infraction createInfraction(InfractionCode infractionCode) {
     InfractionInfos infractionInfos = infractionInfoRepository.findBy(infractionCode);
-    Infraction infraction = infractionFactory.create(infractionInfos);
-    infractionRepository.save(infraction);
 
-    return infraction;
+    return infractionFactory.create(infractionInfos);
   }
 
   public void payInfraction(InfractionPaymentDto infractionPaymentDto) {
-    User user = infractionRepository.findBy(infractionPaymentDto.infractionId);
-    Amount amountPaid = user.pay(infractionPaymentDto.infractionId);
-    userRepository.save(user);
-    infractionTransactionService.addRevenue(amountPaid);
+    try {
+      User user = userRepository.findBy(infractionPaymentDto.infractionId);
+      Amount amountPaid = user.pay(infractionPaymentDto.infractionId);
+
+      userRepository.save(user);
+      infractionTransactionService.addRevenue(amountPaid);
+    } catch (UserNotFoundException e) {
+      throw new InfractionNotFoundException();
+    }
   }
 }

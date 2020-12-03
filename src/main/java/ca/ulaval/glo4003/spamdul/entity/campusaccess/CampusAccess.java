@@ -17,6 +17,7 @@ public class CampusAccess {
   private final CampusAccessCode campusAccessCode;
   private final PeriodType periodType;
   protected final TimePeriod timePeriod;
+  private Pass associatedPass;
 
 
   public CampusAccess(CampusAccessCode campusAccessCode,
@@ -40,26 +41,26 @@ public class CampusAccess {
     return  timePeriod.includes(dateOfAccess);
   }
 
-//  public void associatePass(Pass pass) {
-//    if (associatedPass != null) {
-//      throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
-//    }
-//    if (!pass.getTimePeriod().includedIn(timePeriod)) {
-//      throw new PassNotAcceptedByAccessException(
-//          "This user does not have campus access for the dates covered by this pass."
-//      );
-//    }
-//
-//    associatedPass = pass;
-//  }
+  public void associatePass(Pass pass) {
+    if (associatedPass != null) {
+      throw new PassAlreadyAssociatedException("This user already has a pass for this date.");
+    }
+    if (!pass.getTimePeriod().includedIn(timePeriod)) {
+      throw new PassNotAcceptedByAccessException(
+          "This user does not have campus access for the dates covered by this pass."
+      );
+    }
+
+    associatedPass = pass;
+  }
 
 //  public boolean validateAssociatedLicensePlate(LicensePlate licensePlate) {
 //    return car.validateLicensePlate(licensePlate);
 //  }
 
-//  public Pass getAssociatedPass() {
-//    return associatedPass;
-//  }
+  public Pass getAssociatedPass() {
+    return associatedPass;
+  }
 //
 //  public boolean hasAssociatedPass() {
 //    return associatedPass != null;
@@ -74,6 +75,10 @@ public class CampusAccess {
 //  }
 //
   public ParkingZone getParkingZone() {
+    if (associatedPass != null) {
+      return associatedPass.getParkingZone();
+    }
+
     switch (periodType) {
       case HOURLY:
       case SINGLE_DAY:

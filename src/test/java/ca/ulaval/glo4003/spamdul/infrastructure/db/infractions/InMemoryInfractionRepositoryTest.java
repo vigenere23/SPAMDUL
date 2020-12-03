@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class InMemoryInfractionRepositoryTest {
 
   private static final String A_INFRACTION_CODE_STRING = "test";
   private static final InfractionCode A_INFRACTION_CODE = InfractionCode.valueOf(A_INFRACTION_CODE_STRING);
-  private static final double A_INFRACTION_AMOUNT = 5;
+  private static final Amount A_INFRACTION_AMOUNT = Amount.valueOf(5);
   private static final String A_INFRACTION_DESCRIPTION = "test description";
   private static final InfractionId A_INFRACTION_ID = new InfractionId();
   private static final InfractionId A_NON_EXISTING_INFRACTION_ID = new InfractionId();

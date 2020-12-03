@@ -1,11 +1,10 @@
-package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user;
+package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidBirthDateArgumentException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidGenderArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderException;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.Formatters;
@@ -22,7 +21,7 @@ public class UserAssembler {
 
   public UserDto fromRequest(UserRequest userRequest) {
     //TODO a tester
-    CarDto carDto = carAssembler.fromRequest(userRequest.carRequest);
+    CarDto carDto = carAssembler.fromRequest(userRequest.car);
 
     Gender gender = getGender(userRequest);
 
@@ -42,7 +41,7 @@ public class UserAssembler {
       return Gender.valueOf(userRequest.gender.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidGenderArgumentException("The gender provided must be of type male, female or other");
+      throw new InvalidGenderException("The gender provided must be of type male, female or other");
     }
   }
 
@@ -51,7 +50,7 @@ public class UserAssembler {
       return LocalDate.parse(userRequest.birthDate, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
-      throw new InvalidBirthDateArgumentException("The birthday date provided must be yyyy-MM-dd");
+      throw new InvalidBirthDateException("The birthday date provided must be yyyy-MM-dd");
     }
   }
 }

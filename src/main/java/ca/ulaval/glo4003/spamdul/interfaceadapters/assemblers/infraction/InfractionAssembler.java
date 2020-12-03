@@ -41,7 +41,7 @@ public class InfractionAssembler {
 
     InfractionResponse infractionResponse = new InfractionResponse();
     infractionResponse.infractionId = infraction.getInfractionId().toString();
-    infractionResponse.amount = infraction.getAmount();
+    infractionResponse.amount = infraction.getAmount().asDouble();
     infractionResponse.code = infraction.getCode().toString();
     infractionResponse.reason = infraction.getInfractionDescription();
 

@@ -94,21 +94,32 @@ public class UserTest {
   }
 
   @Test
+  public void whenAddingNewCampusAccess_campusAccessShouldBeAddedToUser() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+
+    user.associate(campusAccess);
+
+    assertThat(user.doesOwn(CAMPUS_ACCESS_CODE)).isTrue();
+  }
+
+  @Test
   public void whenAddingNewPass_passShouldBeAddedToUser() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    user.associate(campusAccess);
     Pass pass = new Pass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
-    Pass anotherPass = new Pass(ANOTHER_PASSE_CODE, PARKING_ZONE, TIME_PERIOD);
 
     user.associate(pass);
-    user.associate(anotherPass);
 
     assertThat(user.doesOwn(PASS_CODE)).isTrue();
-    assertThat(user.doesOwn(ANOTHER_PASSE_CODE)).isTrue();
   }
 
   @Test
   public void givenPassDoesNotBelongToUser_whenVerifyingIfHeOwnsPass_userShouldNotOwnsThePass() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    user.associate(campusAccess);
 
     boolean doesOwns = user.doesOwn(PASS_CODE);
 
@@ -132,16 +143,6 @@ public class UserTest {
     boolean doesOwns = user.doesOwn(RECHARG_UL_CARD_ID);
 
     assertThat(doesOwns).isFalse();
-  }
-
-  @Test
-  public void whenAddingNewCampusAccess_campusAccessShouldBeAddedToUser() {
-    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
-
-    user.associate(campusAccess);
-
-    assertThat(user.doesOwn(CAMPUS_ACCESS_CODE)).isTrue();
   }
 
   @Test

@@ -7,5 +7,5 @@ public class UserRequest {
   public String name;
   public String birthDate;
   public String gender;
-  public CarRequest carRequest;
+  public CarRequest car;
 }

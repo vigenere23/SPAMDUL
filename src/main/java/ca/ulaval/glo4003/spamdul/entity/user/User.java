@@ -28,7 +28,6 @@ public class User {
   private final UserId userId;
   private Car car;
   private CampusAccess campusAccess;
-  private Pass pass;
   private RechargULCard rechargULCard;
   private Map<InfractionId, Infraction> infractions;
 
@@ -42,7 +41,7 @@ public class User {
   }
 
   public void associate(Pass pass) {
-    this.pass = pass;
+    this.campusAccess.associatePass(pass);
   }
 
   public void associate(Infraction infraction) {
@@ -77,6 +76,10 @@ public class User {
     return Period.between(birthDate, todaysDate).getYears();
   }
 
+  public Pass getPass() {
+    return campusAccess.getAssociatedPass();
+  }
+
   public UserId getUserId() {
     return userId;
   }
@@ -86,7 +89,7 @@ public class User {
   }
 
   public boolean doesOwn(PassCode passCode) {
-    return pass != null && pass.getPassCode().equals(passCode);
+    return campusAccess.getAssociatedPass() != null && campusAccess.getAssociatedPass().getPassCode().equals(passCode);
   }
 
   public boolean doesOwn(RechargULCardId rechargULCardId) {
@@ -110,10 +113,6 @@ public class User {
   }
 
   public ParkingZone getParkingZone() {
-    if (pass != null) {
-      return pass.getParkingZone();
-    }
-
     return campusAccess.getParkingZone();
   }
 
@@ -139,6 +138,6 @@ public class User {
   public boolean hasInfractionWith(InfractionId infractionId) {
     Infraction infraction = infractions.get(infractionId);
 
-    return infraction == null;
+    return infraction != null;
   }
 }

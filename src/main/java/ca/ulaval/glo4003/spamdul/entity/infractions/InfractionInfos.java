@@ -6,5 +6,5 @@ public class InfractionInfos {
 
   public String infraction;
   public String code;
-  public Amount amount;
+  public double montant;
 }

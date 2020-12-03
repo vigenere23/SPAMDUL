@@ -1,11 +1,13 @@
 package ca.ulaval.glo4003.spamdul.usecases.pass;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
@@ -17,25 +19,29 @@ public class PassService {
   private final PassTransactionService passTransactionService;
   private final ParkingZoneFeeRepository parkingZoneFeeRepository;
   private final DeliveryFeeCalculator deliveryFeeCalculator;
+  private UserRepository userRepository;
 
   public PassService(PassFactory passFactory,
                      CampusAccessService campusAccessService,
                      PassSender passSender,
                      PassTransactionService passTransactionService,
                      ParkingZoneFeeRepository parkingZoneFeeRepository,
-                     DeliveryFeeCalculator deliveryFeeCalculator) {
+                     DeliveryFeeCalculator deliveryFeeCalculator,
+                     UserRepository userRepository) {
     this.passFactory = passFactory;
     this.campusAccessService = campusAccessService;
     this.passSender = passSender;
     this.passTransactionService = passTransactionService;
     this.parkingZoneFeeRepository = parkingZoneFeeRepository;
     this.deliveryFeeCalculator = deliveryFeeCalculator;
+    this.userRepository = userRepository;
   }
 
   public void createPass(PassDto dto) {
     Pass pass = passFactory.create(dto.parkingZone, dto.timePeriodDto);
-    campusAccessService.associatePassToUser(dto.userId, pass);
+    User user = userRepository.findBy(dto.userId);
 
+    user.associate(pass);
     addRevenue(dto);
 
     passSender.sendPass(dto.deliveryDto, pass.getPassCode());

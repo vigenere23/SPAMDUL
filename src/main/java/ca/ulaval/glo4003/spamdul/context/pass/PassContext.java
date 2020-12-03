@@ -5,11 +5,9 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
@@ -24,7 +22,6 @@ import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class PassContext implements ResourceContext {
 
-  protected final PassRepository passRepository;
   protected final DeliveryFeeCalculator deliveryFeeCalculator;
   protected final ParkingZoneFeeRepository parkingZoneFeeRepository;
   protected final PassDeliveryOptionsFactory passDeliveryOptionsFactory;
@@ -33,8 +30,6 @@ public abstract class PassContext implements ResourceContext {
   protected PassResource passResource;
 
   protected PassContext() {
-    passRepository = new InMemoryCampusAccessRepository();
-
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
 
@@ -51,10 +46,6 @@ public abstract class PassContext implements ResourceContext {
                                                                "src/main/resources/frais-zone.csv");
     deliveryFeeCalculator = new DeliveryFeeCalculator();
     passAssembler = new PassAssembler(deliveryAssembler, timePeriodAssembler);
-  }
-
-  public PassRepository getPassRepository() {
-    return passRepository;
   }
 
   @Override public void registerResources(InstanceMap resources) {

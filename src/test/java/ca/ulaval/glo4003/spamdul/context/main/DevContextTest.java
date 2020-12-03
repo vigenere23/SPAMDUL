@@ -14,12 +14,13 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourc
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
@@ -74,6 +75,7 @@ public class DevContextTest {
                                      PassExceptionAssembler.class,
                                      DeliveryExceptionAssembler.class,
                                      UsageReportResource.class,
-                                     UsageReportExceptionAssembler.class);
+                                     UsageReportExceptionAssembler.class,
+                                     UserResource.class);
   }
 }

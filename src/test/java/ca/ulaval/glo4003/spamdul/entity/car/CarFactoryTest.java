@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.car;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,15 +17,22 @@ public class CarFactoryTest {
   private final LicensePlate A_LICENCE_PLATE = new LicensePlate(A_LICENSE_PLATE_STRING);
 
   private CarFactory carFactory;
+  private CarDto carDto;
 
   @Before
   public void setUp() throws Exception {
+    carDto = new CarDto();
+    carDto.licensePlate = A_LICENSE_PLATE_STRING;
+    carDto.carType = A_CAR_TYPE;
+    carDto.model = A_MODEL;
+    carDto.brand = A_BRAND;
+    carDto.year = A_CAR_YEAR;
     carFactory = new CarFactory();
   }
 
   @Test
   public void whenCreatingNewCar_shouldCreateCarWithRightInfos() {
-    Car car = carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, A_CAR_YEAR, A_LICENSE_PLATE_STRING);
+    Car car = carFactory.create(carDto);
 
     assertThat(car.getCarId()).isNotNull();
     assertThat(car.getCarType()).isEqualTo(A_CAR_TYPE);
@@ -36,6 +44,8 @@ public class CarFactoryTest {
 
   @Test(expected = InvalidCarYearException.class)
   public void givenACarYearOverCurrentYear_whenCreatingCar_shouldThrowInvalidCarYearException() {
-    carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, LocalDate.now().getYear() + 1, A_LICENSE_PLATE_STRING);
+    carDto.year = LocalDate.now().getYear() + 1;
+
+    carFactory.create(carDto);
   }
 }

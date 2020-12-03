@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInst
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;
 import org.junit.Test;

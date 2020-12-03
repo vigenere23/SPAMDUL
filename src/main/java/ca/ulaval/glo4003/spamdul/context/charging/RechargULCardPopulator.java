@@ -1,25 +1,45 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.Gender;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import java.time.LocalDate;
 
 public class RechargULCardPopulator implements Populator {
 
   private final RechargULCardFactory rechargULCardFactory;
-  private final RechargULCardRepository rechargULCardRepository;
+  private final UserRepository userRepository;
 
   public RechargULCardPopulator(RechargULCardFactory rechargULCardFactory,
-                                RechargULCardRepository rechargULCardRepository) {
+                                UserRepository userRepository) {
     this.rechargULCardFactory = rechargULCardFactory;
-    this.rechargULCardRepository = rechargULCardRepository;
+    this.userRepository = userRepository;
   }
 
   @Override public void populate(int numberOfRecords) {
     for (int cardNumber = 0; cardNumber < numberOfRecords; cardNumber++) {
       RechargULCard card = rechargULCardFactory.create();
-      rechargULCardRepository.save(card);
+      User user = new User(new UserId(),
+                           "name",
+                           Gender.MALE,
+                           LocalDate.MAX,
+                           new Car(new CarId(),
+                                   CarType.ECONOMIQUE,
+                                   "brand",
+                                   "model",
+                                   2020,
+                                   new LicensePlate("xxx xxx")));
+      user.associate(card);
+      userRepository.save(user);
     }
   }
 }

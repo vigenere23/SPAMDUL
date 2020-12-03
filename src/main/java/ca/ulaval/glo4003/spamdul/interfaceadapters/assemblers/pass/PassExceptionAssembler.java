@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
@@ -36,9 +35,6 @@ public class PassExceptionAssembler implements ExceptionMapper<InvalidPassArgume
 
     } else if (e instanceof InvalidPassDayOfWeekException) {
       exceptionResponse.error = "INVALID_DAY_OF_WEEK";
-
-    } else if (e instanceof UserNotFoundException) {
-      exceptionResponse.error = "ACCESS_NOT_FOUND";
     }
 
     return Response.status(Status.BAD_REQUEST)

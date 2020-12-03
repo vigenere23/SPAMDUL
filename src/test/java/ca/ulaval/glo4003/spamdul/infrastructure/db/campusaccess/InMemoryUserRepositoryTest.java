@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
@@ -60,7 +60,7 @@ public class InMemoryUserRepositoryTest {
   private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_PERIOD_TYPE,
-                                                                null);
+                                                                TIME_PERIOD);
   private final Pass A_PASS = new Pass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
 
   private InMemoryUserRepository userRepository;
@@ -75,14 +75,14 @@ public class InMemoryUserRepositoryTest {
   public void whenSavingUser_userShouldBeSaved() {
     userRepository.save(A_USER);
 
-    assertThat(userRepository.findBy(A_USER_ID)).isEqualTo(A_CAMPUS_ACCESS);
+    assertThat(userRepository.findBy(A_USER_ID)).isEqualTo(A_USER);
   }
 
   @Test
   public void whenFindingById_shouldReturnUser() {
     userRepository.save(A_USER);
 
-    User user = userRepository.findBy(A_CAMPUS_ACCESS_CODE);
+    User user = userRepository.findBy(A_USER_ID);
 
     assertThat(user).isEqualTo(A_USER);
   }
@@ -109,6 +109,7 @@ public class InMemoryUserRepositoryTest {
 
   @Test
   public void whenFindingByPassCode_shouldReturnUser() {
+    A_USER.associate(A_CAMPUS_ACCESS);
     A_USER.associate(A_PASS);
     userRepository.save(A_USER);
 

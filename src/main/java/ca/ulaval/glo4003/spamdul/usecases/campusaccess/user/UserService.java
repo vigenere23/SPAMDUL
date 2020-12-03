@@ -11,9 +11,9 @@ public class UserService {
     this.userFactory = userFactory;
   }
 
-  public User createUser(UserDto userDto) {
-    return userFactory.create(userDto.name,
-                              userDto.gender,
-                              userDto.birthDate);
-  }
+//  public User createUser(UserDto userDto) {
+//    return userFactory.create(userDto.name,
+//                              userDto.gender,
+//                              userDto.birthDate);
+//  }
 }
