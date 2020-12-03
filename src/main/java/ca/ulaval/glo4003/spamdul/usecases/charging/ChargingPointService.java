@@ -2,11 +2,13 @@ package ca.ulaval.glo4003.spamdul.usecases.charging;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointActivator;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class ChargingPointService {
 
   private final ChargingPointRepository chargingPointRepository;
   private final UserRepository userRepository;
+  private final ChargingPointA
+  ChargingPointActivator chargingPointActivator;
 
   public ChargingPointService(ChargingPointRepository chargingPointRepository,
                               UserRepository userRepository) {
@@ -30,17 +34,14 @@ public class ChargingPointService {
   }
 
   public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
-    ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
     try {
-      RechargULCard rechargULCard = userRepository.findBy(rechargULCardId).getRechargUlCard();
-
-      chargingPoint.activate(rechargULCard);
-
-      chargingPointRepository.update(chargingPoint);
+      User user = userRepository.findBy(rechargULCardId);
+      user.activateChargingPoint(chargingPointId, chargingPointActivator);
     } catch (UserNotFoundException e) {
       throw new RechargULCardNotFoundException();
     }
 
+     // seul probleme on ne peut pas retourner de Charging point, mais est-ce vraiment nécessaire?
     return chargingPoint;
   }
 
