@@ -6,6 +6,6 @@ public class InfractionFactory {
     InfractionId infractionId = new InfractionId();
     InfractionCode infractionCode = InfractionCode.valueOf(infractionInfos.code);
 
-    return new Infraction(infractionId, infractionInfos.infraction, infractionCode, infractionInfos.montant);
+    return new Infraction(infractionId, infractionInfos.infraction, infractionCode, infractionInfos.amount);
   }
 }

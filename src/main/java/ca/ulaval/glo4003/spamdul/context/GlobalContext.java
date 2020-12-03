@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context;
 
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 
 public class GlobalContext {
@@ -12,7 +12,7 @@ public class GlobalContext {
   private final AccessTokenCookieAssembler cookieAssembler;
 
   public GlobalContext() {
-    passRepository = new InMemoryCampusAccessRepository();
+    passRepository = new InMemoryUserRepository();
     transactionFactory = new TransactionFactory();
     cookieAssembler = new AccessTokenCookieAssembler();
   }

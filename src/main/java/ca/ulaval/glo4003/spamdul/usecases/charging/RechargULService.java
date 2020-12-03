@@ -1,38 +1,45 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.usecases.charging.dto.RechargUlDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class RechargULService {
 
-  private final RechargULCardRepository rechargULCardRepository;
+  private final UserRepository userRepository;
   private final RechargULCardFactory rechargULCardFactory;
 
-  public RechargULService(RechargULCardRepository rechargULCardRepository,
+  public RechargULService(UserRepository userRepository,
                           RechargULCardFactory rechargULCardFactory) {
-    this.rechargULCardRepository = rechargULCardRepository;
+    this.userRepository = userRepository;
     this.rechargULCardFactory = rechargULCardFactory;
   }
 
   public RechargULCard getRechargULCard(RechargULCardId rechargULCardId) {
-    return rechargULCardRepository.findBy(rechargULCardId);
+    return userRepository.findBy(rechargULCardId).getRechargUlCard();
   }
 
   public RechargULCard addCredits(RechargULCardId rechargULCardId, Amount amount) {
-    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
+    User user = userRepository.findBy(rechargULCardId);
 
-    rechargULCard.addCredits(amount);
+    RechargULCard rechargULCard = user.addRechargUlCredits(amount);
 
-    rechargULCardRepository.update(rechargULCard);
+    userRepository.save(user);
+
     return rechargULCard;
   }
 
-  public RechargULCard createCard() {
+  public RechargULCard createCard(RechargUlDto rechargUlDto) {
     RechargULCard card = rechargULCardFactory.create();
-    rechargULCardRepository.save(card);
+    User user = userRepository.findBy(rechargUlDto.userId);
+    user.associate(card);
+    userRepository.save(user);
+
     return card;
   }
 }

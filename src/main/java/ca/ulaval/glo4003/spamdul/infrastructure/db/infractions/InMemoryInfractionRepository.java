@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryUserRepository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class InMemoryInfractionRepository implements InfractionRepository {
 
   private static Map<InfractionId, Infraction> infractionMap = new HashMap<>();
-  private static final Logger logger = Logger.getLogger(InMemoryCampusAccessRepository.class.getName());
+  private static final Logger logger = Logger.getLogger(InMemoryUserRepository.class.getName());
 
 
   public InfractionId save(Infraction infraction) {

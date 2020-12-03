@@ -2,13 +2,14 @@ package ca.ulaval.glo4003.spamdul.entity.infractions;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Test;
 
 public class InfractionFactoryTest {
 
   public static final String A_VALID_PASS_CODE_STRING = "568";
   public static final String AN_INFRACTION_DESCRIPTION = "dfhbjfebsik";
-  public static final double AN_AMOUNT = 0.599;
+  public static final Amount AN_AMOUNT = Amount.valueOf(0.599);
 
   private InfractionFactory infractionFactory = new InfractionFactory();
   private InfractionInfos infractionInfos = new InfractionInfos();

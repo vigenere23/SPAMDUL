@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.CampusAccessFeeCsvRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
@@ -30,7 +30,7 @@ public class CampusAccessContext {
 
   public CampusAccessContext(ParkingAccessLogger parkingAccessLogger,
                              CampusAccessTransactionService campusAccessTransactionService) {
-    UserFactory userFactory = new UserFactory();
+    UserFactory userFactory = new UserFactory(carFactory);
     UserService userService = new UserService(userFactory);
 
     CarFactory carFactory = new CarFactory();
@@ -43,7 +43,7 @@ public class CampusAccessContext {
                                                                             carAssembler,
                                                                             timePeriodAssembler);
 
-    CampusAccessRepository campusAccessRepository = new InMemoryCampusAccessRepository();
+    UserRepository userRepository = new InMemoryUserRepository();
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory(timePeriodFactory);
@@ -53,7 +53,7 @@ public class CampusAccessContext {
     campusAccessService = new CampusAccessService(userService,
                                                   carService,
                                                   campusAccessFactory,
-                                                  campusAccessRepository,
+                                                  userRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,
                                                   campusAccessTransactionService);

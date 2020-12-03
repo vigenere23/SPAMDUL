@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ public class InfractionsInfosJsonRepositoryTest {
   private final String ANOTHER_INFRACTION_CODE_STRING = "IFN_02";
   private final String ANOTHER_INFRACTION_CODE_DESCRITPION = "another infraction";
   private final String AN_INFRACTION_CODE_DESCRITPION = "infraction";
-  private final double ANOTHER_INFRACTION_AMOUNT = 99;
-  private final double AN_INFRACTION_AMOUNT = 100;
+  private final Amount ANOTHER_INFRACTION_AMOUNT = Amount.valueOf(99);
+  private final Amount AN_INFRACTION_AMOUNT = Amount.valueOf(100);
   private final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
   private final InfractionCode ANOTHER_INFRACTION_CODE = InfractionCode.valueOf(ANOTHER_INFRACTION_CODE_STRING);
 
@@ -38,13 +39,13 @@ public class InfractionsInfosJsonRepositoryTest {
     InfractionInfos infractionInfos = new InfractionInfos();
     infractionInfos.code = AN_INFRACTION_CODE_STRING;
     infractionInfos.infraction = AN_INFRACTION_CODE_DESCRITPION;
-    infractionInfos.montant = AN_INFRACTION_AMOUNT;
+    infractionInfos.amount = AN_INFRACTION_AMOUNT;
     infractionInfosList.add(infractionInfos);
 
     InfractionInfos anotherInfractionInfos = new InfractionInfos();
     anotherInfractionInfos.code = ANOTHER_INFRACTION_CODE_STRING;
     anotherInfractionInfos.infraction = ANOTHER_INFRACTION_CODE_DESCRITPION;
-    anotherInfractionInfos.montant = ANOTHER_INFRACTION_AMOUNT;
+    anotherInfractionInfos.amount = ANOTHER_INFRACTION_AMOUNT;
     infractionInfosList.add(anotherInfractionInfos);
 
     given(jsonReader.read(A_PATH, InfractionInfos[].class)).willReturn(infractionInfosList);
@@ -64,11 +65,11 @@ public class InfractionsInfosJsonRepositoryTest {
 
     Truth.assertThat(infractionInfos.code).isEqualTo(AN_INFRACTION_CODE_STRING);
     Truth.assertThat(infractionInfos.infraction).isEqualTo(AN_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(infractionInfos.montant).isEqualTo(AN_INFRACTION_AMOUNT);
+    Truth.assertThat(infractionInfos.amount).isEqualTo(AN_INFRACTION_AMOUNT);
 
     Truth.assertThat(anotherInfractionInfos.code).isEqualTo(ANOTHER_INFRACTION_CODE_STRING);
     Truth.assertThat(anotherInfractionInfos.infraction).isEqualTo(ANOTHER_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(anotherInfractionInfos.montant).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
+    Truth.assertThat(anotherInfractionInfos.amount).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
   }
 
   @Test(expected = CantFindInfractionException.class)

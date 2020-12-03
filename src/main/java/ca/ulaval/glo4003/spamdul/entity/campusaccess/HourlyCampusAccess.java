@@ -14,12 +14,10 @@ public class HourlyCampusAccess extends CampusAccess {
   private final BigDecimal numberOfHours;
 
   public HourlyCampusAccess(CampusAccessCode campusAccessCode,
-                            User user,
-                            Car car,
                             PeriodType periodType,
                             TimePeriod timePeriod,
                             BigDecimal numberOfHours) {
-    super(campusAccessCode, user, car, periodType, timePeriod);
+    super(campusAccessCode, periodType, timePeriod);
     this.numberOfHours = numberOfHours;
   }
 

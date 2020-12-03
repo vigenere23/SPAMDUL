@@ -7,16 +7,16 @@ import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.THREE_SEMES
 import static ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType.TWO_SEMESTERS;
 import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeFormatException;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidCampusAccessCodeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidParkingZoneException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.exceptions.InvalidUserIdException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
@@ -44,7 +44,7 @@ public class PassAssembler {
     passDto.deliveryDto = deliveryAssembler.fromRequest(passCreationRequest.delivery);
     passDto.timePeriodDto = getTimePeriodDto(passCreationRequest.period);
     passDto.parkingZone = getParkingZone(passCreationRequest.parkingZone);
-    passDto.campusAccessCode = getCampusAccessCode(passCreationRequest.campusAccessCode);
+    passDto.userId = getUserId(passCreationRequest.userId);
 
     return passDto;
   }
@@ -76,12 +76,12 @@ public class PassAssembler {
     }
   }
 
-  private CampusAccessCode getCampusAccessCode(String userId) {
+  private UserId getUserId(String userId) {
     try {
-      return CampusAccessCode.valueOf(userId.toUpperCase());
+      return UserId.valueOf(userId.toUpperCase());
 
-    } catch (InvalidCampusAccessCodeFormatException e) {
-      throw new InvalidCampusAccessCodeException("The campus access code is not in the right format");
+    } catch (InvalidUserIdFormatException e) {
+      throw new InvalidUserIdException();
     }
   }
 }

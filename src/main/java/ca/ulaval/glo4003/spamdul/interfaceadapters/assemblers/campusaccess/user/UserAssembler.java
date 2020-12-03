@@ -1,9 +1,12 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user;
 
+import ca.ulaval.glo4003.spamdul.entity.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidBirthDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.user.exceptions.InvalidGenderArgumentException;
+import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
@@ -11,7 +14,15 @@ import java.time.format.DateTimeParseException;
 
 public class UserAssembler {
 
+  private CarAssembler carAssembler;
+
+  public UserAssembler(CarAssembler carAssembler) {
+    this.carAssembler = carAssembler;
+  }
+
   public UserDto fromRequest(UserRequest userRequest) {
+    //TODO a tester
+    CarDto carDto = carAssembler.fromRequest(userRequest.carRequest);
 
     Gender gender = getGender(userRequest);
 
@@ -21,6 +32,7 @@ public class UserAssembler {
     userDto.name = userRequest.name;
     userDto.gender = gender;
     userDto.birthDate = birthDate;
+    userDto.carDto = carDto;
 
     return userDto;
   }

@@ -15,20 +15,16 @@ public class CampusAccessFactory {
     this.timePeriodFactory = timePeriodFactory;
   }
 
-  public CampusAccess create(User user, Car car, TimePeriodDto timePeriodDto) {
+  public CampusAccess create(TimePeriodDto timePeriodDto) {
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
 
     if (timePeriodDto.periodType == PeriodType.HOURLY) {
       return new HourlyCampusAccess(new CampusAccessCode(),
-              user,
-              car,
               timePeriodDto.periodType,
               timePeriod,
               timePeriodDto.numberOfHours);
     } else {
       return new CampusAccess(new CampusAccessCode(),
-                              user,
-                              car,
                               timePeriodDto.periodType,
                               timePeriod);
     }

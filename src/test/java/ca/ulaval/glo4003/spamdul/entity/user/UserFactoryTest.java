@@ -16,7 +16,7 @@ public class UserFactoryTest {
 
   @Before
   public void setUp() throws Exception {
-    userFactory = new UserFactory();
+    userFactory = new UserFactory(carFactory);
   }
 
   @Test

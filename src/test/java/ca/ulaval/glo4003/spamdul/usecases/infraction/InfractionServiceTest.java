@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
@@ -19,6 +20,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +33,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class InfractionServiceTest {
 
   public static final String ANY_MESSAGE = "test";
-  public static final double ANY_AMOUNT = 598.65;
+  public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
   public static final InfractionId AN_INFRACTION_ID = new InfractionId();
   public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
 
@@ -55,11 +57,16 @@ public class InfractionServiceTest {
   private AccessLevelValidator accessLevelValidator;
   @Mock
   private InfractionTransactionService infractionTransactionService;
+  @Mock
+  private UserRepository userRepository;
+  @Mock
+  private User user;
 
   @Before
   public void setUp() throws Exception {
     infractionService = new InfractionService(infractionInfoRepository,
                                               infractionRepository,
+                                              userRepository,
                                               infractionFactory,
                                               passValidator,
                                               accessLevelValidator,
@@ -69,6 +76,7 @@ public class InfractionServiceTest {
     infractionInfos = new InfractionInfos();
     infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
+    when(user.pay(AN_INFRACTION_ID)).thenReturn(ANY_AMOUNT);
   }
 
   @Test
@@ -142,9 +150,9 @@ public class InfractionServiceTest {
   }
 
   @Test
-  public void whenPayingInfraction_shouldFindInfractionInRepo() {
+  public void whenPayingInfraction_shouldFindUserInRepo() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
@@ -154,20 +162,20 @@ public class InfractionServiceTest {
   @Test
   public void whenPayingInfraction_shouldAddRevenueToInfractionBankAccount() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(infractionTransactionService, times(1)).addRevenue(Amount.valueOf(infraction.getAmount()));
+    verify(infractionTransactionService, times(1)).addRevenue(ANY_AMOUNT);
   }
 
   @Test
-  public void whenPayingInfraction_shouldPay() {
+  public void whenPayingInfraction_shouldTellUserToPayInfraction() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    assertThat(infraction.isPaid()).isTrue();
+    verify(user, times(1)).pay(AN_INFRACTION_ID);
   }
 }

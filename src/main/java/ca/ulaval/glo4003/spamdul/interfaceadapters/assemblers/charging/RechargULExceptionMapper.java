@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardAlread
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.exceptions.InvalidRechargCardUlUserIdFormatException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -33,6 +34,9 @@ public class RechargULExceptionMapper implements ExceptionMapper<RechargULExcept
       response.error = "INVALID_RECHARGUL_CREDITS";
     } else if (e instanceof InvalidRechargULCardDebitingException) {
       response.error = "INVALID_RECHARGUL_DEBITING";
+    } else if (e instanceof InvalidRechargCardUlUserIdFormatException) {
+      //TODO a tester
+      response.error = "INVALID_USER_ID_FORMAT";
     } else {
       response.error = "INVALID_RECHARGUL_OPERATION";
     }

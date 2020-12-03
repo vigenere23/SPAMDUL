@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.campusaccess.InvalidCampusAccessCodeForm
 import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
@@ -34,26 +35,23 @@ public class CampusAccessAssembler {
       PeriodType.THREE_SEMESTERS
   );
 
-  private final UserAssembler userAssembler;
-  private final CarAssembler carAssembler;
   private final TimePeriodAssembler timePeriodAssembler;
 
-  public CampusAccessAssembler(UserAssembler userAssembler,
-                               CarAssembler carAssembler,
-                               TimePeriodAssembler timePeriodAssembler) {
-    this.userAssembler = userAssembler;
-    this.carAssembler = carAssembler;
+  public CampusAccessAssembler(TimePeriodAssembler timePeriodAssembler) {
     this.timePeriodAssembler = timePeriodAssembler;
   }
 
   public CampusAccessDto fromRequest(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = new CampusAccessDto();
-    campusAccessDto.userDto = userAssembler.fromRequest(campusAccessRequest.user);
-    campusAccessDto.carDto = carAssembler.fromRequest(campusAccessRequest.car);
 
     setTimePeriodDto(campusAccessRequest.period, campusAccessDto);
+    setUserId(campusAccessRequest.userId, campusAccessDto);
 
     return campusAccessDto;
+  }
+
+  private void setUserId(String userIdString, CampusAccessDto campusAccessDto) {
+    campusAccessDto.userId = UserId.valueOf(userIdString);
   }
 
   private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {

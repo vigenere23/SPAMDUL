@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
+import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
@@ -19,6 +20,7 @@ public class InfractionAssembler {
 
     dto.passCode = infractionRequest.passCode;
     dto.parkingZone = getParkingZone(infractionRequest);
+    dto.licensePlate = new LicensePlate(infractionRequest.licensePlate);
 
     return dto;
   }

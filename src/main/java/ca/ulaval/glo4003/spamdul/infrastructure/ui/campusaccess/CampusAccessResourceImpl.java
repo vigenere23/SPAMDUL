@@ -24,7 +24,7 @@ public class CampusAccessResourceImpl implements CampusAccessResource {
 
   public Response createCampusAccess(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = campusAccessAssembler.fromRequest(campusAccessRequest);
-    CampusAccess campusAccess = campusAccessService.createAndSaveNewCampusAccess(campusAccessDto);
+    CampusAccess campusAccess = campusAccessService.createNewCampusAccess(campusAccessDto);
 
     return Response.status(Status.CREATED)
                    .entity(campusAccessAssembler.toResponse(campusAccess))

@@ -2,61 +2,62 @@ package ca.ulaval.glo4003.spamdul.usecases.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarService;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserService;
+import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 
 public class CampusAccessService extends AccessGrantedObservable {
 
-  private final UserService userService;
-  private final CarService carService;
+  private final UserFactory userFactory;
   private final CampusAccessFactory campusAccessFactory;
-  private final CampusAccessRepository campusAccessRepository;
+  private final UserRepository userRepository;
   private final Calendar calendar;
   private final CampusAccessFeeRepository campusAccessFeeRepository;
   private final CampusAccessTransactionService campusAccessTransactionService;
 
-  public CampusAccessService(UserService userService,
-                             CarService carService,
+  //TODO trouver un nouveau nom qui exprime que ca permet de gerer les user les campus access et les passe
+  public CampusAccessService(UserFactory userFactory,
                              CampusAccessFactory campusAccessFactory,
-                             CampusAccessRepository campusAccessRepository,
+                             UserRepository userRepository,
                              Calendar calendar,
                              CampusAccessFeeRepository campusAccessFeeRepository,
                              CampusAccessTransactionService campusAccessTransactionService) {
-    this.userService = userService;
-    this.carService = carService;
+    this.userFactory = userFactory;
     this.campusAccessFactory = campusAccessFactory;
-    this.campusAccessRepository = campusAccessRepository;
+    this.userRepository = userRepository;
     this.calendar = calendar;
     this.campusAccessFeeRepository = campusAccessFeeRepository;
     this.campusAccessTransactionService = campusAccessTransactionService;
   }
 
-  public CampusAccess createAndSaveNewCampusAccess(CampusAccessDto campusAccessDto) {
-    User user = userService.createUser(campusAccessDto.userDto);
-    Car car = carService.createCar(campusAccessDto.carDto);
+  public UserId createNewUser(UserDto userDto) {
+    User user = userFactory.create(userDto);
+    userRepository.save(user);
 
-    CampusAccess campusAccess = campusAccessFactory.create(user,
-                                                           car,
-                                                           campusAccessDto.timePeriodDto);
+    return user.getUserId();
+  }
 
-    campusAccessRepository.save(campusAccess);
+  public CampusAccess createNewCampusAccess(CampusAccessDto campusAccessDto) {
+    CampusAccess campusAccess = campusAccessFactory.create(campusAccessDto.timePeriodDto);
 
-    addRevenue(campusAccessDto.carDto.carType, campusAccessDto.timePeriodDto.periodType);
+    User user = userRepository.findBy(campusAccessDto.userId);
+    user.associate(campusAccess);
+    userRepository.save(user);
+
+    //TODO revoir pour ne plus violer le TDA
+    addRevenue(user.getCar().getCarType(), campusAccessDto.timePeriodDto.periodType);
 
     return campusAccess;
   }
@@ -67,51 +68,36 @@ public class CampusAccessService extends AccessGrantedObservable {
     campusAccessTransactionService.addRevenue(amount, carType);
   }
 
-  public void associatePassToCampusAccess(CampusAccessCode campusAccessCode, Pass pass) {
-    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
-    campusAccess.associatePass(pass);
-    campusAccessRepository.save(campusAccess);
+  public void associatePassToUser(UserId userId, Pass pass) {
+    User user = userRepository.findBy(userId);
+    user.associate(pass);
+    userRepository.save(user);
   }
 
   public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
     LocalDateTime now = calendar.now();
-    boolean accessGranted;
 
     try {
       if (accessingCampusDto.campusAccessCode != null) {
-        accessGranted = isAccessGrantedByCampusAccessCode(accessingCampusDto.campusAccessCode, now);
+        return grantAccess(userRepository.findBy(accessingCampusDto.campusAccessCode), now);
       } else {
-        accessGranted = isAccessGrantedByLicensePlate(accessingCampusDto.licensePlate, now);
+        return grantAccess(userRepository.findBy(accessingCampusDto.licensePlate), now);
       }
-    } catch (CampusAccessNotFoundException e) {
+    } catch (UserNotFoundException e) {
       return false;
     }
-
-    return accessGranted;
   }
 
-  private boolean isAccessGrantedByCampusAccessCode(CampusAccessCode campusAccessCode, LocalDateTime dateTime) {
-    CampusAccess campusAccess = campusAccessRepository.findBy(campusAccessCode);
-    boolean accessGranted = campusAccess.grantAccess(dateTime);
-
-    if (accessGranted) {
-      notifyAccessGranted(campusAccess, dateTime);
+  private boolean grantAccess(User user, LocalDateTime dateTime) {
+    if (user.isAccessGrantedToCampus(dateTime)) {
+      notifyAccessGranted(user, dateTime);
+      return true;
     }
 
-    return accessGranted;
-  }
-
-  private boolean isAccessGrantedByLicensePlate(LicensePlate licensePlate, LocalDateTime dateTime) {
-    for (CampusAccess campusAccess : campusAccessRepository.findBy(licensePlate)) {
-      if (campusAccess.grantAccess(dateTime)) {
-        notifyAccessGranted(campusAccess, dateTime);
-        return true;
-      }
-    }
     return false;
   }
 
-  private void notifyAccessGranted(CampusAccess campusAccess, LocalDateTime now) {
-    notifyAccessGrantedWithCampusAccess(campusAccess.getParkingZone(), now.toLocalDate());
+  private void notifyAccessGranted(User user, LocalDateTime now) {
+    notifyAccessGrantedWithCampusAccess(user.getParkingZone(), now.toLocalDate());
   }
 }

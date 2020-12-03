@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
+import ca.ulaval.glo4003.spamdul.entity.user.User;
+
 public interface RechargULCardRepository {
 
-  RechargULCard findBy(RechargULCardId id);
+  User findBy(RechargULCardId id);
 
   void save(RechargULCard rechargULCard);
 

@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
@@ -33,7 +34,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class PassServiceTest {
 
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
-  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private static final UserId USER_ID = new UserId();
   private static final PassCode A_PASS_CODE = new PassCode();
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
   private static final DeliveryDto A_POSTAL_DELIVERY_DTO = new DeliveryDto();
@@ -70,13 +71,13 @@ public class PassServiceTest {
 
   @Before
   public void setUp() {
-    A_PASS_DTO.campusAccessCode = A_CAMPUS_ACCESS_CODE;
+    A_PASS_DTO.userId = USER_ID;
     A_PASS_DTO.deliveryDto = A_DELIVERY_DTO;
     A_PASS_DTO.parkingZone = A_PARKING_ZONE;
     A_PASS_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
 
     A_POSTAL_DELIVERY_DTO.deliveryMode = A_POSTAL_DELIVERY_MODE;
-    A_SECOND_PASS_DTO.campusAccessCode = A_CAMPUS_ACCESS_CODE;
+    A_SECOND_PASS_DTO.userId = USER_ID;
     A_SECOND_PASS_DTO.deliveryDto = A_POSTAL_DELIVERY_DTO;
     A_SECOND_PASS_DTO.parkingZone = A_PARKING_ZONE;
     A_SECOND_PASS_DTO.timePeriodDto = A_TIME_PERIOD_DTO;
@@ -105,7 +106,7 @@ public class PassServiceTest {
   public void whenCreatingPass_shouldCallCampusAccessServiceToAssociatePassToAccess() {
     passService.createPass(A_PASS_DTO);
 
-    verify(campusAccessService).associatePassToCampusAccess(A_CAMPUS_ACCESS_CODE, pass);
+    verify(campusAccessService).associatePassToUser(USER_ID, pass);
   }
 
   @Test
