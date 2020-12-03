@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.finance;
 
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FinanceAccessValidator;
@@ -18,16 +19,17 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRe
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResourceImpl;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
+import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
-public class FinanceContext {
+public class FinanceContext implements ResourceContext {
 
-  private final MainBankAccount mainBankAccount;
+  private final TransactionFactory transactionFactory;
   private final SustainabilityBankAccount sustainabilityBankAccount;
   private final CarbonCreditsTransactionService carbonCreditsTransactionService;
-
   private final CampusAccessTransactionService campusAccessTransactionService;
   private final InfractionTransactionService infractionTransactionService;
   private final InitiativeTransactionService initiativeTransactionService;
@@ -37,17 +39,17 @@ public class FinanceContext {
 
   public FinanceContext(AuthenticationRepository authenticationRepository,
                         AccessTokenCookieAssembler cookieAssembler) {
-    TransactionFactory transactionFactory = new TransactionFactory();
+    transactionFactory = new TransactionFactory();
 
-    mainBankAccount = new MainBankAccount(transactionFactory,
-                                          new InMemoryTransactionRepository(),
-                                          new InMemoryTransactionRepository());
+    MainBankAccount mainBankAccount = new MainBankAccount(transactionFactory,
+                                                          new InMemoryTransactionRepository(),
+                                                          new InMemoryTransactionRepository());
     sustainabilityBankAccount = new SustainabilityBankAccount(transactionFactory,
                                                               new InMemoryTransactionRepository(),
                                                               new InMemoryTransactionRepository());
+
     carbonCreditsTransactionService = new CarbonCreditsTransactionService(transactionFactory,
                                                                           new InMemoryTransactionRepository());
-
     campusAccessTransactionService = new CampusAccessTransactionService(mainBankAccount,
                                                                         sustainabilityBankAccount,
                                                                         new InMemoryCampusAccessTransactionRepository());
@@ -69,6 +71,10 @@ public class FinanceContext {
                                               transactionQueryAssembler,
                                               revenueAssembler,
                                               cookieAssembler);
+  }
+
+  public TransactionFactory getTransactionFactory() {
+    return transactionFactory;
   }
 
   public SustainabilityBankAccount getSustainabilityBankAccount() {
@@ -95,7 +101,8 @@ public class FinanceContext {
     return passTransactionService;
   }
 
-  public RevenueResource getRevenueResource() {
-    return revenueResource;
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(revenueResource);
+    resources.add(new FinanceExceptionMapper());
   }
 }
