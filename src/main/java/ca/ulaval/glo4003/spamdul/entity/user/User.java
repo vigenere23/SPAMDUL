@@ -143,4 +143,12 @@ public class User {
   public RechargULCard getRechargULCard() {
     return rechargULCard;
   }
+
+  public void verifyEnoughCreditsForCharging() {
+    rechargULCard.verifyEnoughCreditsForCharging();
+  }
+
+  public void payForCharging(Amount amount) {
+    rechargULCard.debit(amount);
+  }
 }

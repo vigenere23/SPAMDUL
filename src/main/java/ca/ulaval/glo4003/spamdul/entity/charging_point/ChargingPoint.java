@@ -1,25 +1,22 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
-import java.util.Optional;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 
 public class ChargingPoint {
 
   private final ChargingPointId id;
-  private final ChargingPaymentService chargingPaymentService;
 
-  private Optional<RechargULCard> card = Optional.empty();
+  private RechargULCardId currentCardId = null;
   private ChargingPointState state = new ChargingPointStateIdle(this);
 
-  public ChargingPoint(ChargingPointId id, ChargingPaymentService chargingPaymentService) {
+  public ChargingPoint(ChargingPointId id) {
     this.id = id;
-    this.chargingPaymentService = chargingPaymentService;
   }
 
-  public void activate(RechargULCard card) {
-    card.verifyHasEnoughCredits();
-
-    this.card = Optional.of(card);
+  public void activate(EnoughCreditForChargingVerifier enoughCreditForChargingVerifier,
+                       RechargULCardId rechargULCardId) {
+    enoughCreditForChargingVerifier.verify(rechargULCardId);
+    this.currentCardId = rechargULCardId;
     state.activate();
   }
 
@@ -31,10 +28,10 @@ public class ChargingPoint {
     state.disconnect();
   }
 
-  public void deactivate() {
+  public void deactivateAndPay(ChargingPaymentService chargingPaymentService) {
     long millisecondsUsed = state.deactivate();
-    chargingPaymentService.pay(millisecondsUsed, card.get());
-    card = Optional.empty();
+    chargingPaymentService.pay(millisecondsUsed, currentCardId);
+    currentCardId = null;
   }
 
   public void setState(ChargingPointState state) {

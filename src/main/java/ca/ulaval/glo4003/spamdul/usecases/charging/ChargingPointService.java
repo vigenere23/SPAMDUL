@@ -1,25 +1,29 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
+import ca.ulaval.glo4003.spamdul.entity.charging_point.*;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+
 import java.util.List;
 
 public class ChargingPointService {
 
   private final ChargingPointRepository chargingPointRepository;
-  private final UserRepository userRepository;
+  private final EnoughCreditForChargingVerifier enoughCreditForChargingVerifier;
+  private final ChargingPaymentService chargingPaymentService;
 
   public ChargingPointService(ChargingPointRepository chargingPointRepository,
-                              UserRepository userRepository) {
+                              EnoughCreditForChargingVerifier enoughCreditForChargingVerifier,
+                              ChargingPaymentService chargingPaymentService) {
     this.chargingPointRepository = chargingPointRepository;
-    this.userRepository = userRepository;
+    this.enoughCreditForChargingVerifier = enoughCreditForChargingVerifier;
+    this.chargingPaymentService = chargingPaymentService;
   }
+
 
   public List<ChargingPoint> getAllChargingPoints() {
     return chargingPointRepository.findAll();
@@ -34,13 +38,9 @@ public class ChargingPointService {
     try {
       RechargULCard rechargULCard = userRepository.findBy(rechargULCardId).getRechargULCard();
 
-      chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(enoughCreditForChargingVerifier, rechargULCardId);
 
-      chargingPointRepository.update(chargingPoint);
-    } catch (UserNotFoundException e) {
-      throw new RechargULCardNotFoundException();
-    }
-
+    chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }
 
@@ -65,7 +65,7 @@ public class ChargingPointService {
   public ChargingPoint deactivateChargingPoint(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
 
-    chargingPoint.deactivate();
+    chargingPoint.deactivateAndPay(chargingPaymentService);
     
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;

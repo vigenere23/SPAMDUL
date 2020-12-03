@@ -21,10 +21,8 @@ public class ChargingPointPopulator implements Populator {
   }
 
   @Override public void populate(int numberOfRecords) {
-    ChargingPaymentService chargingPaymentService = new ChargingPaymentService(Amount.valueOf(1), TimeUnit.HOURS);
-
     for (int chargingPointNumber = 0; chargingPointNumber < numberOfRecords; chargingPointNumber++) {
-      ChargingPoint chargingPoint = chargingPointFactory.create(chargingPaymentService);
+      ChargingPoint chargingPoint = chargingPointFactory.create();
       chargingPointRepository.save(chargingPoint);
     }
   }
