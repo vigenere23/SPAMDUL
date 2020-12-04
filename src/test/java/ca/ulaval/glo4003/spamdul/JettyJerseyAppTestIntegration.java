@@ -16,10 +16,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class JettyJerseyAppTest {
+public class JettyJerseyAppTestIntegration {
 
   private static final String MODE_VAR_NAME = "SPAMDUL_API_MODE";
-  private static final int SERVER_UP_TIME_IN_MILLIS = 300;
+  private static final int SERVER_UP_TIME_IN_MILLIS = 400;
 
   @Mock
   private ContextFactory contextFactory;
@@ -91,10 +91,14 @@ public class JettyJerseyAppTest {
     verify(context, times(2)).registerResources(any(InstanceMap.class));
   }
 
-  private void startApp(SpamdUlApplication app) throws InterruptedException {
-    Thread appThread = new Thread(app::start);
-    appThread.start();
-    appThread.join(SERVER_UP_TIME_IN_MILLIS);
-    appThread.interrupt();
+  private void startApp(SpamdUlApplication app) {
+    try {
+      Thread appThread = new Thread(app::start);
+      appThread.start();
+      appThread.join(SERVER_UP_TIME_IN_MILLIS);
+      appThread.interrupt();
+    } catch (InterruptedException e) {
+      // Normal, tout est chill
+    }
   }
 }
