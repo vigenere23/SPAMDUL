@@ -22,7 +22,7 @@ public class InfractionAssemblerTest {
   public static final String AN_INFRACTION_DESCRIPTION = "a description";
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
-  public static final InfractionId A_INFRACTION_ID = new InfractionId();
+  public static final InfractionId A_INFRACTION_ID = InfractionId.valueOf("123");
   public static final Amount AN_AMOUNT = Amount.valueOf(99);
 
   private InfractionAssembler infractionAssembler;

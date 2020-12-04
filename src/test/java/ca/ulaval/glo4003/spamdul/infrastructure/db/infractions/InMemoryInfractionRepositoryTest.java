@@ -17,8 +17,8 @@ public class InMemoryInfractionRepositoryTest {
   private static final InfractionCode A_INFRACTION_CODE = InfractionCode.valueOf(A_INFRACTION_CODE_STRING);
   private static final Amount A_INFRACTION_AMOUNT = Amount.valueOf(5);
   private static final String A_INFRACTION_DESCRIPTION = "test description";
-  private static final InfractionId A_INFRACTION_ID = new InfractionId();
-  private static final InfractionId A_NON_EXISTING_INFRACTION_ID = new InfractionId();
+  private static final InfractionId A_INFRACTION_ID = InfractionId.valueOf("123");
+  private static final InfractionId A_NON_EXISTING_INFRACTION_ID = InfractionId.valueOf("456");
   private static final Infraction A_INFRACTION = new Infraction(A_INFRACTION_ID,
                                                                 A_INFRACTION_DESCRIPTION,
                                                                 A_INFRACTION_CODE,

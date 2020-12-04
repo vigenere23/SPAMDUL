@@ -6,7 +6,9 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.Acce
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.DayOfWeekValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyPassCodeValidator;
@@ -40,8 +42,8 @@ public class InfractionsContext implements ResourceContext {
         "src/main/resources/infraction.json",
         new JsonReader());
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(userRepository);
-
-    InfractionFactory infractionFactory = new InfractionFactory();
+    InfractionIdFactory infractionIdFactory = new InfractionIdFactory(new IncrementalLongIdGenerator());
+    InfractionFactory infractionFactory = new InfractionFactory(infractionIdFactory);
 
     AccessLevelValidator accessLevelValidator = new InfractionsAccessLevelValidator(authenticationRepository);
 

@@ -17,7 +17,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
@@ -33,26 +32,26 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class InfractionServiceTest {
 
-  public static final String ANY_MESSAGE = "test";
-  public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
-  public static final InfractionId AN_INFRACTION_ID = new InfractionId();
-  public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
-  public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
-
-  public final String AN_INFRACTION_CODE_VALUE = "00";
-  public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
+  private static final String ANY_MESSAGE = "test";
+  private static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
+  private static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
+  private static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
+  private static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
+  private static final String AN_INFRACTION_CODE_VALUE = "00";
+  private static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
   private InfractionService infractionService;
+  private PassToValidateDto passToValidateDto;
+  private InfractionInfos infractionInfos;
+  private Infraction infraction;
+  private InfractionPaymentDto infractionPaymentDto;
+
   @Mock
   private InfractionInfoRepository infractionInfoRepository;
   @Mock
   private PassValidator passValidator;
-  private PassToValidateDto passToValidateDto;
   @Mock
   private InfractionFactory infractionFactory;
-  private InfractionInfos infractionInfos;
-  private Infraction infraction;
-  private InfractionPaymentDto infractionPaymentDto;
   @Mock
   private AccessLevelValidator accessLevelValidator;
   @Mock
@@ -74,7 +73,7 @@ public class InfractionServiceTest {
     passToValidateDto = new PassToValidateDto();
     passToValidateDto.licensePlate = LICENSE_PLATE;
     infractionInfos = new InfractionInfos();
-    infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
+    infraction = new Infraction(AN_INFRACTION_ID, ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
     when(user.pay(AN_INFRACTION_ID)).thenReturn(ANY_AMOUNT);
   }

@@ -38,7 +38,7 @@ public class InMemoryUserRepositoryTest {
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
   public static final PassCode PASS_CODE = new PassCode();
   public static final Amount AMOUNT = Amount.valueOf(10);
-  public static final InfractionId INFRACTION_ID = new InfractionId();
+  public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
   public static final String DESCRIPTION = "description";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();

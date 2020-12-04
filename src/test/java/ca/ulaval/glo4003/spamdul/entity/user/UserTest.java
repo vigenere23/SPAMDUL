@@ -28,33 +28,32 @@ import org.junit.Test;
 
 public class UserTest {
 
-  public static final CarId CAR_ID = new CarId();
-  public static final CarType CAR_TYPE = CarType.ECONOMIQUE;
-  public static final String BRAND = "brand";
-  public static final String MODEL = "model";
-  public static final int YEAR = 2020;
-  public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
-  public static final Car CAR = new Car(CAR_ID, CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE);
-  public static final TimePeriod TIME_PERIOD = new TimePeriod(LocalDateTime.MIN,
-                                                              LocalDateTime.MAX,
-                                                              TimePeriodDayOfWeek.ALL);
-  public static final PassCode PASS_CODE = new PassCode();
-  public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
-  public static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
-  public static final PassCode ANOTHER_PASSE_CODE = new PassCode();
-  public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
-  public static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
-  public static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
-  public static final InfractionId ANOTHER_INFRACTION_ID = new InfractionId();
-  public static final InfractionId INFRACTION_ID = new InfractionId();
-  public static final String DESCRITION = "descrition";
-  public static final InfractionCode CODE = InfractionCode.valueOf("code");
-  public static final Amount AMOUNT = Amount.valueOf(10);
-  private final String A_NAME = "name";
-  private final Gender A_GENDER = Gender.MALE;
-  private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
-  private final UserId A_USER_ID = UserId.valueOf("347");
+  private static final CarId CAR_ID = new CarId();
+  private static final CarType CAR_TYPE = CarType.ECONOMIQUE;
+  private static final String BRAND = "brand";
+  private static final String MODEL = "model";
+  private static final int YEAR = 2020;
+  private static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
+  private static final Car CAR = new Car(CAR_ID, CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE);
+  private static final TimePeriod TIME_PERIOD = new TimePeriod(LocalDateTime.MIN,
+                                                               LocalDateTime.MAX,
+                                                               TimePeriodDayOfWeek.ALL);
+  private static final PassCode PASS_CODE = new PassCode();
+  private static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
+  private static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
+  private static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
+  private static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  private static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
+  private static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
+  private static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
+  private static final InfractionId ANOTHER_INFRACTION_ID = InfractionId.valueOf("456");
+  private static final String DESCRITION = "descrition";
+  private static final InfractionCode CODE = InfractionCode.valueOf("code");
+  private static final Amount AMOUNT = Amount.valueOf(10);
+  private static final String A_NAME = "name";
+  private static final Gender A_GENDER = Gender.MALE;
+  private static final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
+  private static final UserId A_USER_ID = UserId.valueOf("347");
 
   @Test
   public void whenCreatingNewUser_shouldCreateRandomId() {
@@ -157,7 +156,7 @@ public class UserTest {
   @Test
   public void whenAddingInfractionToUser_infraction_shouldBeAdded() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    Infraction infraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    Infraction infraction = new Infraction(AN_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
     Infraction anotherInfraction = new Infraction(ANOTHER_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
 
     user.associate(infraction);
@@ -171,10 +170,10 @@ public class UserTest {
   @Test
   public void whenPayingInfraction_infractionShouldBePaid() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    Infraction infraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    Infraction infraction = new Infraction(AN_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
     user.associate(infraction);
 
-    user.pay(INFRACTION_ID);
+    user.pay(AN_INFRACTION_ID);
 
     assertThat(infraction.isPaid()).isTrue();
   }

@@ -10,11 +10,12 @@ public class InfractionTest {
 
   public static final String ANY_MESSAGE = "test";
   public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
+  public static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
 
   public final String AN_INFRACTION_CODE_VALUE = "00";
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
-  Infraction infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
+  Infraction infraction = new Infraction(AN_INFRACTION_ID, ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
 
   @Test
   public void givenUnpaid_whenPay_shouldBePaid() {
