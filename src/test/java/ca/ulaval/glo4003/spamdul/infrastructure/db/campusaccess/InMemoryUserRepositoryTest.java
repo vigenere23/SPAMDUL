@@ -57,7 +57,7 @@ public class InMemoryUserRepositoryTest {
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private final User A_USER = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR);
   private final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
-  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_PERIOD_TYPE,
                                                                 TIME_PERIOD);

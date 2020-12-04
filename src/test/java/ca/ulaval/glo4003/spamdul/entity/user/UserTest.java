@@ -45,7 +45,7 @@ public class UserTest {
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
   public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
   public static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
-  public static final CampusAccessCode CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  public static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   public static final InfractionId ANOTHER_INFRACTION_ID = new InfractionId();
   public static final InfractionId INFRACTION_ID = new InfractionId();
   public static final String DESCRITION = "descrition";

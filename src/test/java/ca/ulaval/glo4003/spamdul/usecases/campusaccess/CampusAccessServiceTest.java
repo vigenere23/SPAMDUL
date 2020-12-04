@@ -56,7 +56,7 @@ public class CampusAccessServiceTest {
                                            2020,
                                            new LicensePlate(A_LICENSE_PLATE_STRING));
   private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1), A_CAR);
-  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;

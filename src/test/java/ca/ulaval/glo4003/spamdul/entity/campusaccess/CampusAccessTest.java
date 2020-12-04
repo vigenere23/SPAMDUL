@@ -28,7 +28,8 @@ public class CampusAccessTest {
   private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
                                                                  A_END_DATE_TIME,
                                                                  TimePeriodDayOfWeek.ALL);
-  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
+
 
   private TimePeriod timePeriod;
   private CampusAccess campusAccess;
@@ -36,7 +37,7 @@ public class CampusAccessTest {
   @Before
   public void setUp() throws Exception {
     timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
-    campusAccess = new CampusAccess(new CampusAccessCode(),
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                     A_PERIOD_TYPE,
                                     timePeriod);
   }
