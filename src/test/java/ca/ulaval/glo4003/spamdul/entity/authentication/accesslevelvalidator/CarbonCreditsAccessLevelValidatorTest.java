@@ -46,11 +46,4 @@ public class CarbonCreditsAccessLevelValidatorTest {
 
     validator.validate(A_TEMPORARY_TOKEN);
   }
-
-//  @Test(expected = UnauthorizedUserException.class)
-//  public void givenNoRegisteredCorrespondingToToken_whenValidating_shouldThrowException() {
-//    given(authenticationRepository.findBy(A_TEMPORARY_TOKEN)).willThrow(new NoRegisteredUserLoggedInException());
-//
-//    validator.validate(A_TEMPORARY_TOKEN);
-//  }
 }
