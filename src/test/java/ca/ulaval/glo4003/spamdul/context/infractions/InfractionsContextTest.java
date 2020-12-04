@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.context.infractions;
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;

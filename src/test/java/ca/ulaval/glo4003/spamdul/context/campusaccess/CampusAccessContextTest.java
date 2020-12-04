@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;

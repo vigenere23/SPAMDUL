@@ -1,11 +1,8 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;

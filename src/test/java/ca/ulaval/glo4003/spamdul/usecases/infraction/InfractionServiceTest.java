@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
@@ -41,17 +41,18 @@ public class InfractionServiceTest {
   public final String AN_INFRACTION_CODE_VALUE = "00";
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
+  private InfractionInfos infractionInfos;
+  private Infraction infraction;
+  private InfractionPaymentDto infractionPaymentDto;
+  private PassToValidateDto passToValidateDto;
   private InfractionService infractionService;
+
   @Mock
   private InfractionInfoRepository infractionInfoRepository;
   @Mock
   private PassValidator passValidator;
-  private PassToValidateDto passToValidateDto;
   @Mock
   private InfractionFactory infractionFactory;
-  private InfractionInfos infractionInfos;
-  private Infraction infraction;
-  private InfractionPaymentDto infractionPaymentDto;
   @Mock
   private AccessLevelValidator accessLevelValidator;
   @Mock
@@ -126,7 +127,9 @@ public class InfractionServiceTest {
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(user, Mockito.times(1)).associate(infraction);
+    verify(user, times(1)).associate(infraction);
+    verify(userRepository, times(1)).findBy(LICENSE_PLATE);
+    verify(userRepository, times(1)).save(user);
   }
 
   @Test

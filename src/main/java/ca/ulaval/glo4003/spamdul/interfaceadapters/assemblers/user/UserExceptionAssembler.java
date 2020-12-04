@@ -1,6 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateException;
@@ -28,6 +31,12 @@ public class UserExceptionAssembler implements ExceptionMapper<InvalidUserExcept
       exceptionResponse.error = "INVALID_USER_ID";
     } else if (e instanceof InvalidUserIdFormatException) {
       exceptionResponse.error = "INVALID_USER_ID_FORMAT";
+    } else if (e instanceof UserAlreadyHasACampusAccess) {
+      exceptionResponse.error = "USER_ALREADY_HAS_CAMPUS_ACCESS";
+    } else if (e instanceof UserAlreadyHasThisInfraction) {
+      exceptionResponse.error = "USER_ALREADY_HAS_THIS_INFRACTION";
+    } else if (e instanceof UserAlreadyHasARechargULCard) {
+      exceptionResponse.error = "USER_ALREADY_HAS_RECHARGUL_CARD";
     }
 
     return Response.status(Status.BAD_REQUEST)

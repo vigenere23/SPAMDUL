@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;

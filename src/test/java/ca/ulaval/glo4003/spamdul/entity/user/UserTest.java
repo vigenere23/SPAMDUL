@@ -1,17 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
@@ -20,7 +20,13 @@ import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,6 +58,8 @@ public class UserTest {
   public static final String DESCRITION = "descrition";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final Amount AMOUNT = Amount.valueOf(10);
+  public static final LocalDateTime A_TIME_OF_ACCESS = LocalDateTime.now();
+  public static final CampusAccessCode ANOTHER_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
@@ -95,6 +103,15 @@ public class UserTest {
   }
 
   @Test
+  public void givenNoCampusAccess_whenVerifyingIfUserCanAccessCampus_userShouldNotAccessCampus() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+
+    boolean isAccessGrantedToCampus = user.isAccessGrantedToCampus(A_TIME_OF_ACCESS);
+
+    assertThat(isAccessGrantedToCampus).isFalse();
+  }
+
+  @Test
   public void whenAddingNewCampusAccess_campusAccessShouldBeAddedToUser() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
     CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
@@ -102,6 +119,27 @@ public class UserTest {
     user.associate(campusAccess);
 
     assertThat(user.doesOwn(CAMPUS_ACCESS_CODE)).isTrue();
+  }
+
+  @Test(expected = UserAlreadyHasACampusAccess.class)
+  public void givenACampusAccess_whenAssociatingAnotherCampusAccess_shouldThrowException() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    CampusAccess anotherCampusAccess = new CampusAccess(ANOTHER_CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    user.associate(campusAccess);
+
+    user.associate(anotherCampusAccess);
+  }
+
+  @Test
+  public void givenACampusAccess_whenVerifyingIfCanAccessCampus_shouldCallCampusAccessToGrantAccess() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = mock(CampusAccess.class);
+    user.associate(campusAccess);
+
+    user.isAccessGrantedToCampus(A_TIME_OF_ACCESS);
+
+    verify(campusAccess, times(1)).grantAccess(A_TIME_OF_ACCESS);
   }
 
   @Test
@@ -159,7 +197,7 @@ public class UserTest {
   public void whenAddingInfractionToUser_infraction_shouldBeAdded() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
     Infraction infraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
-    Infraction anotherInfraction= new Infraction(ANOTHER_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    Infraction anotherInfraction = new Infraction(ANOTHER_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
 
     user.associate(infraction);
     user.associate(anotherInfraction);
@@ -169,15 +207,26 @@ public class UserTest {
     assertThat(allInfractions).contains(anotherInfraction);
   }
 
-  @Test
-  public void whenPayingInfraction_infractionShouldBePaid() {
+  @Test(expected = UserAlreadyHasThisInfraction.class)
+  public void givenAnInfraction_whenAssociatingInfractionWithSameId_shouldThrowException() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
     Infraction infraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    Infraction anotherInfraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    user.associate(infraction);
+
+    user.associate(anotherInfraction);
+  }
+
+  @Test
+  public void whenPayingInfraction_shouldCallInfractionToPayIt() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    Infraction infraction = mock(Infraction.class);
+    when(infraction.getInfractionId()).thenReturn(INFRACTION_ID);
     user.associate(infraction);
 
     user.pay(INFRACTION_ID);
 
-    assertThat(infraction.isPaid()).isTrue();
+    verify(infraction, times(1)).pay();
   }
 
   @Test(expected = UserAlreadyHasARechargULCard.class)
@@ -188,5 +237,16 @@ public class UserTest {
     user.associate(rechargULCard);
 
     user.associate(anotherRechargULCard);
+  }
+
+  @Test
+  public void whenAddingCreditsToRechargULCard_shouldCallRechargULCardToAddCreditsWithAmount() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    RechargULCard rechargULCard = mock(RechargULCard.class);
+    user.associate(rechargULCard);
+
+    user.addRechargULCredits(AMOUNT);
+
+    verify(rechargULCard, times(1)).addCredits(AMOUNT);
   }
 }

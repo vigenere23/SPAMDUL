@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;

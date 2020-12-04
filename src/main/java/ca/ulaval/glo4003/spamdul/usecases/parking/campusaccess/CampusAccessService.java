@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.AccessGrantedObserv
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
@@ -22,7 +22,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CampusAccessFeeRepository campusAccessFeeRepository;
   private final CampusAccessTransactionService campusAccessTransactionService;
 
-  //TODO trouver un nouveau nom qui exprime que ca permet de gerer les user les campus access et les passe
   public CampusAccessService(CampusAccessFactory campusAccessFactory,
                              UserRepository userRepository,
                              Calendar calendar,

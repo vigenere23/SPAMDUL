@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;

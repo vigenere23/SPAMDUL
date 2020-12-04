@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -24,6 +24,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.user.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -140,12 +141,12 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToId_whenFindingById_shouldThrowException() {
-    userRepository.findBy(A_USER_ID);
+    userRepository.findBy(new UserId());
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToCampusAccessCode_whenFindingById_shouldThrowException() {
-    userRepository.findBy(A_CAMPUS_ACCESS_CODE);
+    userRepository.findBy(new CampusAccessCode());
   }
 
   @Test(expected = UserNotFoundException.class)
@@ -154,7 +155,17 @@ public class InMemoryUserRepositoryTest {
   }
 
   @Test(expected = UserNotFoundException.class)
-  public void whenFindingByPassCodeAndNotFound_shouldThrowException() {
+  public void givenNoUserCorrespondingToPassCode_whenFindingByPassCode_shouldThrowException() {
     userRepository.findBy(new PassCode());
+  }
+
+  @Test(expected = UserNotFoundException.class)
+  public void givenNoUserCorrespondingToRechargULCardId_whenFindingByRechargULCardId_shouldThrowException() {
+    userRepository.findBy(new RechargULCardId());
+  }
+
+  @Test(expected = UserNotFoundException.class)
+  public void givenNoInfractionCorrespondingToInfractionId_whenFindingByInfractionId_shoulldThrowException() {
+    userRepository.findBy(new InfractionId());
   }
 }

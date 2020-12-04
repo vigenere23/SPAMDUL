@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;

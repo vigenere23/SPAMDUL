@@ -11,6 +11,9 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,10 +48,17 @@ public class User {
   }
 
   public RechargULCard addRechargULCredits(Amount amount) {
-    //TODO a tester
     rechargULCard.addCredits(amount);
 
     return rechargULCard;
+  }
+
+  public void verifyEnoughCreditsForCharging() {
+    rechargULCard.verifyEnoughCreditsForCharging();
+  }
+
+  public void payForCharging(Amount amount) {
+    rechargULCard.debit(amount);
   }
 
   public boolean isAccessGrantedToCampus(LocalDateTime dateTime) {
@@ -64,14 +74,23 @@ public class User {
   }
 
   public void associate(Infraction infraction) {
+    if (infractions.get(infraction.getInfractionId()) != null) {
+      throw new UserAlreadyHasThisInfraction();
+    }
     infractions.put(infraction.getInfractionId(), infraction);
   }
 
   public void associate(RechargULCard rechargULCard) {
+    if (this.rechargULCard != null) {
+      throw new UserAlreadyHasARechargULCard();
+    }
     this.rechargULCard = rechargULCard;
   }
 
   public void associate(CampusAccess campusAccess) {
+    if (this.campusAccess != null) {
+      throw new UserAlreadyHasACampusAccess();
+    }
     this.campusAccess = campusAccess;
   }
 
@@ -142,13 +161,5 @@ public class User {
 
   public RechargULCard getRechargULCard() {
     return rechargULCard;
-  }
-
-  public void verifyEnoughCreditsForCharging() {
-    rechargULCard.verifyEnoughCreditsForCharging();
-  }
-
-  public void payForCharging(Amount amount) {
-    rechargULCard.debit(amount);
   }
 }

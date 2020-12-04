@@ -1,10 +1,9 @@
 package ca.ulaval.glo4003.spamdul.usecases.user;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.usecases.parking.user.UserDto;
 
 public class UserService {
 

@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.dto.UserResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.parking.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -31,7 +31,6 @@ public class UserResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response createNewUser(UserRequest userRequest) {
-    //TODO a tester
     UserDto userDto = userAssembler.fromRequest(userRequest);
     UserId newUserId = userService.createUser(userDto);
 

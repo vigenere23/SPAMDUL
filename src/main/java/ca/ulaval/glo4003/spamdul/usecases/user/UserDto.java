@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.parking.user;
+package ca.ulaval.glo4003.spamdul.usecases.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.usecases.parking.car.CarDto;

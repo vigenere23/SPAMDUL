@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 
