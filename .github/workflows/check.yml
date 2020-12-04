@@ -33,6 +33,9 @@ jobs:
       - name: Test
         run: mvn test
 
+      - name: Test (integration)
+        run: mvn test -P integration-tests
+
       - name: Start app
         run: mvn exec:java &
         env:
