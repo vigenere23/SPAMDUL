@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -29,14 +28,14 @@ public class PassAssemblerTest {
 
   private static final String A_PARKING_ZONE_STRING = "zone_1";
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final UserId A_USER_ID = new UserId();
+  private static final UserId A_USER_ID = UserId.valueOf("9834");
   private static final String A_USER_ID_STRING = A_USER_ID.toString();
   private static final TimePeriodRequest A_TIME_PERIOD_REQUEST = new TimePeriodRequest();
   private static final PassCreationRequest A_PASS_CREATION_REQUEST = new PassCreationRequest();
   private static final DeliveryRequest A_DELIVERY_REQUEST = new DeliveryRequest();
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
 
-  private TimePeriodDto timePeriodDto = new TimePeriodDto();
+  private final TimePeriodDto timePeriodDto = new TimePeriodDto();
   @Mock
   private TimePeriodAssembler timePeriodAssembler;
   private PassAssembler passAssembler;

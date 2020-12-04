@@ -3,7 +3,9 @@ package ca.ulaval.glo4003.spamdul.context.user;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.UserIdFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.car.CarAssembler;
@@ -21,7 +23,8 @@ public class UserContext implements ResourceContext {
     CarAssembler carAssembler = new CarAssembler();
     UserAssembler userAssembler = new UserAssembler(carAssembler);
     CarFactory carFactory = new CarFactory();
-    UserFactory userFactory = new UserFactory(carFactory);
+    UserIdFactory userIdFactory = new UserIdFactory(new IncrementalLongIdGenerator());
+    UserFactory userFactory = new UserFactory(userIdFactory, carFactory);
     userResource = new UserResource(userAssembler, new UserService(userRepository, userFactory));
   }
 
@@ -29,7 +32,7 @@ public class UserContext implements ResourceContext {
     return userRepository;
   }
 
-  public void registerResources(InstanceMap resources) {
-   resources.add(userResource);
+  @Override public void registerResources(InstanceMap resources) {
+    resources.add(userResource);
   }
 }

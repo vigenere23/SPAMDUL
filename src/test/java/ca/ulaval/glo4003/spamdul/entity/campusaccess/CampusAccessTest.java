@@ -1,14 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
@@ -16,10 +9,6 @@ import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotAcceptedByAccessE
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.entity.user.Gender;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,15 +17,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessTest {
-
-  private static final LicensePlate A_LICENSE_PLATE = new LicensePlate("license plate");
-  private static final Car A_CAR = new Car(CarId.valueOf("1"),
-                                           CarType.ECONOMIQUE,
-                                           "brand",
-                                           "model",
-                                           2020,
-                                           A_LICENSE_PLATE);
-  private static final User A_USER = new User(new UserId(), "name", Gender.MALE, LocalDate.of(2010, 1, 1), A_CAR);
 
   private static final PassCode A_PASS_CODE = new PassCode();
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;

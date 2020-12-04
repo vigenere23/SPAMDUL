@@ -7,16 +7,16 @@ import org.junit.Test;
 public class UserIdTest {
 
   @Test
-  public void whenCreatingUserId_shouldGenerateAnId() {
-    UserId userId = new UserId();
-
-    assertThat(userId.toString()).isNotEqualTo("");
+  public void givenValue_whenCreatingUserId_shouldCreateIdWithGivenValue() {
+    String value = "1234";
+    UserId userId = UserId.valueOf(value);
+    assertThat(userId.toString()).isEqualTo(value);
   }
 
   @Test
   public void whenComparingDifferentUserId_shouldNotBeEqual() {
-    UserId userId = new UserId();
-    UserId anotherUserId = new UserId();
+    UserId userId = UserId.valueOf("1234");
+    UserId anotherUserId = UserId.valueOf("5678");
 
     assertThat(userId).isNotEqualTo(anotherUserId);
     assertThat(userId.hashCode()).isNotEqualTo(anotherUserId.hashCode());
@@ -24,7 +24,7 @@ public class UserIdTest {
 
   @Test
   public void whenComparingTheSameUserId_shouldBeEqual() {
-    UserId userId = new UserId();
+    UserId userId = UserId.valueOf("1234");
     UserId sameUserId = UserId.valueOf(userId.toString());
 
     assertThat(userId).isEqualTo(sameUserId);

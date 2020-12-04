@@ -54,13 +54,13 @@ public class UserTest {
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
-  private final UserId A_USER_ID = new UserId();
+  private final UserId A_USER_ID = UserId.valueOf("347");
 
   @Test
   public void whenCreatingNewUser_shouldCreateRandomId() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
 
-    assertThat(user.getUserId()).isNotNull();
+    assertThat(user.getId()).isNotNull();
   }
 
   @Test
@@ -158,7 +158,7 @@ public class UserTest {
   public void whenAddingInfractionToUser_infraction_shouldBeAdded() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
     Infraction infraction = new Infraction(INFRACTION_ID, DESCRITION, CODE, AMOUNT);
-    Infraction anotherInfraction= new Infraction(ANOTHER_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
+    Infraction anotherInfraction = new Infraction(ANOTHER_INFRACTION_ID, DESCRITION, CODE, AMOUNT);
 
     user.associate(infraction);
     user.associate(anotherInfraction);

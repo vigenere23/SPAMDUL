@@ -29,7 +29,7 @@ public class User {
   private Car car;
   private CampusAccess campusAccess;
   private RechargULCard rechargULCard;
-  private Map<InfractionId, Infraction> infractions;
+  private final Map<InfractionId, Infraction> infractions;
 
   public User(UserId userId, String name, Gender gender, LocalDate birthDate, Car car) {
     this.name = name;
@@ -80,7 +80,7 @@ public class User {
     return campusAccess.getAssociatedPass();
   }
 
-  public UserId getUserId() {
+  public UserId getId() {
     return userId;
   }
 
