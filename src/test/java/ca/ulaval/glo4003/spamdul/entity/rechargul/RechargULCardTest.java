@@ -21,7 +21,7 @@ public class RechargULCardTest {
 
   @Before
   public void setUp() {
-    card = new RechargULCard(new RechargULCardId(), new TransactionFactory());
+    card = new RechargULCard(RechargULCardId.valueOf("123"), new TransactionFactory());
   }
 
   @Test(expected = InvalidRechargULCardCreditsException.class)

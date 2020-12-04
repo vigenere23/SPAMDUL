@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVe
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
@@ -35,7 +36,8 @@ public abstract class ChargingContext implements ResourceContext {
     ChargingPointRepository chargingPointRepository = new InMemoryChargingPointRepository();
     ChargingPointIdFactory chargingPointIdFactory = new ChargingPointIdFactory(new IncrementalLongIdGenerator());
     ChargingPointFactory chargingPointFactory = new ChargingPointFactory(chargingPointIdFactory);
-    RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
+    RechargULCardIdFactory rechargULCardIdFactory = new RechargULCardIdFactory(new IncrementalLongIdGenerator());
+    RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(rechargULCardIdFactory, transactionFactory);
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     ChargingPaymentService chargingPaymentService = new ChargingPaymentService(

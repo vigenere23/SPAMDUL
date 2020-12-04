@@ -17,8 +17,7 @@ public class RechargULCard {
 
   private final List<Transaction> transactions = new ArrayList<>();
 
-  public RechargULCard(RechargULCardId id,
-                       TransactionFactory transactionFactory) {
+  public RechargULCard(RechargULCardId id, TransactionFactory transactionFactory) {
     this.id = id;
     this.transactionFactory = transactionFactory;
   }

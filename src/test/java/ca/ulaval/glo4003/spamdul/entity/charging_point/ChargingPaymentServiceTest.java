@@ -1,10 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -17,7 +18,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPaymentServiceTest {
-  private static RechargULCardId A_CARD_ID = new RechargULCardId();
+
+  private static final RechargULCardId A_CARD_ID = RechargULCardId.valueOf("123");
 
   private final Amount hourlyFee = Amount.valueOf(2.44);
   private final long oneHourInMilliseconds = 60 * 60 * 1000;

@@ -42,7 +42,7 @@ public class InMemoryUserRepositoryTest {
   public static final String DESCRIPTION = "description";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   private final String A_CAR_BRAND = "brand";
   private final String A_CAR_MODEL = "model";
   private final String A_LICENSE_PLATE_STRING = "license plate";

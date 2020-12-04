@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPointTest {
 
-  private static final RechargULCardId A_CARD_ID = new RechargULCardId();
+  private static final RechargULCardId A_CARD_ID = RechargULCardId.valueOf("123");
   private static final ChargingPointId A_CHARGING_POINT_ID = ChargingPointId.valueOf("123");
 
   private ChargingPoint chargingPoint;

@@ -42,7 +42,7 @@ public class UserTest {
   private static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
   private static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
   private static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
-  private static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  private static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   private static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
