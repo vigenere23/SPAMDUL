@@ -38,7 +38,7 @@ public class UserTest {
   private static final TimePeriod TIME_PERIOD = new TimePeriod(LocalDateTime.MIN,
                                                                LocalDateTime.MAX,
                                                                TimePeriodDayOfWeek.ALL);
-  private static final PassCode PASS_CODE = new PassCode();
+  private static final PassCode PASS_CODE = PassCode.valueOf("123");
   private static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
   private static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
   private static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();

@@ -7,9 +7,6 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class PassSenderTest {
 
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final DeliveryMode A_DELIVERY_MODE = DeliveryMode.POST;
   private static final String CONTENT = "Your pass code is: %s";
   private static final String SUBJECT = "Your new pass code";

@@ -35,7 +35,7 @@ public class PassServiceTest {
 
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
   private static final UserId USER_ID = UserId.valueOf("1234");
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
   private static final DeliveryDto A_POSTAL_DELIVERY_DTO = new DeliveryDto();
   private static final DeliveryMode A_POSTAL_DELIVERY_MODE = DeliveryMode.POST;

@@ -2,7 +2,9 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.pass.PassCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
@@ -32,7 +34,8 @@ public abstract class PassContext implements ResourceContext {
   protected PassContext() {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
-
+    PassCodeFactory passCodeFactory = new PassCodeFactory(new IncrementalLongIdGenerator());
+    
     CsvReader csvReader = new CsvReader();
 
     EmailAddressAssembler emailAddressAssembler = new EmailAddressAssembler();
@@ -41,7 +44,7 @@ public abstract class PassContext implements ResourceContext {
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
 
     passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
-    passFactory = new PassFactory(timePeriodFactory);
+    passFactory = new PassFactory(passCodeFactory, timePeriodFactory);
     parkingZoneFeeRepository = new ParkingZoneFeeCsvRepository(csvReader,
                                                                "src/main/resources/frais-zone.csv");
     deliveryFeeCalculator = new DeliveryFeeCalculator();

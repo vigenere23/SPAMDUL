@@ -18,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessTest {
 
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);

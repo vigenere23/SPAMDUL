@@ -44,7 +44,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessServiceTest {
 
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final UserId A_USER_ID = UserId.valueOf("23798");
   private static final CarId A_CAR_ID = new CarId();
   private static final CarType A_CAR_TYPE = CarType.GOURMANDE;

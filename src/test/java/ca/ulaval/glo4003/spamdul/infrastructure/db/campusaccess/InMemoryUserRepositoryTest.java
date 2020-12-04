@@ -36,7 +36,7 @@ public class InMemoryUserRepositoryTest {
                                                               LocalDateTime.MAX,
                                                               TimePeriodDayOfWeek.ALL);
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
-  public static final PassCode PASS_CODE = new PassCode();
+  public static final PassCode PASS_CODE = PassCode.valueOf("123");
   public static final Amount AMOUNT = Amount.valueOf(10);
   public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
   public static final String DESCRIPTION = "description";
@@ -155,6 +155,6 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void whenFindingByPassCodeAndNotFound_shouldThrowException() {
-    userRepository.findBy(new PassCode());
+    userRepository.findBy(PassCode.valueOf("92801297849"));
   }
 }
