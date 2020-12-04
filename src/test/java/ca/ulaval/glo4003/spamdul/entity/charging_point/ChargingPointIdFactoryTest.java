@@ -27,7 +27,7 @@ public class ChargingPointIdFactoryTest {
 
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
-    when(idGenerator.getNextId()).thenReturn(A_VALUE);
+    when(idGenerator.generateId()).thenReturn(A_VALUE);
     ChargingPointId chargingPointId = chargingPointIdFactory.create();
     assertThat(chargingPointId.toString()).isEqualTo(A_VALUE.toString());
   }

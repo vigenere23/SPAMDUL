@@ -5,7 +5,7 @@ public class IncrementalLongIdGenerator implements IdGenerator<Long> {
   private Long lastId = 0L;
 
   @Override
-  public synchronized Long getNextId() {
+  public synchronized Long generateId() {
     lastId += 1;
 
     return lastId;

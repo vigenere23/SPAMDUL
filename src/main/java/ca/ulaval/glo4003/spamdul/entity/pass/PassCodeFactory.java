@@ -11,6 +11,6 @@ public class PassCodeFactory {
   }
 
   public PassCode create() {
-    return PassCode.valueOf(String.valueOf(idGenerator.getNextId()));
+    return PassCode.valueOf(String.valueOf(idGenerator.generateId()));
   }
 }

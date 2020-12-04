@@ -27,7 +27,7 @@ public class InfractionIdFactoryTest {
 
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
-    when(idGenerator.getNextId()).thenReturn(A_VALUE);
+    when(idGenerator.generateId()).thenReturn(A_VALUE);
     InfractionId infractionId = infractionIdFactory.create();
     assertThat(infractionId.toString()).isEqualTo(A_VALUE.toString());
   }

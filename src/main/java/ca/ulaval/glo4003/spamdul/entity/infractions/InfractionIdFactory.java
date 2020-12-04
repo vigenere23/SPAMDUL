@@ -11,6 +11,6 @@ public class InfractionIdFactory {
   }
 
   public InfractionId create() {
-    return InfractionId.valueOf(String.valueOf(idGenerator.getNextId()));
+    return InfractionId.valueOf(String.valueOf(idGenerator.generateId()));
   }
 }

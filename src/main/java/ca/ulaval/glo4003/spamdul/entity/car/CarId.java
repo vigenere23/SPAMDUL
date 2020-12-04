@@ -10,7 +10,7 @@ public class CarId {
   private final Long id;
 
   public CarId() {
-    id = idGenerator.getNextId();
+    id = idGenerator.generateId();
   }
 
   private CarId(long id) {

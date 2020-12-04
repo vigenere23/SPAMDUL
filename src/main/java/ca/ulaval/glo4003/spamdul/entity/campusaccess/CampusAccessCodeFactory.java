@@ -11,6 +11,6 @@ public class CampusAccessCodeFactory {
   }
 
   public CampusAccessCode create() {
-    return CampusAccessCode.valueOf(String.valueOf(idGenerator.getNextId()));
+    return CampusAccessCode.valueOf(String.valueOf(idGenerator.generateId()));
   }
 }

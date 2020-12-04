@@ -19,7 +19,7 @@ public class InitiativeCode {
   }
 
   public InitiativeCode() {
-    this.code = idGenerator.getNextId().toString();
+    this.code = idGenerator.generateId().toString();
   }
 
   private InitiativeCode(String code) {

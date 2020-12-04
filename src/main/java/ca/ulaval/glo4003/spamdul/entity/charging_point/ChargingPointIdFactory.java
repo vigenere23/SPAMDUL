@@ -11,6 +11,6 @@ public class ChargingPointIdFactory {
   }
 
   public ChargingPointId create() {
-    return ChargingPointId.valueOf(String.valueOf(idGenerator.getNextId()));
+    return ChargingPointId.valueOf(String.valueOf(idGenerator.generateId()));
   }
 }
