@@ -7,17 +7,24 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiative
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InitiativeFactoryTest {
 
   private final String A_VALID_NAME = "YOLO";
   private final Amount A_VALID_AMOUNT = Amount.valueOf(2233.23);
 
+  @Mock
+  private InitiativeIdFactory initiativeIdFactory;
+
   private InitiativeFactory initiativeFactory;
 
   @Before
   public void setUp() {
-    initiativeFactory = new InitiativeFactory();
+    initiativeFactory = new InitiativeFactory(initiativeIdFactory);
   }
 
   @Test(expected = InvalidInitiativeNameException.class)
