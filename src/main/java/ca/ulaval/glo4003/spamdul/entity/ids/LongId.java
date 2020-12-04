@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.ids;
 
 public abstract class LongId {
 
-  protected final Long value;
+  private final Long value;
 
   protected LongId(Long value) {
     this.value = value;
