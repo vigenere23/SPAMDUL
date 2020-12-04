@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public class UserId {
     }
   }
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -38,11 +38,11 @@ public class UserId {
     return Objects.equals(id, userId.id);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(id);
   }
 
-  public String toString() {
+  @Override public String toString() {
     return this.id.toString();
   }
 }

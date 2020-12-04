@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.InvalidChargingPointIdException;
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import java.util.Objects;
 
 public class ChargingPointId {

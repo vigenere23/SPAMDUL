@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.idgenerator;
+package ca.ulaval.glo4003.spamdul.entity.ids;
 
 import static com.google.common.truth.Truth.assertThat;
 

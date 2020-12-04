@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidInfractionIdException;
 import java.util.Objects;
 
