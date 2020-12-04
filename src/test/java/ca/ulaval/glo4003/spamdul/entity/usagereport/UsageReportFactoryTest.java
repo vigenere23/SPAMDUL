@@ -31,10 +31,10 @@ public class UsageReportFactoryTest {
   private final Integer TOTAL_NUMBER_OF_ACCESS = 3;
   private final ParkingZone PARKING_ZONE_1 = ParkingZone.ZONE_1;
   private final ParkingZone PARKING_ZONE_2 = ParkingZone.ZONE_2;
-  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(new ParkingAccessLogId(),
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(ParkingAccessLogId.valueOf("123"),
                                                                                   PARKING_ZONE_1,
                                                                                   A_DATE);
-  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_2 = new ParkingAccessLog(new ParkingAccessLogId(),
+  private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_2 = new ParkingAccessLog(ParkingAccessLogId.valueOf("456"),
                                                                                   PARKING_ZONE_2,
                                                                                   ANOTHER_DATE);
 

@@ -5,7 +5,13 @@ import java.time.LocalDate;
 
 public class ParkingAccessLogFactory {
 
+  private final ParkingAccessLogIdFactory parkingAccessLogIdFactory;
+
+  public ParkingAccessLogFactory(ParkingAccessLogIdFactory parkingAccessLogIdFactory) {
+    this.parkingAccessLogIdFactory = parkingAccessLogIdFactory;
+  }
+
   public ParkingAccessLog create(ParkingZone zone, LocalDate accessDate) {
-    return new ParkingAccessLog(new ParkingAccessLogId(), zone, accessDate);
+    return new ParkingAccessLog(parkingAccessLogIdFactory.create(), zone, accessDate);
   }
 }

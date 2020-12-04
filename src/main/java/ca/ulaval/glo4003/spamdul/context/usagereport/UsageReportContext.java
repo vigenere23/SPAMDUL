@@ -5,8 +5,10 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
@@ -36,7 +38,8 @@ public abstract class UsageReportContext implements ResourceContext {
 
     UsageReportSummaryFactory usageReportSummaryFactory = new UsageReportSummaryFactory();
     UsageReportFactory usageReportFactory = new UsageReportFactory();
-    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory();
+    ParkingAccessLogIdFactory parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(new IncrementalLongIdGenerator());
+    ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory(parkingAccessLogIdFactory);
 
     UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();

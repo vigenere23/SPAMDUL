@@ -7,7 +7,7 @@ import org.junit.Test;
 public class UserIdTest {
 
   @Test
-  public void givenValue_whenCreatingUserId_shouldCreateIdWithGivenValue() {
+  public void givenValue_whenCreatingUserId_shouldCreateWithValue() {
     String value = "1234";
     UserId userId = UserId.valueOf(value);
     assertThat(userId.toString()).isEqualTo(value);

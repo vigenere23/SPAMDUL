@@ -7,10 +7,10 @@ import org.junit.Test;
 public class InitiativeIdTest {
 
   @Test
-  public void whenCreatingInitiativeId_shouldGenerateNonEmptyId() {
-    InitiativeId initiativeId = InitiativeId.valueOf("123");
-
-    assertThat(initiativeId.toString()).isNotEqualTo("");
+  public void givenValue_whenCreatingInitiativeId_shouldCreateWithValue() {
+    String value = "123";
+    InitiativeId initiativeId = InitiativeId.valueOf(value);
+    assertThat(initiativeId.toString()).isEqualTo(value);
   }
 
   @Test
