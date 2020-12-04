@@ -8,7 +8,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidDayOfWeekArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidNumberOfHoursArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidSemesterArgumentException;
 import java.math.BigDecimal;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class TimePeriodAssemblerTest {
     assertThat(timePeriodDto.semester).isEqualTo(new Semester(Session.AUTUMN, 2020));
   }
 
-  @Test(expected = InvalidTimePeriodArgumentException.class)
+  @Test(expected = InvalidDayOfWeekArgumentException.class)
   public void givenSingleDayPerWeekPeriod_whenAssemblingTimePeriodDtoWithInvalidDay_shouldThrow() {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "single_day_per_week_per_semester";
@@ -111,7 +112,7 @@ public class TimePeriodAssemblerTest {
     assertThat(timePeriodDto.timePeriodDayOfWeek).isEqualTo(TimePeriodDayOfWeek.ALL);
   }
 
-  @Test(expected = InvalidTimePeriodArgumentException.class)
+  @Test(expected = InvalidNumberOfHoursArgumentException.class)
   public void givenHourlyPeriod_whenAssemblingTimePeriodDtoWithInvalidNumberOfHours_shouldThrow() {
     TimePeriodRequest timePeriodRequest = new TimePeriodRequest();
     timePeriodRequest.type = "hourly";
