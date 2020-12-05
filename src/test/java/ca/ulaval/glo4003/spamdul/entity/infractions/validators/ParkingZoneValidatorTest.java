@@ -26,7 +26,7 @@ public class ParkingZoneValidatorTest {
   public static final String A_VALID_PASS_CODE_STRING = "9";
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
-  private ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+  private ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator(userReader);
   @Mock
   private UserRepository userRepository;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
@@ -48,7 +48,7 @@ public class ParkingZoneValidatorTest {
   @After
   public void clearStatic() {
     PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
+    PassValidator.userCache.clear();
   }
 
   @Test

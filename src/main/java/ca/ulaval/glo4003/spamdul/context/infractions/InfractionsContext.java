@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserReaderService;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -58,14 +59,16 @@ public class InfractionsContext implements ResourceContext {
 
   private PassValidator initializeValidationChainAndReturnFirstNode(UserRepository userRepository) {
     Calendar calendar = new HardCodedCalendar();
-    PassValidator.setPassRepository(userRepository);
+    UserReaderService userReaderService = new UserReaderService(userRepository);
 
     EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
     PassCodeFormatValidator passCodeFormatValidator = new PassCodeFormatValidator();
-    PassExistsValidator passExistsValidator = new PassExistsValidator();
-    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
-    TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
-    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
+    PassExistsValidator passExistsValidator = new PassExistsValidator(userReaderService);
+    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator(userReaderService);
+    TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(
+            calendar,
+            userReaderService);
+    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar, userReaderService);
 
     emptyPassCodeValidator.setNextValidator(passCodeFormatValidator);
     passCodeFormatValidator.setNextValidator(passExistsValidator);

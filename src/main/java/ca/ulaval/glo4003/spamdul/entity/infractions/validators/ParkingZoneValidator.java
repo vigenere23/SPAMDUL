@@ -1,18 +1,25 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserReaderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.WrongZoneInfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 
 public class ParkingZoneValidator extends PassValidator {
+  private final UserReaderService userReader;
+
+  public ParkingZoneValidator(UserReaderService userReaderService) {
+    this.userReader = userReaderService;
+  }
 
   @Override
   public void validate(PassToValidateDto passToValidateDto) {
-    Pass pass = getCorrespondingPass(PassCode.valueOf(passToValidateDto.passCode));
+    PassCode passCode = PassCode.valueOf(passToValidateDto.passCode);
+    User user = userReader.readUserBy(passCode);
 
-    if (!pass.isAValidParkingZone(passToValidateDto.parkingZone)) {
-      throw new InfractionException("ZONE_01");
+    if (!user.canParkInZone(passToValidateDto.parkingZone)) {
+      throw new WrongZoneInfractionException();
     }
 
     nextValidation(passToValidateDto);

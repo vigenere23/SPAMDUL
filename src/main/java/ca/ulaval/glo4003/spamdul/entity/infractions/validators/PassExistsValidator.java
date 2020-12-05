@@ -1,18 +1,25 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserReaderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidPassInfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 
 public class PassExistsValidator extends PassValidator {
+  private final UserReaderService userReader;
+
+  public PassExistsValidator(UserReaderService userReaderService) {
+    this.userReader = userReaderService;
+  }
 
   @Override
   public void validate(PassToValidateDto passToValidateDto) {
     try {
-      getCorrespondingPass(PassCode.valueOf(passToValidateDto.passCode));
+      PassCode passCode = PassCode.valueOf(passToValidateDto.passCode);
+      userReader.readUserBy(passCode);
     } catch (UserNotFoundException e) {
-      throw new InfractionException("VIG_02");
+      throw new InvalidPassInfractionException();
     }
 
     nextValidation(passToValidateDto);

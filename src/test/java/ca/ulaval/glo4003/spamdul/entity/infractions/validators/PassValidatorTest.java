@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.UserRepositoryNotSetException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
@@ -53,7 +53,7 @@ public class PassValidatorTest extends PassValidator {
   @After
   public void clearStatic() {
     PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
+    PassValidator.userCache.clear();
   }
 
   @Test
@@ -69,18 +69,18 @@ public class PassValidatorTest extends PassValidator {
   @Test
   public void givenNoNextValidator_whenNextValidation_shouldRemoveFromCacheCorrespondingPass() {
     passToValidateDto.passCode = A_PASS_CODE.toString();
-    passCache.put(A_PASS_CODE, pass);
+    userCache.put(A_PASS_CODE, pass);
 
     nextValidation(passToValidateDto);
 
-    assertThat(passCache).doesNotContainKey(A_PASS_CODE);
+    assertThat(userCache).doesNotContainKey(A_PASS_CODE);
   }
 
   @Test
   public void givenCacheHit_whenGetCorrespondingPass_shouldReturnRightPass() {
-    passCache.put(A_PASS_CODE, pass);
+    userCache.put(A_PASS_CODE, pass);
 
-    Pass actual = getCorrespondingPass(A_PASS_CODE);
+    Pass actual = getCorrespondingUser(A_PASS_CODE);
 
     assertThat(actual).isEqualTo(pass);
   }
@@ -90,7 +90,7 @@ public class PassValidatorTest extends PassValidator {
     when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
     PassValidator.setPassRepository(userRepository);
 
-    getCorrespondingPass(A_PASS_CODE);
+    getCorrespondingUser(A_PASS_CODE);
 
     verify(userRepository).findBy(A_PASS_CODE);
   }
@@ -100,9 +100,9 @@ public class PassValidatorTest extends PassValidator {
     when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
     PassValidator.setPassRepository(userRepository);
 
-    getCorrespondingPass(A_PASS_CODE);
+    getCorrespondingUser(A_PASS_CODE);
 
-    assertThat(passCache).containsEntry(A_PASS_CODE, pass);
+    assertThat(userCache).containsEntry(A_PASS_CODE, pass);
   }
 
   @Test
@@ -110,13 +110,13 @@ public class PassValidatorTest extends PassValidator {
     when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
     PassValidator.setPassRepository(userRepository);
 
-    Pass actual = getCorrespondingPass(A_PASS_CODE);
+    Pass actual = getCorrespondingUser(A_PASS_CODE);
 
     assertThat(actual).isEqualTo(pass);
   }
 
-  @Test(expected = PassRepositoryNotSetException.class)
+  @Test(expected = UserRepositoryNotSetException.class)
   public void givenRepoNotSetAndCacheMiss_whenGetCorrespondingPass_shouldThrowRepoNotSetException() {
-    getCorrespondingPass(A_PASS_CODE);
+    getCorrespondingUser(A_PASS_CODE);
   }
 }

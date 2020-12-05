@@ -53,7 +53,7 @@ public class TimePeriodBoundaryValidatorTest {
   @After
   public void clearStatic() {
     PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
+    PassValidator.userCache.clear();
   }
 
   @Test
