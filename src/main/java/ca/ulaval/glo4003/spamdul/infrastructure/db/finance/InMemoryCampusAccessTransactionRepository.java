@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.finance;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.CampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;

@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointIdFactory;
@@ -12,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;

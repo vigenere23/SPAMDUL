@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 
 public class UserFactory {
 

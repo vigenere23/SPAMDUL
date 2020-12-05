@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.transaction_services;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.CampusAccessTransactionRepository;

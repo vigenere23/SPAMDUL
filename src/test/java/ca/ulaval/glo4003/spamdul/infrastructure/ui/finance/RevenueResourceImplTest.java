@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.finance;
 import static org.mockito.Matchers.any;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.dto.CarTypeTotalRevenueResponse;

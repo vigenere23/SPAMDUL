@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -18,6 +17,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassExistsValidat
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidator;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;

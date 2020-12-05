@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.car.CarDto;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.user.UserDto;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;

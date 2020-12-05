@@ -5,12 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -24,10 +24,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class PassExistsValidatorTest {
 
   public static final String A_VALID_PASS_CODE_STRING = "9";
-  private PassExistsValidator passExistsValidator = new PassExistsValidator();
+  private final PassExistsValidator passExistsValidator = new PassExistsValidator();
   @Mock
   private UserRepository userRepository;
-  private PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
   private User user;
 

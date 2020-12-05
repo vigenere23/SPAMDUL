@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.finance;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TestTransactionsCreator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;

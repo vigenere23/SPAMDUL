@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
