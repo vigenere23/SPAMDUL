@@ -61,13 +61,13 @@ public class CampusAccessResourceImplTest {
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessService, times(1)).createNewCampusAccess(campusAccessDto);
+    verify(campusAccessService, times(1)).createCampusAccess(campusAccessDto);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallAssemblerToCreateCampusAccessResponse() {
     when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(campusAccessDto);
-    when(campusAccessService.createNewCampusAccess(campusAccessDto)).thenReturn(campusAccess);
+    when(campusAccessService.createCampusAccess(campusAccessDto)).thenReturn(campusAccess);
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 

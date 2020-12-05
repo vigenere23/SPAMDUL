@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogReposit
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingaccesslog.InMemoryParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResourceImpl;

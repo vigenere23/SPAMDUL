@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
@@ -13,14 +15,12 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionExcepti
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InfractionService {
 
   private final InfractionInfoRepository infractionInfoRepository;
-  private final UserRepository userRepository;
+  private UserRepository userRepository;
   private final InfractionFactory infractionFactory;
   private final PassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;
@@ -52,7 +52,6 @@ public class InfractionService {
     }
 
     if (infraction != null) {
-      //TODO a tester
       User user = userRepository.findBy(passToValidateDto.licensePlate);
       user.associate(infraction);
       userRepository.save(user);

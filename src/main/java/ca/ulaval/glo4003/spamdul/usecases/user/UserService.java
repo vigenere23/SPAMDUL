@@ -15,11 +15,10 @@ public class UserService {
     this.userFactory = userFactory;
   }
 
-  public UserId createNewUser(UserDto userDto) {
-    User user = userFactory.create(userDto);
+  public UserId createUser(UserDto userDto) {
+    User user = userFactory.create(userDto.name, userDto.gender, userDto.birthDate, userDto.carDto);
     userRepository.save(user);
 
     return user.getId();
   }
-
 }

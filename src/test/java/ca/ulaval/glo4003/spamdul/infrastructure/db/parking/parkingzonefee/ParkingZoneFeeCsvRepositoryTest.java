@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee;
+package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;

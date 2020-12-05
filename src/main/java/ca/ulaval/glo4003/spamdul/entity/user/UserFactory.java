@@ -2,7 +2,8 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
+import java.time.LocalDate;
 
 public class UserFactory {
 
@@ -14,9 +15,9 @@ public class UserFactory {
     this.carFactory = carFactory;
   }
 
-  public User create(UserDto userDto) {
-    Car car = carFactory.create(userDto.carDto);
+  public User create(String name, Gender gender, LocalDate birthDate, CarDto carDto) {
+    Car car = carFactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
 
-    return new User(userIdFactory.create(), userDto.name, userDto.gender, userDto.birthDate, car);
+    return new User(userIdFactory.create(), name, gender, birthDate, car);
   }
 }

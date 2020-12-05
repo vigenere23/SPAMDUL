@@ -20,11 +20,8 @@ public class UserAssembler {
   }
 
   public UserDto fromRequest(UserRequest userRequest) {
-    //TODO a tester
     CarDto carDto = carAssembler.fromRequest(userRequest.car);
-
     Gender gender = getGender(userRequest);
-
     LocalDate birthDate = getBirthDate(userRequest);
 
     UserDto userDto = new UserDto();
@@ -41,7 +38,7 @@ public class UserAssembler {
       return Gender.valueOf(userRequest.gender.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidGenderException("The gender provided must be of type male, female or other");
+      throw new InvalidGenderException();
     }
   }
 
@@ -50,7 +47,7 @@ public class UserAssembler {
       return LocalDate.parse(userRequest.birthDate, Formatters.DATE_FORMATTER);
 
     } catch (DateTimeParseException e) {
-      throw new InvalidBirthDateException("The birthday date provided must be yyyy-MM-dd");
+      throw new InvalidBirthDateException();
     }
   }
 }

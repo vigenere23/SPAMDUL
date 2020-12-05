@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;

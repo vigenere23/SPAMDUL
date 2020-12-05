@@ -42,6 +42,7 @@ public class InfractionsContext implements ResourceContext {
         "src/main/resources/infraction.json",
         new JsonReader());
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(userRepository);
+
     InfractionIdFactory infractionIdFactory = new InfractionIdFactory(new IncrementalLongIdGenerator());
     InfractionFactory infractionFactory = new InfractionFactory(infractionIdFactory);
 

@@ -31,9 +31,8 @@ public class UserResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public Response createNewUser(UserRequest userRequest) {
-    //TODO a tester
     UserDto userDto = userAssembler.fromRequest(userRequest);
-    UserId newUserId = userService.createNewUser(userDto);
+    UserId newUserId = userService.createUser(userDto);
 
     UserResponse userResponse = new UserResponse();
     userResponse.userId = newUserId.toString();

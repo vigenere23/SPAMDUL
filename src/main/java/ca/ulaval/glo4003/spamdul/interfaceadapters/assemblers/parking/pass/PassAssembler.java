@@ -11,12 +11,10 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidUserIdException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
@@ -77,11 +75,6 @@ public class PassAssembler {
   }
 
   private UserId getUserId(String userId) {
-    try {
-      return UserId.valueOf(userId.toUpperCase());
-
-    } catch (InvalidUserIdFormatException e) {
-      throw new InvalidUserIdException();
-    }
+    return UserId.valueOf(userId.toUpperCase());
   }
 }

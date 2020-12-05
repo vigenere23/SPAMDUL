@@ -30,14 +30,13 @@ public class CampusAccessTest {
                                                                  TimePeriodDayOfWeek.ALL);
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
 
-
   private TimePeriod timePeriod;
   private CampusAccess campusAccess;
 
   @Before
   public void setUp() throws Exception {
     timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE,
+    campusAccess = new CampusAccess(CampusAccessCode.valueOf("123"),
                                     A_PERIOD_TYPE,
                                     timePeriod);
   }

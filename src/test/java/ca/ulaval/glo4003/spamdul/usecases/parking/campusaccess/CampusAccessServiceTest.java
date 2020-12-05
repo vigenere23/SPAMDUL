@@ -23,7 +23,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
@@ -31,7 +30,6 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,7 +43,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CampusAccessServiceTest {
 
   private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
-  private static final UserId A_USER_ID = UserId.valueOf("23798");
+  private static final UserId A_USER_ID = UserId.valueOf("123");
   private static final CarId A_CAR_ID = new CarId();
   private static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   private static final String A_LICENSE_PLATE_STRING = "xxx xxx";
@@ -55,7 +53,6 @@ public class CampusAccessServiceTest {
                                            "model",
                                            2020,
                                            new LicensePlate(A_LICENSE_PLATE_STRING));
-  private static final User A_USER = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1), A_CAR);
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
@@ -73,16 +70,15 @@ public class CampusAccessServiceTest {
                                                                    LocalDateTime.now(),
                                                                    TransactionType.CAMPUS_ACCESS);
 
+  private CampusAccessService campusAccessService;
+  private AccessingCampusDto accessingCampusDto;
+  private CampusAccessDto campusAccessDto;
   private CampusAccess campusAccess;
+  private User user;
   @Mock
   private UserRepository userRepository;
   @Mock
   private CampusAccessFactory campusAccessFactory;
-  @Mock
-  private UserFactory userFactory;
-  private CampusAccessDto campusAccessDto;
-  private UserDto userDto;
-  private AccessingCampusDto accessingCampusDto;
   @Mock
   private Calendar calendar;
   @Mock
@@ -90,11 +86,9 @@ public class CampusAccessServiceTest {
   @Mock
   private CampusAccessTransactionService campusAccessTransactionService;
 
-  private CampusAccessService campusAccessService;
 
   @Before
   public void setUp() throws Exception {
-    userDto = new UserDto();
     campusAccessDto = new CampusAccessDto();
     campusAccessDto.timePeriodDto = A_TIME_PERIOD_DTO;
     campusAccessDto.userId = A_USER_ID;
@@ -108,22 +102,17 @@ public class CampusAccessServiceTest {
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
 
+    user = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1), A_CAR);
+
     when(campusAccessFeeRepository.findBy(any(CarType.class), any(PeriodType.class))).thenReturn(A_CAMPUS_ACCESS_FEE);
-    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
   }
 
   @Test
-  public void whenCreatingNewUser_shouldCallUserFactory() {
-    userFactory.create(userDto);
-
-    verify(userFactory, times(1)).create(userDto);
-  }
-
-  @Test
   public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
-    campusAccessService.createNewCampusAccess(campusAccessDto);
-    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
+    campusAccessService.createCampusAccess(campusAccessDto);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
 
     verify(campusAccessFactory, times(1)).create(A_TIME_PERIOD_DTO);
   }
@@ -131,27 +120,27 @@ public class CampusAccessServiceTest {
   @Test
   public void whenCreatingNewCampusAccess_associateCampusAccessToUser() {
     when(campusAccessFactory.create(A_TIME_PERIOD_DTO)).thenReturn(campusAccess);
-    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
 
-    campusAccessService.createNewCampusAccess(campusAccessDto);
+    campusAccessService.createCampusAccess(campusAccessDto);
 
-    assertThat(A_USER.doesOwn(A_CAMPUS_ACCESS_CODE)).isTrue();
+    assertThat(user.doesOwn(A_CAMPUS_ACCESS_CODE)).isTrue();
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldAddRevenueToCampusAccessBankAccount() {
     when(campusAccessFeeRepository.findBy(A_CAR_TYPE, campusAccessDto.timePeriodDto.periodType)).thenReturn(
         A_CAMPUS_ACCESS_FEE);
-    when(userRepository.findBy(A_USER_ID)).thenReturn(A_USER);
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
 
-    campusAccessService.createNewCampusAccess(campusAccessDto);
+    campusAccessService.createCampusAccess(campusAccessDto);
 
     verify(campusAccessTransactionService, times(1)).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
   }
 
   @Test
   public void givenACampusAccessCode_whenVerifyingIfCanAccessCampus_shouldFindTheRightUserFromCode() {
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -163,7 +152,7 @@ public class CampusAccessServiceTest {
     LicensePlate licensePlate = new LicensePlate(A_LICENSE_PLATE_STRING);
     accessingCampusDto.campusAccessCode = null;
     accessingCampusDto.licensePlate = licensePlate;
-    when(userRepository.findBy(licensePlate)).thenReturn(A_USER);
+    when(userRepository.findBy(licensePlate)).thenReturn(user);
 
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -172,7 +161,7 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
@@ -181,9 +170,9 @@ public class CampusAccessServiceTest {
 
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
-    A_USER.associate(campusAccess);
-    A_USER.associate(A_PASS);
-    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(A_USER);
+    user.associate(campusAccess);
+    user.associate(A_PASS);
+    when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
     boolean result = campusAccessService.grantAccessToCampus(accessingCampusDto);

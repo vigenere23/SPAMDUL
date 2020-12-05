@@ -1,16 +1,19 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,10 +29,10 @@ public class User {
   private final Gender gender;
   private final LocalDate birthDate;
   private final UserId userId;
+  private final Map<InfractionId, Infraction> infractions;
   private Car car;
   private CampusAccess campusAccess;
   private RechargULCard rechargULCard;
-  private final Map<InfractionId, Infraction> infractions;
 
   public User(UserId userId, String name, Gender gender, LocalDate birthDate, Car car) {
     this.name = name;
@@ -40,19 +43,54 @@ public class User {
     this.infractions = new HashMap<>();
   }
 
+  public Amount pay(InfractionId infractionId) {
+    return infractions.get(infractionId).pay();
+  }
+
+  public RechargULCard addRechargULCredits(Amount amount) {
+    rechargULCard.addCredits(amount);
+
+    return rechargULCard;
+  }
+
+  public void verifyEnoughCreditsForCharging() {
+    rechargULCard.verifyEnoughCreditsForCharging();
+  }
+
+  public void payForCharging(Amount amount) {
+    rechargULCard.debit(amount);
+  }
+
+  public boolean isAccessGrantedToCampus(LocalDateTime dateTime) {
+    if (campusAccess == null) {
+      return false;
+    } else {
+      return campusAccess.grantAccess(dateTime);
+    }
+  }
+
   public void associate(Pass pass) {
     this.campusAccess.associatePass(pass);
   }
 
   public void associate(Infraction infraction) {
+    if (infractions.get(infraction.getInfractionId()) != null) {
+      throw new UserAlreadyHasThisInfraction();
+    }
     infractions.put(infraction.getInfractionId(), infraction);
   }
 
   public void associate(RechargULCard rechargULCard) {
+    if (this.rechargULCard != null) {
+      throw new UserAlreadyHasARechargULCard();
+    }
     this.rechargULCard = rechargULCard;
   }
 
   public void associate(CampusAccess campusAccess) {
+    if (this.campusAccess != null) {
+      throw new UserAlreadyHasACampusAccess();
+    }
     this.campusAccess = campusAccess;
   }
 
@@ -60,29 +98,6 @@ public class User {
     this.car = car;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public LocalDate getBirthDate() {
-    return birthDate;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public int getAge(LocalDate todaysDate) {
-    return Period.between(birthDate, todaysDate).getYears();
-  }
-
-  public Pass getPass() {
-    return campusAccess.getAssociatedPass();
-  }
-
-  public UserId getId() {
-    return userId;
-  }
 
   public boolean doesOwn(LicensePlate licensePlate) {
     return car.getLicensePlate().equals(licensePlate);
@@ -102,16 +117,34 @@ public class User {
     return campusAccess != null && campusAccess.getCampusAccessCode().equals(campusAccessCode);
   }
 
-  public Car getCar() {
-    return car;
+  public boolean hasInfractionWith(InfractionId infractionId) {
+    Infraction infraction = infractions.get(infractionId);
+
+    return infraction != null;
   }
 
-  public boolean isAccessGrantedToCampus(LocalDateTime dateTime) {
-    if (campusAccess == null) {
-      return false;
-    } else {
-      return campusAccess.grantAccess(dateTime);
-    }
+  public String getName() {
+    return name;
+  }
+
+  public LocalDate getBirthDate() {
+    return birthDate;
+  }
+
+  public Gender getGender() {
+    return gender;
+  }
+
+  public int getAge(LocalDate todayDate) {
+    return Period.between(birthDate, todayDate).getYears();
+  }
+
+  public Pass getPass() {
+    return campusAccess.getAssociatedPass();
+  }
+
+  public UserId getId() {
+    return userId;
   }
 
   public ParkingZone getParkingZone() {
@@ -122,32 +155,11 @@ public class User {
     return new ArrayList<>(infractions.values());
   }
 
-  public Amount pay(InfractionId infractionId) {
-    return infractions.get(infractionId).pay();
+  public Car getCar() {
+    return car;
   }
 
-  public RechargULCard addRechargUlCredits(Amount amount) {
-    //TODO a tester
-    rechargULCard.addCredits(amount);
-
+  public RechargULCard getRechargULCard() {
     return rechargULCard;
-  }
-
-  public RechargULCard getRechargUlCard() {
-    return rechargULCard;
-  }
-
-  public boolean hasInfractionWith(InfractionId infractionId) {
-    Infraction infraction = infractions.get(infractionId);
-
-    return infraction != null;
-  }
-
-  public void verifyEnoughCreditsForCharging() {
-    rechargULCard.verifyEnoughCreditsForCharging();
-  }
-
-  public void payForCharging(Amount amount) {
-    rechargULCard.debit(amount);
   }
 }

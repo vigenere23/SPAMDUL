@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.ids.LongId;
 
 public class CampusAccessCode extends LongId {
 
-  public CampusAccessCode(long value) {
+  private CampusAccessCode(long value) {
     super(value);
   }
 

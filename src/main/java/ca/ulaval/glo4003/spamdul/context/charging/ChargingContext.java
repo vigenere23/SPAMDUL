@@ -44,9 +44,7 @@ public abstract class ChargingContext implements ResourceContext {
         Amount.valueOf(1),
         TimeUnit.HOURS,
         userRepository);
-    EnoughCreditForChargingVerifier enoughCreditForChargingVerifier = new EnoughCreditForChargingVerifier(
-        userRepository
-    );
+    EnoughCreditForChargingVerifier enoughCreditForChargingVerifier = new EnoughCreditForChargingVerifier(userRepository);
     ChargingPointService chargingPointService = new ChargingPointService(chargingPointRepository,
                                                                          enoughCreditForChargingVerifier,
                                                                          chargingPaymentService);

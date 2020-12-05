@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.AccessGrantedObservable;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
@@ -22,7 +22,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final CampusAccessFeeRepository campusAccessFeeRepository;
   private final CampusAccessTransactionService campusAccessTransactionService;
 
-  //TODO trouver un nouveau nom qui exprime que ca permet de gerer les user les campus access et les passe
   public CampusAccessService(CampusAccessFactory campusAccessFactory,
                              UserRepository userRepository,
                              Calendar calendar,
@@ -35,14 +34,13 @@ public class CampusAccessService extends AccessGrantedObservable {
     this.campusAccessTransactionService = campusAccessTransactionService;
   }
 
-  public CampusAccess createNewCampusAccess(CampusAccessDto campusAccessDto) {
+  public CampusAccess createCampusAccess(CampusAccessDto campusAccessDto) {
     CampusAccess campusAccess = campusAccessFactory.create(campusAccessDto.timePeriodDto);
 
     User user = userRepository.findBy(campusAccessDto.userId);
     user.associate(campusAccess);
     userRepository.save(user);
 
-    //TODO revoir pour ne plus violer le TDA
     addRevenue(user.getCar().getCarType(), campusAccessDto.timePeriodDto.periodType);
 
     return campusAccess;
@@ -53,12 +51,6 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     campusAccessTransactionService.addRevenue(amount, carType);
   }
-
-  //  public void associatePassToUser(UserId userId, Pass pass) {
-  //    User user = userRepository.findBy(userId);
-  //    user.associate(pass);
-  //    userRepository.save(user);
-  //  }
 
   public boolean grantAccessToCampus(AccessingCampusDto accessingCampusDto) {
     LocalDateTime now = calendar.now();

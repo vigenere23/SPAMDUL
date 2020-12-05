@@ -4,13 +4,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,10 +26,10 @@ public class ParkingZoneValidatorTest {
   public static final String A_VALID_PASS_CODE_STRING = "9";
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
-  private final ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+  private ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
   @Mock
   private UserRepository userRepository;
-  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
   private User user;
   @Mock

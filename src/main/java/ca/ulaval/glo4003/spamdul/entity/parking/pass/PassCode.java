@@ -12,6 +12,7 @@ public class PassCode extends LongId {
   public static PassCode valueOf(String passCode) {
     try {
       return new PassCode(Long.parseLong(passCode));
+
     } catch (NumberFormatException e) {
       throw new InvalidPassCodeFormat("Invalid pass code format");
     }

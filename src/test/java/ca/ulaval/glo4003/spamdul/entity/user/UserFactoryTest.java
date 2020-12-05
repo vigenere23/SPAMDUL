@@ -58,10 +58,10 @@ public class UserFactoryTest {
 
   @Test
   public void whenCreatingUser_shouldCreateUserWithTheRightInfos() {
+    when(carFactory.create(CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE)).thenReturn(A_CAR);
     when(userIdFactory.create()).thenReturn(A_USER_ID);
-    when(carFactory.create(carDto)).thenReturn(A_CAR);
 
-    User user = userFactory.create(userDto);
+    User user = userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, carDto);
 
     assertThat(user.getName()).isEqualTo(A_NAME);
     assertThat(user.getGender()).isEqualTo(A_GENDER);

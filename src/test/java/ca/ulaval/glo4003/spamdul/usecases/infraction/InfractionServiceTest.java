@@ -32,19 +32,20 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class InfractionServiceTest {
 
-  private static final String ANY_MESSAGE = "test";
-  private static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
-  private static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
-  private static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
-  private static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
-  private static final String AN_INFRACTION_CODE_VALUE = "00";
-  private static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
+  public static final String ANY_MESSAGE = "test";
+  public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
+  public static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
+  public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
+  public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
 
-  private InfractionService infractionService;
-  private PassToValidateDto passToValidateDto;
+  public final String AN_INFRACTION_CODE_VALUE = "00";
+  public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
+
   private InfractionInfos infractionInfos;
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
+  private PassToValidateDto passToValidateDto;
+  private InfractionService infractionService;
 
   @Mock
   private InfractionInfoRepository infractionInfoRepository;
@@ -126,7 +127,9 @@ public class InfractionServiceTest {
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(user, Mockito.times(1)).associate(infraction);
+    verify(user, times(1)).associate(infraction);
+    verify(userRepository, times(1)).findBy(LICENSE_PLATE);
+    verify(userRepository, times(1)).save(user);
   }
 
   @Test

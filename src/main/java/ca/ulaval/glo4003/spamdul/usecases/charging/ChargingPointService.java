@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.charging_point.*;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-
 import java.util.List;
 
 public class ChargingPointService {
@@ -59,7 +62,7 @@ public class ChargingPointService {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
 
     chargingPoint.deactivateAndPay(chargingPaymentService);
-    
+
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }

@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
@@ -11,7 +12,6 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import java.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -28,14 +28,14 @@ public class TimePeriodBoundaryValidatorTest {
   public static final String A_VALID_PASS_CODE_STRING = "9";
   public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(1000, 1, 1, 0, 0);
 
-  private final Calendar calendar = mock(Calendar.class);
+  private Calendar calendar = mock(Calendar.class);
 
-  private final TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
+  private TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
   @Mock
   private TimePeriod timePeriod;
   @Mock
   private UserRepository userRepository;
-  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
   private Pass pass;
   @Mock

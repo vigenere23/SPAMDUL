@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCreditsRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargUlRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,7 +15,7 @@ public interface RechargULResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  Response createCard(RechargUlRequest rechargUlRequest);
+  Response createCard(RechargULRequest rechargUlRequest);
 
   @Path("/{id}")
   @GET

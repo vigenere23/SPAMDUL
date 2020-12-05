@@ -27,12 +27,10 @@ public class ParkingAccessLogFilterTest {
                                                                            ParkingZone.ZONE_1,
                                                                            LocalDate.now());
   private final ParkingAccessLogIdFactory parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(new IncrementalLongIdGenerator());
-  private ParkingAccessLogFactory parkingAccessLogFactory;
 
   @Before
   public void setUp() {
     parkingAccessLogFilter = new ParkingAccessLogFilter();
-    parkingAccessLogFactory = new ParkingAccessLogFactory(parkingAccessLogIdFactory);
   }
 
   @Test
@@ -81,6 +79,6 @@ public class ParkingAccessLogFilterTest {
   }
 
   private ParkingAccessLog createLogAtDate(LocalDate date) {
-    return parkingAccessLogFactory.create(ParkingZone.ZONE_1, date);
+    return new ParkingAccessLog(parkingAccessLogIdFactory.create(), ParkingZone.ZONE_1, date);
   }
 }
