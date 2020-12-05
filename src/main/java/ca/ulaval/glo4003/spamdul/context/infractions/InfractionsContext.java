@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.UserReaderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserFinderService;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
@@ -59,16 +59,16 @@ public class InfractionsContext implements ResourceContext {
 
   private PassValidator initializeValidationChainAndReturnFirstNode(UserRepository userRepository) {
     Calendar calendar = new HardCodedCalendar();
-    UserReaderService userReaderService = new UserReaderService(userRepository);
+    UserFinderService userFinderService = new UserFinderService(userRepository);
 
     EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
     PassCodeFormatValidator passCodeFormatValidator = new PassCodeFormatValidator();
-    PassExistsValidator passExistsValidator = new PassExistsValidator(userReaderService);
-    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator(userReaderService);
+    PassExistsValidator passExistsValidator = new PassExistsValidator(userFinderService);
+    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator(userFinderService);
     TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(
             calendar,
-            userReaderService);
-    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar, userReaderService);
+            userFinderService);
+    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar, userFinderService);
 
     emptyPassCodeValidator.setNextValidator(passCodeFormatValidator);
     passCodeFormatValidator.setNextValidator(passExistsValidator);

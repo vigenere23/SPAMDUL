@@ -1,11 +1,5 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
@@ -28,10 +22,15 @@ import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAcc
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import org.junit.Test;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.junit.Test;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.*;
 
 public class UserTest {
 
@@ -60,6 +59,9 @@ public class UserTest {
   public static final Amount AMOUNT = Amount.valueOf(10);
   public static final LocalDateTime A_TIME_OF_ACCESS = LocalDateTime.now();
   public static final CampusAccessCode ANOTHER_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
+  public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2020, 1, 1, 1, 1);
+  public static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.FRIDAY;
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
@@ -248,5 +250,38 @@ public class UserTest {
     user.addRechargULCredits(AMOUNT);
 
     verify(rechargULCard, times(1)).addCredits(AMOUNT);
+  }
+
+  @Test
+  public void whenCheckingIfCanParkInZone_shouldDelegateToCampusAccess() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = mock(CampusAccess.class);
+    user.associate(campusAccess);
+
+    user.canParkInZone(A_PARKING_ZONE);
+
+    verify(campusAccess).canParkInZone(A_PARKING_ZONE);
+  }
+
+  @Test
+  public void whenCheckingIfHasParkingPassBoundingInstant_shouldDelegateCampusAccess() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = mock(CampusAccess.class);
+    user.associate(campusAccess);
+
+    user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME);
+
+    verify(campusAccess).hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME);
+  }
+
+  @Test
+  public void whenCheckingIfCanParkOnDayOfWeek_shouldDelegateToCampusAccess() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = mock(CampusAccess.class);
+    user.associate(campusAccess);
+
+    user.canParkOnThisDayOfWeek(A_DAY_OF_WEEK);
+
+    verify(campusAccess).hasParkingRightOnThisDayOfWeek(A_DAY_OF_WEEK);
   }
 }

@@ -1,8 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 
 public abstract class PassValidator {
 
@@ -18,10 +16,6 @@ public abstract class PassValidator {
     if (nextPassValidator != null) {
       nextPassValidator.validate(passToValidateDto);
     }
-  }
-
-  protected void giveInfraction(InfractionException infractionException) {
-    throw infractionException;
   }
 
 }

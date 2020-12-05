@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import org.junit.After;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidPassInfractionException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class PassCodeFormatValidatorTest {
 
@@ -17,21 +17,10 @@ public class PassCodeFormatValidatorTest {
 
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
 
-  @Rule
-  public ExpectedException exceptionRule = ExpectedException.none();
 
-  @After
-  public void clearStatic() {
-    PassValidator.setPassRepository(null);
-    PassValidator.userCache.clear();
-  }
-
-  @Test
+  @Test(expected = InvalidPassInfractionException.class)
   public void givenInvalidPassCodeString_whenValidate_shouldThrowInfractionException() {
     passToValidateDto.passCode = "gt";
-
-    exceptionRule.expect(InfractionException.class);
-    exceptionRule.expectMessage("VIG_02");
 
     passCodeFormatValidator.validate(passToValidateDto);
   }
