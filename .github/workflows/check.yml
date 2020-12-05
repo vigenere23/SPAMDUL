@@ -3,11 +3,7 @@
 
 name: Check
 
-on:
-  push:
-    branches: [ ulaval-project-depart ]
-  pull_request:
-    branches: [ ulaval-project-depart ]
+on: push
 
 jobs:
   check:
