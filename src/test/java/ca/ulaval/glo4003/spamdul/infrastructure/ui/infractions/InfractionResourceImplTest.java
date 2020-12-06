@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRes
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class InfractionResourceImplTest {
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
   public static final InfractionId A_INFRACTION_ID = new InfractionId();
-  public static final int AN_AMOUNT = 99;
+  public static final Amount AN_AMOUNT = Amount.valueOf(99);
   public static final InfractionResponse AN_INFRACTION_RESPONSE = new InfractionResponse();
   public static final InfractionPaymentRequest AN_INFRACTION_PAYMENT_REQUEST = new InfractionPaymentRequest();
   public static final InfractionPaymentDto AN_INFRACTION_PAYMENT_DTO = new InfractionPaymentDto();

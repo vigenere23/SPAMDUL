@@ -2,8 +2,10 @@ package ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul;
 
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
+import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCardResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULCreditsRequest;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.dto.RechargULRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
@@ -20,9 +22,11 @@ public class RechargULResourceImpl implements RechargULResource {
     this.rechargULCardAssembler = rechargULCardAssembler;
   }
 
-  @Override public Response createCard() {
-    RechargULCard card = rechargULService.createCard();
+  @Override public Response createCard(RechargULRequest rechargUlRequest) {
+    UserId userId = UserId.valueOf(rechargUlRequest.userId);
+    RechargULCard card = rechargULService.createCard(userId);
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
+
     return Response.status(Status.CREATED).entity(response).build();
   }
 

@@ -5,14 +5,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccess;
-import ca.ulaval.glo4003.spamdul.entity.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessDto;
-import ca.ulaval.glo4003.spamdul.usecases.campusaccess.CampusAccessService;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ public class CampusAccessResourceImplTest {
   public void setUp() throws Exception {
     campusAccessDto = new CampusAccessDto();
     campusAccessRequest = new CampusAccessRequest();
-    campusAccess = new CampusAccess(null, null, null, null, null);
+    campusAccess = new CampusAccess(null, null, null);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
@@ -61,13 +61,13 @@ public class CampusAccessResourceImplTest {
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessService, times(1)).createAndSaveNewCampusAccess(campusAccessDto);
+    verify(campusAccessService, times(1)).createCampusAccess(campusAccessDto);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallAssemblerToCreateCampusAccessResponse() {
     when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(campusAccessDto);
-    when(campusAccessService.createAndSaveNewCampusAccess(campusAccessDto)).thenReturn(campusAccess);
+    when(campusAccessService.createCampusAccess(campusAccessDto)).thenReturn(campusAccess);
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 

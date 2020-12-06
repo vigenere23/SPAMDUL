@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
-import ca.ulaval.glo4003.spamdul.entity.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import java.util.List;
 
 public interface CampusAccessTransactionRepository {

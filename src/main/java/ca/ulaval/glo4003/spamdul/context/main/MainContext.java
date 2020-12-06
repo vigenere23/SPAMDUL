@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.context.fundraising.FundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
+import ca.ulaval.glo4003.spamdul.context.user.UserContext;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
@@ -17,6 +18,7 @@ import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 public abstract class MainContext implements ResourceContext {
 
   protected AuthenticationContext authContext;
+  protected UserContext userContext;
   protected UsageReportContext usageReportContext;
   protected FinanceContext financeContext;
   protected CampusAccessContext campusAccessContext;
@@ -31,6 +33,7 @@ public abstract class MainContext implements ResourceContext {
     resources.add(new TimePeriodExceptionAssembler());
 
     authContext.registerResources(resources);
+    userContext.registerResources(resources);
     usageReportContext.registerResources(resources);
     financeContext.registerResources(resources);
     campusAccessContext.registerResources(resources);

@@ -6,10 +6,11 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,7 @@ public class InfractionAssemblerTest {
   public static final String AN_INFRACTION_CODE_STRING = "INF-01";
   public static final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_STRING);
   public static final InfractionId A_INFRACTION_ID = new InfractionId();
-  public static final int AN_AMOUNT = 99;
+  public static final Amount AN_AMOUNT = Amount.valueOf(99);
 
   private InfractionAssembler infractionAssembler;
   private InfractionRequest infractionRequest;
@@ -56,7 +57,7 @@ public class InfractionAssemblerTest {
 
     InfractionResponse response = infractionAssembler.toResponse(infraction);
 
-    assertThat(response.amount).isEqualTo(AN_AMOUNT);
+    assertThat(response.amount).isEqualTo(AN_AMOUNT.asDouble());
     assertThat(response.reason).isEqualTo(AN_INFRACTION_DESCRIPTION);
     assertThat(response.code).isEqualTo(AN_INFRACTION_CODE_STRING);
   }

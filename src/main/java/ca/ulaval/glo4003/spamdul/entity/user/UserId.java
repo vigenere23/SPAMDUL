@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.idgenerator.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import java.util.Objects;
 
 public class UserId {
@@ -18,7 +19,11 @@ public class UserId {
   }
 
   public static UserId valueOf(String userId) {
-    return new UserId(Long.parseLong(userId));
+    try {
+      return new UserId(Long.parseLong(userId));
+    } catch (NumberFormatException e) {
+      throw new InvalidUserIdFormatException();
+    }
   }
 
   public boolean equals(Object o) {

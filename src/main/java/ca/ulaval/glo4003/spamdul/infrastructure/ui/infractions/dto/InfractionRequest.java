@@ -4,4 +4,5 @@ public class InfractionRequest {
 
   public String passCode;
   public String parkingZone;
+  public String licensePlate;
 }
