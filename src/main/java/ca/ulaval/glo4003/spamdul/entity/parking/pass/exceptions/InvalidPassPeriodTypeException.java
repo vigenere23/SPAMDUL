@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.pass.exceptions;
+package ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions;
 
 public class InvalidPassPeriodTypeException extends RuntimeException {
   private static final String MESSAGE = "The peridod type for a pass must be one of the followings "

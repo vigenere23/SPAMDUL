@@ -3,12 +3,11 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.InvalidPassPeriodTypeException;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.InvalidPassPeriodTypeException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.*;
 
 import java.time.LocalDateTime;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
