@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequ
 
 public class CampusAccessRequest {
 
-  public UserRequest user;
-  public CarRequest car;
+  public String userId;
   public TimePeriodRequest period;
 }

@@ -5,14 +5,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +32,9 @@ public class PassValidatorTest extends PassValidator {
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
   @Mock
-  private PassRepository passRepository;
+  private UserRepository userRepository;
+  @Mock
+  User user;
   private Pass pass;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
 
@@ -44,6 +47,7 @@ public class PassValidatorTest extends PassValidator {
   public void setUp() {
     TimePeriod timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
     pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, timePeriod);
+    when(user.getPass()).thenReturn(pass);
   }
 
   @After
@@ -83,17 +87,18 @@ public class PassValidatorTest extends PassValidator {
 
   @Test
   public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldFindPassInRepo() {
-    PassValidator.setPassRepository(passRepository);
+    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
+    PassValidator.setPassRepository(userRepository);
 
     getCorrespondingPass(A_PASS_CODE);
 
-    verify(passRepository).findByPassCode(A_PASS_CODE);
+    verify(userRepository).findBy(A_PASS_CODE);
   }
 
   @Test
   public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldAddToCache() {
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(pass);
-    PassValidator.setPassRepository(passRepository);
+    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
+    PassValidator.setPassRepository(userRepository);
 
     getCorrespondingPass(A_PASS_CODE);
 
@@ -102,8 +107,8 @@ public class PassValidatorTest extends PassValidator {
 
   @Test
   public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldReturnRightPass() {
-    when(passRepository.findByPassCode(A_PASS_CODE)).thenReturn(pass);
-    PassValidator.setPassRepository(passRepository);
+    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
+    PassValidator.setPassRepository(userRepository);
 
     Pass actual = getCorrespondingPass(A_PASS_CODE);
 
@@ -114,6 +119,4 @@ public class PassValidatorTest extends PassValidator {
   public void givenRepoNotSetAndCacheMiss_whenGetCorrespondingPass_shouldThrowRepoNotSetException() {
     getCorrespondingPass(A_PASS_CODE);
   }
-
-
 }

@@ -4,6 +4,7 @@ import static org.mockito.BDDMockito.given;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AccessLevel;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.UnauthorizedUserException;
@@ -44,11 +45,4 @@ public class FinanceAccessValidatorTest {
 
     validator.validate(A_TEMPORARY_TOKEN);
   }
-
-  //  @Test(expected = UnauthorizedUserException.class)
-  //  public void givenNoRegisteredCorrespondingToToken_whenValidating_shouldThrowException() {
-  //    given(authenticationRepository.findBy(A_TEMPORARY_TOKEN)).willThrow(new NoRegisteredUserLoggedInException());
-  //
-  //    validator.validate(A_TEMPORARY_TOKEN);
-  //  }
 }

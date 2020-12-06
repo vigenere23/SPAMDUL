@@ -1,15 +1,16 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ParkingAccessLogPopulator {
+public class ParkingAccessLogPopulator implements Populator {
 
   private final ParkingAccessLogRepository parkingAccessLogRepository;
   private final ParkingAccessLogFactory parkingAccessLogFactory;
@@ -20,7 +21,7 @@ public class ParkingAccessLogPopulator {
     this.parkingAccessLogFactory = parkingAccessLogFactory;
   }
 
-  public void populate(int numberOfRecords) {
+  @Override public void populate(int numberOfRecords) {
     Random random = new Random();
     LocalDate now = LocalDate.now();
 

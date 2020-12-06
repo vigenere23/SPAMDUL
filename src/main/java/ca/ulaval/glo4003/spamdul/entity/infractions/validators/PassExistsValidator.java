@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.exceptions.PassNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 
 public class PassExistsValidator extends PassValidator {
 
@@ -11,7 +11,7 @@ public class PassExistsValidator extends PassValidator {
   public void validate(PassToValidateDto passToValidateDto) {
     try {
       getCorrespondingPass(PassCode.valueOf(passToValidateDto.passCode));
-    } catch (PassNotFoundException e) {
+    } catch (UserNotFoundException e) {
       throw new InfractionException("VIG_02");
     }
 
