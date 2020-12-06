@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
-import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 
 public class PassSender {
 

@@ -3,12 +3,12 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
-import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 
 public class DeliveryAssembler {
 
-  private EmailAddressAssembler emailAddressAssembler;
-  private PostalAddressAssembler postalAddressAssembler;
+  private final EmailAddressAssembler emailAddressAssembler;
+  private final PostalAddressAssembler postalAddressAssembler;
 
   public DeliveryAssembler(EmailAddressAssembler emailAddressAssembler, PostalAddressAssembler postalAddressAssembler) {
     this.emailAddressAssembler = emailAddressAssembler;
@@ -22,7 +22,7 @@ public class DeliveryAssembler {
 
     if (deliveryMode == DeliveryMode.POST) {
       deliveryDto.postalAddress = postalAddressAssembler.fromDto(deliveryRequest.postalAddress);
-    } else if (deliveryMode == DeliveryMode.EMAIL){
+    } else if (deliveryMode == DeliveryMode.EMAIL) {
       deliveryDto.emailAddress = emailAddressAssembler.fromString(deliveryRequest.emailAddress);
     }
 

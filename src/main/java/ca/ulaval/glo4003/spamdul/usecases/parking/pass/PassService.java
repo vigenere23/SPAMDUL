@@ -1,6 +1,5 @@
-package ca.ulaval.glo4003.spamdul.usecases.pass;
+package ca.ulaval.glo4003.spamdul.usecases.parking.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
@@ -8,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class PassService {
@@ -17,7 +17,7 @@ public class PassService {
   private final PassTransactionService passTransactionService;
   private final ParkingZoneFeeRepository parkingZoneFeeRepository;
   private final DeliveryFeeCalculator deliveryFeeCalculator;
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   public PassService(PassFactory passFactory,
                      PassSender passSender,

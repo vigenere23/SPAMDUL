@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.car.CarRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions.InvalidCarTypeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions.InvalidCarYearArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.car.CarDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 
 public class CarAssembler {
 

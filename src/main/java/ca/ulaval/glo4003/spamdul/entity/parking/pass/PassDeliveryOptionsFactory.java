@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.InvalidDeliveryModeException;
-import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 
 public class PassDeliveryOptionsFactory {
 
@@ -12,7 +12,7 @@ public class PassDeliveryOptionsFactory {
 
     if (deliveryDto.deliveryMode == DeliveryMode.POST) {
       deliveryOptions.postalAddress = deliveryDto.postalAddress;
-    } else if (deliveryDto.deliveryMode == DeliveryMode.EMAIL){
+    } else if (deliveryDto.deliveryMode == DeliveryMode.EMAIL) {
       deliveryOptions.emailAddress = deliveryDto.emailAddress;
     } else if (deliveryDto.deliveryMode == DeliveryMode.SSP_OFFICE) {
       //Nothing to do

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.pass;
+package ca.ulaval.glo4003.spamdul.usecases.parking.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;

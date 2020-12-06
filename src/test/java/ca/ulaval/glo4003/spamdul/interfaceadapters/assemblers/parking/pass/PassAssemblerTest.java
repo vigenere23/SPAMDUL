@@ -15,8 +15,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
-import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class PassAssemblerTest {
   private static final DeliveryRequest A_DELIVERY_REQUEST = new DeliveryRequest();
   private static final DeliveryDto A_DELIVERY_DTO = new DeliveryDto();
 
-  private TimePeriodDto timePeriodDto = new TimePeriodDto();
+  private final TimePeriodDto timePeriodDto = new TimePeriodDto();
   @Mock
   private TimePeriodAssembler timePeriodAssembler;
   private PassAssembler passAssembler;
