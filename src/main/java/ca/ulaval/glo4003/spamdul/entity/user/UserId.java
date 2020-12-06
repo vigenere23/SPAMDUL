@@ -1,19 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
-import ca.ulaval.glo4003.spamdul.entity.ids.LongId;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
+import ca.ulaval.glo4003.spamdul.entity.ids.Id;
 
-public class UserId extends LongId {
+public class UserId extends Id {
 
-  private UserId(long value) {
+  private UserId(String value) {
     super(value);
   }
 
   public static UserId valueOf(String userId) {
-    try {
-      return new UserId(Long.parseLong(userId));
-    } catch (NumberFormatException e) {
-      throw new InvalidUserIdFormatException();
-    }
+    return new UserId(userId);
   }
 }

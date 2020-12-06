@@ -1,20 +1,20 @@
 package ca.ulaval.glo4003.spamdul.entity.user.car;
 
 import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import java.util.Objects;
 
 public class CarId {
 
-  private static final IdGenerator<Long> idGenerator = new IncrementalLongIdGenerator();
-  private final Long id;
+  private static final IdGenerator idGenerator = new IncrementalIdGenerator();
+  private final String id;
 
   public CarId() {
     id = idGenerator.generateId();
   }
 
   private CarId(long id) {
-    this.id = id;
+    this.id = String.valueOf(id);
   }
 
   public static CarId valueOf(String userId) {

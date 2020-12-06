@@ -1,19 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
-import ca.ulaval.glo4003.spamdul.entity.ids.LongId;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardIdException;
+import ca.ulaval.glo4003.spamdul.entity.ids.Id;
 
-public class RechargULCardId extends LongId {
+public class RechargULCardId extends Id {
 
-  private RechargULCardId(long value) {
+  private RechargULCardId(String value) {
     super(value);
   }
 
   public static RechargULCardId valueOf(String parkingAccessLogId) {
-    try {
-      return new RechargULCardId(Long.parseLong(parkingAccessLogId));
-    } catch (Exception e) {
-      throw new InvalidRechargULCardIdException();
-    }
+    return new RechargULCardId(parkingAccessLogId);
   }
 }

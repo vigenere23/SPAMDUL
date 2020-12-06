@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
@@ -35,7 +35,7 @@ public class CampusAccessContext implements ResourceContext {
 
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
-    CampusAccessCodeFactory campusAccessCodeFactory = new CampusAccessCodeFactory(new IncrementalLongIdGenerator());
+    CampusAccessCodeFactory campusAccessCodeFactory = new CampusAccessCodeFactory(new IncrementalIdGenerator());
     CampusAccessFactory campusAccessFactory = new CampusAccessFactory(campusAccessCodeFactory, timePeriodFactory);
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,

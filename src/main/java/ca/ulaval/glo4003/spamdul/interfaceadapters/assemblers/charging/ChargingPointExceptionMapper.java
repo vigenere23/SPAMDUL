@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointN
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotDisconnectedException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.InvalidChargingPointIdException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -38,8 +37,6 @@ public class ChargingPointExceptionMapper implements ExceptionMapper<ChargingPoi
     } else if (e instanceof ChargingPointNotFoundException) {
       response.error = "CHARGING_POINT_NOT_FOUND";
       status = Status.NOT_FOUND;
-    } else if (e instanceof InvalidChargingPointIdException) {
-      response.error = "INVALID_CHARGING_POINT_ID";
     } else {
       response.error = "INVALID_CHARGING_POINT_OPERATION";
     }

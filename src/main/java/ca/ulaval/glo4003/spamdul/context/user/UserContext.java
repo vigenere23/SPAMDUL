@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.user;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
@@ -23,7 +23,7 @@ public class UserContext implements ResourceContext {
     CarAssembler carAssembler = new CarAssembler();
     UserAssembler userAssembler = new UserAssembler(carAssembler);
     CarFactory carFactory = new CarFactory();
-    UserIdFactory userIdFactory = new UserIdFactory(new IncrementalLongIdGenerator());
+    UserIdFactory userIdFactory = new UserIdFactory(new IncrementalIdGenerator());
     UserFactory userFactory = new UserFactory(userIdFactory, carFactory);
     userResource = new UserResource(userAssembler, new UserService(userRepository, userFactory));
   }

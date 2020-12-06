@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
 
 public class UserIdFactory {
 
-  private final IdGenerator<Long> idGenerator;
+  private final IdGenerator idGenerator;
 
-  public UserIdFactory(IdGenerator<Long> idGenerator) {
+  public UserIdFactory(IdGenerator idGenerator) {
     this.idGenerator = idGenerator;
   }
 

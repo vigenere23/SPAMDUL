@@ -1,20 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 
-import ca.ulaval.glo4003.spamdul.entity.ids.LongId;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.InvalidPassCodeFormat;
+import ca.ulaval.glo4003.spamdul.entity.ids.Id;
 
-public class PassCode extends LongId {
+public class PassCode extends Id {
 
-  private PassCode(long value) {
+  private PassCode(String value) {
     super(value);
   }
 
   public static PassCode valueOf(String passCode) {
-    try {
-      return new PassCode(Long.parseLong(passCode));
-
-    } catch (NumberFormatException e) {
-      throw new InvalidPassCodeFormat("Invalid pass code format");
-    }
+    return new PassCode(passCode);
   }
 }

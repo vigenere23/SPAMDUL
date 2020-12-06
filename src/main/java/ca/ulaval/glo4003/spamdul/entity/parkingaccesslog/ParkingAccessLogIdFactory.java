@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
 
 public class ParkingAccessLogIdFactory {
 
-  private final IdGenerator<Long> idGenerator;
+  private final IdGenerator idGenerator;
 
-  public ParkingAccessLogIdFactory(IdGenerator<Long> idGenerator) {
+  public ParkingAccessLogIdFactory(IdGenerator idGenerator) {
     this.idGenerator = idGenerator;
   }
 

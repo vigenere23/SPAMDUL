@@ -13,10 +13,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPointIdFactoryTest {
 
-  private static final Long A_VALUE = 123L;
+  private static final String A_VALUE = "123";
 
   @Mock
-  private IdGenerator<Long> idGenerator;
+  private IdGenerator idGenerator;
 
   private ChargingPointIdFactory chargingPointIdFactory;
 
@@ -29,6 +29,6 @@ public class ChargingPointIdFactoryTest {
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generateId()).thenReturn(A_VALUE);
     ChargingPointId chargingPointId = chargingPointIdFactory.create();
-    assertThat(chargingPointId.toString()).isEqualTo(A_VALUE.toString());
+    assertThat(chargingPointId.toString()).isEqualTo(A_VALUE);
   }
 }

@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user;
 
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
@@ -29,8 +28,6 @@ public class UserExceptionAssembler implements ExceptionMapper<InvalidUserExcept
       exceptionResponse.error = "INVALID_BIRTHDAY_DATE";
     } else if (e instanceof UserNotFoundException) {
       exceptionResponse.error = "INVALID_USER_ID";
-    } else if (e instanceof InvalidUserIdFormatException) {
-      exceptionResponse.error = "INVALID_USER_ID_FORMAT";
     } else if (e instanceof UserAlreadyHasACampusAccess) {
       exceptionResponse.error = "USER_ALREADY_HAS_CAMPUS_ACCESS";
     } else if (e instanceof UserAlreadyHasThisInfraction) {

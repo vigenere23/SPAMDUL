@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassDeliveryOptionsFactory;
@@ -34,7 +34,7 @@ public abstract class PassContext implements ResourceContext {
   protected PassContext() {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
-    PassCodeFactory passCodeFactory = new PassCodeFactory(new IncrementalLongIdGenerator());
+    PassCodeFactory passCodeFactory = new PassCodeFactory(new IncrementalIdGenerator());
 
     CsvReader csvReader = new CsvReader();
 

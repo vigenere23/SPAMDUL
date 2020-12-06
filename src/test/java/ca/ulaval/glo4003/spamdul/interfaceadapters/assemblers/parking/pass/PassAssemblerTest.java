@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
@@ -69,13 +68,6 @@ public class PassAssemblerTest {
   @Test(expected = InvalidParkingZoneException.class)
   public void givenInvalidParkingZone_whenAssemblingFromRequest_thenShouldThrowInvalidParkingZoneException() {
     A_PASS_CREATION_REQUEST.parkingZone = "invalid";
-
-    passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
-  }
-
-  @Test(expected = InvalidUserIdFormatException.class)
-  public void givenInvalidCampusAccessCode_whenAssemblingFromRequest_thenShouldThrowInvalidException() {
-    A_PASS_CREATION_REQUEST.userId = "invalid";
 
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }

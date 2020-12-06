@@ -13,10 +13,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class PassCodeFactoryTest {
 
-  private static final Long A_VALUE = 123L;
+  private static final String A_VALUE = "123";
 
   @Mock
-  private IdGenerator<Long> idGenerator;
+  private IdGenerator idGenerator;
 
   private PassCodeFactory passCodeFactory;
 
@@ -29,6 +29,6 @@ public class PassCodeFactoryTest {
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generateId()).thenReturn(A_VALUE);
     PassCode passCode = passCodeFactory.create();
-    assertThat(passCode.toString()).isEqualTo(A_VALUE.toString());
+    assertThat(passCode.toString()).isEqualTo(A_VALUE);
   }
 }

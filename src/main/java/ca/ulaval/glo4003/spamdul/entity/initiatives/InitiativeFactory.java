@@ -8,13 +8,19 @@ import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 public class InitiativeFactory {
 
   private final InitiativeIdFactory initiativeIdFactory;
+  private final InitiativeCodeFactory initiativeCodeFactory;
 
-  public InitiativeFactory(InitiativeIdFactory initiativeIdFactory) {
+  public InitiativeFactory(InitiativeIdFactory initiativeIdFactory,
+                           InitiativeCodeFactory initiativeCodeFactory) {
     this.initiativeIdFactory = initiativeIdFactory;
+    this.initiativeCodeFactory = initiativeCodeFactory;
   }
 
   public Initiative create(String name, Amount amount) {
-    return create(new InitiativeCode(), name, amount);
+    validateName(name);
+    validateAmount(amount);
+
+    return new Initiative(initiativeIdFactory.create(), initiativeCodeFactory.create(), name, amount);
   }
 
   public Initiative create(InitiativeCode code, String name, Amount amount) {

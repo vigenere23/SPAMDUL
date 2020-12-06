@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
+package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
@@ -11,24 +11,24 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingAccessLogIdFactoryTest {
+public class InitiativeCodeFactoryTest {
 
   private static final String A_VALUE = "123";
 
   @Mock
   private IdGenerator idGenerator;
 
-  private ParkingAccessLogIdFactory parkingAccessLogIdFactory;
+  private InitiativeCodeFactory initiativeCodeFactory;
 
   @Before
   public void setUp() {
-    parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(idGenerator);
+    initiativeCodeFactory = new InitiativeCodeFactory(idGenerator);
   }
 
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generateId()).thenReturn(A_VALUE);
-    ParkingAccessLogId parkingAccessLogId = parkingAccessLogIdFactory.create();
-    assertThat(parkingAccessLogId.toString()).isEqualTo(A_VALUE);
+    InitiativeCode initiativeCode = initiativeCodeFactory.create();
+    assertThat(initiativeCode.toString()).isEqualTo(A_VALUE);
   }
 }

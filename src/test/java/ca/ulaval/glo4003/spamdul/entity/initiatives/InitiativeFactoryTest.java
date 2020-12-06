@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
@@ -19,12 +20,16 @@ public class InitiativeFactoryTest {
 
   @Mock
   private InitiativeIdFactory initiativeIdFactory;
+  @Mock
+  private InitiativeCodeFactory initiativeCodeFactory;
+  @Mock
+  private InitiativeCode A_CODE;
 
   private InitiativeFactory initiativeFactory;
 
   @Before
   public void setUp() {
-    initiativeFactory = new InitiativeFactory(initiativeIdFactory);
+    initiativeFactory = new InitiativeFactory(initiativeIdFactory, initiativeCodeFactory);
   }
 
   @Test(expected = InvalidInitiativeNameException.class)
@@ -54,6 +59,7 @@ public class InitiativeFactoryTest {
 
   @Test
   public void whenCreating_itReturnsValidInitiative() {
+    when(initiativeCodeFactory.create()).thenReturn(A_CODE);
     assertThat(initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT)).isNotNull();
   }
 }

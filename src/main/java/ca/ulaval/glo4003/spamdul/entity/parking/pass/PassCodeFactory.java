@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
 
 public class PassCodeFactory {
 
-  private final IdGenerator<Long> idGenerator;
+  private final IdGenerator idGenerator;
 
-  public PassCodeFactory(IdGenerator<Long> idGenerator) {
+  public PassCodeFactory(IdGenerator idGenerator) {
     this.idGenerator = idGenerator;
   }
 

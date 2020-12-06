@@ -2,15 +2,15 @@ package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
 
-public class InitiativeIdFactory {
+public class InitiativeCodeFactory {
 
   private final IdGenerator idGenerator;
 
-  public InitiativeIdFactory(IdGenerator idGenerator) {
+  public InitiativeCodeFactory(IdGenerator idGenerator) {
     this.idGenerator = idGenerator;
   }
 
-  public InitiativeId create() {
-    return InitiativeId.valueOf(String.valueOf(idGenerator.generateId()));
+  public InitiativeCode create() {
+    return InitiativeCode.valueOf(idGenerator.generateId());
   }
 }

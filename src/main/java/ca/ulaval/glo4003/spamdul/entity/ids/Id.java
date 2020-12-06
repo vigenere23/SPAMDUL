@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.ids;
 
-public abstract class LongId {
+public abstract class Id {
 
-  private final Long value;
+  private final String value;
 
-  protected LongId(Long value) {
+  protected Id(String value) {
     this.value = value;
   }
 
@@ -16,7 +16,7 @@ public abstract class LongId {
     if (object == null || getClass() != object.getClass()) {
       return false;
     }
-    LongId otherId = (LongId) object;
+    Id otherId = (Id) object;
 
     return value.equals(otherId.value);
   }
@@ -28,6 +28,6 @@ public abstract class LongId {
 
   @Override
   public String toString() {
-    return value.toString();
+    return value;
   }
 }

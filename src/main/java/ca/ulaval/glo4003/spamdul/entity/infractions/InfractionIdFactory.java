@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
 
 public class InfractionIdFactory {
 
-  private final IdGenerator<Long> idGenerator;
+  private final IdGenerator idGenerator;
 
-  public InfractionIdFactory(IdGenerator<Long> idGenerator) {
+  public InfractionIdFactory(IdGenerator idGenerator) {
     this.idGenerator = idGenerator;
   }
 

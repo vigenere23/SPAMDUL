@@ -6,7 +6,8 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalLongIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeIdFactory;
@@ -29,8 +30,9 @@ public abstract class FundraisingContext implements ResourceContext {
   public FundraisingContext(InitiativeTransactionService initiativeTransactionService,
                             AuthenticationRepository authenticationRepository,
                             AccessTokenCookieAssembler cookieAssembler) {
-    InitiativeIdFactory initiativeIdFactory = new InitiativeIdFactory(new IncrementalLongIdGenerator());
-    InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeIdFactory);
+    InitiativeIdFactory initiativeIdFactory = new InitiativeIdFactory(new IncrementalIdGenerator());
+    InitiativeCodeFactory initiativeCodeFactory = new InitiativeCodeFactory(new IncrementalIdGenerator());
+    InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeIdFactory, initiativeCodeFactory);
     initiativeRepository = new InMemoryInitiativeRepository();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();

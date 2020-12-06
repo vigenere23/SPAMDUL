@@ -1,20 +1,14 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import ca.ulaval.glo4003.spamdul.entity.ids.LongId;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidInfractionIdException;
+import ca.ulaval.glo4003.spamdul.entity.ids.Id;
 
-public class InfractionId extends LongId {
+public class InfractionId extends Id {
 
-  private InfractionId(long value) {
+  private InfractionId(String value) {
     super(value);
   }
 
-  public static InfractionId valueOf(String id) {
-    try {
-      return new InfractionId(Long.parseLong(id));
-
-    } catch (NumberFormatException e) {
-      throw new InvalidInfractionIdException("Invalid infraction id format");
-    }
+  public static InfractionId valueOf(String value) {
+    return new InfractionId(value);
   }
 }
