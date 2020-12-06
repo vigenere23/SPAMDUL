@@ -51,7 +51,7 @@ public class InMemoryUserRepositoryTest {
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final int A_YEAR = 2020;
   private final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, A_CAR_BRAND, A_CAR_MODEL, A_YEAR, A_LICENSE_PLATE);
-  private final UserId A_USER_ID = UserId.valueOf("982173");
+  private final UserId A_USER_ID = UserId.valueOf("123");
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
@@ -140,12 +140,12 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToId_whenFindingById_shouldThrowException() {
-    userRepository.findBy(UserId.valueOf("123"));
+    userRepository.findBy(UserId.valueOf("465"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToCampusAccessCode_whenFindingById_shouldThrowException() {
-    userRepository.findBy(CampusAccessCode.valueOf("123"));
+    userRepository.findBy(CampusAccessCode.valueOf("4534"));
   }
 
   @Test(expected = UserNotFoundException.class)
@@ -155,16 +155,16 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToPassCode_whenFindingByPassCode_shouldThrowException() {
-    userRepository.findBy(PassCode.valueOf("123"));
+    userRepository.findBy(PassCode.valueOf("345"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToRechargULCardId_whenFindingByRechargULCardId_shouldThrowException() {
-    userRepository.findBy(RechargULCardId.valueOf("123"));
+    userRepository.findBy(RechargULCardId.valueOf("567"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoInfractionCorrespondingToInfractionId_whenFindingByInfractionId_shoulldThrowException() {
-    userRepository.findBy(InfractionId.valueOf("123"));
+    userRepository.findBy(InfractionId.valueOf("8754"));
   }
 }
