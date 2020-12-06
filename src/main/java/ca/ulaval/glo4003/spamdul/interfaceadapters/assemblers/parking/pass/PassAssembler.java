@@ -17,7 +17,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryA
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
 import java.util.ArrayList;
 
 public class PassAssembler {
@@ -75,6 +75,6 @@ public class PassAssembler {
   }
 
   private UserId getUserId(String userId) {
-      return UserId.valueOf(userId.toUpperCase());
+    return UserId.valueOf(userId.toUpperCase());
   }
 }

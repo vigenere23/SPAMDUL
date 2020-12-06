@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.usecases.parking.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;

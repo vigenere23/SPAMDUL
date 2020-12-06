@@ -1,6 +1,5 @@
-package ca.ulaval.glo4003.spamdul.usecases.parking.user;
+package ca.ulaval.glo4003.spamdul.usecases.user;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,9 +9,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.usecases.parking.car.CarDto;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
