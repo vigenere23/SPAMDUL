@@ -7,16 +7,16 @@ import org.junit.Test;
 public class PassCodeTest {
 
   @Test
-  public void whenCreatingPassCode_shouldGenerateACode() {
-    PassCode passCode = new PassCode();
-
-    assertThat(passCode.toString()).isNotEqualTo("");
+  public void givenValue_whenCreatingPassCode_shouldCreateWithValue() {
+    String value = "123";
+    PassCode passCode = PassCode.valueOf(value);
+    assertThat(passCode.toString()).isEqualTo(value);
   }
 
   @Test
   public void whenComparingDifferentPassCode_shouldNotBeEqual() {
-    PassCode passCode = new PassCode();
-    PassCode anotherPassCode = new PassCode();
+    PassCode passCode = PassCode.valueOf("123");
+    PassCode anotherPassCode = PassCode.valueOf("456");
 
     assertThat(passCode).isNotEqualTo(anotherPassCode);
     assertThat(passCode.hashCode()).isNotEqualTo(anotherPassCode.hashCode());
@@ -24,7 +24,7 @@ public class PassCodeTest {
 
   @Test
   public void whenComparingTheSamePassCode_shouldBeEqual() {
-    PassCode passCode = new PassCode();
+    PassCode passCode = PassCode.valueOf("123");
     PassCode samePassCode = PassCode.valueOf(passCode.toString());
 
     assertThat(passCode).isEqualTo(samePassCode);

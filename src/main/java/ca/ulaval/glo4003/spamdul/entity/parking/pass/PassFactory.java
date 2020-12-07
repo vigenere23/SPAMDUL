@@ -19,9 +19,12 @@ public class PassFactory {
           TWO_SEMESTERS,
           THREE_SEMESTERS);
 
+  private final PassCodeFactory passCodeFactory;
   private final TimePeriodFactory timePeriodFactory;
 
-  public PassFactory(TimePeriodFactory timePeriodFactory) {
+  public PassFactory(PassCodeFactory passCodeFactory,
+                     TimePeriodFactory timePeriodFactory) {
+    this.passCodeFactory = passCodeFactory;
     this.timePeriodFactory = timePeriodFactory;
   }
 
@@ -30,7 +33,7 @@ public class PassFactory {
       throw new InvalidPassPeriodTypeException();
     }
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
-    PassCode passCode = new PassCode();
+    PassCode passCode = passCodeFactory.create();
 
     return new Pass(passCode, parkingZone, timePeriod);
   }

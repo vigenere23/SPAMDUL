@@ -7,13 +7,14 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderException;
 import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
+import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class UserAssembler {
 
-  private CarAssembler carAssembler;
+  private final CarAssembler carAssembler;
 
   public UserAssembler(CarAssembler carAssembler) {
     this.carAssembler = carAssembler;

@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -14,6 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import java.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +25,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class PassValidatorTest extends PassValidator {
 
-  public static final PassCode A_PASS_CODE = new PassCode();
+  public static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   public static final TimePeriodDayOfWeek A_TIME_PERIOD_DAY_OF_WEEK = TimePeriodDayOfWeek.FRIDAY;
   public static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2000, 1, 1, 1, 1);
   public static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2000, 1, 1, 1, 1);
@@ -36,7 +36,7 @@ public class PassValidatorTest extends PassValidator {
   @Mock
   User user;
   private Pass pass;
-  private PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
 
 
   @Override

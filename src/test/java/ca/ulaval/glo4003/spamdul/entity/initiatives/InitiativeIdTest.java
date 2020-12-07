@@ -7,16 +7,16 @@ import org.junit.Test;
 public class InitiativeIdTest {
 
   @Test
-  public void whenCreatingInitiativeId_shouldGenerateNonEmptyId() {
-    InitiativeId initiativeId = new InitiativeId();
-
-    assertThat(initiativeId.toString()).isNotEqualTo("");
+  public void givenValue_whenCreatingInitiativeId_shouldCreateWithValue() {
+    String value = "123";
+    InitiativeId initiativeId = InitiativeId.valueOf(value);
+    assertThat(initiativeId.toString()).isEqualTo(value);
   }
 
   @Test
   public void whenComparingDifferentInitiativeId_shouldNotBeEqual() {
-    InitiativeId initiativeId = new InitiativeId();
-    InitiativeId anotherInitiativeId = new InitiativeId();
+    InitiativeId initiativeId = InitiativeId.valueOf("123");
+    InitiativeId anotherInitiativeId = InitiativeId.valueOf("456");
 
     assertThat(initiativeId).isNotEqualTo(anotherInitiativeId);
     assertThat(initiativeId.hashCode()).isNotEqualTo(anotherInitiativeId.hashCode());
@@ -24,7 +24,7 @@ public class InitiativeIdTest {
 
   @Test
   public void whenComparingTheSameInitiativeId_shouldBeEqual() {
-    InitiativeId initiativeId = new InitiativeId();
+    InitiativeId initiativeId = InitiativeId.valueOf("123");
     InitiativeId sameInitiativeId = InitiativeId.valueOf(initiativeId.toString());
 
     assertThat(initiativeId).isEqualTo(sameInitiativeId);

@@ -19,8 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPointServiceTest {
 
-  public static final ChargingPointId CHARGING_POINT_ID = new ChargingPointId();
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final ChargingPointId CHARGING_POINT_ID = ChargingPointId.valueOf("123");
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   private ChargingPointService chargingPointService;
 
   @Mock
@@ -37,7 +37,6 @@ public class ChargingPointServiceTest {
     chargingPointService = new ChargingPointService(chargingPointRepository,
                                                     enoughCreditForChargingVerifier,
                                                     chargingPaymentService);
-
 
     when(chargingPointRepository.findBy(CHARGING_POINT_ID)).thenReturn(chargingPoint);
   }

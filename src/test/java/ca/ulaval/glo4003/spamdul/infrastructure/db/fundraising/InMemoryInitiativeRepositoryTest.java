@@ -3,7 +3,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeId;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.List;
 import org.junit.Before;
@@ -13,6 +14,7 @@ public class InMemoryInitiativeRepositoryTest {
 
   private InMemoryInitiativeRepository inMemoryInitiativeRepository;
   private final String A_NAME = "dfhsadf";
+  private final InitiativeCode A_CODE = InitiativeCode.valueOf("asdhasd");
   private final Amount AN_AMOUNT = Amount.valueOf(21438.23);
 
   @Before
@@ -28,7 +30,7 @@ public class InMemoryInitiativeRepositoryTest {
 
   @Test
   public void givenInitiative_whenSaving_shouldBePresent() {
-    Initiative initiative = new InitiativeFactory().create(A_NAME, AN_AMOUNT);
+    Initiative initiative = new Initiative(InitiativeId.valueOf("123"), A_CODE, A_NAME, AN_AMOUNT);
 
     inMemoryInitiativeRepository.save(initiative);
 
@@ -38,8 +40,8 @@ public class InMemoryInitiativeRepositoryTest {
 
   @Test
   public void givenMultipleSavedInitiative_whenFindingAll_shouldAllBePresent() {
-    Initiative initiative1 = new InitiativeFactory().create(A_NAME, AN_AMOUNT);
-    Initiative initiative2 = new InitiativeFactory().create(A_NAME, AN_AMOUNT);
+    Initiative initiative1 = new Initiative(InitiativeId.valueOf("123"), A_CODE, A_NAME, AN_AMOUNT);
+    Initiative initiative2 = new Initiative(InitiativeId.valueOf("456"), A_CODE, A_NAME, AN_AMOUNT);
     inMemoryInitiativeRepository.save(initiative1);
     inMemoryInitiativeRepository.save(initiative2);
 

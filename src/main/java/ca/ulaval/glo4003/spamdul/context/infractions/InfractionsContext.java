@@ -4,18 +4,18 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.DayOfWeekValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyPassCodeValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassCodeFormatValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassExistsValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidator;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
@@ -41,7 +41,8 @@ public class InfractionsContext implements ResourceContext {
         new JsonReader());
     PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(userRepository);
 
-    InfractionFactory infractionFactory = new InfractionFactory();
+    InfractionIdFactory infractionIdFactory = new InfractionIdFactory(new IncrementalIdGenerator());
+    InfractionFactory infractionFactory = new InfractionFactory(infractionIdFactory);
 
     AccessLevelValidator accessLevelValidator = new InfractionsAccessLevelValidator(authenticationRepository);
 
@@ -61,15 +62,11 @@ public class InfractionsContext implements ResourceContext {
     PassValidator.setPassRepository(userRepository);
 
     EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
-    PassCodeFormatValidator passCodeFormatValidator = new PassCodeFormatValidator();
-    PassExistsValidator passExistsValidator = new PassExistsValidator();
     ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
     TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
     DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
 
-    emptyPassCodeValidator.setNextValidator(passCodeFormatValidator);
-    passCodeFormatValidator.setNextValidator(passExistsValidator);
-    passExistsValidator.setNextValidator(parkingZoneValidator);
+    emptyPassCodeValidator.setNextValidator(parkingZoneValidator);
     parkingZoneValidator.setNextValidator(timePeriodBoundaryValidator);
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);
 

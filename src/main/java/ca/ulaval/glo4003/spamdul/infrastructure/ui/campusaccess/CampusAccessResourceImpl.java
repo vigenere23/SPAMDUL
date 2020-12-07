@@ -22,7 +22,7 @@ public class CampusAccessResourceImpl implements CampusAccessResource {
     this.campusAccessService = campusAccessService;
   }
 
-  public Response createCampusAccess(CampusAccessRequest campusAccessRequest) {
+  @Override public Response createCampusAccess(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = campusAccessAssembler.fromRequest(campusAccessRequest);
     CampusAccess campusAccess = campusAccessService.createCampusAccess(campusAccessDto);
 
@@ -31,7 +31,7 @@ public class CampusAccessResourceImpl implements CampusAccessResource {
                    .build();
   }
 
-  public AccessingCampusResponse canAccessCampus(AccessingCampusRequest accessingCampusRequest) {
+  @Override public AccessingCampusResponse canAccessCampus(AccessingCampusRequest accessingCampusRequest) {
     AccessingCampusDto accessingCampusDto = campusAccessAssembler.fromRequest(accessingCampusRequest);
     boolean isAccessGranted = campusAccessService.grantAccessToCampus(accessingCampusDto);
 

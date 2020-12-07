@@ -6,10 +6,12 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
@@ -37,6 +39,8 @@ public class UsageReportServiceFunctionalTest {
   private final LocalDate A_DATE = LocalDate.of(1995, 8, 13);
   private final LocalDate A_LATER_DATE = LocalDate.of(1995, 8, 20);
   private final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
+  private final ParkingAccessLogIdFactory parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(new IncrementalIdGenerator());
+  private final ParkingAccessLogFactory parkingAccessLogFactory = new ParkingAccessLogFactory(parkingAccessLogIdFactory);
 
   @Mock
   private AccessLevelValidator accessLevelValidator;
@@ -129,7 +133,7 @@ public class UsageReportServiceFunctionalTest {
 
   private void createLogs(LocalDate date, int numberOfLogs) {
     for (int logNumber = 0; logNumber < numberOfLogs; logNumber++) {
-      ParkingAccessLog log = new ParkingAccessLog(new ParkingAccessLogId(), ParkingZone.ZONE_1, date);
+      ParkingAccessLog log = parkingAccessLogFactory.create(ParkingZone.ZONE_1, date);
       parkingAccessLogRepository.save(log);
     }
   }

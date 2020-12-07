@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class PassSenderTest {
 
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final DeliveryMode A_DELIVERY_MODE = DeliveryMode.POST;
   private static final String CONTENT = "Your pass code is: %s";
   private static final String SUBJECT = "Your new pass code";

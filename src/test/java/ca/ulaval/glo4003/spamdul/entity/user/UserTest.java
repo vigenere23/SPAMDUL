@@ -45,31 +45,31 @@ public class UserTest {
   public static final TimePeriod TIME_PERIOD = new TimePeriod(LocalDateTime.MIN,
                                                               LocalDateTime.MAX,
                                                               TimePeriodDayOfWeek.ALL);
-  public static final PassCode PASS_CODE = new PassCode();
+  public static final PassCode PASS_CODE = PassCode.valueOf("123");
+  public static final PassCode ANOTHER_PASSE_CODE = PassCode.valueOf("456");
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
   public static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
-  public static final PassCode ANOTHER_PASSE_CODE = new PassCode();
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   public static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
-  public static final CampusAccessCode CAMPUS_ACCESS_CODE = new CampusAccessCode();
-  public static final InfractionId ANOTHER_INFRACTION_ID = new InfractionId();
-  public static final InfractionId INFRACTION_ID = new InfractionId();
+  public static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
+  public static final CampusAccessCode ANOTHER_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("456");
+  public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
+  public static final InfractionId ANOTHER_INFRACTION_ID = InfractionId.valueOf("456");
   public static final String DESCRITION = "descrition";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final Amount AMOUNT = Amount.valueOf(10);
   public static final LocalDateTime A_TIME_OF_ACCESS = LocalDateTime.now();
-  public static final CampusAccessCode ANOTHER_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
-  private final UserId A_USER_ID = new UserId();
+  private final UserId A_USER_ID = UserId.valueOf("123");
 
   @Test
   public void whenCreatingNewUser_shouldCreateRandomId() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
 
-    assertThat(user.getUserId()).isNotNull();
+    assertThat(user.getId()).isNotNull();
   }
 
   @Test

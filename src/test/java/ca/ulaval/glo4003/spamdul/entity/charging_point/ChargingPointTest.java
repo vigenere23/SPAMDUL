@@ -6,10 +6,8 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotActivatedException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
-import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +16,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPointTest {
-  private static RechargULCardId A_CARD_ID = new RechargULCardId();
+
+  private static final RechargULCardId A_CARD_ID = RechargULCardId.valueOf("123");
+  private static final ChargingPointId A_CHARGING_POINT_ID = ChargingPointId.valueOf("123");
 
   private ChargingPoint chargingPoint;
 
   @Mock
   private ChargingPointState state;
-  @Mock
-  private MillisecondsCounter counter;
   @Mock
   private ChargingPaymentService chargingPaymentService;
   @Mock
@@ -33,7 +31,7 @@ public class ChargingPointTest {
 
   @Before
   public void setUp() {
-    chargingPoint = new ChargingPoint(new ChargingPointId());
+    chargingPoint = new ChargingPoint(A_CHARGING_POINT_ID);
   }
 
   @Test

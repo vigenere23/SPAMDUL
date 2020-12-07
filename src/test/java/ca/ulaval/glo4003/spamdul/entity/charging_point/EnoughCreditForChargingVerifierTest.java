@@ -1,14 +1,13 @@
 package ca.ulaval.glo4003.spamdul.entity.charging_point;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class EnoughCreditForChargingVerifierTest {
 
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   private EnoughCreditForChargingVerifier enoughCreditForChargingVerifier;
 
   @Mock

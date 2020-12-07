@@ -5,13 +5,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.RechargULCardNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
@@ -23,9 +23,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class RechargULServiceTest {
 
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   public static final Amount AMOUNT = Amount.valueOf(10);
-  public static final UserId USER_ID = new UserId();
+  public static final UserId USER_ID = UserId.valueOf("123");
   private RechargULService rechargULService;
   private RechargULCard rechargULCard;
   private TransactionFactory transactionFactory;

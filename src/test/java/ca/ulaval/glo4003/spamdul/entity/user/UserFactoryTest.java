@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
@@ -31,7 +31,13 @@ public class UserFactoryTest {
   private CarDto carDto;
 
   @Mock
-  CarFactory carFactory;
+  private CarFactory carFactory;
+  @Mock
+  private UserIdFactory userIdFactory;
+  @Mock
+  private Car A_CAR;
+  @Mock
+  private UserId A_USER_ID;
 
   @Before
   public void setUp() throws Exception {
@@ -47,16 +53,20 @@ public class UserFactoryTest {
     userDto.birthDate = A_BIRTHDAY_DATE;
     userDto.gender = A_GENDER;
     userDto.name = A_NAME;
-    userFactory = new UserFactory(carFactory);
+    userFactory = new UserFactory(userIdFactory, carFactory);
   }
 
   @Test
   public void whenCreatingUser_shouldCreateUserWithTheRightInfos() {
+    when(carFactory.create(CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE)).thenReturn(A_CAR);
+    when(userIdFactory.create()).thenReturn(A_USER_ID);
+
     User user = userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, carDto);
 
     assertThat(user.getName()).isEqualTo(A_NAME);
     assertThat(user.getGender()).isEqualTo(A_GENDER);
     assertThat(user.getBirthDate()).isEqualTo(A_BIRTHDAY_DATE);
-    verify(carFactory, times(1)).create(CAR_TYPE, BRAND, MODEL, YEAR, LICENSE_PLATE);
+    assertThat(user.getCar()).isEqualTo(A_CAR);
+    assertThat(user.getId()).isEqualTo(A_USER_ID);
   }
 }
