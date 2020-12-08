@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingParkingPassSenderTest {
+public class ParkingPassSenderTest {
 
   private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final DeliveryMode A_DELIVERY_MODE = DeliveryMode.POST;

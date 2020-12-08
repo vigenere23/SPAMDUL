@@ -22,7 +22,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingParkingPassFactoryTest {
+public class ParkingPassFactoryTest {
 
   private static final ParkingPassCode BIKE_PARKING_PASS_CODE = BikeParkingPassCode.valueOf("1234");
   private static final ParkingPassCode CAR_PARKING_PASS_CODE = CarParkingPassCode.valueOf("1234");

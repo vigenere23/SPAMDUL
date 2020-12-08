@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.CantCreatePassCodeException;
 import org.junit.Test;
 
-public class ParkingParkingPassCodeTest {
+public class ParkingPassCodeTest {
 
   @Test(expected = CantCreatePassCodeException.class)
   public void givenValue_whenCreatingPassCode_shouldThrowException() {

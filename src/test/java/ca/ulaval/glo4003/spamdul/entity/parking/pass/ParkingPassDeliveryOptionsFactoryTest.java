@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ParkingParkingPassDeliveryOptionsFactoryTest {
+public class ParkingPassDeliveryOptionsFactoryTest {
 
   private static final String A_SUBJECT = "djehfj";
   private static final String AN_EMAIL_ADDRESS = "fdjk";
