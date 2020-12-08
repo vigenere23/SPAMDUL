@@ -5,6 +5,8 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -81,5 +83,17 @@ public class CampusAccess {
 
   public int hashCode() {
     return Objects.hash(campusAccessCode, periodType, timePeriod);
+  }
+
+  public boolean canParkInZone(ParkingZone parkingZone) {
+    return associatedPass.isAValidParkingZone(parkingZone);
+  }
+
+  public boolean hasParkingPassBoundingInstant(LocalDateTime now) {
+    return associatedPass.doesBoundInstant(now);
+  }
+
+  public boolean hasParkingRightOnThisDayOfWeek(DayOfWeek dayOfWeek) {
+    return associatedPass.isValidOnThisDayOfWeek(dayOfWeek);
   }
 }

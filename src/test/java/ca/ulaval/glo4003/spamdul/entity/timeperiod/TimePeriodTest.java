@@ -1,25 +1,31 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 public class TimePeriodTest {
 
+  public static final DayOfWeek INCLUDED_DAY_OF_WEEK = DayOfWeek.MONDAY;
+  public static final DayOfWeek NON_INCLUDED_DAY_OF_WEEK = DayOfWeek.SATURDAY;
   private final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
   private final LocalDateTime A_DATE_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 13, 0, 0);
   private final LocalDateTime A_DATE_TIME_BEFORE = LocalDateTime.of(2019, 1, 1, 0, 0);
   private final LocalDateTime A_DATE_TIME_AFTER = LocalDateTime.of(2021, 1, 1, 0, 0);
-  private final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.MONDAY;
+  private final TimePeriodDayOfWeek A_TIME_PERIOD_DAY_OF_WEEK = TimePeriodDayOfWeek.MONDAY;
 
   @Test
   public void givenSameTimePeriods_whenComparingTimePeriod_shouldBeEqual() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
 
     boolean result = A_TIME_PERIOD.equals(SAME_TIME_PERIOD);
 
@@ -28,7 +34,7 @@ public class TimePeriodTest {
 
   @Test
   public void givenDifferentTimePeriods_whenComparing_shouldNotBeEqual() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
     TimePeriod OTHER_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.FRIDAY);
 
     boolean result = A_TIME_PERIOD.equals(OTHER_TIME_PERIOD);
@@ -74,8 +80,8 @@ public class TimePeriodTest {
 
   @Test
   public void givenTimePeriod_whenCheckingIfIncludedInSameTimePeriod_shouldBeTrue() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+    TimePeriod SAME_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
 
     boolean result = A_TIME_PERIOD.includedIn(SAME_TIME_PERIOD);
 
@@ -112,8 +118,8 @@ public class TimePeriodTest {
 
   @Test
   public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingBeforeAndEndingAfterWithDayIncluded_shouldBeTrue() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-    TimePeriod INCLUDING_TIME_PERIOD = new TimePeriod(A_DATE_TIME_BEFORE, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+    TimePeriod INCLUDING_TIME_PERIOD = new TimePeriod(A_DATE_TIME_BEFORE, A_DATE_TIME_AFTER, A_TIME_PERIOD_DAY_OF_WEEK);
 
     boolean result = A_TIME_PERIOD.includedIn(INCLUDING_TIME_PERIOD);
 
@@ -122,8 +128,8 @@ public class TimePeriodTest {
 
   @Test
   public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodEndingBefore_shouldBeFalse() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-    TimePeriod TIME_PERIOD_ENDING_BEFORE = new TimePeriod(A_DATE_TIME_BEFORE, A_START_DATE_TIME, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+    TimePeriod TIME_PERIOD_ENDING_BEFORE = new TimePeriod(A_DATE_TIME_BEFORE, A_START_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
 
     boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_ENDING_BEFORE);
 
@@ -132,8 +138,8 @@ public class TimePeriodTest {
 
   @Test
   public void givenTimePeriod_whenCheckingIfIncludedInTimePeriodStartingAfter_shouldBeFalse() {
-    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_DAY_OF_WEEK);
-    TimePeriod TIME_PERIOD_STARTING_AFTER = new TimePeriod(A_END_DATE_TIME, A_DATE_TIME_AFTER, A_DAY_OF_WEEK);
+    TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+    TimePeriod TIME_PERIOD_STARTING_AFTER = new TimePeriod(A_END_DATE_TIME, A_DATE_TIME_AFTER, A_TIME_PERIOD_DAY_OF_WEEK);
 
     boolean result = A_TIME_PERIOD.includedIn(TIME_PERIOD_STARTING_AFTER);
 
@@ -164,5 +170,23 @@ public class TimePeriodTest {
 
     assertThat(timePeriod.getStartDateTime()).isEqualTo(now);
     assertThat(timePeriod.getEndDateTime()).isEqualTo(now.plusHours(numberOfHours.longValue()));
+  }
+
+  @Test
+  public void givenIncludingDayOfWeek_whenCheckingIfCanParkOnDayOfWeek_shouldReturnTrue() {
+    TimePeriod timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+
+    boolean result = timePeriod.mayIncludeThisDayOfWeek(INCLUDED_DAY_OF_WEEK);
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  public void givenNonIncludingDayOfWeek_whenCheckingIfCanParkOnDayOfWeek_shouldReturnFalse() {
+    TimePeriod timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
+
+    boolean result = timePeriod.mayIncludeThisDayOfWeek(NON_INCLUDED_DAY_OF_WEEK);
+
+    assertThat(result).isFalse();
   }
 }

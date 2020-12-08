@@ -1,28 +1,33 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserFinderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.WrongDayInfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 
 public class DayOfWeekValidator extends PassValidator {
 
   private final Calendar calendar;
+  private final UserFinderService userReader;
 
-  public DayOfWeekValidator(Calendar calendar) {
+  public DayOfWeekValidator(Calendar calendar, UserFinderService userFinderService) {
+    this.userReader = userFinderService;
     this.calendar = calendar;
   }
 
   @Override
   public void validate(PassToValidateDto passToValidateDto) {
-    Pass pass = getCorrespondingPass(PassCode.valueOf(passToValidateDto.passCode));
+    PassCode passCode = PassCode.valueOf(passToValidateDto.passCode);
+    User user = userReader.findBy(passCode);
 
-    if (!pass.getTimePeriod().getTimePeriodDayOfWeek().include(calendar.getDayOfWeek())) {
+    if (!user.canParkOnThisDayOfWeek(calendar.getDayOfWeek())) {
 
-      throw new InfractionException("VIG_01");
+      throw new WrongDayInfractionException();
     }
 
     nextValidation(passToValidateDto);
   }
+
 }
