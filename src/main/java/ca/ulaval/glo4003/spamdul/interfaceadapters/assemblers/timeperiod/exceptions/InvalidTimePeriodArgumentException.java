@@ -5,4 +5,8 @@ public class InvalidTimePeriodArgumentException extends InvalidTimePeriodExcepti
   public InvalidTimePeriodArgumentException(String valid_period) {
     super(String.format("Invalid time period, make a choice between: %s", valid_period));
   }
+
+  public InvalidTimePeriodArgumentException() {
+    super("Invalid time period");
+  }
 }

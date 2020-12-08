@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusacc
 
 public class InvalidCampusAccessArgumentException extends RuntimeException {
 
-  public InvalidCampusAccessArgumentException(String message) {
-    super(message);
+  public InvalidCampusAccessArgumentException() {
+    super("A campus access code or a license plate must be provided");
   }
 }
