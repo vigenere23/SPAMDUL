@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransac
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassSender;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.GmailEmailService;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResourceImpl;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassService;
 
 public class ProdPassContext extends PassContext {
@@ -21,6 +21,6 @@ public class ProdPassContext extends PassContext {
                                               parkingZoneFeeRepository,
                                               deliveryFeeCalculator,
                                               userRepository);
-    passResource = new PassResourceImpl(passService, passAssembler);
+    passResource = new PassResource(passService, passAssembler);
   }
 }

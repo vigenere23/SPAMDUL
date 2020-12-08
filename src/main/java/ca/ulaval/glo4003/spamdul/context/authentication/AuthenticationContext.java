@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationService;
@@ -20,7 +19,7 @@ public class AuthenticationContext implements ResourceContext {
   public AuthenticationContext() {
     authenticationRepository = new InMemoryAuthenticationRepository();
     AuthenticationService authenticationService = new AuthenticationService(authenticationRepository);
-    authenticationResource = new AuthenticationResourceImpl(authenticationService);
+    authenticationResource = new AuthenticationResource(authenticationService);
     accessTokenCookieAssembler = new AccessTokenCookieAssembler();
   }
 

@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
@@ -59,10 +58,10 @@ public abstract class UsageReportContext implements ResourceContext {
                                                                    usageReportAssembler,
                                                                    accessLevelValidator);
 
-    usageReportResource = new UsageReportResourceImpl(usageReportService,
-                                                      usageReportCreationAssembler,
-                                                      usageReportSummaryCreationAssembler,
-                                                      cookieAssembler);
+    usageReportResource = new UsageReportResource(usageReportService,
+                                                  usageReportCreationAssembler,
+                                                  usageReportSummaryCreationAssembler,
+                                                  cookieAssembler);
     Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);
 
     this.populateData(populator);

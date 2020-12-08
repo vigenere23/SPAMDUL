@@ -2,21 +2,19 @@ package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointIdFactory;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVerifier;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPaymentService;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointFactory;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointIdFactory;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointRepository;
+import ca.ulaval.glo4003.spamdul.entity.charging.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.charging.InMemoryChargingPointRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
@@ -50,8 +48,8 @@ public abstract class ChargingContext implements ResourceContext {
                                                                          chargingPaymentService);
     RechargULService rechargULService = new RechargULService(userRepository, rechargULCardFactory);
 
-    chargingPointResource = new ChargingPointResourceImpl(chargingPointService, chargingPointAssembler);
-    rechargULResource = new RechargULResourceImpl(rechargULService, rechargULCardAssembler);
+    chargingPointResource = new ChargingPointResource(chargingPointService, chargingPointAssembler);
+    rechargULResource = new RechargULResource(rechargULService, rechargULCardAssembler);
 
     ChargingPointPopulator chargingPointPopulator = new ChargingPointPopulator(chargingPointFactory,
                                                                                chargingPointRepository);

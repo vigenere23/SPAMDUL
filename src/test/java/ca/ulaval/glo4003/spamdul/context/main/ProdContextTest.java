@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInst
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;

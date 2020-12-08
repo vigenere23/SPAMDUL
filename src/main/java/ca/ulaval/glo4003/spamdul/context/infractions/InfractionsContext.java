@@ -21,7 +21,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJ
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
@@ -53,7 +52,7 @@ public class InfractionsContext implements ResourceContext {
                                                                 accessLevelValidator,
                                                                 infractionTransactionService);
 
-    infractionResource = new InfractionResourceImpl(infractionAssembler, infractionService, cookieAssembler);
+    infractionResource = new InfractionResource(infractionAssembler, infractionService, cookieAssembler);
 
   }
 

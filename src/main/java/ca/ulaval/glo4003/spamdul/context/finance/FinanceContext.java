@@ -18,7 +18,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessT
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
@@ -67,10 +66,10 @@ public class FinanceContext implements ResourceContext {
     Calendar calendar = new HardCodedCalendar();
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
-    revenueResource = new RevenueResourceImpl(revenueService,
-                                              transactionQueryAssembler,
-                                              revenueAssembler,
-                                              cookieAssembler);
+    revenueResource = new RevenueResource(revenueService,
+                                          transactionQueryAssembler,
+                                          revenueAssembler,
+                                          cookieAssembler);
   }
 
   public TransactionFactory getTransactionFactory() {

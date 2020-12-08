@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess.CampusAccessFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResourceImpl;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessExceptionAssembler;
@@ -46,8 +45,8 @@ public class CampusAccessContext implements ResourceContext {
                                                                       campusAccessFeeRepository,
                                                                       campusAccessTransactionService);
     campusAccessService.register(parkingAccessLogger);
-    campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler,
-                                                        campusAccessService);
+    campusAccessResource = new CampusAccessResource(campusAccessAssembler,
+                                                    campusAccessService);
   }
 
   @Override public void registerResources(InstanceMap resources) {
