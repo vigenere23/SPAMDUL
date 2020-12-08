@@ -52,7 +52,7 @@ public class PassFactoryTest {
 
     assertThat(pass.getParkingZone()).isEqualTo(A_PARKING_ZONE);
     assertThat(pass.getTimePeriod()).isEqualTo(A_TIME_PERIOD);
-    assertThat(pass.getPassCode()).isEqualTo(A_PASS_CODE);
+    assertThat(pass.getCode()).isEqualTo(A_PASS_CODE);
   }
 
   @Test(expected = InvalidPassPeriodTypeException.class)

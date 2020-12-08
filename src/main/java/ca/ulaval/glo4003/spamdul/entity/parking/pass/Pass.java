@@ -5,8 +5,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 public class Pass {
 
   private final PassCode passCode;
-  private ParkingZone parkingZone;
-  private TimePeriod timePeriod;
+  private final ParkingZone parkingZone;
+  private final TimePeriod timePeriod;
 
   public Pass(PassCode passCode, ParkingZone parkingZone, TimePeriod timePeriod) {
     this.passCode = passCode;
@@ -18,7 +18,7 @@ public class Pass {
     return this.parkingZone.equals(parkingZone);
   }
 
-  public PassCode getPassCode() {
+  public PassCode getCode() {
     return passCode;
   }
 

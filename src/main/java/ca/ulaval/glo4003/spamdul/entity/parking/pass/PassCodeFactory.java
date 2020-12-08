@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
 
 public class PassCodeFactory {
 
@@ -11,6 +12,14 @@ public class PassCodeFactory {
   }
 
   public PassCode create() {
-    return PassCode.valueOf(String.valueOf(idGenerator.generateId()));
+    return PassCode.valueOf(String.valueOf(idGenerator.generate()));
+  }
+
+  public PassCode create(ParkingZone parkingZone) {
+    if (parkingZone == ParkingZone.ZONE_BIKE) {
+      return BikeParkingAccessCode.valueOf(String.valueOf(idGenerator.generate()));
+    }
+
+    return PassCode.valueOf(String.valueOf(idGenerator.generate()));
   }
 }

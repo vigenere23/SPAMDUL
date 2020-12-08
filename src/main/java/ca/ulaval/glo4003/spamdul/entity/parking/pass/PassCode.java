@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.ids.Id;
 
 public class PassCode extends Id {
 
-  private PassCode(String value) {
+  protected PassCode(String value) {
     super(value);
   }
 

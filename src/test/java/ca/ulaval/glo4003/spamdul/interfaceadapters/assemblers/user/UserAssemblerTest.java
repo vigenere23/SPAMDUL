@@ -61,6 +61,15 @@ public class UserAssemblerTest {
     assertThat(userDto.gender).isEqualTo(A_GENDER);
   }
 
+  @Test
+  public void givenNoCarInRequest_whenCreatingUserDto_shouldNotSetCarInfos() {
+    userRequest.car = null;
+
+    UserDto userDto = userAssembler.fromRequest(userRequest);
+
+    assertThat(userDto.carDto).isNull();
+  }
+
   @Test(expected = InvalidGenderException.class)
   public void givenAWrongGender_whenCreatingUser_shouldThrowIllegalArgumentException() {
     userRequest.gender = "Wrong gender";

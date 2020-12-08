@@ -27,7 +27,7 @@ public class PassCodeFactoryTest {
 
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
-    when(idGenerator.generateId()).thenReturn(A_VALUE);
+    when(idGenerator.generate()).thenReturn(A_VALUE);
     PassCode passCode = passCodeFactory.create();
     assertThat(passCode.toString()).isEqualTo(A_VALUE);
   }

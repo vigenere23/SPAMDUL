@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
@@ -83,6 +84,20 @@ public class InMemoryUserRepository implements UserRepository {
     } else {
       throw new UserNotFoundException();
     }
+  }
+
+  public User findBy(BikeParkingAccessCode bikeParkingAccessCode) {
+    Optional<User> user = users.values()
+                               .stream()
+                               .filter(currentUser -> currentUser.doesOwn(bikeParkingAccessCode))
+                               .findFirst();
+
+    if (user.isPresent()) {
+      return user.get();
+    } else {
+      throw new UserNotFoundException();
+    }
+
   }
 
   @Override public User findBy(PassCode passCode) {

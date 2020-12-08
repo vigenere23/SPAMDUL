@@ -41,7 +41,7 @@ public class PassService {
     userRepository.save(user);
     addRevenue(dto);
 
-    passSender.sendPass(dto.deliveryDto, pass.getPassCode());
+    passSender.sendPass(dto.deliveryDto, pass.getCode());
   }
 
   private void addRevenue(PassDto dto) {

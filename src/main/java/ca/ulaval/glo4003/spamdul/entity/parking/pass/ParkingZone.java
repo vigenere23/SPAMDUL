@@ -8,6 +8,7 @@ public enum ParkingZone {
   ZONE_2,
   ZONE_3,
   ZONE_R,
+  ZONE_BIKE,
   FREE;
 
   private static final Collator collator = Collator.getInstance();

@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usecases.parking.pass;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -8,6 +9,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
@@ -170,5 +172,21 @@ public class PassServiceTest {
     passService.createPass(A_SECOND_PASS_DTO);
 
     verify(userRepository).save(user);
+  }
+
+  //TODO a supprimer
+  @Test
+  public void name() {
+    Pass bikeParkingAccess = mock(BikeParkingAccess.class);
+    User user = new User(null, null, null, null);
+    when(userRepository.findBy(USER_ID)).thenReturn(user);
+    when(passFactory.create(ParkingZone.ZONE_BIKE, A_TIME_PERIOD_DTO)).thenReturn(bikeParkingAccess);
+    when(deliveryFeeCalculator.calculateBy(any(DeliveryMode.class))).thenReturn(A_DELIVERY_FEE);
+    when(parkingZoneFeeRepository.findBy(any(ParkingZone.class), any(PeriodType.class))).thenReturn(A_PARKING_ZONE_FEE);
+    A_PASS_DTO.parkingZone = ParkingZone.ZONE_BIKE;
+
+    passService.createPass(A_PASS_DTO);
+
+    verify(user, times(1)).associate(bikeParkingAccess);
   }
 }

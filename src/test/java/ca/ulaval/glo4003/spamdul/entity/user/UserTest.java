@@ -10,6 +10,9 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -35,6 +38,7 @@ import org.junit.Test;
 
 public class UserTest {
 
+  public static final String ACCESS_CODE_STRING = "1234";
   public static final CarId CAR_ID = new CarId();
   public static final CarType CAR_TYPE = CarType.ECONOMIQUE;
   public static final String BRAND = "brand";
@@ -60,6 +64,7 @@ public class UserTest {
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final Amount AMOUNT = Amount.valueOf(10);
   public static final LocalDateTime A_TIME_OF_ACCESS = LocalDateTime.now();
+  public static final String ANOTHER_ACCESS_CODE_STRING = "5678";
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(1991, 7, 10);
@@ -248,5 +253,84 @@ public class UserTest {
     user.addRechargULCredits(AMOUNT);
 
     verify(rechargULCard, times(1)).addCredits(AMOUNT);
+  }
+
+  @Test
+  public void whenAssociatingBikeParkingAccess_bikeParkingAccessShouldBeAdded() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+
+    user.associate(bikeParkingAccess);
+
+    assertThat(user.doesOwn(bikeParkingAccessCode)).isTrue();
+  }
+
+  @Test
+  public void givenTheUserOwnsTheBikeParkingPass_whenVerifyingIfUserOwnABikeParkingAccess_userShouldOwn() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+
+    user.associate(bikeParkingAccess);
+
+    boolean doesOwn = user.doesOwn(bikeParkingAccessCode);
+
+    assertThat(doesOwn).isTrue();
+  }
+
+  @Test
+  public void givenAUserThatDoesNotOwnBikeParkingPass_whenVerifyingIfUserOwnBikeParkingPass_userShouldNotOwn() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccessCode anotherBikeParkingAccessCode = BikeParkingAccessCode.valueOf(ANOTHER_ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+
+    user.associate(bikeParkingAccess);
+
+    boolean doesOwn = user.doesOwn(anotherBikeParkingAccessCode);
+
+    assertThat(doesOwn).isFalse();
+  }
+
+  @Test
+  public void whenVerifyingIfUserCanAccessBikeParking_shouldAskBikeParkingAccessValidator() {
+    BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    user.associate(bikeParkingAccess);
+
+    user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
+
+    verify(bikeParkingAccessValidator, times(1)).validate(bikeParkingAccess);
+  }
+
+  @Test
+  public void givenBikeParkingAccessValidatorGrantAccess_whenVerifyingIfUserCanAccessBikeParking_userShouldGrantAccess() {
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
+    when(bikeParkingAccessValidator.validate(bikeParkingAccess)).thenReturn(true);
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    user.associate(bikeParkingAccess);
+
+    boolean isAccessGranted = user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
+
+    assertThat(isAccessGranted).isTrue();
+  }
+
+  @Test
+  public void givenBikeParkingAccessValidatorDoesNotGrantAccess_whenVerifyingIfUserCanAccessBikeParking_userShouldNotGrantAccess() {
+    BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
+    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    when(bikeParkingAccessValidator.validate(bikeParkingAccess)).thenReturn(false);
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
+    user.associate(bikeParkingAccess);
+
+    boolean isAccessGranted = user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
+
+    assertThat(isAccessGranted).isFalse();
   }
 }

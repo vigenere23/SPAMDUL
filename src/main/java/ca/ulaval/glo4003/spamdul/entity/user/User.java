@@ -2,6 +2,9 @@ package ca.ulaval.glo4003.spamdul.entity.user;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccess;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -33,6 +36,7 @@ public class User {
   private Car car;
   private CampusAccess campusAccess;
   private RechargULCard rechargULCard;
+  private BikeParkingAccess bikeParkingAccess;
 
   public User(UserId userId, String name, Gender gender, LocalDate birthDate, Car car) {
     this.name = name;
@@ -40,6 +44,14 @@ public class User {
     this.birthDate = birthDate;
     this.userId = userId;
     this.car = car;
+    this.infractions = new HashMap<>();
+  }
+
+  public User(UserId userId, String name, Gender gender, LocalDate birthDate) {
+    this.name = name;
+    this.gender = gender;
+    this.birthDate = birthDate;
+    this.userId = userId;
     this.infractions = new HashMap<>();
   }
 
@@ -67,6 +79,10 @@ public class User {
     } else {
       return campusAccess.grantAccess(dateTime);
     }
+  }
+
+  public boolean isAccessGrantedToBikeParking(BikeParkingAccessValidator bikeParkingAccessValidator) {
+    return bikeParkingAccessValidator.validate(this.bikeParkingAccess);
   }
 
   public void associate(Pass pass) {
@@ -98,6 +114,9 @@ public class User {
     this.car = car;
   }
 
+  public void associate(BikeParkingAccess bikeParkingAccess) {
+    this.bikeParkingAccess = bikeParkingAccess;
+  }
 
   public boolean doesOwn(LicensePlate licensePlate) {
     return car.getLicensePlate().equals(licensePlate);
@@ -105,7 +124,7 @@ public class User {
 
   public boolean doesOwn(PassCode passCode) {
     return campusAccess != null && campusAccess.getAssociatedPass() != null && campusAccess.getAssociatedPass()
-                                                                                           .getPassCode()
+                                                                                           .getCode()
                                                                                            .equals(passCode);
   }
 
@@ -115,6 +134,10 @@ public class User {
 
   public boolean doesOwn(CampusAccessCode campusAccessCode) {
     return campusAccess != null && campusAccess.getCampusAccessCode().equals(campusAccessCode);
+  }
+
+  public boolean doesOwn(BikeParkingAccessCode bikeParkingAccessCode) {
+    return bikeParkingAccessCode.equals(this.bikeParkingAccess.getCode());
   }
 
   public boolean hasInfractionWith(InfractionId infractionId) {
