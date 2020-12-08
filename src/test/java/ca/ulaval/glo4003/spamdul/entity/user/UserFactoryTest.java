@@ -1,11 +1,17 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
 import java.time.LocalDate;
@@ -68,5 +74,16 @@ public class UserFactoryTest {
     assertThat(user.getBirthDate()).isEqualTo(A_BIRTHDAY_DATE);
     assertThat(user.getCar()).isEqualTo(A_CAR);
     assertThat(user.getId()).isEqualTo(A_USER_ID);
+  }
+
+  @Test
+  public void givenNoCar_whenCreatingUser_shouldCreateUserWithoutACar() {
+    carDto = null;
+    when(userIdFactory.create()).thenReturn(A_USER_ID);
+
+    User user = userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, carDto);
+
+    assertThat(user.getCar()).isNull();
+    verify(carFactory, never()).create(any(CarType.class), anyString(), anyString(), anyInt(), anyString());
   }
 }

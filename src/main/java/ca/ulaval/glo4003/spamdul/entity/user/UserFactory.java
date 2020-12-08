@@ -16,8 +16,12 @@ public class UserFactory {
   }
 
   public User create(String name, Gender gender, LocalDate birthDate, CarDto carDto) {
-    Car car = carFactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
+    if (carDto != null) {
+      Car car = carFactory.create(carDto.carType, carDto.brand, carDto.model, carDto.year, carDto.licensePlate);
 
-    return new User(userIdFactory.create(), name, gender, birthDate, car);
+      return new User(userIdFactory.create(), name, gender, birthDate, car);
+    }
+
+    return new User(userIdFactory.create(), name, gender, birthDate);
   }
 }

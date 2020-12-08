@@ -1,9 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
@@ -86,10 +87,10 @@ public class InMemoryUserRepository implements UserRepository {
     }
   }
 
-  public User findBy(BikeParkingAccessCode bikeParkingAccessCode) {
+  public User findBy(BikeParkingPassCode bikeParkingPassCode) {
     Optional<User> user = users.values()
                                .stream()
-                               .filter(currentUser -> currentUser.doesOwn(bikeParkingAccessCode))
+                               .filter(currentUser -> currentUser.doesOwn(bikeParkingPassCode))
                                .findFirst();
 
     if (user.isPresent()) {
@@ -100,10 +101,10 @@ public class InMemoryUserRepository implements UserRepository {
 
   }
 
-  @Override public User findBy(PassCode passCode) {
+  @Override public User findBy(CarParkingPassCode parkingPassCode) {
     Optional<User> user = users.values()
                                .stream()
-                               .filter(currentUser -> currentUser.doesOwn(passCode))
+                               .filter(currentUser -> currentUser.doesOwn(parkingPassCode))
                                .findFirst();
     if (user.isPresent()) {
       return user.get();

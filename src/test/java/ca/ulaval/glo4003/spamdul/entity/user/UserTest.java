@@ -10,14 +10,15 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccess;
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
@@ -49,8 +50,7 @@ public class UserTest {
   public static final TimePeriod TIME_PERIOD = new TimePeriod(LocalDateTime.MIN,
                                                               LocalDateTime.MAX,
                                                               TimePeriodDayOfWeek.ALL);
-  public static final PassCode PASS_CODE = PassCode.valueOf("123");
-  public static final PassCode ANOTHER_PASSE_CODE = PassCode.valueOf("456");
+  public static final CarParkingPassCode CAR_PASS_CODE = CarParkingPassCode.valueOf("123");
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
   public static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
@@ -147,28 +147,6 @@ public class UserTest {
     verify(campusAccess, times(1)).grantAccess(A_TIME_OF_ACCESS);
   }
 
-  @Test
-  public void whenAddingNewPass_passShouldBeAddedToUser() {
-    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
-    user.associate(campusAccess);
-    Pass pass = new Pass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
-
-    user.associate(pass);
-
-    assertThat(user.doesOwn(PASS_CODE)).isTrue();
-  }
-
-  @Test
-  public void givenPassDoesNotBelongToUser_whenVerifyingIfHeOwnsPass_userShouldNotOwnsThePass() {
-    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
-    user.associate(campusAccess);
-
-    boolean doesOwns = user.doesOwn(PASS_CODE);
-
-    assertThat(doesOwns).isFalse();
-  }
 
   @Test
   public void whenAddingNewRechargeUlCard_cardShouldBeAddedToUser() {
@@ -256,25 +234,58 @@ public class UserTest {
   }
 
   @Test
-  public void whenAssociatingBikeParkingAccess_bikeParkingAccessShouldBeAdded() {
+  public void whenAssociatingAParkingPass_parkingPassShouldAccept() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    ParkingPass parkingPass = mock(ParkingPass.class);
+
+    user.associate(parkingPass);
+
+    verify(parkingPass, times(1)).accept(user);
+  }
+
+  @Test
+  public void whenAddingNewCarParkingPass_carParkingPassShouldBeAddedToUser() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    user.associate(campusAccess);
+    CarParkingPass parkingPass = new CarParkingPass(CAR_PASS_CODE, PARKING_ZONE, TIME_PERIOD);
+
+    user.associateCarParkingPass(parkingPass);
+
+    assertThat(user.doesOwn(CAR_PASS_CODE)).isTrue();
+  }
+
+  @Test
+  public void givenPassDoesNotBelongToUser_whenVerifyingIfHeOwnsPass_userShouldNotOwnsThePass() {
+    User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    user.associate(campusAccess);
+
+    boolean doesOwns = user.doesOwn(CAR_PASS_CODE);
+
+    assertThat(doesOwns).isFalse();
+  }
+
+  @Test
+  public void whenAssociatingBikeParkingPass_bikeParkingPassShouldBeAdded() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
 
-    user.associate(bikeParkingAccess);
+    user.associateBikeParkingPass(bikeParkingPass);
 
-    assertThat(user.doesOwn(bikeParkingAccessCode)).isTrue();
+    assertThat(user.doesOwn(bikeParkingPassCode)).isTrue();
   }
 
   @Test
   public void givenTheUserOwnsTheBikeParkingPass_whenVerifyingIfUserOwnABikeParkingAccess_userShouldOwn() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
 
-    user.associate(bikeParkingAccess);
+    user.associateBikeParkingPass(bikeParkingPass);
 
-    boolean doesOwn = user.doesOwn(bikeParkingAccessCode);
+    boolean doesOwn = user.doesOwn(bikeParkingPassCode);
 
     assertThat(doesOwn).isTrue();
   }
@@ -282,13 +293,13 @@ public class UserTest {
   @Test
   public void givenAUserThatDoesNotOwnBikeParkingPass_whenVerifyingIfUserOwnBikeParkingPass_userShouldNotOwn() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccessCode anotherBikeParkingAccessCode = BikeParkingAccessCode.valueOf(ANOTHER_ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPassCode anotherBikeParkingPassCode = BikeParkingPassCode.valueOf(ANOTHER_ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
 
-    user.associate(bikeParkingAccess);
+    user.associateBikeParkingPass(bikeParkingPass);
 
-    boolean doesOwn = user.doesOwn(anotherBikeParkingAccessCode);
+    boolean doesOwn = user.doesOwn(anotherBikeParkingPassCode);
 
     assertThat(doesOwn).isFalse();
   }
@@ -297,23 +308,23 @@ public class UserTest {
   public void whenVerifyingIfUserCanAccessBikeParking_shouldAskBikeParkingAccessValidator() {
     BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
-    user.associate(bikeParkingAccess);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
+    user.associateBikeParkingPass(bikeParkingPass);
 
     user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
 
-    verify(bikeParkingAccessValidator, times(1)).validate(bikeParkingAccess);
+    verify(bikeParkingAccessValidator, times(1)).validate(bikeParkingPass);
   }
 
   @Test
   public void givenBikeParkingAccessValidatorGrantAccess_whenVerifyingIfUserCanAccessBikeParking_userShouldGrantAccess() {
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
     BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
-    when(bikeParkingAccessValidator.validate(bikeParkingAccess)).thenReturn(true);
+    when(bikeParkingAccessValidator.validate(bikeParkingPass)).thenReturn(true);
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    user.associate(bikeParkingAccess);
+    user.associateBikeParkingPass(bikeParkingPass);
 
     boolean isAccessGranted = user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
 
@@ -323,11 +334,11 @@ public class UserTest {
   @Test
   public void givenBikeParkingAccessValidatorDoesNotGrantAccess_whenVerifyingIfUserCanAccessBikeParking_userShouldNotGrantAccess() {
     BikeParkingAccessValidator bikeParkingAccessValidator = mock(BikeParkingAccessValidator.class);
-    BikeParkingAccessCode bikeParkingAccessCode = BikeParkingAccessCode.valueOf(ACCESS_CODE_STRING);
-    BikeParkingAccess bikeParkingAccess = new BikeParkingAccess(bikeParkingAccessCode, TIME_PERIOD);
-    when(bikeParkingAccessValidator.validate(bikeParkingAccess)).thenReturn(false);
+    BikeParkingPassCode bikeParkingPassCode = BikeParkingPassCode.valueOf(ACCESS_CODE_STRING);
+    BikeParkingPass bikeParkingPass = new BikeParkingPass(bikeParkingPassCode, TIME_PERIOD);
+    when(bikeParkingAccessValidator.validate(bikeParkingPass)).thenReturn(false);
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE);
-    user.associate(bikeParkingAccess);
+    user.associateBikeParkingPass(bikeParkingPass);
 
     boolean isAccessGranted = user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
 

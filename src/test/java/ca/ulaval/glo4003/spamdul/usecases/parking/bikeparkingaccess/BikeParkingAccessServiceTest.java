@@ -5,8 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BikeParkingAccessServiceTest {
 
-  public static final BikeParkingAccessCode BIKE_PARKING_ACCESS_CODE = BikeParkingAccessCode.valueOf("1234");
+  public static final BikeParkingPassCode BIKE_PARKING_ACCESS_CODE = BikeParkingPassCode.valueOf("1234");
   private BikeParkingAccessService bikeParkingAccessService;
 
   @Mock

@@ -9,11 +9,12 @@ import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.DayOfWeekValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyPassCodeValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassExistsValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.DayOfWeekValidatorCarParking;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyCarParkingPassCodeValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.ParkingZoneValidatorCarParking;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.TimePeriodBoundaryValidatorCarParking;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
@@ -39,7 +40,7 @@ public class InfractionsContext implements ResourceContext {
     InfractionInfoRepository infractionInfoRepository = new InfractionsInfosJsonRepository(
         "src/main/resources/infraction.json",
         new JsonReader());
-    PassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(userRepository);
+    CarParkingPassValidator firstValidationNode = initializeValidationChainAndReturnFirstNode(userRepository);
 
     InfractionIdFactory infractionIdFactory = new InfractionIdFactory(new IncrementalIdGenerator());
     InfractionFactory infractionFactory = new InfractionFactory(infractionIdFactory);
@@ -57,16 +58,18 @@ public class InfractionsContext implements ResourceContext {
 
   }
 
-  private PassValidator initializeValidationChainAndReturnFirstNode(UserRepository userRepository) {
+  private CarParkingPassValidator initializeValidationChainAndReturnFirstNode(UserRepository userRepository) {
     Calendar calendar = new HardCodedCalendar();
-    PassValidator.setPassRepository(userRepository);
+    CarParkingPassValidator.setPassRepository(userRepository);
 
-    EmptyPassCodeValidator emptyPassCodeValidator = new EmptyPassCodeValidator();
-    ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
-    TimePeriodBoundaryValidator timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar);
-    DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
+    EmptyCarParkingPassCodeValidator emptyPassCodeValidator = new EmptyCarParkingPassCodeValidator();
+    CarParkingPassExistsValidator parkingPassExistsValidator = new CarParkingPassExistsValidator();
+    ParkingZoneValidatorCarParking parkingZoneValidator = new ParkingZoneValidatorCarParking();
+    TimePeriodBoundaryValidatorCarParking timePeriodBoundaryValidator = new TimePeriodBoundaryValidatorCarParking(calendar);
+    DayOfWeekValidatorCarParking dayOfWeekValidator = new DayOfWeekValidatorCarParking(calendar);
 
-    emptyPassCodeValidator.setNextValidator(parkingZoneValidator);
+    emptyPassCodeValidator.setNextValidator(parkingPassExistsValidator);
+    parkingPassExistsValidator.setNextValidator(parkingZoneValidator);
     parkingZoneValidator.setNextValidator(timePeriodBoundaryValidator);
     timePeriodBoundaryValidator.setNextValidator(dayOfWeekValidator);
 

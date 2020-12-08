@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.bikeparkingpaccess.BikeParkingAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.parking.bikeparkingaccess.BikeParkingAccessService;
@@ -29,7 +29,7 @@ public class BikeParkingAccessResource {
   @Path("/{bikeParkingAccessCode}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response accessBikeParking(@PathParam("bikeParkingAccessCode") String bikeParkingAccessCode) {
-    BikeParkingAccessCode accessCode = BikeParkingAccessCode.valueOf(bikeParkingAccessCode);
+    BikeParkingPassCode accessCode = BikeParkingPassCode.valueOf(bikeParkingAccessCode);
     boolean canAccessParking = bikeParkingAccessService.canAccessParking(accessCode);
     BikeParkingAccessResponse bikeParkingAccessResponse = bikeParkingAccessAssembler.toResponse(canAccessParking);
 

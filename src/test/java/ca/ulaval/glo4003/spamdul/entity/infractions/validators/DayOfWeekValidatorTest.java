@@ -4,15 +4,17 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import java.time.DayOfWeek;
 import org.junit.After;
 import org.junit.Before;
@@ -30,15 +32,16 @@ public class DayOfWeekValidatorTest {
   public DayOfWeek A_DAY_OF_WEEK = DayOfWeek.MONDAY;
 
   private Calendar calendar = mock(Calendar.class);
+  private CarParkingPassCode parkingPassCode = CarParkingPassCode.valueOf(A_VALID_PASS_CODE_STRING);
 
-  private DayOfWeekValidator dayOfWeekValidator = new DayOfWeekValidator(calendar);
+  private DayOfWeekValidatorCarParking dayOfWeekValidator = new DayOfWeekValidatorCarParking(calendar);
   @Mock
   private TimePeriod timePeriod;
   @Mock
   private UserRepository userRepository;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
-  private Pass pass;
+  private CarParkingPass parkingPass;
   @Mock
   private User user;
 
@@ -49,68 +52,64 @@ public class DayOfWeekValidatorTest {
 
   @Before
   public void setUp() {
-    PassValidator.setPassRepository(userRepository);
-    when(user.getPass()).thenReturn(pass);
+    CarParkingPassValidator.setPassRepository(userRepository);
+    when(user.getCarParkingPass()).thenReturn(parkingPass);
   }
 
   @After
   public void clearStatic() {
-    PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
+    CarParkingPassValidator.setPassRepository(null);
+    CarParkingPassValidator.passCache.clear();
   }
 
   @Test
   public void whenValidate_shouldGetCorrespondingPass() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(A_DAY_OF_WEEK);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
     dayOfWeekValidator.validate(passToValidateDto);
 
-    verify(userRepository).findBy(passCode);
+    verify(userRepository).findBy(parkingPassCode);
   }
 
   @Test
   public void whenValidate_shouldGetTimePeriodFromPass() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(A_DAY_OF_WEEK);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
     dayOfWeekValidator.validate(passToValidateDto);
 
-    verify(pass).getTimePeriod();
+    verify(parkingPass).getTimePeriod();
   }
 
   @Test
   public void whenValidate_shouldGetDayOfWeekFromTimePeriod() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(A_DAY_OF_WEEK);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
     dayOfWeekValidator.validate(passToValidateDto);
 
-    verify(pass).getTimePeriod();
+    verify(parkingPass).getTimePeriod();
   }
 
   @Test
   public void whenValidate_shouldCallCalendarNow() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(A_DAY_OF_WEEK);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
@@ -122,10 +121,9 @@ public class DayOfWeekValidatorTest {
   @Test
   public void givenNotIncludingDayOfWeek_whenValidate_shouldThrowInfractionException() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.MONDAY;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(DayOfWeek.SUNDAY);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
@@ -137,18 +135,17 @@ public class DayOfWeekValidatorTest {
 
   @Test
   public void givenValidParkingZone_whenValidate_shouldCallNextValidation() {
-    PassValidator nextPassValidator = mock(PassValidator.class);
-    dayOfWeekValidator.setNextValidator(nextPassValidator);
+    CarParkingPassValidator nextCarParkingPassValidator = mock(CarParkingPassValidator.class);
+    dayOfWeekValidator.setNextValidator(nextCarParkingPassValidator);
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
     timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.getDayOfWeek()).thenReturn(A_DAY_OF_WEEK);
     when(timePeriod.getTimePeriodDayOfWeek()).thenReturn(timePeriodDayOfWeek);
 
     dayOfWeekValidator.validate(passToValidateDto);
 
-    verify(nextPassValidator).validate(passToValidateDto);
+    verify(nextCarParkingPassValidator).validate(passToValidateDto);
   }
 }

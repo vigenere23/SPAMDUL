@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.main;
 
 import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.ProdCarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.charging.ProdChargingContext;
@@ -16,6 +17,7 @@ public class ProdContext extends MainContext {
   public ProdContext() {
     authContext = new AuthenticationContext();
     userContext = new UserContext();
+    bikeParkingAccessContext = new BikeParkingAccessContext(userContext.getUserRepository());
     usageReportContext = new ProdUsageReportContext(authContext.getAuthenticationRepository(),
                                                     authContext.getAccessTokenCookieAssembler());
     financeContext = new FinanceContext(authContext.getAuthenticationRepository(),

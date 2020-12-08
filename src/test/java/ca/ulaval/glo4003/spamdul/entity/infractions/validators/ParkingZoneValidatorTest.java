@@ -4,12 +4,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import org.junit.After;
 import org.junit.Before;
@@ -26,61 +28,59 @@ public class ParkingZoneValidatorTest {
   public static final String A_VALID_PASS_CODE_STRING = "9";
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
-  private ParkingZoneValidator parkingZoneValidator = new ParkingZoneValidator();
+  private ParkingZoneValidatorCarParking parkingZoneValidator = new ParkingZoneValidatorCarParking();
+  private CarParkingPassCode parkingPassCode = CarParkingPassCode.valueOf(A_VALID_PASS_CODE_STRING);
   @Mock
   private UserRepository userRepository;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
   private User user;
   @Mock
-  private Pass pass;
+  private CarParkingPass parkingPass;
 
   @Rule
   public ExpectedException exceptionRule = ExpectedException.none();
 
   @Before
   public void setUp() {
-    PassValidator.setPassRepository(userRepository);
+    CarParkingPassValidator.setPassRepository(userRepository);
     passToValidateDto.parkingZone = A_PARKING_ZONE;
-    when(user.getPass()).thenReturn(pass);
+    when(user.getCarParkingPass()).thenReturn(parkingPass);
   }
 
   @After
   public void clearStatic() {
-    PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
+    CarParkingPassValidator.setPassRepository(null);
+    CarParkingPassValidator.passCache.clear();
   }
 
   @Test
   public void whenValidate_shouldGetCorrespondingPass() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
 
     parkingZoneValidator.validate(passToValidateDto);
 
-    verify(userRepository).findBy(passCode);
+    verify(userRepository).findBy(parkingPassCode);
   }
 
   @Test
   public void whenValidate_shouldTellPassToValidateParkingZone() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
 
     parkingZoneValidator.validate(passToValidateDto);
 
-    verify(pass).isAValidParkingZone(passToValidateDto.parkingZone);
+    verify(parkingPass).isAValidParkingZone(passToValidateDto.parkingZone);
   }
 
   @Test
   public void givenInvalidParkingZone_whenValidate_shouldThrowInfractionException() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(false);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(false);
 
     exceptionRule.expect(InfractionException.class);
     exceptionRule.expectMessage("ZONE_01");
@@ -90,15 +90,14 @@ public class ParkingZoneValidatorTest {
 
   @Test
   public void givenValidParkingZone_whenValidate_shouldCallNextValidation() {
-    PassValidator nextPassValidator = mock(PassValidator.class);
-    parkingZoneValidator.setNextValidator(nextPassValidator);
+    CarParkingPassValidator nextCarParkingPassValidator = mock(CarParkingPassValidator.class);
+    parkingZoneValidator.setNextValidator(nextCarParkingPassValidator);
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(userRepository.findBy(passCode)).thenReturn(user);
-    when(pass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
+    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
+    when(parkingPass.isAValidParkingZone(A_PARKING_ZONE)).thenReturn(true);
 
     parkingZoneValidator.validate(passToValidateDto);
 
-    verify(nextPassValidator).validate(passToValidateDto);
+    verify(nextCarParkingPassValidator).validate(passToValidateDto);
   }
 }
