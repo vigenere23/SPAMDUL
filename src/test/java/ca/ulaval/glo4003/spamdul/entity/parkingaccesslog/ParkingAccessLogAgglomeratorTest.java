@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,13 +15,13 @@ import org.junit.Test;
 public class ParkingAccessLogAgglomeratorTest {
 
   private ParkingAccessLogAgglomerator parkingAccessLogAgglomerator;
-  private final ParkingAccessLog AN_ACCESS_LOG = new ParkingAccessLog(new ParkingAccessLogId(),
+  private final ParkingAccessLog AN_ACCESS_LOG = new ParkingAccessLog(ParkingAccessLogId.valueOf("123"),
                                                                       ParkingZone.ZONE_1,
                                                                       LocalDate.now());
-  private final ParkingAccessLog AN_ACCESS_LOG_COPY = new ParkingAccessLog(new ParkingAccessLogId(),
+  private final ParkingAccessLog AN_ACCESS_LOG_COPY = new ParkingAccessLog(ParkingAccessLogId.valueOf("456"),
                                                                            ParkingZone.ZONE_1,
                                                                            LocalDate.now());
-  private final ParkingAccessLog AN_ACCESS_LOG_ONE_DAY_BEFORE = new ParkingAccessLog(new ParkingAccessLogId(),
+  private final ParkingAccessLog AN_ACCESS_LOG_ONE_DAY_BEFORE = new ParkingAccessLog(ParkingAccessLogId.valueOf("789"),
                                                                                      ParkingZone.ZONE_1,
                                                                                      LocalDate.now().minusDays(1));
 

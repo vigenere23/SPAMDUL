@@ -4,13 +4,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import java.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -33,17 +34,20 @@ public class TimePeriodBoundaryValidatorTest {
   @Mock
   private TimePeriod timePeriod;
   @Mock
-  private PassRepository passRepository;
+  private UserRepository userRepository;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
   @Mock
   private Pass pass;
+  @Mock
+  private User user;
 
   @Rule
   public ExpectedException exceptionRule = ExpectedException.none();
 
   @Before
   public void setUp() {
-    PassValidator.setPassRepository(passRepository);
+    PassValidator.setPassRepository(userRepository);
+    when(user.getPass()).thenReturn(pass);
   }
 
   @After
@@ -56,21 +60,21 @@ public class TimePeriodBoundaryValidatorTest {
   public void whenValidate_shouldGetCorrespondingPass() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
 
-    verify(passRepository).findByPassCode(passCode);
+    verify(userRepository).findBy(passCode);
   }
 
   @Test
   public void whenValidate_shouldGetTimePeriodFromPass() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
@@ -84,7 +88,7 @@ public class TimePeriodBoundaryValidatorTest {
   public void whenValidate_shouldCallCalendarNow() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
@@ -98,7 +102,7 @@ public class TimePeriodBoundaryValidatorTest {
   public void whenValidate_shouldChekIfTimePeriodBoundsNow() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
@@ -112,7 +116,7 @@ public class TimePeriodBoundaryValidatorTest {
   public void givenNotBoundingTimePeriod_whenValidate_shouldThrowInfractionException() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(false);
@@ -129,7 +133,7 @@ public class TimePeriodBoundaryValidatorTest {
     timePeriodBoundaryValidator.setNextValidator(nextPassValidator);
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
     PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
-    when(passRepository.findByPassCode(passCode)).thenReturn(pass);
+    when(userRepository.findBy(passCode)).thenReturn(user);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
     when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);

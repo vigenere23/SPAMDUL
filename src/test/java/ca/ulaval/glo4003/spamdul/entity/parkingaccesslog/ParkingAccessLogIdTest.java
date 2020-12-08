@@ -7,16 +7,16 @@ import org.junit.Test;
 public class ParkingAccessLogIdTest {
 
   @Test
-  public void whenCreatingParkingAccessLogId_shouldGenerateAnId() {
-    ParkingAccessLogId parkingAccessLogId = new ParkingAccessLogId();
-
-    assertThat(parkingAccessLogId.toString()).isNotEqualTo("");
+  public void givenValue_whenCreatingParkingAccessLogId_shouldCreateWithValue() {
+    String value = "123";
+    ParkingAccessLogId parkingAccessLogId = ParkingAccessLogId.valueOf(value);
+    assertThat(parkingAccessLogId.toString()).isEqualTo(value);
   }
 
   @Test
   public void whenComparingDifferentParkingAccessLogId_shouldNotBeEqual() {
-    ParkingAccessLogId parkingAccessLogId = new ParkingAccessLogId();
-    ParkingAccessLogId anotherParkingAccessLogId = new ParkingAccessLogId();
+    ParkingAccessLogId parkingAccessLogId = ParkingAccessLogId.valueOf("123");
+    ParkingAccessLogId anotherParkingAccessLogId = ParkingAccessLogId.valueOf("456");
 
     assertThat(parkingAccessLogId).isNotEqualTo(anotherParkingAccessLogId);
     assertThat(parkingAccessLogId.hashCode()).isNotEqualTo(anotherParkingAccessLogId.hashCode());
@@ -24,7 +24,7 @@ public class ParkingAccessLogIdTest {
 
   @Test
   public void whenComparingTheSameParkingAccessLogId_shouldBeEqual() {
-    ParkingAccessLogId parkingAccessLogId = new ParkingAccessLogId();
+    ParkingAccessLogId parkingAccessLogId = ParkingAccessLogId.valueOf("123");
     ParkingAccessLogId sameParkingAccessLogId = ParkingAccessLogId.valueOf(parkingAccessLogId.toString());
 
     assertThat(parkingAccessLogId).isEqualTo(sameParkingAccessLogId);

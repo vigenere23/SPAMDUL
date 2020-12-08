@@ -18,14 +18,13 @@ public class AuthenticationResourceImpl implements AuthenticationResource {
   @Override public Response login(LoginRequest loginRequest) {
     TemporaryToken temporaryToken = authenticationService.login(loginRequest.username, loginRequest.hashedPassword);
 
-    // retourner un objet json au lieu de mettre le token dans le cookie
     return Response.status(Status.OK)
                    .cookie(new NewCookie("accessToken",
                                          temporaryToken.toString(),
                                          "/",
                                          "",
                                          "",
-                                         100,
+                                         3600,
                                          false))
                    .build();
   }

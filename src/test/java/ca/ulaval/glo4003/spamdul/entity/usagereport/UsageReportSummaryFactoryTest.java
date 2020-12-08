@@ -2,10 +2,11 @@ package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogIdFactory;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class UsageReportSummaryFactoryTest {
   private final LocalDate END_DATE = START_DATE.plusDays(27);
   private final long PERIOD_DAYS = ChronoUnit.DAYS.between(START_DATE, END_DATE) + 1;
 
+  private static final ParkingAccessLogIdFactory parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(new IncrementalIdGenerator());
   private final ParkingAccessLog AN_ACCESS_LOG = createLogForDate(START_DATE);
   private final ParkingAccessLog AN_ACCESS_LOG_COPY = createLogForDate(START_DATE);
   private final ParkingAccessLog AN_ACCESS_LOG_SOME_DAYS_AFTER = createLogForDate(END_DATE);
@@ -120,7 +122,7 @@ public class UsageReportSummaryFactoryTest {
     return logs;
   }
 
-  private ParkingAccessLog createLogForDate(LocalDate date) {
-    return new ParkingAccessLog(new ParkingAccessLogId(), ParkingZone.ZONE_1, date);
+  private static ParkingAccessLog createLogForDate(LocalDate date) {
+    return new ParkingAccessLog(parkingAccessLogIdFactory.create(), ParkingZone.ZONE_1, date);
   }
 }

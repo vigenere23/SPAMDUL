@@ -15,10 +15,12 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,44 +33,50 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class InfractionServiceTest {
 
   public static final String ANY_MESSAGE = "test";
-  public static final double ANY_AMOUNT = 598.65;
-  public static final InfractionId AN_INFRACTION_ID = new InfractionId();
+  public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
+  public static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
   public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
+  public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
 
   public final String AN_INFRACTION_CODE_VALUE = "00";
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
 
-  private InfractionService infractionService;
-  @Mock
-  private InfractionInfoRepository infractionInfoRepository;
-  @Mock
-  private InfractionRepository infractionRepository;
-  @Mock
-  private PassValidator passValidator;
-  private PassToValidateDto passToValidateDto;
-  @Mock
-  private InfractionFactory infractionFactory;
   private InfractionInfos infractionInfos;
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
+  private PassToValidateDto passToValidateDto;
+  private InfractionService infractionService;
+
+  @Mock
+  private InfractionInfoRepository infractionInfoRepository;
+  @Mock
+  private PassValidator passValidator;
+  @Mock
+  private InfractionFactory infractionFactory;
   @Mock
   private AccessLevelValidator accessLevelValidator;
   @Mock
   private InfractionTransactionService infractionTransactionService;
+  @Mock
+  private UserRepository userRepository;
+  @Mock
+  private User user;
 
   @Before
   public void setUp() throws Exception {
     infractionService = new InfractionService(infractionInfoRepository,
-                                              infractionRepository,
+                                              userRepository,
                                               infractionFactory,
                                               passValidator,
                                               accessLevelValidator,
                                               infractionTransactionService);
 
     passToValidateDto = new PassToValidateDto();
+    passToValidateDto.licensePlate = LICENSE_PLATE;
     infractionInfos = new InfractionInfos();
-    infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
+    infraction = new Infraction(AN_INFRACTION_ID, ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
+    when(user.pay(AN_INFRACTION_ID)).thenReturn(ANY_AMOUNT);
   }
 
   @Test
@@ -109,16 +117,19 @@ public class InfractionServiceTest {
   }
 
   @Test
-  public void givenInfractionException_whenGivingInfractionIfNotValid_shouldSaveInfractionsInRepo() {
+  public void givenInfractionException_whenGivingInfractionIfNotValid_shouldAssociateInfractionToUser() {
     doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
         .when(passValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
+    when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(infractionRepository, Mockito.times(1)).save(infraction);
+    verify(user, times(1)).associate(infraction);
+    verify(userRepository, times(1)).findBy(LICENSE_PLATE);
+    verify(userRepository, times(1)).save(user);
   }
 
   @Test
@@ -128,6 +139,7 @@ public class InfractionServiceTest {
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
+    when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
     Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
@@ -142,32 +154,32 @@ public class InfractionServiceTest {
   }
 
   @Test
-  public void whenPayingInfraction_shouldFindInfractionInRepo() {
+  public void whenPayingInfraction_shouldFindUserInRepo() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(userRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(infractionRepository).findBy(AN_INFRACTION_ID);
+    verify(userRepository).findBy(AN_INFRACTION_ID);
   }
 
   @Test
   public void whenPayingInfraction_shouldAddRevenueToInfractionBankAccount() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(userRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    verify(infractionTransactionService, times(1)).addRevenue(Amount.valueOf(infraction.getAmount()));
+    verify(infractionTransactionService, times(1)).addRevenue(ANY_AMOUNT);
   }
 
   @Test
-  public void whenPayingInfraction_shouldPay() {
+  public void whenPayingInfraction_shouldTellUserToPayInfraction() {
     infractionPaymentDto.infractionId = AN_INFRACTION_ID;
-    when(infractionRepository.findBy(AN_INFRACTION_ID)).thenReturn(infraction);
+    when(userRepository.findBy(AN_INFRACTION_ID)).thenReturn(user);
 
     infractionService.payInfraction(infractionPaymentDto);
 
-    assertThat(infraction.isPaid()).isTrue();
+    verify(user, times(1)).pay(AN_INFRACTION_ID);
   }
 }

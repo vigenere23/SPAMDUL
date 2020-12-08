@@ -6,9 +6,8 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotActivatedException;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.NotEnoughCreditsException;
-import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,31 +17,32 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ChargingPointTest {
 
+  private static final RechargULCardId A_CARD_ID = RechargULCardId.valueOf("123");
+  private static final ChargingPointId A_CHARGING_POINT_ID = ChargingPointId.valueOf("123");
+
   private ChargingPoint chargingPoint;
 
   @Mock
-  private RechargULCard rechargULCard;
-  @Mock
   private ChargingPointState state;
   @Mock
-  private MillisecondsCounter counter;
-  @Mock
   private ChargingPaymentService chargingPaymentService;
+  @Mock
+  private EnoughCreditForChargingVerifier creditVerifier;
 
   @Before
   public void setUp() {
-    chargingPoint = new ChargingPoint(new ChargingPointId(), chargingPaymentService);
+    chargingPoint = new ChargingPoint(A_CHARGING_POINT_ID);
   }
 
   @Test
   public void givenInitialized_whenActivatingWithEnoughCreditsCard_shouldActivate() {
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(creditVerifier, A_CARD_ID);
   }
 
   @Test(expected = NotEnoughCreditsException.class)
   public void givenInitialized_whenActivatingWithNotEnoughCreditsCard_shouldThrowException() {
-    doThrow(NotEnoughCreditsException.class).when(rechargULCard).verifyHasEnoughCredits();
-    chargingPoint.activate(rechargULCard);
+    doThrow(NotEnoughCreditsException.class).when(creditVerifier).verify(A_CARD_ID);
+    chargingPoint.activate(creditVerifier, A_CARD_ID);
   }
 
   @Test(expected = ChargingPointNotActivatedException.class)
@@ -57,14 +57,14 @@ public class ChargingPointTest {
 
   @Test(expected = ChargingPointNotActivatedException.class)
   public void givenInitialized_whenDeactivating_shouldThrowException() {
-    chargingPoint.deactivate();
+    chargingPoint.deactivateAndPay(chargingPaymentService);
   }
 
   @Test
   public void givenEnoughCreditsCard_whenActivating_shouldDelegateToState() {
     chargingPoint.setState(state);
 
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(creditVerifier, A_CARD_ID);
 
     verify(state).activate();
   }
@@ -85,10 +85,10 @@ public class ChargingPointTest {
 
   @Test
   public void whenDeactivating_shouldDelegateToState() {
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(creditVerifier, A_CARD_ID);
     chargingPoint.setState(state);
 
-    chargingPoint.deactivate();
+    chargingPoint.deactivateAndPay(chargingPaymentService);
 
     verify(state).deactivate();
   }
@@ -97,11 +97,11 @@ public class ChargingPointTest {
   public void givenCharged_whenDeactivating_shouldDelegatePaymentToChargingRate() {
     long millisecondsUsed = 123471239;
     when(state.deactivate()).thenReturn(millisecondsUsed);
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(creditVerifier, A_CARD_ID);
     chargingPoint.setState(state);
 
-    chargingPoint.deactivate();
+    chargingPoint.deactivateAndPay(chargingPaymentService);
 
-    verify(chargingPaymentService).pay(millisecondsUsed, rechargULCard);
+    verify(chargingPaymentService).pay(millisecondsUsed, A_CARD_ID);
   }
 }

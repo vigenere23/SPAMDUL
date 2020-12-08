@@ -1,23 +1,27 @@
 package ca.ulaval.glo4003.spamdul.usecases.charging;
 
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardRepository;
 import java.util.List;
 
 public class ChargingPointService {
 
   private final ChargingPointRepository chargingPointRepository;
-  private final RechargULCardRepository rechargULCardRepository;
+  private final EnoughCreditForChargingVerifier enoughCreditForChargingVerifier;
+  private final ChargingPaymentService chargingPaymentService;
 
   public ChargingPointService(ChargingPointRepository chargingPointRepository,
-                              RechargULCardRepository rechargULCardRepository) {
+                              EnoughCreditForChargingVerifier enoughCreditForChargingVerifier,
+                              ChargingPaymentService chargingPaymentService) {
     this.chargingPointRepository = chargingPointRepository;
-    this.rechargULCardRepository = rechargULCardRepository;
+    this.enoughCreditForChargingVerifier = enoughCreditForChargingVerifier;
+    this.chargingPaymentService = chargingPaymentService;
   }
+
 
   public List<ChargingPoint> getAllChargingPoints() {
     return chargingPointRepository.findAll();
@@ -29,9 +33,8 @@ public class ChargingPointService {
 
   public ChargingPoint activateChargingPoint(ChargingPointId chargingPointId, RechargULCardId rechargULCardId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
-    RechargULCard rechargULCard = rechargULCardRepository.findBy(rechargULCardId);
 
-    chargingPoint.activate(rechargULCard);
+    chargingPoint.activate(enoughCreditForChargingVerifier, rechargULCardId);
 
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
@@ -58,8 +61,8 @@ public class ChargingPointService {
   public ChargingPoint deactivateChargingPoint(ChargingPointId chargingPointId) {
     ChargingPoint chargingPoint = chargingPointRepository.findBy(chargingPointId);
 
-    chargingPoint.deactivate();
-    
+    chargingPoint.deactivateAndPay(chargingPaymentService);
+
     chargingPointRepository.update(chargingPoint);
     return chargingPoint;
   }

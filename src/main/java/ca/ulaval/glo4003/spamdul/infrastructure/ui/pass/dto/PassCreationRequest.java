@@ -6,6 +6,6 @@ public class PassCreationRequest {
 
   public String parkingZone;
   public DeliveryRequest delivery;
-  public String campusAccessCode;
+  public String userId;
   public TimePeriodRequest period;
 }

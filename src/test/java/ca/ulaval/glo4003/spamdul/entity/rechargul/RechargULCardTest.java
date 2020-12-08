@@ -21,7 +21,7 @@ public class RechargULCardTest {
 
   @Before
   public void setUp() {
-    card = new RechargULCard(new RechargULCardId(), new TransactionFactory());
+    card = new RechargULCard(RechargULCardId.valueOf("123"), new TransactionFactory());
   }
 
   @Test(expected = InvalidRechargULCardCreditsException.class)
@@ -51,7 +51,7 @@ public class RechargULCardTest {
 
   @Test(expected = NotEnoughCreditsException.class)
   public void givenZeroCredits_whenVerifyingCredits_shouldThrowError() {
-    card.verifyHasEnoughCredits();
+    card.verifyEnoughCreditsForCharging();
   }
 
   @Test
@@ -63,7 +63,7 @@ public class RechargULCardTest {
   @Test
   public void givenPositiveCredits_whenVerifyingCredits_shouldDoNothing() {
     card.addCredits(AN_AMOUNT);
-    card.verifyHasEnoughCredits();
+    card.verifyEnoughCreditsForCharging();
   }
 
   @Test
@@ -75,7 +75,7 @@ public class RechargULCardTest {
   @Test(expected = NotEnoughCreditsException.class)
   public void givenNegativeTotal_whenVerifyingCredits_shouldThrowException() {
     card.debit(AN_AMOUNT);
-    card.verifyHasEnoughCredits();
+    card.verifyEnoughCreditsForCharging();
   }
 
   @Test

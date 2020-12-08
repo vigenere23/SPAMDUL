@@ -1,23 +1,35 @@
 package ca.ulaval.glo4003.spamdul.entity.initiatives;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InitiativeFactoryTest {
 
   private final String A_VALID_NAME = "YOLO";
   private final Amount A_VALID_AMOUNT = Amount.valueOf(2233.23);
 
+  @Mock
+  private InitiativeIdFactory initiativeIdFactory;
+  @Mock
+  private InitiativeCodeFactory initiativeCodeFactory;
+  @Mock
+  private InitiativeCode A_CODE;
+
   private InitiativeFactory initiativeFactory;
 
   @Before
   public void setUp() {
-    initiativeFactory = new InitiativeFactory();
+    initiativeFactory = new InitiativeFactory(initiativeIdFactory, initiativeCodeFactory);
   }
 
   @Test(expected = InvalidInitiativeNameException.class)
@@ -47,6 +59,7 @@ public class InitiativeFactoryTest {
 
   @Test
   public void whenCreating_itReturnsValidInitiative() {
+    when(initiativeCodeFactory.create()).thenReturn(A_CODE);
     assertThat(initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT)).isNotNull();
   }
 }

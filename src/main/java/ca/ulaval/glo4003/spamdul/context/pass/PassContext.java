@@ -2,29 +2,28 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.pass.ParkingZoneFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassDeliveryOptionsFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassFactory;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCodeFactory;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassDeliveryOptionsFactory;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.InMemoryCampusAccessRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.ParkingZoneFeeCsvRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAddressAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.pass.PassExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class PassContext implements ResourceContext {
 
-  protected final PassRepository passRepository;
   protected final DeliveryFeeCalculator deliveryFeeCalculator;
   protected final ParkingZoneFeeRepository parkingZoneFeeRepository;
   protected final PassDeliveryOptionsFactory passDeliveryOptionsFactory;
@@ -33,10 +32,9 @@ public abstract class PassContext implements ResourceContext {
   protected PassResource passResource;
 
   protected PassContext() {
-    passRepository = new InMemoryCampusAccessRepository();
-
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
+    PassCodeFactory passCodeFactory = new PassCodeFactory(new IncrementalIdGenerator());
 
     CsvReader csvReader = new CsvReader();
 
@@ -46,15 +44,11 @@ public abstract class PassContext implements ResourceContext {
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
 
     passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
-    passFactory = new PassFactory(timePeriodFactory);
+    passFactory = new PassFactory(passCodeFactory, timePeriodFactory);
     parkingZoneFeeRepository = new ParkingZoneFeeCsvRepository(csvReader,
                                                                "src/main/resources/frais-zone.csv");
     deliveryFeeCalculator = new DeliveryFeeCalculator();
     passAssembler = new PassAssembler(deliveryAssembler, timePeriodAssembler);
-  }
-
-  public PassRepository getPassRepository() {
-    return passRepository;
   }
 
   @Override public void registerResources(InstanceMap resources) {

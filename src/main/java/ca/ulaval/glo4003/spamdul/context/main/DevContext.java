@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.context.fundraising.DevFundraisingContext;
 import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.DevPassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.DevUsageReportContext;
+import ca.ulaval.glo4003.spamdul.context.user.UserContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
@@ -16,21 +17,24 @@ public class DevContext extends MainContext {
 
   public DevContext() {
     authContext = new AuthenticationContext();
+    userContext = new UserContext();
     usageReportContext = new DevUsageReportContext(authContext.getAuthenticationRepository(),
                                                    authContext.getAccessTokenCookieAssembler());
     financeContext = new FinanceContext(authContext.getAuthenticationRepository(),
                                         authContext.getAccessTokenCookieAssembler());
-    campusAccessContext = new CampusAccessContext(usageReportContext.getParkingAccessLogger(),
+    campusAccessContext = new CampusAccessContext(userContext.getUserRepository(),
+                                                  usageReportContext.getParkingAccessLogger(),
                                                   financeContext.getCampusAccessBankAccount()
     );
     passContext = new DevPassContext(financeContext.getPassBankAccount(),
-                                     campusAccessContext.getCampusAccessService());
-    chargingContext = new DevChargingContext(financeContext.getTransactionFactory());
+                                     userContext.getUserRepository());
+    chargingContext = new DevChargingContext(financeContext.getTransactionFactory(),
+                                             userContext.getUserRepository());
     fundraisingContext = new DevFundraisingContext(financeContext.getInitiativesBankAccount(),
                                                    authContext.getAuthenticationRepository(),
                                                    authContext.getAccessTokenCookieAssembler());
-    infractionsContext = new InfractionsContext(passContext.getPassRepository(),
-                                                authContext.getAuthenticationRepository(),
+    infractionsContext = new InfractionsContext(authContext.getAuthenticationRepository(),
+                                                userContext.getUserRepository(),
                                                 authContext.getAccessTokenCookieAssembler(),
                                                 financeContext.getInfractionBankAccount());
     carbonCreditsContext = new DevCarbonCreditsContext(financeContext.getCarbonCreditsBankAccount(),

@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PostalAddressRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
-import ca.ulaval.glo4003.spamdul.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,10 +25,10 @@ public class DeliveryAssemblerTest {
 
   private final static String A_EMAIL_ADDRESS_STRING = "test@test.ca";
 
-  private DeliveryRequest deliveryRequest = new DeliveryRequest();
-  private PostalAddressRequest postalAddressRequest = new PostalAddressRequest();
-  private EmailAddress emailAddress = new EmailAddress("");
-  private PostalAddress postalAddress = new PostalAddress("", "", "", "", "", "", "");
+  private final DeliveryRequest deliveryRequest = new DeliveryRequest();
+  private final PostalAddressRequest postalAddressRequest = new PostalAddressRequest();
+  private final EmailAddress emailAddress = new EmailAddress("");
+  private final PostalAddress postalAddress = new PostalAddress("", "", "", "", "", "", "");
 
   @Mock
   private EmailAddressAssembler emailAddressAssembler;

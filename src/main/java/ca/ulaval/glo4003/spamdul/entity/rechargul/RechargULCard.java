@@ -17,8 +17,7 @@ public class RechargULCard {
 
   private final List<Transaction> transactions = new ArrayList<>();
 
-  public RechargULCard(RechargULCardId id,
-                       TransactionFactory transactionFactory) {
+  public RechargULCard(RechargULCardId id, TransactionFactory transactionFactory) {
     this.id = id;
     this.transactionFactory = transactionFactory;
   }
@@ -41,7 +40,7 @@ public class RechargULCard {
     transactions.add(transaction);
   }
 
-  public void verifyHasEnoughCredits() {
+  public void verifyEnoughCreditsForCharging() {
     if (!total().isStrictlyPositive()) {
       throw new NotEnoughCreditsException();
     }

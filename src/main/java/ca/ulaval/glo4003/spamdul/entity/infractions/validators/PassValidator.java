@@ -1,22 +1,22 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
-import ca.ulaval.glo4003.spamdul.entity.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassCode;
-import ca.ulaval.glo4003.spamdul.entity.pass.PassRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class PassValidator {
 
-  private static PassRepository passRepository;
+  private static UserRepository userRepository;
   protected final static Map<PassCode, Pass> passCache = new HashMap<>();
   protected PassValidator nextPassValidator;
 
 
-  public static void setPassRepository(PassRepository passRepository) {
-    PassValidator.passRepository = passRepository;
+  public static void setPassRepository(UserRepository userRepository) {
+    PassValidator.userRepository = userRepository;
   }
 
   public void setNextValidator(PassValidator passValidator) {
@@ -41,11 +41,12 @@ public abstract class PassValidator {
     Pass correspondingPass = passCache.get(passCode);
 
     if (correspondingPass == null) {
-      if (passRepository == null) {
-        throw new PassRepositoryNotSetException();
+      if (userRepository == null) {
+        throw new PassRepositoryNotSetException("This validator requires pass repository " +
+                                                    "to be set before usage");
       }
 
-      correspondingPass = passRepository.findByPassCode(passCode);
+      correspondingPass = userRepository.findBy(passCode).getPass();
       passCache.put(passCode, correspondingPass);
     }
 
