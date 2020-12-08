@@ -1,26 +1,21 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import java.time.LocalDateTime;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PassValidatorTest extends PassValidator {
@@ -32,11 +27,9 @@ public class PassValidatorTest extends PassValidator {
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
   @Mock
-  private UserRepository userRepository;
-  @Mock
   User user;
   private Pass pass;
-  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
 
 
   @Override
@@ -50,11 +43,6 @@ public class PassValidatorTest extends PassValidator {
     when(user.getPass()).thenReturn(pass);
   }
 
-  @After
-  public void clearStatic() {
-    PassValidator.setPassRepository(null);
-    PassValidator.passCache.clear();
-  }
 
   @Test
   public void givenNextValidator_whenNextValidation_shouldCallValidateOnNext() {
@@ -66,57 +54,5 @@ public class PassValidatorTest extends PassValidator {
     verify(nextPassValidator).validate(passToValidateDto);
   }
 
-  @Test
-  public void givenNoNextValidator_whenNextValidation_shouldRemoveFromCacheCorrespondingPass() {
-    passToValidateDto.passCode = A_PASS_CODE.toString();
-    passCache.put(A_PASS_CODE, pass);
 
-    nextValidation(passToValidateDto);
-
-    assertThat(passCache).doesNotContainKey(A_PASS_CODE);
-  }
-
-  @Test
-  public void givenCacheHit_whenGetCorrespondingPass_shouldReturnRightPass() {
-    passCache.put(A_PASS_CODE, pass);
-
-    Pass actual = getCorrespondingPass(A_PASS_CODE);
-
-    assertThat(actual).isEqualTo(pass);
-  }
-
-  @Test
-  public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldFindPassInRepo() {
-    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
-    PassValidator.setPassRepository(userRepository);
-
-    getCorrespondingPass(A_PASS_CODE);
-
-    verify(userRepository).findBy(A_PASS_CODE);
-  }
-
-  @Test
-  public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldAddToCache() {
-    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
-    PassValidator.setPassRepository(userRepository);
-
-    getCorrespondingPass(A_PASS_CODE);
-
-    assertThat(passCache).containsEntry(A_PASS_CODE, pass);
-  }
-
-  @Test
-  public void givenRepoSetAndCacheMiss_whenGetCorrespondingPass_shouldReturnRightPass() {
-    when(userRepository.findBy(A_PASS_CODE)).thenReturn(user);
-    PassValidator.setPassRepository(userRepository);
-
-    Pass actual = getCorrespondingPass(A_PASS_CODE);
-
-    assertThat(actual).isEqualTo(pass);
-  }
-
-  @Test(expected = PassRepositoryNotSetException.class)
-  public void givenRepoNotSetAndCacheMiss_whenGetCorrespondingPass_shouldThrowRepoNotSetException() {
-    getCorrespondingPass(A_PASS_CODE);
-  }
 }
