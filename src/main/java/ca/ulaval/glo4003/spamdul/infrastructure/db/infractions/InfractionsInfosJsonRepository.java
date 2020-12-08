@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.infractions;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.exception.CantFindInfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class InfractionsInfosJsonRepository implements InfractionInfoRepository 
       }
     }
 
-    throw new CantFindInfractionException();
+    throw new InfractionNotFoundException();
   }
 
 }

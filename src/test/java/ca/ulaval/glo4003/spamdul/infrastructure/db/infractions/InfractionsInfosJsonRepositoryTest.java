@@ -7,9 +7,8 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.exception.CantFindInfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class InfractionsInfosJsonRepositoryTest {
     Truth.assertThat(anotherInfractionInfos.montant).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
   }
 
-  @Test(expected = CantFindInfractionException.class)
+  @Test(expected = InfractionNotFoundException.class)
   public void givenAnInvalidInfractionCode_whenFindingBy_shouldThrowCantFindInfractionException() {
     repository.findBy(InfractionCode.valueOf("Invalid"));
   }
