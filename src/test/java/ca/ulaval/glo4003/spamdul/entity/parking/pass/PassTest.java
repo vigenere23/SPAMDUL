@@ -7,8 +7,15 @@ import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.DayOfWeek;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 public class PassTest {
 
+  public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2020, 1, 1, 1, 1);
+  public static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.FRIDAY;
   private final PassCode A_PASS_CODE = PassCode.valueOf("1");
   private final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private final ParkingZone SAME_PARKING_ZONE = ParkingZone.ZONE_1;
@@ -39,5 +46,25 @@ public class PassTest {
     boolean isParkingZoneValid = pass.isAValidParkingZone(ANOTHER_PARKING_ZONE);
 
     Truth.assertThat(isParkingZoneValid).isFalse();
+  }
+
+  @Test
+  public void whenCheckingIfBoundsInstant_shouldDelegateToTimePeriod() {
+    TimePeriod timePeriod = mock(TimePeriod.class);
+    pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, timePeriod);
+
+    pass.doesBoundInstant(A_LOCAL_DATE_TIME);
+
+    verify(timePeriod).bounds(A_LOCAL_DATE_TIME);
+  }
+
+  @Test
+  public void whenCheckingIfValidOnDayOfWeek_shouldDelegateToTimePeriod() {
+    TimePeriod timePeriod = mock(TimePeriod.class);
+    pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, timePeriod);
+
+    pass.isValidOnThisDayOfWeek(A_DAY_OF_WEEK);
+
+    verify(timePeriod).mayIncludeThisDayOfWeek(A_DAY_OF_WEEK);
   }
 }
