@@ -37,7 +37,6 @@ public class CarFactoryTest {
   @Test(expected = InvalidCarYearException.class)
   public void givenACarYearOverCurrentYear_whenCreatingCar_shouldThrowInvalidCarYearException() {
     int invalidYear = LocalDate.now().getYear() + 1;
-
     carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, invalidYear, A_LICENSE_PLATE_STRING);
   }
 }

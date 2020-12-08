@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.InvalidUserIdFormatException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
@@ -28,7 +27,7 @@ public class PassAssemblerTest {
 
   private static final String A_PARKING_ZONE_STRING = "zone_1";
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final UserId A_USER_ID = new UserId();
+  private static final UserId A_USER_ID = UserId.valueOf("123");
   private static final String A_USER_ID_STRING = A_USER_ID.toString();
   private static final TimePeriodRequest A_TIME_PERIOD_REQUEST = new TimePeriodRequest();
   private static final PassCreationRequest A_PASS_CREATION_REQUEST = new PassCreationRequest();
@@ -73,16 +72,9 @@ public class PassAssemblerTest {
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
-  @Test(expected = InvalidUserIdFormatException.class)
-  public void givenInvalidCampusAccessCode_whenAssemblingFromRequest_thenShouldThrowInvalidException() {
-    A_PASS_CREATION_REQUEST.userId = "invalid";
-
-    passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
-  }
-
   @Test(expected = InvalidPeriodArgumentException.class)
-  public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
-    timePeriodDto.periodType = PeriodType.SINGLE_DAY;
+  public void givenAnInvalidArgumentWhileAssemblingTimePeriod_whenAssemblingFromRequest_shouldThrow() {
+    when(timePeriodAssembler.fromRequest(A_TIME_PERIOD_REQUEST)).thenThrow(new IllegalArgumentException());
 
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }

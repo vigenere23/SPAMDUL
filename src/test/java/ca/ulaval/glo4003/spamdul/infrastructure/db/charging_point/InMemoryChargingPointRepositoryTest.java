@@ -17,8 +17,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class InMemoryChargingPointRepositoryTest {
 
-  public static final ChargingPointId CHARGING_POINT_ID = new ChargingPointId();
-  public static final ChargingPointId ANOTHER_CHARGING_POINT_ID = new ChargingPointId();
+  public static final ChargingPointId CHARGING_POINT_ID = ChargingPointId.valueOf("123");
+  public static final ChargingPointId ANOTHER_CHARGING_POINT_ID = ChargingPointId.valueOf("345");
   public static final ChargingPoint anotherChargingPoint = new ChargingPoint(ANOTHER_CHARGING_POINT_ID);
   private InMemoryChargingPointRepository repository;
   private ChargingPoint chargingPoint;

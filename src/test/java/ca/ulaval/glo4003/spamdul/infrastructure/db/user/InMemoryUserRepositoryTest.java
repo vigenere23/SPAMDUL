@@ -36,13 +36,13 @@ public class InMemoryUserRepositoryTest {
                                                               LocalDateTime.MAX,
                                                               TimePeriodDayOfWeek.ALL);
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
-  public static final PassCode PASS_CODE = new PassCode();
+  public static final PassCode PASS_CODE = PassCode.valueOf("123");
   public static final Amount AMOUNT = Amount.valueOf(10);
-  public static final InfractionId INFRACTION_ID = new InfractionId();
+  public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
   public static final String DESCRIPTION = "description";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
-  public static final RechargULCardId RECHARG_UL_CARD_ID = new RechargULCardId();
+  public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
   private final String A_CAR_BRAND = "brand";
   private final String A_CAR_MODEL = "model";
   private final String A_LICENSE_PLATE_STRING = "license plate";
@@ -51,13 +51,13 @@ public class InMemoryUserRepositoryTest {
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final int A_YEAR = 2020;
   private final Car A_CAR = new Car(A_CAR_ID, A_CAR_TYPE, A_CAR_BRAND, A_CAR_MODEL, A_YEAR, A_LICENSE_PLATE);
-  private final UserId A_USER_ID = new UserId();
+  private final UserId A_USER_ID = UserId.valueOf("123");
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private final User A_USER = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR);
   private final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
-  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
+  private final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_PERIOD_TYPE,
                                                                 TIME_PERIOD);
@@ -140,12 +140,12 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToId_whenFindingById_shouldThrowException() {
-    userRepository.findBy(new UserId());
+    userRepository.findBy(UserId.valueOf("465"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToCampusAccessCode_whenFindingById_shouldThrowException() {
-    userRepository.findBy(new CampusAccessCode());
+    userRepository.findBy(CampusAccessCode.valueOf("4534"));
   }
 
   @Test(expected = UserNotFoundException.class)
@@ -155,16 +155,16 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToPassCode_whenFindingByPassCode_shouldThrowException() {
-    userRepository.findBy(new PassCode());
+    userRepository.findBy(PassCode.valueOf("345"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToRechargULCardId_whenFindingByRechargULCardId_shouldThrowException() {
-    userRepository.findBy(new RechargULCardId());
+    userRepository.findBy(RechargULCardId.valueOf("567"));
   }
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoInfractionCorrespondingToInfractionId_whenFindingByInfractionId_shoulldThrowException() {
-    userRepository.findBy(new InfractionId());
+    userRepository.findBy(InfractionId.valueOf("8754"));
   }
 }

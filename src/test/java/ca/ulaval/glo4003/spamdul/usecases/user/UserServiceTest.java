@@ -20,7 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
-  public static final UserId USER_ID = new UserId();
+  public static final UserId USER_ID = UserId.valueOf("123");
   private final String A_NAME = "name";
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
@@ -47,7 +47,7 @@ public class UserServiceTest {
     userDto.birthDate = A_BIRTHDAY_DATE;
     userDto.carDto = A_CAR_DTO;
 
-    when(user.getUserId()).thenReturn(USER_ID);
+    when(user.getId()).thenReturn(USER_ID);
     when(userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR_DTO)).thenReturn(user);
   }
 

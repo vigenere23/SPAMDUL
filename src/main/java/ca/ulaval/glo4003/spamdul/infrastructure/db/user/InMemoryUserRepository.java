@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,12 +19,12 @@ public class InMemoryUserRepository implements UserRepository {
   private static final Map<UserId, User> users = new HashMap<>();
   private static final Logger logger = Logger.getLogger(InMemoryUserRepository.class.getName());
 
-  public void save(User user) {
-    users.put(user.getUserId(), user);
-    logger.info(String.format("Saving user : ", user.getUserId().toString()));
+  @Override public void save(User user) {
+    users.put(user.getId(), user);
+    logger.info(String.format("Saving user : ", user.getId().toString()));
   }
 
-  public User findBy(UserId userId) {
+  @Override public User findBy(UserId userId) {
     User user = users.get(userId);
     if (user == null) {
       throw new UserNotFoundException();
@@ -33,7 +33,7 @@ public class InMemoryUserRepository implements UserRepository {
     return user;
   }
 
-  public User findBy(CampusAccessCode campusAccessCode) {
+  @Override public User findBy(CampusAccessCode campusAccessCode) {
     Optional<User> user = users.values()
                                .stream()
                                .filter(currentUser -> currentUser.doesOwn(campusAccessCode))
@@ -46,7 +46,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
   }
 
-  public User findBy(LicensePlate licensePlate) {
+  @Override public User findBy(LicensePlate licensePlate) {
     Optional<User> user = users.values()
                                .stream()
                                .filter(currentUser -> currentUser.doesOwn(licensePlate))
@@ -59,7 +59,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
   }
 
-  public User findBy(InfractionId infractionId) {
+  @Override public User findBy(InfractionId infractionId) {
     Optional<User> user = users.values()
                                .stream()
                                .filter(currentUser -> currentUser.hasInfractionWith(infractionId))
@@ -72,7 +72,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
   }
 
-  public User findBy(RechargULCardId rechargULCardId) {
+  @Override public User findBy(RechargULCardId rechargULCardId) {
     Optional<User> user = users.values()
                                .stream()
                                .filter(currentUser -> currentUser.doesOwn(rechargULCardId))
@@ -85,7 +85,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
   }
 
-  public User findBy(PassCode passCode) {
+  @Override public User findBy(PassCode passCode) {
     Optional<User> user = users.values()
                                .stream()
                                .filter(currentUser -> currentUser.doesOwn(passCode))

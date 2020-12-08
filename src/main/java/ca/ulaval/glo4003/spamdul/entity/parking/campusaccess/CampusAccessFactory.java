@@ -7,9 +7,12 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 
 public class CampusAccessFactory {
 
+  private final CampusAccessCodeFactory campusAccessCodeFactory;
   private final TimePeriodFactory timePeriodFactory;
 
-  public CampusAccessFactory(TimePeriodFactory timePeriodFactory) {
+  public CampusAccessFactory(CampusAccessCodeFactory campusAccessCodeFactory,
+                             TimePeriodFactory timePeriodFactory) {
+    this.campusAccessCodeFactory = campusAccessCodeFactory;
     this.timePeriodFactory = timePeriodFactory;
   }
 
@@ -17,12 +20,12 @@ public class CampusAccessFactory {
     TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
 
     if (timePeriodDto.periodType == PeriodType.HOURLY) {
-      return new HourlyCampusAccess(new CampusAccessCode(),
-              timePeriodDto.periodType,
-              timePeriod,
-              timePeriodDto.numberOfHours);
+      return new HourlyCampusAccess(campusAccessCodeFactory.create(),
+                                    timePeriodDto.periodType,
+                                    timePeriod,
+                                    timePeriodDto.numberOfHours);
     } else {
-      return new CampusAccess(new CampusAccessCode(),
+      return new CampusAccess(campusAccessCodeFactory.create(),
                               timePeriodDto.periodType,
                               timePeriod);
     }

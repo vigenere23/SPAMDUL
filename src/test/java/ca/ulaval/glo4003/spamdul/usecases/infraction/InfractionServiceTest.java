@@ -26,7 +26,7 @@ public class InfractionServiceTest {
 
   public static final String ANY_MESSAGE = "test";
   public static final Amount ANY_AMOUNT = Amount.valueOf(598.65);
-  public static final InfractionId AN_INFRACTION_ID = new InfractionId();
+  public static final InfractionId AN_INFRACTION_ID = InfractionId.valueOf("123");
   public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
   public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
 
@@ -67,7 +67,7 @@ public class InfractionServiceTest {
     passToValidateDto = new PassToValidateDto();
     passToValidateDto.licensePlate = LICENSE_PLATE;
     infractionInfos = new InfractionInfos();
-    infraction = new Infraction(new InfractionId(), ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
+    infraction = new Infraction(AN_INFRACTION_ID, ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
     when(user.pay(AN_INFRACTION_ID)).thenReturn(ANY_AMOUNT);
   }

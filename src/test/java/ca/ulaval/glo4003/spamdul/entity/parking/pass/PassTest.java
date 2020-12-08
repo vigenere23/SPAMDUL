@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import com.google.common.truth.Truth;
+import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

@@ -21,7 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserResourceTest {
 
-  public static final UserId USER_ID = new UserId();
+  public static final UserId USER_ID = UserId.valueOf("123");
   private UserResource userResource;
   private UserRequest userRequest;
   private UserDto userDto;

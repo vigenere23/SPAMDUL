@@ -4,11 +4,14 @@ import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
+import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging_point.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
+import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging_point.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResourceImpl;
@@ -31,8 +34,10 @@ public abstract class ChargingContext implements ResourceContext {
 
   public ChargingContext(TransactionFactory transactionFactory, UserRepository userRepository) {
     ChargingPointRepository chargingPointRepository = new InMemoryChargingPointRepository();
-    ChargingPointFactory chargingPointFactory = new ChargingPointFactory();
-    RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(transactionFactory);
+    ChargingPointIdFactory chargingPointIdFactory = new ChargingPointIdFactory(new IncrementalIdGenerator());
+    ChargingPointFactory chargingPointFactory = new ChargingPointFactory(chargingPointIdFactory);
+    RechargULCardIdFactory rechargULCardIdFactory = new RechargULCardIdFactory(new IncrementalIdGenerator());
+    RechargULCardFactory rechargULCardFactory = new RechargULCardFactory(rechargULCardIdFactory, transactionFactory);
     ChargingPointAssembler chargingPointAssembler = new ChargingPointAssembler();
     RechargULCardAssembler rechargULCardAssembler = new RechargULCardAssembler();
     ChargingPaymentService chargingPaymentService = new ChargingPaymentService(

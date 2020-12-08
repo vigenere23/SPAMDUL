@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
@@ -7,38 +9,21 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedB
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.entity.user.Gender;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import java.time.LocalDateTime;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessTest {
 
-  private static final LicensePlate A_LICENSE_PLATE = new LicensePlate("license plate");
-  private static final Car A_CAR = new Car(CarId.valueOf("1"),
-                                           CarType.ECONOMIQUE,
-                                           "brand",
-                                           "model",
-                                           2020,
-                                           A_LICENSE_PLATE);
-  private static final User A_USER = new User(new UserId(), "name", Gender.MALE, LocalDate.of(2010, 1, 1), A_CAR);
-
-  private static final PassCode A_PASS_CODE = new PassCode();
+  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
@@ -48,9 +33,9 @@ public class CampusAccessTest {
   private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
                                                                  A_END_DATE_TIME,
                                                                  TimePeriodDayOfWeek.ALL);
-  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = new CampusAccessCode();
   public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2020, 1, 1, 1, 1);
   public static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.FRIDAY;
+  private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
 
   private TimePeriod timePeriod;
   private CampusAccess campusAccess;
@@ -58,7 +43,7 @@ public class CampusAccessTest {
   @Before
   public void setUp() throws Exception {
     timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
-    campusAccess = new CampusAccess(new CampusAccessCode(),
+    campusAccess = new CampusAccess(CampusAccessCode.valueOf("123"),
                                     A_PERIOD_TYPE,
                                     timePeriod);
   }
