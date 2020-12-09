@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.spamdul.entity.parking.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 
 public abstract class ParkingPass {
 
@@ -32,4 +34,12 @@ public abstract class ParkingPass {
   }
 
   public abstract void accept(User user);
+
+  public boolean doesBoundInstant(LocalDateTime now) {
+    return timePeriod.bounds(now);
+  }
+
+  public boolean isValidOnThisDayOfWeek(DayOfWeek dayOfWeek) {
+    return timePeriod.mayIncludeThisDayOfWeek(dayOfWeek);
+  }
 }

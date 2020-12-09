@@ -18,6 +18,4 @@ public class CarParkingPass extends ParkingPass {
   public void accept(User user) {
     user.associateCarParkingPass(this);
   }
-
-
 }

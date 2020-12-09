@@ -1,8 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions.validators;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.PassRepositoryNotSetException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
@@ -20,7 +18,7 @@ import java.time.LocalDateTime;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingCarParkingPassValidatorTest extends CarParkingPassValidator {
+public class ParkingCarParkingCarParkingPassValidatorTest extends CarParkingPassValidator {
 
   public static final CarParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   public static final TimePeriodDayOfWeek A_TIME_PERIOD_DAY_OF_WEEK = TimePeriodDayOfWeek.FRIDAY;
@@ -28,12 +26,11 @@ public class ParkingCarParkingPassValidatorTest extends CarParkingPassValidator 
   public static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2000, 1, 1, 1, 1);
   public static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_2;
 
-  @Mock
-  User user;
-  private Pass pass;
-  private PassToValidateDto passToValidateDto = new PassToValidateDto();
   private CarParkingPass parkingPass;
-  private final PassToValidateDto passToValidateDto = new PassToValidateDto();
+  private PassToValidateDto passToValidateDto = new PassToValidateDto();
+
+  @Mock
+  private User user;
 
 
   @Override
@@ -57,6 +54,4 @@ public class ParkingCarParkingPassValidatorTest extends CarParkingPassValidator 
 
     verify(nextCarParkingPassValidator).validate(passToValidateDto);
   }
-
-
 }

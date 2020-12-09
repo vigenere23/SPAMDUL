@@ -142,7 +142,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfCanParkInZone_shouldDelegateToPass() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
@@ -156,7 +156,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfHasParkingPassBoundingInstant_shouldDelegateCampusAccess() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
@@ -170,7 +170,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfCanParkOnDayOfWeek_shouldDelegateToCampusAccess() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);

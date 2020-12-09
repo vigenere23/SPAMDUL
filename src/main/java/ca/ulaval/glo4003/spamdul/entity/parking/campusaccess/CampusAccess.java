@@ -89,14 +89,14 @@ public class CampusAccess {
   }
 
   public boolean canParkInZone(ParkingZone parkingZone) {
-    return associatedPass.isAValidParkingZone(parkingZone);
+    return associatedParkingPass.isAValidParkingZone(parkingZone);
   }
 
   public boolean hasParkingPassBoundingInstant(LocalDateTime now) {
-    return associatedPass.doesBoundInstant(now);
+    return associatedParkingPass.doesBoundInstant(now);
   }
 
   public boolean hasParkingRightOnThisDayOfWeek(DayOfWeek dayOfWeek) {
-    return associatedPass.isValidOnThisDayOfWeek(dayOfWeek);
+    return associatedParkingPass.isValidOnThisDayOfWeek(dayOfWeek);
   }
 }

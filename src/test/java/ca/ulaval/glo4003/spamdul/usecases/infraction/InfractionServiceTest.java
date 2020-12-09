@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionT
 import ca.ulaval.glo4003.spamdul.entity.infractions.*;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.WrongDayInfractionException;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
@@ -90,7 +89,7 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldFindInfractionInfosInRepository() {
     doThrow(AN_INFRACTION_EXCEPTION)
-        .when(passValidator)
+        .when(carParkingPassValidator)
         .validate(passToValidateDto);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
@@ -101,7 +100,7 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldCreateInfractionWithFactory() {
     doThrow(AN_INFRACTION_EXCEPTION)
-        .when(passValidator)
+        .when(carParkingPassValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
 
@@ -113,7 +112,7 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldAssociateInfractionToUser() {
     doThrow(AN_INFRACTION_EXCEPTION)
-        .when(passValidator)
+        .when(carParkingPassValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
@@ -129,7 +128,7 @@ public class InfractionServiceTest {
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldReturnInfraction() {
     doThrow(AN_INFRACTION_EXCEPTION)
-        .when(passValidator)
+        .when(carParkingPassValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
