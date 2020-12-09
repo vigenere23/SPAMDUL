@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.entity.user.User;
 import com.google.common.truth.Truth;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -28,11 +29,22 @@ public class ParkingPassTest {
                                                           A_END_DATE_TIME,
                                                           A_TIME_PERIOD_DAY_OF_THE_WEEK);
 
+  class TestParkingPass extends ParkingPass {
+
+    public TestParkingPass(ParkingPassCode parkingPassCode,
+                           ParkingZone parkingZone, TimePeriod timePeriod) {
+      super(parkingPassCode, parkingZone, timePeriod);
+    }
+
+    public void accept(User user) {
+    }
+  }
+
   private ParkingPass parkingPass;
 
   @Before
   public void setUp() throws Exception {
-    parkingPass = new CarParkingPass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
+    parkingPass = new TestParkingPass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   }
 
   @Test
