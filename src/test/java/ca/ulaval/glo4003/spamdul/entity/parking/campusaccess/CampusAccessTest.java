@@ -12,10 +12,15 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import java.time.LocalDateTime;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.time.DayOfWeek;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessTest {
@@ -30,6 +35,8 @@ public class CampusAccessTest {
   private static final TimePeriod A_TIME_PERIOD = new TimePeriod(A_START_DATE_TIME,
                                                                  A_END_DATE_TIME,
                                                                  TimePeriodDayOfWeek.ALL);
+  public static final LocalDateTime A_LOCAL_DATE_TIME = LocalDateTime.of(2020, 1, 1, 1, 1);
+  public static final DayOfWeek A_DAY_OF_WEEK = DayOfWeek.FRIDAY;
   private static final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
 
   private TimePeriod timePeriod;
@@ -130,5 +137,47 @@ public class CampusAccessTest {
     ParkingZone parkingZone = campusAccess.getParkingZone();
 
     assertThat(parkingZone).isEqualTo(ParkingZone.FREE);
+  }
+
+  @Test
+  public void whenCheckingIfCanParkInZone_shouldDelegateToPass() {
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    Pass pass = mock(Pass.class);
+    TimePeriod timePeriod = mock(TimePeriod.class);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
+    campusAccess.associatePass(pass);
+
+    campusAccess.canParkInZone(A_PARKING_ZONE);
+
+    verify(pass).isAValidParkingZone(A_PARKING_ZONE);
+  }
+
+  @Test
+  public void whenCheckingIfHasParkingPassBoundingInstant_shouldDelegateCampusAccess() {
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    Pass pass = mock(Pass.class);
+    TimePeriod timePeriod = mock(TimePeriod.class);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
+    campusAccess.associatePass(pass);
+
+    campusAccess.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME);
+
+    verify(pass).doesBoundInstant(A_LOCAL_DATE_TIME);
+  }
+
+  @Test
+  public void whenCheckingIfCanParkOnDayOfWeek_shouldDelegateToCampusAccess() {
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    Pass pass = mock(Pass.class);
+    TimePeriod timePeriod = mock(TimePeriod.class);
+    when(pass.getTimePeriod()).thenReturn(timePeriod);
+    when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
+    campusAccess.associatePass(pass);
+
+    pass.isValidOnThisDayOfWeek(A_DAY_OF_WEEK);
+
+    verify(pass).isValidOnThisDayOfWeek(A_DAY_OF_WEEK);
   }
 }

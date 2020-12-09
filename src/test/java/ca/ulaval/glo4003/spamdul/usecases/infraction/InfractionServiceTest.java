@@ -1,22 +1,12 @@
 package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.entity.infractions.*;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.WrongDayInfractionException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
@@ -29,6 +19,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class InfractionServiceTest {
 
@@ -38,8 +31,9 @@ public class InfractionServiceTest {
   public static final TemporaryToken A_TEMPORARY_TOKEN = new TemporaryToken();
   public static final LicensePlate LICENSE_PLATE = new LicensePlate("xxx xxx");
 
-  public final String AN_INFRACTION_CODE_VALUE = "00";
+  public final String AN_INFRACTION_CODE_VALUE = "VIG_01";
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
+  private static final InfractionException AN_INFRACTION_EXCEPTION = new WrongDayInfractionException();
 
   private InfractionInfos infractionInfos;
   private Infraction infraction;
@@ -95,8 +89,8 @@ public class InfractionServiceTest {
 
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldFindInfractionInfosInRepository() {
-    doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-        .when(carParkingPassValidator)
+    doThrow(AN_INFRACTION_EXCEPTION)
+        .when(passValidator)
         .validate(passToValidateDto);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
@@ -106,8 +100,8 @@ public class InfractionServiceTest {
 
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldCreateInfractionWithFactory() {
-    doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-        .when(carParkingPassValidator)
+    doThrow(AN_INFRACTION_EXCEPTION)
+        .when(passValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
 
@@ -118,8 +112,8 @@ public class InfractionServiceTest {
 
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldAssociateInfractionToUser() {
-    doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-        .when(carParkingPassValidator)
+    doThrow(AN_INFRACTION_EXCEPTION)
+        .when(passValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
@@ -134,8 +128,8 @@ public class InfractionServiceTest {
 
   @Test
   public void givenInfractionException_whenGivingInfractionIfNotValid_shouldReturnInfraction() {
-    doThrow(new InfractionException(AN_INFRACTION_CODE_VALUE))
-        .when(carParkingPassValidator)
+    doThrow(AN_INFRACTION_EXCEPTION)
+        .when(passValidator)
         .validate(passToValidateDto);
     when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
     when(infractionFactory.create(infractionInfos)).thenReturn(infraction);

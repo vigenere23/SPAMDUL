@@ -10,19 +10,21 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.entity.infractions.UserFinderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InvalidPassInfractionException;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import java.time.LocalDateTime;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TimePeriodBoundaryValidatorTest {
@@ -33,65 +35,42 @@ public class TimePeriodBoundaryValidatorTest {
   private Calendar calendar = mock(Calendar.class);
   private CarParkingPassCode parkingPassCode = CarParkingPassCode.valueOf(A_VALID_PASS_CODE_STRING);
 
+  private TimePeriodBoundaryValidator timePeriodBoundaryValidator;
+
   private TimePeriodBoundaryValidatorCarParking timePeriodBoundaryValidator = new TimePeriodBoundaryValidatorCarParking(calendar);
   @Mock
-  private TimePeriod timePeriod;
-  @Mock
-  private UserRepository userRepository;
+  private UserFinderService userFinderService;
   private PassToValidateDto passToValidateDto = new PassToValidateDto();
-  @Mock
-  private CarParkingPass parkingPass;
+
   @Mock
   private User user;
 
-  @Rule
-  public ExpectedException exceptionRule = ExpectedException.none();
-
   @Before
   public void setUp() {
-    CarParkingPassValidator.setPassRepository(userRepository);
-    when(user.getCarParkingPass()).thenReturn(parkingPass);
-  }
-
-  @After
-  public void clearStatic() {
-    CarParkingPassValidator.setPassRepository(null);
-    CarParkingPassValidator.passCache.clear();
+    timePeriodBoundaryValidator = new TimePeriodBoundaryValidator(calendar, userFinderService);
   }
 
   @Test
-  public void whenValidate_shouldGetCorrespondingPass() {
+  public void whenValidate_shouldGetCorrespondingUser() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(userFinderService.findBy(passCode)).thenReturn(user);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+    when(user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME)).thenReturn(true);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
 
-    verify(userRepository).findBy(parkingPassCode);
+    verify(userFinderService).findBy(passCode);
   }
 
-  @Test
-  public void whenValidate_shouldGetTimePeriodFromPass() {
-    passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
-    when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
-
-    timePeriodBoundaryValidator.validate(passToValidateDto);
-
-    verify(parkingPass).getTimePeriod();
-  }
 
   @Test
   public void whenValidate_shouldCallCalendarNow() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(userFinderService.findBy(passCode)).thenReturn(user);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+    when(user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME)).thenReturn(true);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
 
@@ -99,28 +78,25 @@ public class TimePeriodBoundaryValidatorTest {
   }
 
   @Test
-  public void whenValidate_shouldChekIfTimePeriodBoundsNow() {
+  public void whenValidate_shouldAskUserIfTimePeriodBoundsNow() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(userFinderService.findBy(passCode)).thenReturn(user);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+    when(user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME)).thenReturn(true);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
 
-    verify(timePeriod).bounds(A_LOCAL_DATE_TIME);
+    verify(user).hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME);
   }
 
-  @Test
+  @Test(expected = InvalidPassInfractionException.class)
   public void givenNotBoundingTimePeriod_whenValidate_shouldThrowInfractionException() {
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(userFinderService.findBy(passCode)).thenReturn(user);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(false);
-
-    exceptionRule.expect(InfractionException.class);
-    exceptionRule.expectMessage("VIG_02");
+    when(user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME)).thenReturn(false);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
   }
@@ -130,10 +106,10 @@ public class TimePeriodBoundaryValidatorTest {
     CarParkingPassValidator nextCarParkingPassValidator = mock(CarParkingPassValidator.class);
     timePeriodBoundaryValidator.setNextValidator(nextCarParkingPassValidator);
     passToValidateDto.passCode = A_VALID_PASS_CODE_STRING;
-    when(userRepository.findBy(parkingPassCode)).thenReturn(user);
-    when(parkingPass.getTimePeriod()).thenReturn(timePeriod);
+    PassCode passCode = PassCode.valueOf(A_VALID_PASS_CODE_STRING);
+    when(userFinderService.findBy(passCode)).thenReturn(user);
     when(calendar.now()).thenReturn(A_LOCAL_DATE_TIME);
-    when(timePeriod.bounds(A_LOCAL_DATE_TIME)).thenReturn(true);
+    when(user.hasParkingPassBoundingInstant(A_LOCAL_DATE_TIME)).thenReturn(true);
 
     timePeriodBoundaryValidator.validate(passToValidateDto);
 

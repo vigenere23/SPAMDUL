@@ -19,6 +19,8 @@ import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAcc
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -189,5 +191,17 @@ public class User {
 
   public RechargULCard getRechargULCard() {
     return rechargULCard;
+  }
+
+  public boolean canParkInZone(ParkingZone parkingZone) {
+    return campusAccess.canParkInZone(parkingZone);
+  }
+
+  public boolean hasParkingPassBoundingInstant(LocalDateTime now) {
+    return campusAccess.hasParkingPassBoundingInstant(now);
+  }
+
+  public boolean canParkOnThisDayOfWeek(DayOfWeek dayOfWeek) {
+    return campusAccess.hasParkingRightOnThisDayOfWeek(dayOfWeek);
   }
 }
