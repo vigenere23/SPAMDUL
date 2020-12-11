@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageR
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
@@ -43,7 +42,6 @@ public abstract class UsageReportContext implements ResourceContext {
     UsageReportSummaryAssembler usageReportSummaryAssembler = new UsageReportSummaryAssembler();
     UsageReportAssembler usageReportAssembler = new UsageReportAssembler();
     UsageReportCreationAssembler usageReportCreationAssembler = new UsageReportCreationAssembler();
-    UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler = new UsageReportSummaryCreationAssembler();
 
     parkingAccessLogger = new ParkingAccessLogger(parkingAccessLogFactory,
                                                   parkingAccessLogRepository);
@@ -60,7 +58,6 @@ public abstract class UsageReportContext implements ResourceContext {
 
     usageReportResource = new UsageReportResource(usageReportService,
                                                   usageReportCreationAssembler,
-                                                  usageReportSummaryCreationAssembler,
                                                   cookieAssembler);
     Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);
 

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogId;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -31,6 +32,7 @@ public class UsageReportFactoryTest {
   private final Integer TOTAL_NUMBER_OF_ACCESS = 3;
   private final ParkingZone PARKING_ZONE_1 = ParkingZone.ZONE_1;
   private final ParkingZone PARKING_ZONE_2 = ParkingZone.ZONE_2;
+  private final ParkingCategory A_PARKING_CATEGORY = ParkingCategory.CAR;
   private final ParkingAccessLog PARKING_ACCESS_LOG_ZONE_1 = new ParkingAccessLog(ParkingAccessLogId.valueOf("123"),
                                                                                   PARKING_ZONE_1,
                                                                                   A_DATE);
@@ -61,7 +63,7 @@ public class UsageReportFactoryTest {
 
   @Test
   public void whenCreatingAUsageReportWithZone_ShouldCreateUsageReportWithZone() {
-    UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE_1);
+    UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE_1, A_PARKING_CATEGORY);
     assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
     assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
     assertThat(usageReport.getParkingZone()).isEqualTo(PARKING_ZONE_1);
