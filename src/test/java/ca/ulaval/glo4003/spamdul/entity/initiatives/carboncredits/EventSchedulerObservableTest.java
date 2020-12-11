@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.entity.carboncredits;
+package ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import java.time.Duration;
 import java.time.LocalDateTime;

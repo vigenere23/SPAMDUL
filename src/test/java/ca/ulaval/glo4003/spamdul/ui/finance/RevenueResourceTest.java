@@ -4,7 +4,7 @@ import static org.mockito.Matchers.any;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.CarTypeTotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.CarbonBoughtResponse;
