@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul;
 import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
-import ca.ulaval.glo4003.spamdul.infrastructure.http.CORSResponseFilter;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -34,7 +33,6 @@ public class JettyJerseyApp implements SpamdUlApplication {
         return instanceMap.getValues();
       }
     });
-    resourceConfig.register(CORSResponseFilter.class);
 
     ServletContainer servletContainer = new ServletContainer(resourceConfig);
     ServletHolder servletHolder = new ServletHolder(servletContainer);

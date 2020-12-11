@@ -54,7 +54,7 @@ public class CarbonCreditsService implements ScheduleObserver {
     }
   }
 
-  public double transferRemainingBudget() {
+  public Amount transferRemainingBudget() {
     Amount totalAvailableAmount = sustainabilityBankAccount.getBalance();
     Initiative initiative;
 
@@ -63,14 +63,14 @@ public class CarbonCreditsService implements ScheduleObserver {
                                                       "Marché du carbone",
                                                       totalAvailableAmount);
     } catch (InvalidInitiativeAmountException | InsufficientFundsException exception) {
-      return 0;
+      return Amount.valueOf(0);
     }
 
     carbonCreditsPurchaser.purchase(CarbonCredits.valueOf(totalAvailableAmount));
     carbonCreditsTransactionService.addRevenue(totalAvailableAmount);
     initiativeRepository.save(initiative); // TODO should be done by InitiativeCreator?
 
-    return totalAvailableAmount.asDouble();
+    return totalAvailableAmount;
   }
 
   @Override

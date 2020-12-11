@@ -18,7 +18,7 @@ public class CarbonCreditsResourceAdmin {
   @Path("/transfer")
   public CarbonCreditsTransferResponse transferFundsToCarbonCredits() {
     CarbonCreditsTransferResponse response = new CarbonCreditsTransferResponse();
-    response.transferred = carbonCreditsService.transferRemainingBudget();
+    response.transferred = carbonCreditsService.transferRemainingBudget().asDouble();
     return response;
   }
 }
