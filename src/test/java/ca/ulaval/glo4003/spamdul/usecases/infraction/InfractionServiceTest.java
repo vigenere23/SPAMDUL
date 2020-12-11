@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassVal
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,7 @@ public class InfractionServiceTest {
   private InfractionPaymentDto infractionPaymentDto;
   private PassToValidateDto passToValidateDto;
   private InfractionService infractionService;
+  private InfractionDtoAssembler infractionDtoAssembler;
 
   @Mock
   private InfractionInfoRepository infractionInfoRepository;
@@ -57,12 +59,13 @@ public class InfractionServiceTest {
 
   @Before
   public void setUp() throws Exception {
+    infractionDtoAssembler = new InfractionDtoAssembler();
     infractionService = new InfractionService(infractionInfoRepository,
                                               userRepository,
                                               infractionFactory,
                                               carParkingPassValidator,
                                               accessLevelValidator,
-                                              infractionTransactionService);
+                                              infractionTransactionService, infractionDtoAssembler);
 
     passToValidateDto = new PassToValidateDto();
     passToValidateDto.licensePlate = LICENSE_PLATE;
@@ -134,14 +137,14 @@ public class InfractionServiceTest {
     when(infractionFactory.create(infractionInfosDto)).thenReturn(infraction);
     when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
+    InfractionDto actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNotNull();
   }
 
   @Test
   public void givenNoInfractionException_whenGivingInfractionIfNotValid_shouldReturnNull() {
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
+    InfractionDto actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNull();
   }

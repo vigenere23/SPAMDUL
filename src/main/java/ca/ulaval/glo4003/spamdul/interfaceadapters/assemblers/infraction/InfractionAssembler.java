@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -32,16 +32,16 @@ public class InfractionAssembler {
     }
   }
 
-  public InfractionResponse toResponse(Infraction infraction) {
-    if (infraction == null) {
+  public InfractionResponse toResponse(InfractionDto infractionDto) {
+    if (infractionDto == null) {
       return null;
     }
 
     InfractionResponse infractionResponse = new InfractionResponse();
-    infractionResponse.infractionId = infraction.getInfractionId().toString();
-    infractionResponse.amount = infraction.getAmount().asDouble();
-    infractionResponse.code = infraction.getCode().toString();
-    infractionResponse.reason = infraction.getInfractionDescription();
+    infractionResponse.infractionId = infractionDto.id.toString();
+    infractionResponse.amount = infractionDto.amount.asDouble();
+    infractionResponse.code = infractionDto.code.toString();
+    infractionResponse.reason = infractionDto.infractionDescription;
 
     return infractionResponse;
   }
