@@ -134,14 +134,14 @@ public class InfractionServiceTest {
     when(infractionFactory.create(infractionInfosDto)).thenReturn(infraction);
     when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
+    InfractionDto actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNotNull();
   }
 
   @Test
   public void givenNoInfractionException_whenGivingInfractionIfNotValid_shouldReturnNull() {
-    Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
+    InfractionDto actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
     assertThat(actual).isNull();
   }

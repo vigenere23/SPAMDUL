@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
@@ -15,6 +16,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
 public class InfractionService {
@@ -25,6 +27,7 @@ public class InfractionService {
   private final CarParkingPassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;
   private final InfractionTransactionService infractionTransactionService;
+  private final InfractionDtoAssembler infractionDtoAssembler = new InfractionDtoAssembler();
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            UserRepository userRepository,
@@ -40,7 +43,7 @@ public class InfractionService {
     this.infractionTransactionService = infractionTransactionService;
   }
 
-  public Infraction giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
+  public InfractionDto giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);
 
     Infraction infraction = null;
@@ -57,7 +60,7 @@ public class InfractionService {
       userRepository.save(user);
     }
 
-    return infraction;
+    return infractionDtoAssembler.toDto(infraction);
   }
 
   private Infraction createInfraction(InfractionCode infractionCode) {

@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 public class ParkingPassResource {
 
   private final PassAssembler passAssembler;
+  //TODO::change name
   private final ParkingPassService passService;
 
   public ParkingPassResource(ParkingPassService passService, PassAssembler passAssembler) {

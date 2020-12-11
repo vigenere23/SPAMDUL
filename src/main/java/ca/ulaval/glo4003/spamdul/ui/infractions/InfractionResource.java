@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.ui.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionPaymentRequest;
@@ -39,9 +40,9 @@ public class InfractionResource {
   public Response validateParkingPass(InfractionRequest infractionRequest, @CookieParam("accessToken") Cookie accessToken) {
     TemporaryToken token = cookieAssembler.from(accessToken);
     PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
-    Infraction infraction = infractionService.giveInfractionIfNotValid(passToValidateDto, token);
+    InfractionDto infractionDto = infractionService.giveInfractionIfNotValid(passToValidateDto, token);
 
-    InfractionResponse infractionResponse = infractionAssembler.toResponse(infraction);
+    InfractionResponse infractionResponse = infractionAssembler.toResponse(infractionDto);
 
     if (infractionResponse == null) {
       return Response
