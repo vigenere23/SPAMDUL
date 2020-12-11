@@ -34,7 +34,7 @@ public class InfractionServiceTest {
   public final InfractionCode AN_INFRACTION_CODE = InfractionCode.valueOf(AN_INFRACTION_CODE_VALUE);
   private static final InfractionException AN_INFRACTION_EXCEPTION = new WrongDayInfractionException();
 
-  private InfractionInfos infractionInfos;
+  private InfractionInfosDto infractionInfosDto;
   private Infraction infraction;
   private InfractionPaymentDto infractionPaymentDto;
   private PassToValidateDto passToValidateDto;
@@ -66,7 +66,7 @@ public class InfractionServiceTest {
 
     passToValidateDto = new PassToValidateDto();
     passToValidateDto.licensePlate = LICENSE_PLATE;
-    infractionInfos = new InfractionInfos();
+    infractionInfosDto = new InfractionInfosDto();
     infraction = new Infraction(AN_INFRACTION_ID, ANY_MESSAGE, AN_INFRACTION_CODE, ANY_AMOUNT);
     infractionPaymentDto = new InfractionPaymentDto();
     when(user.pay(AN_INFRACTION_ID)).thenReturn(ANY_AMOUNT);
@@ -102,11 +102,11 @@ public class InfractionServiceTest {
     doThrow(AN_INFRACTION_EXCEPTION)
         .when(carParkingPassValidator)
         .validate(passToValidateDto);
-    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
+    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfosDto);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(infractionFactory, Mockito.times(1)).create(infractionInfos);
+    verify(infractionFactory, Mockito.times(1)).create(infractionInfosDto);
   }
 
   @Test
@@ -114,8 +114,8 @@ public class InfractionServiceTest {
     doThrow(AN_INFRACTION_EXCEPTION)
         .when(carParkingPassValidator)
         .validate(passToValidateDto);
-    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
-    when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
+    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfosDto);
+    when(infractionFactory.create(infractionInfosDto)).thenReturn(infraction);
     when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
     infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
@@ -130,8 +130,8 @@ public class InfractionServiceTest {
     doThrow(AN_INFRACTION_EXCEPTION)
         .when(carParkingPassValidator)
         .validate(passToValidateDto);
-    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfos);
-    when(infractionFactory.create(infractionInfos)).thenReturn(infraction);
+    when(infractionInfoRepository.findBy(AN_INFRACTION_CODE)).thenReturn(infractionInfosDto);
+    when(infractionFactory.create(infractionInfosDto)).thenReturn(infraction);
     when(userRepository.findBy(LICENSE_PLATE)).thenReturn(user);
 
     Infraction actual = infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);

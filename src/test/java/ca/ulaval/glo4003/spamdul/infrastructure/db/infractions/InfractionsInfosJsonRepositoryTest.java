@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfosDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import com.google.common.truth.Truth;
@@ -34,42 +34,42 @@ public class InfractionsInfosJsonRepositoryTest {
   public void setUp() throws Exception {
     jsonReader = mock(JsonReader.class);
     repository = new InfractionsInfosJsonRepository(A_PATH, jsonReader);
-    List<InfractionInfos> infractionInfosList = new ArrayList<>();
+    List<InfractionInfosDto> infractionInfosDtoList = new ArrayList<>();
 
-    InfractionInfos infractionInfos = new InfractionInfos();
-    infractionInfos.code = AN_INFRACTION_CODE_STRING;
-    infractionInfos.infraction = AN_INFRACTION_CODE_DESCRITPION;
-    infractionInfos.montant = AN_INFRACTION_AMOUNT;
-    infractionInfosList.add(infractionInfos);
+    InfractionInfosDto infractionInfosDto = new InfractionInfosDto();
+    infractionInfosDto.code = AN_INFRACTION_CODE_STRING;
+    infractionInfosDto.infraction = AN_INFRACTION_CODE_DESCRITPION;
+    infractionInfosDto.montant = AN_INFRACTION_AMOUNT;
+    infractionInfosDtoList.add(infractionInfosDto);
 
-    InfractionInfos anotherInfractionInfos = new InfractionInfos();
-    anotherInfractionInfos.code = ANOTHER_INFRACTION_CODE_STRING;
-    anotherInfractionInfos.infraction = ANOTHER_INFRACTION_CODE_DESCRITPION;
-    anotherInfractionInfos.montant = ANOTHER_INFRACTION_AMOUNT;
-    infractionInfosList.add(anotherInfractionInfos);
+    InfractionInfosDto anotherInfractionInfosDto = new InfractionInfosDto();
+    anotherInfractionInfosDto.code = ANOTHER_INFRACTION_CODE_STRING;
+    anotherInfractionInfosDto.infraction = ANOTHER_INFRACTION_CODE_DESCRITPION;
+    anotherInfractionInfosDto.montant = ANOTHER_INFRACTION_AMOUNT;
+    infractionInfosDtoList.add(anotherInfractionInfosDto);
 
-    given(jsonReader.read(A_PATH, InfractionInfos[].class)).willReturn(infractionInfosList);
+    given(jsonReader.read(A_PATH, InfractionInfosDto[].class)).willReturn(infractionInfosDtoList);
   }
 
   @Test
   public void whenFindingBy_shouldReadJsonWithJsonReader() {
     repository.findBy(ANOTHER_INFRACTION_CODE);
 
-    verify(jsonReader, times(1)).read(A_PATH, InfractionInfos[].class);
+    verify(jsonReader, times(1)).read(A_PATH, InfractionInfosDto[].class);
   }
 
   @Test
   public void whenFindingBy_shouldReturnTheRightInfractionInfos() {
-    InfractionInfos infractionInfos = repository.findBy(AN_INFRACTION_CODE);
-    InfractionInfos anotherInfractionInfos = repository.findBy(ANOTHER_INFRACTION_CODE);
+    InfractionInfosDto infractionInfosDto = repository.findBy(AN_INFRACTION_CODE);
+    InfractionInfosDto anotherInfractionInfosDto = repository.findBy(ANOTHER_INFRACTION_CODE);
 
-    Truth.assertThat(infractionInfos.code).isEqualTo(AN_INFRACTION_CODE_STRING);
-    Truth.assertThat(infractionInfos.infraction).isEqualTo(AN_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(infractionInfos.montant).isEqualTo(AN_INFRACTION_AMOUNT);
+    Truth.assertThat(infractionInfosDto.code).isEqualTo(AN_INFRACTION_CODE_STRING);
+    Truth.assertThat(infractionInfosDto.infraction).isEqualTo(AN_INFRACTION_CODE_DESCRITPION);
+    Truth.assertThat(infractionInfosDto.montant).isEqualTo(AN_INFRACTION_AMOUNT);
 
-    Truth.assertThat(anotherInfractionInfos.code).isEqualTo(ANOTHER_INFRACTION_CODE_STRING);
-    Truth.assertThat(anotherInfractionInfos.infraction).isEqualTo(ANOTHER_INFRACTION_CODE_DESCRITPION);
-    Truth.assertThat(anotherInfractionInfos.montant).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
+    Truth.assertThat(anotherInfractionInfosDto.code).isEqualTo(ANOTHER_INFRACTION_CODE_STRING);
+    Truth.assertThat(anotherInfractionInfosDto.infraction).isEqualTo(ANOTHER_INFRACTION_CODE_DESCRITPION);
+    Truth.assertThat(anotherInfractionInfosDto.montant).isEqualTo(ANOTHER_INFRACTION_AMOUNT);
   }
 
   @Test(expected = InfractionNotFoundException.class)

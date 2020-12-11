@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfosDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import java.util.List;
@@ -17,12 +17,12 @@ public class InfractionsInfosJsonRepository implements InfractionInfoRepository 
     reader = jsonReader;
   }
 
-  @Override public InfractionInfos findBy(InfractionCode infractionCode) {
-    List<InfractionInfos> infractionInfosList = reader.read(JSON_PATH, InfractionInfos[].class);
+  @Override public InfractionInfosDto findBy(InfractionCode infractionCode) {
+    List<InfractionInfosDto> infractionInfosDtoList = reader.read(JSON_PATH, InfractionInfosDto[].class);
 
-    for (InfractionInfos infractionInfos : infractionInfosList) {
-      if (infractionCode.equals(InfractionCode.valueOf(infractionInfos.code))) {
-        return infractionInfos;
+    for (InfractionInfosDto infractionInfosDto : infractionInfosDtoList) {
+      if (infractionCode.equals(InfractionCode.valueOf(infractionInfosDto.code))) {
+        return infractionInfosDto;
       }
     }
 
