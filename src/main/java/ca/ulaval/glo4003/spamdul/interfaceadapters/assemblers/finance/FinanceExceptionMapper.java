@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.FinanceException;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

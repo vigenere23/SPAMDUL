@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.user.car;
 
 import ca.ulaval.glo4003.spamdul.entity.ids.IdGenerator;
-import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import java.util.Objects;
 
 public class CarId {

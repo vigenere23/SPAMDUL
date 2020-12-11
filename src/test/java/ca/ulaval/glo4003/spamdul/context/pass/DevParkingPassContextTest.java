@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInst
 
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.ui.pass.ParkingPassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
