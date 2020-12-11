@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.exception.CantFindParkingZoneFeeException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
@@ -23,6 +24,7 @@ public class ParkingZoneFeeCsvRepositoryTest {
   public static final Amount ONE_SEMESTER_ZONE_3 = Amount.valueOf(272);
   public static final Amount TWO_SEMESTER_ZONE_1 = Amount.valueOf(895);
   public static final String A_PATH = "a/path";
+  public static final PeriodType PERIOD_TYPE = PeriodType.MONTHLY;
 
   private ParkingZoneFeeCsvRepository repository;
   private CsvReader reader;
@@ -78,6 +80,13 @@ public class ParkingZoneFeeCsvRepositoryTest {
     Amount parkingZoneFee = repository.findBy(ParkingZone.ZONE_1, PeriodType.TWO_SEMESTERS);
 
     Truth.assertThat(parkingZoneFee).isEqualTo(TWO_SEMESTER_ZONE_1);
+  }
+
+  @Test
+  public void givenBikeZone_whenFindingBy_shouldReturnRightFee() {
+    Amount parkingZoneFee = repository.findBy(ParkingZone.ZONE_BIKE, PERIOD_TYPE);
+
+    Truth.assertThat(parkingZoneFee).isEqualTo(Amount.valueOf(0));
   }
 
   @Test(expected = CantFindParkingZoneFeeException.class)

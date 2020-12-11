@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exce
 
 public class InvalidCampusAccessCodeException extends InvalidPassArgumentException {
 
-  public InvalidCampusAccessCodeException(String message) {
-    super(message);
+  public InvalidCampusAccessCodeException() {
+    super("The campus access code is not in the right format");
   }
 }

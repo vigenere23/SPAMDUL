@@ -21,7 +21,7 @@ public class Infraction {
 
   public Amount pay() {
     if (isPaid) {
-      throw new AlreadyPaidInfractionException("Cette infraction a déjà été payée");
+      throw new AlreadyPaidInfractionException();
     }
 
     isPaid = true;

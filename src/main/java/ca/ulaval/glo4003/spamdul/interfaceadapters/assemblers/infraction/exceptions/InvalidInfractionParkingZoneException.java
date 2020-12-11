@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.except
 
 public class InvalidInfractionParkingZoneException extends InvalidInfractionException {
 
-  public InvalidInfractionParkingZoneException(String message) {
-    super(message);
+  public InvalidInfractionParkingZoneException() {
+    super("Invalid parking zone");
   }
 }

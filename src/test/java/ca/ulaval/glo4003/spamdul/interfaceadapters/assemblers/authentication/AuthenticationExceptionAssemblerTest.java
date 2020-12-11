@@ -3,10 +3,9 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.UnauthorizedUserException;
+import ca.ulaval.glo4003.spamdul.entity.authentication.UnauthorizedUserException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 

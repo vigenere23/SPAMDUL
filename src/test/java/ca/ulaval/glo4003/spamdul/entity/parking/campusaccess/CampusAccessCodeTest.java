@@ -19,6 +19,13 @@ public class CampusAccessCodeTest {
     CampusAccessCode anotherCampusAccessCode = CampusAccessCode.valueOf("5678");
 
     assertThat(campusAccessCode).isNotEqualTo(anotherCampusAccessCode);
+  }
+
+  @Test
+  public void whenComparingDifferentCampusAccessCode_shouldNotHaveSameHash() {
+    CampusAccessCode campusAccessCode = CampusAccessCode.valueOf("1234");
+    CampusAccessCode anotherCampusAccessCode = CampusAccessCode.valueOf("5678");
+
     assertThat(campusAccessCode.hashCode()).isNotEqualTo(anotherCampusAccessCode.hashCode());
   }
 
@@ -28,6 +35,13 @@ public class CampusAccessCodeTest {
     CampusAccessCode sameCampusAccessCode = CampusAccessCode.valueOf(campusAccessCode.toString());
 
     assertThat(campusAccessCode).isEqualTo(sameCampusAccessCode);
+  }
+
+  @Test
+  public void whenComparingTheSameCampusAccessCode_shouldHaveTheSameHash() {
+    CampusAccessCode campusAccessCode = CampusAccessCode.valueOf("1234");
+    CampusAccessCode sameCampusAccessCode = CampusAccessCode.valueOf(campusAccessCode.toString());
+
     assertThat(campusAccessCode.hashCode()).isEqualTo(sameCampusAccessCode.hashCode());
   }
 }

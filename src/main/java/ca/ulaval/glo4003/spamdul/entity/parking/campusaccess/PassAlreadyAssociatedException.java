@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.excep
 
 public class PassAlreadyAssociatedException extends InvalidPassArgumentException {
 
-  public PassAlreadyAssociatedException(String message) {
-    super(message);
+  public PassAlreadyAssociatedException() {
+    super("This user already has a pass for this date");
   }
 }

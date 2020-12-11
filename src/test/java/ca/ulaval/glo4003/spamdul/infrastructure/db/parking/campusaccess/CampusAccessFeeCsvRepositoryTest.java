@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.campusaccess.exception.CantFindCarTypeAccessFeeException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;
@@ -75,7 +76,7 @@ public class CampusAccessFeeCsvRepositoryTest {
     Truth.assertThat(fee).isEqualTo(Amount.valueOf(0));
   }
 
-  @Test(expected = CantFindCampusAccessFeeException.class)
+  @Test(expected = CantFindCarTypeAccessFeeException.class)
   public void givenAnInvalidCarType_whenFindingBy_shouldThrownCantFindCampusAccessFeeException() {
     List<List<String>> lists = generateReadCsv();
     lists.remove(1); //Removing super economique
@@ -84,7 +85,7 @@ public class CampusAccessFeeCsvRepositoryTest {
     repository.findBy(CarType.SUPER_ECONOMIQUE, PeriodType.MONTHLY);
   }
 
-  @Test(expected = CantFindCampusAccessFeeException.class)
+  @Test(expected = CantFindCarTypeAccessFeeException.class)
   public void givenAnInvalidPeriodType_whenFindingBy_shouldThrownCantFindCampusAccessFeeException() {
     List<List<String>> lists = generateReadCsvWithout2Semesters();
     given(csvReader.read(anyString())).willReturn(lists);

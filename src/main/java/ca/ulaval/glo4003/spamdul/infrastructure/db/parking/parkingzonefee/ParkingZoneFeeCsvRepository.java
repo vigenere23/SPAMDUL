@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.exception.CantFindParkingZoneFeeException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.ArrayList;
@@ -23,19 +24,21 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
 
 
   @Override public Amount findBy(ParkingZone parkingZone, PeriodType period) {
+    if (parkingZone == ParkingZone.ZONE_BIKE) {
+      return Amount.valueOf(0);
+    }
+
     Map<ParkingZone, Map<PeriodType, Amount>> fees = readAndParseCsv();
     Map<PeriodType, Amount> periodTypeParkingZoneFeeMap = fees.get(parkingZone);
 
     if (periodTypeParkingZoneFeeMap == null) {
-      throw new CantFindParkingZoneFeeException(
-          "Cant find a parking zone fee associated with the given parking zone and period");
+      throw new CantFindParkingZoneFeeException();
     }
 
     Amount fee = periodTypeParkingZoneFeeMap.get(period);
 
     if (fee == null) {
-      throw new CantFindParkingZoneFeeException(
-          "Cant find a parking zone fee associated with the given parking zone and period");
+      throw new CantFindParkingZoneFeeException();
     }
 
     return fee;

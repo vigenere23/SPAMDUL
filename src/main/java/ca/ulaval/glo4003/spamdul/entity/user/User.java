@@ -4,9 +4,13 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
@@ -35,6 +39,7 @@ public class User {
   private Car car;
   private CampusAccess campusAccess;
   private RechargULCard rechargULCard;
+  private BikeParkingPass bikeParkingPass;
 
   public User(UserId userId, String name, Gender gender, LocalDate birthDate, Car car) {
     this.name = name;
@@ -42,6 +47,14 @@ public class User {
     this.birthDate = birthDate;
     this.userId = userId;
     this.car = car;
+    this.infractions = new HashMap<>();
+  }
+
+  public User(UserId userId, String name, Gender gender, LocalDate birthDate) {
+    this.name = name;
+    this.gender = gender;
+    this.birthDate = birthDate;
+    this.userId = userId;
     this.infractions = new HashMap<>();
   }
 
@@ -71,8 +84,12 @@ public class User {
     }
   }
 
-  public void associate(Pass pass) {
-    this.campusAccess.associatePass(pass);
+  public boolean isAccessGrantedToBikeParking(BikeParkingAccessValidator bikeParkingAccessValidator) {
+    return bikeParkingAccessValidator.validate(this.bikeParkingPass);
+  }
+
+  public void associate(ParkingPass parkingPass) {
+    parkingPass.accept(this);
   }
 
   public void associate(Infraction infraction) {
@@ -100,15 +117,22 @@ public class User {
     this.car = car;
   }
 
+  public void associateCarParkingPass(CarParkingPass parkingPass) {
+    this.campusAccess.associatePass(parkingPass);
+  }
+
+  public void associateBikeParkingPass(BikeParkingPass bikeParkingPass) {
+    this.bikeParkingPass = bikeParkingPass;
+  }
 
   public boolean doesOwn(LicensePlate licensePlate) {
     return car.getLicensePlate().equals(licensePlate);
   }
 
-  public boolean doesOwn(PassCode passCode) {
+  public boolean doesOwn(CarParkingPassCode carParkingPassCode) {
     return campusAccess != null && campusAccess.getAssociatedPass() != null && campusAccess.getAssociatedPass()
-                                                                                           .getPassCode()
-                                                                                           .equals(passCode);
+                                                                                           .getCode()
+                                                                                           .equals(carParkingPassCode);
   }
 
   public boolean doesOwn(RechargULCardId rechargULCardId) {
@@ -117,6 +141,10 @@ public class User {
 
   public boolean doesOwn(CampusAccessCode campusAccessCode) {
     return campusAccess != null && campusAccess.getCampusAccessCode().equals(campusAccessCode);
+  }
+
+  public boolean doesOwn(BikeParkingPassCode bikeParkingPassCode) {
+    return this.bikeParkingPass != null && bikeParkingPassCode.equals(this.bikeParkingPass.getCode());
   }
 
   public boolean hasInfractionWith(InfractionId infractionId) {
@@ -141,7 +169,7 @@ public class User {
     return Period.between(birthDate, todayDate).getYears();
   }
 
-  public Pass getPass() {
+  public CarParkingPass getCarParkingPass() {
     return campusAccess.getAssociatedPass();
   }
 

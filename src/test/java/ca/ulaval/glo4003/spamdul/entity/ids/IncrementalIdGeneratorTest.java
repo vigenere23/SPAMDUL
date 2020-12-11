@@ -16,8 +16,8 @@ public class IncrementalIdGeneratorTest {
 
   @Test
   public void givenAnIdGenerated_whenGeneratingNextId_shouldBeOneUnitIncrement() {
-    String firstId = idGenerator.generateId();
-    String nextId = idGenerator.generateId();
+    String firstId = idGenerator.generate();
+    String nextId = idGenerator.generate();
     assertThat(Long.parseLong(nextId)).isEqualTo(Long.parseLong(firstId) + 1);
   }
 }

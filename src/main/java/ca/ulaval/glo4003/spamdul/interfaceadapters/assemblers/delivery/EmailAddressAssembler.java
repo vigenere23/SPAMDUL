@@ -12,7 +12,7 @@ public class EmailAddressAssembler {
     Matcher matcher = pattern.matcher(stringAddress);
 
     if (!matcher.find()) {
-      throw new InvalidEmailAddressException("Invalid email");
+      throw new InvalidEmailAddressException();
     }
     return new EmailAddress(stringAddress);
   }

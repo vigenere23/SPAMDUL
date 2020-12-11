@@ -21,7 +21,7 @@ public class CsvReader {
       }
 
     } catch (IOException e) {
-      throw new InvalidCsvFile(String.format("%s is not a valid path", filePath));
+      throw new InvalidCsvFile(filePath);
     }
 
     return csvData;

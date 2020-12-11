@@ -11,6 +11,6 @@ public class RechargULCardIdFactory {
   }
 
   public RechargULCardId create() {
-    return RechargULCardId.valueOf(String.valueOf(idGenerator.generateId()));
+    return RechargULCardId.valueOf(String.valueOf(idGenerator.generate()));
   }
 }

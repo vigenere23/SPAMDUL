@@ -6,11 +6,14 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
@@ -36,13 +39,18 @@ public class InMemoryUserRepositoryTest {
                                                               LocalDateTime.MAX,
                                                               TimePeriodDayOfWeek.ALL);
   public static final ParkingZone PARKING_ZONE = ParkingZone.ZONE_1;
-  public static final PassCode PASS_CODE = PassCode.valueOf("123");
+  public static final CarParkingPassCode PASS_CODE = CarParkingPassCode.valueOf("123");
   public static final Amount AMOUNT = Amount.valueOf(10);
   public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
   public static final String DESCRIPTION = "description";
   public static final InfractionCode CODE = InfractionCode.valueOf("code");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
   public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
+  public static final String BIKE_PARKING_ACCESS_CODE_STRING = "1234";
+  public static final BikeParkingPassCode BIKE_PARKING_ACCESS_CODE = BikeParkingPassCode.valueOf(
+      BIKE_PARKING_ACCESS_CODE_STRING);
+  public static final BikeParkingPass BIKE_PARKING_ACCESS = new BikeParkingPass(BIKE_PARKING_ACCESS_CODE,
+                                                                                TIME_PERIOD);
   private final String A_CAR_BRAND = "brand";
   private final String A_CAR_MODEL = "model";
   private final String A_LICENSE_PLATE_STRING = "license plate";
@@ -61,7 +69,7 @@ public class InMemoryUserRepositoryTest {
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
                                                                 A_PERIOD_TYPE,
                                                                 TIME_PERIOD);
-  private final Pass A_PASS = new Pass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
+  private final CarParkingPass A_CAR_PARKING_PASS = new CarParkingPass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
 
   private InMemoryUserRepository userRepository;
 
@@ -110,7 +118,7 @@ public class InMemoryUserRepositoryTest {
   @Test
   public void whenFindingByPassCode_shouldReturnUser() {
     A_USER.associate(A_CAMPUS_ACCESS);
-    A_USER.associate(A_PASS);
+    A_USER.associateCarParkingPass(A_CAR_PARKING_PASS);
     userRepository.save(A_USER);
 
     User user = userRepository.findBy(PASS_CODE);
@@ -138,6 +146,16 @@ public class InMemoryUserRepositoryTest {
     assertThat(user).isEqualTo(A_USER);
   }
 
+  @Test
+  public void whenFindingByBikeParkingAccess_shouldReturnUser() {
+    A_USER.associateBikeParkingPass(BIKE_PARKING_ACCESS);
+    userRepository.save(A_USER);
+
+    User user = userRepository.findBy(BIKE_PARKING_ACCESS_CODE);
+
+    assertThat(user).isEqualTo(A_USER);
+  }
+
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToId_whenFindingById_shouldThrowException() {
     userRepository.findBy(UserId.valueOf("465"));
@@ -155,7 +173,7 @@ public class InMemoryUserRepositoryTest {
 
   @Test(expected = UserNotFoundException.class)
   public void givenNoUserCorrespondingToPassCode_whenFindingByPassCode_shouldThrowException() {
-    userRepository.findBy(PassCode.valueOf("345"));
+    userRepository.findBy(CarParkingPassCode.valueOf("345"));
   }
 
   @Test(expected = UserNotFoundException.class)
@@ -164,7 +182,12 @@ public class InMemoryUserRepositoryTest {
   }
 
   @Test(expected = UserNotFoundException.class)
-  public void givenNoInfractionCorrespondingToInfractionId_whenFindingByInfractionId_shoulldThrowException() {
+  public void givenNoInfractionCorrespondingToInfractionId_whenFindingByInfractionId_shouldThrowException() {
     userRepository.findBy(InfractionId.valueOf("8754"));
+  }
+
+  @Test(expected = UserNotFoundException.class)
+  public void givenNoBikeParkingAccessCorrespondingToAccessCode_whenFindingByBikeParkingAccessCode_shouldThrowException() {
+    userRepository.findBy(BikeParkingPassCode.valueOf("1234"));
   }
 }

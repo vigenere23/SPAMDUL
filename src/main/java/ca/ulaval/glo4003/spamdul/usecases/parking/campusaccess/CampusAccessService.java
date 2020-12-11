@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDateTime;
 
@@ -35,11 +36,17 @@ public class CampusAccessService extends AccessGrantedObservable {
   }
 
   public CampusAccess createCampusAccess(CampusAccessDto campusAccessDto) {
+    User user = userRepository.findBy(campusAccessDto.userId);
+
+    if (user.getCar() == null) {
+      throw new UserMustOwnACarToPurchaseACarParkingPassException();
+    }
+
     CampusAccess campusAccess = campusAccessFactory.create(campusAccessDto.timePeriodDto);
 
-    User user = userRepository.findBy(campusAccessDto.userId);
     user.associate(campusAccess);
     userRepository.save(user);
+
 
     addRevenue(user.getCar().getCarType(), campusAccessDto.timePeriodDto.periodType);
 

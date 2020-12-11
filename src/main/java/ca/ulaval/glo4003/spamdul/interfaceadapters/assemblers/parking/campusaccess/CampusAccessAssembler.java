@@ -13,9 +13,9 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.AccessingCam
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
 import java.util.ArrayList;
@@ -51,12 +51,10 @@ public class CampusAccessAssembler {
   }
 
   private void setTimePeriodDto(TimePeriodRequest timePeriodRequest, CampusAccessDto campusAccessDto) {
-    final String ERROR_MESSAGE = "make a choice between: " + ACCEPTED_PERIOD_TYPES.toString();
-
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
     }
 
     campusAccessDto.timePeriodDto = timePeriodDto;
@@ -86,7 +84,7 @@ public class CampusAccessAssembler {
     if (accessingCampusRequest.licensePlate != null) {
       accessingCampusDto.licensePlate = new LicensePlate(accessingCampusRequest.licensePlate);
     } else {
-      throw new InvalidAccessingCampusArgumentException("A campus access code or a license plate must be provided");
+      throw new InvalidCampusAccessArgumentException();
     }
   }
 

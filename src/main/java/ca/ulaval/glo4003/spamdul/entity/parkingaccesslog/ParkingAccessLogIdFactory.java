@@ -11,6 +11,6 @@ public class ParkingAccessLogIdFactory {
   }
 
   public ParkingAccessLogId create() {
-    return ParkingAccessLogId.valueOf(String.valueOf(idGenerator.generateId()));
+    return ParkingAccessLogId.valueOf(String.valueOf(idGenerator.generate()));
   }
 }

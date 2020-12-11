@@ -3,16 +3,14 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
-import java.util.ArrayList;
 
 public class PassAssembler {
 
@@ -36,14 +34,12 @@ public class PassAssembler {
   }
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {
-    final String ERROR_MESSAGE = "make a choice between (single_day_per_week_per_semester, monthly, one_semester," +
-        "two_semesters or three_semesters) ";
     TimePeriodDto timePeriodDto;
 
     try {
       timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
     } catch (IllegalArgumentException e) {
-      throw new InvalidPeriodArgumentException(ERROR_MESSAGE);
+      throw new InvalidTimePeriodArgumentException();
     }
 
     return timePeriodDto;
@@ -54,7 +50,7 @@ public class PassAssembler {
       return ParkingZone.valueOf(parkingZone.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidParkingZoneException("The parking zone is invalid");
+      throw new InvalidParkingZoneException();
     }
   }
 
