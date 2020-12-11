@@ -3,8 +3,6 @@ package ca.ulaval.glo4003.spamdul.context.authentication;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AuthenticationResource;
@@ -33,7 +31,5 @@ public class AuthenticationContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(authenticationResource);
-    resources.add(new AuthenticationExceptionAssembler());
-    resources.add(new UserExceptionAssembler());
   }
 }

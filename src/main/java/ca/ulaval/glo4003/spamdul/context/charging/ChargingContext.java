@@ -14,9 +14,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
@@ -73,8 +71,6 @@ public abstract class ChargingContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(chargingPointResource);
-    resources.add(new ChargingPointExceptionMapper());
     resources.add(rechargULResource);
-    resources.add(new RechargULExceptionMapper());
   }
 }

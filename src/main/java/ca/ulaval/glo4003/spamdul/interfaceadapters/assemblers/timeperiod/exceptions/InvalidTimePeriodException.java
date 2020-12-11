@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions;
 
-public abstract class InvalidTimePeriodException extends RuntimeException {
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import javax.ws.rs.core.Response.Status;
 
-  protected InvalidTimePeriodException(String message) {
-    super(message);
+public abstract class InvalidTimePeriodException extends SpamDULBaseException {
+
+  public int getStatus() {
+    return Status.BAD_REQUEST.getStatusCode();
   }
 }

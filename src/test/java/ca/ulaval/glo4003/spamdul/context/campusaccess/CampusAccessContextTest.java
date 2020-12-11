@@ -5,9 +5,6 @@ import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExac
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.AccessingCampusExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.CampusAccessResource;
 import org.junit.Before;
@@ -36,9 +33,6 @@ public class CampusAccessContextTest {
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
     assertContainsExactlyInstancesOf(resources.getValues(),
-                                     CampusAccessResource.class,
-                                     AccessingCampusExceptionAssembler.class,
-                                     CarExceptionAssembler.class,
-                                     CampusAccessExceptionAssembler.class);
+                                     CampusAccessResource.class);
   }
 }

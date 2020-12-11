@@ -23,7 +23,7 @@ public class TimePeriodAssembler {
     try {
       timePeriodDto.periodType = PeriodType.valueOf(timePeriodRequest.type.toUpperCase());
     } catch (Exception e) {
-      throw new InvalidTimePeriodArgumentException(Arrays.toString(PeriodType.values()));
+      throw new InvalidTimePeriodArgumentException();
     }
 
     switch (timePeriodDto.periodType) {

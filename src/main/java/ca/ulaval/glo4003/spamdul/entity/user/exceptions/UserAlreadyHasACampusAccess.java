@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 
 public class UserAlreadyHasACampusAccess extends InvalidUserException {
 
-  public UserAlreadyHasACampusAccess() {
-    super("User already has a campus access asociated");
+  public String getError() {
+    return "USER_ALREADY_HAS_CAMPUS_ACCESS";
+  }
+
+  public String getDescription() {
+    return "User already has a campus access asociated";
   }
 }

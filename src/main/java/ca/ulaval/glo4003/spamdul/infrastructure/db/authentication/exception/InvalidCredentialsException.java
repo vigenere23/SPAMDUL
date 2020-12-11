@@ -1,10 +1,19 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import javax.ws.rs.core.Response.Status;
 
-public class InvalidCredentialsException extends AuthenticationException {
+public class InvalidCredentialsException extends SpamDULBaseException {
 
-  public InvalidCredentialsException() {
-    super("Invalid credentials provided");
+  public String getError() {
+    return "INVALID_CREDENTIALS";
+  }
+
+  public String getDescription() {
+    return "Invalid credentials provided";
+  }
+
+  public int getStatus() {
+    return Status.UNAUTHORIZED.getStatusCode();
   }
 }

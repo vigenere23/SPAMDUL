@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.except
 
 public class InvalidTimePeriodArgumentException extends InvalidTimePeriodException {
 
-  public InvalidTimePeriodArgumentException(String valid_period) {
-    super(String.format("Invalid time period, make a choice between: %s", valid_period));
+  public String getError() {
+    return "INVALID_PERIOD_FORMAT";
   }
 
-  public InvalidTimePeriodArgumentException() {
-    super("Invalid time period");
+  public String getDescription() {
+    return "Invalid time period";
   }
 }

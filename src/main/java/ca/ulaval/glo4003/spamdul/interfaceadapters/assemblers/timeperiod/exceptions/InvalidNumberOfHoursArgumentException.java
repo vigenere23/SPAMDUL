@@ -2,7 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.except
 
 public class InvalidNumberOfHoursArgumentException extends InvalidTimePeriodException{
 
-  public InvalidNumberOfHoursArgumentException() {
-    super("Number of hours must be between 1 and 23");
+  public String getError() {
+    return "INVALID_NUMBER_OF_HOURS_FORMAT";
+  }
+
+  public String getDescription() {
+    return "Number of hours must be between 1 and 23";
   }
 }

@@ -2,7 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.excep
 
 public class InvalidParkingZoneArgumentException extends InvalidUsageReportArgumentException {
 
-  public InvalidParkingZoneArgumentException() {
-    super("The Parking zone provided must be ZONE_*number*");
+  public String getError() {
+    return "INVALID_PARKING_ZONE";
+  }
+
+  public String getDescription() {
+    return "The Parking zone provided must be ZONE_*number*";
   }
 }

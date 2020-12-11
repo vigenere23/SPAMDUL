@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions;
 
-public abstract class InvalidCarArgumentException extends RuntimeException {
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import javax.ws.rs.core.Response.Status;
 
-  protected InvalidCarArgumentException(String message) {
-    super(message);
+public abstract class InvalidCarArgumentException extends SpamDULBaseException {
+
+  public int getStatus() {
+    return Status.BAD_REQUEST.getStatusCode();
   }
 }

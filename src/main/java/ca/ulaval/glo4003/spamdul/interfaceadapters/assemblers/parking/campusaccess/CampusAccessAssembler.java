@@ -53,7 +53,7 @@ public class CampusAccessAssembler {
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
-      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
+      throw new InvalidTimePeriodArgumentException();
     }
 
     campusAccessDto.timePeriodDto = timePeriodDto;
