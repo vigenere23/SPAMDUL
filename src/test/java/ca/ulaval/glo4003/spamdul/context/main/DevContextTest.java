@@ -2,18 +2,17 @@ package ca.ulaval.glo4003.spamdul.context.main;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceAdmin;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.infractions.InfractionResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.ParkingPassResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.user.UserResource;
@@ -73,7 +72,7 @@ public class DevContextTest {
                                      InitiativeExceptionMapper.class,
                                      InfractionResource.class,
                                      InfractionExceptionAssembler.class,
-                                     PassResource.class,
+                                     ParkingPassResource.class,
                                      PassExceptionAssembler.class,
                                      DeliveryExceptionAssembler.class,
                                      UsageReportResource.class,

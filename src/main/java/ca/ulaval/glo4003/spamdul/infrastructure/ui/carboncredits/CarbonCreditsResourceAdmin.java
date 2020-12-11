@@ -1,14 +1,24 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.dto.CarbonCreditsTransferResponse;
-
+import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 @Path("/admin/carbon-credits")
-public interface CarbonCreditsResourceAdmin {
+public class CarbonCreditsResourceAdmin {
+
+  private final CarbonCreditsService carbonCreditsService;
+
+  public CarbonCreditsResourceAdmin(CarbonCreditsService carbonCreditsService) {
+    this.carbonCreditsService = carbonCreditsService;
+  }
 
   @POST
   @Path("/transfer")
-  CarbonCreditsTransferResponse transferFundsToCarbonCredits();
+  public CarbonCreditsTransferResponse transferFundsToCarbonCredits() {
+    CarbonCreditsTransferResponse response = new CarbonCreditsTransferResponse();
+    response.transferred = carbonCreditsService.transferRemainingBudget();
+    return response;
+  }
 }

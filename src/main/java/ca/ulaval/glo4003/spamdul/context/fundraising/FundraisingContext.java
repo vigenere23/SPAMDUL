@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResourceImp;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
@@ -42,7 +41,7 @@ public abstract class FundraisingContext implements ResourceContext {
                                                                 initiativeCreator,
                                                                 accessLevelValidator);
 
-    fundraisingResource = new FundraisingResourceImp(initiativeAssembler, initiativeService, cookieAssembler);
+    fundraisingResource = new FundraisingResource(initiativeAssembler, initiativeService, cookieAssembler);
 
     InitiativePopulator populator = new InitiativePopulator(initiativeRepository, initiativeFactory);
 

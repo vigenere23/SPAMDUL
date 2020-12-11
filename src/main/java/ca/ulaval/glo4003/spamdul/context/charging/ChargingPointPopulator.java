@@ -1,12 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPaymentService;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointFactory;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
-import java.util.concurrent.TimeUnit;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPoint;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointFactory;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointRepository;
 
 public class ChargingPointPopulator implements Populator {
 
