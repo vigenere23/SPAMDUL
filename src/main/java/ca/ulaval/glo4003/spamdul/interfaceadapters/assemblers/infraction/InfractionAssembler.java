@@ -28,7 +28,7 @@ public class InfractionAssembler {
       return ParkingZone.valueOf(infractionRequest.parkingZone.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidInfractionParkingZoneException("Invalid parking zone");
+      throw new InvalidInfractionParkingZoneException();
     }
   }
 

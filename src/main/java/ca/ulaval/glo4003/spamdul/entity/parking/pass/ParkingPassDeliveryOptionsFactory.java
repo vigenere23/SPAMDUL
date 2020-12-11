@@ -17,7 +17,7 @@ public class ParkingPassDeliveryOptionsFactory {
     } else if (deliveryDto.deliveryMode == DeliveryMode.SSP_OFFICE) {
       //Nothing to do
     } else {
-      throw new InvalidDeliveryModeException("Invalid delivery mode");
+      throw new InvalidDeliveryModeException();
     }
 
     deliveryOptions.subject = subject;

@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequ
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
 import org.junit.Before;
@@ -72,7 +72,7 @@ public class ParkingPassAssemblerTest {
     passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
   }
 
-  @Test(expected = InvalidPeriodArgumentException.class)
+  @Test(expected = InvalidTimePeriodArgumentException.class)
   public void givenAnInvalidArgumentWhileAssemblingTimePeriod_whenAssemblingFromRequest_shouldThrow() {
     when(timePeriodAssembler.fromRequest(A_TIME_PERIOD_REQUEST)).thenThrow(new IllegalArgumentException());
 

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingzonefee.exception.CantFindParkingZoneFeeException;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import com.google.common.truth.Truth;

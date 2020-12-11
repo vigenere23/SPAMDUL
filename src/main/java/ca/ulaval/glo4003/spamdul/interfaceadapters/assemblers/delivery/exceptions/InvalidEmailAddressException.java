@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptio
 
 public class InvalidEmailAddressException extends InvalidDeliveryArgumentException {
 
-  public InvalidEmailAddressException(String message) {
-    super(message);
+  public InvalidEmailAddressException() {
+    super("Invalid email address");
   }
 }

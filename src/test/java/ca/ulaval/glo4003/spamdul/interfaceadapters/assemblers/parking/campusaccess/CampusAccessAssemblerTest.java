@@ -14,8 +14,9 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccess
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.dto.CampusAccessResponse;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidAccessingCampusArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidPeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
 import org.junit.Before;
@@ -68,7 +69,7 @@ public class CampusAccessAssemblerTest {
   }
 
 
-  @Test(expected = InvalidPeriodArgumentException.class)
+  @Test(expected = InvalidTimePeriodArgumentException.class)
   public void givenAnInvalidPeriod_whenAssemblingFromRequest_shouldThrowInvalidPeriodException() {
     timePeriodDto.periodType = INVALID_PERIOD_TYPE;
 
@@ -99,7 +100,7 @@ public class CampusAccessAssemblerTest {
     assertThat(accessingCampusDto.licensePlate).isEqualTo(A_LICENSE_PLATE);
   }
 
-  @Test(expected = InvalidAccessingCampusArgumentException.class)
+  @Test(expected = InvalidCampusAccessArgumentException.class)
   public void givenNoParamToAccessCampus_whenAssemblingFromRequest_shouldThrowInvalidCampusAccessCodeArgumentException() {
     accessingCampusRequest.campusAccessCode = null;
     accessingCampusRequest.licensePlate = null;

@@ -48,7 +48,7 @@ public class TransactionQueryAssembler {
       return LocalDateTime.of(date, time);
 
     } catch (DateTimeParseException e) {
-      throw new InvalidDateArgumentException("The date provided must be yyyy-MM-dd");
+      throw new InvalidDateArgumentException();
     }
   }
 }

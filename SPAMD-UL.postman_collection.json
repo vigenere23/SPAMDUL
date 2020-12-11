@@ -8256,7 +8256,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Error is 'ACCESS_NOT_FOUND'\", function () {\r",
-							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_PERIOD_FORMAT')\r",
+							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_NUMBER_OF_HOURS_FORMAT')\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -8305,7 +8305,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Error is 'ACCESS_NOT_FOUND'\", function () {\r",
-							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_PERIOD_FORMAT')\r",
+							"    pm.expect(pm.response.json()['error']).to.eql('INVALID_NUMBER_OF_HOURS_FORMAT')\r",
 							"})"
 						],
 						"type": "text/javascript"

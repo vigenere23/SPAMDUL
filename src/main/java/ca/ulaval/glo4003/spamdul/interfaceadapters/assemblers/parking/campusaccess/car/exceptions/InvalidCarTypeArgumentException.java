@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusacc
 
 public class InvalidCarTypeArgumentException extends InvalidCarArgumentException {
 
-  public InvalidCarTypeArgumentException(String message) {
-    super(message);
+  public InvalidCarTypeArgumentException() {
+    super("Invalid car type");
   }
 }

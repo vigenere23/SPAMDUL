@@ -34,7 +34,7 @@ public class DeliveryAssembler {
       return DeliveryMode.valueOf(deliveryMode.toUpperCase());
 
     } catch (IllegalArgumentException e) {
-      throw new InvalidDeliveryModeException("The delivery is either made by post or by mail");
+      throw new InvalidDeliveryModeException();
     }
   }
 }

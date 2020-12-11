@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptio
 
 public class InvalidPostalAddressException extends InvalidDeliveryArgumentException {
 
-  public InvalidPostalAddressException(String message) {
-    super(message);
+  public InvalidPostalAddressException() {
+    super("Only line 2 field is optional in postal address");
   }
 }

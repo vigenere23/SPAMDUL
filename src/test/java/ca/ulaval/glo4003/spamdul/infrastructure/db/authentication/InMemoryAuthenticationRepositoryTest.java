@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AccessLevel;
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.InvalidCredentialsException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +34,12 @@ public class InMemoryAuthenticationRepositoryTest {
     assertThat(registeredUser).isEqualTo(A_REGISTED_USER);
   }
 
-  @Test(expected = WrongCredentialsException.class)
+  @Test(expected = InvalidCredentialsException.class)
   public void givenWrongUsername_whenFindingRegisteredUser_shouldThrowException() {
     repository.findBy("wrong username", A_REGISTERED_HASHED_PASSWORD);
   }
 
-  @Test(expected = WrongCredentialsException.class)
+  @Test(expected = InvalidCredentialsException.class)
   public void givenWrongHashedPassword_whenFindingRegisteredUser_shouldThrowException() {
     repository.findBy(A_REGISTERED_USERNAME, "wrong hashed password");
   }

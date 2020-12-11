@@ -42,13 +42,13 @@ public class InitiativeFactory {
 
   private void validateName(String name) {
     if (name == null || name.isEmpty()) {
-      throw new InvalidInitiativeNameException("A name must be provided");
+      throw new InvalidInitiativeNameException();
     }
   }
 
   private void validateAmount(Amount amount) {
     if (amount.isZero() || amount.isStrictlyNegative()) {
-      throw new InvalidInitiativeAmountException("Amount must be greather than zero");
+      throw new InvalidInitiativeAmountException();
     }
   }
 

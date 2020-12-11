@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions;
 
-public class InvalidTimePeriodException extends RuntimeException {
+public abstract class InvalidTimePeriodException extends RuntimeException {
 
-  public InvalidTimePeriodException(String message) {
+  protected InvalidTimePeriodException(String message) {
     super(message);
   }
 }

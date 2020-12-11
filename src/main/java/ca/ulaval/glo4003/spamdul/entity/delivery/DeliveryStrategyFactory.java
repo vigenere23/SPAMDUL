@@ -23,7 +23,7 @@ public class DeliveryStrategyFactory {
       return new LoggerSSPOfficeService();
 
     } else {
-      throw new InvalidDeliveryModeException("Invalid delivery mode");
+      throw new InvalidDeliveryModeException();
     }
   }
 }

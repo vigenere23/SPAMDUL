@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.spamdul.entity.timeperiod;
+package ca.ulaval.glo4003.spamdul.entity.timeperiod.exception;
 
 public class InvalidPeriodTypeException extends RuntimeException {
 
   public InvalidPeriodTypeException() {
-    super("The provided period is not valid");
+    super("Invalid period type");
   }
 }

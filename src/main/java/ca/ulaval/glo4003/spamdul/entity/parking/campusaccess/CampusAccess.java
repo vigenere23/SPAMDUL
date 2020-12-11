@@ -43,12 +43,10 @@ public class CampusAccess {
 
   public void associatePass(CarParkingPass carParkingPass) {
     if (associatedParkingPass != null) {
-      throw new PassAlreadyAssociatedException("This user already has a parkingPass for this date.");
+      throw new PassAlreadyAssociatedException();
     }
     if (!carParkingPass.getTimePeriod().includedIn(timePeriod)) {
-      throw new PassNotAcceptedByAccessException(
-          "This user does not have campus access for the dates covered by this parkingPass."
-      );
+      throw new PassNotAcceptedByAccessException();
     }
 
     associatedParkingPass = carParkingPass;

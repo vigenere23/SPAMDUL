@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.InvalidCredentialsException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.UnauthorizedUserException;
+import ca.ulaval.glo4003.spamdul.entity.authentication.UnauthorizedUserException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -22,8 +22,8 @@ public class AuthenticationExceptionAssembler implements ExceptionMapper<Authent
     } else if (e instanceof UnauthorizedUserException) {
       exceptionResponse.error = "NOT_AUTHORIZED";
       status = Status.FORBIDDEN;
-    } else if (e instanceof WrongCredentialsException) {
-      exceptionResponse.error = "WRONG_CREDENTIALS";
+    } else if (e instanceof InvalidCredentialsException) {
+      exceptionResponse.error = "INVALID_CREDENTIALS";
       status = Status.UNAUTHORIZED;
     } else {
       status = Status.UNAUTHORIZED;

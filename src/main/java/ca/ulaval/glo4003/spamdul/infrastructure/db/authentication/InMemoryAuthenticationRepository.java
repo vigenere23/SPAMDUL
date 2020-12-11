@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.RegisteredUser;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.WrongCredentialsException;
+import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.InvalidCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +29,13 @@ public class InMemoryAuthenticationRepository implements AuthenticationRepositor
     Map<String, RegisteredUser> usernameInfos = registeredUsers.get(username);
 
     if (usernameInfos == null) {
-      throw new WrongCredentialsException();
+      throw new InvalidCredentialsException();
     }
 
     RegisteredUser registeredUser = usernameInfos.get(hashedPassword);
 
     if (registeredUser == null) {
-      throw new WrongCredentialsException();
+      throw new InvalidCredentialsException();
     }
 
     return registeredUser;

@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.exception.InvalidSeasonException;
 import java.util.Objects;
 
 public class Semester {
@@ -35,7 +36,7 @@ public class Semester {
         return new Semester(Session.AUTUMN, year);
 
       default:
-        throw new RuntimeException("The given season is not valid");
+        throw new InvalidSeasonException();
     }
   }
 

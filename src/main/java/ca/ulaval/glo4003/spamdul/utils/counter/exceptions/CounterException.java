@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.utils.counter.exceptions;
 
-public class CounterException extends RuntimeException {
+public abstract class CounterException extends RuntimeException {
 
-  public CounterException(String message) {
+  protected CounterException(String message) {
     super(message);
   }
 }
