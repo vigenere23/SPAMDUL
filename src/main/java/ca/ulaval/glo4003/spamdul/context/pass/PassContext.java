@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.PassResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.ParkingPassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
@@ -29,7 +29,7 @@ public abstract class PassContext implements ResourceContext {
   protected final ParkingPassDeliveryOptionsFactory parkingPassDeliveryOptionsFactory;
   protected final ParkingPassFactory parkingPassFactory;
   protected final PassAssembler passAssembler;
-  protected PassResource passResource;
+  protected ParkingPassResource parkingPassResource;
 
   protected PassContext() {
     Calendar calendar = new HardCodedCalendar();
@@ -52,7 +52,7 @@ public abstract class PassContext implements ResourceContext {
   }
 
   @Override public void registerResources(InstanceMap resources) {
-    resources.add(passResource);
+    resources.add(parkingPassResource);
     resources.add(new PassExceptionAssembler());
     resources.add(new DeliveryExceptionAssembler());
   }

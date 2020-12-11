@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.charging_point.ChargingPoint;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPointResponse;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.dto.ChargingPointsResponse;
+import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPoint;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.dto.ChargingPointResponse;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.dto.ChargingPointsResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 

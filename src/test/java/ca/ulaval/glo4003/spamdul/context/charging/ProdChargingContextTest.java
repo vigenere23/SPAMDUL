@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInst
 
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging_point.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;

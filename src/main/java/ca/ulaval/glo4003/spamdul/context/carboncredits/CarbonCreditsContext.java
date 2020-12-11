@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.carboncredits.ConsoleLogCarbonCr
 import ca.ulaval.glo4003.spamdul.infrastructure.scheduling.EndOfMonthEventScheduler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResource;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceImpl;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import java.util.concurrent.Executors;
@@ -53,7 +52,7 @@ public abstract class CarbonCreditsContext implements ResourceContext {
                                                     carbonCreditsTransactionService,
                                                     sustainabilityBankAccount);
 
-    carbonCreditsResource = new CarbonCreditsResourceImpl(carbonCreditsService, cookieAssembler);
+    carbonCreditsResource = new CarbonCreditsResource(carbonCreditsService, cookieAssembler);
   }
 
   public EndOfMonthEventScheduler getEndOfMonthEventScheduler() {

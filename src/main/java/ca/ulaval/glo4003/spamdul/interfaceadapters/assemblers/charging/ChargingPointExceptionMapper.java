@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyActivatedException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyChargingException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointAlreadyExistsException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotActivatedException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotChargingException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotDisconnectedException;
-import ca.ulaval.glo4003.spamdul.entity.charging_point.exceptions.ChargingPointNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyActivatedException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyChargingException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyExistsException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotActivatedException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotChargingException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotDisconnectedException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotFoundException;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
