@@ -1,7 +1,8 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
@@ -16,7 +17,7 @@ public class CampusAccess {
   private final CampusAccessCode campusAccessCode;
   private final PeriodType periodType;
   protected final TimePeriod timePeriod;
-  private Pass associatedPass;
+  private CarParkingPass associatedParkingPass;
 
 
   public CampusAccess(CampusAccessCode campusAccessCode,
@@ -40,24 +41,24 @@ public class CampusAccess {
     return timePeriod.includes(dateOfAccess);
   }
 
-  public void associatePass(Pass pass) {
-    if (associatedPass != null) {
+  public void associatePass(CarParkingPass carParkingPass) {
+    if (associatedParkingPass != null) {
       throw new PassAlreadyAssociatedException();
     }
-    if (!pass.getTimePeriod().includedIn(timePeriod)) {
+    if (!carParkingPass.getTimePeriod().includedIn(timePeriod)) {
       throw new PassNotAcceptedByAccessException();
     }
 
-    associatedPass = pass;
+    associatedParkingPass = carParkingPass;
   }
 
-  public Pass getAssociatedPass() {
-    return associatedPass;
+  public CarParkingPass getAssociatedPass() {
+    return associatedParkingPass;
   }
 
   public ParkingZone getParkingZone() {
-    if (associatedPass != null) {
-      return associatedPass.getParkingZone();
+    if (associatedParkingPass != null) {
+      return associatedParkingPass.getParkingZone();
     }
 
     switch (periodType) {
@@ -86,14 +87,14 @@ public class CampusAccess {
   }
 
   public boolean canParkInZone(ParkingZone parkingZone) {
-    return associatedPass.isAValidParkingZone(parkingZone);
+    return associatedParkingPass.isAValidParkingZone(parkingZone);
   }
 
   public boolean hasParkingPassBoundingInstant(LocalDateTime now) {
-    return associatedPass.doesBoundInstant(now);
+    return associatedParkingPass.doesBoundInstant(now);
   }
 
   public boolean hasParkingRightOnThisDayOfWeek(DayOfWeek dayOfWeek) {
-    return associatedPass.isValidOnThisDayOfWeek(dayOfWeek);
+    return associatedParkingPass.isValidOnThisDayOfWeek(dayOfWeek);
   }
 }

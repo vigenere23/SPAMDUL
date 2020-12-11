@@ -11,6 +11,6 @@ public class InitiativeCodeFactory {
   }
 
   public InitiativeCode create() {
-    return InitiativeCode.valueOf(idGenerator.generateId());
+    return InitiativeCode.valueOf(idGenerator.generate());
   }
 }

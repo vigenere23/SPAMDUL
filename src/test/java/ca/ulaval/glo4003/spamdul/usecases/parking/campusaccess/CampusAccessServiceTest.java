@@ -13,9 +13,11 @@ import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
@@ -30,6 +32,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,7 +45,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessServiceTest {
 
-  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
+  private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final UserId A_USER_ID = UserId.valueOf("123");
   private static final CarId A_CAR_ID = new CarId();
   private static final CarType A_CAR_TYPE = CarType.GOURMANDE;
@@ -61,7 +64,7 @@ public class CampusAccessServiceTest {
                                                                  A_END_DATE_TIME,
                                                                  TimePeriodDayOfWeek.ALL);
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final Pass A_PASS = new Pass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
+  private static final CarParkingPass A_PARKING_PASS = new CarParkingPass(A_PASS_CODE, A_PARKING_ZONE, A_TIME_PERIOD);
   private static final TimePeriodDto A_TIME_PERIOD_DTO = new TimePeriodDto();
   private static final int AN_AMOUNT_VALUE = 120;
   private static final Amount AN_AMOUNT = Amount.valueOf(AN_AMOUNT_VALUE);
@@ -171,7 +174,7 @@ public class CampusAccessServiceTest {
   @Test
   public void givenGrantedAccess_whenVerifyingIfCanAccessCampus_shouldReturnTrue() {
     user.associate(campusAccess);
-    user.associate(A_PASS);
+    user.associateCarParkingPass(A_PARKING_PASS);
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
 
@@ -189,5 +192,11 @@ public class CampusAccessServiceTest {
     assertThat(isGrantedAccess).isFalse();
   }
 
+  @Test(expected = UserMustOwnACarToPurchaseACarParkingPassException.class)
+  public void givenAUserThatDoesNotOwnACar_whenBuyingACarParkingPass_shouldThrowException() {
+    user = new User(A_USER_ID, "name", Gender.MALE, LocalDate.of(1996, 1, 1));
+    when(userRepository.findBy(A_USER_ID)).thenReturn(user);
 
+    campusAccessService.createCampusAccess(campusAccessDto);
+  }
 }
