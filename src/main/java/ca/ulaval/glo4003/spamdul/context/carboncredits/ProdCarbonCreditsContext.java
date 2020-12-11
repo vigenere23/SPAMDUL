@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBank
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 
 public class ProdCarbonCreditsContext extends CarbonCreditsContext {
 

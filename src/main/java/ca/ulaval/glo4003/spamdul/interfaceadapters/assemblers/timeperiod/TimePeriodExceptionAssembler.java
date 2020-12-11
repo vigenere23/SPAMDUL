@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidDayOfWeekArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidNumberOfHoursArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;

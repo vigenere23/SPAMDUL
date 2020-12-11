@@ -1,8 +1,5 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
@@ -11,15 +8,15 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedB
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import java.time.LocalDateTime;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,7 +24,6 @@ public class CampusAccessTest {
 
   private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
-  private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private static final LocalDateTime A_WEDNESDAY_IN_THE_MIDDLE = LocalDateTime.of(2020, 1, 15, 0, 0);
@@ -46,7 +42,6 @@ public class CampusAccessTest {
   public void setUp() throws Exception {
     timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, TimePeriodDayOfWeek.WEDNESDAY);
     campusAccess = new CampusAccess(CampusAccessCode.valueOf("123"),
-                                    A_PERIOD_TYPE,
                                     timePeriod);
   }
 
@@ -101,7 +96,7 @@ public class CampusAccessTest {
   @Test
   public void givenCampusAccessWithAssociatedPass_whenGetParkingZone_shouldReturnPassParkingZone() {
     CarParkingPass parkingPass = new CarParkingPass(A_PASS_CODE, ParkingZone.ZONE_1, A_TIME_PERIOD);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
     campusAccess.associatePass(parkingPass);
 
     ParkingZone parkingZone = campusAccess.getParkingZone();
@@ -110,29 +105,8 @@ public class CampusAccessTest {
   }
 
   @Test
-  public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsHourly_whenGetParkingZone_shouldReturnParkingZoneAll() {
-    PeriodType periodType = PeriodType.HOURLY;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, periodType, A_TIME_PERIOD);
-
-    ParkingZone parkingZone = campusAccess.getParkingZone();
-
-    assertThat(parkingZone).isEqualTo(ParkingZone.ALL);
-  }
-
-  @Test
-  public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsSingleDay_whenGetParkingZone_shouldReturnParkingZoneAll() {
-    PeriodType periodType = PeriodType.SINGLE_DAY;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, periodType, A_TIME_PERIOD);
-
-    ParkingZone parkingZone = campusAccess.getParkingZone();
-
-    assertThat(parkingZone).isEqualTo(ParkingZone.ALL);
-  }
-
-  @Test
-  public void givenCampusAccessWithoutAssociatedPassAndPeriodTypeIsOneSemester_whenGetParkingZone_shouldReturnParkingZoneFree() {
-    PeriodType periodType = PeriodType.ONE_SEMESTER;
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, periodType, A_TIME_PERIOD);
+  public void givenCampusAccessWithoutAssociatedPassA_whenGetParkingZone_shouldReturnParkingZoneFree() {
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
 
     ParkingZone parkingZone = campusAccess.getParkingZone();
 
@@ -141,7 +115,7 @@ public class CampusAccessTest {
 
   @Test
   public void whenCheckingIfCanParkInZone_shouldDelegateToPass() {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
     CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
@@ -155,7 +129,7 @@ public class CampusAccessTest {
 
   @Test
   public void whenCheckingIfHasParkingPassBoundingInstant_shouldDelegateCampusAccess() {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
     CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
@@ -169,7 +143,7 @@ public class CampusAccessTest {
 
   @Test
   public void whenCheckingIfCanParkOnDayOfWeek_shouldDelegateToCampusAccess() {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
     CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);

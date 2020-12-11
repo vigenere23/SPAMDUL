@@ -1,12 +1,10 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailServiceFactory;
-import ca.ulaval.glo4003.spamdul.entity.delivery.sspoffice.LoggerSSPOfficeService;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.NullEmailService;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalService;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailDeliverer;
+import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalDeliverer;
+import ca.ulaval.glo4003.spamdul.entity.delivery.sspoffice.SSPOfficeDeliverer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,34 +17,35 @@ public class DeliveryStrategyFactoryTest {
   private DeliveryStrategyFactory deliveryStrategyFactory;
 
   @Mock
-  private EmailServiceFactory emailServiceFactory;
+  private EmailDeliverer emailService;
   @Mock
-  private NullEmailService emailService;
+  private PostalDeliverer postalService;
+  @Mock
+  private SSPOfficeDeliverer sspService;
 
   @Before
   public void setUp() {
-    deliveryStrategyFactory = new DeliveryStrategyFactory(emailServiceFactory);
-    when(emailServiceFactory.create()).thenReturn(emailService);
+    deliveryStrategyFactory = new DeliveryStrategyFactory(emailService, postalService, sspService);
   }
 
   @Test
-  public void givenEmailDeliveryMode_whenCreatingStrategy_shouldReturnFromEmailServiceProvider() {
+  public void givenEmailDeliveryMode_whenCreatingStrategy_shouldReturnEmailService() {
     DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(DeliveryMode.EMAIL);
 
     assertThat(deliveryStrategy).isEqualTo(emailService);
   }
 
   @Test
-  public void givenPostDeliveryMode_whenCreatingStrategy_shouldReturnLoggerPostalService() {
+  public void givenPostDeliveryMode_whenCreatingStrategy_shouldReturnPostalService() {
     DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(DeliveryMode.POST);
 
-    assertThat(deliveryStrategy instanceof LoggerPostalService).isTrue();
+    assertThat(deliveryStrategy).isEqualTo(postalService);
   }
 
   @Test
-  public void givenSSPOfficeDeliveryMode_whenCreatingStrategy_shouldReturnLoggerSSPOfficeService() {
+  public void givenSSPOfficeDeliveryMode_whenCreatingStrategy_shouldReturnSSPOfficeService() {
     DeliveryStrategy deliveryStrategy = deliveryStrategyFactory.create(DeliveryMode.SSP_OFFICE);
 
-    assertThat(deliveryStrategy instanceof LoggerSSPOfficeService).isTrue();
+    assertThat(deliveryStrategy).isEqualTo(sspService);
   }
 }

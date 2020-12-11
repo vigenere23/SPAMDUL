@@ -4,8 +4,8 @@ import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInst
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.fundraising.FundraisingResource;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;

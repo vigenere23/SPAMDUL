@@ -159,20 +159,6 @@ public class TimePeriodTest {
   }
 
   @Test
-  public void givenTimePeriod_whenRestrainingHourlyPeriod_shouldSetStartAndEnd() {
-    LocalDateTime now = LocalDateTime.of(2020, 1, 1, 0, 0);
-    BigDecimal numberOfHours = BigDecimal.valueOf(4);
-    TimePeriod timePeriod = new TimePeriod(LocalDateTime.MIN,
-                                           LocalDateTime.MAX,
-                                           TimePeriodDayOfWeek.FRIDAY);
-
-    timePeriod.restrainHourlyPeriod(now, numberOfHours);
-
-    assertThat(timePeriod.getStartDateTime()).isEqualTo(now);
-    assertThat(timePeriod.getEndDateTime()).isEqualTo(now.plusHours(numberOfHours.longValue()));
-  }
-
-  @Test
   public void givenIncludingDayOfWeek_whenCheckingIfCanParkOnDayOfWeek_shouldReturnTrue() {
     TimePeriod timePeriod = new TimePeriod(A_START_DATE_TIME, A_END_DATE_TIME, A_TIME_PERIOD_DAY_OF_WEEK);
 

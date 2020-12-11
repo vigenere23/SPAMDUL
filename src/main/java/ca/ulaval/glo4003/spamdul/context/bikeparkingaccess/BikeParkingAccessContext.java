@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValid
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.BikeParkingAccessResource;
+import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.parking.bikeparkingaccess.BikeParkingAccessService;
 import ca.ulaval.glo4003.spamdul.utils.InstanceMap;

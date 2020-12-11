@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.entity.timeperiod;
 
-import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -66,11 +65,6 @@ public class TimePeriod {
 
   public TimePeriodDayOfWeek getTimePeriodDayOfWeek() {
     return timePeriodDayOfWeek;
-  }
-
-  public void restrainHourlyPeriod(LocalDateTime dateTimeOfAccess, BigDecimal numberOfHours) {
-    startDateTime = dateTimeOfAccess;
-    endDateTime = dateTimeOfAccess.plusHours(numberOfHours.longValue());
   }
 
   public boolean mayIncludeThisDayOfWeek(DayOfWeek dayOfWeek) {

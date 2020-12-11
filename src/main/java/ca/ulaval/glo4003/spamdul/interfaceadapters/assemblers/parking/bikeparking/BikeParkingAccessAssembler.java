@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparking;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
+import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
 
 public class BikeParkingAccessAssembler {
 

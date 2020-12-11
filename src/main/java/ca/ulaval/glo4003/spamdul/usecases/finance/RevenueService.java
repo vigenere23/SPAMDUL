@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.usecases.finance;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;

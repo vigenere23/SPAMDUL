@@ -49,6 +49,16 @@ public class CampusAccessFactoryTest {
   }
 
   @Test
+  public void whenDailyCampusAccessWithDailyTimePeriodDto_shouldCreateDailyCamusAccess() {
+    when(timePeriodFactory.createTimePeriod(A_TIME_PERIOD_DTO)).thenReturn(A_TIME_PERIOD);
+    A_TIME_PERIOD_DTO.periodType = PeriodType.SINGLE_DAY;
+
+    CampusAccess campusAccess = campusAccessFactory.create(A_TIME_PERIOD_DTO);
+
+    assertThat(campusAccess).isInstanceOf(DailyCampusAccess.class);
+  }
+
+  @Test
   public void whenHourlyCampusAccessWithHourlyTimePeriodDto_shouldCreateHourlyCamusAccess() {
     when(timePeriodFactory.createTimePeriod(A_TIME_PERIOD_DTO)).thenReturn(A_TIME_PERIOD);
     A_TIME_PERIOD_DTO.periodType = PeriodType.HOURLY;

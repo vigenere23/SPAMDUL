@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.timeperiod.dto.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.ui.pass.dto.PassCreationRequest;
+import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;

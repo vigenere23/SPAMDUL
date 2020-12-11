@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.InvalidCarYearException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions.InvalidCarArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions.InvalidCarTypeArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.exceptions.InvalidCarYearArgumentException;

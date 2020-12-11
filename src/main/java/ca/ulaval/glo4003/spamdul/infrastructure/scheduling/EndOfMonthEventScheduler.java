@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.scheduling;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.ScheduleObserver;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.EventSchedulerObservable;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import java.time.Duration;
 import java.util.concurrent.ScheduledExecutorService;

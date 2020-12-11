@@ -1,30 +1,24 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedByAccessException;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-// TODO: make subclasses depending on PeriodType instead of a having it as an attribute
 public class CampusAccess {
 
   private final CampusAccessCode campusAccessCode;
-  private final PeriodType periodType;
-  protected final TimePeriod timePeriod;
+  protected TimePeriod timePeriod;
   private CarParkingPass associatedParkingPass;
 
 
   public CampusAccess(CampusAccessCode campusAccessCode,
-                      PeriodType periodType,
                       TimePeriod timePeriod) {
     this.campusAccessCode = campusAccessCode;
-    this.periodType = periodType;
     this.timePeriod = timePeriod;
   }
 
@@ -61,13 +55,7 @@ public class CampusAccess {
       return associatedParkingPass.getParkingZone();
     }
 
-    switch (periodType) {
-      case HOURLY:
-      case SINGLE_DAY:
-        return ParkingZone.ALL;
-      default:
-        return ParkingZone.FREE;
-    }
+    return ParkingZone.FREE;
   }
 
   public boolean equals(Object o) {
@@ -78,12 +66,12 @@ public class CampusAccess {
       return false;
     }
     CampusAccess that = (CampusAccess) o;
-    return Objects.equals(campusAccessCode, that.campusAccessCode) && periodType == that.periodType
+    return Objects.equals(campusAccessCode, that.campusAccessCode)
         && Objects.equals(timePeriod, that.timePeriod);
   }
 
   public int hashCode() {
-    return Objects.hash(campusAccessCode, periodType, timePeriod);
+    return Objects.hash(campusAccessCode, timePeriod);
   }
 
   public boolean canParkInZone(ParkingZone parkingZone) {

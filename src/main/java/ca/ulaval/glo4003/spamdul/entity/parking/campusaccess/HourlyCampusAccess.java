@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,22 +14,26 @@ public class HourlyCampusAccess extends CampusAccess {
   private final BigDecimal numberOfHours;
 
   public HourlyCampusAccess(CampusAccessCode campusAccessCode,
-                            PeriodType periodType,
-                            TimePeriod timePeriod,
                             BigDecimal numberOfHours) {
-    super(campusAccessCode, periodType, timePeriod);
+    super(campusAccessCode, null);
     this.numberOfHours = numberOfHours;
   }
 
   @Override
   public boolean grantAccess(LocalDateTime dateOfAccess) {
-    boolean accessGranted = super.grantAccess(dateOfAccess);
-
-    if (accessGranted && !hasBeenAccessed) {
-      timePeriod.restrainHourlyPeriod(dateOfAccess, numberOfHours);
+    if (!hasBeenAccessed) {
+      timePeriod = new TimePeriod(
+              dateOfAccess,
+              dateOfAccess.plusHours(numberOfHours.longValue()),
+              TimePeriodDayOfWeek.ALL);
       hasBeenAccessed = true;
     }
 
-    return accessGranted;
+    return super.grantAccess(dateOfAccess);
+  }
+
+  @Override
+  public ParkingZone getParkingZone() {
+    return ParkingZone.ALL;
   }
 }

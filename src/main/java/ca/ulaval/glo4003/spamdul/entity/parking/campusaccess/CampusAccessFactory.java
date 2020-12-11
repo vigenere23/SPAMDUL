@@ -17,16 +17,16 @@ public class CampusAccessFactory {
   }
 
   public CampusAccess create(TimePeriodDto timePeriodDto) {
-    TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
-
     if (timePeriodDto.periodType == PeriodType.HOURLY) {
       return new HourlyCampusAccess(campusAccessCodeFactory.create(),
-                                    timePeriodDto.periodType,
-                                    timePeriod,
                                     timePeriodDto.numberOfHours);
+    }
+    TimePeriod timePeriod = timePeriodFactory.createTimePeriod(timePeriodDto);
+    if (timePeriodDto.periodType == PeriodType.SINGLE_DAY) {
+      return new DailyCampusAccess(campusAccessCodeFactory.create(),
+              timePeriod);
     } else {
       return new CampusAccess(campusAccessCodeFactory.create(),
-                              timePeriodDto.periodType,
                               timePeriod);
     }
   }
