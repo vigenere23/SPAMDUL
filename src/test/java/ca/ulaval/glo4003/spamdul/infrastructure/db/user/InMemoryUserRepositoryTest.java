@@ -1,22 +1,18 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.user;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
@@ -28,10 +24,13 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class InMemoryUserRepositoryTest {
 
@@ -64,10 +63,8 @@ public class InMemoryUserRepositoryTest {
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private final User A_USER = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR);
-  private final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   private final CampusAccess A_CAMPUS_ACCESS = new CampusAccess(A_CAMPUS_ACCESS_CODE,
-                                                                A_PERIOD_TYPE,
                                                                 TIME_PERIOD);
   private final CarParkingPass A_CAR_PARKING_PASS = new CarParkingPass(PASS_CODE, PARKING_ZONE, TIME_PERIOD);
 

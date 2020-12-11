@@ -47,7 +47,7 @@ public class CampusAccessAssemblerTest {
 
   @Before
   public void setUp() throws Exception {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, null, null);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, null);
     campusAccessRequest = new CampusAccessRequest();
     campusAccessAssembler = new CampusAccessAssembler(timePeriodAssembler);
     accessingCampusRequest = new AccessingCampusRequest();

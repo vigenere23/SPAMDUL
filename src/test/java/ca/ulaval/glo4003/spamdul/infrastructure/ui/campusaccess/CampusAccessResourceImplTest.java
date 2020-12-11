@@ -40,7 +40,7 @@ public class CampusAccessResourceImplTest {
   public void setUp() throws Exception {
     campusAccessDto = new CampusAccessDto();
     campusAccessRequest = new CampusAccessRequest();
-    campusAccess = new CampusAccess(null, null, null);
+    campusAccess = new CampusAccess(null, null);
     campusAccessResource = new CampusAccessResourceImpl(campusAccessAssembler, campusAccessService);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
