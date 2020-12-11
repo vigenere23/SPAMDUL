@@ -10,7 +10,7 @@ public class CarId {
   private final String id;
 
   public CarId() {
-    id = idGenerator.generateId();
+    id = idGenerator.generate();
   }
 
   private CarId(long id) {

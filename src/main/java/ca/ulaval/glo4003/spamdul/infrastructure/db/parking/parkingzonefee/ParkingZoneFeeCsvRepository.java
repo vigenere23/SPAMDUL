@@ -23,6 +23,10 @@ public class ParkingZoneFeeCsvRepository implements ParkingZoneFeeRepository {
 
 
   @Override public Amount findBy(ParkingZone parkingZone, PeriodType period) {
+    if (parkingZone == ParkingZone.ZONE_BIKE) {
+      return Amount.valueOf(0);
+    }
+
     Map<ParkingZone, Map<PeriodType, Amount>> fees = readAndParseCsv();
     Map<PeriodType, Amount> periodTypeParkingZoneFeeMap = fees.get(parkingZone);
 

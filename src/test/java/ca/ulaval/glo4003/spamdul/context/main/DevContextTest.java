@@ -2,8 +2,10 @@ package ca.ulaval.glo4003.spamdul.context.main;
 
 import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
 
+import ca.ulaval.glo4003.spamdul.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.PingResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.authentification.AuthenticationResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResource;
 import ca.ulaval.glo4003.spamdul.infrastructure.ui.carboncredits.CarbonCreditsResourceAdmin;
@@ -76,6 +78,7 @@ public class DevContextTest {
                                      DeliveryExceptionAssembler.class,
                                      UsageReportResource.class,
                                      UsageReportExceptionAssembler.class,
-                                     UserResource.class);
+                                     UserResource.class,
+                                     BikeParkingAccessResource.class);
   }
 }

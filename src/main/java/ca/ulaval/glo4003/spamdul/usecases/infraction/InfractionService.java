@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
@@ -13,7 +14,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.PassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 
@@ -22,14 +22,14 @@ public class InfractionService {
   private final InfractionInfoRepository infractionInfoRepository;
   private UserRepository userRepository;
   private final InfractionFactory infractionFactory;
-  private final PassValidator firstValidationNode;
+  private final CarParkingPassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;
   private final InfractionTransactionService infractionTransactionService;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            UserRepository userRepository,
                            InfractionFactory infractionFactory,
-                           PassValidator firstValidationNode,
+                           CarParkingPassValidator firstValidationNode,
                            AccessLevelValidator accessLevelValidator,
                            InfractionTransactionService infractionTransactionService) {
     this.infractionInfoRepository = infractionInfoRepository;

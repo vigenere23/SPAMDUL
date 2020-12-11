@@ -21,7 +21,6 @@ public class UserAssembler {
   }
 
   public UserDto fromRequest(UserRequest userRequest) {
-    CarDto carDto = carAssembler.fromRequest(userRequest.car);
     Gender gender = getGender(userRequest);
     LocalDate birthDate = getBirthDate(userRequest);
 
@@ -29,7 +28,10 @@ public class UserAssembler {
     userDto.name = userRequest.name;
     userDto.gender = gender;
     userDto.birthDate = birthDate;
-    userDto.carDto = carDto;
+
+    if (userRequest.car != null) {
+      userDto.carDto = carAssembler.fromRequest(userRequest.car);
+    }
 
     return userDto;
   }

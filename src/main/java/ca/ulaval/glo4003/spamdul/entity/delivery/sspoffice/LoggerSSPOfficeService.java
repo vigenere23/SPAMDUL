@@ -18,7 +18,7 @@ public class LoggerSSPOfficeService implements DeliveryStrategy {
 
   private void send(String content) {
     LOGGER.log(Level.INFO,
-               String.format("Pass %s will be picked up by the buyer at the ssp office",
+               String.format("ParkingPass %s will be picked up by the buyer at the ssp office",
                              content));
   }
 }

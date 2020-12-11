@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.main;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.context.authentication.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.context.charging.ChargingContext;
@@ -27,6 +28,7 @@ public abstract class MainContext implements ResourceContext {
   protected FundraisingContext fundraisingContext;
   protected InfractionsContext infractionsContext;
   protected CarbonCreditsContext carbonCreditsContext;
+  protected BikeParkingAccessContext bikeParkingAccessContext;
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
@@ -42,6 +44,7 @@ public abstract class MainContext implements ResourceContext {
     fundraisingContext.registerResources(resources);
     infractionsContext.registerResources(resources);
     carbonCreditsContext.registerResources(resources);
+    bikeParkingAccessContext.registerResources(resources);
   }
 
   public void destroy() {

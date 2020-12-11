@@ -2,9 +2,11 @@ package ca.ulaval.glo4003.spamdul.entity.parking.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.Pass;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCode;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.exceptions.PassNotAcceptedByAccessException;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
@@ -23,7 +25,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CampusAccessTest {
 
-  private static final PassCode A_PASS_CODE = PassCode.valueOf("123");
+  private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final PeriodType A_PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
@@ -68,11 +70,11 @@ public class CampusAccessTest {
     final TimePeriod includedTimePeriod = new TimePeriod(A_START_DATE_TIME,
                                                          A_END_DATE_TIME,
                                                          TimePeriodDayOfWeek.WEDNESDAY);
-    Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, includedTimePeriod);
+    CarParkingPass parkingPass = new CarParkingPass(A_PASS_CODE, A_PARKING_ZONE, includedTimePeriod);
 
-    campusAccess.associatePass(pass);
+    campusAccess.associatePass(parkingPass);
 
-    assertThat(campusAccess.getAssociatedPass()).isEqualTo(pass);
+    assertThat(campusAccess.getAssociatedPass()).isEqualTo(parkingPass);
   }
 
   @Test(expected = PassAlreadyAssociatedException.class)
@@ -80,10 +82,10 @@ public class CampusAccessTest {
     final TimePeriod includedTimePeriod = new TimePeriod(A_START_DATE_TIME,
                                                          A_END_DATE_TIME,
                                                          TimePeriodDayOfWeek.WEDNESDAY);
-    Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, includedTimePeriod);
-    campusAccess.associatePass(pass);
+    CarParkingPass parkingPass = new CarParkingPass(A_PASS_CODE, A_PARKING_ZONE, includedTimePeriod);
+    campusAccess.associatePass(parkingPass);
 
-    campusAccess.associatePass(pass);
+    campusAccess.associatePass(parkingPass);
   }
 
   @Test(expected = PassNotAcceptedByAccessException.class)
@@ -91,16 +93,16 @@ public class CampusAccessTest {
     final TimePeriod notIncludedTimePeriod = new TimePeriod(A_START_DATE_TIME,
                                                             A_END_DATE_TIME,
                                                             TimePeriodDayOfWeek.FRIDAY);
-    Pass pass = new Pass(A_PASS_CODE, A_PARKING_ZONE, notIncludedTimePeriod);
+    CarParkingPass parkingPass = new CarParkingPass(A_PASS_CODE, A_PARKING_ZONE, notIncludedTimePeriod);
 
-    campusAccess.associatePass(pass);
+    campusAccess.associatePass(parkingPass);
   }
 
   @Test
   public void givenCampusAccessWithAssociatedPass_whenGetParkingZone_shouldReturnPassParkingZone() {
-    Pass pass = new Pass(A_PASS_CODE, ParkingZone.ZONE_1, A_TIME_PERIOD);
+    CarParkingPass parkingPass = new CarParkingPass(A_PASS_CODE, ParkingZone.ZONE_1, A_TIME_PERIOD);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    campusAccess.associatePass(pass);
+    campusAccess.associatePass(parkingPass);
 
     ParkingZone parkingZone = campusAccess.getParkingZone();
 
@@ -140,7 +142,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfCanParkInZone_shouldDelegateToPass() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
@@ -154,7 +156,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfHasParkingPassBoundingInstant_shouldDelegateCampusAccess() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);
@@ -168,7 +170,7 @@ public class CampusAccessTest {
   @Test
   public void whenCheckingIfCanParkOnDayOfWeek_shouldDelegateToCampusAccess() {
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
-    Pass pass = mock(Pass.class);
+    CarParkingPass pass = mock(CarParkingPass.class);
     TimePeriod timePeriod = mock(TimePeriod.class);
     when(pass.getTimePeriod()).thenReturn(timePeriod);
     when(timePeriod.includedIn(A_TIME_PERIOD)).thenReturn(true);

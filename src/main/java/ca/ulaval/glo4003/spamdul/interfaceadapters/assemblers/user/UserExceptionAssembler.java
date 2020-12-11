@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidGenderException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidUserException;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -34,6 +35,8 @@ public class UserExceptionAssembler implements ExceptionMapper<InvalidUserExcept
       exceptionResponse.error = "USER_ALREADY_HAS_THIS_INFRACTION";
     } else if (e instanceof UserAlreadyHasARechargULCard) {
       exceptionResponse.error = "USER_ALREADY_HAS_RECHARGUL_CARD";
+    } else if (e instanceof UserMustOwnACarToPurchaseACarParkingPassException) {
+      exceptionResponse.error = "USER_MUST_OWN_A_CAR";
     }
 
     return Response.status(Status.BAD_REQUEST)

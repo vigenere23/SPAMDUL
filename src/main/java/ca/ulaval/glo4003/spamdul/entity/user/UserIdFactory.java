@@ -11,6 +11,6 @@ public class UserIdFactory {
   }
 
   public UserId create() {
-    return UserId.valueOf(String.valueOf(idGenerator.generateId()));
+    return UserId.valueOf(String.valueOf(idGenerator.generate()));
   }
 }

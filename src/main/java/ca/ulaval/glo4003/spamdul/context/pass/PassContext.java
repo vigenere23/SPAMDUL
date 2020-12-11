@@ -3,10 +3,10 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
 import ca.ulaval.glo4003.spamdul.entity.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCodeFactory;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassDeliveryOptionsFactory;
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassCodeFactory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassDeliveryOptionsFactory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.PassFactory;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
@@ -26,15 +26,15 @@ public abstract class PassContext implements ResourceContext {
 
   protected final DeliveryFeeCalculator deliveryFeeCalculator;
   protected final ParkingZoneFeeRepository parkingZoneFeeRepository;
-  protected final PassDeliveryOptionsFactory passDeliveryOptionsFactory;
-  protected final PassFactory passFactory;
+  protected final ParkingPassDeliveryOptionsFactory parkingPassDeliveryOptionsFactory;
+  protected final ParkingPassFactory parkingPassFactory;
   protected final PassAssembler passAssembler;
   protected PassResource passResource;
 
   protected PassContext() {
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
-    PassCodeFactory passCodeFactory = new PassCodeFactory(new IncrementalIdGenerator());
+    ParkingPassCodeFactory parkingPassCodeFactory = new ParkingPassCodeFactory(new IncrementalIdGenerator());
 
     CsvReader csvReader = new CsvReader();
 
@@ -43,8 +43,8 @@ public abstract class PassContext implements ResourceContext {
     DeliveryAssembler deliveryAssembler = new DeliveryAssembler(emailAddressAssembler, postalAddressAssembler);
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
 
-    passDeliveryOptionsFactory = new PassDeliveryOptionsFactory();
-    passFactory = new PassFactory(passCodeFactory, timePeriodFactory);
+    parkingPassDeliveryOptionsFactory = new ParkingPassDeliveryOptionsFactory();
+    parkingPassFactory = new ParkingPassFactory(parkingPassCodeFactory, timePeriodFactory);
     parkingZoneFeeRepository = new ParkingZoneFeeCsvRepository(csvReader,
                                                                "src/main/resources/frais-zone.csv");
     deliveryFeeCalculator = new DeliveryFeeCalculator();
