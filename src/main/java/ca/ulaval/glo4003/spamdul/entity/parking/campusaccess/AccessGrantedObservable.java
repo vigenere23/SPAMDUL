@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class AccessGrantedObservable extends Observable<AccessGrantedObserver> {
 
-  public void notifyAccessGrantedWithCampusAccess(ParkingZone parkingZone, LocalDate accessDate) {
-    observers.forEach(observer -> observer.handleAccessGrantedWithCampusAccess(parkingZone, accessDate));
+  public void notifyAccessGranted(ParkingZone parkingZone, LocalDate accessDate) {
+    observers.forEach(observer -> observer.handleAccessGranted(parkingZone, accessDate));
   }
 }

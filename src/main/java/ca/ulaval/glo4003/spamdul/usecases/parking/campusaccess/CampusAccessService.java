@@ -83,6 +83,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   }
 
   private void notifyAccessGranted(User user, LocalDateTime now) {
-    notifyAccessGrantedWithCampusAccess(user.getParkingZone(), now.toLocalDate());
+    notifyAccessGranted(user.getParkingZone(), now.toLocalDate());
   }
 }

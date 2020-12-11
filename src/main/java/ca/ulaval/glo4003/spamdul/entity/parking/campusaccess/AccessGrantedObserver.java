@@ -5,5 +5,5 @@ import java.time.LocalDate;
 
 public interface AccessGrantedObserver {
 
-  void handleAccessGrantedWithCampusAccess(ParkingZone parkingZone, LocalDate accessDate);
+  void handleAccessGranted(ParkingZone parkingZone, LocalDate accessDate);
 }

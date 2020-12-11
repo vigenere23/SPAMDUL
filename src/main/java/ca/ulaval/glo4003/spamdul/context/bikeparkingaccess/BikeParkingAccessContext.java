@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.bikeparkingaccess;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
@@ -14,12 +15,14 @@ public class BikeParkingAccessContext implements ResourceContext {
 
   private BikeParkingAccessResource bikeParkingAccessResource;
 
-  public BikeParkingAccessContext(UserRepository userRepository) {
+  public BikeParkingAccessContext(UserRepository userRepository, ParkingAccessLogger parkingAccessLogger) {
     Calendar calendar = new HardCodedCalendar();
     BikeParkingAccessValidator bikeParkingAccessValidator = new BikeParkingAccessValidator(calendar);
     BikeParkingAccessAssembler bikeParkingAccessAssembler = new BikeParkingAccessAssembler();
     BikeParkingAccessService bikeParkingAccessService = new BikeParkingAccessService(userRepository,
-                                                                                     bikeParkingAccessValidator);
+                                                                                     bikeParkingAccessValidator,
+                                                                                     calendar);
+    bikeParkingAccessService.register(parkingAccessLogger);
     bikeParkingAccessResource = new BikeParkingAccessResource(bikeParkingAccessService,
                                                               bikeParkingAccessAssembler);
   }
