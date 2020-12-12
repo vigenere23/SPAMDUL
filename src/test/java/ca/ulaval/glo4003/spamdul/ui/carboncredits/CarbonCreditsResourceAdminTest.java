@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.ui.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
+import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +20,7 @@ public class CarbonCreditsResourceAdminTest {
   @Mock
   private CarbonCreditsService carbonCreditsService;
 
-  private final double AN_AMOUNT = 12345.34;
-  private final boolean IS_ACTIVE = true;
+  private final Amount AN_AMOUNT = Amount.valueOf(12345.34);
 
   @Before
   public void setUp() {
@@ -31,6 +31,6 @@ public class CarbonCreditsResourceAdminTest {
   public void whenTransferringCredits_shouldCallAndReturnFromService() {
     when(carbonCreditsService.transferRemainingBudget()).thenReturn(AN_AMOUNT);
     CarbonCreditsTransferResponse response = carbonCreditsResourceAdmin.transferFundsToCarbonCredits();
-    assertThat(response.transferred).isEqualTo(AN_AMOUNT);
+    assertThat(response.transferred).isEqualTo(AN_AMOUNT.asDouble());
   }
 }

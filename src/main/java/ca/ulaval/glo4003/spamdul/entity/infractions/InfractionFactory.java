@@ -10,13 +10,13 @@ public class InfractionFactory {
     this.infractionIdFactory = infractionIdFactory;
   }
 
-  public Infraction create(InfractionInfos infractionInfos) {
+  public Infraction create(InfractionInfosDto infractionInfosDto) {
     InfractionId infractionId = infractionIdFactory.create();
-    InfractionCode infractionCode = InfractionCode.valueOf(infractionInfos.code);
+    InfractionCode infractionCode = InfractionCode.valueOf(infractionInfosDto.code);
 
     return new Infraction(infractionId,
-                          infractionInfos.infraction,
+                          infractionInfosDto.infraction,
                           infractionCode,
-                          Amount.valueOf(infractionInfos.montant));
+                          Amount.valueOf(infractionInfosDto.montant));
   }
 }

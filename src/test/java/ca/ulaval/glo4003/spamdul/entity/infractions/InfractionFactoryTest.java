@@ -22,23 +22,23 @@ public class InfractionFactoryTest {
   @Mock
   private InfractionIdFactory infractionIdFactory;
 
-  private InfractionInfos infractionInfos;
+  private InfractionInfosDto infractionInfosDto;
   private InfractionFactory infractionFactory;
 
   @Before
   public void setUp() {
-    infractionInfos = new InfractionInfos();
+    infractionInfosDto = new InfractionInfosDto();
     infractionFactory = new InfractionFactory(infractionIdFactory);
   }
 
   @Test
   public void givenInfractionInfos_whenCreatingPass_shouldCreateInfractionWithRightInfo() {
     when(infractionIdFactory.create()).thenReturn(AN_INFRACTION_ID);
-    infractionInfos.code = A_VALID_PASS_CODE_STRING;
-    infractionInfos.infraction = AN_INFRACTION_DESCRIPTION;
-    infractionInfos.montant = AN_AMOUNT_DOUBLE;
+    infractionInfosDto.code = A_VALID_PASS_CODE_STRING;
+    infractionInfosDto.infraction = AN_INFRACTION_DESCRIPTION;
+    infractionInfosDto.montant = AN_AMOUNT_DOUBLE;
 
-    Infraction infraction = infractionFactory.create(infractionInfos);
+    Infraction infraction = infractionFactory.create(infractionInfosDto);
 
     assertThat(infraction.getAmount()).isEqualTo(AN_AMOUNT);
     assertThat(infraction.getCode()).isEqualTo(InfractionCode.valueOf(A_VALID_PASS_CODE_STRING));

@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfos;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfosDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
@@ -61,9 +61,9 @@ public class InfractionService {
   }
 
   private Infraction createInfraction(InfractionCode infractionCode) {
-    InfractionInfos infractionInfos = infractionInfoRepository.findBy(infractionCode);
+    InfractionInfosDto infractionInfosDto = infractionInfoRepository.findBy(infractionCode);
 
-    return infractionFactory.create(infractionInfos);
+    return infractionFactory.create(infractionInfosDto);
   }
 
   public void payInfraction(InfractionPaymentDto infractionPaymentDto) {
