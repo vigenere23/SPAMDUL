@@ -19,10 +19,6 @@ public class TimePeriodFactory {
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
     switch (timePeriodDto.periodType) {
-      case HOURLY:
-        startDateTime = LocalDateTime.now();
-        endDateTime = LocalDateTime.MAX;
-        break;
       case SINGLE_DAY_PER_WEEK_PER_SEMESTER:
       case ONE_SEMESTER:
         startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);

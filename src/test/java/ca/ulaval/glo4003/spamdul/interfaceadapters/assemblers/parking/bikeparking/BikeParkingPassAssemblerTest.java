@@ -2,8 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparki
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
-import junit.framework.TestCase;
+import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
 import org.junit.Before;
 import org.junit.Test;
 

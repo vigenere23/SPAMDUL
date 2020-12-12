@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.usagereport.dto.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.usagereport.dto.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidUsageReportArgumentException;

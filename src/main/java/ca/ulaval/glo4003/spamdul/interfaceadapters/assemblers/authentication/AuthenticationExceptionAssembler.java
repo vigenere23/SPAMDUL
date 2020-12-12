@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.exception.InvalidCredentialsException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.entity.authentication.UnauthorizedUserException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

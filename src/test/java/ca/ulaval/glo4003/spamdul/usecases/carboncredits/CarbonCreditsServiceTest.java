@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.EventSchedulerObservable;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCreditsPurchaser;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.EventSchedulerObservable;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;

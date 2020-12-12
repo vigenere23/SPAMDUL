@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCredits;
-import ca.ulaval.glo4003.spamdul.entity.carboncredits.CarbonCreditsPurchaser;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCreditsPurchaser;
 
 public class ConsoleLogCarbonCreditsPurchaser implements CarbonCreditsPurchaser {
 

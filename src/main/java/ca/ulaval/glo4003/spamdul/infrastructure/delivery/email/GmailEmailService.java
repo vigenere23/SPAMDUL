@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.spamdul.infrastructure.delivery.email;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategy;
+import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailDeliverer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,7 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class GmailEmailService implements DeliveryStrategy {
+public class GmailEmailService implements EmailDeliverer {
 
   @Override
   public void deliver(DeliveryOptions deliveryOptions, String content) {

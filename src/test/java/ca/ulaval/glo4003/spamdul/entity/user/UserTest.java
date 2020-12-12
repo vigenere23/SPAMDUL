@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
@@ -54,7 +53,6 @@ public class UserTest {
   public static final LicensePlate ANOTHER_LICENSE_PLATE = new LicensePlate("abs cba");
   public static final TransactionFactory TRANSACTION_FACTORY = new TransactionFactory();
   public static final RechargULCardId RECHARG_UL_CARD_ID = RechargULCardId.valueOf("123");
-  public static final PeriodType PERIOD_TYPE = PeriodType.ONE_SEMESTER;
   public static final CampusAccessCode CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("123");
   public static final CampusAccessCode ANOTHER_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("456");
   public static final InfractionId INFRACTION_ID = InfractionId.valueOf("123");
@@ -121,7 +119,7 @@ public class UserTest {
   @Test
   public void whenAddingNewCampusAccess_campusAccessShouldBeAddedToUser() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, TIME_PERIOD);
 
     user.associate(campusAccess);
 
@@ -131,8 +129,8 @@ public class UserTest {
   @Test(expected = UserAlreadyHasACampusAccess.class)
   public void givenACampusAccess_whenAssociatingAnotherCampusAccess_shouldThrowException() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
-    CampusAccess anotherCampusAccess = new CampusAccess(ANOTHER_CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, TIME_PERIOD);
+    CampusAccess anotherCampusAccess = new CampusAccess(ANOTHER_CAMPUS_ACCESS_CODE, TIME_PERIOD);
     user.associate(campusAccess);
 
     user.associate(anotherCampusAccess);
@@ -248,7 +246,7 @@ public class UserTest {
   @Test
   public void whenAddingNewCarParkingPass_carParkingPassShouldBeAddedToUser() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, TIME_PERIOD);
     user.associate(campusAccess);
     CarParkingPass parkingPass = new CarParkingPass(CAR_PASS_CODE, PARKING_ZONE, TIME_PERIOD);
 
@@ -260,7 +258,7 @@ public class UserTest {
   @Test
   public void givenPassDoesNotBelongToUser_whenVerifyingIfHeOwnsPass_userShouldNotOwnsThePass() {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
-    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, PERIOD_TYPE, TIME_PERIOD);
+    CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, TIME_PERIOD);
     user.associate(campusAccess);
 
     boolean doesOwns = user.doesOwn(CAR_PASS_CODE);

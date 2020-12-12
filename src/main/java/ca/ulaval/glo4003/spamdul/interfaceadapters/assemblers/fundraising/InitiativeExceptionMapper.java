@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiative
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeCodeException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

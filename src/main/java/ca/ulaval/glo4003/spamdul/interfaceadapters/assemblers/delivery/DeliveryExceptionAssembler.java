@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery;
 
-import ca.ulaval.glo4003.spamdul.infrastructure.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.exceptions.InvalidEmailAddressException;

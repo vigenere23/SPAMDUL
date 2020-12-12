@@ -100,7 +100,7 @@ public class CampusAccessServiceTest {
                                                   calendar,
                                                   campusAccessFeeRepository,
                                                   campusAccessTransactionService);
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_PERIOD_TYPE, A_TIME_PERIOD);
+    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();
     accessingCampusDto.campusAccessCode = A_CAMPUS_ACCESS_CODE;
