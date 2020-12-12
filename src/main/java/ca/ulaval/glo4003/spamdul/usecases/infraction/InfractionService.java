@@ -27,20 +27,22 @@ public class InfractionService {
   private final CarParkingPassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;
   private final InfractionTransactionService infractionTransactionService;
-  private final InfractionDtoAssembler infractionDtoAssembler = new InfractionDtoAssembler();
+  private final InfractionDtoAssembler infractionDtoAssembler;
 
   public InfractionService(InfractionInfoRepository infractionInfoRepository,
                            UserRepository userRepository,
                            InfractionFactory infractionFactory,
                            CarParkingPassValidator firstValidationNode,
                            AccessLevelValidator accessLevelValidator,
-                           InfractionTransactionService infractionTransactionService) {
+                           InfractionTransactionService infractionTransactionService,
+                           InfractionDtoAssembler infractionDtoAssembler) {
     this.infractionInfoRepository = infractionInfoRepository;
     this.userRepository = userRepository;
     this.infractionFactory = infractionFactory;
     this.firstValidationNode = firstValidationNode;
     this.accessLevelValidator = accessLevelValidator;
     this.infractionTransactionService = infractionTransactionService;
+    this.infractionDtoAssembler = infractionDtoAssembler;
   }
 
   public InfractionDto giveInfractionIfNotValid(PassToValidateDto passToValidateDto, TemporaryToken temporaryToken) {
