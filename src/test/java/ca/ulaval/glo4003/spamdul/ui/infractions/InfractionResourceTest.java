@@ -5,8 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
@@ -48,7 +48,7 @@ public class InfractionResourceTest {
   private InfractionService infractionService;
   private InfractionRequest infractionRequest;
   private PassToValidateDto passToValidateDto;
-  private Infraction infraction;
+  private InfractionDto infractionDto;
   private AccessTokenCookieAssembler cookieAssembler;
 
   @Before
@@ -59,7 +59,7 @@ public class InfractionResourceTest {
     infractionRequest.parkingZone = "Zone1";
     infractionRequest.passCode = "1";
     passToValidateDto = new PassToValidateDto();
-    infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    infractionDto = new InfractionDto();
   }
 
   @Test
@@ -81,18 +81,18 @@ public class InfractionResourceTest {
   @Test
   public void whenValidatingParkingPass_shouldMapToResponse() {
     when(infractionAssembler.fromRequest(infractionRequest)).thenReturn(passToValidateDto);
-    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infraction);
+    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infractionDto);
 
     resource.validateParkingPass(infractionRequest, A_COOKIE);
 
-    verify(infractionAssembler, Mockito.times(1)).toResponse(infraction);
+    verify(infractionAssembler, Mockito.times(1)).toResponse(infractionDto);
   }
 
   @Test
   public void givenNullResponse_whenValidatingParkingPass_shouldReturn204() {
     when(infractionAssembler.fromRequest(infractionRequest)).thenReturn(passToValidateDto);
-    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infraction);
-    when(infractionAssembler.toResponse(infraction)).thenReturn(null);
+    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infractionDto);
+    when(infractionAssembler.toResponse(infractionDto)).thenReturn(null);
 
     Response response = resource.validateParkingPass(infractionRequest, A_COOKIE);
 
@@ -103,8 +103,8 @@ public class InfractionResourceTest {
   @Test
   public void givenNotNullResponse_whenValidatingParkingPass_shouldReturn200WithResponseAsBody() {
     when(infractionAssembler.fromRequest(infractionRequest)).thenReturn(passToValidateDto);
-    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infraction);
-    when(infractionAssembler.toResponse(infraction)).thenReturn(AN_INFRACTION_RESPONSE);
+    when(infractionService.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN)).thenReturn(infractionDto);
+    when(infractionAssembler.toResponse(infractionDto)).thenReturn(AN_INFRACTION_RESPONSE);
 
     Response response = resource.validateParkingPass(infractionRequest, A_COOKIE);
 

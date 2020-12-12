@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
@@ -47,12 +48,14 @@ public class InfractionsContext implements ResourceContext {
 
     AccessLevelValidator accessLevelValidator = new InfractionsAccessLevelValidator(authenticationRepository);
 
+    InfractionDtoAssembler infractionDtoAssembler = new InfractionDtoAssembler();
+
     InfractionService infractionService = new InfractionService(infractionInfoRepository,
                                                                 userRepository,
                                                                 infractionFactory,
                                                                 firstValidationNode,
                                                                 accessLevelValidator,
-                                                                infractionTransactionService);
+                                                                infractionTransactionService, infractionDtoAssembler);
 
     infractionResource = new InfractionResource(infractionAssembler, infractionService, cookieAssembler);
 

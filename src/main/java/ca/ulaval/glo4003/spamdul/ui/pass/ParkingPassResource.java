@@ -14,17 +14,17 @@ import javax.ws.rs.core.Response.Status;
 public class ParkingPassResource {
 
   private final PassAssembler passAssembler;
-  private final ParkingPassService passService;
+  private final ParkingPassService parkingPassService;
 
-  public ParkingPassResource(ParkingPassService passService, PassAssembler passAssembler) {
-    this.passService = passService;
+  public ParkingPassResource(ParkingPassService parkingPassService, PassAssembler passAssembler) {
+    this.parkingPassService = parkingPassService;
     this.passAssembler = passAssembler;
   }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public Response sellPass(PassCreationRequest passCreationRequest) {
-    this.passService.createPass(passAssembler.fromRequest(passCreationRequest));
+    this.parkingPassService.createPass(passAssembler.fromRequest(passCreationRequest));
 
     return Response.status(Status.CREATED)
                    .build();

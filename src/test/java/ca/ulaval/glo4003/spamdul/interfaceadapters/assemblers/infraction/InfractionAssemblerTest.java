@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -53,9 +54,13 @@ public class InfractionAssemblerTest {
 
   @Test
   public void givenAnInfraction_whenAssemblingResponse_shouldReturnResponseWithTheRightInfos() {
-    Infraction infraction = new Infraction(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    InfractionDto infractionDto = new InfractionDto();//(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    infractionDto.id = A_INFRACTION_ID;
+    infractionDto.amount = AN_AMOUNT;
+    infractionDto.code = AN_INFRACTION_CODE;
+    infractionDto.infractionDescription = AN_INFRACTION_DESCRIPTION;
 
-    InfractionResponse response = infractionAssembler.toResponse(infraction);
+    InfractionResponse response = infractionAssembler.toResponse(infractionDto);
 
     assertThat(response.amount).isEqualTo(AN_AMOUNT.asDouble());
     assertThat(response.reason).isEqualTo(AN_INFRACTION_DESCRIPTION);
@@ -64,9 +69,9 @@ public class InfractionAssemblerTest {
 
   @Test
   public void givenNull_whenAssemblingResponse_shouldReturnNull() {
-    Infraction infraction = null;
+    InfractionDto infractionDto = null;
 
-    InfractionResponse response = infractionAssembler.toResponse(infraction);
+    InfractionResponse response = infractionAssembler.toResponse(infractionDto);
 
     assertThat(response).isNull();
   }
