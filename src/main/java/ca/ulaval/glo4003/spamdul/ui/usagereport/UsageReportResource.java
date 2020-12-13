@@ -1,13 +1,11 @@
 package ca.ulaval.glo4003.spamdul.ui.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryCreationAssembler;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryDto;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -22,16 +20,13 @@ public class UsageReportResource {
 
   private final UsageReportService usageReportService;
   private final UsageReportCreationAssembler usageReportCreationAssembler;
-  private final UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler;
   private final AccessTokenCookieAssembler cookieAssembler;
 
   public UsageReportResource(UsageReportService usageReportService,
                              UsageReportCreationAssembler usageReportCreationAssembler,
-                             UsageReportSummaryCreationAssembler usageReportSummaryCreationAssembler,
                              AccessTokenCookieAssembler cookieAssembler) {
     this.usageReportService = usageReportService;
     this.usageReportCreationAssembler = usageReportCreationAssembler;
-    this.usageReportSummaryCreationAssembler = usageReportSummaryCreationAssembler;
     this.cookieAssembler = cookieAssembler;
   }
 
@@ -41,11 +36,13 @@ public class UsageReportResource {
   public UsageReportDto getUsageReport(@QueryParam("startDate") String startDate,
                                        @QueryParam("endDate") String endDate,
                                        @QueryParam("parkingZone") String parkingZone,
+                                       @QueryParam("parkingCategory") String parkingCategory,
                                        @CookieParam("accessToken") Cookie accessToken) {
     TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
     UsageReportCreationDto creationDto = usageReportCreationAssembler.fromValues(startDate,
                                                                                  endDate,
-                                                                                 parkingZone);
+                                                                                 parkingZone,
+                                                                                 parkingCategory);
 
     return usageReportService.getReport(creationDto, temporaryToken);
   }
@@ -56,11 +53,13 @@ public class UsageReportResource {
   public UsageReportSummaryDto getUsageReportSummary(@QueryParam("startDate") String startDate,
                                                      @QueryParam("endDate") String endDate,
                                                      @QueryParam("parkingZone") String parkingZone,
+                                                     @QueryParam("parkingCategory") String parkingCategory,
                                                      @CookieParam("accessToken") Cookie accessToken) {
     TemporaryToken temporaryToken = cookieAssembler.from(accessToken);
-    UsageReportSummaryCreationDto creationDto = usageReportSummaryCreationAssembler.fromValues(startDate,
-                                                                                               endDate,
-                                                                                               parkingZone);
+    UsageReportCreationDto creationDto = usageReportCreationAssembler.fromValues(startDate,
+                                                                                 endDate,
+                                                                                 parkingZone,
+                                                                                 parkingCategory);
 
     return usageReportService.getReportSummary(creationDto, temporaryToken);
   }

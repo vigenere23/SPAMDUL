@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import java.time.LocalDate;
@@ -12,13 +13,14 @@ public class UsageReportSummaryFactory {
   public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> monthAccessesPerDay,
                                    LocalDate startDate,
                                    LocalDate endDate) {
-    return create(monthAccessesPerDay, startDate, endDate, null);
+    return create(monthAccessesPerDay, startDate, endDate, null, null);
   }
 
   public UsageReportSummary create(Map<LocalDate, List<ParkingAccessLog>> monthAccessesPerDay,
                                    LocalDate startDate,
                                    LocalDate endDate,
-                                   ParkingZone parkingZone) {
+                                   ParkingZone parkingZone,
+                                   ParkingCategory parkingCategory) {
     float totalUsage = 0;
     int minNumberOfAccesses = Integer.MAX_VALUE;
     int maxNumberOfAccesses = 0;
@@ -46,6 +48,6 @@ public class UsageReportSummaryFactory {
     }
     float meanUsage = totalUsage / numberOfDays;
 
-    return new UsageReportSummary(meanUsage, leastPopularDayOfMonth, mostPopularDayOfMonth, parkingZone);
+    return new UsageReportSummary(meanUsage, leastPopularDayOfMonth, mostPopularDayOfMonth, parkingZone, parkingCategory);
   }
 }

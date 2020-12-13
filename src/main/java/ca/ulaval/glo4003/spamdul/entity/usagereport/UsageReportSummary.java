@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.usagereport;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -10,15 +11,18 @@ public class UsageReportSummary {
   private final Optional<LocalDate> mostPopularDayOfMonth;
   private final Optional<LocalDate> leastPopularDayOfMonth;
   private final Optional<ParkingZone> parkingZone;
+  private final Optional<ParkingCategory> parkingCategory;
 
   public UsageReportSummary(float meanUsagePerDay,
                             LocalDate mostPopularDayOfMonth,
                             LocalDate leastPopularDayOfMonth,
-                            ParkingZone parkingZone) {
+                            ParkingZone parkingZone,
+                            ParkingCategory parkingCategory) {
     this.meanUsagePerDay = meanUsagePerDay;
     this.mostPopularDayOfMonth = Optional.ofNullable(mostPopularDayOfMonth);
     this.leastPopularDayOfMonth = Optional.ofNullable(leastPopularDayOfMonth);
     this.parkingZone = Optional.ofNullable(parkingZone);
+    this.parkingCategory = Optional.ofNullable(parkingCategory);
   }
 
   public float getMeanUsagePerDay() {
@@ -35,5 +39,9 @@ public class UsageReportSummary {
 
   public Optional<ParkingZone> getParkingZone() {
     return parkingZone;
+  }
+
+  public Optional<ParkingCategory> getParkingCategory() {
+    return parkingCategory;
   }
 }

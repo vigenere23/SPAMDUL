@@ -7,9 +7,12 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +22,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BikeParkingAccessServiceTest {
 
-  public static final BikeParkingPassCode BIKE_PARKING_ACCESS_CODE = BikeParkingPassCode.valueOf("1234");
+  private static final BikeParkingPassCode BIKE_PARKING_ACCESS_CODE = BikeParkingPassCode.valueOf("1234");
+  private static final LocalDateTime A_DATE = LocalDate.of(2020,1,1).atStartOfDay();
   private BikeParkingAccessService bikeParkingAccessService;
 
   @Mock
@@ -27,11 +31,14 @@ public class BikeParkingAccessServiceTest {
   @Mock
   private BikeParkingAccessValidator bikeParkingAccessValidator;
   @Mock
+  private Calendar calendar;
+  @Mock
   private User user;
 
   @Before
   public void setUp() throws Exception {
-    bikeParkingAccessService = new BikeParkingAccessService(userRepository, bikeParkingAccessValidator);
+    when(calendar.now()).thenReturn(A_DATE);
+    bikeParkingAccessService = new BikeParkingAccessService(userRepository, bikeParkingAccessValidator, calendar);
   }
 
   @Test
