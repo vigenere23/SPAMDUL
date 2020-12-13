@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

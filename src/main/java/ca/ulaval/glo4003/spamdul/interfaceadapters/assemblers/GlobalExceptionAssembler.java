@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers;
 
 import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.utils.amount.InvalidAmountException;
+import ca.ulaval.glo4003.spamdul.shared.amount.InvalidAmountException;
 import javax.ws.rs.NotSupportedException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

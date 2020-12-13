@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

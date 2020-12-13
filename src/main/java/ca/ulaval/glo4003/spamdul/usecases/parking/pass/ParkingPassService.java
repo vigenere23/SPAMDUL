@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassSender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class ParkingPassService {
 

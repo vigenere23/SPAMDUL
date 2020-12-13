@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
+import ca.ulaval.glo4003.spamdul.shared.utils.Formatters;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

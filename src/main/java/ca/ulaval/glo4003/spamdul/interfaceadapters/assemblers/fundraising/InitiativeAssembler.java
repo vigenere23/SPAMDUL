@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativesResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.List;
 import java.util.stream.Collectors;
 

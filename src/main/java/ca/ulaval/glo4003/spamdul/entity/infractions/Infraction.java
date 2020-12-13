@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.AlreadyPaidInfractionException;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.Objects;
 
 public class Infraction {
 
-  private InfractionId infractionId;
-  private String infractionDescription;
-  private InfractionCode code;
-  private Amount amount;
+  private final InfractionId infractionId;
+  private final String infractionDescription;
+  private final InfractionCode code;
+  private final Amount amount;
   private boolean isPaid = false;
 
   public Infraction(InfractionId infractionId, String infractionDescription, InfractionCode code, Amount amount) {
@@ -49,7 +49,7 @@ public class Infraction {
     return isPaid;
   }
 
-  public boolean equals(Object o) {
+  @Override public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -63,7 +63,7 @@ public class Infraction {
         && Objects.equals(code, that.code);
   }
 
-  public int hashCode() {
+  @Override public int hashCode() {
     return Objects.hash(infractionId, infractionDescription, code, amount, isPaid);
   }
 }

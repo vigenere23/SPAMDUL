@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.time.LocalDateTime;
 
 public class Transaction {

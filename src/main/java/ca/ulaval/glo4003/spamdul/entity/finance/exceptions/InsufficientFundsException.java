@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.exceptions;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class InsufficientFundsException extends FinanceException {
 

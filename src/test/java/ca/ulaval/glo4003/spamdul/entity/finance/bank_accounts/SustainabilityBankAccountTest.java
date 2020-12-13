@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;

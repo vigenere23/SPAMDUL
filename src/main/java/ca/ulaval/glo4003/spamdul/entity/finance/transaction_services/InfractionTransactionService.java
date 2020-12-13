@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFilter;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class InfractionTransactionService {
 

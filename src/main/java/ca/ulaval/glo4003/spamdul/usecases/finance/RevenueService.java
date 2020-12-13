@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCredi
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
