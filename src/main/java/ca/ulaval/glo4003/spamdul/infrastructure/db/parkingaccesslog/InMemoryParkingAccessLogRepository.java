@@ -21,4 +21,8 @@ public class InMemoryParkingAccessLogRepository implements ParkingAccessLogRepos
   public void save(ParkingAccessLog parkingAccessLog) {
     parkingAccessLogsById.put(parkingAccessLog.getId(), parkingAccessLog);
   }
+
+  public void clear() {
+    parkingAccessLogsById.clear();
+  }
 }

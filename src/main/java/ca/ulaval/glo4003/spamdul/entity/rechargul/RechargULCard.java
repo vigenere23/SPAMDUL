@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.rechargul;
 
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionList;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardCreditsException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.exceptions.InvalidRechargULCardDebitingException;
@@ -51,9 +52,6 @@ public class RechargULCard {
   }
 
   public Amount total() {
-    return transactions.stream()
-                       .map(Transaction::getAmount)
-                       .reduce(Amount::add)
-                       .orElse(Amount.valueOf(0));
+    return new TransactionList(transactions).getBalance();
   }
 }
