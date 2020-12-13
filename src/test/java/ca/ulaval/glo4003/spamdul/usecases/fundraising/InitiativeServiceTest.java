@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;

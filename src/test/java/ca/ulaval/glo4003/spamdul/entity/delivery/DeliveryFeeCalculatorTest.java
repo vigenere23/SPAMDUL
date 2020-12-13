@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.delivery;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyChargingException;
 import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotDisconnectedException;
-import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
+import ca.ulaval.glo4003.spamdul.shared.counter.MillisecondsCounter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

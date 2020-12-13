@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.ArrayList;
 import java.util.List;
 

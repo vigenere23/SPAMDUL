@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.math.BigDecimal;
 import java.util.Objects;
 

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.ui.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.ui.carboncredits.dto.CarbonCreditsTransferResponse;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

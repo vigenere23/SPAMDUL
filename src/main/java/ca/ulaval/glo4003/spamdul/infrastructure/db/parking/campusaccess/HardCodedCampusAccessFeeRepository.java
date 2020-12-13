@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.utils.MapUtil;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.utils.MapUtil;
 import java.util.HashMap;
 import java.util.Map;
 

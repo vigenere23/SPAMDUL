@@ -16,13 +16,13 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.ui.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.ui.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class FinanceContext implements ResourceContext {
 

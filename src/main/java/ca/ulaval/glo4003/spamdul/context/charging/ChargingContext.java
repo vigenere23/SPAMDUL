@@ -8,21 +8,21 @@ import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging.InMemoryChargingPointRepository;
-import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
-import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
 import java.util.concurrent.TimeUnit;
 
 public abstract class ChargingContext implements ResourceContext {

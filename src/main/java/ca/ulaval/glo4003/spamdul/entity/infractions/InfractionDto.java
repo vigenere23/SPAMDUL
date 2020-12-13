@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.infractions;
 
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class InfractionDto {
 

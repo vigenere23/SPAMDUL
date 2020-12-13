@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
-import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
+import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.usagereport.UsageReportResource;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogIdFactory;
@@ -14,14 +13,15 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.ui.usagereport.UsageReportResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class UsageReportContext implements ResourceContext {
 
