@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess;
+package ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;

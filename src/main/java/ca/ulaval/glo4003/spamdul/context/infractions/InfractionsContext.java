@@ -22,7 +22,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJ
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;

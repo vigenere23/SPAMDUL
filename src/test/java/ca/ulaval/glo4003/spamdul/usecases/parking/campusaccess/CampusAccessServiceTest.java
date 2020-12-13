@@ -31,6 +31,8 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.time.LocalDate;
@@ -87,6 +89,8 @@ public class CampusAccessServiceTest {
   private CampusAccessFeeRepository campusAccessFeeRepository;
   @Mock
   private CampusAccessTransactionService campusAccessTransactionService;
+  @Mock
+  private CampusAccessDtoAssembler campusAccessDtoAssembler;
 
 
   @Before
@@ -98,7 +102,8 @@ public class CampusAccessServiceTest {
                                                   userRepository,
                                                   calendar,
                                                   campusAccessFeeRepository,
-                                                  campusAccessTransactionService);
+                                                  campusAccessTransactionService,
+                                                  campusAccessDtoAssembler);
     campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, A_TIME_PERIOD);
 
     accessingCampusDto = new AccessingCampusDto();

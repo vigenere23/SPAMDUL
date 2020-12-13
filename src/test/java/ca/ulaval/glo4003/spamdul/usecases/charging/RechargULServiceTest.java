@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.usecases.charging.assembler.RechargULDtoAssembler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,11 +37,13 @@ public class RechargULServiceTest {
   private User user;
   @Mock
   private RechargULCardFactory rechargULCardFactory;
+  @Mock
+  private RechargULDtoAssembler rechargULDtoAssembler;
 
   @Before
   public void setUp() {
     transactionFactory = new TransactionFactory();
-    rechargULService = new RechargULService(userRepository, rechargULCardFactory);
+    rechargULService = new RechargULService(userRepository, rechargULCardFactory, rechargULDtoAssembler);
     rechargULCard = new RechargULCard(RECHARG_UL_CARD_ID, transactionFactory);
 
     when(userRepository.findBy(RECHARG_UL_CARD_ID)).thenReturn(user);

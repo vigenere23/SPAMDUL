@@ -47,7 +47,6 @@ public class UsageReportService {
     this.accessLevelValidator = accessLevelValidator;
   }
 
-  // TODO: remove duplication
   public UsageReportSummaryDto getReportSummary(UsageReportCreationDto usageReportCreationDto,
                                                 TemporaryToken temporaryToken) {
     accessLevelValidator.validate(temporaryToken);

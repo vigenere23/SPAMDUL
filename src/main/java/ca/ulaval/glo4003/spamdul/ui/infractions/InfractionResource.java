@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.spamdul.ui.infractions;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionPaymentRequest;

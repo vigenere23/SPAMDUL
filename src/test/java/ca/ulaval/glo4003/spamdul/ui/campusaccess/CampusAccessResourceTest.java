@@ -5,13 +5,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,16 +30,16 @@ public class CampusAccessResourceTest {
   private CampusAccessService campusAccessService;
   private CampusAccessResource campusAccessResource;
   private CampusAccessRequest campusAccessRequest;
-  private CampusAccessDto campusAccessDto;
-  private CampusAccess campusAccess;
+  private CampusAccessDto requestCampusAccessDto;
+  private CampusAccessDto returnCampusAccessDto;
   private AccessingCampusRequest accessingCampusRequest;
   private AccessingCampusDto accessingCampusDto;
 
   @Before
   public void setUp() throws Exception {
-    campusAccessDto = new CampusAccessDto();
+    requestCampusAccessDto = new CampusAccessDto();
     campusAccessRequest = new CampusAccessRequest();
-    campusAccess = new CampusAccess(null, null);
+    returnCampusAccessDto = new CampusAccessDto();
     campusAccessResource = new CampusAccessResource(campusAccessAssembler, campusAccessService);
     accessingCampusRequest = new AccessingCampusRequest();
     accessingCampusRequest.campusAccessCode = A_CAMPUS_ACCESS_CODE_STRING;
@@ -57,21 +56,21 @@ public class CampusAccessResourceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallServiceToCreateNewCampusAccess() {
-    when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(campusAccessDto);
+    when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(requestCampusAccessDto);
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessService, times(1)).createCampusAccess(campusAccessDto);
+    verify(campusAccessService, times(1)).createCampusAccess(requestCampusAccessDto);
   }
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallAssemblerToCreateCampusAccessResponse() {
-    when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(campusAccessDto);
-    when(campusAccessService.createCampusAccess(campusAccessDto)).thenReturn(campusAccess);
+    when(campusAccessAssembler.fromRequest(campusAccessRequest)).thenReturn(requestCampusAccessDto);
+    when(campusAccessService.createCampusAccess(requestCampusAccessDto)).thenReturn(returnCampusAccessDto);
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessAssembler, times(1)).toResponse(campusAccess);
+    verify(campusAccessAssembler, times(1)).toResponse(returnCampusAccessDto);
   }
 
   @Test

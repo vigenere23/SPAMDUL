@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
