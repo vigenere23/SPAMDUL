@@ -5,14 +5,14 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValid
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.usecases.parking.bikeparkingaccess.BikeParkingAccessService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class BikeParkingAccessContext implements ResourceContext {
 
-  private BikeParkingAccessResource bikeParkingAccessResource;
+  private final BikeParkingAccessResource bikeParkingAccessResource;
 
   public BikeParkingAccessContext(UserRepository userRepository) {
     Calendar calendar = new HardCodedCalendar();
@@ -24,7 +24,7 @@ public class BikeParkingAccessContext implements ResourceContext {
                                                               bikeParkingAccessAssembler);
   }
 
-  public void registerResources(InstanceMap instanceMap) {
+  @Override public void registerResources(InstanceMap instanceMap) {
     instanceMap.add(bikeParkingAccessResource);
   }
 }

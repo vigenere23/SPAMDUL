@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
@@ -11,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 

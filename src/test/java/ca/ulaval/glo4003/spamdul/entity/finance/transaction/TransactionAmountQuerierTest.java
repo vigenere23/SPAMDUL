@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.entity.finance.transaction;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.utils.ListUtil;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

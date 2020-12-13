@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.charging;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.concurrent.TimeUnit;
 
 public class ChargingPaymentService {

@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAss
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.Map;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;

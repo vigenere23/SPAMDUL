@@ -6,19 +6,19 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public abstract class FundraisingContext implements ResourceContext {
 

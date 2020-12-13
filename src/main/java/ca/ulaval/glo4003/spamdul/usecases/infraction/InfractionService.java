@@ -2,27 +2,27 @@ package ca.ulaval.glo4003.spamdul.usecases.infraction;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
-import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfosDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionException;
 import ca.ulaval.glo4003.spamdul.entity.infractions.exceptions.InfractionNotFoundException;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class InfractionService {
 
   private final InfractionInfoRepository infractionInfoRepository;
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
   private final InfractionFactory infractionFactory;
   private final CarParkingPassValidator firstValidationNode;
   private final AccessLevelValidator accessLevelValidator;

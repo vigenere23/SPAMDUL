@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
-import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
+import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
-import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

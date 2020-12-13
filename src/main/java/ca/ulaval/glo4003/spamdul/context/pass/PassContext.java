@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCodeFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassDeliveryOptionsFactory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassFactory;
@@ -11,8 +10,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.ui.pass.ParkingPassResource;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
@@ -20,7 +19,8 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAdd
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.ui.pass.ParkingPassResource;
 
 public abstract class PassContext implements ResourceContext {
 

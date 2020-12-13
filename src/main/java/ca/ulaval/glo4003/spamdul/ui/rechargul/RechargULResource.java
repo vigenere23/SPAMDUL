@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULCreditsRequest;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

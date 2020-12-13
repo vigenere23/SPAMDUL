@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.entity.charging;
 
 import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyChargingException;
 import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotDisconnectedException;
-import ca.ulaval.glo4003.spamdul.utils.counter.MillisecondsCounter;
+import ca.ulaval.glo4003.spamdul.shared.counter.MillisecondsCounter;
 
 public class ChargingPointStateCharging implements ChargingPointState {
 

@@ -3,7 +3,9 @@ package ca.ulaval.glo4003.spamdul;
 import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.context.main.MainContext;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import java.util.Set;
+import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -11,9 +13,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
-
-import javax.ws.rs.core.Application;
-import java.util.Set;
 
 public class JettyJerseyApp implements SpamdUlApplication {
 

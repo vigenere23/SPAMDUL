@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

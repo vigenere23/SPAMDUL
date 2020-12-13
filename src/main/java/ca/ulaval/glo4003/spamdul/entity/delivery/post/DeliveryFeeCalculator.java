@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.entity.delivery.post;
 
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.HashMap;
 import java.util.Map;
 

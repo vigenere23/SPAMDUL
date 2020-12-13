@@ -2,10 +2,6 @@ package ca.ulaval.glo4003.spamdul.usecases.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.EventSchedulerObservable;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.entity.finance.exceptions.InsufficientFundsException;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
@@ -13,8 +9,12 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.ReservedInitiativeCode;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCreditsPurchaser;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.EventSchedulerObservable;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.ScheduleObserver;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class CarbonCreditsService implements ScheduleObserver {
 

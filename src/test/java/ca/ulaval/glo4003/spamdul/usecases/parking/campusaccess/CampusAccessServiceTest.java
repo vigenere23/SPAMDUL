@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFactory
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessFeeRepository;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
@@ -33,7 +32,7 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
-import ca.ulaval.glo4003.spamdul.utils.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;

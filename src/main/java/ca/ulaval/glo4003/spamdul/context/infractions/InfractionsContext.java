@@ -5,29 +5,29 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.InfractionsAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.UserFinderService;
+import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingDayOfWeekValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassExistsValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingTimePeriodBoundaryValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingZoneValidator;
-import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingDayOfWeekValidator;
 import ca.ulaval.glo4003.spamdul.entity.infractions.validators.EmptyCarParkingPassCodeValidator;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJsonRepository;
+import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.InfractionResource;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 
 public class InfractionsContext implements ResourceContext {
 

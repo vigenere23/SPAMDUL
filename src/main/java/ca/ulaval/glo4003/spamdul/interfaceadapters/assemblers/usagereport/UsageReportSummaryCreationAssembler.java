@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidDateArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
+import ca.ulaval.glo4003.spamdul.shared.utils.Formatters;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
-import ca.ulaval.glo4003.spamdul.utils.Formatters;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 

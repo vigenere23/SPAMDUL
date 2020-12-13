@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
-import static ca.ulaval.glo4003.spamdul.utils.Matchers.assertContainsExactlyInstancesOf;
+import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
+import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
-import ca.ulaval.glo4003.spamdul.utils.InstanceMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
