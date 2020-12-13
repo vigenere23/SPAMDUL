@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeAmountException;
+import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeCodeException;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import org.junit.Before;
@@ -55,6 +56,11 @@ public class InitiativeFactoryTest {
   @Test
   public void givenReservedCode_whenCreatingWithReservedCode_shouldReturnInitiative() {
     initiativeFactory.create(ReservedInitiativeCode.CARBON_CREDITS, A_VALID_NAME, A_VALID_AMOUNT);
+  }
+
+  @Test(expected = InvalidInitiativeCodeException.class)
+  public void givenCodeLikeReservedOne_whenCreatingWithCode_shouldThrowException() {
+    initiativeFactory.create(ReservedInitiativeCode.CARBON_CREDITS.getValue(), A_VALID_NAME, A_VALID_AMOUNT);
   }
 
   @Test

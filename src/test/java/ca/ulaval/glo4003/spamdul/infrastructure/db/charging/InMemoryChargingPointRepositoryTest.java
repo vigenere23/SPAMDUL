@@ -6,6 +6,8 @@ import static org.mockito.Mockito.mock;
 import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging.EnoughCreditForChargingVerifier;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointAlreadyExistsException;
+import ca.ulaval.glo4003.spamdul.entity.charging.exceptions.ChargingPointNotFoundException;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,5 +72,16 @@ public class InMemoryChargingPointRepositoryTest {
     repository.update(chargingPoint);
 
     assertThat(repository.findBy(CHARGING_POINT_ID).getState()).isNotEqualTo(initialState);
+  }
+
+  @Test(expected = ChargingPointAlreadyExistsException.class)
+  public void givenChargingPointAlreadySaved_whenResaving_shouldThrowException() {
+    repository.save(chargingPoint);
+    repository.save(chargingPoint);
+  }
+
+  @Test(expected = ChargingPointNotFoundException.class)
+  public void givenNonExistentId_whenFindingWithThatId_shouldThrowException() {
+    repository.findBy(CHARGING_POINT_ID);
   }
 }
