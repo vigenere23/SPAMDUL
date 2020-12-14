@@ -12,11 +12,11 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.EmailAddressAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.PostalAddressAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.delivery.DeliveryAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.delivery.EmailAddressAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.delivery.PostalAddressAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.PassAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.pass.ParkingPassResource;
 

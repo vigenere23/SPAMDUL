@@ -12,8 +12,8 @@ import ca.ulaval.glo4003.spamdul.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.context.user.UserContext;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.GlobalExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 
 public abstract class MainContext implements ResourceContext {

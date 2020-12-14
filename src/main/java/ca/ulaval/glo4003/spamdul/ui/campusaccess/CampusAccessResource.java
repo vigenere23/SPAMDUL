@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.ui.campusaccess;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.CampusAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;

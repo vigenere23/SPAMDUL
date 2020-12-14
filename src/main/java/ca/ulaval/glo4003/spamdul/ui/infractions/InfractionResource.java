@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
 import javax.ws.rs.Consumes;

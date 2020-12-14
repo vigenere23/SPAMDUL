@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.user.exceptions;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.InvalidUserException;
+import ca.ulaval.glo4003.spamdul.assemblers.user.exceptions.InvalidUserException;
 
 public class UserAlreadyHasACampusAccess extends InvalidUserException {
 

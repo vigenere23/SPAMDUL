@@ -1,12 +1,11 @@
 package ca.ulaval.glo4003.spamdul.ui.charging;
 
-import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPoint;
 import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.ui.charging.dto.ChargingPointActivationRequest;
 import ca.ulaval.glo4003.spamdul.ui.charging.dto.ChargingPointResponse;
 import ca.ulaval.glo4003.spamdul.ui.charging.dto.ChargingPointsResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.charging.ChargingPointAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import ca.ulaval.glo4003.spamdul.usecases.charging.dto.ChargingPointDto;
 import java.util.List;
