@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.ui.infractions;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionPaymentRequest;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionRequest;
 import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
-import ca.ulaval.glo4003.spamdul.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.POST;
@@ -36,7 +36,8 @@ public class InfractionResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response validateParkingPass(InfractionRequest infractionRequest, @CookieParam("accessToken") Cookie accessToken) {
+  public Response validateParkingPass(InfractionRequest infractionRequest,
+                                      @CookieParam("accessToken") Cookie accessToken) {
     TemporaryToken token = cookieAssembler.from(accessToken);
     PassToValidateDto passToValidateDto = infractionAssembler.fromRequest(infractionRequest);
     InfractionDto infractionDto = infractionService.giveInfractionIfNotValid(passToValidateDto, token);

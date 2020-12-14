@@ -4,8 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.carboncredits.dto.CarbonCreditsToggleDto;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 import javax.ws.rs.core.Cookie;

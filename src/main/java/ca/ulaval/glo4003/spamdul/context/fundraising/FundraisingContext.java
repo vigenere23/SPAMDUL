@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
@@ -13,9 +15,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeDtoAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;

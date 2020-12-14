@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.ui.authentification;
+package ca.ulaval.glo4003.spamdul.assemblers.authentification;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.NoRegisteredUserLoggedInException;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;

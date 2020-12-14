@@ -2,19 +2,19 @@ package ca.ulaval.glo4003.spamdul.ui.finance;
 
 import static org.mockito.Matchers.any;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.finance.RevenueAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCredits;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.CarTypeTotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.CarbonBoughtResponse;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.RevenueResponse;
 import ca.ulaval.glo4003.spamdul.ui.finance.dto.TotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.assemblers.finance.RevenueAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
 import ca.ulaval.glo4003.spamdul.usecases.finance.dto.TransactionQueryDto;
-import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import com.google.common.truth.Truth;
 import java.util.HashMap;
 import java.util.Map;

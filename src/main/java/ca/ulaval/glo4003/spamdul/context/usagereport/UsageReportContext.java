@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
@@ -14,11 +18,7 @@ import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 
