@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.utils.MathUtil;
 import org.junit.Test;
 
 public class CarbonCreditsTest {
@@ -23,7 +24,7 @@ public class CarbonCreditsTest {
 
     CarbonCredits carbonCredits = CarbonCredits.valueOf(amount);
 
-    double expectedValue = Math.round(value / AMOUNT_DIVIDER * 100) / 100.0;
+    double expectedValue = MathUtil.round(value / AMOUNT_DIVIDER, 2);
     assertThat(carbonCredits.asDouble()).isEqualTo(expectedValue);
   }
 }
