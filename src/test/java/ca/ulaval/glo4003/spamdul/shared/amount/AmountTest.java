@@ -31,7 +31,7 @@ public class AmountTest {
     Amount amount1 = Amount.valueOf(42);
     Amount amount2 = Amount.valueOf(42);
 
-    assertThat(amount1.equals(amount2)).isTrue();
+    assertThat(amount1).isEqualTo(amount2);
   }
 
   @Test
