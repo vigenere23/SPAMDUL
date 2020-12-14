@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers;
 
 import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
-import ca.ulaval.glo4003.spamdul.shared.amount.InvalidAmountException;
 import javax.ws.rs.NotSupportedException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,8 +15,6 @@ public class GlobalExceptionAssembler implements ExceptionMapper<RuntimeExceptio
 
     if (e instanceof NotSupportedException) {
       exceptionResponse.error = "NOT_IMPLEMENTED";
-    } else if (e instanceof InvalidAmountException) {
-      exceptionResponse.error = "INVALID_AMOUNT";
     } else {
       e.printStackTrace();
       exceptionResponse.error = e.getClass().getName();

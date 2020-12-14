@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.usecases.charging.dto.RechargULCardDto;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,7 +34,7 @@ public class RechargULResource {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response createCard(RechargULRequest rechargUlRequest) {
     UserId userId = UserId.valueOf(rechargUlRequest.userId);
-    RechargULCard card = rechargULService.createCard(userId);
+    RechargULCardDto card = rechargULService.createCard(userId);
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
 
     return Response.status(Status.CREATED).entity(response).build();
@@ -44,7 +45,7 @@ public class RechargULResource {
   public Response getCard(@PathParam("id") String rechargULCardIdString) {
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = rechargULService.getRechargULCard(rechargULCardId);
+    RechargULCardDto card = rechargULService.getRechargULCard(rechargULCardId);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();
@@ -57,7 +58,7 @@ public class RechargULResource {
     Amount amount = Amount.valueOf(amountDouble);
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    RechargULCard card = rechargULService.addCredits(rechargULCardId, amount);
+    RechargULCardDto card = rechargULService.addCredits(rechargULCardId, amount);
 
     RechargULCardResponse response = rechargULCardAssembler.toResponse(card);
     return Response.ok(response).build();

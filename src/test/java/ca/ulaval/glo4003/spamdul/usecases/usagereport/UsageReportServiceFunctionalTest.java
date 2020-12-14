@@ -101,7 +101,6 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReport_shouldCallAccessLevelValidator() {
     Integer numberOfLogs = 12;
-
     UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();
     usageReportCreationDto.startDate = A_DATE;
     usageReportCreationDto.endDate = A_LATER_DATE;
@@ -116,7 +115,6 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
     Integer numberOfLogs = 12;
-
     UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();
     usageReportCreationDto.startDate = A_DATE;
     usageReportCreationDto.endDate = A_LATER_DATE;

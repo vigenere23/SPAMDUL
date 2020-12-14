@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.spamdul.ui.charging.dto.ChargingPointResponse;
 import ca.ulaval.glo4003.spamdul.ui.charging.dto.ChargingPointsResponse;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
+import ca.ulaval.glo4003.spamdul.usecases.charging.dto.ChargingPointDto;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -30,8 +31,9 @@ public class ChargingPointResource {
 
   @GET
   public Response getAll() {
-    List<ChargingPoint> chargingPoints = chargingPointService.getAllChargingPoints();
+    List<ChargingPointDto> chargingPoints = chargingPointService.getAllChargingPoints();
     ChargingPointsResponse response = chargingPointAssembler.toResponse(chargingPoints);
+
     return Response.ok(response).build();
   }
 
@@ -40,9 +42,9 @@ public class ChargingPointResource {
   public Response getSingle(@PathParam("id") String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingPointService.getChargingPoint(chargingPointId);
-
+    ChargingPointDto chargingPoint = chargingPointService.getChargingPoint(chargingPointId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+
     return Response.ok(response).build();
   }
 
@@ -55,9 +57,9 @@ public class ChargingPointResource {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(rechargULCardIdString);
 
-    ChargingPoint chargingPoint = chargingPointService.activateChargingPoint(chargingPointId, rechargULCardId);
-
+    ChargingPointDto chargingPoint = chargingPointService.activateChargingPoint(chargingPointId, rechargULCardId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+
     return Response.ok(response).build();
   }
 
@@ -66,9 +68,9 @@ public class ChargingPointResource {
   public Response startCharging(@PathParam("id") String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingPointService.startRecharging(chargingPointId);
-
+    ChargingPointDto chargingPoint = chargingPointService.startRecharging(chargingPointId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+
     return Response.ok(response).build();
   }
 
@@ -77,9 +79,9 @@ public class ChargingPointResource {
   public Response stopCharging(@PathParam("id") String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingPointService.stopRecharging(chargingPointId);
-
+    ChargingPointDto chargingPoint = chargingPointService.stopRecharging(chargingPointId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+
     return Response.ok(response).build();
   }
 
@@ -88,9 +90,9 @@ public class ChargingPointResource {
   public Response deactivateCharging(@PathParam("id") String chargingPointIdString) {
     ChargingPointId chargingPointId = ChargingPointId.valueOf(chargingPointIdString);
 
-    ChargingPoint chargingPoint = chargingPointService.deactivateChargingPoint(chargingPointId);
-
+    ChargingPointDto chargingPoint = chargingPointService.deactivateChargingPoint(chargingPointId);
     ChargingPointResponse response = chargingPointAssembler.toResponse(chargingPoint);
+
     return Response.ok(response).build();
   }
 }

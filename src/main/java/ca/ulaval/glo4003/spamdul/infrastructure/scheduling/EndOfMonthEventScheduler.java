@@ -60,9 +60,6 @@ public class EndOfMonthEventScheduler extends EventSchedulerObservable {
   public void stopJob() {
     if (scheduledFuture != null) {
       scheduledFuture.cancel(true);
-      // TODO either we don't call .shutdown() or we call it AND recreate the executorService
-      //  TODO else we can't reschedule events on it
-      // executorService.shutdown();
     }
   }
 

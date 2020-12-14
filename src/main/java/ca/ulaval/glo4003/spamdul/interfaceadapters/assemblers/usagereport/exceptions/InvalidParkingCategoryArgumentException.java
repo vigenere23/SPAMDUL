@@ -5,7 +5,11 @@ import java.util.Arrays;
 
 public class InvalidParkingCategoryArgumentException extends InvalidUsageReportArgumentException {
 
-  public InvalidParkingCategoryArgumentException() {
-    super("Parking category must be one of the following: " + Arrays.toString(ParkingCategory.values()));
+  public String getError() {
+    return "INVALID_PARKING_CATEGORY";
+  }
+
+  public String getDescription() {
+    return "Parking category must be one of the following: " + Arrays.toString(ParkingCategory.values());
   }
 }

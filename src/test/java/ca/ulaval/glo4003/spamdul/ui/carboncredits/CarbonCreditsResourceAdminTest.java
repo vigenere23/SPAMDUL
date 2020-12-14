@@ -30,7 +30,9 @@ public class CarbonCreditsResourceAdminTest {
   @Test
   public void whenTransferringCredits_shouldCallAndReturnFromService() {
     when(carbonCreditsService.transferRemainingBudget()).thenReturn(AN_AMOUNT);
+
     CarbonCreditsTransferResponse response = carbonCreditsResourceAdmin.transferFundsToCarbonCredits();
+
     assertThat(response.transferred).isEqualTo(AN_AMOUNT.asDouble());
   }
 }

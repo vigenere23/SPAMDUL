@@ -2,7 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.except
 
 public class InvalidDayOfWeekArgumentException extends InvalidTimePeriodException{
 
-  public InvalidDayOfWeekArgumentException() {
-    super("Day of the week must be from monday to friday");
+  public String getError() {
+    return "INVALID_DAY_OF_WEEK_FORMAT";
+  }
+
+  public String getDescription() {
+    return "Day of the week must be from monday to friday";
   }
 }

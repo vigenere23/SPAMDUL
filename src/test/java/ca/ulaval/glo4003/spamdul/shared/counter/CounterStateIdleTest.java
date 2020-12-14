@@ -29,6 +29,7 @@ public class CounterStateIdleTest {
   @Test
   public void whenStarting_shouldSwitchToCountingState() {
     state.start(clock, 0);
+
     verify(counter).setState(any(CounterStateCounting.class));
   }
 

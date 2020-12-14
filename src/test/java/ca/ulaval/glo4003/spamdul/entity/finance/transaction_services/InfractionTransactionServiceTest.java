@@ -41,12 +41,14 @@ public class InfractionTransactionServiceTest {
   @Test
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
     infractionTransactionService.addRevenue(AN_AMOUNT);
+
     verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.INFRACTION);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
     infractionTransactionService.addRevenue(AN_AMOUNT);
+
     verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.INFRACTION);
   }
 
@@ -54,7 +56,9 @@ public class InfractionTransactionServiceTest {
   public void whenGettingRevenueForSustainability_shouldReturnFromSustainabilityAccount() {
     when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
     when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.INFRACTION, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
+
     Amount revenue = infractionTransactionService.getRevenueForSustainability(A_TRANSACTION_FILTER);
+
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
 }

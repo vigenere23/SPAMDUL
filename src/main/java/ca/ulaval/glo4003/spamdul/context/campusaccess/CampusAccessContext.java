@@ -13,12 +13,10 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess.CampusAccessFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.AccessingCampusExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.CarExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDtoAssembler;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.CampusAccessResource;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;
 
@@ -31,6 +29,7 @@ public class CampusAccessContext implements ResourceContext {
 
     TimePeriodAssembler timePeriodAssembler = new TimePeriodAssembler();
     CampusAccessAssembler campusAccessAssembler = new CampusAccessAssembler(timePeriodAssembler);
+    CampusAccessDtoAssembler campusAccessDtoAssembler = new CampusAccessDtoAssembler();
 
     Calendar calendar = new HardCodedCalendar();
     TimePeriodFactory timePeriodFactory = new TimePeriodFactory(calendar);
@@ -43,7 +42,8 @@ public class CampusAccessContext implements ResourceContext {
                                                                       userRepository,
                                                                       calendar,
                                                                       campusAccessFeeRepository,
-                                                                      campusAccessTransactionService);
+                                                                      campusAccessTransactionService,
+                                                                      campusAccessDtoAssembler);
     campusAccessService.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResource(campusAccessAssembler,
                                                     campusAccessService);
@@ -51,8 +51,5 @@ public class CampusAccessContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(campusAccessResource);
-    resources.add(new CampusAccessExceptionAssembler());
-    resources.add(new AccessingCampusExceptionAssembler());
-    resources.add(new CarExceptionAssembler());
   }
 }

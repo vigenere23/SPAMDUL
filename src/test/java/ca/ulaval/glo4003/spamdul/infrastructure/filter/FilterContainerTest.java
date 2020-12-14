@@ -31,7 +31,9 @@ public class FilterContainerTest {
   @Test
   public void givenDataIsEmptyList_whenGettingResults_shouldReturnEmptyList() {
     filterContainer.setData(new ArrayList<>());
+
     List<FilterContainerItem> filteredItems = filterContainer.getResults();
+
     assertThat(filteredItems).isEmpty();
   }
 

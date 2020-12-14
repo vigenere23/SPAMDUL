@@ -36,6 +36,7 @@ public class UsageReportCreationAssemblerTest {
                                                                          END_DATE_STRING,
                                                                          PARKING_ZONE_3_STRING,
                                                                          PARKING_CATEGORY_STRING);
+
     assertThat(dto.startDate).isEqualTo(START_DATE);
     assertThat(dto.endDate).isEqualTo(END_DATE);
     assertThat(dto.parkingZone).isEqualTo(PARKING_ZONE_3);

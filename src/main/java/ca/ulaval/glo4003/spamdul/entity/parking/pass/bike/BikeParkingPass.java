@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPass;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
+import java.time.LocalDateTime;
 
 public class BikeParkingPass extends ParkingPass {
 
@@ -15,5 +16,9 @@ public class BikeParkingPass extends ParkingPass {
   @Override
   public void accept(User user) {
     user.associateBikeParkingPass(this);
+  }
+
+  public boolean canAccessBikeParking(LocalDateTime now) {
+    return getTimePeriod().bounds(now);
   }
 }

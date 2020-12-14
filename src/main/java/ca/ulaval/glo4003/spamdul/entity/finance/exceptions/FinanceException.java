@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.finance.exceptions;
 
-public abstract class FinanceException extends RuntimeException {
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import javax.ws.rs.core.Response.Status;
 
-  public FinanceException(String message) {
-    super(message);
+public abstract class FinanceException extends SpamDULBaseException {
+
+  public int getStatus() {
+    return Status.BAD_REQUEST.getStatusCode();
   }
 }

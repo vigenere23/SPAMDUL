@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 
 public class UserAlreadyHasThisInfraction extends InvalidUserException {
 
-  public UserAlreadyHasThisInfraction() {
-    super("User already has this infraction associated");
+  public String getError() {
+    return "USER_ALREADY_HAS_THIS_INFRACTION";
+  }
+
+  public String getDescription() {
+    return "User already has this infraction associated";
   }
 }

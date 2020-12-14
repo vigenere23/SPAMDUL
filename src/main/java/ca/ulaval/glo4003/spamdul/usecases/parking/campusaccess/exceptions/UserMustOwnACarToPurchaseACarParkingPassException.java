@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 
 public class UserMustOwnACarToPurchaseACarParkingPassException extends InvalidUserException {
 
-  public UserMustOwnACarToPurchaseACarParkingPassException() {
-    super("user must own a car to purchase a car parking pass");
+  public String getError() {
+    return "USER_MUST_OWN_A_CAR";
+  }
+
+  public String getDescription() {
+    return "user must own a car to purchase a car parking pass";
   }
 }

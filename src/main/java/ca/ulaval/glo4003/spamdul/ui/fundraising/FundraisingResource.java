@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-//TODO ce nest pas tester
 @Path("/fundraising")
 public class FundraisingResource {
 

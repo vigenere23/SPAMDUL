@@ -28,7 +28,6 @@ public class BikeParkingAccessService extends AccessGrantedObservable {
       User user = userRepository.findBy(bikeParkingPassCode);
       boolean accessGranted = user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
       if (accessGranted) {
-        // TODO: add test
         notifyAccessGranted(ParkingZone.ZONE_BIKE, calendar.now().toLocalDate());
       }
       return accessGranted;

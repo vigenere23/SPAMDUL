@@ -30,6 +30,7 @@ public class ChargingPointStateIdleTest {
   @Test
   public void whenActivatingWithEnoughCreditsCard_shouldSwitchToActivatedState() {
     state.activate();
+
     verify(chargingPoint).setState(any(ChargingPointStateActivated.class));
   }
 

@@ -40,31 +40,37 @@ public class ChargingPaymentServiceTest {
   @Test
   public void whenPayingWithZeroTime_shouldNotDebit() {
     oneDollarPerHourRate.pay(0, A_CARD_ID);
+
     verify(user, times(0)).payForCharging(any(Amount.class));
   }
 
   @Test
   public void whenPayingWithNegativeTime_shouldNotDebit() {
     oneDollarPerHourRate.pay(-123234, A_CARD_ID);
+
     verify(user, times(0)).payForCharging(any(Amount.class));
   }
 
   @Test
   public void whenPaying_shouldFindUserInRepos() {
     oneDollarPerHourRate.pay(oneHourInMilliseconds - 1, A_CARD_ID);
+
     verify(userRepository).findBy(A_CARD_ID);
   }
 
   @Test
   public void whenPayingWithLessThanOneTimeUnit_shouldDebitExactlyOneUnit() {
     oneDollarPerHourRate.pay(oneHourInMilliseconds - 1, A_CARD_ID);
+
     verify(user).payForCharging(hourlyFee);
   }
 
   @Test
   public void whenPayingWithExactlyOneTimeUnit_shouldDebitExactlyTwoUnits() {
     Amount expectedAmount = hourlyFee.multiply(2);
+
     oneDollarPerHourRate.pay(oneHourInMilliseconds, A_CARD_ID);
+
     verify(user).payForCharging(expectedAmount);
   }
 
@@ -78,6 +84,7 @@ public class ChargingPaymentServiceTest {
   @Test
   public void whenPaying_shouldSaveUserInRepo() {
     oneDollarPerHourRate.pay(oneHourInMilliseconds - 1, A_CARD_ID);
+
     verify(userRepository).save(user);
   }
 

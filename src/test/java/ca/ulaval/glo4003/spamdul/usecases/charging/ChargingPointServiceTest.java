@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointId;
 import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.entity.charging.EnoughCreditForChargingVerifier;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
+import ca.ulaval.glo4003.spamdul.usecases.charging.assembler.ChargingPointDtoAssembler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,12 +32,15 @@ public class ChargingPointServiceTest {
   private EnoughCreditForChargingVerifier enoughCreditForChargingVerifier;
   @Mock
   private ChargingPoint chargingPoint;
+  @Mock
+  private ChargingPointDtoAssembler chargingPointDtoAssembler;
 
   @Before
   public void setUp() throws Exception {
     chargingPointService = new ChargingPointService(chargingPointRepository,
                                                     enoughCreditForChargingVerifier,
-                                                    chargingPaymentService);
+                                                    chargingPaymentService,
+                                                    chargingPointDtoAssembler);
 
     when(chargingPointRepository.findBy(CHARGING_POINT_ID)).thenReturn(chargingPoint);
   }

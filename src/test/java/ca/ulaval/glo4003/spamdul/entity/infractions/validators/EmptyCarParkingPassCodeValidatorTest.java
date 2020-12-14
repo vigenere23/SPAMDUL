@@ -34,7 +34,6 @@ public class EmptyCarParkingPassCodeValidatorTest {
   public void givenNotEmptyPassCodeString_whenValidate_shouldCallNextValidation() {
     CarParkingPassValidator nextCarParkingPassValidator = mock(CarParkingPassValidator.class);
     emptyPassCodeValidator.setNextValidator(nextCarParkingPassValidator);
-
     passToValidateDto.passCode = A_NOT_EMPTY_PASS_CODE;
 
     emptyPassCodeValidator.validate(passToValidateDto);

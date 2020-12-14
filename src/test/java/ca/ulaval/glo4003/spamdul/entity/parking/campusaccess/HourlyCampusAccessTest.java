@@ -41,6 +41,7 @@ public class HourlyCampusAccessTest {
   @Test
   public void whenGettingCorrespondingParkingZone_shouldReturnAll() {
     ParkingZone parkingZone = hourlyCampusAccess.getParkingZone();
+
     assertThat(parkingZone).isEqualTo(ParkingZone.ALL);
   }
 

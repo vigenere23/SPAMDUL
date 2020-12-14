@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.excep
 
 public class PassNotAcceptedByAccessException extends InvalidPassArgumentException {
 
-  public PassNotAcceptedByAccessException() {
-    super("This user does not have campus access for the dates covered by this pass");
+  public String getError() {
+    return "NO_ACCESS";
+  }
+
+  public String getDescription() {
+    return "This user does not have campus access for the dates covered by this pass";
   }
 }

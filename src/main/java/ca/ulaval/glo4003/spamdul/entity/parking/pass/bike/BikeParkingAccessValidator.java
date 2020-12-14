@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 
 public class BikeParkingAccessValidator {
 
-
   private final Calendar calendar;
 
   public BikeParkingAccessValidator(Calendar calendar) {
@@ -12,6 +11,6 @@ public class BikeParkingAccessValidator {
   }
 
   public boolean validate(BikeParkingPass bikeParkingPass) {
-    return bikeParkingPass.getTimePeriod().bounds(calendar.now());
+    return bikeParkingPass.canAccessBikeParking(calendar.now());
   }
 }

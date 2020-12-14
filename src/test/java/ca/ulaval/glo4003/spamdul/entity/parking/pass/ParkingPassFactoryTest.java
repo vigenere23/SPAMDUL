@@ -52,6 +52,7 @@ public class ParkingPassFactoryTest {
   @Test
   public void givenABikeParkingZone_whenCreatingParkingPass_shouldCreateBikeParkingPass() {
     when(parkingPassCodeFactory.create(any(ParkingZone.class))).thenReturn(BIKE_PARKING_PASS_CODE);
+
     ParkingPass parkingPass = parkingPassFactory.create(ParkingZone.ZONE_BIKE, timePeriodDto);
 
     assertThat(parkingPass.getClass()).isEqualTo(BikeParkingPass.class);
@@ -60,6 +61,7 @@ public class ParkingPassFactoryTest {
   @Test
   public void givenACarParkingZone_whenCreatingParkingPass_shouldCreateCarParkingPass() {
     when(parkingPassCodeFactory.create(any(ParkingZone.class))).thenReturn(CAR_PARKING_PASS_CODE);
+
     ParkingPass parkingPass = parkingPassFactory.create(A_CAR_PARKING_ZONE, timePeriodDto);
 
     assertThat(parkingPass.getClass()).isEqualTo(CarParkingPass.class);

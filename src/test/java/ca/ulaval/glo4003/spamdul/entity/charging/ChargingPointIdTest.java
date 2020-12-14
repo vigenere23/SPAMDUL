@@ -10,6 +10,7 @@ public class ChargingPointIdTest {
   public void givenValue_whenCreatingChargingPointId_shouldCreateWithValue() {
     String value = "1234";
     ChargingPointId chargingPointId = ChargingPointId.valueOf(value);
+
     assertThat(chargingPointId.toString()).isEqualTo(value);
   }
 

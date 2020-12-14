@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.Acce
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfoRepository;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionInfosDto;
@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassVal
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 
 public class InfractionService {

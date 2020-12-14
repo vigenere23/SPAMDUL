@@ -10,6 +10,7 @@ public class CampusAccessCodeTest {
   public void givenValue_whenCreatingCampusAccessCode_shouldCreateWithValue() {
     String value = "1234";
     CampusAccessCode campusAccessCode = CampusAccessCode.valueOf(value);
+
     assertThat(campusAccessCode.toString()).isEqualTo(value);
   }
 

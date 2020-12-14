@@ -10,6 +10,7 @@ public class RechargULCardIdTest {
   public void givenValue_whenCreatingRechargULCardId_shouldCreateWithValue() {
     String value = "1234";
     RechargULCardId rechargULCardId = RechargULCardId.valueOf(value);
+
     assertThat(rechargULCardId.toString()).isEqualTo(value);
   }
 

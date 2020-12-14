@@ -3,20 +3,7 @@ package ca.ulaval.glo4003.spamdul.context.main;
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.authentication.AuthenticationExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.delivery.DeliveryExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.AccessingCampusExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.CarExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.pass.PassExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.BikeParkingAccessResource;
@@ -47,33 +34,21 @@ public class ProdContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      GlobalExceptionAssembler.class,
-                                     TimePeriodExceptionAssembler.class,
                                      AuthenticationResource.class,
-                                     AuthenticationExceptionAssembler.class,
-                                     UserExceptionAssembler.class,
                                      CampusAccessResource.class,
-                                     AccessingCampusExceptionAssembler.class,
-                                     CarExceptionAssembler.class,
-                                     CampusAccessExceptionAssembler.class,
                                      CarbonCreditsResource.class,
                                      ChargingPointResource.class,
-                                     ChargingPointExceptionMapper.class,
                                      RechargULResource.class,
-                                     RechargULExceptionMapper.class,
                                      RevenueResource.class,
-                                     FinanceExceptionMapper.class,
                                      FundraisingResource.class,
-                                     InitiativeExceptionMapper.class,
                                      InfractionResource.class,
-                                     InfractionExceptionAssembler.class,
                                      ParkingPassResource.class,
-                                     PassExceptionAssembler.class,
-                                     DeliveryExceptionAssembler.class,
                                      UsageReportResource.class,
-                                     UsageReportExceptionAssembler.class,
                                      UserResource.class,
-                                     BikeParkingAccessResource.class);
+                                     BikeParkingAccessResource.class,
+                                     SpamDULExceptionAssembler.class);
   }
 }

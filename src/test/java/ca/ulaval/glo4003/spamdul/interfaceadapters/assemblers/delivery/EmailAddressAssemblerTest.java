@@ -15,6 +15,7 @@ public class EmailAddressAssemblerTest {
   @Test
   public void whenAssemblingValidAddress_shouldReturnEmailAddress() {
     EmailAddress emailAddress = emailAddressAssembler.fromString(VALID_EMAIL);
+
     assertThat(emailAddress.toString()).isEqualTo(VALID_EMAIL);
   }
 

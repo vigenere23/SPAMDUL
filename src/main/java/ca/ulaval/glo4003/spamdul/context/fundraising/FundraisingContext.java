@@ -14,10 +14,10 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
+import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeDtoAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
 
 public abstract class FundraisingContext implements ResourceContext {
@@ -35,11 +35,13 @@ public abstract class FundraisingContext implements ResourceContext {
     initiativeRepository = new InMemoryInitiativeRepository();
 
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler();
+    InitiativeDtoAssembler initiativeDtoAssembler = new InitiativeDtoAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
     initiativeCreator = new InitiativeCreator(initiativeTransactionService, initiativeFactory);
     InitiativeService initiativeService = new InitiativeService(initiativeRepository,
                                                                 initiativeCreator,
-                                                                accessLevelValidator);
+                                                                accessLevelValidator,
+                                                                initiativeDtoAssembler);
 
     fundraisingResource = new FundraisingResource(initiativeAssembler, initiativeService, cookieAssembler);
 
@@ -60,6 +62,5 @@ public abstract class FundraisingContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(fundraisingResource);
-    resources.add(new InitiativeExceptionMapper());
   }
 }

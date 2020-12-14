@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.context.finance;
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.finance.RevenueResource;
@@ -30,7 +29,8 @@ public class FinanceContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
-                                     RevenueResource.class, FinanceExceptionMapper.class);
+                                     RevenueResource.class);
   }
 }

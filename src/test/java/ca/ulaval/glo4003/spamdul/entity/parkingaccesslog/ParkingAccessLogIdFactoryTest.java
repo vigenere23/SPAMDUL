@@ -28,7 +28,9 @@ public class ParkingAccessLogIdFactoryTest {
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generate()).thenReturn(A_VALUE);
+
     ParkingAccessLogId parkingAccessLogId = parkingAccessLogIdFactory.create();
+
     assertThat(parkingAccessLogId.toString()).isEqualTo(A_VALUE);
   }
 }

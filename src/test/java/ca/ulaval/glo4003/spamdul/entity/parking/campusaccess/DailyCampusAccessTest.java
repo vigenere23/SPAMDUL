@@ -28,6 +28,7 @@ public class DailyCampusAccessTest {
   @Test
   public void whenGettingCorrespondingParkingZone_shouldReturnAll() {
     ParkingZone parkingZone = dailyCampusAccess.getParkingZone();
+
     assertThat(parkingZone).isEqualTo(ParkingZone.ALL);
   }
 }

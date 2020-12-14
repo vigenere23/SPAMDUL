@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusacc
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -16,8 +15,8 @@ import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +30,6 @@ public class CampusAccessAssemblerTest {
   private final String A_LICENSE_PLATE_STRING = "license plate";
   private final LicensePlate A_LICENSE_PLATE = new LicensePlate(A_LICENSE_PLATE_STRING);
   public static final PeriodType INVALID_PERIOD_TYPE = PeriodType.MONTHLY;
-  public static final String INVALID_ACCESS_CODE_FORMAT = "j";
   private final CampusAccessCode A_CAMPUS_ACCESS_CODE = CampusAccessCode.valueOf("1");
   private final String A_CAMPUS_ACCESS_CODE_STRING = "1";
 
@@ -39,14 +37,15 @@ public class CampusAccessAssemblerTest {
   @Mock
   private TimePeriodAssembler timePeriodAssembler;
   private CampusAccessRequest campusAccessRequest;
-  private CampusAccess campusAccess;
+  private CampusAccessDto campusAccess;
   private AccessingCampusRequest accessingCampusRequest;
   private TimePeriodRequest timePeriodRequest;
   private TimePeriodDto timePeriodDto;
 
   @Before
   public void setUp() throws Exception {
-    campusAccess = new CampusAccess(A_CAMPUS_ACCESS_CODE, null);
+    campusAccess = new CampusAccessDto();
+    campusAccess.code = A_CAMPUS_ACCESS_CODE;
     campusAccessRequest = new CampusAccessRequest();
     campusAccessAssembler = new CampusAccessAssembler(timePeriodAssembler);
     accessingCampusRequest = new AccessingCampusRequest();

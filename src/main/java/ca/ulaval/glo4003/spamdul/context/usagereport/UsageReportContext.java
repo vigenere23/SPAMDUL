@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryPark
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
@@ -72,6 +71,5 @@ public abstract class UsageReportContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(usageReportResource);
-    resources.add(new UsageReportExceptionAssembler());
   }
 }

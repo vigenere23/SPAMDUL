@@ -19,16 +19,16 @@ public class InitiativeAssembler {
     return initiativeDto;
   }
 
-  public InitiativeResponse toResponse(Initiative initiative) {
+  public InitiativeResponse toResponse(InitiativeDto initiative) {
     InitiativeResponse response = new InitiativeResponse();
-    response.code = initiative.getCode().toString();
-    response.name = initiative.getName();
-    response.amount = initiative.getAmount().asDouble();
+    response.code = initiative.code.toString();
+    response.name = initiative.name;
+    response.amount = initiative.amount.asDouble();
 
     return response;
   }
 
-  public InitiativesResponse toResponse(List<Initiative> initiatives) {
+  public InitiativesResponse toResponse(List<InitiativeDto> initiatives) {
     List<InitiativeResponse> items = initiatives.stream().map(this::toResponse).collect(Collectors.toList());
     InitiativesResponse response = new InitiativesResponse();
     response.initiatives = items;

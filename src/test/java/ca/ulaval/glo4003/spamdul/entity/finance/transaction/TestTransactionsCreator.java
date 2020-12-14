@@ -24,12 +24,14 @@ public class TestTransactionsCreator {
   public static Transaction createSingleMock(Amount amount) {
     Transaction transaction = mock(Transaction.class);
     when(transaction.getAmount()).thenReturn(amount);
+
     return transaction;
   }
 
   public static Transaction createSingleMock(TransactionType transactionType) {
     Transaction transaction = mock(Transaction.class);
     when(transaction.getTransactionType()).thenReturn(transactionType);
+
     return transaction;
   }
 }

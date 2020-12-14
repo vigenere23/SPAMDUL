@@ -33,6 +33,7 @@ public class AccessGrantedObservableTest {
   @Test
   public void givenObserverNotRegistered_whenNotifyingObservers_itDoesNotCallThatObserver() {
     accessGrantedObservable.notifyAccessGranted(A_PARKING_ZONE, A_DATE);
+
     verify(accessGrantedObserver, never()).handleAccessGranted(A_PARKING_ZONE, A_DATE);
   }
 

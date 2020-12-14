@@ -39,12 +39,15 @@ public class InitiativeServiceTest {
   private InitiativeCreator initiativeCreator;
   @Mock
   AccessLevelValidator accessLevelValidator;
+  @Mock
+  InitiativeDtoAssembler initiativeDtoAssembler;
 
   @Before
   public void setUp() {
     initiativeService = new InitiativeService(initiativeRepository,
                                               initiativeCreator,
-                                              accessLevelValidator);
+                                              accessLevelValidator,
+                                              initiativeDtoAssembler);
     A_INITIATIVE_DTO.amount = AN_AMOUNT;
     A_INITIATIVE_DTO.name = A_NAME;
   }
@@ -61,7 +64,7 @@ public class InitiativeServiceTest {
     List<Initiative> mockedInitiatives = new ArrayList<>();
     when(initiativeRepository.findAll()).thenReturn(mockedInitiatives);
 
-    List<Initiative> initiatives = initiativeService.getAllInitiatives(A_TEMPORARY_TOKEN);
+    List<InitiativeDto> initiatives = initiativeService.getAllInitiatives(A_TEMPORARY_TOKEN);
 
     Truth.assertThat(initiatives).isEqualTo(mockedInitiatives);
   }
