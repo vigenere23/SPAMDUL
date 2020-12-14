@@ -26,7 +26,6 @@ public class InitiativeFactory {
   public Initiative create(InitiativeCode code, String name, Amount amount) {
     validateName(name);
     validateAmount(amount);
-    validateCode(code);
     validateCodeNotReserved(code);
 
     return new Initiative(initiativeIdFactory.create(), code, name, amount);
@@ -35,7 +34,6 @@ public class InitiativeFactory {
   public Initiative create(ReservedInitiativeCode reservedCode, String name, Amount amount) {
     validateName(name);
     validateAmount(amount);
-    validateCode(reservedCode.getValue());
 
     return new Initiative(initiativeIdFactory.create(), reservedCode.getValue(), name, amount);
   }
@@ -49,12 +47,6 @@ public class InitiativeFactory {
   private void validateAmount(Amount amount) {
     if (amount.isZero() || amount.isStrictlyNegative()) {
       throw new InvalidInitiativeAmountException();
-    }
-  }
-
-  private void validateCode(InitiativeCode code) {
-    if (code == null) {
-      throw new InvalidInitiativeCodeException();
     }
   }
 

@@ -1,13 +1,19 @@
 package ca.ulaval.glo4003.spamdul.entity.user.car;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CarFactoryTest {
 
+  private final CarId AN_ID = CarId.valueOf("123");
   private final CarType A_CAR_TYPE = CarType.ECONOMIQUE;
   private final String A_BRAND = "brand";
   private final String A_MODEL = "model";
@@ -17,16 +23,21 @@ public class CarFactoryTest {
 
   private CarFactory carFactory;
 
+  @Mock
+  private CarIdFactory carIdFactory;
+
   @Before
   public void setUp() throws Exception {
-    carFactory = new CarFactory();
+    carFactory = new CarFactory(carIdFactory);
   }
 
   @Test
   public void whenCreatingNewCar_shouldCreateCarWithRightInfos() {
+    when(carIdFactory.create()).thenReturn(AN_ID);
+
     Car car = carFactory.create(A_CAR_TYPE, A_BRAND, A_MODEL, A_CAR_YEAR, A_LICENSE_PLATE_STRING);
 
-    assertThat(car.getCarId()).isNotNull();
+    assertThat(car.getCarId()).isEqualTo(AN_ID);
     assertThat(car.getCarType()).isEqualTo(A_CAR_TYPE);
     assertThat(car.getBrand()).isEqualTo(A_BRAND);
     assertThat(car.getModel()).isEqualTo(A_MODEL);

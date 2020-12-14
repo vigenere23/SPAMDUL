@@ -48,7 +48,7 @@ public class CampusAccessServiceTest {
 
   private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final UserId A_USER_ID = UserId.valueOf("123");
-  private static final CarId A_CAR_ID = new CarId();
+  private static final CarId A_CAR_ID = CarId.valueOf("123");
   private static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   private static final String A_LICENSE_PLATE_STRING = "xxx xxx";
   private static final Car A_CAR = new Car(A_CAR_ID,

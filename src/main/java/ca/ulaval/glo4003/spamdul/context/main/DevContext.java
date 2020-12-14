@@ -31,7 +31,8 @@ public class DevContext extends MainContext {
     passContext = new DevPassContext(financeContext.getPassBankAccount(),
                                      userContext.getUserRepository());
     chargingContext = new DevChargingContext(financeContext.getTransactionFactory(),
-                                             userContext.getUserRepository());
+                                             userContext.getUserRepository(),
+                                             userContext.getCarFactory());
     fundraisingContext = new DevFundraisingContext(financeContext.getInitiativesBankAccount(),
                                                    authContext.getAuthenticationRepository(),
                                                    authContext.getAccessTokenCookieAssembler());

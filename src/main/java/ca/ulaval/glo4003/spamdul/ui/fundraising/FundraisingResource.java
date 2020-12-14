@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativesResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;

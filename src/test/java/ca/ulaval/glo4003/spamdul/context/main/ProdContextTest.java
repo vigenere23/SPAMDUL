@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.context.main;
 
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.GlobalExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.BikeParkingAccessResource;

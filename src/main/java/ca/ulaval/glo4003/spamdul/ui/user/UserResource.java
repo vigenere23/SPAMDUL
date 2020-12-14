@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.ui.user;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.ui.user.dto.UserResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserDto;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
 import javax.ws.rs.Consumes;

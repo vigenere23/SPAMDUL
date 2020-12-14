@@ -29,7 +29,8 @@ public class ProdContext extends MainContext {
     passContext = new ProdPassContext(financeContext.getPassBankAccount(),
                                       userContext.getUserRepository());
     chargingContext = new ProdChargingContext(financeContext.getTransactionFactory(),
-                                              userContext.getUserRepository());
+                                              userContext.getUserRepository(),
+                                              userContext.getCarFactory());
     fundraisingContext = new ProdFundraisingContext(financeContext.getInitiativesBankAccount(),
                                                     authContext.getAuthenticationRepository(),
                                                     authContext.getAccessTokenCookieAssembler());

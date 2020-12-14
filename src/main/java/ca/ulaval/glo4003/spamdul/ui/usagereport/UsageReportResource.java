@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.ui.usagereport;
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;

@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;

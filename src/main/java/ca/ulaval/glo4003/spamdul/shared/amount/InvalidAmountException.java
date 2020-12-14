@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.shared.amount;
 
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import ca.ulaval.glo4003.spamdul.assemblers.SpamDULBaseException;
 import javax.ws.rs.core.Response.Status;
 
 public class InvalidAmountException extends SpamDULBaseException {

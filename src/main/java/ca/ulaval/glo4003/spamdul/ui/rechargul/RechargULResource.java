@@ -1,12 +1,11 @@
 package ca.ulaval.glo4003.spamdul.ui.rechargul;
 
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardId;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULCardResponse;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULCreditsRequest;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULRequest;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.charging.RechargULCardAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import ca.ulaval.glo4003.spamdul.usecases.charging.dto.RechargULCardDto;

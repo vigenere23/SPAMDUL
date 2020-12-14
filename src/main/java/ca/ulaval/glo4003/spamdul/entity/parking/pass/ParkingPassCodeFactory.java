@@ -14,9 +14,9 @@ public class ParkingPassCodeFactory {
 
   public ParkingPassCode create(ParkingZone parkingZone) {
     if (parkingZone == ParkingZone.ZONE_BIKE) {
-      return BikeParkingPassCode.valueOf(String.valueOf(idGenerator.generate()));
+      return BikeParkingPassCode.valueOf(idGenerator.generate());
     }
 
-    return CarParkingPassCode.valueOf(String.valueOf(idGenerator.generate()));
+    return CarParkingPassCode.valueOf(idGenerator.generate());
   }
 }

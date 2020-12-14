@@ -16,8 +16,8 @@ import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogReposit
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryDto;

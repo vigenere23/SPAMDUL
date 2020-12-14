@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.parking.bikeparkingaccess.BikeParkingAccessService;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

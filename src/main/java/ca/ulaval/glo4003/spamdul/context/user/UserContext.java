@@ -5,10 +5,11 @@ import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarIdFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.user.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.car.CarAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.UserAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.user.UserResource;
 import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
@@ -17,12 +18,14 @@ public class UserContext implements ResourceContext {
 
   private final UserRepository userRepository;
   private final UserResource userResource;
+  private final CarFactory carFactory;
 
   public UserContext() {
     userRepository = new InMemoryUserRepository();
     CarAssembler carAssembler = new CarAssembler();
     UserAssembler userAssembler = new UserAssembler(carAssembler);
-    CarFactory carFactory = new CarFactory();
+    CarIdFactory carIdFactory = new CarIdFactory(new IncrementalIdGenerator());
+    carFactory = new CarFactory(carIdFactory);
     UserIdFactory userIdFactory = new UserIdFactory(new IncrementalIdGenerator());
     UserFactory userFactory = new UserFactory(userIdFactory, carFactory);
     userResource = new UserResource(userAssembler, new UserService(userRepository, userFactory));
@@ -30,6 +33,10 @@ public class UserContext implements ResourceContext {
 
   public UserRepository getUserRepository() {
     return userRepository;
+  }
+
+  public CarFactory getCarFactory() {
+    return carFactory;
   }
 
   @Override public void registerResources(InstanceMap resources) {

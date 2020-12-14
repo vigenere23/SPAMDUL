@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExac
 
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
@@ -23,11 +24,13 @@ public class DevChargingContextTest {
   private TransactionFactory transactionFactory;
   @Mock
   private UserRepository userRepository;
+  @Mock
+  private CarFactory carFactory;
 
   @Before
   public void setUp() {
     resources = new InstanceMap();
-    context = new DevChargingContext(transactionFactory, userRepository);
+    context = new DevChargingContext(transactionFactory, userRepository, carFactory);
   }
 
   @Test
