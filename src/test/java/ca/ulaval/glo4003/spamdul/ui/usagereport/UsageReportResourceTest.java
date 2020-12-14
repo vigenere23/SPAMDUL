@@ -3,9 +3,9 @@ package ca.ulaval.glo4003.spamdul.ui.usagereport;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
+import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
@@ -52,7 +52,10 @@ public class UsageReportResourceTest {
   @Test
   public void whenGetUsageReport_thenFoundUsageReportDtoFromService() {
     UsageReportCreationDto creationDto = new UsageReportCreationDto();
-    when(usageReportCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING, PARKING_CATEGORY_STRING))
+    when(usageReportCreationAssembler.fromValues(START_DATE_STRING,
+                                                 END_DATE_STRING,
+                                                 PARKING_ZONE_STRING,
+                                                 PARKING_CATEGORY_STRING))
         .thenReturn(creationDto);
     when(usageReportService.getReport(creationDto, A_TEMPORARY_TOKEN)).thenReturn(usageReportDto);
 
@@ -68,7 +71,10 @@ public class UsageReportResourceTest {
   @Test
   public void whenGetUsageReportSummary_thenFoundUsageReportSummaryDtoFromService() {
     UsageReportCreationDto creationDto = new UsageReportCreationDto();
-    when(usageReportCreationAssembler.fromValues(START_DATE_STRING, END_DATE_STRING, PARKING_ZONE_STRING, PARKING_CATEGORY_STRING))
+    when(usageReportCreationAssembler.fromValues(START_DATE_STRING,
+                                                 END_DATE_STRING,
+                                                 PARKING_ZONE_STRING,
+                                                 PARKING_CATEGORY_STRING))
         .thenReturn(creationDto);
     when(usageReportService.getReportSummary(creationDto, A_TEMPORARY_TOKEN)).thenReturn(
         usageReportSummaryDto);

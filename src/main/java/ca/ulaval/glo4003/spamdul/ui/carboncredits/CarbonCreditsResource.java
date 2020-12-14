@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.ui.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.entity.authentication.TemporaryToken;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.carboncredits.dto.CarbonCreditsToggleDto;
 import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
 import javax.ws.rs.Consumes;
@@ -27,7 +27,8 @@ public class CarbonCreditsResource {
   @PUT
   @Path("/activate")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response activateAutomaticTransfer(CarbonCreditsToggleDto request, @CookieParam("accessToken") Cookie accessToken) {
+  public Response activateAutomaticTransfer(CarbonCreditsToggleDto request,
+                                            @CookieParam("accessToken") Cookie accessToken) {
     TemporaryToken token = cookieAssembler.from(accessToken);
     CarbonCreditsToggleDto response = new CarbonCreditsToggleDto();
     response.active = carbonCreditsService.activateAutomaticTransfer(request.active, token);
