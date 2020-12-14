@@ -55,6 +55,7 @@ public class UsageReportFactoryTest {
   @Test
   public void whenCreatingAUsageReportWithoutAZone_ShouldCreateUsageReport() {
     UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY);
+
     assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
     assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
     assertThat(usageReport.getParkingZone()).isNull();
@@ -64,6 +65,7 @@ public class UsageReportFactoryTest {
   @Test
   public void whenCreatingAUsageReportWithZone_ShouldCreateUsageReportWithZone() {
     UsageReport usageReport = usageReportFactory.create(ACCESSES_PER_DAY, PARKING_ZONE_1, A_PARKING_CATEGORY);
+
     assertThat(usageReport.getUsageReport().get(A_DATE)).isEqualTo(NUMBER_OF_ACCESS);
     assertThat(usageReport.getUsageReport().get(ANOTHER_DATE)).isEqualTo(ANOTHER_NUMBER_OF_ACCESS);
     assertThat(usageReport.getParkingZone()).isEqualTo(PARKING_ZONE_1);

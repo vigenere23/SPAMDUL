@@ -84,7 +84,6 @@ public class EndOfMonthEventSchedulerTest {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, A_FIRST_OF_THE_MONTH);
     executorService = Executors.newSingleThreadScheduledExecutor();
     endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
-
     endOfMonthEventScheduler.register(scheduleObserver);
 
     Thread.sleep(THREAD_SLEEP_TIME_IN_MILLIS);
@@ -96,7 +95,6 @@ public class EndOfMonthEventSchedulerTest {
   @Test
   public void whenNotBeingObserved_shouldNotNotifyOnFirstOfMonth() throws InterruptedException {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, A_FIRST_OF_THE_MONTH);
-
     executorService = Executors.newSingleThreadScheduledExecutor();
     endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
     endOfMonthEventScheduler.register(scheduleObserver);
@@ -114,7 +112,6 @@ public class EndOfMonthEventSchedulerTest {
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, NOT_FIRST_OF_MONTH);
     executorService = Executors.newSingleThreadScheduledExecutor();
     endOfMonthEventScheduler = EndOfMonthEventScheduler.getInstance(executorService, calendar);
-
     endOfMonthEventScheduler.register(scheduleObserver);
 
     Thread.sleep(THREAD_SLEEP_TIME_IN_MILLIS);
@@ -127,7 +124,6 @@ public class EndOfMonthEventSchedulerTest {
   public void givenBeingObserved_whenNotBeingObserved_shouldStopJob() {
     ScheduledFuture future = mock(ScheduledFuture.class);
     executorService = mock(ScheduledExecutorService.class);
-
     when(calendar.now()).thenReturn(A_DATE_ONE_NANO_BEFORE_NEXT_DAY, NOT_FIRST_OF_MONTH);
     when(executorService.scheduleAtFixedRate(
         any(Runnable.class),

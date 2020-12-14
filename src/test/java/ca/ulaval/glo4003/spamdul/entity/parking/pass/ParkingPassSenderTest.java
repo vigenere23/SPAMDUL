@@ -48,18 +48,21 @@ public class ParkingPassSenderTest {
   @Test
   public void whenSendingPass_shouldCallDeliveryBridgeFactoryToCreateDeliveryBridge() {
     parkingPassSender.sendPass(deliveryDto, A_PASS_CODE);
+
     verify(deliveryStrategyFactory).create(A_DELIVERY_MODE);
   }
 
   @Test
   public void whenSendingPass_shouldCallDeliveryOptionsFactoryToCreateDeliveryOptions() {
     parkingPassSender.sendPass(deliveryDto, A_PASS_CODE);
+
     verify(parkingPassDeliveryOptionsFactory).create(deliveryDto, SUBJECT);
   }
 
   @Test
   public void givenPassCode_whenSendingPass_shouldSendMessageContainingPassCode() {
     parkingPassSender.sendPass(deliveryDto, A_PASS_CODE);
+
     String message = String.format(CONTENT, A_PASS_CODE.toString());
     verify(deliveryStrategy).deliver(deliveryOptions, message);
   }

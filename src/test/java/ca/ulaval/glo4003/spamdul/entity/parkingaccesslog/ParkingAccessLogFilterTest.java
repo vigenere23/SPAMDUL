@@ -58,7 +58,9 @@ public class ParkingAccessLogFilterTest {
   public void givenAccessLogTooEarly_whenFilteringBetweenDates_shouldReturnEmptyList() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BEFORE_DATE);
     parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+
     List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredLogs).isEmpty();
   }
 
@@ -66,7 +68,9 @@ public class ParkingAccessLogFilterTest {
   public void givenAccessLogTooLate_whenFilteringBetweenDates_shouldReturnEmptyList() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(AFTER_DATE);
     parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+
     List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredLogs).isEmpty();
   }
 
@@ -74,7 +78,9 @@ public class ParkingAccessLogFilterTest {
   public void givenAccessLogBetweenDates_whenFilteringBetweenDates_shouldReturnTheGivenLog() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BETWEEN_DATE);
     parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+
     List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+
     assertThat(filteredLogs).containsExactly(accessLogTooEarly);
   }
 

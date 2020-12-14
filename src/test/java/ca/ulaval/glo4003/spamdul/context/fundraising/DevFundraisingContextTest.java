@@ -32,6 +32,7 @@ public class DevFundraisingContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      FundraisingResource.class);
   }

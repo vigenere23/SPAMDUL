@@ -35,12 +35,14 @@ public class InMemoryTransactionRepositoryTest {
   @Test
   public void givenInitialized_whenFindingAll_shouldReturnEmptyList() {
     List<Transaction> transactions = transactionRepository.findAll();
+
     assertThat(transactions).isEmpty();
   }
 
   @Test
   public void whenSaving_shouldSave() {
     Transaction transaction = createAndSaveTransaction(A_TRANSACTION_TYPE);
+
     assertThat(transactionRepository.findAll()).containsExactly(transaction);
   }
 
@@ -90,7 +92,9 @@ public class InMemoryTransactionRepositoryTest {
 
   private Transaction createAndSaveTransaction(TransactionType transactionType) {
     Transaction transaction = TestTransactionsCreator.createSingleMock(transactionType);
+
     transactionRepository.save(transaction);
+
     return transaction;
   }
 }

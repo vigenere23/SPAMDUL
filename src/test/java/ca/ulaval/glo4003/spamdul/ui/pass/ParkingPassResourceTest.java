@@ -49,6 +49,7 @@ public class ParkingPassResourceTest {
   @Test
   public void whenSellingPass_responseCodeShouldBe201() {
     Response response = parkingPassResource.sellPass(A_PASS_CREATION_REQUEST);
+
     assertThat(response.getStatus()).isEqualTo(201);
   }
 

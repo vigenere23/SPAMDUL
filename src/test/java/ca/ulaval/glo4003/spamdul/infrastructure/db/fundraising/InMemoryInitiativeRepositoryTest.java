@@ -25,6 +25,7 @@ public class InMemoryInitiativeRepositoryTest {
   @Test
   public void givenNewRepository_whenFindingAll_shouldReturnEmptyList() {
     List<Initiative> initiatives = inMemoryInitiativeRepository.findAll();
+
     assertThat(initiatives).isEmpty();
   }
 

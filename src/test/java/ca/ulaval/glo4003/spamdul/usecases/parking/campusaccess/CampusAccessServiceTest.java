@@ -118,8 +118,9 @@ public class CampusAccessServiceTest {
 
   @Test
   public void whenCreatingNewCampusAccess_shouldCallCampusAccessFactoryToCreateNewCampusAccess() {
-    campusAccessService.createCampusAccess(campusAccessDto);
     when(userRepository.findBy(A_USER_ID)).thenReturn(user);
+
+    campusAccessService.createCampusAccess(campusAccessDto);
 
     verify(campusAccessFactory, times(1)).create(A_TIME_PERIOD_DTO);
   }
@@ -149,6 +150,7 @@ public class CampusAccessServiceTest {
   public void givenACampusAccessCode_whenVerifyingIfCanAccessCampus_shouldFindTheRightUserFromCode() {
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
+
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(userRepository, times(1)).findBy(A_CAMPUS_ACCESS_CODE);
@@ -170,6 +172,7 @@ public class CampusAccessServiceTest {
   public void whenVerifyingIfCanAccessCampus_shouldCallCalendarNow() {
     when(userRepository.findBy(A_CAMPUS_ACCESS_CODE)).thenReturn(user);
     when(calendar.now()).thenReturn(A_START_DATE_TIME);
+
     campusAccessService.grantAccessToCampus(accessingCampusDto);
 
     verify(calendar, times(1)).now();

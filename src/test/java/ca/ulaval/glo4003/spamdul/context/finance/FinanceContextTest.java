@@ -29,6 +29,7 @@ public class FinanceContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      RevenueResource.class);
   }

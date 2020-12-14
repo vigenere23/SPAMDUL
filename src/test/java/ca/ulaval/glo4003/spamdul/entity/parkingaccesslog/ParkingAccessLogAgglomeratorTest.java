@@ -33,16 +33,20 @@ public class ParkingAccessLogAgglomeratorTest {
   @Test
   public void givenEmptyAccessLogList_whenGroupingByAccessDate_shouldReturnEmptyMap() {
     List<ParkingAccessLog> emptyAccessLogsList = new ArrayList<>();
+
     Map<LocalDate, List<ParkingAccessLog>> groupedLogs = parkingAccessLogAgglomerator.groupByAccessDate(
         emptyAccessLogsList);
+
     assertThat(groupedLogs).isEmpty();
   }
 
   @Test
   public void givenSingleAccessLog_whenGroupingByAccessDate_shouldReturnSingleEntryMap() {
     List<ParkingAccessLog> singleAccessLogList = Collections.singletonList(AN_ACCESS_LOG);
+
     Map<LocalDate, List<ParkingAccessLog>> groupedLogs = parkingAccessLogAgglomerator.groupByAccessDate(
         singleAccessLogList);
+
     assertThat(groupedLogs.entrySet()).hasSize(1);
     assertThat(groupedLogs.get(AN_ACCESS_LOG.getAccessDate())).containsExactly(AN_ACCESS_LOG);
   }
@@ -50,7 +54,9 @@ public class ParkingAccessLogAgglomeratorTest {
   @Test
   public void givenAccessLogsWithDifferentAccessDates_whenGroupingByAccessDate_shouldReturnTwoDifferentDateKeys() {
     List<ParkingAccessLog> accessLogs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_ONE_DAY_BEFORE);
+
     Map<LocalDate, List<ParkingAccessLog>> groupedLogs = parkingAccessLogAgglomerator.groupByAccessDate(accessLogs);
+
     assertThat(groupedLogs.keySet()).hasSize(2);
     assertThat(groupedLogs.get(AN_ACCESS_LOG.getAccessDate())).containsExactly(AN_ACCESS_LOG);
     assertThat(groupedLogs.get(AN_ACCESS_LOG_ONE_DAY_BEFORE.getAccessDate())).containsExactly(
@@ -60,7 +66,9 @@ public class ParkingAccessLogAgglomeratorTest {
   @Test
   public void givenAccessLogsWithSameAccessDate_whenGroupingByAccessDate_shouldReturnASingleKeyWithTwoElements() {
     List<ParkingAccessLog> accessLogs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
+
     Map<LocalDate, List<ParkingAccessLog>> groupedLogs = parkingAccessLogAgglomerator.groupByAccessDate(accessLogs);
+
     assertThat(groupedLogs.keySet()).hasSize(1);
     assertThat(groupedLogs.get(AN_ACCESS_LOG.getAccessDate())).containsExactly(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
   }

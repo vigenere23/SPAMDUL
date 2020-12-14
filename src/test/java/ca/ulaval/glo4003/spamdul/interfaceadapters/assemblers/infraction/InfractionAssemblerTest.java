@@ -53,7 +53,7 @@ public class InfractionAssemblerTest {
 
   @Test
   public void givenAnInfraction_whenAssemblingResponse_shouldReturnResponseWithTheRightInfos() {
-    InfractionDto infractionDto = new InfractionDto();//(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    InfractionDto infractionDto = new InfractionDto();
     infractionDto.id = A_INFRACTION_ID;
     infractionDto.amount = AN_AMOUNT;
     infractionDto.code = AN_INFRACTION_CODE;

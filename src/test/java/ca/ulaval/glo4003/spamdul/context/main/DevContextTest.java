@@ -36,6 +36,7 @@ public class DevContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      GlobalExceptionAssembler.class,
                                      PingResource.class,

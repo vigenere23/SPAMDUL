@@ -37,6 +37,7 @@ public class InitiativeAssemblerTest {
   @Test
   public void givenInitiativeRequest_whenAssembling_shouldReturnEntityFromFactory() {
     InitiativeDto initiativeDto = initiativeAssembler.fromRequest(initiativeRequest);
+
     Truth.assertThat(initiativeDto.name).isEqualTo(initiativeRequest.name);
     Truth.assertThat(initiativeDto.amount).isEqualTo(Amount.valueOf(initiativeRequest.amount));
   }
@@ -44,6 +45,7 @@ public class InitiativeAssemblerTest {
   @Test
   public void givenInitiative_whenAssembling_shouldReturnResponse() {
     InitiativeResponse initiativeResponse = initiativeAssembler.toResponse(initiative);
+
     Truth.assertThat(initiativeResponse.code).isEqualTo(initiative.code.toString());
     Truth.assertThat(initiativeResponse.name).isEqualTo(initiative.name);
     Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.amount.asDouble());

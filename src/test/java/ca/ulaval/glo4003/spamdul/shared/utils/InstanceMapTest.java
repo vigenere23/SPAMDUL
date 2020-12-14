@@ -30,12 +30,14 @@ public class InstanceMapTest {
   @Test
   public void whenAddingWithParentClass_shouldAddAsParentClass() {
     instanceMap.add(Parent.class, new Child());
+
     assertThat(instanceMap.contains(Parent.class)).isTrue();
   }
 
   @Test
   public void whenAddingWithoutParentClass_shouldAddWithInstanceClass() {
     instanceMap.add(new Child());
+
     assertThat(instanceMap.contains(Child.class)).isTrue();
   }
 

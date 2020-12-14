@@ -32,6 +32,7 @@ public class CampusAccessContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      CampusAccessResource.class);
   }

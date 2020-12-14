@@ -9,7 +9,7 @@ import org.junit.Test;
 public class CsvReaderTest {
 
   private CsvReader reader;
-  private final String PATH = "src/test/ressources/test_file.csv";
+  private final String PATH = "src/test/resources/test_file.csv";
 
   @Before
   public void setUp() throws Exception {

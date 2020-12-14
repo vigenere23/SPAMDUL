@@ -41,6 +41,7 @@ public class BikeParkingAccessValidatorTest {
   @Test
   public void givenAValidBikeParkingAccess_whenValidating_shouldReturnValidAccess() {
     when(timePeriod.bounds(calendar.now())).thenReturn(true);
+
     boolean accessGranted = bikeParkingAccessValidator.validate(new BikeParkingPass(BIKE_PARKING_PASS_CODE,
                                                                                     timePeriod));
 
@@ -50,6 +51,7 @@ public class BikeParkingAccessValidatorTest {
   @Test
   public void givenAnInvalidBikeParkingAccess_whenValidating_ShouldReturnNotValidAccess() {
     when(timePeriod.bounds(calendar.now())).thenReturn(false);
+
     boolean accessGranted = bikeParkingAccessValidator.validate(new BikeParkingPass(BIKE_PARKING_PASS_CODE,
                                                                                     timePeriod));
 

@@ -89,7 +89,6 @@ public class CarbonCreditsServiceTest {
   public void whenTransferRemainingBudget_shouldPurchaseWithCarbonCreditsPurchaser() {
     carbonCreditsService.transferRemainingBudget();
 
-    //TODO: remove any for the return value of bank account when the full method is implemented
     verify(carbonCreditsPurchaser, times(1)).purchase(CarbonCredits.valueOf(A_AMOUNT));
   }
 }

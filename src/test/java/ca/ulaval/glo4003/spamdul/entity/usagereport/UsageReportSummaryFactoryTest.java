@@ -50,7 +50,9 @@ public class UsageReportSummaryFactoryTest {
   @Test
   public void givenEmptyAccessLogsMap_whenCreatingSummaryReport_shouldHaveMeanUsageOfZero() {
     Map<LocalDate, List<ParkingAccessLog>> emptyLogsMap = new HashMap<>();
+
     UsageReportSummary usageReportSummary = usageReportSummaryFactory.create(emptyLogsMap, START_DATE, END_DATE);
+
     assertThat(usageReportSummary.getMeanUsagePerDay()).isEqualTo(0);
   }
 

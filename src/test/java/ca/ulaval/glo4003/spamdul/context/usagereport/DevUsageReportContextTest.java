@@ -32,6 +32,7 @@ public class DevUsageReportContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      UsageReportResource.class);
   }

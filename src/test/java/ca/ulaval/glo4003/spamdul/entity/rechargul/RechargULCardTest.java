@@ -57,31 +57,37 @@ public class RechargULCardTest {
   @Test
   public void whenAddingCredits_shouldAddToCredits() {
     card.addCredits(AN_AMOUNT);
+
     assertThat(card.total()).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void givenPositiveCredits_whenVerifyingCredits_shouldDoNothing() {
     card.addCredits(AN_AMOUNT);
+
     card.verifyEnoughCreditsForCharging();
   }
 
   @Test
   public void whenDebiting_shouldSubtractFromCredits() {
     card.debit(AN_AMOUNT);
+
     assertThat(card.total()).isEqualTo(AN_AMOUNT.multiply(-1));
   }
 
   @Test(expected = NotEnoughCreditsException.class)
   public void givenNegativeTotal_whenVerifyingCredits_shouldThrowException() {
     card.debit(AN_AMOUNT);
+
     card.verifyEnoughCreditsForCharging();
   }
 
   @Test
   public void givenDebitedAmount_whenCreditingSameAmount_shouldHaveZeroBalance() {
     card.addCredits(AN_AMOUNT);
+
     card.debit(AN_AMOUNT);
+
     assertThat(card.total()).isEqualTo(Amount.valueOf(0));
   }
 }

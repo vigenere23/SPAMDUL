@@ -60,6 +60,7 @@ public class InitiativeFactoryTest {
   @Test
   public void whenCreating_itReturnsValidInitiative() {
     when(initiativeCodeFactory.create()).thenReturn(A_CODE);
+
     assertThat(initiativeFactory.create(A_VALID_NAME, A_VALID_AMOUNT)).isNotNull();
   }
 }

@@ -33,6 +33,7 @@ public class DevChargingContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      ChargingPointResource.class,
                                      RechargULResource.class);

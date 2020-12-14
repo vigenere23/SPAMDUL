@@ -38,6 +38,7 @@ public class InfractionsContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      InfractionResource.class);
   }

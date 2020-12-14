@@ -30,6 +30,7 @@ public class InitiativeTransactionServiceTest {
   @Test
   public void whenAddingExpense_shouldAddToSustainabilityExpenses() {
     initiativeTransactionService.addExpense(AN_AMOUNT);
+
     verify(sustainabilityBankAccount, times(1)).addExpense(AN_AMOUNT, TransactionType.INITIATIVE);
   }
 }

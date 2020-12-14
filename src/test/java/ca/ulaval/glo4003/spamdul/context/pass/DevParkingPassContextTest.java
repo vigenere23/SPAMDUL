@@ -29,6 +29,7 @@ public class DevParkingPassContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      ParkingPassResource.class);
   }
