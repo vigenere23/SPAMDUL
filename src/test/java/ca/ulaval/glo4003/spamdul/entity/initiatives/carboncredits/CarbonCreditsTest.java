@@ -3,13 +3,11 @@ package ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
-import java.text.DecimalFormat;
 import org.junit.Test;
 
 public class CarbonCreditsTest {
 
   private static final double AMOUNT_DIVIDER = 21.81;
-  private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
   @Test
   public void givenValue_whenCreating_shouldHaveSameValue() {
@@ -25,7 +23,7 @@ public class CarbonCreditsTest {
 
     CarbonCredits carbonCredits = CarbonCredits.valueOf(amount);
 
-    double expectedValue = Double.parseDouble(decimalFormat.format(value / AMOUNT_DIVIDER));
+    double expectedValue = Math.round(value / AMOUNT_DIVIDER * 100) / 100.0;
     assertThat(carbonCredits.asDouble()).isEqualTo(expectedValue);
   }
 }
