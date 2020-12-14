@@ -31,8 +31,8 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class CampusAccessServiceTest {
 
   private static final ParkingPassCode A_PASS_CODE = CarParkingPassCode.valueOf("123");
   private static final UserId A_USER_ID = UserId.valueOf("123");
-  private static final CarId A_CAR_ID = new CarId();
+  private static final CarId A_CAR_ID = CarId.valueOf("123");
   private static final CarType A_CAR_TYPE = CarType.GOURMANDE;
   private static final String A_LICENSE_PLATE_STRING = "xxx xxx";
   private static final Car A_CAR = new Car(A_CAR_ID,

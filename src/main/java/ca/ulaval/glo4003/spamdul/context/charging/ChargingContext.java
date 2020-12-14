@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardIdFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
@@ -30,7 +31,9 @@ public abstract class ChargingContext implements ResourceContext {
   protected final ChargingPointResource chargingPointResource;
   protected final RechargULResource rechargULResource;
 
-  public ChargingContext(TransactionFactory transactionFactory, UserRepository userRepository) {
+  public ChargingContext(TransactionFactory transactionFactory,
+                         UserRepository userRepository,
+                         CarFactory carFactory) {
     ChargingPointRepository chargingPointRepository = new InMemoryChargingPointRepository();
     ChargingPointIdFactory chargingPointIdFactory = new ChargingPointIdFactory(new IncrementalIdGenerator());
     ChargingPointFactory chargingPointFactory = new ChargingPointFactory(chargingPointIdFactory);
@@ -53,7 +56,7 @@ public abstract class ChargingContext implements ResourceContext {
 
     ChargingPointPopulator chargingPointPopulator = new ChargingPointPopulator(chargingPointFactory,
                                                                                chargingPointRepository);
-    RechargULCardPopulator rechargULCardPopulator = new RechargULCardPopulator(rechargULCardFactory,
+    RechargULCardPopulator rechargULCardPopulator = new RechargULCardPopulator(carFactory, rechargULCardFactory,
                                                                                userRepository);
 
     populateChargingPoints(chargingPointPopulator);

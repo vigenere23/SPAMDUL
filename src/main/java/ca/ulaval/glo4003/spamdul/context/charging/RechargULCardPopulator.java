@@ -1,25 +1,26 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.Car;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarId;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
+import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
 import java.time.LocalDate;
 
 public class RechargULCardPopulator implements Populator {
 
+  private final CarFactory carFactory;
   private final RechargULCardFactory rechargULCardFactory;
   private final UserRepository userRepository;
 
-  public RechargULCardPopulator(RechargULCardFactory rechargULCardFactory,
+  public RechargULCardPopulator(CarFactory carFactory,
+                                RechargULCardFactory rechargULCardFactory,
                                 UserRepository userRepository) {
+    this.carFactory = carFactory;
     this.rechargULCardFactory = rechargULCardFactory;
     this.userRepository = userRepository;
   }
@@ -31,12 +32,11 @@ public class RechargULCardPopulator implements Populator {
                            "name",
                            Gender.MALE,
                            LocalDate.MAX,
-                           new Car(new CarId(),
-                                   CarType.ECONOMIQUE,
-                                   "brand",
-                                   "model",
-                                   2020,
-                                   new LicensePlate("xxx xxx")));
+                           carFactory.create(CarType.ECONOMIQUE,
+                                             "brand",
+                                             "model",
+                                             2020,
+                                             "xxx xxx"));
       user.associate(card);
       userRepository.save(user);
     }

@@ -1,5 +1,11 @@
 package ca.ulaval.glo4003.spamdul.entity.user;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.entity.infractions.Infraction;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
@@ -25,20 +31,16 @@ import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasACampusAcc
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasARechargULCard;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserAlreadyHasThisInfraction;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
-import org.junit.Test;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
+import org.junit.Test;
 
 public class UserTest {
 
   public static final String ACCESS_CODE_STRING = "1234";
-  public static final CarId CAR_ID = new CarId();
+  public static final CarId CAR_ID = CarId.valueOf("123");
   public static final CarType CAR_TYPE = CarType.ECONOMIQUE;
   public static final String BRAND = "brand";
   public static final String MODEL = "model";
