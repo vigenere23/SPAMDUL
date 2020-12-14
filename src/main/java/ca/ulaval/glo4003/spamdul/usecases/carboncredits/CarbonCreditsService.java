@@ -68,7 +68,7 @@ public class CarbonCreditsService implements ScheduleObserver {
 
     carbonCreditsPurchaser.purchase(CarbonCredits.valueOf(totalAvailableAmount));
     carbonCreditsTransactionService.addRevenue(totalAvailableAmount);
-    initiativeRepository.save(initiative); // TODO should be done by InitiativeCreator?
+    initiativeRepository.save(initiative);
 
     return totalAvailableAmount;
   }
