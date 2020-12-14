@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionDto;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
@@ -53,7 +53,7 @@ public class InfractionAssemblerTest {
 
   @Test
   public void givenAnInfraction_whenAssemblingResponse_shouldReturnResponseWithTheRightInfos() {
-    InfractionDto infractionDto = new InfractionDto();//(A_INFRACTION_ID, AN_INFRACTION_DESCRIPTION, AN_INFRACTION_CODE, AN_AMOUNT);
+    InfractionDto infractionDto = new InfractionDto();
     infractionDto.id = A_INFRACTION_ID;
     infractionDto.amount = AN_AMOUNT;
     infractionDto.code = AN_INFRACTION_CODE;

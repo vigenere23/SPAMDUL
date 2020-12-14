@@ -10,8 +10,8 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.validators.CarParkingPassVal
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.infraction.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

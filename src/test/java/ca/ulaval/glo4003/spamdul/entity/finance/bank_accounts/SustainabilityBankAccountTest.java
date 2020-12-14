@@ -51,7 +51,9 @@ public class SustainabilityBankAccountTest {
   @Test
   public void whenAddingRevenue_shouldCreateAndSaveTransactionToRevenueRepository() {
     when(transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT)).thenReturn(A_TRANSACTION);
+
     sustainabilityBankAccount.addRevenue(AN_AMOUNT, A_TRANSACTION_TYPE);
+
     verify(revenueRepository, times(1)).save(A_TRANSACTION);
   }
 

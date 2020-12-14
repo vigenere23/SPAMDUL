@@ -47,6 +47,7 @@ public class DevCarbonCreditsContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
                                      CarbonCreditsResource.class, CarbonCreditsResourceAdmin.class);
   }

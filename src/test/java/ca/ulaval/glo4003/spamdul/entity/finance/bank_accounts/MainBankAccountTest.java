@@ -48,7 +48,9 @@ public class MainBankAccountTest {
   @Test
   public void whenAddingRevenue_shouldCreateAndSaveTransactionToRepo() {
     when(transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT)).thenReturn(A_TRANSACTION);
+
     mainBankAccount.addRevenue(AN_AMOUNT, A_TRANSACTION_TYPE);
+
     verify(revenueTransactionRepository, times(1)).save(A_TRANSACTION);
   }
 

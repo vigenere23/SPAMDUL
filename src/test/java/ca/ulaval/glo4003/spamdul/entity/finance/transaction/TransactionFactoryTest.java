@@ -32,12 +32,14 @@ public class TransactionFactoryTest {
   @Test
   public void givenAmount_whenCreating_shouldHaveAmount() {
     Transaction transaction = transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT);
+
     assertThat(transaction.getAmount()).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void givenTransactionType_whenCreating_shouldHaveTransactionType() {
     Transaction transaction = transactionFactory.create(A_TRANSACTION_TYPE, AN_AMOUNT);
+
     assertThat(transaction.getTransactionType()).isEqualTo(A_TRANSACTION_TYPE);
   }
 }

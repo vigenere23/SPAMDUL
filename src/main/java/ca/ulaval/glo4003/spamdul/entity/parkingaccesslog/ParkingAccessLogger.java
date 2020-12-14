@@ -17,7 +17,7 @@ public class ParkingAccessLogger implements AccessGrantedObserver {
     this.parkingAccessLogRepository = parkingAccessLogRepository;
   }
 
-  @Override public void handleAccessGrantedWithCampusAccess(ParkingZone parkingZone, LocalDate accessDate) {
+  @Override public void handleAccessGranted(ParkingZone parkingZone, LocalDate accessDate) {
     parkingAccessLogRepository.save(parkingAccessLogFactory.create(parkingZone, accessDate));
     logger.info("Creating and saving parkingAccessLogFactory");
   }

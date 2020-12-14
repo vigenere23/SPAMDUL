@@ -28,7 +28,9 @@ public class RechargULCardIdFactoryTest {
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generate()).thenReturn(A_VALUE);
+
     RechargULCardId rechargULCardId = rechargULCardIdFactory.create();
+
     assertThat(rechargULCardId.toString()).isEqualTo(A_VALUE);
   }
 }

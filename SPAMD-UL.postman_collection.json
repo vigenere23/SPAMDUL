@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2745cbf7-e6f6-4d60-8a81-351e28ac33d0",
+		"_postman_id": "3ef96f94-c291-4566-a31e-7a9622f50ff2",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "07caaa9f-c045-4909-a0a3-55ddc84cf785",
+						"id": "505a449c-9202-4cc6-8bdc-24d363bf1632",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -24,7 +24,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "eb7cf00b-006b-413a-b30b-e25db5c7d1c5",
+						"id": "74cac979-644c-4d62-9e8a-50218600be50",
 						"exec": [
 							"const today = new Date()",
 							"const yesterday = new Date()",
@@ -77,7 +77,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3238e8a1-7a2c-4cd0-a377-11fc824b1be4",
+						"id": "5339c276-69b0-48fa-8aa9-65631b9d9027",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -94,7 +94,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "5e9b495a-b412-4dc1-9e63-5cebfa8ef264",
+						"id": "bbaf1ade-1b27-4994-a7b9-93c927e8faa2",
 						"exec": [
 							""
 						],
@@ -203,7 +203,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "39b98170-d396-4c69-bebe-87e38d79331e",
+						"id": "22ccc804-c84f-4210-a19a-9cce0c74d4c4",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -220,7 +220,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a05a41a1-c68e-4310-8fb8-c5e083129dcb",
+						"id": "6c7c040a-2876-4be7-9a6d-a241e563fa6d",
 						"exec": [
 							""
 						],
@@ -329,7 +329,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "41444daa-86a5-4f7c-8307-ecd96eab0f0e",
+						"id": "36135402-f0b0-48dd-a153-bd1f8f156f97",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -346,7 +346,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "de8751ff-32bf-4750-9d88-c539100b835d",
+						"id": "609568b6-8c05-4914-941a-321ab5b7f079",
 						"exec": [
 							""
 						],
@@ -455,7 +455,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f9b5bc59-cd18-429d-b63c-20abfa3a70d1",
+						"id": "9728261a-6966-4bc5-99ac-2f8fbb9b70e2",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -505,7 +505,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4ddb1ec7-f5e3-4b97-88d0-569e924e2531",
+						"id": "bdb020ba-cf9d-4c59-9902-16b39910f4fa",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -522,7 +522,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "d9fa8fdf-46f6-4faf-8c21-1ef8ad55da5b",
+						"id": "2bfccdfd-3311-4413-9d98-fb504809f58e",
 						"exec": [
 							""
 						],
@@ -631,7 +631,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a75bb0b9-9b91-42c3-8311-cb2306508f6e",
+						"id": "fb307356-6ecc-48e1-ba53-3b9ea31b2dfb",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -681,7 +681,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e38ce003-adec-439e-bd5e-c8642ae04a2a",
+						"id": "3a581e58-6eb0-4942-98fd-144373bf2472",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -698,7 +698,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a2386131-67c6-4948-a35e-07705fff7546",
+						"id": "24b123d9-df80-440a-a8e7-cafe5d9cd1bd",
 						"exec": [
 							""
 						],
@@ -807,7 +807,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "786ab8b7-d746-4561-9bd5-f44c6a251848",
+						"id": "de469e81-e093-496d-8f5d-ca2f44a30bf5",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -857,7 +857,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1cd3c21b-8ee3-41ab-b2b0-2356dcb2573b",
+						"id": "ca6db7d4-a9f4-489b-8c3a-f2483a2c9b59",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -874,7 +874,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "9f57e20a-21f2-4fcb-b125-9eed5378f59e",
+						"id": "96ad16ff-5b50-420c-ba2b-cadf91bb3d41",
 						"exec": [
 							""
 						],
@@ -983,7 +983,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "74f305a9-bf2c-491a-aebd-619d84889885",
+						"id": "67877d74-31f2-4b0f-91ee-922f82515b76",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1033,7 +1033,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cf783e9f-1356-4b74-847b-470f57e8ef5b",
+						"id": "c634b678-c63b-43f4-ad78-42ebce4c0ec8",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1083,7 +1083,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e0c56470-704a-4898-a93e-01f96edac845",
+						"id": "2e217a01-ce58-418b-9ef3-4fb4a3a5f7b9",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1133,7 +1133,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed440c10-00a6-48e7-b21c-1552096cc9fe",
+						"id": "39f9077f-f80f-4c74-a8f3-c11455a64ecd",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1183,7 +1183,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d80ad6ca-47bd-4050-b024-32f46ea12a12",
+						"id": "a5cc7a2c-eeb9-46c7-bcff-ecb00104ff3a",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1233,7 +1233,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d0f26b19-a625-4872-a410-f09d01db5e71",
+						"id": "3ed90977-9877-4cf5-a299-46b77437e2d1",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1283,7 +1283,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0b04e1a5-0a73-4d7c-858a-84ff2d3257cd",
+						"id": "7daa394c-4b61-489e-ae02-0ff8ed2066c8",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -1400,7 +1400,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d45e6647-0845-478b-8cdd-60e238dc9d70",
+						"id": "b4bc40c6-c9d6-4873-92d3-3fedf260202c",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1444,72 +1444,6 @@
 				}
 			},
 			"response": [
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "24"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
-				},
 				{
 					"name": "Accessing campus",
 					"originalRequest": {
@@ -1575,124 +1509,6 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"access\": \"GRANTED\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Accessing campus with license plate",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "99946a66-41f3-4041-93c1-793cfc571faf",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Access is 'GRANTED'\", function () {",
-							"    pm.expect(pm.response.json()['access']).to.eql('GRANTED')",
-							"})",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n   \"licensePlate\": \"123 456\"\n}\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "127.0.0.1:8080/api/campus-access/access",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campus-access",
-						"access"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Accessing campus",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8080/api/campusaccess/access",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"campusaccess",
-								"access"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "20"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access\": \"GRANTED\"\n}"
 				},
 				{
 					"name": "Accessing campus",
@@ -1763,12 +1579,196 @@
 			]
 		},
 		{
+			"name": "Accessing campus with license plate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc10599e-6d14-4b40-b6ee-7773934aa23f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Access is 'GRANTED'\", function () {",
+							"    pm.expect(pm.response.json()['access']).to.eql('GRANTED')",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"licensePlate\": \"123 456\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/campus-access/access",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campus-access",
+						"access"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:24:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "24"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"NOT GRANTED\"\n}"
+				},
+				{
+					"name": "Accessing campus",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"campusAccessCode\": \"1\",\n   \"accessingCampusDate\": \"2020-10-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/campusaccess/access",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campusaccess",
+								"access"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 01 Oct 2020 17:40:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"GRANTED\"\n}"
+				}
+			]
+		},
+		{
 			"name": "Invalid accessing campus (inexistant campus access code)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f6bba865-d88b-4442-8f48-6b8245966d6a",
+						"id": "925ff60b-50c1-4d19-ab60-8bba41cb9a18",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -1886,7 +1886,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dfabca46-6907-4c48-8f9a-524522b81be0",
+						"id": "f04325cf-521f-44e6-93d0-812740c5cf63",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -1903,7 +1903,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0e343d3e-cb9a-48ff-93da-4789481f1061",
+						"id": "05a7fd53-8bca-45ae-ac7d-21ae1ca7312a",
 						"exec": [
 							""
 						],
@@ -2012,7 +2012,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ad9beea6-6932-4385-b53a-ab4203ca2ef1",
+						"id": "89535840-d8b3-4b5f-a0b3-a0a7d2db8cea",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -2062,7 +2062,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8ba8a2f7-e540-4f2d-b326-ee620b56512e",
+						"id": "d41a0d31-8ee5-494b-a82a-e8914ed8fd60",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2247,7 +2247,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d59cf8f4-b1bf-4df8-b00e-504a659ac8e3",
+						"id": "564acaf0-07ce-4959-8a90-c967ca0eaf2c",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -2264,7 +2264,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "4639fecc-e94e-4cc7-9741-b8501d65a9b3",
+						"id": "6c4f5fe4-55e7-4eab-9eb0-a6d1c06e652f",
 						"exec": [
 							""
 						],
@@ -2373,7 +2373,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "af43a7bc-46c9-49b0-b223-085f32f8b33d",
+						"id": "e50a9fe6-d411-4b23-9f89-467f863c4c55",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -2477,7 +2477,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "fe0f1304-ef92-472b-b3db-c2a68c56ea5c",
+						"id": "13022f15-5981-458a-aee3-2726f0349a7c",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -2589,7 +2589,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "022d84fc-e8d0-49f5-a805-71e559086990",
+						"id": "cf188d8e-92c6-4415-810d-20e47593c09d",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -2685,7 +2685,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ab27dcd1-71f5-46dc-87b6-2e5fe499386b",
+						"id": "e0ce1ef6-6ce1-4119-8a23-4ae11e77752e",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -2783,7 +2783,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8047f8ff-57d6-466c-819a-31b357895b43",
+						"id": "52155283-44b9-43c5-b867-c38802848940",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2829,7 +2829,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ca19fe9b-59c1-4af2-a3c5-b0bc2bbf6e8c",
+						"id": "676e83d6-4851-4931-8e35-a833f22912e7",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -2941,7 +2941,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "02c941b0-85bc-4c22-8741-10396380d636",
+						"id": "a2c24f1d-7f81-4065-ad8e-17eb7f6de3cd",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -2987,7 +2987,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3216f4cb-773b-46cd-8e63-8ccd4542b2fd",
+						"id": "0447af64-f2aa-4db0-9134-347109da6560",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3098,12 +3098,258 @@
 			]
 		},
 		{
+			"name": "Usage report summary (with parking category car)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0b589e6-d07e-441f-aa39-968875fb4532",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Set",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/summary?parkingCategory={{parkingCategoryCar}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"summary"
+					],
+					"query": [
+						{
+							"key": "parkingCategory",
+							"value": "{{parkingCategoryCar}}"
+						}
+					]
+				},
+				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
+			},
+			"response": [
+				{
+					"name": "Usage report summary (with parking category car)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Set",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/summary?parkingCategory={{parkingCategoryCar}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "parkingCategory",
+									"value": "{{parkingCategoryCar}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 11 Dec 2020 20:59:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "127"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"meanUsagePerDay\": 0.18181819,\n    \"mostPopularMonthDate\": \"2020-12-11\",\n    \"leastPopularMonthDate\": \"2020-12-11\",\n    \"parkingCategory\": \"CAR\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report summary (with parking category bike)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3e5258d-2ba0-4535-b696-0be8d436ecb9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Most popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['mostPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Least popular usage is today\", function () {",
+							"    pm.expect(pm.response.json()['leastPopularMonthDate']).to.eql(pm.collectionVariables.get(\"today\"));",
+							"});",
+							"",
+							"pm.test(\"Mean usage is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['meanUsagePerDay']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Set",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/summary?parkingCategory={{parkingCategoryBike}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"summary"
+					],
+					"query": [
+						{
+							"key": "parkingCategory",
+							"value": "{{parkingCategoryBike}}"
+						}
+					]
+				},
+				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
+			},
+			"response": [
+				{
+					"name": "Usage report summary (with parking category bike)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Set",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/summary?parkingCategory={{parkingCategoryBike}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "parkingCategory",
+									"value": "{{parkingCategoryBike}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 11 Dec 2020 21:00:15 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "128"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"meanUsagePerDay\": 0.09090909,\n    \"mostPopularMonthDate\": \"2020-12-11\",\n    \"leastPopularMonthDate\": \"2020-12-11\",\n    \"parkingCategory\": \"BIKE\"\n}"
+				}
+			]
+		},
+		{
 			"name": "Usage report summary (with anterior start date)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "93b09064-baef-4b36-9a5c-d0c387610be1",
+						"id": "a1c3215a-0f1e-4354-a424-343f951d63dc",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3160,7 +3406,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0ac674ea-a827-47cb-97c8-abdef69cefe0",
+						"id": "98703f5a-0add-4f1e-a08a-fbc1b0f19479",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3217,7 +3463,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4c45caae-0eb4-4409-a030-71e8a6546fdb",
+						"id": "4de5b664-942f-4b3b-8362-6c49d5d33535",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3277,7 +3523,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dbcf3415-40b7-4d47-ba11-4c5fb8ddc6cb",
+						"id": "6b7760b0-1581-48c5-be23-6e6eeb6f23cf",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3333,7 +3579,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "337780a7-bc5c-43dd-baa7-83f9687e0035",
+						"id": "b587a1d3-2630-4eab-bfae-af4a6defcdb5",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3389,7 +3635,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f5d0faf8-b216-4ff8-b2f2-11c5e1a3974c",
+						"id": "6d998547-2158-4f99-8475-b662ca0b535b",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3525,7 +3771,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "822278f1-9deb-4c95-92e9-3488344d69de",
+						"id": "8a55076b-dcfa-417c-b5f2-95d0c101a04b",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3629,12 +3875,230 @@
 			]
 		},
 		{
+			"name": "Usage report month (with parking category car)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb85fd6b-f42b-4252-946f-4a8ba519259f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/month?parkingCategory={{parkingCategoryCar}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"month"
+					],
+					"query": [
+						{
+							"key": "parkingCategory",
+							"value": "{{parkingCategoryCar}}"
+						}
+					]
+				},
+				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
+			},
+			"response": [
+				{
+					"name": "Usage report month (with parking category car)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/month?parkingCategory={{parkingCategoryCar}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"month"
+							],
+							"query": [
+								{
+									"key": "parkingCategory",
+									"value": "{{parkingCategoryCar}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 11 Dec 2020 21:00:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "98"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"parkingCategory\": \"CAR\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-12-11\",\n            \"numberOfEntry\": 2\n        }\n    ],\n    \"totalOfEntry\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "Usage report month (with parking category bike)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "735d84ec-bb41-4ffb-8565-db8112ad5eec",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Usage report list is an array\", function () {",
+							"    pm.expect(Array.isArray(pm.response.json()['usageReport'])).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Usage report list is not empty\", function () {",
+							"    pm.expect(pm.response.json()['usageReport']).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Total number of entry is more than 0\", function () {",
+							"    pm.expect(pm.response.json()['totalOfEntry']).to.be.greaterThan(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8080/api/usage-report/month?parkingCategory={{parkingCategoryBike}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usage-report",
+						"month"
+					],
+					"query": [
+						{
+							"key": "parkingCategory",
+							"value": "{{parkingCategoryBike}}"
+						}
+					]
+				},
+				"description": "Il est possible de faire n'importe quel combinaison de query params. Si le startDate n'est pas fournis la date par défaut est le premier du mois courant, si le endDate n'est pas founis la date par défaut est la journée courante, si la zone n'est pas fournis on considère toutes les zone."
+			},
+			"response": [
+				{
+					"name": "Usage report month (with parking category bike)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/usage-report/month?parkingCategory={{parkingCategoryBike}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usage-report",
+								"month"
+							],
+							"query": [
+								{
+									"key": "parkingCategory",
+									"value": "{{parkingCategoryBike}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 11 Dec 2020 21:00:40 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "99"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"parkingCategory\": \"BIKE\",\n    \"usageReport\": [\n        {\n            \"date\": \"2020-12-11\",\n            \"numberOfEntry\": 1\n        }\n    ],\n    \"totalOfEntry\": 1\n}"
+				}
+			]
+		},
+		{
 			"name": "Usage report month (with anterior start date)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "11de6647-43a9-4d38-9fcb-a6fe61f133c1",
+						"id": "1ff90644-acff-44d4-9fb8-a8841ecf78fd",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3702,7 +4166,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2f3e5bd8-f263-4a53-ba76-5023795a1688",
+						"id": "c73ded41-63d9-4484-b92a-2bc7c05c0bd6",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3811,7 +4275,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "909e1b36-d79e-4c2b-a212-0212a666ae59",
+						"id": "78e7af99-43bd-47fc-997c-631e09c76c09",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3879,7 +4343,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7fa602aa-0ad0-4b50-bba4-a1fdcc2775b0",
+						"id": "a509906b-56ed-4aa8-b604-e5bf33b0e070",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -3947,7 +4411,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0e7ce3aa-868e-4daf-a593-8ee9c259d73c",
+						"id": "43aeee1d-43ff-42f7-9606-223ed26c99d2",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4095,7 +4559,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6ba00a0a-7849-4ff9-a401-2bb60ffeb424",
+						"id": "ec7f102d-49ea-4abc-9d70-2fab59592344",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4141,7 +4605,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "19570097-aef3-43b4-995d-514c53d80ae6",
+						"id": "884c9da6-6637-435b-b359-8f2870d29f25",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -4245,7 +4709,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "884715b6-d756-4ef5-8b02-ca35e1649137",
+						"id": "4aacb01a-d16b-4c68-ab14-745b9ddf6038",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -4341,7 +4805,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f088c446-2dab-453c-943d-2c3090dc8592",
+						"id": "2f3c7a7e-eec4-46de-a5e0-919e0f2a89a8",
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
@@ -4438,7 +4902,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7fd83fff-254d-4579-98c9-79c1fe3510ff",
+						"id": "4b1bb112-ceec-4f58-90e5-99d6436688ec",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4484,7 +4948,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "68fcc639-a61a-474c-bb2b-e830ebafa7d7",
+						"id": "1e9ecdc6-e617-41df-9379-7f0e409792d0",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4608,7 +5072,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cd4fe8ef-5708-4103-860f-b41d4d9c6f7c",
+						"id": "a211a843-82b0-48d3-a0d3-9ce355517afe",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4732,7 +5196,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "011c1f52-81bf-4f8e-a38d-ab43bdde66d9",
+						"id": "5b0d1718-9ba4-4836-892f-6b6be9f3446c",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4856,7 +5320,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "82c8c498-1303-4be6-9165-d70674b0b364",
+						"id": "e00ba8f7-6864-4a6f-984e-40e45691ac3a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -4970,7 +5434,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d9dbc1e6-c645-4cec-b0f9-f8a412501626",
+						"id": "b3ffb02d-582f-4b15-bc95-125977f37303",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -5088,7 +5552,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "757e5cef-d065-405c-b1fc-db7d74bdf4e2",
+						"id": "a11284ea-fdca-4525-a8a3-4d48494058ef",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5134,7 +5598,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b37db0a6-73ee-48ef-ae72-a9bad171bb51",
+						"id": "8b9eb6f6-73b4-468c-b686-16a529ab77d8",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -5256,7 +5720,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f4c8060c-887c-4886-96d9-91188ae135f3",
+						"id": "4751a4b0-774d-450a-893f-73ef19e61267",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -5311,7 +5775,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9a2f333a-4d8b-435a-b01d-c3c1b747e24e",
+						"id": "7b648e60-d5f0-4220-aa59-612590a461dc",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -5362,7 +5826,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e01cb40c-39d9-4054-ba80-40518b42e318",
+						"id": "f21ffc7b-a3f3-4886-9b7e-ef91aa931e07",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -5413,7 +5877,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1b774eb4-5f48-4cab-bb66-a8927a005006",
+						"id": "6235a898-8686-43e6-8dbf-1c37508ed107",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5514,7 +5978,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ad33346f-bb5b-4b6b-bacf-56513ba13963",
+						"id": "67e39b71-b1e4-4963-a980-505b105697ff",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5632,7 +6096,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8bbcc6bb-3fe7-4589-a9c0-8310ff36a8c2",
+						"id": "07843ef8-cb7c-4d0a-b316-40f2dc971c71",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5750,7 +6214,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e8d146ff-7fb9-4f51-b30e-9702ef7bbe3e",
+						"id": "8ae5220b-3a60-4e1b-aaca-97bc9d2a827a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -5786,63 +6250,6 @@
 				}
 			},
 			"response": [
-				{
-					"name": "carbon credit Copy",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/carbon-credits/transfer",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"carbon-credits",
-								"transfer"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 24 Oct 2020 18:32:19 GMT"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "GET, POST, DELETE, PUT"
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "X-Requested-With, Content-Type"
-						},
-						{
-							"key": "Content-Length",
-							"value": "22"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.3.24.v20180605)"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"transferred\": 238.34\n}"
-				},
 				{
 					"name": "Transfer carbon credits",
 					"originalRequest": {
@@ -5900,6 +6307,63 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"transferred\": 951.2\n}"
+				},
+				{
+					"name": "carbon credit Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/carbon-credits/transfer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carbon-credits",
+								"transfer"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 24 Oct 2020 18:32:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, DELETE, PUT"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "X-Requested-With, Content-Type"
+						},
+						{
+							"key": "Content-Length",
+							"value": "22"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.3.24.v20180605)"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transferred\": 238.34\n}"
 				}
 			]
 		},
@@ -5909,7 +6373,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3b0d49af-4094-438f-9c51-14ba32808e1c",
+						"id": "658b6a16-c0d3-4afc-a8a0-95fdf66ae0fe",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6011,7 +6475,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "62dfed9b-6249-4493-ab70-506181e6f80b",
+						"id": "5ef39c91-f754-43cd-9ab6-b418751d735e",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6113,7 +6577,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cab95180-1065-4a0f-b7ea-121f2f96fced",
+						"id": "5447c968-9946-454e-9e35-de3f4d19015d",
 						"exec": [
 							""
 						],
@@ -6123,7 +6587,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "fde4f47c-bf9c-43c3-aeb2-a4a7f113e2ac",
+						"id": "ba85f1f1-596e-43f0-a302-3a2a886eabc7",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6225,7 +6689,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "edd36c5c-12fd-4dd5-ae5e-0a585703a970",
+						"id": "0c03b976-4500-45ed-b8fd-7666e919b799",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6327,7 +6791,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1d479a07-9b62-4b57-8b55-78254694b034",
+						"id": "1e18f4a9-2b2c-4776-8d0f-c29393408a72",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6430,7 +6894,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f1bf1cf6-fec6-4ce1-ad0f-e3f6cf0858f6",
+						"id": "b4ce4e3d-ef73-4cb6-b7ab-6dfaff3e665a",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6542,7 +7006,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "53d0b895-cba9-4927-8c4f-805ef4b0093f",
+						"id": "14e9593d-27b9-48d5-809f-bcf4c69620b8",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -6653,7 +7117,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6ee30790-9eae-4b5e-85d5-65843290a07c",
+						"id": "8ad61195-c387-4d16-b7f3-a5111088fb47",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6757,7 +7221,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "be7e2210-3739-4566-bf5b-eae88eaf3bcf",
+						"id": "a50febf3-f426-4cd6-b246-3be800d28a1e",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6856,7 +7320,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c2811f4b-4a42-4133-8df0-57d2e2149867",
+						"id": "cc492faa-b120-45fc-9024-1978f09d0da8",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -6960,7 +7424,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "600e314b-d300-4711-8ffa-403d1256e5bd",
+						"id": "3ed57a9d-0f51-4f04-9343-0b26071ec148",
 						"exec": [
 							"pm.test(\"Status code is 404\", function () {",
 							"    pm.response.to.have.status(404);",
@@ -7080,7 +7544,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a39e5a3c-e848-45b7-a47f-bad6a5f9c8cd",
+						"id": "29b38daf-a081-4514-9b11-0dffdfa6cf44",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -7200,7 +7664,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "143c8fad-7bd4-4419-9c9e-053c4845ea3b",
+						"id": "127771c3-1de7-4cdb-912b-4e005b5e2c49",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -7320,7 +7784,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a57a84fb-658a-4be5-87f2-f0597dd892fc",
+						"id": "0d08317f-c4de-46ef-b417-56a02eb31f93",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7444,7 +7908,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed0bf329-535a-4b50-b72c-8a6a3744d90c",
+						"id": "b80156f6-7ba9-493e-ac52-3fed94f7de59",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7568,7 +8032,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0eda64d2-c01e-43a2-bf1a-7540f49ec873",
+						"id": "b986a18f-dc30-4f0c-b703-0215d1067cab",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7692,7 +8156,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b03cbaec-5643-484a-9c3e-fd33fbba6883",
+						"id": "e855b37f-eff3-479f-b5e7-dc796cbfddb3",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7816,7 +8280,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e9d3241a-10da-461f-acd5-ab2a71e8d4e9",
+						"id": "9e4f2c07-8468-48cc-8fc1-7a3bb441f7d8",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7940,7 +8404,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d13d9456-a787-4ae7-9d41-d42feed34e8a",
+						"id": "fffed9b1-d293-41c6-a115-f68767cb3441",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -7986,7 +8450,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e00e4fc4-0278-4703-979d-313e90b78d8f",
+						"id": "fa21b7d1-6128-4985-8a54-098e6bd65ac8",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -8032,7 +8496,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1feb5b9a-048e-4f9d-9f8d-57e8cf995ae5",
+						"id": "208429fa-e6df-496c-beeb-8fd7f31d1211",
 						"exec": [
 							"pm.test(\"Status code is 401\", function () {",
 							"    pm.response.to.have.status(401);",
@@ -8078,7 +8542,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "acfde32a-782f-4b37-9987-c723f0bec45a",
+						"id": "ac128925-c6f7-4538-969a-11d47df967e8",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -8095,7 +8559,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "06bcee38-5b45-4be3-970b-e7f57b1106da",
+						"id": "573bdd10-0402-4711-b16e-80ae62080f81",
 						"exec": [
 							""
 						],
@@ -8204,7 +8668,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e1b8cfb9-8b89-4262-bba3-c9f5c2d38372",
+						"id": "cd3aa5f4-8d73-4e53-aa1b-65c9355f3f43",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -8249,7 +8713,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b40da474-9507-40b9-9fb3-95ecc6fa401f",
+						"id": "0a5dd0e9-95f4-4265-ad2d-3c3f1cc06646",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {\r",
 							"    pm.response.to.have.status(400);\r",
@@ -8298,7 +8762,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4876365e-35f0-4b62-95cf-1cbce346b888",
+						"id": "d89e6c94-a5f0-442e-b4dc-1578f5b18530",
 						"exec": [
 							"pm.test(\"Status code is 400\", function () {\r",
 							"    pm.response.to.have.status(400);\r",
@@ -8342,36 +8806,73 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8589987b-f1f0-4964-90de-7bf204557ec7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "30531921-87c4-428e-94e6-7ce00215e45c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
-			"id": "a76ea9ce-af75-4c0d-8a4b-9e13579aff2d",
+			"id": "afb9fe7e-d52d-4dbe-bc96-4950a98c2d16",
 			"key": "parkingZone",
 			"value": "ZonE_3"
 		},
 		{
-			"id": "733504c2-e285-4a0e-8b95-480e2a4fad9c",
+			"id": "43fcc5c2-76ac-4330-98d2-89da2d8113f7",
 			"key": "parkingZone_2",
 			"value": "zONe_2"
 		},
 		{
-			"id": "9f43a1c7-4218-4078-8152-b95948f0c741",
+			"id": "19b89a50-368b-46bf-9f79-eb9d7ffc4107",
+			"key": "parkingZoneBike",
+			"value": "zone_bike"
+		},
+		{
+			"id": "c09d8d12-b721-49ec-a3ad-f5dd9e451198",
 			"key": "today",
-			"value": "2020-11-20"
+			"value": "2020-12-11"
 		},
 		{
-			"id": "ef0880be-490a-490b-8513-72c2a6cbbe1c",
+			"id": "1854e627-d2c1-4fff-9413-495453112fec",
 			"key": "tomorrow",
-			"value": "2020-11-21"
+			"value": "2020-12-12"
 		},
 		{
-			"id": "98d4a76b-94bc-4fad-ad05-2e8f6c109c8b",
+			"id": "816466c6-ee63-405f-85d1-763c2530773a",
 			"key": "weekday",
 			"value": "friday"
 		},
 		{
-			"id": "26ce6a0f-081b-47dc-928f-009e83ed046d",
+			"id": "2d4296fb-0b2e-48db-a087-1b84d2ac307b",
 			"key": "yesterday",
-			"value": "2020-11-19"
+			"value": "2020-12-10"
+		},
+		{
+			"id": "e7a51457-080b-4d7f-a4b2-cefca3f6c0a7",
+			"key": "parkingCategoryBike",
+			"value": "bike"
+		},
+		{
+			"id": "50d03abc-e5c9-4e73-9f65-49030176654a",
+			"key": "parkingCategoryCar",
+			"value": "car"
 		}
 	],
 	"protocolProfileBehavior": {}

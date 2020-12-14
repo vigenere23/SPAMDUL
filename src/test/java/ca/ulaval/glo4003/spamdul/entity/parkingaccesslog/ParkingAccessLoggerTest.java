@@ -34,7 +34,7 @@ public class ParkingAccessLoggerTest {
   @Test
   public void whenHandlingAccessGranted_shouldCreateAndSaveNewParkingAccessLog() {
     when(parkingAccessLogFactory.create(A_PARKING_ZONE, A_DATE)).thenReturn(A_PARKING_ACCESS_LOG);
-    parkingAccessLogger.handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    parkingAccessLogger.handleAccessGranted(A_PARKING_ZONE, A_DATE);
     verify(parkingAccessLogRepository).save(A_PARKING_ACCESS_LOG);
   }
 }

@@ -17,15 +17,15 @@ public class ProdContext extends MainContext {
   public ProdContext() {
     authContext = new AuthenticationContext();
     userContext = new UserContext();
-    bikeParkingAccessContext = new BikeParkingAccessContext(userContext.getUserRepository());
     usageReportContext = new ProdUsageReportContext(authContext.getAuthenticationRepository(),
                                                     authContext.getAccessTokenCookieAssembler());
     financeContext = new FinanceContext(authContext.getAuthenticationRepository(),
                                         authContext.getAccessTokenCookieAssembler());
     campusAccessContext = new CampusAccessContext(userContext.getUserRepository(),
                                                   usageReportContext.getParkingAccessLogger(),
-                                                  financeContext.getCampusAccessBankAccount()
-    );
+                                                  financeContext.getCampusAccessBankAccount());
+    bikeParkingAccessContext = new BikeParkingAccessContext(userContext.getUserRepository(),
+                                                            usageReportContext.getParkingAccessLogger());
     passContext = new ProdPassContext(financeContext.getPassBankAccount(),
                                       userContext.getUserRepository());
     chargingContext = new ProdChargingContext(financeContext.getTransactionFactory(),

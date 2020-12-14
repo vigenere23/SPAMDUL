@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.user.exceptions.In
 
 public class UserNotFoundException extends InvalidUserException {
 
-  public UserNotFoundException() {
-    super("User not found");
+  public String getError() {
+    return "INVALID_USER_ID";
+  }
+
+  public String getDescription() {
+    return "User not found";
   }
 }

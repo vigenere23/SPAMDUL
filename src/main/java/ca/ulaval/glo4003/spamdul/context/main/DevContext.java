@@ -19,15 +19,15 @@ public class DevContext extends MainContext {
   public DevContext() {
     authContext = new AuthenticationContext();
     userContext = new UserContext();
-    bikeParkingAccessContext = new BikeParkingAccessContext(userContext.getUserRepository());
     usageReportContext = new DevUsageReportContext(authContext.getAuthenticationRepository(),
                                                    authContext.getAccessTokenCookieAssembler());
     financeContext = new FinanceContext(authContext.getAuthenticationRepository(),
                                         authContext.getAccessTokenCookieAssembler());
     campusAccessContext = new CampusAccessContext(userContext.getUserRepository(),
                                                   usageReportContext.getParkingAccessLogger(),
-                                                  financeContext.getCampusAccessBankAccount()
-    );
+                                                  financeContext.getCampusAccessBankAccount());
+    bikeParkingAccessContext = new BikeParkingAccessContext(userContext.getUserRepository(),
+                                                            usageReportContext.getParkingAccessLogger());
     passContext = new DevPassContext(financeContext.getPassBankAccount(),
                                      userContext.getUserRepository());
     chargingContext = new DevChargingContext(financeContext.getTransactionFactory(),

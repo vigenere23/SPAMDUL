@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.entity.parkingaccesslog;
 
+import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.infrastructure.filter.FilterContainer;
 import java.time.LocalDate;
@@ -14,21 +15,28 @@ public class ParkingAccessLogFilter {
     return this;
   }
 
-  public ParkingAccessLogFilter atZone(ParkingZone zone) {
-    if (zone == null) {
-      return this;
+  public ParkingAccessLogFilter atCategory(ParkingCategory category) {
+    if (category != null) {
+      if (category == ParkingCategory.CAR) {
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() != ParkingZone.ZONE_BIKE);
+      } else if (category == ParkingCategory.BIKE) {
+        filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == ParkingZone.ZONE_BIKE);
+      }
     }
+    return this;
+  }
 
-    filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
+  public ParkingAccessLogFilter atZone(ParkingZone zone) {
+    if (zone != null) {
+      filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getZone() == zone);
+    }
     return this;
   }
 
   public ParkingAccessLogFilter atDate(LocalDate date) {
-    if (date == null) {
-      return this;
+    if (date != null) {
+      filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isEqual(date));
     }
-
-    filterContainer.addFilter(parkingAccessLog -> parkingAccessLog.getAccessDate().isEqual(date));
     return this;
   }
 

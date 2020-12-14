@@ -32,8 +32,9 @@ public class AccessGrantedObservableTest {
 
   @Test
   public void givenObserverNotRegistered_whenNotifyingObservers_itDoesNotCallThatObserver() {
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
-    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    accessGrantedObservable.notifyAccessGranted(A_PARKING_ZONE, A_DATE);
+
+    verify(accessGrantedObserver, never()).handleAccessGranted(A_PARKING_ZONE, A_DATE);
   }
 
   @Test
@@ -41,10 +42,10 @@ public class AccessGrantedObservableTest {
     accessGrantedObservable.register(accessGrantedObserver);
     accessGrantedObservable.register(accessGrantedObserver2);
 
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    accessGrantedObservable.notifyAccessGranted(A_PARKING_ZONE, A_DATE);
 
-    verify(accessGrantedObserver).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
-    verify(accessGrantedObserver2).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    verify(accessGrantedObserver).handleAccessGranted(A_PARKING_ZONE, A_DATE);
+    verify(accessGrantedObserver2).handleAccessGranted(A_PARKING_ZONE, A_DATE);
   }
 
   @Test
@@ -52,8 +53,8 @@ public class AccessGrantedObservableTest {
     accessGrantedObservable.register(accessGrantedObserver);
     accessGrantedObservable.unregister(accessGrantedObserver);
 
-    accessGrantedObservable.notifyAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    accessGrantedObservable.notifyAccessGranted(A_PARKING_ZONE, A_DATE);
 
-    verify(accessGrantedObserver, never()).handleAccessGrantedWithCampusAccess(A_PARKING_ZONE, A_DATE);
+    verify(accessGrantedObserver, never()).handleAccessGranted(A_PARKING_ZONE, A_DATE);
   }
 }

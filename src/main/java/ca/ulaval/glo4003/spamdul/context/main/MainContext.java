@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.UsageReportContext;
 import ca.ulaval.glo4003.spamdul.context.user.UserContext;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.GlobalExceptionAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 
 public abstract class MainContext implements ResourceContext {
@@ -32,7 +32,7 @@ public abstract class MainContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
-    resources.add(new TimePeriodExceptionAssembler());
+    resources.add(new SpamDULExceptionAssembler());
 
     authContext.registerResources(resources);
     userContext.registerResources(resources);

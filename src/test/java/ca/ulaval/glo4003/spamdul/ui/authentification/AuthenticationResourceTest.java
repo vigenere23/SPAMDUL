@@ -40,6 +40,7 @@ public class AuthenticationResourceTest {
   @Test
   public void whenLoginIn_shouldCallServiceToLoginIn() {
     given(service.login(A_USERNAME, AN_HASHED_PASSWORD)).willReturn(A_TEMPORARY_TOKEN);
+
     authenticationResource.login(loginRequest);
 
     verify(service, times(1)).login(A_USERNAME, AN_HASHED_PASSWORD);

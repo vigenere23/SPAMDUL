@@ -2,7 +2,11 @@ package ca.ulaval.glo4003.spamdul.entity.initiatives.exceptions;
 
 public class InvalidInitiativeCodeException extends InvalidInitiativeException {
 
-  public InvalidInitiativeCodeException() {
-    super("The initiative code is either invalid or reserved. Please try another one.");
+  public String getError() {
+    return "INVALID_INITIATIVE_CODE";
+  }
+
+  public String getDescription() {
+    return "The initiative code is either invalid or reserved. Please try another one.";
   }
 }

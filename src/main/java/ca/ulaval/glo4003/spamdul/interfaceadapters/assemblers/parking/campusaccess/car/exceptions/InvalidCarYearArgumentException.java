@@ -2,7 +2,11 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusacc
 
 public class InvalidCarYearArgumentException extends InvalidCarArgumentException {
 
-  public InvalidCarYearArgumentException() {
-    super("Invalid car year");
+  public String getError() {
+    return "INVALID_CAR_YEAR";
+  }
+
+  public String getDescription() {
+    return "Invalid car year";
   }
 }

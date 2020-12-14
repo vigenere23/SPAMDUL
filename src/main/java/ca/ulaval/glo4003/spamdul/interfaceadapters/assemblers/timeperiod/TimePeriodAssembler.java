@@ -23,7 +23,7 @@ public class TimePeriodAssembler {
     try {
       timePeriodDto.periodType = PeriodType.valueOf(timePeriodRequest.type.toUpperCase());
     } catch (Exception e) {
-      throw new InvalidTimePeriodArgumentException(Arrays.toString(PeriodType.values()));
+      throw new InvalidTimePeriodArgumentException();
     }
 
     switch (timePeriodDto.periodType) {
@@ -56,7 +56,6 @@ public class TimePeriodAssembler {
   private void setFullSemestersSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {
     timePeriodDto.semester = assembleSemester(timePeriodRequest.semester);
     timePeriodDto.timePeriodDayOfWeek = TimePeriodDayOfWeek.ALL;
-    //TODO Maybe throw an exception if there is a chosen day when choosing one two or three semster
   }
 
   private void setSingleDayPerWeekPerSemesterDto(TimePeriodDto timePeriodDto, TimePeriodRequest timePeriodRequest) {

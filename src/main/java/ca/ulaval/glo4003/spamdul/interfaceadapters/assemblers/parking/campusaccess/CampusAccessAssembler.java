@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusacc
 
 import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
@@ -16,8 +15,8 @@ import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import java.util.ArrayList;
 
 public class CampusAccessAssembler {
@@ -54,15 +53,15 @@ public class CampusAccessAssembler {
     TimePeriodDto timePeriodDto = timePeriodAssembler.fromRequest(timePeriodRequest);
 
     if (!ACCEPTED_PERIOD_TYPES.contains(timePeriodDto.periodType)) {
-      throw new InvalidTimePeriodArgumentException(ACCEPTED_PERIOD_TYPES.toString());
+      throw new InvalidTimePeriodArgumentException();
     }
 
     campusAccessDto.timePeriodDto = timePeriodDto;
   }
 
-  public CampusAccessResponse toResponse(CampusAccess campusAccess) {
+  public CampusAccessResponse toResponse(CampusAccessDto campusAccess) {
     CampusAccessResponse campusAccessResponse = new CampusAccessResponse();
-    campusAccessResponse.campusAccessCode = campusAccess.getCampusAccessCode().toString();
+    campusAccessResponse.campusAccessCode = campusAccess.code.toString();
 
     return campusAccessResponse;
   }

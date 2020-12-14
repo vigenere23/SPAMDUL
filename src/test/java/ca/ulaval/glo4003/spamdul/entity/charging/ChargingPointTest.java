@@ -42,6 +42,7 @@ public class ChargingPointTest {
   @Test(expected = NotEnoughCreditsException.class)
   public void givenInitialized_whenActivatingWithNotEnoughCreditsCard_shouldThrowException() {
     doThrow(NotEnoughCreditsException.class).when(creditVerifier).verify(A_CARD_ID);
+
     chargingPoint.activate(creditVerifier, A_CARD_ID);
   }
 
@@ -72,14 +73,18 @@ public class ChargingPointTest {
   @Test
   public void whenConnecting_shouldDelegateToState() {
     chargingPoint.setState(state);
+
     chargingPoint.connect();
+
     verify(state).connect();
   }
 
   @Test
   public void whenDisconnecting_shouldDelegateToState() {
     chargingPoint.setState(state);
+
     chargingPoint.disconnect();
+
     verify(state).disconnect();
   }
 

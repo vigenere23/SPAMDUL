@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.FinanceExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.finance.TransactionQueryAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
@@ -102,6 +101,5 @@ public class FinanceContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(revenueResource);
-    resources.add(new FinanceExceptionMapper());
   }
 }

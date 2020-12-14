@@ -133,6 +133,7 @@ public class UserTest {
     User user = new User(A_USER_ID, A_NAME, A_GENDER, A_BIRTHDAY_DATE, CAR);
     CampusAccess campusAccess = new CampusAccess(CAMPUS_ACCESS_CODE, TIME_PERIOD);
     CampusAccess anotherCampusAccess = new CampusAccess(ANOTHER_CAMPUS_ACCESS_CODE, TIME_PERIOD);
+
     user.associate(campusAccess);
 
     user.associate(anotherCampusAccess);

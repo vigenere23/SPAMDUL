@@ -85,6 +85,7 @@ public class HardCodedCalendarTest {
   public void givenStartOfAutumnSemester_whenGettingStartOfSchoolYear_shouldReturnStartOfThatSemester() {
     LocalDateTime startOfAutumnSemester = hardCodedCalendar.getStartOfSemester(new Semester(Session.AUTUMN, A_YEAR));
     LocalDateTime startOfSchoolYear = hardCodedCalendar.getStartOfSchoolYearAtDate(startOfAutumnSemester.toLocalDate());
+
     assertThat(startOfSchoolYear).isEqualTo(startOfAutumnSemester);
   }
 
@@ -92,6 +93,7 @@ public class HardCodedCalendarTest {
   public void givenEndOfSummerSemester_whenGettingEndOfSchoolYear_shouldReturnEndOfThatSemester() {
     LocalDateTime endOfSummerSemester = hardCodedCalendar.getEndOfSemester(new Semester(Session.SUMMER, A_YEAR));
     LocalDateTime endOfSchoolYear = hardCodedCalendar.getEndOfSchoolYearAtDate(endOfSummerSemester.toLocalDate());
+
     assertThat(endOfSchoolYear).isEqualTo(endOfSummerSemester);
   }
 

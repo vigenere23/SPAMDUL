@@ -53,12 +53,14 @@ public class CampusAccessTransactionServiceTest {
   @Test
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
     campusAccessTransactionService.addRevenue(AN_AMOUNT, A_CAR_TYPE);
+
     verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.CAMPUS_ACCESS);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
     campusAccessTransactionService.addRevenue(AN_AMOUNT, A_CAR_TYPE);
+
     verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.CAMPUS_ACCESS);
   }
 

@@ -10,6 +10,7 @@ public class ParkingAccessLogIdTest {
   public void givenValue_whenCreatingParkingAccessLogId_shouldCreateWithValue() {
     String value = "123";
     ParkingAccessLogId parkingAccessLogId = ParkingAccessLogId.valueOf(value);
+
     assertThat(parkingAccessLogId.toString()).isEqualTo(value);
   }
 

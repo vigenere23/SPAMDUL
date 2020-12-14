@@ -11,6 +11,8 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.entity.user.User;
 import ca.ulaval.glo4003.spamdul.entity.user.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.time.LocalDateTime;
@@ -22,20 +24,23 @@ public class CampusAccessService extends AccessGrantedObservable {
   private final Calendar calendar;
   private final CampusAccessFeeRepository campusAccessFeeRepository;
   private final CampusAccessTransactionService campusAccessTransactionService;
+  private CampusAccessDtoAssembler campusAccessDtoAssembler;
 
   public CampusAccessService(CampusAccessFactory campusAccessFactory,
                              UserRepository userRepository,
                              Calendar calendar,
                              CampusAccessFeeRepository campusAccessFeeRepository,
-                             CampusAccessTransactionService campusAccessTransactionService) {
+                             CampusAccessTransactionService campusAccessTransactionService,
+                             CampusAccessDtoAssembler campusAccessDtoAssembler) {
     this.campusAccessFactory = campusAccessFactory;
     this.userRepository = userRepository;
     this.calendar = calendar;
     this.campusAccessFeeRepository = campusAccessFeeRepository;
     this.campusAccessTransactionService = campusAccessTransactionService;
+    this.campusAccessDtoAssembler = campusAccessDtoAssembler;
   }
 
-  public CampusAccess createCampusAccess(CampusAccessDto campusAccessDto) {
+  public CampusAccessDto createCampusAccess(CampusAccessDto campusAccessDto) {
     User user = userRepository.findBy(campusAccessDto.userId);
 
     if (user.getCar() == null) {
@@ -50,7 +55,7 @@ public class CampusAccessService extends AccessGrantedObservable {
 
     addRevenue(user.getCar().getCarType(), campusAccessDto.timePeriodDto.periodType);
 
-    return campusAccess;
+    return campusAccessDtoAssembler.toDto(campusAccess);
   }
 
   private void addRevenue(CarType carType, PeriodType periodType) {
@@ -83,6 +88,6 @@ public class CampusAccessService extends AccessGrantedObservable {
   }
 
   private void notifyAccessGranted(User user, LocalDateTime now) {
-    notifyAccessGrantedWithCampusAccess(user.getParkingZone(), now.toLocalDate());
+    notifyAccessGranted(user.getParkingZone(), now.toLocalDate());
   }
 }

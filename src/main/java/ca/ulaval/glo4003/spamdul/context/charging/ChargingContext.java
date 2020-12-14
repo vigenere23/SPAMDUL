@@ -15,15 +15,15 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.charging.InMemoryChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.ChargingPointExceptionMapper;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULCardAssembler;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.charging.RechargULExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.charging.ChargingPointResource;
 import ca.ulaval.glo4003.spamdul.ui.rechargul.RechargULResource;
 import ca.ulaval.glo4003.spamdul.usecases.charging.ChargingPointService;
 import ca.ulaval.glo4003.spamdul.usecases.charging.RechargULService;
+import ca.ulaval.glo4003.spamdul.usecases.charging.assembler.ChargingPointDtoAssembler;
+import ca.ulaval.glo4003.spamdul.usecases.charging.assembler.RechargULDtoAssembler;
 import java.util.concurrent.TimeUnit;
 
 public abstract class ChargingContext implements ResourceContext {
@@ -45,11 +45,16 @@ public abstract class ChargingContext implements ResourceContext {
         Amount.valueOf(1),
         TimeUnit.HOURS,
         userRepository);
+    ChargingPointDtoAssembler chargingPointDtoAssembler = new ChargingPointDtoAssembler();
+    RechargULDtoAssembler rechargULDtoAssembler = new RechargULDtoAssembler();
     EnoughCreditForChargingVerifier enoughCreditForChargingVerifier = new EnoughCreditForChargingVerifier(userRepository);
     ChargingPointService chargingPointService = new ChargingPointService(chargingPointRepository,
                                                                          enoughCreditForChargingVerifier,
-                                                                         chargingPaymentService);
-    RechargULService rechargULService = new RechargULService(userRepository, rechargULCardFactory);
+                                                                         chargingPaymentService,
+                                                                         chargingPointDtoAssembler);
+    RechargULService rechargULService = new RechargULService(userRepository,
+                                                             rechargULCardFactory,
+                                                             rechargULDtoAssembler);
 
     chargingPointResource = new ChargingPointResource(chargingPointService, chargingPointAssembler);
     rechargULResource = new RechargULResource(rechargULService, rechargULCardAssembler);
@@ -69,8 +74,6 @@ public abstract class ChargingContext implements ResourceContext {
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(chargingPointResource);
-    resources.add(new ChargingPointExceptionMapper());
     resources.add(rechargULResource);
-    resources.add(new RechargULExceptionMapper());
   }
 }

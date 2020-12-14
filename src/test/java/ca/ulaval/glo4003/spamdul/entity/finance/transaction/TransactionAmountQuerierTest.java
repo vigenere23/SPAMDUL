@@ -36,28 +36,36 @@ public class TransactionAmountQuerierTest {
   @Test
   public void whenGettingTotal_shouldReturnFromAllTransactions() {
     when(transactionRepository.findAll()).thenReturn(SOME_TRANSACTIONS);
+
     Amount amount = queryer.total();
+
     assertThat(amount).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void whenGettingWithTransactionFilter_shouldReturnFromFilteredTransactions() {
     when(transactionRepository.findAll(A_TRANSACTION_FILTER)).thenReturn(SOME_TRANSACTIONS);
+
     Amount amount = queryer.with(A_TRANSACTION_FILTER);
+
     assertThat(amount).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void whenGettingWithTransactionType_shouldReturnFromTypedTransactions() {
     when(transactionRepository.findAllBy(A_TRANSACTION_TYPE)).thenReturn(SOME_TRANSACTIONS);
+
     Amount amount = queryer.with(A_TRANSACTION_TYPE);
+
     assertThat(amount).isEqualTo(AN_AMOUNT);
   }
 
   @Test
   public void whenGettingWithTransactionFilterAndType_shouldReturnFromFilteredAndTypedTransactions() {
     when(transactionRepository.findAllBy(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER)).thenReturn(SOME_TRANSACTIONS);
+
     Amount amount = queryer.with(A_TRANSACTION_TYPE, A_TRANSACTION_FILTER);
+
     assertThat(amount).isEqualTo(AN_AMOUNT);
   }
 }

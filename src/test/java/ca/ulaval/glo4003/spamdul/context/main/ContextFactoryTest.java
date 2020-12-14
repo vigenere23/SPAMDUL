@@ -17,18 +17,21 @@ public class ContextFactoryTest {
   @Test
   public void givenTestMode_whenCreating_shouldReturnTestContext() {
     MainContext context = contextFactory.create(ContextType.TEST);
+
     assertThat(context).isInstanceOf(TestContext.class);
   }
 
   @Test
   public void givenDevMode_whenCreating_shouldReturnTestContext() {
     MainContext context = contextFactory.create(ContextType.DEV);
+
     assertThat(context).isInstanceOf(DevContext.class);
   }
 
   @Test
   public void givenProdMode_whenCreating_shouldReturnTestContext() {
     MainContext context = contextFactory.create(ContextType.PROD);
+
     assertThat(context).isInstanceOf(ProdContext.class);
   }
 }

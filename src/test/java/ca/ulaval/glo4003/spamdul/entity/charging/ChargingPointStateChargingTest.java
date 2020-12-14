@@ -31,12 +31,14 @@ public class ChargingPointStateChargingTest {
   @Test
   public void whenDisconnecting_shouldStopCounter() {
     state.disconnect();
+
     verify(millisecondsCounter, times(1)).stop();
   }
 
   @Test
   public void whenDisconnecting_shouldSwitchToIdleState() {
     state.disconnect();
+
     verify(chargingPoint).setState(any(ChargingPointStateIdle.class));
   }
 

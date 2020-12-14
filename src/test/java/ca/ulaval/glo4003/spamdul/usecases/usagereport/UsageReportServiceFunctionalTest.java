@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageR
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.UsageReportSummaryAssembler;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryCreationDto;
 import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportSummaryDto;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -63,7 +62,7 @@ public class UsageReportServiceFunctionalTest {
   public void whenGettingUsageReportSummary_shouldCallAccessLevelValidator() {
     LocalDate reportStartDate = LocalDate.of(2010, 1, 1);
     LocalDate reportEndDate = reportStartDate.plusDays(21);
-    UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
+    UsageReportCreationDto creationDto = new UsageReportCreationDto();
     creationDto.startDate = reportStartDate;
     creationDto.endDate = reportEndDate;
 
@@ -79,7 +78,7 @@ public class UsageReportServiceFunctionalTest {
     LocalDate mostPopularDate = reportStartDate.plusDays(15);
     LocalDate leastPopularDate = reportStartDate.plusDays(7);
     LocalDate randomDate = reportStartDate.plusDays(9);
-    UsageReportSummaryCreationDto creationDto = new UsageReportSummaryCreationDto();
+    UsageReportCreationDto creationDto = new UsageReportCreationDto();
     creationDto.startDate = reportStartDate;
     creationDto.endDate = reportEndDate;
     int numberOfMostPopularDateLogs = 13;
@@ -102,7 +101,6 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReport_shouldCallAccessLevelValidator() {
     Integer numberOfLogs = 12;
-
     UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();
     usageReportCreationDto.startDate = A_DATE;
     usageReportCreationDto.endDate = A_LATER_DATE;
@@ -117,7 +115,6 @@ public class UsageReportServiceFunctionalTest {
   @Test
   public void whenGettingUsageReport_shouldReturnTheRightUsageReport() {
     Integer numberOfLogs = 12;
-
     UsageReportCreationDto usageReportCreationDto = new UsageReportCreationDto();
     usageReportCreationDto.startDate = A_DATE;
     usageReportCreationDto.endDate = A_LATER_DATE;

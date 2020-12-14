@@ -1,12 +1,11 @@
 package ca.ulaval.glo4003.spamdul.ui.campusaccess;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.AccessingCampusResponse;
 import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.CampusAccessRequest;
 import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.parking.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -33,7 +32,7 @@ public class CampusAccessResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response createCampusAccess(CampusAccessRequest campusAccessRequest) {
     CampusAccessDto campusAccessDto = campusAccessAssembler.fromRequest(campusAccessRequest);
-    CampusAccess campusAccess = campusAccessService.createCampusAccess(campusAccessDto);
+    CampusAccessDto campusAccess = campusAccessService.createCampusAccess(campusAccessDto);
 
     return Response.status(Status.CREATED)
                    .entity(campusAccessAssembler.toResponse(campusAccess))

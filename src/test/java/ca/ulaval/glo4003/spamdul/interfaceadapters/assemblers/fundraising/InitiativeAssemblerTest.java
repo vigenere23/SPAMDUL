@@ -1,12 +1,11 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeId;
+import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeRequest;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
-import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +17,8 @@ public class InitiativeAssemblerTest {
 
   private InitiativeAssembler initiativeAssembler;
   private InitiativeRequest initiativeRequest;
-  private Initiative initiative;
+  private InitiativeDto initiative;
 
-  private final InitiativeId AN_ID = InitiativeId.valueOf("123");
   private final String A_VALID_NAME = "Yolo";
   private final InitiativeCode A_VALID_CODE = InitiativeCode.valueOf("Yolo");
   private final Amount A_VALID_AMOUNT = Amount.valueOf(1234.22);
@@ -31,12 +29,15 @@ public class InitiativeAssemblerTest {
     initiativeRequest = new InitiativeRequest();
     initiativeRequest.name = A_VALID_NAME;
     initiativeRequest.amount = A_VALID_AMOUNT.asDouble();
-    initiative = new Initiative(AN_ID, A_VALID_CODE, A_VALID_NAME, A_VALID_AMOUNT);
+    initiative = new InitiativeDto();
+    initiative.amount = A_VALID_AMOUNT;
+    initiative.code = A_VALID_CODE;
   }
 
   @Test
   public void givenInitiativeRequest_whenAssembling_shouldReturnEntityFromFactory() {
     InitiativeDto initiativeDto = initiativeAssembler.fromRequest(initiativeRequest);
+
     Truth.assertThat(initiativeDto.name).isEqualTo(initiativeRequest.name);
     Truth.assertThat(initiativeDto.amount).isEqualTo(Amount.valueOf(initiativeRequest.amount));
   }
@@ -44,8 +45,9 @@ public class InitiativeAssemblerTest {
   @Test
   public void givenInitiative_whenAssembling_shouldReturnResponse() {
     InitiativeResponse initiativeResponse = initiativeAssembler.toResponse(initiative);
-    Truth.assertThat(initiativeResponse.code).isEqualTo(initiative.getCode().toString());
-    Truth.assertThat(initiativeResponse.name).isEqualTo(initiative.getName());
-    Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.getAmount().asDouble());
+
+    Truth.assertThat(initiativeResponse.code).isEqualTo(initiative.code.toString());
+    Truth.assertThat(initiativeResponse.name).isEqualTo(initiative.name);
+    Truth.assertThat(initiativeResponse.amount).isEqualTo(initiative.amount.asDouble());
   }
 }

@@ -44,12 +44,14 @@ public class ParkingPassTransactionServiceTest {
   @Test
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
     passTransactionService.addRevenue(AN_AMOUNT);
+
     verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.PASS);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
     passTransactionService.addRevenue(AN_AMOUNT);
+
     verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.PASS);
   }
 
@@ -57,7 +59,9 @@ public class ParkingPassTransactionServiceTest {
   public void whenGettingRevenueForSustainability_shouldReturnFromSustainableAccount() {
     when(sustainabilityBankAccount.getRevenue()).thenReturn(A_TRANSACTION_AMOUNT_QUERYER);
     when(A_TRANSACTION_AMOUNT_QUERYER.with(TransactionType.PASS, A_TRANSACTION_FILTER)).thenReturn(AN_AMOUNT);
+
     Amount revenue = passTransactionService.getRevenueForSustainability(A_TRANSACTION_FILTER);
+
     assertThat(revenue).isEqualTo(AN_AMOUNT);
   }
 

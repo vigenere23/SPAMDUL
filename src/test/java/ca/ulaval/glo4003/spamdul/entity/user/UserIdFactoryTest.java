@@ -28,7 +28,9 @@ public class UserIdFactoryTest {
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generate()).thenReturn(A_VALUE);
+
     UserId userId = userIdFactory.create();
+
     assertThat(userId.toString()).isEqualTo(A_VALUE);
   }
 }

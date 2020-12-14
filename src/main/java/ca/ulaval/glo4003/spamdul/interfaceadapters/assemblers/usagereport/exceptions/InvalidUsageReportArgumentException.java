@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.usagereport.exceptions;
 
-public abstract class InvalidUsageReportArgumentException extends RuntimeException {
+import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.SpamDULBaseException;
+import javax.ws.rs.core.Response.Status;
 
-  protected InvalidUsageReportArgumentException(String message) {
-    super(message);
+public abstract class InvalidUsageReportArgumentException extends SpamDULBaseException {
+
+  public int getStatus() {
+    return Status.BAD_REQUEST.getStatusCode();
   }
 }

@@ -40,7 +40,9 @@ public class CarbonCreditsTransactionServiceTest {
   @Test
   public void whenAddingRevenue_shouldCreateAndSaveTransactionToRepo() {
     when(transactionFactory.create(TransactionType.CARBON_CREDIT, AN_AMOUNT)).thenReturn(A_TRANSACTION);
+
     carbonCreditsTransactionService.addRevenue(AN_AMOUNT);
+
     verify(transactionRepository, times(1)).save(A_TRANSACTION);
   }
 

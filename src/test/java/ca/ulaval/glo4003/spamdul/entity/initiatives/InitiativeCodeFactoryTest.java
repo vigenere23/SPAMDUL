@@ -28,7 +28,9 @@ public class InitiativeCodeFactoryTest {
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generate()).thenReturn(A_VALUE);
+
     InitiativeCode initiativeCode = initiativeCodeFactory.create();
+
     assertThat(initiativeCode.toString()).isEqualTo(A_VALUE);
   }
 }

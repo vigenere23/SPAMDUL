@@ -28,7 +28,9 @@ public class CampusAccessCodeFactoryTest {
   @Test
   public void whenCreating_shouldReturnFromIdGenerator() {
     when(idGenerator.generate()).thenReturn(A_VALUE);
+
     CampusAccessCode campusAccessCode = campusAccessCodeFactory.create();
+
     assertThat(campusAccessCode.toString()).isEqualTo(A_VALUE);
   }
 }

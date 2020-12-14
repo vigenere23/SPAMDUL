@@ -42,6 +42,7 @@ public class ChargingPointStateActivatedTest {
   @Test
   public void whenConnecting_shouldSwitchToChargingState() {
     state.connect();
+
     verify(chargingPoint).setState(any(ChargingPointStateCharging.class));
   }
 
@@ -58,6 +59,7 @@ public class ChargingPointStateActivatedTest {
   @Test
   public void whenDeactivating_shouldSwitchToIdleState() {
     state.deactivate();
+
     verify(chargingPoint).setState(any(ChargingPointStateIdle.class));
   }
 

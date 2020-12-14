@@ -4,7 +4,6 @@ import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExac
 
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.interfaceadapters.assemblers.fundraising.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.ui.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
@@ -33,7 +32,8 @@ public class DevFundraisingContextTest {
   @Test
   public void whenRegisteringResources_shouldAddResourcesToInstanceMap() {
     context.registerResources(resources);
+
     assertContainsExactlyInstancesOf(resources.getValues(),
-                                     FundraisingResource.class, InitiativeExceptionMapper.class);
+                                     FundraisingResource.class);
   }
 }
