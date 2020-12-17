@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.finance.entities.transaction_services;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,14 +53,14 @@ public class CampusAccessTransactionServiceTest {
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
     campusAccessTransactionService.addRevenue(AN_AMOUNT, A_CAR_TYPE);
 
-    verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.CAMPUS_ACCESS);
+    verify(sustainabilityBankAccount).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.CAMPUS_ACCESS);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
     campusAccessTransactionService.addRevenue(AN_AMOUNT, A_CAR_TYPE);
 
-    verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.CAMPUS_ACCESS);
+    verify(mainBankAccount).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.CAMPUS_ACCESS);
   }
 
   @Test
@@ -72,8 +71,8 @@ public class CampusAccessTransactionServiceTest {
 
     campusAccessTransactionService.addRevenue(AN_AMOUNT, A_CAR_TYPE);
 
-    verify(campusAccessTransactionRepository, times(1)).save(A_TRANSACTION, A_CAR_TYPE);
-    verify(campusAccessTransactionRepository, times(1)).save(ANOTHER_TRANSACTION, A_CAR_TYPE);
+    verify(campusAccessTransactionRepository).save(A_TRANSACTION, A_CAR_TYPE);
+    verify(campusAccessTransactionRepository).save(ANOTHER_TRANSACTION, A_CAR_TYPE);
   }
 
   @Test

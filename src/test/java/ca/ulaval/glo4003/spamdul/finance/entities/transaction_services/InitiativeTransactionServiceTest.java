@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.transaction_services;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.SustainabilityBankAccount;
@@ -31,6 +30,6 @@ public class InitiativeTransactionServiceTest {
   public void whenAddingExpense_shouldAddToSustainabilityExpenses() {
     initiativeTransactionService.addExpense(AN_AMOUNT);
 
-    verify(sustainabilityBankAccount, times(1)).addExpense(AN_AMOUNT, TransactionType.INITIATIVE);
+    verify(sustainabilityBankAccount).addExpense(AN_AMOUNT, TransactionType.INITIATIVE);
   }
 }

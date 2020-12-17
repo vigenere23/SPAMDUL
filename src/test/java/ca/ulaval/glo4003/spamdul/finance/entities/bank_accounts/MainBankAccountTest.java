@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +50,7 @@ public class MainBankAccountTest {
 
     mainBankAccount.addRevenue(AN_AMOUNT, A_TRANSACTION_TYPE);
 
-    verify(revenueTransactionRepository, times(1)).save(A_TRANSACTION);
+    verify(revenueTransactionRepository).save(A_TRANSACTION);
   }
 
   @Test

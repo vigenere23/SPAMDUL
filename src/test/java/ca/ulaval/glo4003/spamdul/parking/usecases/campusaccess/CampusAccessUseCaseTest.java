@@ -2,15 +2,9 @@ package ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.Transaction;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionType;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CampusAccessTransactionService;
@@ -35,6 +29,11 @@ import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.AccessingCamp
 import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.CampusAccessDto;
 import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.exceptions.UserMustOwnACarToPurchaseACarParkingPassException;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -122,7 +121,7 @@ public class CampusAccessUseCaseTest {
 
     campusAccessUseCase.createCampusAccess(campusAccessDto);
 
-    verify(campusAccessFactory, times(1)).create(A_TIME_PERIOD_DTO);
+    verify(campusAccessFactory).create(A_TIME_PERIOD_DTO);
   }
 
   @Test
@@ -143,7 +142,7 @@ public class CampusAccessUseCaseTest {
 
     campusAccessUseCase.createCampusAccess(campusAccessDto);
 
-    verify(campusAccessTransactionService, times(1)).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
+    verify(campusAccessTransactionService).addRevenue(A_TRANSACTION.getAmount(), A_CAR_TYPE);
   }
 
   @Test
@@ -153,7 +152,7 @@ public class CampusAccessUseCaseTest {
 
     campusAccessUseCase.grantAccessToCampus(accessingCampusDto);
 
-    verify(userRepository, times(1)).findBy(A_CAMPUS_ACCESS_CODE);
+    verify(userRepository).findBy(A_CAMPUS_ACCESS_CODE);
   }
 
   @Test
@@ -165,7 +164,7 @@ public class CampusAccessUseCaseTest {
 
     campusAccessUseCase.grantAccessToCampus(accessingCampusDto);
 
-    verify(userRepository, times(1)).findBy(licensePlate);
+    verify(userRepository).findBy(licensePlate);
   }
 
   @Test
@@ -175,7 +174,7 @@ public class CampusAccessUseCaseTest {
 
     campusAccessUseCase.grantAccessToCampus(accessingCampusDto);
 
-    verify(calendar, times(1)).now();
+    verify(calendar).now();
   }
 
   @Test

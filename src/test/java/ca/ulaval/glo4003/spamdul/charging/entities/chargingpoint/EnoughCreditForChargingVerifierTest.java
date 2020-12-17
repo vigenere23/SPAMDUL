@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +36,7 @@ public class EnoughCreditForChargingVerifierTest {
 
     enoughCreditForChargingVerifier.verify(RECHARG_UL_CARD_ID);
 
-    verify(user, times(1)).verifyEnoughCreditsForCharging();
+    verify(user).verifyEnoughCreditsForCharging();
   }
 
   @Test(expected = RechargULCardNotFoundException.class)

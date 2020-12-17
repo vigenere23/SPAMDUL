@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.authentication.usecases;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.authentication.entities.AccessLevel;
@@ -43,7 +42,7 @@ public class AuthenticationUseCaseTest {
 
     authenticationUseCase.login(A_USERNAME, AN_HASHED_PASSWORD);
 
-    verify(repository, times(1)).findBy(A_USERNAME, AN_HASHED_PASSWORD);
+    verify(repository).findBy(A_USERNAME, AN_HASHED_PASSWORD);
   }
 
   @Test
@@ -61,7 +60,7 @@ public class AuthenticationUseCaseTest {
 
     TemporaryToken temporaryToken = authenticationUseCase.login(A_USERNAME, AN_HASHED_PASSWORD);
 
-    verify(repository, times(1)).save(temporaryToken, registeredUser);
+    verify(repository).save(temporaryToken, registeredUser);
   }
 
   @Test
@@ -75,6 +74,6 @@ public class AuthenticationUseCaseTest {
   public void whenFindingRegisteredUserBy_shouldFindRegisteredUserInRepository() {
     authenticationUseCase.findRegisteredUser(temporaryToken);
 
-    verify(repository, times(1)).findBy(temporaryToken);
+    verify(repository).findBy(temporaryToken);
   }
 }

@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,7 +53,7 @@ public class SustainabilityBankAccountTest {
 
     sustainabilityBankAccount.addRevenue(AN_AMOUNT, A_TRANSACTION_TYPE);
 
-    verify(revenueRepository, times(1)).save(A_TRANSACTION);
+    verify(revenueRepository).save(A_TRANSACTION);
   }
 
   @Test(expected = InsufficientFundsException.class)
@@ -72,7 +71,7 @@ public class SustainabilityBankAccountTest {
 
     sustainabilityBankAccount.addExpense(AN_AMOUNT, A_TRANSACTION_TYPE);
 
-    verify(expensesRepository, times(1)).save(transaction);
+    verify(expensesRepository).save(transaction);
   }
 
   @Test

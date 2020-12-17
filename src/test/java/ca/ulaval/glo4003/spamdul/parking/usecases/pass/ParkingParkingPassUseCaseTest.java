@@ -1,14 +1,9 @@
 package ca.ulaval.glo4003.spamdul.parking.usecases.pass;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.PassTransactionService;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.post.DeliveryFeeCalculator;
@@ -24,6 +19,10 @@ import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -135,7 +134,7 @@ public class ParkingParkingPassUseCaseTest {
 
     parkingPassUseCase.createPass(A_PASS_DTO);
 
-    verify(passTransactionService, times(1)).addRevenue(expectedTotal);
+    verify(passTransactionService).addRevenue(expectedTotal);
   }
 
   @Test

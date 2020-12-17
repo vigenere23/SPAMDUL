@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.spamdul.parking.entities.pass.bike;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.User;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.User;
 import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +34,6 @@ public class BikeParkingPassTest {
   public void whenAccepting_shouldAssociateToUserBikeParkingPass() {
     bikeParkingPass.accept(user);
 
-    verify(user, times(1)).associateBikeParkingPass(bikeParkingPass);
+    verify(user).associateBikeParkingPass(bikeParkingPass);
   }
 }

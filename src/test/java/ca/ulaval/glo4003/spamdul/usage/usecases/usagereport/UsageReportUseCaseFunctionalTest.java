@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.usage.usecases.usagereport;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
@@ -68,7 +67,7 @@ public class UsageReportUseCaseFunctionalTest {
 
     usageReportUseCase.getReportSummary(creationDto, A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test
@@ -109,7 +108,7 @@ public class UsageReportUseCaseFunctionalTest {
 
     usageReportUseCase.getReport(usageReportCreationDto, A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test

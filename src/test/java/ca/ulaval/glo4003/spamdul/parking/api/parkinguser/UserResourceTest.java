@@ -1,14 +1,13 @@
 package ca.ulaval.glo4003.spamdul.parking.api.parkinguser;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
-import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.parking.api.parkinguser.dto.UserResponse;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserDto;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserUseCase;
 import javax.ws.rs.core.Response;
@@ -46,7 +45,7 @@ public class UserResourceTest {
 
     userResource.createNewUser(userRequest);
 
-    verify(userUseCase, times(1)).createUser(userDto);
+    verify(userUseCase).createUser(userDto);
   }
 
   @Test

@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.finance.usecases.carboncredits;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -61,7 +60,7 @@ public class CarbonCreditsUseCaseTest {
   public void whenActivatingAutomaticTransfer_shouldCallAccessLevelValidator() {
     carbonCreditsUseCase.activateAutomaticTransfer(true, A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test
@@ -82,13 +81,13 @@ public class CarbonCreditsUseCaseTest {
   public void whenTransferringRemainingBudget_shouldAddCarbonCreditsRevenueToCarbonCreditsBankAccount() {
     carbonCreditsUseCase.transferRemainingBudget();
 
-    verify(carbonCreditsTransactionService, times(1)).addRevenue(A_AMOUNT);
+    verify(carbonCreditsTransactionService).addRevenue(A_AMOUNT);
   }
 
   @Test
   public void whenTransferRemainingBudget_shouldPurchaseWithCarbonCreditsPurchaser() {
     carbonCreditsUseCase.transferRemainingBudget();
 
-    verify(carbonCreditsPurchaser, times(1)).purchase(CarbonCredits.valueOf(A_AMOUNT));
+    verify(carbonCreditsPurchaser).purchase(CarbonCredits.valueOf(A_AMOUNT));
   }
 }

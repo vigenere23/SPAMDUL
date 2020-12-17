@@ -1,16 +1,15 @@
 package ca.ulaval.glo4003.spamdul.parking.usecases.bikeparkingaccess;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingAccessValidator;
-import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingPassCode;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.User;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.exceptions.UserNotFoundException;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingPassCode;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.Before;
@@ -47,7 +46,7 @@ public class BikeParkingAccessUseCaseTest {
 
     bikeParkingAccessUseCase.canAccessParking(BIKE_PARKING_ACCESS_CODE);
 
-    verify(userRepository, times(1)).findBy(BIKE_PARKING_ACCESS_CODE);
+    verify(userRepository).findBy(BIKE_PARKING_ACCESS_CODE);
   }
 
   @Test
@@ -65,7 +64,7 @@ public class BikeParkingAccessUseCaseTest {
 
     bikeParkingAccessUseCase.canAccessParking(BIKE_PARKING_ACCESS_CODE);
 
-    verify(user, times(1)).isAccessGrantedToBikeParking(bikeParkingAccessValidator);
+    verify(user).isAccessGrantedToBikeParking(bikeParkingAccessValidator);
   }
 
   @Test

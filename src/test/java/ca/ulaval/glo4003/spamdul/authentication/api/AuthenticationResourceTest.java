@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.authentication.api;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.authentication.api.dto.LoginRequest;
@@ -43,7 +42,7 @@ public class AuthenticationResourceTest {
 
     authenticationResource.login(loginRequest);
 
-    verify(service, times(1)).login(A_USERNAME, AN_HASHED_PASSWORD);
+    verify(service).login(A_USERNAME, AN_HASHED_PASSWORD);
   }
 
   @Test

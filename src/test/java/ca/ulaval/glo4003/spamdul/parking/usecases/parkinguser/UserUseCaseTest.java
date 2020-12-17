@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,6 +54,6 @@ public class UserUseCaseTest {
   public void whenCreatingUser_shouldCallFactoryToCreateNewUser() {
     userUseCase.createUser(userDto);
 
-    verify(userFactory, times(1)).create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR_DTO);
+    verify(userFactory).create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR_DTO);
   }
 }

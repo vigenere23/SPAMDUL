@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.charging.usecases;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -49,45 +48,45 @@ public class ChargingPointUseCaseTest {
   public void whenGettingAllChargingPoints_shouldGetItFromRepository() {
     chargingPointUseCase.getAllChargingPoints();
 
-    verify(chargingPointRepository, times(1)).findAll();
+    verify(chargingPointRepository).findAll();
   }
 
   @Test
   public void whenGettingChargingPoint_shouldGetItFromRepository() {
     chargingPointUseCase.getChargingPoint(CHARGING_POINT_ID);
 
-    verify(chargingPointRepository, times(1)).findBy(CHARGING_POINT_ID);
+    verify(chargingPointRepository).findBy(CHARGING_POINT_ID);
   }
 
   @Test
   public void whenActivatingChargingPointShouldActivateChagingPoint() {
     chargingPointUseCase.activateChargingPoint(CHARGING_POINT_ID, RECHARG_UL_CARD_ID);
 
-    verify(chargingPoint, times(1)).activate(enoughCreditForChargingVerifier, RECHARG_UL_CARD_ID);
-    verify(chargingPointRepository, times(1)).update(chargingPoint);
+    verify(chargingPoint).activate(enoughCreditForChargingVerifier, RECHARG_UL_CARD_ID);
+    verify(chargingPointRepository).update(chargingPoint);
   }
 
   @Test
   public void whenStartingRecharging_shouldConnectChargingPoint() {
     chargingPointUseCase.startRecharging(CHARGING_POINT_ID);
 
-    verify(chargingPoint, times(1)).connect();
-    verify(chargingPointRepository, times(1)).update(chargingPoint);
+    verify(chargingPoint).connect();
+    verify(chargingPointRepository).update(chargingPoint);
   }
 
   @Test
   public void whenStopingRecharging_shouldDisconnectCharghingPoint() {
     chargingPointUseCase.stopRecharging(CHARGING_POINT_ID);
 
-    verify(chargingPoint, times(1)).disconnect();
-    verify(chargingPointRepository, times(1)).update(chargingPoint);
+    verify(chargingPoint).disconnect();
+    verify(chargingPointRepository).update(chargingPoint);
   }
 
   @Test
   public void whenDeactivating_shouldDeactivateAndPayChargingPoint() {
     chargingPointUseCase.deactivateChargingPoint(CHARGING_POINT_ID);
 
-    verify(chargingPoint, times(1)).deactivateAndPay(chargingPaymentService);
-    verify(chargingPointRepository, times(1)).update(chargingPoint);
+    verify(chargingPoint).deactivateAndPay(chargingPaymentService);
+    verify(chargingPointRepository).update(chargingPoint);
   }
 }

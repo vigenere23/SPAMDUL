@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint.exceptions.ChargingPointAlreadyChargingException;
@@ -32,7 +31,7 @@ public class ChargingPointStateChargingTest {
   public void whenDisconnecting_shouldStopCounter() {
     state.disconnect();
 
-    verify(millisecondsCounter, times(1)).stop();
+    verify(millisecondsCounter).stop();
   }
 
   @Test

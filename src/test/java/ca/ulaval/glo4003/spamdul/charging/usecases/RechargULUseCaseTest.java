@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.charging.usecases;
 
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,7 +53,7 @@ public class RechargULUseCaseTest {
   public void whenGettingRechargULCard_shouldFindUserAssociatedWithCardInUserRepository() {
     rechargULUseCase.getRechargULCard(RECHARG_UL_CARD_ID);
 
-    verify(userRepository, times(1)).findBy(RECHARG_UL_CARD_ID);
+    verify(userRepository).findBy(RECHARG_UL_CARD_ID);
   }
 
   @Test(expected = RechargULCardNotFoundException.class)
@@ -68,8 +67,8 @@ public class RechargULUseCaseTest {
   public void whenAddingCreditToRechargULCard_shouldAskUserToAddCreditsToCard() {
     rechargULUseCase.addCredits(RECHARG_UL_CARD_ID, AMOUNT);
 
-    verify(user, times(1)).addRechargULCredits(AMOUNT);
-    verify(userRepository, times(1)).save(user);
+    verify(user).addRechargULCredits(AMOUNT);
+    verify(userRepository).save(user);
   }
 
   @Test
@@ -79,8 +78,8 @@ public class RechargULUseCaseTest {
 
     rechargULUseCase.createCard(USER_ID);
 
-    verify(rechargULCardFactory, times(1)).create();
-    verify(user, times(1)).associate(rechargULCard);
-    verify(userRepository, times(1)).save(user);
+    verify(rechargULCardFactory).create();
+    verify(user).associate(rechargULCard);
+    verify(userRepository).save(user);
   }
 }

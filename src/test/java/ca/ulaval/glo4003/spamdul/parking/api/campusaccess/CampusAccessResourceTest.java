@@ -1,14 +1,13 @@
 package ca.ulaval.glo4003.spamdul.parking.api.campusaccess;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.parking.entities.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.AccessingCampusRequest;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.CampusAccessRequest;
+import ca.ulaval.glo4003.spamdul.parking.entities.campusaccess.CampusAccessCode;
 import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.CampusAccessUseCase;
 import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.AccessingCampusDto;
 import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.CampusAccessDto;
@@ -51,7 +50,7 @@ public class CampusAccessResourceTest {
   public void whenCreatingNewCampusAccess_shouldCallAssemblerToMapCampusAccessInfos() {
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessAssembler, times(1)).fromRequest(campusAccessRequest);
+    verify(campusAccessAssembler).fromRequest(campusAccessRequest);
   }
 
   @Test
@@ -60,7 +59,7 @@ public class CampusAccessResourceTest {
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessUseCase, times(1)).createCampusAccess(requestCampusAccessDto);
+    verify(campusAccessUseCase).createCampusAccess(requestCampusAccessDto);
   }
 
   @Test
@@ -70,14 +69,14 @@ public class CampusAccessResourceTest {
 
     campusAccessResource.createCampusAccess(campusAccessRequest);
 
-    verify(campusAccessAssembler, times(1)).toResponse(returnCampusAccessDto);
+    verify(campusAccessAssembler).toResponse(returnCampusAccessDto);
   }
 
   @Test
   public void whenVerifyingIfCanAccessCampus_shouldCallAssembler() {
     campusAccessResource.canAccessCampus(accessingCampusRequest);
 
-    verify(campusAccessAssembler, times(1)).fromRequest(accessingCampusRequest);
+    verify(campusAccessAssembler).fromRequest(accessingCampusRequest);
   }
 
   @Test
@@ -85,7 +84,7 @@ public class CampusAccessResourceTest {
     given(campusAccessAssembler.fromRequest(accessingCampusRequest)).willReturn(accessingCampusDto);
     campusAccessResource.canAccessCampus(accessingCampusRequest);
 
-    verify(campusAccessUseCase, times(1)).grantAccessToCampus(accessingCampusDto);
+    verify(campusAccessUseCase).grantAccessToCampus(accessingCampusDto);
   }
 
   @Test
@@ -95,6 +94,6 @@ public class CampusAccessResourceTest {
 
     campusAccessResource.canAccessCampus(accessingCampusRequest);
 
-    verify(campusAccessAssembler, times(1)).toResponse(true);
+    verify(campusAccessAssembler).toResponse(true);
   }
 }

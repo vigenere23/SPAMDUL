@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking.entities.pass.bike;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,7 +34,7 @@ public class BikeParkingAccessValidatorTest {
   public void whenValidating_shouldValidateIfTimePeriodBoundCurrentTime() {
     bikeParkingAccessValidator.validate(new BikeParkingPass(BIKE_PARKING_PASS_CODE, timePeriod));
 
-    verify(timePeriod, times(1)).bounds(calendar.now());
+    verify(timePeriod).bounds(calendar.now());
   }
 
   @Test

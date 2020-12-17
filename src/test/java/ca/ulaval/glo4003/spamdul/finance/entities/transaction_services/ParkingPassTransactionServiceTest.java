@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.transaction_services;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -45,14 +44,14 @@ public class ParkingPassTransactionServiceTest {
   public void whenAddingRevenue_shouldAdd40PercentToSustainabilityRevenue() {
     passTransactionService.addRevenue(AN_AMOUNT);
 
-    verify(sustainabilityBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.PASS);
+    verify(sustainabilityBankAccount).addRevenue(AN_AMOUNT.multiply(0.4), TransactionType.PASS);
   }
 
   @Test
   public void whenAddingRevenue_shouldAdd60PercentToMainRevenue() {
     passTransactionService.addRevenue(AN_AMOUNT);
 
-    verify(mainBankAccount, times(1)).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.PASS);
+    verify(mainBankAccount).addRevenue(AN_AMOUNT.multiply(0.6), TransactionType.PASS);
   }
 
   @Test

@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint.exceptions.ChargingPointAlreadyActivatedException;
@@ -36,7 +35,7 @@ public class ChargingPointStateActivatedTest {
 
     state.connect();
 
-    verify(millisecondsCounter, times(1)).start(millisecondsToAdd);
+    verify(millisecondsCounter).start(millisecondsToAdd);
   }
 
   @Test

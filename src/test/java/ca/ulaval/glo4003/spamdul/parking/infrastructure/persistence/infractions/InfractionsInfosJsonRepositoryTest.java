@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.parking.infrastructure.persistence.infractions
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.parking.entities.infractions.InfractionCode;
@@ -55,7 +54,7 @@ public class InfractionsInfosJsonRepositoryTest {
   public void whenFindingBy_shouldReadJsonWithJsonReader() {
     repository.findBy(ANOTHER_INFRACTION_CODE);
 
-    verify(jsonReader, times(1)).read(A_PATH, InfractionInfosDto[].class);
+    verify(jsonReader).read(A_PATH, InfractionInfosDto[].class);
   }
 
   @Test

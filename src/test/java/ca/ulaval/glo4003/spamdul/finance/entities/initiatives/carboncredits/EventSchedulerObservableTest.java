@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.initiatives.carboncredits;
 
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
@@ -14,7 +13,7 @@ public class EventSchedulerObservableTest {
 
   @Mock
   private ScheduleObserver scheduleObserver;
-  private EventSchedulerObservable eventSchedulerObservable = new EventSchedulerObservable();
+  private final EventSchedulerObservable eventSchedulerObservable = new EventSchedulerObservable();
 
   @Test
   public void givenObserverRegisteredOnce_whenNotify_shouldNotifyOnce() {
@@ -22,7 +21,7 @@ public class EventSchedulerObservableTest {
 
     eventSchedulerObservable.notifyObservers();
 
-    verify(scheduleObserver, times(1)).listenScheduledEvent();
+    verify(scheduleObserver).listenScheduledEvent();
   }
 
   @Test
@@ -32,7 +31,7 @@ public class EventSchedulerObservableTest {
 
     eventSchedulerObservable.notifyObservers();
 
-    verify(scheduleObserver, times(1)).listenScheduledEvent();
+    verify(scheduleObserver).listenScheduledEvent();
   }
 
   @Test

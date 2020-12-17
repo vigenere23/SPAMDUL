@@ -56,7 +56,7 @@ public class InitiativeUseCaseTest {
   public void whenGettingAllInitiatives_shouldCallAccessLevelValidator() {
     initiativeUseCase.getAllInitiatives(A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test
@@ -73,7 +73,7 @@ public class InitiativeUseCaseTest {
   public void whenAddingInitiative_shouldCallAccessLevelValidator() {
     initiativeUseCase.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test
@@ -82,7 +82,7 @@ public class InitiativeUseCaseTest {
 
     initiativeUseCase.addInitiative(A_INITIATIVE_DTO, A_TEMPORARY_TOKEN);
 
-    verify(initiativeRepository, times(1)).save(initiative);
+    verify(initiativeRepository).save(initiative);
   }
 
   @Test(expected = InsufficientFundsException.class)

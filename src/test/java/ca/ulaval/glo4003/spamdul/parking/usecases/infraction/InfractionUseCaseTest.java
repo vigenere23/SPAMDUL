@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.parking.usecases.infraction;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -88,7 +87,7 @@ public class InfractionUseCaseTest {
   public void whenGivingInfraction_shouldValidateCallIsMadeWithTheRightAccessLevel() {
     infractionUseCase.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(accessLevelValidator, times(1)).validate(A_TEMPORARY_TOKEN);
+    verify(accessLevelValidator).validate(A_TEMPORARY_TOKEN);
   }
 
   @Test
@@ -132,9 +131,9 @@ public class InfractionUseCaseTest {
 
     infractionUseCase.giveInfractionIfNotValid(passToValidateDto, A_TEMPORARY_TOKEN);
 
-    verify(user, times(1)).associate(infraction);
-    verify(userRepository, times(1)).findBy(LICENSE_PLATE);
-    verify(userRepository, times(1)).save(user);
+    verify(user).associate(infraction);
+    verify(userRepository).findBy(LICENSE_PLATE);
+    verify(userRepository).save(user);
   }
 
   @Test
@@ -175,7 +174,7 @@ public class InfractionUseCaseTest {
 
     infractionUseCase.payInfraction(infractionPaymentDto);
 
-    verify(infractionTransactionService, times(1)).addRevenue(ANY_AMOUNT);
+    verify(infractionTransactionService).addRevenue(ANY_AMOUNT);
   }
 
   @Test
@@ -185,6 +184,6 @@ public class InfractionUseCaseTest {
 
     infractionUseCase.payInfraction(infractionPaymentDto);
 
-    verify(user, times(1)).pay(AN_INFRACTION_ID);
+    verify(user).pay(AN_INFRACTION_ID);
   }
 }

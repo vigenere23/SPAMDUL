@@ -2,14 +2,11 @@ package ca.ulaval.glo4003.spamdul.parking.entities.parkinguser;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.charging.entities.rechargul.RechargULCard;
 import ca.ulaval.glo4003.spamdul.charging.entities.rechargul.RechargULCardId;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
-import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.parking.entities.campusaccess.CampusAccess;
 import ca.ulaval.glo4003.spamdul.parking.entities.campusaccess.CampusAccessCode;
@@ -31,6 +28,8 @@ import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingPassCode;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.car.CarParkingPass;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.car.CarParkingPassCode;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -147,7 +146,7 @@ public class UserTest {
 
     user.isAccessGrantedToCampus(A_TIME_OF_ACCESS);
 
-    verify(campusAccess, times(1)).grantAccess(A_TIME_OF_ACCESS);
+    verify(campusAccess).grantAccess(A_TIME_OF_ACCESS);
   }
 
 
@@ -212,7 +211,7 @@ public class UserTest {
 
     user.pay(INFRACTION_ID);
 
-    verify(infraction, times(1)).pay();
+    verify(infraction).pay();
   }
 
   @Test(expected = UserAlreadyHasARechargULCard.class)
@@ -233,7 +232,7 @@ public class UserTest {
 
     user.addRechargULCredits(AMOUNT);
 
-    verify(rechargULCard, times(1)).addCredits(AMOUNT);
+    verify(rechargULCard).addCredits(AMOUNT);
   }
 
   @Test
@@ -243,7 +242,7 @@ public class UserTest {
 
     user.associate(parkingPass);
 
-    verify(parkingPass, times(1)).accept(user);
+    verify(parkingPass).accept(user);
   }
 
   @Test
@@ -317,7 +316,7 @@ public class UserTest {
 
     user.isAccessGrantedToBikeParking(bikeParkingAccessValidator);
 
-    verify(bikeParkingAccessValidator, times(1)).validate(bikeParkingPass);
+    verify(bikeParkingAccessValidator).validate(bikeParkingPass);
   }
 
   @Test

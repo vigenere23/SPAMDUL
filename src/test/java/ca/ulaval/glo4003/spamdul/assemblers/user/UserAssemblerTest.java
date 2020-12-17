@@ -1,15 +1,14 @@
 package ca.ulaval.glo4003.spamdul.assemblers.user;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.user.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.spamdul.assemblers.user.exceptions.InvalidGenderException;
-import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.Gender;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.car.CarRequest;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.user.UserRequest;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.Gender;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserDto;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -49,7 +48,7 @@ public class UserAssemblerTest {
   public void whenCreatingUserDto_shouldCallCarAssembler() {
     userAssembler.fromRequest(userRequest);
 
-    verify(carAssembler, times(1)).fromRequest(carRequest);
+    verify(carAssembler).fromRequest(carRequest);
   }
 
   @Test

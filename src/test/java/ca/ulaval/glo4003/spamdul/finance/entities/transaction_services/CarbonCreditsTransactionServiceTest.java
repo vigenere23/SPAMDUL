@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.finance.entities.transaction_services;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -43,7 +42,7 @@ public class CarbonCreditsTransactionServiceTest {
 
     carbonCreditsTransactionService.addRevenue(AN_AMOUNT);
 
-    verify(transactionRepository, times(1)).save(A_TRANSACTION);
+    verify(transactionRepository).save(A_TRANSACTION);
   }
 
   @Test
