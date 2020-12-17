@@ -1,26 +1,26 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
-import ca.ulaval.glo4003.spamdul.api.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportSummaryAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.UsageReportAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.UsageReportAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogAgglomerator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogFactory;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogIdFactory;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportFactory;
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportUseCase;
+import ca.ulaval.glo4003.spamdul.usage.api.usagereport.UsageReportResource;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogAgglomerator;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogFactory;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogIdFactory;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogger;
+import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportFactory;
+import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportSummaryFactory;
+import ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog.InMemoryParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.UsageReportUseCase;
 
 public abstract class UsageReportContext implements ResourceContext {
 

@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.assemblers.parking.pass;
 
-import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.api.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.api.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PassCreationRequest;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.time.api.timeperiod.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 
 public class PassAssembler {
 

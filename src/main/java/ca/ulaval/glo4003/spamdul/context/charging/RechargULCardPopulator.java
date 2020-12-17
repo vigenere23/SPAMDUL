@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
+import ca.ulaval.glo4003.spamdul.charging.entities.rechargul.RechargULCard;
+import ca.ulaval.glo4003.spamdul.charging.entities.rechargul.RechargULCardFactory;
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCard;
-import ca.ulaval.glo4003.spamdul.entity.rechargul.RechargULCardFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.Gender;
-import ca.ulaval.glo4003.spamdul.entity.user.User;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.Gender;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.User;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
 import java.time.LocalDate;
 
 public class RechargULCardPopulator implements Populator {

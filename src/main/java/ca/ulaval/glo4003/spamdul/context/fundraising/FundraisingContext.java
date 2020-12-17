@@ -1,24 +1,24 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
-import ca.ulaval.glo4003.spamdul.api.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.FundRaisingAccessValidator;
 import ca.ulaval.glo4003.spamdul.context.Populator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FundRaisingAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCodeFactory;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeFactory;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeIdFactory;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.finance.api.initiatives.FundraisingResource;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeCodeFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeCreator;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeIdFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.infrastructure.persistence.initiatives.InMemoryInitiativeRepository;
+import ca.ulaval.glo4003.spamdul.finance.usecases.initiatives.InitiativeDtoAssembler;
+import ca.ulaval.glo4003.spamdul.finance.usecases.initiatives.InitiativeUseCase;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeDtoAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeUseCase;
 
 public abstract class FundraisingContext implements ResourceContext {
 

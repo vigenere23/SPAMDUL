@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.spamdul.context.fundraising;
 
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InitiativeTransactionService;
 
 public class DevFundraisingContext extends FundraisingContext {
 

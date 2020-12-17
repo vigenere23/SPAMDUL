@@ -2,10 +2,10 @@ package ca.ulaval.glo4003.spamdul.context.pass;
 
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.PassTransactionService;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.ParkingPassResource;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.api.pass.ParkingPassResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -2,21 +2,21 @@ package ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess;
 
 import static jersey.repackaged.com.google.common.collect.Lists.newArrayList;
 
+import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCode;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.AccessingCampusRequest;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.AccessingCampusResponse;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.CampusAccessRequest;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.CampusAccessResponse;
-import ca.ulaval.glo4003.spamdul.api.timeperiod.dto.TimePeriodRequest;
-import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.exceptions.InvalidCampusAccessArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.AccessingCampusDto;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.dto.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.AccessingCampusRequest;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.AccessingCampusResponse;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.CampusAccessRequest;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.CampusAccessResponse;
+import ca.ulaval.glo4003.spamdul.parking.entities.campusaccess.CampusAccessCode;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.AccessingCampusDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.campusaccess.dto.CampusAccessDto;
+import ca.ulaval.glo4003.spamdul.time.api.timeperiod.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import java.util.ArrayList;
 
 public class CampusAccessAssembler {

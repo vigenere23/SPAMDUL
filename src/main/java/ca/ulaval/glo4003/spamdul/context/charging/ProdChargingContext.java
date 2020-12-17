@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
 
 public class ProdChargingContext extends ChargingContext {
 

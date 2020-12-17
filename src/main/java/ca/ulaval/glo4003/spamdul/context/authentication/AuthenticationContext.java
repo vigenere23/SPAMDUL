@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.spamdul.context.authentication;
 
-import ca.ulaval.glo4003.spamdul.api.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.api.AuthenticationResource;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.infrastructure.persistence.registereduser.InMemoryRegisteredUserRepository;
+import ca.ulaval.glo4003.spamdul.authentication.usecases.AuthenticationUseCase;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationUseCase;
 
 public class AuthenticationContext implements ResourceContext {
 
@@ -15,7 +15,7 @@ public class AuthenticationContext implements ResourceContext {
   private final AccessTokenCookieAssembler accessTokenCookieAssembler;
 
   public AuthenticationContext() {
-    authenticationRepository = new InMemoryAuthenticationRepository();
+    authenticationRepository = new InMemoryRegisteredUserRepository();
     AuthenticationUseCase authenticationUseCase = new AuthenticationUseCase(authenticationRepository);
     authenticationResource = new AuthenticationResource(authenticationUseCase);
     accessTokenCookieAssembler = new AccessTokenCookieAssembler();

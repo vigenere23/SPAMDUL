@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CampusAccessTransactionService;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogger;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

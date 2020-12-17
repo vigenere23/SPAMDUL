@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.context.bikeparkingaccess;
 
-import ca.ulaval.glo4003.spamdul.api.bikeparkingaccess.BikeParkingAccessResource;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.bikeparking.BikeParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.bike.BikeParkingAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
+import ca.ulaval.glo4003.spamdul.parking.api.bikeparkingaccess.BikeParkingAccessResource;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.bike.BikeParkingAccessValidator;
+import ca.ulaval.glo4003.spamdul.parking.usecases.bikeparkingaccess.BikeParkingAccessUseCase;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.parking.bikeparkingaccess.BikeParkingAccessUseCase;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogger;
 
 public class BikeParkingAccessContext implements ResourceContext {
 

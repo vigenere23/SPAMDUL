@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.context.pass;
 
-import ca.ulaval.glo4003.spamdul.api.pass.ParkingPassResource;
-import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryStrategyFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassSender;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.email.NullEmailService;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.post.LoggerPostalService;
-import ca.ulaval.glo4003.spamdul.infrastructure.delivery.sspoffice.LoggerSSPOfficeService;
-import ca.ulaval.glo4003.spamdul.usecases.parking.pass.ParkingPassUseCase;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.PassTransactionService;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.parking.entities.delivery.DeliveryStrategyFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingPassSender;
+import ca.ulaval.glo4003.spamdul.parking.infrastructure.delivery.email.NullEmailService;
+import ca.ulaval.glo4003.spamdul.parking.infrastructure.delivery.post.LoggerPostalService;
+import ca.ulaval.glo4003.spamdul.parking.infrastructure.delivery.sspoffice.LoggerSSPOfficeService;
+import ca.ulaval.glo4003.spamdul.parking.usecases.pass.ParkingPassUseCase;
 
 public class DevPassContext extends PassContext {
 

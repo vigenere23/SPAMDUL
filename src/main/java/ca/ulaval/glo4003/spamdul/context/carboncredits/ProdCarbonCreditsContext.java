@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.spamdul.context.carboncredits;
 
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeCreator;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeRepository;
 
 public class ProdCarbonCreditsContext extends CarbonCreditsContext {
 

@@ -1,22 +1,22 @@
 package ca.ulaval.glo4003.spamdul.context.carboncredits;
 
-import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.CarbonCreditsAccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.CarbonCreditsAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.entity.initiatives.carboncredits.CarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.carboncredits.ConsoleLogCarbonCreditsPurchaser;
-import ca.ulaval.glo4003.spamdul.infrastructure.scheduling.EndOfMonthEventScheduler;
+import ca.ulaval.glo4003.spamdul.finance.api.carboncredits.CarbonCreditsResource;
+import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeCreator;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeRepository;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.carboncredits.CarbonCreditsPurchaser;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.infrastructure.carboncredits.ConsoleLogCarbonCreditsPurchaser;
+import ca.ulaval.glo4003.spamdul.finance.usecases.carboncredits.CarbonCreditsUseCase;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsUseCase;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
+import ca.ulaval.glo4003.spamdul.time.infrastructure.scheduling.EndOfMonthEventScheduler;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 

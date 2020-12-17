@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.context.usagereport;
 
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
 
 public class DevUsageReportContext extends UsageReportContext {
 

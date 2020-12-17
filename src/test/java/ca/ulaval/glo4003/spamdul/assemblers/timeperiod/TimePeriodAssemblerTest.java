@@ -2,15 +2,15 @@ package ca.ulaval.glo4003.spamdul.assemblers.timeperiod;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.PeriodType;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.api.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidDayOfWeekArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidNumberOfHoursArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidSemesterArgumentException;
+import ca.ulaval.glo4003.spamdul.time.api.timeperiod.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Semester;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Session;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDayOfWeek;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 import java.math.BigDecimal;
 import org.junit.Test;
 

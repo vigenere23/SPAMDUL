@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.context.charging;
 
+import ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint.ChargingPoint;
+import ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint.ChargingPointFactory;
+import ca.ulaval.glo4003.spamdul.charging.entities.chargingpoint.ChargingPointRepository;
 import ca.ulaval.glo4003.spamdul.context.Populator;
-import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPoint;
-import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointFactory;
-import ca.ulaval.glo4003.spamdul.entity.charging.ChargingPointRepository;
 
 public class ChargingPointPopulator implements Populator {
 

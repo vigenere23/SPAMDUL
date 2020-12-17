@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.assemblers.usagereport;
 
-import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReport;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDayDto;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportDto;
+import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReport;
+import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportDayDto;
+import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

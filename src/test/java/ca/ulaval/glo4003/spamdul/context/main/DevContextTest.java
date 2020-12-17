@@ -4,21 +4,21 @@ import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExac
 
 import ca.ulaval.glo4003.spamdul.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.SpamDULExceptionAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.api.AuthenticationResource;
+import ca.ulaval.glo4003.spamdul.charging.api.chargingpoint.ChargingPointResource;
+import ca.ulaval.glo4003.spamdul.charging.api.rechargul.RechargULResource;
+import ca.ulaval.glo4003.spamdul.finance.api.carboncredits.CarbonCreditsResource;
+import ca.ulaval.glo4003.spamdul.finance.api.carboncredits.CarbonCreditsResourceAdmin;
+import ca.ulaval.glo4003.spamdul.finance.api.initiatives.FundraisingResource;
+import ca.ulaval.glo4003.spamdul.finance.api.revenue.RevenueResource;
+import ca.ulaval.glo4003.spamdul.parking.api.bikeparkingaccess.BikeParkingAccessResource;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.parking.api.infractions.InfractionResource;
+import ca.ulaval.glo4003.spamdul.parking.api.parkinguser.UserResource;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.shared.api.PingResource;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.api.PingResource;
-import ca.ulaval.glo4003.spamdul.api.authentification.AuthenticationResource;
-import ca.ulaval.glo4003.spamdul.api.bikeparkingaccess.BikeParkingAccessResource;
-import ca.ulaval.glo4003.spamdul.api.campusaccess.CampusAccessResource;
-import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResource;
-import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResourceAdmin;
-import ca.ulaval.glo4003.spamdul.api.charging.ChargingPointResource;
-import ca.ulaval.glo4003.spamdul.api.finance.RevenueResource;
-import ca.ulaval.glo4003.spamdul.api.fundraising.FundraisingResource;
-import ca.ulaval.glo4003.spamdul.api.infractions.InfractionResource;
-import ca.ulaval.glo4003.spamdul.api.pass.ParkingPassResource;
-import ca.ulaval.glo4003.spamdul.api.rechargul.RechargULResource;
-import ca.ulaval.glo4003.spamdul.api.usagereport.UsageReportResource;
-import ca.ulaval.glo4003.spamdul.api.user.UserResource;
+import ca.ulaval.glo4003.spamdul.usage.api.usagereport.UsageReportResource;
 import org.junit.Before;
 import org.junit.Test;
 

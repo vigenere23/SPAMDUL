@@ -1,18 +1,18 @@
 package ca.ulaval.glo4003.spamdul.context.user;
 
-import ca.ulaval.glo4003.spamdul.api.user.UserResource;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserIdFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarIdFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.user.InMemoryUserRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.parking.api.parkinguser.UserResource;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserIdFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarIdFactory;
+import ca.ulaval.glo4003.spamdul.parking.infrastructure.persistence.parkinguser.InMemoryUserRepository;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserUseCase;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserUseCase;
 
 public class UserContext implements ResourceContext {
 

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.assemblers.delivery;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;
+import ca.ulaval.glo4003.spamdul.parking.entities.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.exceptions.InvalidEmailAddressException;
 import org.junit.Test;
 

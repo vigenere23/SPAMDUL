@@ -1,24 +1,24 @@
 package ca.ulaval.glo4003.spamdul.context.pass;
 
-import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.delivery.post.DeliveryFeeCalculator;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassCodeFactory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassDeliveryOptionsFactory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingPassFactory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZoneFeeRepository;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodFactory;
-import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.parkingzonefee.ParkingZoneFeeCsvRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.EmailAddressAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.PostalAddressAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.context.ResourceContext;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.parking.entities.delivery.post.DeliveryFeeCalculator;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingPassCodeFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingPassDeliveryOptionsFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingPassFactory;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking.infrastructure.persistence.parkingzonefee.ParkingZoneFeeCsvRepository;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.api.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodFactory;
+import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
 
 public abstract class PassContext implements ResourceContext {
 

@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.assemblers.charging;
 
-import ca.ulaval.glo4003.spamdul.api.charging.dto.ChargingPointResponse;
-import ca.ulaval.glo4003.spamdul.api.charging.dto.ChargingPointsResponse;
-import ca.ulaval.glo4003.spamdul.usecases.charging.dto.ChargingPointDto;
+import ca.ulaval.glo4003.spamdul.charging.api.chargingpoint.dto.ChargingPointResponse;
+import ca.ulaval.glo4003.spamdul.charging.api.chargingpoint.dto.ChargingPointsResponse;
+import ca.ulaval.glo4003.spamdul.charging.usecases.dto.ChargingPointDto;
 import java.util.List;
 import java.util.stream.Collectors;
 

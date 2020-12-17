@@ -1,27 +1,27 @@
 package ca.ulaval.glo4003.spamdul.context.finance;
 
-import ca.ulaval.glo4003.spamdul.api.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.finance.TransactionQueryAssembler;
+import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.AccessLevelValidator;
+import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.FinanceAccessValidator;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
-import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.AccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.entity.authentication.accesslevelvalidator.FinanceAccessValidator;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.MainBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.bank_accounts.SustainabilityBankAccount;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction.TransactionFactory;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCreditsTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.PassTransactionService;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.Calendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
-import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
+import ca.ulaval.glo4003.spamdul.finance.api.revenue.RevenueResource;
+import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.MainBankAccount;
+import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.SustainabilityBankAccount;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CampusAccessTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CarbonCreditsTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InfractionTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InitiativeTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.PassTransactionService;
+import ca.ulaval.glo4003.spamdul.finance.infrastructure.persistence.transactions.InMemoryCampusAccessTransactionRepository;
+import ca.ulaval.glo4003.spamdul.finance.infrastructure.persistence.transactions.InMemoryTransactionRepository;
+import ca.ulaval.glo4003.spamdul.finance.usecases.revenue.RevenueUseCase;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueUseCase;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
+import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
 
 public class FinanceContext implements ResourceContext {
 

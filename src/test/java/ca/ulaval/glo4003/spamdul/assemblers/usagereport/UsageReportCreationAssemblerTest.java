@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.spamdul.assemblers.usagereport;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.exceptions.InvalidDateArgumentException;
-import ca.ulaval.glo4003.spamdul.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.exceptions.InvalidParkingCategoryArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.dto.UsageReportCreationDto;
+import ca.ulaval.glo4003.spamdul.assemblers.usagereport.exceptions.InvalidParkingZoneArgumentException;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingCategory;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportCreationDto;
 import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
