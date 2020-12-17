@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.fundraising;
 
+import ca.ulaval.glo4003.spamdul.api.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.fundraising.InitiativeAssembler;
 import ca.ulaval.glo4003.spamdul.context.Populator;
@@ -16,9 +17,8 @@ import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.fundraising.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.FundraisingResource;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeDtoAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeService;
+import ca.ulaval.glo4003.spamdul.usecases.fundraising.InitiativeUseCase;
 
 public abstract class FundraisingContext implements ResourceContext {
 
@@ -38,12 +38,12 @@ public abstract class FundraisingContext implements ResourceContext {
     InitiativeDtoAssembler initiativeDtoAssembler = new InitiativeDtoAssembler();
     AccessLevelValidator accessLevelValidator = new FundRaisingAccessValidator(authenticationRepository);
     initiativeCreator = new InitiativeCreator(initiativeTransactionService, initiativeFactory);
-    InitiativeService initiativeService = new InitiativeService(initiativeRepository,
+    InitiativeUseCase initiativeUseCase = new InitiativeUseCase(initiativeRepository,
                                                                 initiativeCreator,
                                                                 accessLevelValidator,
                                                                 initiativeDtoAssembler);
 
-    fundraisingResource = new FundraisingResource(initiativeAssembler, initiativeService, cookieAssembler);
+    fundraisingResource = new FundraisingResource(initiativeAssembler, initiativeUseCase, cookieAssembler);
 
     InitiativePopulator populator = new InitiativePopulator(initiativeRepository, initiativeFactory);
 

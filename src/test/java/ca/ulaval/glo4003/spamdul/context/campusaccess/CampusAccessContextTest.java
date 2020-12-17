@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAcces
 import ca.ulaval.glo4003.spamdul.entity.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.campusaccess.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.api.campusaccess.CampusAccessResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

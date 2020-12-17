@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.assemblers;
 
-import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.api.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

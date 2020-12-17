@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.timeperiod.Semester;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.Session;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDayOfWeek;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.api.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidDayOfWeekArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidNumberOfHoursArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;

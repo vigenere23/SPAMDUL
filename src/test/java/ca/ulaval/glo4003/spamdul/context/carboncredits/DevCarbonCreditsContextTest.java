@@ -9,8 +9,8 @@ import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CarbonCredi
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCreator;
 import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.carboncredits.CarbonCreditsResource;
-import ca.ulaval.glo4003.spamdul.ui.carboncredits.CarbonCreditsResourceAdmin;
+import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResource;
+import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResourceAdmin;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.usagereport;
 
+import ca.ulaval.glo4003.spamdul.api.usagereport.UsageReportResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportCreationAssembler;
@@ -19,8 +20,7 @@ import ca.ulaval.glo4003.spamdul.entity.usagereport.UsageReportSummaryFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parkingaccesslog.InMemoryParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.usagereport.UsageReportResource;
-import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportService;
+import ca.ulaval.glo4003.spamdul.usecases.usagereport.UsageReportUseCase;
 
 public abstract class UsageReportContext implements ResourceContext {
 
@@ -47,7 +47,7 @@ public abstract class UsageReportContext implements ResourceContext {
 
     AccessLevelValidator accessLevelValidator = new UsageReportAccessLevelValidator(authenticationRepository);
 
-    UsageReportService usageReportService = new UsageReportService(parkingAccessLogRepository,
+    UsageReportUseCase usageReportUseCase = new UsageReportUseCase(parkingAccessLogRepository,
                                                                    parkingAccessLogAgglomerator,
                                                                    usageReportSummaryFactory,
                                                                    usageReportSummaryAssembler,
@@ -55,7 +55,7 @@ public abstract class UsageReportContext implements ResourceContext {
                                                                    usageReportAssembler,
                                                                    accessLevelValidator);
 
-    usageReportResource = new UsageReportResource(usageReportService,
+    usageReportResource = new UsageReportResource(usageReportUseCase,
                                                   usageReportCreationAssembler,
                                                   cookieAssembler);
     Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);

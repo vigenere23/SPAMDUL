@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.assemblers.finance;
 
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.ui.finance.dto.CarTypeTotalRevenueResponse;
-import ca.ulaval.glo4003.spamdul.ui.finance.dto.RevenueResponse;
-import ca.ulaval.glo4003.spamdul.ui.finance.dto.TotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.api.finance.dto.CarTypeTotalRevenueResponse;
+import ca.ulaval.glo4003.spamdul.api.finance.dto.RevenueResponse;
+import ca.ulaval.glo4003.spamdul.api.finance.dto.TotalRevenueResponse;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.Map;
 import java.util.Map.Entry;

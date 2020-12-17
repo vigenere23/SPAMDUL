@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.context.authentication;
 import static ca.ulaval.glo4003.spamdul.shared.utils.Matchers.assertContainsExactlyInstancesOf;
 
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AuthenticationResource;
+import ca.ulaval.glo4003.spamdul.api.authentification.AuthenticationResource;
 import org.junit.Before;
 import org.junit.Test;
 

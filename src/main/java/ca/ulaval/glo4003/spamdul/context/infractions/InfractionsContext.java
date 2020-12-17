@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.infractions;
 
+import ca.ulaval.glo4003.spamdul.api.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.infraction.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
@@ -24,9 +25,8 @@ import ca.ulaval.glo4003.spamdul.infrastructure.db.infractions.InfractionsInfosJ
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.infractions.InfractionResource;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionDtoAssembler;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionService;
+import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionUseCase;
 
 public class InfractionsContext implements ResourceContext {
 
@@ -49,14 +49,14 @@ public class InfractionsContext implements ResourceContext {
 
     InfractionDtoAssembler infractionDtoAssembler = new InfractionDtoAssembler();
 
-    InfractionService infractionService = new InfractionService(infractionInfoRepository,
+    InfractionUseCase infractionUseCase = new InfractionUseCase(infractionInfoRepository,
                                                                 userRepository,
                                                                 infractionFactory,
                                                                 firstValidationNode,
                                                                 accessLevelValidator,
                                                                 infractionTransactionService, infractionDtoAssembler);
 
-    infractionResource = new InfractionResource(infractionAssembler, infractionService, cookieAssembler);
+    infractionResource = new InfractionResource(infractionAssembler, infractionUseCase, cookieAssembler);
 
   }
 

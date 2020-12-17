@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.assemblers.parking.bikeparking;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.ui.bikeparkingaccess.dto.BikeParkingAccessResponse;
+import ca.ulaval.glo4003.spamdul.api.bikeparkingaccess.dto.BikeParkingAccessResponse;
 import org.junit.Before;
 import org.junit.Test;
 

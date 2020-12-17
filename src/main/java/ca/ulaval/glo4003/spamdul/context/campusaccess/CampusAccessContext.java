@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.spamdul.context.campusaccess;
 
+import ca.ulaval.glo4003.spamdul.api.campusaccess.CampusAccessResource;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.CampusAccessAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.parking.campusaccess.CampusAccessCodeFactory;
@@ -13,12 +16,9 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.parking.campusaccess.CampusAccessFeeCsvRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.infrastructure.reader.CsvReader;
-import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.CampusAccessAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessDtoAssembler;
-import ca.ulaval.glo4003.spamdul.ui.campusaccess.CampusAccessResource;
-import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessService;
+import ca.ulaval.glo4003.spamdul.usecases.parking.campusaccess.CampusAccessUseCase;
 
 public class CampusAccessContext implements ResourceContext {
 
@@ -38,15 +38,15 @@ public class CampusAccessContext implements ResourceContext {
     CsvReader csvReader = new CsvReader();
     CampusAccessFeeRepository campusAccessFeeRepository = new CampusAccessFeeCsvRepository(csvReader,
                                                                                            "src/main/resources/frais-acces.csv");
-    CampusAccessService campusAccessService = new CampusAccessService(campusAccessFactory,
+    CampusAccessUseCase campusAccessUseCase = new CampusAccessUseCase(campusAccessFactory,
                                                                       userRepository,
                                                                       calendar,
                                                                       campusAccessFeeRepository,
                                                                       campusAccessTransactionService,
                                                                       campusAccessDtoAssembler);
-    campusAccessService.register(parkingAccessLogger);
+    campusAccessUseCase.register(parkingAccessLogger);
     campusAccessResource = new CampusAccessResource(campusAccessAssembler,
-                                                    campusAccessService);
+                                                    campusAccessUseCase);
   }
 
   @Override public void registerResources(InstanceMap resources) {

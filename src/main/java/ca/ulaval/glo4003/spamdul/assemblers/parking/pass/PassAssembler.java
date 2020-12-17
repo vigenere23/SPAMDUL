@@ -5,8 +5,8 @@ import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePer
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
 import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.ui.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.api.pass.dto.PassCreationRequest;
+import ca.ulaval.glo4003.spamdul.api.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;

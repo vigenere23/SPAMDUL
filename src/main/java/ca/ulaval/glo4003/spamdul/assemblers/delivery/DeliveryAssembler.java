@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.assemblers.delivery;
 
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.exceptions.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.entity.delivery.DeliveryMode;
-import ca.ulaval.glo4003.spamdul.ui.pass.dto.DeliveryRequest;
+import ca.ulaval.glo4003.spamdul.api.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.usecases.parking.pass.DeliveryDto;
 
 public class DeliveryAssembler {

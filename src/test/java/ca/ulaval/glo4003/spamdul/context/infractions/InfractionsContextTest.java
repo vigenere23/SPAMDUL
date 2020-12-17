@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.entity.finance.transaction_services.InfractionTransactionService;
 import ca.ulaval.glo4003.spamdul.entity.user.UserRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.infractions.InfractionResource;
+import ca.ulaval.glo4003.spamdul.api.infractions.InfractionResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

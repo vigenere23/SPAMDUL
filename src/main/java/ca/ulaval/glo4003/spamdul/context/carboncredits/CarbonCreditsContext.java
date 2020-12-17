@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.carboncredits;
 
+import ca.ulaval.glo4003.spamdul.api.carboncredits.CarbonCreditsResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
@@ -15,14 +16,13 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.carboncredits.ConsoleLogCarbonCreditsPurchaser;
 import ca.ulaval.glo4003.spamdul.infrastructure.scheduling.EndOfMonthEventScheduler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.carboncredits.CarbonCreditsResource;
-import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsService;
+import ca.ulaval.glo4003.spamdul.usecases.carboncredits.CarbonCreditsUseCase;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class CarbonCreditsContext implements ResourceContext {
 
-  protected final CarbonCreditsService carbonCreditsService;
+  protected final CarbonCreditsUseCase carbonCreditsUseCase;
   private final CarbonCreditsResource carbonCreditsResource;
   private final EndOfMonthEventScheduler endOfMonthEventScheduler;
 
@@ -44,7 +44,7 @@ public abstract class CarbonCreditsContext implements ResourceContext {
 
     AccessLevelValidator accessLevelValidator = new CarbonCreditsAccessLevelValidator(authenticationRepository);
 
-    carbonCreditsService = new CarbonCreditsService(endOfMonthEventScheduler,
+    carbonCreditsUseCase = new CarbonCreditsUseCase(endOfMonthEventScheduler,
                                                     carbonCreditsPurchaser,
                                                     initiativeRepository,
                                                     initiativeCreator,
@@ -52,7 +52,7 @@ public abstract class CarbonCreditsContext implements ResourceContext {
                                                     carbonCreditsTransactionService,
                                                     sustainabilityBankAccount);
 
-    carbonCreditsResource = new CarbonCreditsResource(carbonCreditsService, cookieAssembler);
+    carbonCreditsResource = new CarbonCreditsResource(carbonCreditsUseCase, cookieAssembler);
   }
 
   public EndOfMonthEventScheduler getEndOfMonthEventScheduler() {

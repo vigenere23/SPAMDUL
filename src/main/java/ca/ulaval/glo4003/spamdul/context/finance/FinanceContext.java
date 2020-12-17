@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.context.finance;
 
+import ca.ulaval.glo4003.spamdul.api.finance.RevenueResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.finance.RevenueAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.finance.TransactionQueryAssembler;
@@ -20,8 +21,7 @@ import ca.ulaval.glo4003.spamdul.infrastructure.calendar.HardCodedCalendar;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryCampusAccessTransactionRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.finance.InMemoryTransactionRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.finance.RevenueResource;
-import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueService;
+import ca.ulaval.glo4003.spamdul.usecases.finance.RevenueUseCase;
 
 public class FinanceContext implements ResourceContext {
 
@@ -56,7 +56,7 @@ public class FinanceContext implements ResourceContext {
     passTransactionService = new PassTransactionService(mainBankAccount, sustainabilityBankAccount);
 
     AccessLevelValidator accessLevelValidator = new FinanceAccessValidator(authenticationRepository);
-    RevenueService revenueService = new RevenueService(accessLevelValidator,
+    RevenueUseCase revenueUseCase = new RevenueUseCase(accessLevelValidator,
                                                        campusAccessTransactionService,
                                                        infractionTransactionService,
                                                        passTransactionService,
@@ -65,7 +65,7 @@ public class FinanceContext implements ResourceContext {
     Calendar calendar = new HardCodedCalendar();
     TransactionQueryAssembler transactionQueryAssembler = new TransactionQueryAssembler(calendar);
     RevenueAssembler revenueAssembler = new RevenueAssembler();
-    revenueResource = new RevenueResource(revenueService,
+    revenueResource = new RevenueResource(revenueUseCase,
                                           transactionQueryAssembler,
                                           revenueAssembler,
                                           cookieAssembler);

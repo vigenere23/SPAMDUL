@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.spamdul.context.pass.DevPassContext;
 import ca.ulaval.glo4003.spamdul.context.usagereport.ProdUsageReportContext;
 import ca.ulaval.glo4003.spamdul.context.user.UserContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.PingResource;
+import ca.ulaval.glo4003.spamdul.api.PingResource;
 
 public class TestContext extends MainContext {
 

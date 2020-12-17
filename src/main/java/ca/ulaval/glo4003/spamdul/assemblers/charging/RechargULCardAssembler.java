@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.assemblers.charging;
 
-import ca.ulaval.glo4003.spamdul.ui.rechargul.dto.RechargULCardResponse;
+import ca.ulaval.glo4003.spamdul.api.rechargul.dto.RechargULCardResponse;
 import ca.ulaval.glo4003.spamdul.usecases.charging.dto.RechargULCardDto;
 
 public class RechargULCardAssembler {

@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.spamdul.context.authentication;
 
+import ca.ulaval.glo4003.spamdul.api.authentification.AuthenticationResource;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.authentication.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.authentication.InMemoryAuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.authentification.AuthenticationResource;
-import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationService;
+import ca.ulaval.glo4003.spamdul.usecases.authentification.AuthenticationUseCase;
 
 public class AuthenticationContext implements ResourceContext {
 
@@ -16,8 +16,8 @@ public class AuthenticationContext implements ResourceContext {
 
   public AuthenticationContext() {
     authenticationRepository = new InMemoryAuthenticationRepository();
-    AuthenticationService authenticationService = new AuthenticationService(authenticationRepository);
-    authenticationResource = new AuthenticationResource(authenticationService);
+    AuthenticationUseCase authenticationUseCase = new AuthenticationUseCase(authenticationRepository);
+    authenticationResource = new AuthenticationResource(authenticationUseCase);
     accessTokenCookieAssembler = new AccessTokenCookieAssembler();
   }
 

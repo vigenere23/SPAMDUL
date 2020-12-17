@@ -5,8 +5,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.spamdul.entity.user.Gender;
-import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.car.CarRequest;
-import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.user.UserRequest;
+import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.car.CarRequest;
+import ca.ulaval.glo4003.spamdul.api.campusaccess.dto.user.UserRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.user.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.spamdul.assemblers.user.exceptions.InvalidGenderException;

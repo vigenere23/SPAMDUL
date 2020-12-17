@@ -5,9 +5,9 @@ import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
 import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
 import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.entity.user.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionPaymentRequest;
-import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionRequest;
-import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
+import ca.ulaval.glo4003.spamdul.api.infractions.dto.InfractionPaymentRequest;
+import ca.ulaval.glo4003.spamdul.api.infractions.dto.InfractionRequest;
+import ca.ulaval.glo4003.spamdul.api.infractions.dto.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
 import ca.ulaval.glo4003.spamdul.usecases.infraction.InfractionPaymentDto;
 

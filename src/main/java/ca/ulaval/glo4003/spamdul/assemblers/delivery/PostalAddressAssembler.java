@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.assemblers.delivery;
 
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.exceptions.InvalidPostalAddressException;
 import ca.ulaval.glo4003.spamdul.entity.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.ui.pass.dto.PostalAddressRequest;
+import ca.ulaval.glo4003.spamdul.api.pass.dto.PostalAddressRequest;
 
 public class PostalAddressAssembler {
 

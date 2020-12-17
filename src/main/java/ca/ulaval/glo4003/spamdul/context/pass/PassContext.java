@@ -18,7 +18,7 @@ import ca.ulaval.glo4003.spamdul.assemblers.delivery.PostalAddressAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.pass.ParkingPassResource;
+import ca.ulaval.glo4003.spamdul.api.pass.ParkingPassResource;
 
 public abstract class PassContext implements ResourceContext {
 

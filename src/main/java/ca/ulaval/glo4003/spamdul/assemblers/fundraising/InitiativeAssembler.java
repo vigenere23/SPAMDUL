@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.spamdul.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.initiatives.Initiative;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeRequest;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeResponse;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativesResponse;
+import ca.ulaval.glo4003.spamdul.api.fundraising.dto.InitiativeRequest;
+import ca.ulaval.glo4003.spamdul.api.fundraising.dto.InitiativeResponse;
+import ca.ulaval.glo4003.spamdul.api.fundraising.dto.InitiativesResponse;
 import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
 import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
 import java.util.List;

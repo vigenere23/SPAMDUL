@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.spamdul.context.user;
 
+import ca.ulaval.glo4003.spamdul.api.user.UserResource;
+import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.entity.user.UserFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.UserIdFactory;
@@ -8,11 +11,8 @@ import ca.ulaval.glo4003.spamdul.entity.user.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.entity.user.car.CarIdFactory;
 import ca.ulaval.glo4003.spamdul.infrastructure.db.user.InMemoryUserRepository;
 import ca.ulaval.glo4003.spamdul.infrastructure.ids.IncrementalIdGenerator;
-import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.CarAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
-import ca.ulaval.glo4003.spamdul.ui.user.UserResource;
-import ca.ulaval.glo4003.spamdul.usecases.user.UserService;
+import ca.ulaval.glo4003.spamdul.usecases.user.UserUseCase;
 
 public class UserContext implements ResourceContext {
 
@@ -28,7 +28,7 @@ public class UserContext implements ResourceContext {
     carFactory = new CarFactory(carIdFactory);
     UserIdFactory userIdFactory = new UserIdFactory(new IncrementalIdGenerator());
     UserFactory userFactory = new UserFactory(userIdFactory, carFactory);
-    userResource = new UserResource(userAssembler, new UserService(userRepository, userFactory));
+    userResource = new UserResource(userAssembler, new UserUseCase(userRepository, userFactory));
   }
 
   public UserRepository getUserRepository() {
