@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.spamdul.assemblers;
 
-import ca.ulaval.glo4003.spamdul.ui.ExceptionResponse;
+import ca.ulaval.glo4003.spamdul.shared.api.ExceptionResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 public class SpamDULExceptionAssembler implements ExceptionMapper<SpamDULBaseException> {
 
-  public Response toResponse(SpamDULBaseException e) {
+  @Override public Response toResponse(SpamDULBaseException e) {
     ExceptionResponse exceptionResponse = new ExceptionResponse();
     exceptionResponse.error = e.getError();
     exceptionResponse.description = e.getDescription();

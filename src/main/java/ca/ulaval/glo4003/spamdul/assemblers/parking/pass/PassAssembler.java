@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.assemblers.parking.pass;
 
-import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
-import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.entity.timeperiod.TimePeriodDto;
-import ca.ulaval.glo4003.spamdul.entity.user.UserId;
-import ca.ulaval.glo4003.spamdul.ui.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.ui.timeperiod.dto.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.DeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.exceptions.InvalidParkingZoneException;
-import ca.ulaval.glo4003.spamdul.usecases.parking.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.TimePeriodAssembler;
+import ca.ulaval.glo4003.spamdul.assemblers.timeperiod.exceptions.InvalidTimePeriodArgumentException;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PassCreationRequest;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.PassCreationDto;
+import ca.ulaval.glo4003.spamdul.time.api.timeperiod.TimePeriodRequest;
+import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
 
 public class PassAssembler {
 
@@ -21,15 +21,15 @@ public class PassAssembler {
     this.timePeriodAssembler = timePeriodAssembler;
   }
 
-  public PassDto fromRequest(PassCreationRequest passCreationRequest) {
-    PassDto passDto = new PassDto();
+  public PassCreationDto fromRequest(PassCreationRequest passCreationRequest) {
+    PassCreationDto passCreationDto = new PassCreationDto();
 
-    passDto.deliveryDto = deliveryAssembler.fromRequest(passCreationRequest.delivery);
-    passDto.timePeriodDto = getTimePeriodDto(passCreationRequest.period);
-    passDto.parkingZone = getParkingZone(passCreationRequest.parkingZone);
-    passDto.userId = getUserId(passCreationRequest.userId);
+    passCreationDto.deliveryDto = deliveryAssembler.fromRequest(passCreationRequest.delivery);
+    passCreationDto.timePeriodDto = getTimePeriodDto(passCreationRequest.period);
+    passCreationDto.parkingZone = getParkingZone(passCreationRequest.parkingZone);
+    passCreationDto.userId = getUserId(passCreationRequest.userId);
 
-    return passDto;
+    return passCreationDto;
   }
 
   private TimePeriodDto getTimePeriodDto(TimePeriodRequest timePeriodRequest) {

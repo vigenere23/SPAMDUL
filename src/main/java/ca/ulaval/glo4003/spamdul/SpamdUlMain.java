@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul;
 
-import ca.ulaval.glo4003.spamdul.context.main.ContextFactory;
+import ca.ulaval.glo4003.spamdul.shared.application.JettyJerseyApp;
+import ca.ulaval.glo4003.spamdul.shared.application.SpamdUlApplication;
+import ca.ulaval.glo4003.spamdul.shared.context.main.ContextFactory;
 
 @SuppressWarnings("all")
 public class SpamdUlMain {

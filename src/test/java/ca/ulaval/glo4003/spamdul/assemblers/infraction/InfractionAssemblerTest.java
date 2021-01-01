@@ -3,14 +3,14 @@ package ca.ulaval.glo4003.spamdul.assemblers.infraction;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.assemblers.infraction.exceptions.InvalidInfractionParkingZoneException;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionCode;
-import ca.ulaval.glo4003.spamdul.usecases.infraction.dto.InfractionDto;
-import ca.ulaval.glo4003.spamdul.entity.infractions.InfractionId;
-import ca.ulaval.glo4003.spamdul.entity.infractions.PassToValidateDto;
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionRequest;
-import ca.ulaval.glo4003.spamdul.ui.infractions.dto.InfractionResponse;
-import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
+import ca.ulaval.glo4003.spamdul.parking.api.infractions.dto.InfractionRequest;
+import ca.ulaval.glo4003.spamdul.parking.api.infractions.dto.InfractionResponse;
+import ca.ulaval.glo4003.spamdul.parking.entities.infractions.InfractionCode;
+import ca.ulaval.glo4003.spamdul.parking.entities.infractions.InfractionId;
+import ca.ulaval.glo4003.spamdul.parking.entities.infractions.PassToValidateDto;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking.usecases.infraction.dto.InfractionDto;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.spamdul.assemblers.fundraising;
 
-import ca.ulaval.glo4003.spamdul.entity.initiatives.InitiativeCode;
-import ca.ulaval.glo4003.spamdul.shared.amount.Amount;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeRequest;
-import ca.ulaval.glo4003.spamdul.ui.fundraising.dto.InitiativeResponse;
-import ca.ulaval.glo4003.spamdul.usecases.fundraising.dto.InitiativeDto;
+import ca.ulaval.glo4003.spamdul.finance.api.initiatives.dto.InitiativeRequest;
+import ca.ulaval.glo4003.spamdul.finance.api.initiatives.dto.InitiativeResponse;
+import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeCode;
+import ca.ulaval.glo4003.spamdul.finance.usecases.initiatives.dto.InitiativeDto;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.assemblers.delivery;
 
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.exceptions.InvalidEmailAddressException;
-import ca.ulaval.glo4003.spamdul.entity.delivery.email.EmailAddress;
+import ca.ulaval.glo4003.spamdul.parking.entities.delivery.email.EmailAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

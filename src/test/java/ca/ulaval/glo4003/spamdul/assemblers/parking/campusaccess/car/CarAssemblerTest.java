@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.spamdul.entity.user.car.CarType;
-import ca.ulaval.glo4003.spamdul.ui.campusaccess.dto.car.CarRequest;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.exceptions.InvalidCarTypeArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.exceptions.InvalidCarYearArgumentException;
-import ca.ulaval.glo4003.spamdul.usecases.user.car.CarDto;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.car.CarRequest;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.car.CarDto;
 import org.junit.Before;
 import org.junit.Test;
 

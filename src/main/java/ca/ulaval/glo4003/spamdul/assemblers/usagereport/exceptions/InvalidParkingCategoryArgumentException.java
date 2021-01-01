@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.assemblers.usagereport.exceptions;
 
-import ca.ulaval.glo4003.spamdul.entity.parking.pass.ParkingCategory;
+import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingCategory;
 import java.util.Arrays;
 
 public class InvalidParkingCategoryArgumentException extends InvalidUsageReportArgumentException {
