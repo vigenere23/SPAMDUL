@@ -5,10 +5,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.assemblers.user.UserAssembler;
-import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.user.UserRequest;
-import ca.ulaval.glo4003.spamdul.parking.api.parkinguser.dto.UserResponse;
+import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.user.UserCreationRequest;
+import ca.ulaval.glo4003.spamdul.parking.api.parkinguser.dto.UserCreationResponse;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
-import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserCreationDto;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserUseCase;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -22,8 +22,8 @@ public class UserResourceTest {
 
   public static final UserId USER_ID = UserId.valueOf("123");
   private UserResource userResource;
-  private UserRequest userRequest;
-  private UserDto userDto;
+  private UserCreationRequest userCreationRequest;
+  private UserCreationDto userCreationDto;
 
   @Mock
   private UserUseCase userUseCase;
@@ -33,28 +33,28 @@ public class UserResourceTest {
   @Before
   public void setUp() throws Exception {
     userResource = new UserResource(userAssembler, userUseCase);
-    userRequest = new UserRequest();
-    userDto = new UserDto();
+    userCreationRequest = new UserCreationRequest();
+    userCreationDto = new UserCreationDto();
 
-    when(userAssembler.fromRequest(userRequest)).thenReturn(userDto);
+    when(userAssembler.fromRequest(userCreationRequest)).thenReturn(userCreationDto);
   }
 
   @Test
   public void whenCreatingUser_shouldCallUserService() {
-    when(userUseCase.createUser(userDto)).thenReturn(USER_ID);
+    when(userUseCase.createUser(userCreationDto)).thenReturn(USER_ID);
 
-    userResource.createNewUser(userRequest);
+    userResource.createNewUser(userCreationRequest);
 
-    verify(userUseCase).createUser(userDto);
+    verify(userUseCase).createUser(userCreationDto);
   }
 
   @Test
   public void whenCreatingUser_shouldReturnResponseWithRightInfo() {
-    when(userUseCase.createUser(userDto)).thenReturn(USER_ID);
+    when(userUseCase.createUser(userCreationDto)).thenReturn(USER_ID);
 
-    Response response = userResource.createNewUser(userRequest);
+    Response response = userResource.createNewUser(userCreationRequest);
 
-    UserResponse userResponse = (UserResponse) response.getEntity();
-    assertThat(userResponse.userId).isEqualTo(USER_ID.toString());
+    UserCreationResponse userCreationResponse = (UserCreationResponse) response.getEntity();
+    assertThat(userCreationResponse.userId).isEqualTo(USER_ID.toString());
   }
 }

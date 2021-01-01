@@ -50,3 +50,4 @@ public class CampusAccessResource {
     return campusAccessAssembler.toResponse(isAccessGranted);
   }
 }
+ 

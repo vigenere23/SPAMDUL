@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.assemblers.parking.pass.PassAssembler;
 import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PassCreationRequest;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.ParkingPassUseCase;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.ParkingPassUseCase;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.PassCreationDto;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingPassResourceTest {
 
   private final PassCreationRequest A_PASS_CREATION_REQUEST = new PassCreationRequest();
-  private final PassDto A_PASS_DTO = new PassDto();
+  private final PassCreationDto A_PASS_DTO = new PassCreationDto();
   @Mock
   private ParkingPassUseCase parkingPassUseCase;
   @Mock

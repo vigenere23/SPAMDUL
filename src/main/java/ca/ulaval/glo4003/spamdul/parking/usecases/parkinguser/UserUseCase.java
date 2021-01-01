@@ -15,8 +15,11 @@ public class UserUseCase {
     this.userFactory = userFactory;
   }
 
-  public UserId createUser(UserDto userDto) {
-    User user = userFactory.create(userDto.name, userDto.gender, userDto.birthDate, userDto.carDto);
+  public UserId createUser(UserCreationDto userCreationDto) {
+    User user = userFactory.create(userCreationDto.name,
+                                   userCreationDto.gender,
+                                   userCreationDto.birthDate,
+                                   userCreationDto.carDto);
     userRepository.save(user);
 
     return user.getId();

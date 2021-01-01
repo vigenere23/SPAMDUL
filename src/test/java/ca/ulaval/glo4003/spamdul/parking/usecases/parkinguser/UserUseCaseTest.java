@@ -26,7 +26,7 @@ public class UserUseCaseTest {
   private final CarDto A_CAR_DTO = new CarDto();
 
   private UserUseCase userUseCase;
-  private UserDto userDto;
+  private UserCreationDto userCreationDto;
 
   @Mock
   private UserRepository userRepository;
@@ -40,11 +40,11 @@ public class UserUseCaseTest {
   public void setUp() throws Exception {
     userUseCase = new UserUseCase(userRepository, userFactory);
 
-    userDto = new UserDto();
-    userDto.name = A_NAME;
-    userDto.gender = A_GENDER;
-    userDto.birthDate = A_BIRTHDAY_DATE;
-    userDto.carDto = A_CAR_DTO;
+    userCreationDto = new UserCreationDto();
+    userCreationDto.name = A_NAME;
+    userCreationDto.gender = A_GENDER;
+    userCreationDto.birthDate = A_BIRTHDAY_DATE;
+    userCreationDto.carDto = A_CAR_DTO;
 
     when(user.getId()).thenReturn(USER_ID);
     when(userFactory.create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR_DTO)).thenReturn(user);
@@ -52,7 +52,7 @@ public class UserUseCaseTest {
 
   @Test
   public void whenCreatingUser_shouldCallFactoryToCreateNewUser() {
-    userUseCase.createUser(userDto);
+    userUseCase.createUser(userCreationDto);
 
     verify(userFactory).create(A_NAME, A_GENDER, A_BIRTHDAY_DATE, A_CAR_DTO);
   }

@@ -11,8 +11,8 @@ import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.DeliveryRequest;
 import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PassCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.DeliveryDto;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.PassDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.PassCreationDto;
 import ca.ulaval.glo4003.spamdul.time.api.timeperiod.TimePeriodRequest;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.PeriodType;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.TimePeriodDto;
@@ -57,12 +57,12 @@ public class ParkingPassAssemblerTest {
 
   @Test
   public void whenAssemblingFromRequest_thenShouldCreatePassDtoWithRightFields() {
-    PassDto passDto = passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
+    PassCreationDto passCreationDto = passAssembler.fromRequest(A_PASS_CREATION_REQUEST);
 
-    assertThat(passDto.parkingZone).isEqualTo(A_PARKING_ZONE);
-    assertThat(passDto.timePeriodDto).isEqualTo(timePeriodDto);
-    assertThat(passDto.userId).isEqualTo(A_USER_ID);
-    assertThat(passDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
+    assertThat(passCreationDto.parkingZone).isEqualTo(A_PARKING_ZONE);
+    assertThat(passCreationDto.timePeriodDto).isEqualTo(timePeriodDto);
+    assertThat(passCreationDto.userId).isEqualTo(A_USER_ID);
+    assertThat(passCreationDto.deliveryDto).isEqualTo(A_DELIVERY_DTO);
   }
 
   @Test(expected = InvalidParkingZoneException.class)

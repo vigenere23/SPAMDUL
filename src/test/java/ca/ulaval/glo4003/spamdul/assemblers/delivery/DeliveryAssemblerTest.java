@@ -8,12 +8,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.spamdul.assemblers.delivery.exceptions.InvalidDeliveryModeException;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.DeliveryRequest;
+import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PostalAddressRequest;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.DeliveryMode;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.DeliveryRequest;
-import ca.ulaval.glo4003.spamdul.parking.api.pass.dto.PostalAddressRequest;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

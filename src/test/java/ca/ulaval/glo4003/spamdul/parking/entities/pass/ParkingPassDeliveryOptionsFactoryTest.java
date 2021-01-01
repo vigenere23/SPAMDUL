@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.parking.entities.delivery.DeliveryOptions;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.InvalidDeliveryModeException;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.email.EmailAddress;
 import ca.ulaval.glo4003.spamdul.parking.entities.delivery.post.PostalAddress;
-import ca.ulaval.glo4003.spamdul.parking.usecases.pass.DeliveryDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkingpass.DeliveryDto;
 import org.junit.Before;
 import org.junit.Test;
 

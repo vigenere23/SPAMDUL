@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.Car;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
-import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserDto;
+import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.UserCreationDto;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.car.CarDto;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public class UserFactoryTest {
   private final Gender A_GENDER = Gender.MALE;
   private final LocalDate A_BIRTHDAY_DATE = LocalDate.of(2010, 1, 1);
   private UserFactory userFactory;
-  private UserDto userDto;
+  private UserCreationDto userCreationDto;
   private CarDto carDto;
 
   @Mock
@@ -53,11 +53,11 @@ public class UserFactoryTest {
     carDto.model = MODEL;
     carDto.licensePlate = LICENSE_PLATE;
 
-    userDto = new UserDto();
-    userDto.carDto = carDto;
-    userDto.birthDate = A_BIRTHDAY_DATE;
-    userDto.gender = A_GENDER;
-    userDto.name = A_NAME;
+    userCreationDto = new UserCreationDto();
+    userCreationDto.carDto = carDto;
+    userCreationDto.birthDate = A_BIRTHDAY_DATE;
+    userCreationDto.gender = A_GENDER;
+    userCreationDto.name = A_NAME;
     userFactory = new UserFactory(userIdFactory, carFactory);
   }
 
