@@ -1,40 +1,39 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.car;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
-import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.CarPermit;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class Car {
 
-  private final LicensePlate licensePlate;
-  private Optional<CarPermit> permit = Optional.empty();
+  private final String brand;
+  private final String model;
+  private final int year;
   private final CarType carType;
+  private final LicensePlate licensePlate;
+  private Optional<Permit> permit = Optional.empty();
 
-  public Car(LicensePlate licensePlate,
+  public Car(String brand, String model, int year, LicensePlate licensePlate,
              CarType carType) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
     this.licensePlate = licensePlate;
     this.carType = carType;
   }
 
-  public void validateAccess(LocalDateTime accessDateTime) {
-    if (!this.getPermit().isPresent()) {
-      throw new InvalidAccessException();
-    }
-
-    this.getPermit().get().validateAccess(accessDateTime);
-  }
-
+  // TODO this needs to be called for usage stats...
   public void validateParking(LocalDateTime accessDateTime, ParkingZone parkingZone) {
     if (!this.getPermit().isPresent()) {
-      throw new InvalidAccessException();
+      throw new PermitNotFoundException(licensePlate);
     }
 
     this.getPermit().get().validateAccess(accessDateTime, parkingZone);
   }
 
-  public void setPermit(CarPermit permit) {
+  public void setPermit(Permit permit) {
     this.permit = Optional.of(permit);
   }
 
@@ -42,7 +41,7 @@ public class Car {
     return licensePlate;
   }
 
-  public Optional<CarPermit> getPermit() {
+  public Optional<Permit> getPermit() {
     return permit;
   }
 }

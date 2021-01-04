@@ -7,9 +7,9 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarMismatchExcepti
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.BikePermit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -20,25 +20,21 @@ public class ParkingUser {
   private final ParkingUserId parkingUserId;
   private final String name;
   private final Sex sex;
-  private final LocalDateTime birthDate;
+  private final LocalDate birthDate;
 
   private final Set<Car> cars = new HashSet<>();
   private final Set<Infraction> infractions = new HashSet<>();
-  private Optional<BikePermit> bikePermit = Optional.empty();
+  private Optional<Permit> bikePermit = Optional.empty();
 
-  public ParkingUser(ParkingUserId parkingUserId, String name, Sex sex, LocalDateTime birthDate) {
+  public ParkingUser(ParkingUserId parkingUserId, String name, Sex sex, LocalDate birthDate) {
     this.parkingUserId = parkingUserId;
     this.name = name;
     this.sex = sex;
     this.birthDate = birthDate;
   }
 
-  public void validateAccess(LicensePlate licensePlate, LocalDateTime accessDateTime) {
-    findPermitBy(licensePlate).validateAccess(accessDateTime);
-  }
-
-  public void validateAccess(PermitNumber permitNumber, LocalDateTime accessDateTime) {
-    findPermitBy(permitNumber).validateAccess(accessDateTime);
+  public void validateAccess(LicensePlate licensePlate, LocalDateTime accessDateTime, ParkingZone parkingZone) {
+    findPermitBy(licensePlate).validateAccess(accessDateTime, parkingZone);
   }
 
   public void validateAccess(PermitNumber permitNumber, LocalDateTime accessDateTime, ParkingZone parkingZone) {
@@ -57,7 +53,7 @@ public class ParkingUser {
     permit.validateAccess(accessDateTime, parkingZone);
   }
 
-  public void setBikePermit(BikePermit bikePermit) {
+  public void setBikePermit(Permit bikePermit) {
     this.bikePermit = Optional.of(bikePermit);
   }
 

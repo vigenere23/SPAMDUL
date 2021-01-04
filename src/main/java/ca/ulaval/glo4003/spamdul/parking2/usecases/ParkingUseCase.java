@@ -1,98 +1,56 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
+import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
-import java.time.LocalDateTime;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.CarCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
 
 public class ParkingUseCase {
 
   private final ParkingUserRepository parkingUserRepository;
+  private final ParkingUserFactory parkingUserFactory;
   private final CarFactory carFactory;
-  private final InfractionCreator infractionCreator;
+  private final PermitFactory permitFactory;
 
   public ParkingUseCase(ParkingUserRepository parkingUserRepository,
+                        ParkingUserFactory parkingUserFactory,
                         CarFactory carFactory,
-                        InfractionCreator infractionCreator) {
+                        PermitFactory permitFactory) {
     this.parkingUserRepository = parkingUserRepository;
+    this.parkingUserFactory = parkingUserFactory;
     this.carFactory = carFactory;
-    this.infractionCreator = infractionCreator;
+    this.permitFactory = permitFactory;
   }
 
-  /**
-   * for entry (with license plate)
-   */
-  public void accessParking(LicensePlate licensePlate, LocalDateTime accessDateTime) {
-    ParkingUser parkingUser = parkingUserRepository.findBy(licensePlate);
-    parkingUser.validateAccess(licensePlate, accessDateTime);
+  public void createUser(UserCreationDto dto) {
+    ParkingUser user = parkingUserFactory.create(dto.name, dto.sex, dto.birthDate);
+    parkingUserRepository.save(user);
   }
 
-  /**
-   * for entry (with permit number)
-   */
-  public void accessParking(PermitNumber permitNumber, LocalDateTime accessDateTime) {
-    ParkingUser parkingUser = parkingUserRepository.findBy(permitNumber);
-    parkingUser.validateAccess(permitNumber, accessDateTime);
+  public void addCarToUser(CarCreationDto dto) {
+    ParkingUser parkingUser = parkingUserRepository.findBy(dto.userId);
+    Car car = carFactory.create(dto.brand, dto.model, dto.year, dto.licensePlate, dto.carType);
+    parkingUser.addCar(car);
+    parkingUserRepository.save(parkingUser);
   }
 
-  /**
-   * for entry (with permit number)
-   */
-  public void accessParking(PermitNumber permitNumber, LocalDateTime accessDateTime, ParkingZone parkingZone) {
-    ParkingUser parkingUser = parkingUserRepository.findBy(permitNumber);
-    parkingUser.validateAccess(permitNumber, accessDateTime, parkingZone);
+  public void addAccessRight(ParkingUserId parkingUserId, LicensePlate licensePlate/*, ... dto*/) {
+    ParkingUser parkingUser = parkingUserRepository.findBy(parkingUserId);
+    // TODO
   }
 
-  /**
-   * for infractions
-   */
-  public void giveInfraction(PermitNumber permitNumber, LocalDateTime accessDateTime, ParkingZone parkingZone) {
-    // do a try/catch to see if it's an invalid time, an invalid day, an invalid zone, if the permit does not exist, etc.
-    // see infraction.json for more details
-
-    ParkingUser parkingUser = parkingUserRepository.findBy(permitNumber);
-
-    try {
-      parkingUser.validateAccess(permitNumber, accessDateTime, parkingZone);
-    } catch (InvalidAccessException exception) {
-      addInfractionToUser(parkingUser, exception);
-      parkingUserRepository.save(parkingUser);
-    }
-  }
-
-  /**
-   * for infractions
-   */
-  public void giveInfraction(PermitNumber permitNumber,
-                             LicensePlate licensePlate,
-                             LocalDateTime accessDateTime,
-                             ParkingZone parkingZone) {
-    // do a try/catch to see if it's an invalid time, an invalid day, an invalid zone, if the permit does not exist, etc.
-    // see infraction.json for more details
-
-    ParkingUser parkingUser = parkingUserRepository.findBy(permitNumber);
-
-    try {
-      parkingUser.validateAccess(permitNumber, licensePlate, accessDateTime, parkingZone);
-    } catch (InvalidAccessException exception) {
-      addInfractionToUser(parkingUser, exception);
-      parkingUserRepository.save(parkingUser);
-    }
-  }
-
-  public void addCarToUser(ParkingUserId parkingUserId/*, other car params*/) {
-
-  }
-
-  private void addInfractionToUser(ParkingUser parkingUser, InvalidAccessException exception) {
-    Infraction infraction = infractionCreator.createInfraction(exception);
-    parkingUser.addInfraction(infraction);
+  public void createBikePermit(ParkingUserId parkingUserId) {
+    ParkingUser parkingUser = parkingUserRepository.findBy(parkingUserId);
+    Permit bikePermit = permitFactory.create(PermitType.BIKE);
+    parkingUser.setBikePermit(bikePermit);
+    parkingUserRepository.save(parkingUser);
   }
 }

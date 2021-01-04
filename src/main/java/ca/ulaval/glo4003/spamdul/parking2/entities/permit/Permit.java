@@ -11,8 +11,6 @@ public abstract class Permit {
     this.permitNumber = permitNumber;
   }
 
-  public abstract void validateAccess(LocalDateTime accessDateTime);
-
   public abstract void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone);
 
   public PermitNumber getPermitNumber() {

@@ -4,7 +4,11 @@ import ca.ulaval.glo4003.spamdul.shared.entities.ids.Id;
 
 public class ParkingUserId extends Id {
 
-  public ParkingUserId(String value) {
+  private ParkingUserId(String value) {
     super(value);
+  }
+
+  public static ParkingUserId valueOf(String value) {
+    return new ParkingUserId(value);
   }
 }

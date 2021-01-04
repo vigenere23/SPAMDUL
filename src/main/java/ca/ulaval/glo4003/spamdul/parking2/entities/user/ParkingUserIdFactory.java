@@ -11,6 +11,6 @@ public class ParkingUserIdFactory {
   }
 
   public ParkingUserId create() {
-    return new ParkingUserId(idGenerator.generate());
+    return ParkingUserId.valueOf(idGenerator.generate());
   }
 }

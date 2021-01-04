@@ -6,5 +6,6 @@ public class CarCreationRequest {
   public String brand;
   public String model;
   public int year;
+  public String carType;
   public String licensePlate;
 }
