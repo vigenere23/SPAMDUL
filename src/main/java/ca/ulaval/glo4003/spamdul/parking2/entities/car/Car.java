@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.car;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.InvalidAccess;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.CarPermit;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,16 +18,24 @@ public class Car {
     this.carType = carType;
   }
 
-  public void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone) {
+  public void validateAccess(LocalDateTime accessDateTime) {
     if (!this.getPermit().isPresent()) {
-      throw new InvalidAccess();
+      throw new InvalidAccessException();
+    }
+
+    this.getPermit().get().validateAccess(accessDateTime);
+  }
+
+  public void validateParking(LocalDateTime accessDateTime, ParkingZone parkingZone) {
+    if (!this.getPermit().isPresent()) {
+      throw new InvalidAccessException();
     }
 
     this.getPermit().get().validateAccess(accessDateTime, parkingZone);
   }
 
-  public void setPermit(CarPermit carPermit) {
-    this.permit = Optional.of(carPermit);
+  public void setPermit(CarPermit permit) {
+    this.permit = Optional.of(permit);
   }
 
   public LicensePlate getLicensePlate() {

@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 
 public abstract class Permit {
 
-  private final PermitNumber permitNumber;
+  protected final PermitNumber permitNumber;
 
   protected Permit(PermitNumber permitNumber) {
     this.permitNumber = permitNumber;
   }
+
+  public abstract void validateAccess(LocalDateTime accessDateTime);
 
   public abstract void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone);
 

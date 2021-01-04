@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
 import java.time.LocalDateTime;
 
 public class AccessRight {
@@ -12,9 +13,13 @@ public class AccessRight {
     this.accessPeriod = accessPeriod;
   }
 
+  public void validateAccess(LocalDateTime accessDateTime) {
+    accessPeriod.validateAccess(accessDateTime);
+  }
+
   public void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone) {
     if (this.parkingZone.compareTo((parkingZone)) < 0) {
-      throw new InvalidAccess();
+      throw new InvalidParkingZoneException(parkingZone);
     }
 
     accessPeriod.validateAccess(accessDateTime);

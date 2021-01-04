@@ -1,11 +1,14 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.user;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.InvalidAccess;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infractions.Infraction;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarMismatchException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.BikePermit;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,24 +17,44 @@ import java.util.Set;
 
 public class ParkingUser {
 
+  private final ParkingUserId parkingUserId;
+  private final String name;
+  private final Sex sex;
+  private final LocalDateTime birthDate;
+
   private final Set<Car> cars = new HashSet<>();
   private final Set<Infraction> infractions = new HashSet<>();
   private Optional<BikePermit> bikePermit = Optional.empty();
 
-  public void validateAccess(LicensePlate licensePlate, LocalDateTime accessDateTime, ParkingZone parkingZone) {
-    validateAccess(findCarBy(licensePlate), accessDateTime, parkingZone);
+  public ParkingUser(ParkingUserId parkingUserId, String name, Sex sex, LocalDateTime birthDate) {
+    this.parkingUserId = parkingUserId;
+    this.name = name;
+    this.sex = sex;
+    this.birthDate = birthDate;
+  }
+
+  public void validateAccess(LicensePlate licensePlate, LocalDateTime accessDateTime) {
+    findPermitBy(licensePlate).validateAccess(accessDateTime);
+  }
+
+  public void validateAccess(PermitNumber permitNumber, LocalDateTime accessDateTime) {
+    findPermitBy(permitNumber).validateAccess(accessDateTime);
   }
 
   public void validateAccess(PermitNumber permitNumber, LocalDateTime accessDateTime, ParkingZone parkingZone) {
-    validateAccess(findCarBy(permitNumber), accessDateTime, parkingZone);
+    findPermitBy(permitNumber).validateAccess(accessDateTime, parkingZone);
   }
 
-  private void validateAccess(Optional<Car> car, LocalDateTime accessDateTime, ParkingZone parkingZone) {
-    if (!car.isPresent()) {
-      throw new InvalidAccess();
+  public void validateAccess(PermitNumber permitNumber,
+                             LicensePlate licensePlate,
+                             LocalDateTime accessDateTime,
+                             ParkingZone parkingZone) {
+    Permit permit = findPermitBy(permitNumber);
+    if (!permit.equals(findPermitBy(licensePlate))) {
+      throw new CarMismatchException(permitNumber, licensePlate);
     }
 
-    car.get().validateAccess(accessDateTime, parkingZone);
+    permit.validateAccess(accessDateTime, parkingZone);
   }
 
   public void setBikePermit(BikePermit bikePermit) {
@@ -46,23 +69,56 @@ public class ParkingUser {
     infractions.add(infraction);
   }
 
-  public boolean hasCarWith(LicensePlate licensePlate) {
-    return findCarBy(licensePlate).isPresent();
+  public boolean hasPermitWith(LicensePlate licensePlate) {
+    try {
+      findPermitBy(licensePlate);
+      return true;
+    } catch (PermitNotFoundException | CarNotFoundException exception) {
+      return false;
+    }
   }
 
-  public boolean hasCarWith(PermitNumber permitNumber) {
-    return findCarBy(permitNumber).isPresent();
+  public boolean hasPermitWith(PermitNumber permitNumber) {
+    try {
+      findPermitBy(permitNumber);
+      return true;
+    } catch (PermitNotFoundException | CarNotFoundException exception) {
+      return false;
+    }
   }
 
-  private Optional<Car> findCarBy(LicensePlate licensePlate) {
-    return cars.stream().filter(car -> car.getLicensePlate().equals(licensePlate)).findFirst();
+  public ParkingUserId getId() {
+    return parkingUserId;
   }
 
-  private Optional<Car> findCarBy(PermitNumber permitNumber) {
-    return cars.stream().filter(car -> car.getPermit().isPresent() && car.getPermit()
-                                                                         .get()
-                                                                         .getPermitNumber()
-                                                                         .equals(permitNumber)
-    ).findFirst();
+  private Permit findPermitBy(LicensePlate licensePlate) {
+    return findCarBy(licensePlate).getPermit().orElseThrow(() -> new PermitNotFoundException(licensePlate));
+  }
+
+  private Permit findPermitBy(PermitNumber permitNumber) {
+    if (bikePermit.isPresent() && bikePermit.get().getPermitNumber().equals(permitNumber)) {
+      return bikePermit.get();
+    }
+
+    return findCarBy(permitNumber).getPermit().orElseThrow(() -> new PermitNotFoundException(permitNumber));
+  }
+
+  private Car findCarBy(LicensePlate licensePlate) {
+    return cars
+        .stream()
+        .filter(car -> car.getLicensePlate().equals(licensePlate))
+        .findFirst()
+        .orElseThrow(() -> new CarNotFoundException(licensePlate));
+  }
+
+  private Car findCarBy(PermitNumber permitNumber) {
+    return cars
+        .stream()
+        .filter(car -> car.getPermit().isPresent() && car.getPermit()
+                                                         .get()
+                                                         .getPermitNumber()
+                                                         .equals(permitNumber))
+        .findFirst()
+        .orElseThrow(() -> new CarNotFoundException(permitNumber));
   }
 }

@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessDateException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,22 +28,34 @@ public class AccessPeriod {
   }
 
   public void validateAccess(LocalDateTime accessDateTime) {
-    if (!(validateDayOfWeek(accessDateTime) && validateDate(accessDateTime) && validateTime(accessDateTime))) {
-      throw new InvalidAccess();
+    validateDayOfWeek(accessDateTime);
+    validateDate(accessDateTime);
+    validateTime(accessDateTime);
+  }
+
+  private void validateDayOfWeek(LocalDateTime accessDateTime) {
+    boolean isValid = days.stream().anyMatch(dayOfWeek -> dayOfWeek.equals(accessDateTime.getDayOfWeek()));
+
+    if (!isValid) {
+      throw new InvalidAccessDateException(accessDateTime.toLocalDate());
     }
   }
 
-  private boolean validateDayOfWeek(LocalDateTime accessDateTime) {
-    return days.stream().anyMatch(dayOfWeek -> dayOfWeek.equals(accessDateTime.getDayOfWeek()));
-  }
-
-  private boolean validateDate(LocalDateTime accessDateTime) {
+  private void validateDate(LocalDateTime accessDateTime) {
     LocalDate accessDate = accessDateTime.toLocalDate();
-    return !accessDate.isBefore(periodStart) && !accessDate.isAfter(periodEnd);
+    boolean isValid = !accessDate.isBefore(periodStart) && !accessDate.isAfter(periodEnd);
+
+    if (!isValid) {
+      throw new InvalidAccessDateException(accessDate);
+    }
   }
 
-  private boolean validateTime(LocalDateTime accessDateTime) {
+  private void validateTime(LocalDateTime accessDateTime) {
     LocalTime accessTime = accessDateTime.toLocalTime();
-    return !accessTime.isBefore(startTime) && !accessTime.isAfter(endTime);
+    boolean isValid = !accessTime.isBefore(startTime) && !accessTime.isAfter(endTime);
+
+    if (!isValid) {
+      throw new InvalidAccessTimeException(accessTime);
+    }
   }
 }
