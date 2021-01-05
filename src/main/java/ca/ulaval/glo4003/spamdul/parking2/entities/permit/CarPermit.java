@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidPermitException;
 import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
@@ -17,11 +19,12 @@ public class CarPermit extends Permit {
                                                                            ParkingZone.ZONE_3,
                                                                            ParkingZone.ZONE_R,
                                                                            ParkingZone.ANY);
-
+  private final Car car;
   private final Set<AccessRight> accessRights = new HashSet<>();
 
-  public CarPermit(PermitNumber permitNumber) {
+  public CarPermit(PermitNumber permitNumber, Car car) {
     super(permitNumber);
+    this.car = car;
   }
 
   @Override
@@ -34,7 +37,15 @@ public class CarPermit extends Permit {
       throw new InvalidParkingZoneException(parkingZone);
     }
 
+    // TODO this is not working
+    // we need to find 1 valid access right, else we throw an exception
+    // could create an access right filter
+    // each access right can then be validated by parking zone and accessDateTime individually
     accessRights.forEach(accessRight -> accessRight.validateAccess(accessDateTime, parkingZone));
+  }
+
+  public boolean hasCarWithLicensePlate(LicensePlate licensePlate) {
+    return car.getLicensePlate().equals(licensePlate);
   }
 
   public void addAccessRight(AccessRight accessRight) {

@@ -13,6 +13,13 @@ public class Semester {
     this.year = year;
   }
 
+  public static Semester valueOf(String semester) {
+    Session session = Session.parse(semester.substring(0, 1));
+    int year = Integer.parseInt(semester.substring(1));
+
+    return new Semester(session, year);
+  }
+
   public Semester plusSemesters(int numberOfSemester) {
     int remainder = numberOfSemester % 3;
     int plusYear = numberOfSemester / 3;

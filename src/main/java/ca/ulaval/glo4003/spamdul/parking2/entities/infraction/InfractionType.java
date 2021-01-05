@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
 
 public enum InfractionType {
   NO_PERMIT("VIG_03"),
-  PERMIT_NOT_FOUND("VIG_02"),
+  INVALID_PERMIT("VIG_02"),
   CAR_MISMATCH("VIG_04"),
   RESERVED_FOR_PLUGGED_ELECTRIC("ZONE_03"),
   RESERVED_FOR_ELECTRIC("ZONE_02"),

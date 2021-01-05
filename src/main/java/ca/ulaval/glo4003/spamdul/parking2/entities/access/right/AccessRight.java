@@ -1,5 +1,7 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.access;
+package ca.ulaval.glo4003.spamdul.parking2.entities.access.right;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
 import java.time.LocalDateTime;
 

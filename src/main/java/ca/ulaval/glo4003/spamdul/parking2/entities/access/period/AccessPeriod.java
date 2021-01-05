@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.access;
+package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessDateException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessTimeException;

@@ -7,7 +7,7 @@ public abstract class Permit {
 
   protected final PermitNumber permitNumber;
 
-  protected Permit(PermitNumber permitNumber) {
+  public Permit(PermitNumber permitNumber) {
     this.permitNumber = permitNumber;
   }
 

@@ -2,14 +2,14 @@ package ca.ulaval.glo4003.spamdul.parking2.usecases.dtos;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitType;
 
-public class CarCreationDto {
+public class PermitCreationDto {
 
-  public ParkingUserId userId;
-  public String brand;
-  public String model;
-  public int year;
+  public PermitType type;
+  public String carBrand;
+  public String carModel;
+  public int carYear;
   public CarType carType;
   public LicensePlate licensePlate;
 }
