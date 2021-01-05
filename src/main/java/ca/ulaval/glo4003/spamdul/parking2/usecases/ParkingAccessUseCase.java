@@ -19,45 +19,47 @@ public class ParkingAccessUseCase {
   }
 
   public void accessParking(ParkingAccessDto dto) {
-    if (dto.licensePlate == null && dto.permitNumber == null) {
+    ParkingUser parkingUser = findParkingUser(dto);
+
+    validateAccess(parkingUser, dto);
+  }
+
+  public void giveInfraction(ParkingAccessDto dto) {
+    ParkingUser parkingUser = findParkingUser(dto);
+
+    try {
+      validateAccess(parkingUser, dto);
+    } catch (InvalidAccessException exception) {
+      addInfractionToUser(parkingUser, exception);
+      parkingUserRepository.save(parkingUser);
+    }
+  }
+
+  private ParkingUser findParkingUser(ParkingAccessDto dto) {
+    if (dto.permitNumber == null && dto.licensePlate == null) {
+      // TODO create specific exception here
+      throw new RuntimeException("No permit specified.");
+    }
+
+    if (dto.permitNumber != null) {
+      return parkingUserRepository.findBy(dto.permitNumber);
+    } else {
+      return parkingUserRepository.findBy(dto.licensePlate);
+    }
+  }
+
+  private void validateAccess(ParkingUser parkingUser, ParkingAccessDto dto) {
+    if (dto.permitNumber == null && dto.licensePlate == null) {
       // TODO create specific exception here
       throw new RuntimeException("No permit specified.");
     }
 
     if (dto.licensePlate == null) {
-      ParkingUser parkingUser = parkingUserRepository.findBy(dto.permitNumber);
       parkingUser.validateAccess(dto.permitNumber, dto.accessDateTime, dto.parkingZone);
     } else if (dto.permitNumber == null) {
-      ParkingUser parkingUser = parkingUserRepository.findBy(dto.licensePlate);
       parkingUser.validateAccess(dto.licensePlate, dto.accessDateTime, dto.parkingZone);
     } else {
-      ParkingUser parkingUser = parkingUserRepository.findBy(dto.permitNumber);
       parkingUser.validateAccess(dto.permitNumber, dto.licensePlate, dto.accessDateTime, dto.parkingZone);
-    }
-  }
-
-  public void giveInfraction(ParkingAccessDto dto) {
-    if (dto.licensePlate == null && dto.permitNumber == null) {
-      // TODO create specific exception here
-      throw new RuntimeException("No permit specified.");
-    }
-
-    ParkingUser parkingUser = null;
-
-    try {
-      if (dto.licensePlate == null) {
-        parkingUser = parkingUserRepository.findBy(dto.permitNumber);
-        parkingUser.validateAccess(dto.permitNumber, dto.accessDateTime, dto.parkingZone);
-      } else if (dto.permitNumber == null) {
-        parkingUser = parkingUserRepository.findBy(dto.licensePlate);
-        parkingUser.validateAccess(dto.licensePlate, dto.accessDateTime, dto.parkingZone);
-      } else {
-        parkingUser = parkingUserRepository.findBy(dto.permitNumber);
-        parkingUser.validateAccess(dto.permitNumber, dto.licensePlate, dto.accessDateTime, dto.parkingZone);
-      }
-    } catch (InvalidAccessException exception) {
-      addInfractionToUser(parkingUser, exception);
-      parkingUserRepository.save(parkingUser);
     }
   }
 

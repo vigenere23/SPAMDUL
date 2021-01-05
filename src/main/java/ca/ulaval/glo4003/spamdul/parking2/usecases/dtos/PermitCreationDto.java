@@ -12,4 +12,5 @@ public class PermitCreationDto {
   public int carYear;
   public CarType carType;
   public LicensePlate licensePlate;
+  public PermitDeliveryDto delivery;
 }

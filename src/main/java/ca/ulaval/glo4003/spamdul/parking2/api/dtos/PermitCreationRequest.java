@@ -4,4 +4,5 @@ public class PermitCreationRequest {
 
   public String type;
   public CarCreationRequest car;
+  public PermitDeliveryRequest delivery;
 }

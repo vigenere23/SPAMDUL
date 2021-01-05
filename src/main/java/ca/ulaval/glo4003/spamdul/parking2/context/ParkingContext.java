@@ -1,10 +1,12 @@
 package ca.ulaval.glo4003.spamdul.parking2.context;
 
+import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.parking2.api.ParkingResource;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.PermitCreationAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.PermitDeliveryAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.UserCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
@@ -28,6 +30,9 @@ import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.InfractionA
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingUserRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUseCase;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessPeriodCreationInfosAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
@@ -37,7 +42,7 @@ public class ParkingContext implements ResourceContext {
 
   private final ParkingResource parkingResource;
 
-  public ParkingContext(Calendar calendar) {
+  public ParkingContext(Calendar calendar, InvoiceCreator invoiceCreator) {
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
     InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
     // TODO populate infractionAmountRepository
@@ -61,10 +66,14 @@ public class ParkingContext implements ResourceContext {
     ParkingUseCase parkingUseCase = new ParkingUseCase(parkingUserRepository,
                                                        parkingUserFactory,
                                                        permitFactory,
-                                                       accessRightFactory);
+                                                       accessRightFactory,
+                                                       new DeliveryInfosAssembler(),
+                                                       new PermitCreationInfosAssembler(),
+                                                       new AccessPeriodCreationInfosAssembler(),
+                                                       invoiceCreator);
 
     UserCreationAssembler userCreationAssembler = new UserCreationAssembler();
-    PermitCreationAssembler permitCreationAssembler = new PermitCreationAssembler();
+    PermitCreationAssembler permitCreationAssembler = new PermitCreationAssembler(new PermitDeliveryAssembler());
     AccessRightCreationAssembler accessRightCreationAssembler = new AccessRightCreationAssembler(new AccessPeriodCreationAssembler());
     ParkingAccessAssembler parkingAccessAssembler = new ParkingAccessAssembler();
     parkingResource = new ParkingResource(userCreationAssembler,

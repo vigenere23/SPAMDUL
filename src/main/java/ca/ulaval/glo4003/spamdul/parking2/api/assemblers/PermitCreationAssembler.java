@@ -8,6 +8,12 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 
 public class PermitCreationAssembler {
 
+  private final PermitDeliveryAssembler permitDeliveryAssembler;
+
+  public PermitCreationAssembler(PermitDeliveryAssembler permitDeliveryAssembler) {
+    this.permitDeliveryAssembler = permitDeliveryAssembler;
+  }
+
   public PermitCreationDto fromRequest(PermitCreationRequest request) {
     PermitCreationDto dto = new PermitCreationDto();
     dto.type = PermitType.valueOf(request.type.toUpperCase());
@@ -19,6 +25,8 @@ public class PermitCreationAssembler {
       dto.carType = CarType.valueOf(request.car.type.toUpperCase());
       dto.licensePlate = LicensePlate.valueOf(request.car.licensePlate);
     }
+
+    dto.delivery = permitDeliveryAssembler.fromRequest(request.delivery);
 
     return dto;
   }

@@ -60,7 +60,7 @@ public class ParkingResource {
   public void addPermit(@PathParam("userId") String userId, PermitCreationRequest request) {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     PermitCreationDto dto = permitCreationAssembler.fromRequest(request);
-    parkingUseCase.createPermit(parkingUserId, dto);
+    parkingUseCase.addPermitToUser(parkingUserId, dto);
   }
 
   @Path("user/{userId}/car/{carId}/access-right")
@@ -72,7 +72,7 @@ public class ParkingResource {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     LicensePlate licensePlate = LicensePlate.valueOf(carId);
     AccessRightCreationDto dto = accessRightCreationAssembler.fromRequest(request);
-    parkingUseCase.createAccessRight(parkingUserId, licensePlate, dto);
+    parkingUseCase.addAccessRightToUser(parkingUserId, licensePlate, dto);
   }
 
   @Path("access")
