@@ -61,6 +61,10 @@ public class ParkingUser {
     cars.add(car);
   }
 
+  public void addAccessRight() {
+    
+  }
+
   public void addInfraction(Infraction infraction) {
     infractions.add(infraction);
   }

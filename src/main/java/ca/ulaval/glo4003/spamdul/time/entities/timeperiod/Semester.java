@@ -13,7 +13,7 @@ public class Semester {
     this.year = year;
   }
 
-  public Semester addSemester(int numberOfSemester) {
+  public Semester plusSemesters(int numberOfSemester) {
     int remainder = numberOfSemester % 3;
     int plusYear = numberOfSemester / 3;
 
@@ -21,7 +21,7 @@ public class Semester {
       return new Semester(session, year + plusYear);
     }
 
-    return nextSemester().addSemester(numberOfSemester - 1);
+    return nextSemester().plusSemesters(numberOfSemester - 1);
   }
 
   private Semester nextSemester() {

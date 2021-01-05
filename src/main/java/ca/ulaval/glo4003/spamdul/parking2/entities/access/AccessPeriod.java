@@ -6,7 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Optional;
 
 public class AccessPeriod {
 
@@ -14,17 +14,25 @@ public class AccessPeriod {
   private final LocalDate periodEnd;
   private final LocalTime startTime;
   private final LocalTime endTime;
-  private final List<DayOfWeek> days;
+  private Optional<DayOfWeek> dayOfWeek = Optional.empty();
 
   public AccessPeriod(LocalDate periodStart,
                       LocalDate periodEnd,
                       LocalTime startTime,
-                      LocalTime endTime, List<DayOfWeek> days) {
+                      LocalTime endTime,
+                      DayOfWeek dayOfWeek) {
+    this(periodStart, periodEnd, startTime, endTime);
+    this.dayOfWeek = Optional.of(dayOfWeek);
+  }
+
+  public AccessPeriod(LocalDate periodStart,
+                      LocalDate periodEnd,
+                      LocalTime startTime,
+                      LocalTime endTime) {
     this.periodStart = periodStart;
     this.periodEnd = periodEnd;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.days = days;
   }
 
   public void validateAccess(LocalDateTime accessDateTime) {
@@ -34,7 +42,11 @@ public class AccessPeriod {
   }
 
   private void validateDayOfWeek(LocalDateTime accessDateTime) {
-    boolean isValid = days.stream().anyMatch(dayOfWeek -> dayOfWeek.equals(accessDateTime.getDayOfWeek()));
+    if (!this.dayOfWeek.isPresent()) {
+      return;
+    }
+
+    boolean isValid = dayOfWeek.get().equals(accessDateTime.getDayOfWeek());
 
     if (!isValid) {
       throw new InvalidAccessDateException(accessDateTime.toLocalDate());

@@ -26,11 +26,11 @@ public class TimePeriodFactory {
         break;
       case TWO_SEMESTERS:
         startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
-        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(1));
+        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.plusSemesters(1));
         break;
       case THREE_SEMESTERS:
         startDateTime = calendar.getStartOfSemester(timePeriodDto.semester);
-        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.addSemester(2));
+        endDateTime = calendar.getEndOfSemester(timePeriodDto.semester.plusSemesters(2));
         break;
       default:
         throw new InvalidPeriodTypeException();

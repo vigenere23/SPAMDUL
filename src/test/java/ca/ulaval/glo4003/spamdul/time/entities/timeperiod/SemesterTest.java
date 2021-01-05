@@ -30,7 +30,7 @@ public class SemesterTest {
   public void givenAutumnSemester_whenAdding1Semester_ShouldBeWinterOfNextYear() {
     final Semester AUTUMN_SEMESTER = new Semester(Session.AUTUMN, 2020);
 
-    Semester nextSemester = AUTUMN_SEMESTER.addSemester(1);
+    Semester nextSemester = AUTUMN_SEMESTER.plusSemesters(1);
 
     assertThat(nextSemester).isEqualTo(new Semester(Session.WINTER, 2021));
   }
@@ -39,7 +39,7 @@ public class SemesterTest {
   public void givenSummerSemester_whenAdding1Semester_ShouldBeAutumnOfSameYear() {
     final Semester WINTER_SEMESTER = new Semester(Session.SUMMER, 2020);
 
-    Semester nextSemester = WINTER_SEMESTER.addSemester(1);
+    Semester nextSemester = WINTER_SEMESTER.plusSemesters(1);
 
     assertThat(nextSemester).isEqualTo(new Semester(Session.AUTUMN, 2020));
   }
@@ -48,7 +48,7 @@ public class SemesterTest {
   public void givenSummerSemester_whenAdding2Semester_ShouldBeWinterOfNextYear() {
     final Semester WINTER_SEMESTER = new Semester(Session.SUMMER, 2020);
 
-    Semester nextSemester = WINTER_SEMESTER.addSemester(2);
+    Semester nextSemester = WINTER_SEMESTER.plusSemesters(2);
 
     assertThat(nextSemester).isEqualTo(new Semester(Session.WINTER, 2021));
   }
@@ -57,7 +57,7 @@ public class SemesterTest {
   public void givenWinterSemester_whenAdding3Semester_ShouldBeWinterOfNextYear() {
     final Semester WINTER_SEMESTER = new Semester(Session.WINTER, 2020);
 
-    Semester nextSemester = WINTER_SEMESTER.addSemester(3);
+    Semester nextSemester = WINTER_SEMESTER.plusSemesters(3);
 
     assertThat(nextSemester).isEqualTo(new Semester(Session.WINTER, 2021));
   }
