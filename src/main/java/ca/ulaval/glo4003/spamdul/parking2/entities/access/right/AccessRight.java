@@ -15,11 +15,13 @@ public class AccessRight {
     this.accessPeriod = accessPeriod;
   }
 
-  public void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone) {
+  public void validateAccess(ParkingZone parkingZone) {
     if (this.parkingZone.compareTo((parkingZone)) < 0) {
       throw new InvalidParkingZoneException(parkingZone);
     }
+  }
 
+  public void validateAccess(LocalDateTime accessDateTime) {
     accessPeriod.validateAccess(accessDateTime);
   }
 }

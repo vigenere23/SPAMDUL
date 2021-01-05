@@ -2,11 +2,11 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 
-public abstract class AccessPeriodFactory {
+public class AccessPeriodFactory {
 
-  protected final Calendar calendar;
+  private final Calendar calendar;
 
-  protected AccessPeriodFactory(Calendar calendar) {
+  public AccessPeriodFactory(Calendar calendar) {
     this.calendar = calendar;
   }
 

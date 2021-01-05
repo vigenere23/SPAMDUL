@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightValidator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
@@ -22,8 +23,8 @@ public class CarPermit extends Permit {
   private final Car car;
   private final Set<AccessRight> accessRights = new HashSet<>();
 
-  public CarPermit(PermitNumber permitNumber, Car car) {
-    super(permitNumber);
+  public CarPermit(PermitNumber permitNumber, AccessRightValidator accessRightValidator, Car car) {
+    super(permitNumber, accessRightValidator);
     this.car = car;
   }
 
@@ -37,11 +38,7 @@ public class CarPermit extends Permit {
       throw new InvalidParkingZoneException(parkingZone);
     }
 
-    // TODO this is not working
-    // we need to find 1 valid access right, else we throw an exception
-    // could create an access right filter
-    // each access right can then be validated by parking zone and accessDateTime individually
-    accessRights.forEach(accessRight -> accessRight.validateAccess(accessDateTime, parkingZone));
+    accessRightValidator.validate(accessRights, parkingZone, accessDateTime);
   }
 
   public boolean hasCarWithLicensePlate(LicensePlate licensePlate) {

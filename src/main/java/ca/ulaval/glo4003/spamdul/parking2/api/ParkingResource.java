@@ -22,7 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
-@Path("parking")
+@Path("parking2")
 public class ParkingResource {
 
   private final UserCreationAssembler userCreationAssembler;

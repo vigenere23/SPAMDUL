@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.spamdul.parking2.usecases;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitCreationInfos;
@@ -20,18 +19,15 @@ public class ParkingUseCase {
 
   private final ParkingUserRepository parkingUserRepository;
   private final ParkingUserFactory parkingUserFactory;
-  private final CarFactory carFactory;
   private final PermitFactory permitFactory;
   private final AccessRightFactory accessRightFactory;
 
   public ParkingUseCase(ParkingUserRepository parkingUserRepository,
                         ParkingUserFactory parkingUserFactory,
-                        CarFactory carFactory,
                         PermitFactory permitFactory,
                         AccessRightFactory accessRightFactory) {
     this.parkingUserRepository = parkingUserRepository;
     this.parkingUserFactory = parkingUserFactory;
-    this.carFactory = carFactory;
     this.permitFactory = permitFactory;
     this.accessRightFactory = accessRightFactory;
   }
