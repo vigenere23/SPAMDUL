@@ -11,8 +11,10 @@ public class InvoiceCreator {
     this.invoiceRepository = invoiceRepository;
   }
 
-  public void createInvoice(InvoiceItem... items) {
+  public Invoice createInvoice(InvoiceItem... items) {
     Invoice invoice = invoiceFactory.create(items);
     invoiceRepository.save(invoice);
+
+    return invoice;
   }
 }

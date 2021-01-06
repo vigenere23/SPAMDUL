@@ -70,4 +70,24 @@ public class AccessPeriod {
       throw new InvalidAccessTimeException(accessTime);
     }
   }
+
+  public LocalDate getPeriodStart() {
+    return periodStart;
+  }
+
+  public LocalDate getPeriodEnd() {
+    return periodEnd;
+  }
+
+  public LocalTime getStartTime() {
+    return startTime;
+  }
+
+  public LocalTime getEndTime() {
+    return endTime;
+  }
+
+  public Optional<DayOfWeek> getDayOfWeek() {
+    return dayOfWeek;
+  }
 }

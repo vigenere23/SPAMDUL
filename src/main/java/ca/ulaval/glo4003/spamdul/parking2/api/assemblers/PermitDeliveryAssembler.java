@@ -8,7 +8,7 @@ public class PermitDeliveryAssembler {
 
   public PermitDeliveryDto fromRequest(PermitDeliveryRequest request) {
     PermitDeliveryDto dto = new PermitDeliveryDto();
-    dto.type = DeliveryType.valueOf(request.type);
+    dto.type = DeliveryType.valueOf(request.type.toUpperCase());
     dto.emailAddress = request.emailAddress;
     dto.addressNumber = request.addressNumber;
     dto.street = request.street;

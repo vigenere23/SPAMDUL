@@ -14,7 +14,7 @@ public class InvoiceItem implements Priceable {
     this.callback = callback;
   }
 
-  public void checkout() {
+  public void handlePaid() {
     callback.accept(item);
   }
 

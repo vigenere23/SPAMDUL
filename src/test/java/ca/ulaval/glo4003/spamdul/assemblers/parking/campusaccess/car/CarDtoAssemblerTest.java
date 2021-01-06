@@ -4,13 +4,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.exceptions.InvalidCarTypeArgumentException;
 import ca.ulaval.glo4003.spamdul.assemblers.parking.campusaccess.car.exceptions.InvalidCarYearArgumentException;
-import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking.api.campusaccess.dto.car.CarRequest;
+import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking.usecases.parkinguser.car.CarDto;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CarAssemblerTest {
+public class CarDtoAssemblerTest {
 
   private final String A_CAR_BRAND = "brand";
   private final String A_CAR_MODEL = "model";

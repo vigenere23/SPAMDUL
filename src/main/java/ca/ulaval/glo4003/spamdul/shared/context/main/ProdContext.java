@@ -5,11 +5,13 @@ import ca.ulaval.glo4003.spamdul.charging.context.ProdChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.ProdCarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.ProdInitiativesContext;
 import ca.ulaval.glo4003.spamdul.finance.context.revenue.RevenueContext;
+import ca.ulaval.glo4003.spamdul.invoice.context.InvoiceContext;
 import ca.ulaval.glo4003.spamdul.parking.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.ProdPassContext;
+import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
 import ca.ulaval.glo4003.spamdul.usage.context.ProdUsageContext;
 
 public class ProdContext extends MainContext {
@@ -44,5 +46,9 @@ public class ProdContext extends MainContext {
                                                         initiativesContext.getInitiativeCreator(),
                                                         authContext.getAuthenticationRepository(),
                                                         authContext.getAccessTokenCookieAssembler());
+    invoiceContext = new InvoiceContext();
+    parkingContext = new ParkingContext(invoiceContext.getInvoiceCreator(),
+                                        invoiceContext.getInvoiceAssembler(),
+                                        invoiceContext.getInvoiceDtoAssembler());
   }
 }

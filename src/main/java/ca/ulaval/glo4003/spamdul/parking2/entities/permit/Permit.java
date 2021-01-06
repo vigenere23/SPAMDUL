@@ -23,7 +23,9 @@ public abstract class Permit implements Priceable {
     return permitNumber;
   }
 
-  @Override public Amount getPrice() {
+  @Override
+  public Amount getPrice() {
+    // TODO
     return Amount.valueOf(20.5);
   }
 }

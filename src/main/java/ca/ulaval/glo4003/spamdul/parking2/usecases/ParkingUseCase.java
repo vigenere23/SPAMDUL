@@ -1,7 +1,10 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
+import ca.ulaval.glo4003.spamdul.invoice.entities.Invoice;
 import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceItem;
+import ca.ulaval.glo4003.spamdul.invoice.usecases.assemblers.InvoiceAssembler;
+import ca.ulaval.glo4003.spamdul.invoice.usecases.dtos.InvoiceDto;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
@@ -16,8 +19,10 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessPeriodCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.ParkingUserAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
 
@@ -30,6 +35,8 @@ public class ParkingUseCase {
   private final DeliveryInfosAssembler deliveryInfosAssembler;
   private final PermitCreationInfosAssembler permitCreationInfosAssembler;
   private final AccessPeriodCreationInfosAssembler accessPeriodCreationInfosAssembler;
+  private final ParkingUserAssembler parkingUserAssembler;
+  private final InvoiceAssembler invoiceAssembler;
   private final InvoiceCreator invoiceCreator;
 
   public ParkingUseCase(ParkingUserRepository parkingUserRepository,
@@ -39,6 +46,8 @@ public class ParkingUseCase {
                         DeliveryInfosAssembler deliveryInfosAssembler,
                         PermitCreationInfosAssembler permitCreationInfosAssembler,
                         AccessPeriodCreationInfosAssembler accessPeriodCreationInfosAssembler,
+                        ParkingUserAssembler parkingUserAssembler,
+                        InvoiceAssembler invoiceAssembler,
                         InvoiceCreator invoiceCreator) {
     this.parkingUserRepository = parkingUserRepository;
     this.parkingUserFactory = parkingUserFactory;
@@ -47,15 +56,25 @@ public class ParkingUseCase {
     this.deliveryInfosAssembler = deliveryInfosAssembler;
     this.permitCreationInfosAssembler = permitCreationInfosAssembler;
     this.accessPeriodCreationInfosAssembler = accessPeriodCreationInfosAssembler;
+    this.parkingUserAssembler = parkingUserAssembler;
+    this.invoiceAssembler = invoiceAssembler;
     this.invoiceCreator = invoiceCreator;
   }
 
-  public void createUser(UserCreationDto dto) {
-    ParkingUser user = parkingUserFactory.create(dto.name, dto.sex, dto.birthDate);
-    parkingUserRepository.save(user);
+  public ParkingUserDto getUser(ParkingUserId parkingUserId) {
+    ParkingUser parkingUser = parkingUserRepository.findBy(parkingUserId);
+
+    return parkingUserAssembler.toDto(parkingUser);
   }
 
-  public void addPermitToUser(ParkingUserId parkingUserId, PermitCreationDto dto) {
+  public ParkingUserDto createUser(UserCreationDto dto) {
+    ParkingUser parkingUser = parkingUserFactory.create(dto.name, dto.sex, dto.birthDate);
+    parkingUserRepository.save(parkingUser);
+
+    return parkingUserAssembler.toDto(parkingUser);
+  }
+
+  public InvoiceDto orderPermit(ParkingUserId parkingUserId, PermitCreationDto dto) {
     ParkingUser parkingUser = parkingUserRepository.findBy(parkingUserId);
     DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
     Permit permit = createPermit(dto);
@@ -64,20 +83,25 @@ public class ParkingUseCase {
       parkingUser.addPermit((Permit) priceable);
       parkingUserRepository.save(parkingUser);
     });
-    // TODO add billing item
-    invoiceCreator.createInvoice(permitInvoiceItem);
+    // TODO add billing item for delivery
 
-    // parkingUser.addPermit(permit);
-    // parkingUserRepository.save(parkingUser);
+    Invoice invoice = invoiceCreator.createInvoice(permitInvoiceItem);
+    return invoiceAssembler.toDto(invoice);
   }
 
-  public void addAccessRightToUser(ParkingUserId parkingUserId, LicensePlate licensePlate, AccessRightCreationDto dto) {
+  public InvoiceDto orderAccessRight(ParkingUserId parkingUserId,
+                                     LicensePlate licensePlate,
+                                     AccessRightCreationDto dto) {
     ParkingUser parkingUser = parkingUserRepository.findBy(parkingUserId);
     AccessRight accessRight = createAccessRight(dto);
 
-    parkingUser.addAccessRight(licensePlate, accessRight);
+    InvoiceItem accessRightInvoiceItem = new InvoiceItem(accessRight, priceable -> {
+      parkingUser.addAccessRight(licensePlate, accessRight);
+      parkingUserRepository.save(parkingUser);
+    });
 
-    parkingUserRepository.save(parkingUser);
+    Invoice invoice = invoiceCreator.createInvoice(accessRightInvoiceItem);
+    return invoiceAssembler.toDto(invoice);
   }
 
   private Permit createPermit(PermitCreationDto dto) {

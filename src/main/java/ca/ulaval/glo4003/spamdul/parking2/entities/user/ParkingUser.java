@@ -104,4 +104,12 @@ public class ParkingUser {
       return false;
     }
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public Set<Permit> getPermits() {
+    return new HashSet<>(permits.values());
+  }
 }

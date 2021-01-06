@@ -48,4 +48,12 @@ public class CarPermit extends Permit {
   public void addAccessRight(AccessRight accessRight) {
     this.accessRights.add(accessRight);
   }
+
+  public Set<AccessRight> getAccessRights() {
+    return new HashSet<>(accessRights);
+  }
+
+  public Car getCar() {
+    return car;
+  }
 }
