@@ -58,4 +58,8 @@ public class CarPermit extends Permit {
   public Car getCar() {
     return car;
   }
+
+  @Override public String getName() {
+    return "Car permit";
+  }
 }

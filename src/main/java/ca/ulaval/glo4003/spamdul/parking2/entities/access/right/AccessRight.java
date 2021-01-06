@@ -33,6 +33,11 @@ public class AccessRight implements Priceable {
     return Amount.valueOf(20.23);
   }
 
+  @Override
+  public String getName() {
+    return String.format("Access right for zone %s", parkingZone); // TODO add period infos
+  }
+
   public AccessPeriod getAccessPeriod() {
     return accessPeriod;
   }

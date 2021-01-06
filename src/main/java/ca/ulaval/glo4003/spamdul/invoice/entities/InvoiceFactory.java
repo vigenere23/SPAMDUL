@@ -10,10 +10,10 @@ public class InvoiceFactory {
     this.invoiceIdFactory = invoiceIdFactory;
   }
 
-  public Invoice create(InvoiceItem... items) {
+  public Invoice create(Priceable... items) {
     Invoice invoice = new Invoice(invoiceIdFactory.create(), LocalDateTime.now());
 
-    for (InvoiceItem item : items) {
+    for (Priceable item : items) {
       invoice.addItem(item);
     }
 

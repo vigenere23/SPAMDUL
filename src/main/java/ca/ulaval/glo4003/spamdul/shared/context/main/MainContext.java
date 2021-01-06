@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.usage.context.UsageContext;
@@ -34,7 +35,8 @@ public abstract class MainContext implements ResourceContext {
   protected InvoiceContext invoiceContext;
   protected ParkingContext parkingContext;
 
-  @Override public void registerResources(InstanceMap resources) {
+  @Override
+  public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
     resources.add(new SpamDULExceptionAssembler());
 
@@ -56,4 +58,6 @@ public abstract class MainContext implements ResourceContext {
   public void destroy() {
     carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
   }
+
+  public abstract ApiUrl getApiUrl();
 }

@@ -12,13 +12,18 @@ import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.DevPassContext;
 import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.api.PingResource;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.usage.context.DevUsageContext;
 
 public class DevContext extends MainContext {
 
+  private final ApiUrl apiUrl;
+
   public DevContext() {
+    apiUrl = new ApiUrl("localhost", 8080, "api");
+
     authContext = new AuthenticationContext();
     parkingUserContext = new ParkingUserContext();
     usageContext = new DevUsageContext(authContext.getAuthenticationRepository(),
@@ -48,15 +53,20 @@ public class DevContext extends MainContext {
                                                        initiativesContext.getInitiativeCreator(),
                                                        authContext.getAuthenticationRepository(),
                                                        authContext.getAccessTokenCookieAssembler());
-    invoiceContext = new InvoiceContext();
+    invoiceContext = new InvoiceContext(apiUrl);
     parkingContext = new ParkingContext(invoiceContext.getInvoiceCreator(),
-                                        invoiceContext.getInvoiceAssembler(),
-                                        invoiceContext.getInvoiceDtoAssembler());
+                                        invoiceContext.getInvoicePaidObservable(),
+                                        invoiceContext.getInvoiceUriBuilder());
   }
 
   @Override
   public void registerResources(InstanceMap resources) {
     super.registerResources(resources);
     resources.add(new PingResource());
+  }
+
+  @Override
+  public ApiUrl getApiUrl() {
+    return apiUrl;
   }
 }

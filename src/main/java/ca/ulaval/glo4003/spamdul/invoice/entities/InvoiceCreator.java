@@ -11,10 +11,10 @@ public class InvoiceCreator {
     this.invoiceRepository = invoiceRepository;
   }
 
-  public Invoice createInvoice(InvoiceItem... items) {
+  public InvoiceId createInvoice(Priceable... items) {
     Invoice invoice = invoiceFactory.create(items);
     invoiceRepository.save(invoice);
 
-    return invoice;
+    return invoice.getId();
   }
 }

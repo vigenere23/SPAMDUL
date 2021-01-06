@@ -10,8 +10,8 @@ public class Invoice {
 
   private final InvoiceId invoiceId;
   private final LocalDateTime createdAt;
-  private final List<InvoiceItem> items = new ArrayList<>();
-  private boolean isPaid = false;
+  private LocalDateTime paidAt;
+  private final List<Priceable> items = new ArrayList<>();
 
   public Invoice(InvoiceId invoiceId, LocalDateTime createdAt) {
     this.invoiceId = invoiceId;
@@ -19,23 +19,22 @@ public class Invoice {
   }
 
   public void pay() {
-    if (isPaid) {
+    if (paidAt != null) {
       throw new InvoiceAlreadyPaidException(invoiceId);
     }
 
     // TODO use payment service
 
-    items.forEach(InvoiceItem::handlePaid);
-    isPaid = true;
+    paidAt = LocalDateTime.now();
   }
 
-  public void addItem(InvoiceItem item) {
+  public void addItem(Priceable item) {
     items.add(item);
   }
 
   public Amount getTotal() {
     return items.stream()
-                .map(InvoiceItem::getPrice)
+                .map(Priceable::getPrice)
                 .reduce(Amount::add)
                 .orElse(Amount.valueOf(0));
   }
@@ -46,10 +45,14 @@ public class Invoice {
 
   public String getStatus() {
     // TODO use state with Unpaid, Paying and Paid
-    return isPaid ? "paid" : "unpaid";
+    return paidAt == null ? "unpaid" : "paid";
   }
 
   public LocalDateTime getCreatedAt() {
     return createdAt;
+  }
+
+  public LocalDateTime getPaidAt() {
+    return paidAt;
   }
 }

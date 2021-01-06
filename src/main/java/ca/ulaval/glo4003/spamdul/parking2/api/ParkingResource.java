@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.api;
 
-import ca.ulaval.glo4003.spamdul.invoice.api.assemblers.InvoiceDtoAssembler;
-import ca.ulaval.glo4003.spamdul.invoice.api.dtos.InvoiceResponse;
-import ca.ulaval.glo4003.spamdul.invoice.usecases.dtos.InvoiceDto;
+import ca.ulaval.glo4003.spamdul.invoice.api.InvoiceUriBuilder;
+import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingUserDtoAssembler;
@@ -15,8 +14,10 @@ import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightCreati
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.PermitCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessRightUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUseCase;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingPermitUseCase;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUserUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
@@ -37,27 +38,33 @@ public class ParkingResource {
   private final PermitCreationAssembler permitCreationAssembler;
   private final AccessRightCreationAssembler accessRightCreationAssembler;
   private final ParkingAccessAssembler parkingAccessAssembler;
-  private final ParkingUseCase parkingUseCase;
+  private final ParkingUserUseCase parkingUserUseCase;
+  private final ParkingPermitUseCase parkingPermitUseCase;
+  private final ParkingAccessRightUseCase parkingAccessRightUseCase;
   private final ParkingAccessUseCase parkingAccessUseCase;
   private final ParkingUserDtoAssembler parkingUserDtoAssembler;
-  private final InvoiceDtoAssembler invoiceDtoAssembler;
+  private final InvoiceUriBuilder invoiceUriBuilder;
 
   public ParkingResource(UserCreationAssembler userCreationAssembler,
                          PermitCreationAssembler permitCreationAssembler,
                          AccessRightCreationAssembler accessRightCreationAssembler,
                          ParkingAccessAssembler parkingAccessAssembler,
-                         ParkingUseCase parkingUseCase,
+                         ParkingUserUseCase parkingUserUseCase,
+                         ParkingPermitUseCase parkingPermitUseCase,
+                         ParkingAccessRightUseCase parkingAccessRightUseCase,
                          ParkingAccessUseCase parkingAccessUseCase,
                          ParkingUserDtoAssembler parkingUserDtoAssembler,
-                         InvoiceDtoAssembler invoiceDtoAssembler) {
+                         InvoiceUriBuilder invoiceUriBuilder) {
     this.userCreationAssembler = userCreationAssembler;
     this.permitCreationAssembler = permitCreationAssembler;
     this.accessRightCreationAssembler = accessRightCreationAssembler;
     this.parkingAccessAssembler = parkingAccessAssembler;
-    this.parkingUseCase = parkingUseCase;
+    this.parkingUserUseCase = parkingUserUseCase;
+    this.parkingPermitUseCase = parkingPermitUseCase;
+    this.parkingAccessRightUseCase = parkingAccessRightUseCase;
     this.parkingAccessUseCase = parkingAccessUseCase;
     this.parkingUserDtoAssembler = parkingUserDtoAssembler;
-    this.invoiceDtoAssembler = invoiceDtoAssembler;
+    this.invoiceUriBuilder = invoiceUriBuilder;
   }
 
   @Path("user")
@@ -65,7 +72,7 @@ public class ParkingResource {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response createUser(UserCreationRequest request) {
     UserCreationDto dto = userCreationAssembler.fromRequest(request);
-    ParkingUserDto parkingUserDto = parkingUseCase.createUser(dto);
+    ParkingUserDto parkingUserDto = parkingUserUseCase.createUser(dto);
 
     ParkingUserResponse response = parkingUserDtoAssembler.toResponse(parkingUserDto);
     return Response.status(201).entity(response).build();
@@ -75,7 +82,7 @@ public class ParkingResource {
   @GET
   public Response getUser(@PathParam("userId") String userId) {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
-    ParkingUserDto parkingUserDto = parkingUseCase.getUser(parkingUserId);
+    ParkingUserDto parkingUserDto = parkingUserUseCase.getUser(parkingUserId);
 
     ParkingUserResponse response = parkingUserDtoAssembler.toResponse(parkingUserDto);
     return Response.status(200).entity(response).build();
@@ -87,10 +94,9 @@ public class ParkingResource {
   public Response orderPermit(@PathParam("userId") String userId, PermitCreationRequest request) {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     PermitCreationDto dto = permitCreationAssembler.fromRequest(request);
-    InvoiceDto invoiceDto = parkingUseCase.orderPermit(parkingUserId, dto);
+    InvoiceId invoiceId = parkingPermitUseCase.orderPermit(parkingUserId, dto);
 
-    InvoiceResponse response = invoiceDtoAssembler.toResponse(invoiceDto);
-    return Response.status(201).entity(response).build();
+    return Response.created(invoiceUriBuilder.buildGet(invoiceId)).build();
   }
 
   @Path("user/{userId}/car/{carId}/access-right")
@@ -102,10 +108,9 @@ public class ParkingResource {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     LicensePlate licensePlate = LicensePlate.valueOf(carId);
     AccessRightCreationDto dto = accessRightCreationAssembler.fromRequest(request);
-    InvoiceDto invoiceDto = parkingUseCase.orderAccessRight(parkingUserId, licensePlate, dto);
+    InvoiceId invoiceId = parkingAccessRightUseCase.orderAccessRight(parkingUserId, licensePlate, dto);
 
-    InvoiceResponse response = invoiceDtoAssembler.toResponse(invoiceDto);
-    return Response.status(201).entity(response).build();
+    return Response.created(invoiceUriBuilder.buildGet(invoiceId)).build();
   }
 
   @Path("access")

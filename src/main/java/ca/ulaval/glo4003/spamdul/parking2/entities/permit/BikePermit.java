@@ -16,4 +16,8 @@ public class BikePermit extends Permit {
       throw new InvalidParkingZoneException(parkingZone);
     }
   }
+
+  @Override public String getName() {
+    return "Bike permit";
+  }
 }

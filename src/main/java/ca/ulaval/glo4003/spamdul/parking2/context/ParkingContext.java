@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.spamdul.parking2.context;
 
-import ca.ulaval.glo4003.spamdul.invoice.api.assemblers.InvoiceDtoAssembler;
+import ca.ulaval.glo4003.spamdul.invoice.InvoicePaidObservable;
+import ca.ulaval.glo4003.spamdul.invoice.api.InvoiceUriBuilder;
 import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
-import ca.ulaval.glo4003.spamdul.invoice.usecases.assemblers.InvoiceAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.ParkingResource;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFac
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFactoryMonth;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFactorySession;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFactorySingleDay;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFilterDate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFilterParkingZone;
@@ -33,6 +34,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionTypeFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryBike;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryCar;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
@@ -42,8 +44,10 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserIdFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.InfractionAmountRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingUserRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessRightUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUseCase;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingPermitUseCase;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUserUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessPeriodCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessRightsAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.CarAssembler;
@@ -63,12 +67,17 @@ public class ParkingContext implements ResourceContext {
   private final ParkingResource parkingResource;
 
   public ParkingContext(InvoiceCreator invoiceCreator,
-                        InvoiceAssembler invoiceAssembler,
-                        InvoiceDtoAssembler invoiceDtoAssembler) {
+                        InvoicePaidObservable invoicePaidObservable,
+                        InvoiceUriBuilder invoiceUriBuilder) {
     Calendar calendar = new HardCodedCalendar();
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
     InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
     // TODO populate infractionAmountRepository
+
+    PermitAssociator permitAssociator = new PermitAssociator(parkingUserRepository);
+    AccessRightAssociator accessRightAssociator = new AccessRightAssociator(parkingUserRepository);
+    invoicePaidObservable.register(permitAssociator);
+    invoicePaidObservable.register(accessRightAssociator);
 
     AccessRightValidator accessRightValidator = new AccessRightValidatorFactory().create(
         new AccessRightFilterParkingZone(),
@@ -94,18 +103,24 @@ public class ParkingContext implements ResourceContext {
                                                                 infractionFactory,
                                                                 infractionAmountRepository);
 
+    ParkingUserAssembler parkingUserAssembler = new ParkingUserAssembler(new PermitsAssembler(new AccessRightsAssembler(),
+                                                                                              new CarAssembler()));
+    ParkingUserUseCase parkingUserUseCase = new ParkingUserUseCase(parkingUserRepository,
+                                                                   parkingUserFactory,
+                                                                   parkingUserAssembler);
+    ParkingPermitUseCase parkingPermitUseCase = new ParkingPermitUseCase(parkingUserRepository,
+                                                                         permitFactoryProvider,
+                                                                         new DeliveryInfosAssembler(),
+                                                                         new PermitCreationInfosAssembler(
+                                                                             new CarCreationInfosAssembler()),
+                                                                         invoiceCreator,
+                                                                         permitAssociator);
+    ParkingAccessRightUseCase parkingAccessRightUseCase = new ParkingAccessRightUseCase(parkingUserRepository,
+                                                                                        accessRightFactory,
+                                                                                        new AccessPeriodCreationInfosAssembler(),
+                                                                                        invoiceCreator,
+                                                                                        accessRightAssociator);
     ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository, infractionCreator);
-    ParkingUseCase parkingUseCase = new ParkingUseCase(parkingUserRepository,
-                                                       parkingUserFactory,
-                                                       permitFactoryProvider,
-                                                       accessRightFactory,
-                                                       new DeliveryInfosAssembler(),
-                                                       new PermitCreationInfosAssembler(new CarCreationInfosAssembler()),
-                                                       new AccessPeriodCreationInfosAssembler(),
-                                                       new ParkingUserAssembler(new PermitsAssembler(new AccessRightsAssembler(),
-                                                                                                     new CarAssembler())),
-                                                       invoiceAssembler,
-                                                       invoiceCreator);
 
     UserCreationAssembler userCreationAssembler = new UserCreationAssembler();
     PermitCreationAssembler permitCreationAssembler = new PermitCreationAssembler(new PermitDeliveryAssembler(),
@@ -116,11 +131,13 @@ public class ParkingContext implements ResourceContext {
                                           permitCreationAssembler,
                                           accessRightCreationAssembler,
                                           parkingAccessAssembler,
-                                          parkingUseCase,
+                                          parkingUserUseCase,
+                                          parkingPermitUseCase,
+                                          parkingAccessRightUseCase,
                                           parkingAccessUseCase,
                                           new ParkingUserDtoAssembler(new PermitDtoAssembler(new CarDtoAssembler(),
                                                                                              new AccessRightDtoAssembler())),
-                                          invoiceDtoAssembler);
+                                          invoiceUriBuilder);
   }
 
   @Override
