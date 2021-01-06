@@ -2,7 +2,8 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Semester;
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 
 public class AccessPeriodCreationInfos {
@@ -11,7 +12,8 @@ public class AccessPeriodCreationInfos {
   private final int year;
   private final Month month;
   private final Semester semester;
-  private final LocalDateTime start;
+  private final LocalTime startTime;
+  private final LocalDate date;
   private final int numberOfHours;
 
   public AccessPeriodCreationInfos(
@@ -19,22 +21,24 @@ public class AccessPeriodCreationInfos {
       int year,
       Month month,
       Semester semester,
-      LocalDateTime start,
+      LocalTime startTime,
+      LocalDate date,
       int numberOfHours) {
     this.dayOfWeek = dayOfWeek;
     this.year = year;
     this.month = month;
     this.semester = semester;
-    this.start = start;
+    this.startTime = startTime;
+    this.date = date;
     this.numberOfHours = numberOfHours;
   }
 
   public AccessPeriodCreationInfosHourly forHourly() {
-    return new AccessPeriodCreationInfosHourly(start, numberOfHours);
+    return new AccessPeriodCreationInfosHourly(date, startTime, numberOfHours);
   }
 
   public AccessPeriodCreationInfosSingleDay forSingleDay() {
-    return new AccessPeriodCreationInfosSingleDay(start);
+    return new AccessPeriodCreationInfosSingleDay(date);
   }
 
   public AccessPeriodCreationInfosDayPerWeek forDayPerWeek() {

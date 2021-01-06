@@ -1,6 +1,9 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.car;
+package ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation;
 
-public class PermitCreationInfosCar {
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
+
+public class CarCreationInfos {
 
   private final String brand;
   private final String model;
@@ -8,10 +11,10 @@ public class PermitCreationInfosCar {
   private final LicensePlate licensePlate;
   private final CarType type;
 
-  public PermitCreationInfosCar(String brand,
-                                String model,
-                                int year,
-                                LicensePlate licensePlate, CarType type) {
+  public CarCreationInfos(String brand,
+                          String model,
+                          int year,
+                          LicensePlate licensePlate, CarType type) {
     this.brand = brand;
     this.model = model;
     this.year = year;

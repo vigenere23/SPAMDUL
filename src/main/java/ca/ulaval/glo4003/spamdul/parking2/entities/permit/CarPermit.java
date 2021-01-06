@@ -20,11 +20,13 @@ public class CarPermit extends Permit {
                                                                            ParkingZone.ZONE_3,
                                                                            ParkingZone.ZONE_R,
                                                                            ParkingZone.ANY);
+  private final AccessRightValidator accessRightValidator;
   private final Car car;
   private final Set<AccessRight> accessRights = new HashSet<>();
 
   public CarPermit(PermitNumber permitNumber, AccessRightValidator accessRightValidator, Car car) {
-    super(permitNumber, accessRightValidator);
+    super(permitNumber);
+    this.accessRightValidator = accessRightValidator;
     this.car = car;
   }
 

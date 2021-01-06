@@ -1,16 +1,16 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AccessPeriodCreationInfosSingleDay {
 
-  private final LocalDateTime start;
+  private final LocalDate date;
 
-  public AccessPeriodCreationInfosSingleDay(LocalDateTime start) {
-    this.start = start;
+  public AccessPeriodCreationInfosSingleDay(LocalDate date) {
+    this.date = date;
   }
 
-  public LocalDateTime getStart() {
-    return this.start;
+  public LocalDate getDate() {
+    return this.date;
   }
 }

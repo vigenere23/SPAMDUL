@@ -3,7 +3,8 @@ package ca.ulaval.glo4003.spamdul.parking2.usecases.dtos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Semester;
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 
 public class AccessPeriodCreationDto {
@@ -13,6 +14,7 @@ public class AccessPeriodCreationDto {
   public int year;
   public Month month;
   public Semester semester;
-  public LocalDateTime start;
+  public LocalDate date;
+  public LocalTime startTime;
   public int numberOfHours;
 }

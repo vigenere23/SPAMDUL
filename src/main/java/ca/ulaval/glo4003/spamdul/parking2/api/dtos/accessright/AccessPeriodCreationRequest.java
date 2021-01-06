@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.parking2.api.dtos;
+package ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright;
 
 public class AccessPeriodCreationRequest {
 
@@ -7,6 +7,7 @@ public class AccessPeriodCreationRequest {
   public int year;
   public int month;
   public String semester;
-  public String start;
+  public String startTime;
+  public String date;
   public int numberOfHours;
 }

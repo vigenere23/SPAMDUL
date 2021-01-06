@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.api.assemblers;
 
-import ca.ulaval.glo4003.spamdul.parking2.api.dtos.AccessRightCreationRequest;
+import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
 

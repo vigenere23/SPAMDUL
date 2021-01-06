@@ -10,7 +10,8 @@ public class AccessPeriodCreationInfosAssembler {
                                          dto.year,
                                          dto.month,
                                          dto.semester,
-                                         dto.start,
+                                         dto.startTime,
+                                         dto.date,
                                          dto.numberOfHours);
   }
 }

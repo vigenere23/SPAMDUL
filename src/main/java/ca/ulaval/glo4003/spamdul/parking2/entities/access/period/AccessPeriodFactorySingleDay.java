@@ -6,7 +6,7 @@ import java.time.LocalTime;
 public class AccessPeriodFactorySingleDay {
 
   public AccessPeriod create(AccessPeriodCreationInfosSingleDay infos) {
-    LocalDate date = infos.getStart().toLocalDate();
+    LocalDate date = infos.getDate();
     return new AccessPeriod(date, date, LocalTime.MIN, LocalTime.MAX);
   }
 }

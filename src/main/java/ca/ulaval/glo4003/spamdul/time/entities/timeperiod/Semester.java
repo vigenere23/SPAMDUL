@@ -17,6 +17,12 @@ public class Semester {
     Session session = Session.parse(semester.substring(0, 1));
     int year = Integer.parseInt(semester.substring(1));
 
+    if (semester.length() == 3) {
+      // short way, makes it year 20xx
+      // TODO make it adapt to current century
+      year += 2000;
+    }
+
     return new Semester(session, year);
   }
 

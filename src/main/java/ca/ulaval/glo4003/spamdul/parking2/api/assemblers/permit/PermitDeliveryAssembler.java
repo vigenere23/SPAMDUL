@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.spamdul.parking2.api.assemblers;
+package ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit;
 
-import ca.ulaval.glo4003.spamdul.parking2.api.dtos.PermitDeliveryRequest;
+import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.PermitDeliveryRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryType;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitDeliveryDto;
 

@@ -1,5 +1,6 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
+package ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
 import ca.ulaval.glo4003.spamdul.shared.entities.ids.IdGenerator;
 
 public class PermitNumberFactory {

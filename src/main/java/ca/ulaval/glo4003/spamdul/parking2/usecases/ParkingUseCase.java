@@ -11,8 +11,8 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFacto
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitCreationInfos;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
@@ -23,14 +23,14 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.ParkingUserAssembl
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
 
 public class ParkingUseCase {
 
   private final ParkingUserRepository parkingUserRepository;
   private final ParkingUserFactory parkingUserFactory;
-  private final PermitFactory permitFactory;
+  private final PermitFactoryProvider permitFactoryProvider;
   private final AccessRightFactory accessRightFactory;
   private final DeliveryInfosAssembler deliveryInfosAssembler;
   private final PermitCreationInfosAssembler permitCreationInfosAssembler;
@@ -41,7 +41,7 @@ public class ParkingUseCase {
 
   public ParkingUseCase(ParkingUserRepository parkingUserRepository,
                         ParkingUserFactory parkingUserFactory,
-                        PermitFactory permitFactory,
+                        PermitFactoryProvider permitFactoryProvider,
                         AccessRightFactory accessRightFactory,
                         DeliveryInfosAssembler deliveryInfosAssembler,
                         PermitCreationInfosAssembler permitCreationInfosAssembler,
@@ -51,7 +51,7 @@ public class ParkingUseCase {
                         InvoiceCreator invoiceCreator) {
     this.parkingUserRepository = parkingUserRepository;
     this.parkingUserFactory = parkingUserFactory;
-    this.permitFactory = permitFactory;
+    this.permitFactoryProvider = permitFactoryProvider;
     this.accessRightFactory = accessRightFactory;
     this.deliveryInfosAssembler = deliveryInfosAssembler;
     this.permitCreationInfosAssembler = permitCreationInfosAssembler;
@@ -106,7 +106,7 @@ public class ParkingUseCase {
 
   private Permit createPermit(PermitCreationDto dto) {
     PermitCreationInfos infos = permitCreationInfosAssembler.fromDto(dto);
-    return permitFactory.create(dto.type, infos);
+    return permitFactoryProvider.provide(dto.type).create(infos);
   }
 
   private AccessRight createAccessRight(AccessRightCreationDto dto) {
