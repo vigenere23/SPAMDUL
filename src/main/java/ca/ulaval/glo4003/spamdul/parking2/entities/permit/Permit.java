@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
 
-import ca.ulaval.glo4003.spamdul.invoice.entities.Priceable;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.Priceable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
-import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import java.time.LocalDateTime;
 
 public abstract class Permit implements Priceable {
@@ -17,11 +16,5 @@ public abstract class Permit implements Priceable {
 
   public PermitNumber getPermitNumber() {
     return permitNumber;
-  }
-
-  @Override
-  public Amount getPrice() {
-    // TODO
-    return Amount.valueOf(20.5);
   }
 }

@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class ParkingUserResponse {
 
-  public String id;
+  public String accountId;
   public String name;
   public Set<PermitResponse> permits;
 }

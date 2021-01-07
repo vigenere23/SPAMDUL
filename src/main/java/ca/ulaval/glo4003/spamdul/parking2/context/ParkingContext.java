@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.spamdul.parking2.context;
 
-import ca.ulaval.glo4003.spamdul.invoice.InvoicePaidObservable;
-import ca.ulaval.glo4003.spamdul.invoice.api.InvoiceUriBuilder;
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
+import ca.ulaval.glo4003.spamdul.account.entities.AccountService;
+import ca.ulaval.glo4003.spamdul.billing.InvoicePaidObservable;
+import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.parking2.api.ParkingResource;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
@@ -42,7 +43,6 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitNumberFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserIdFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.InfractionAmountRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingUserRepositoryInMemory;
@@ -70,7 +70,8 @@ public class ParkingContext implements ResourceContext {
 
   public ParkingContext(InvoiceCreator invoiceCreator,
                         InvoicePaidObservable invoicePaidObservable,
-                        InvoiceUriBuilder invoiceUriBuilder) {
+                        BillingUriBuilder billingUriBuilder,
+                        AccountService accountService) {
     Calendar calendar = new HardCodedCalendar();
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
     InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
@@ -89,7 +90,7 @@ public class ParkingContext implements ResourceContext {
         new AccessRightFilterStrategyDate(),
         new AccessRightFilterStrategyTime()
     );
-    ParkingUserFactory parkingUserFactory = new ParkingUserFactory(new ParkingUserIdFactory(new IncrementalIdGenerator()));
+    ParkingUserFactory parkingUserFactory = new ParkingUserFactory();
     PermitNumberFactory permitNumberFactory = new PermitNumberFactory(new IncrementalIdGenerator());
     PermitFactoryCar permitFactoryCar = new PermitFactoryCar(permitNumberFactory,
                                                              accessRightValidator,
@@ -112,7 +113,7 @@ public class ParkingContext implements ResourceContext {
                                                                                               new CarAssembler()));
     ParkingUserUseCase parkingUserUseCase = new ParkingUserUseCase(parkingUserRepository,
                                                                    parkingUserFactory,
-                                                                   parkingUserAssembler);
+                                                                   parkingUserAssembler, accountService);
     ParkingPermitUseCase parkingPermitUseCase = new ParkingPermitUseCase(parkingUserRepository,
                                                                          permitFactoryProvider,
                                                                          new DeliveryInfosAssembler(),
@@ -142,7 +143,7 @@ public class ParkingContext implements ResourceContext {
                                           parkingAccessUseCase,
                                           new ParkingUserDtoAssembler(new PermitDtoAssembler(new CarDtoAssembler(),
                                                                                              new AccessRightDtoAssembler())),
-                                          invoiceUriBuilder);
+                                          billingUriBuilder);
   }
 
   @Override

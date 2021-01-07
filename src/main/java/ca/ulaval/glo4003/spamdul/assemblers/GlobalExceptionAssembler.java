@@ -17,7 +17,7 @@ public class GlobalExceptionAssembler implements ExceptionMapper<RuntimeExceptio
       exceptionResponse.error = "NOT_IMPLEMENTED";
     } else {
       e.printStackTrace();
-      exceptionResponse.error = e.getClass().getName();
+      exceptionResponse.error = e.getClass().getSimpleName();
     }
 
     return Response.status(Response.Status.BAD_REQUEST)

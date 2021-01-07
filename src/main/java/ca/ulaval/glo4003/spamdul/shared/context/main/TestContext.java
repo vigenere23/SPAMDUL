@@ -1,11 +1,12 @@
 package ca.ulaval.glo4003.spamdul.shared.context.main;
 
+import ca.ulaval.glo4003.spamdul.account.context.AccountContext;
 import ca.ulaval.glo4003.spamdul.authentication.context.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.billing.context.BillingContext;
 import ca.ulaval.glo4003.spamdul.charging.context.DevChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.DevCarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.ProdInitiativesContext;
 import ca.ulaval.glo4003.spamdul.finance.context.revenue.RevenueContext;
-import ca.ulaval.glo4003.spamdul.invoice.context.InvoiceContext;
 import ca.ulaval.glo4003.spamdul.parking.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
@@ -24,6 +25,7 @@ public class TestContext extends MainContext {
   public TestContext() {
     apiUrl = new ApiUrl("localhost", 8080, "api");
 
+    accountContext = new AccountContext(apiUrl);
     authContext = new AuthenticationContext();
     parkingUserContext = new ParkingUserContext();
     usageContext = new ProdUsageContext(authContext.getAuthenticationRepository(),
@@ -53,10 +55,11 @@ public class TestContext extends MainContext {
                                                        initiativesContext.getInitiativeCreator(),
                                                        authContext.getAuthenticationRepository(),
                                                        authContext.getAccessTokenCookieAssembler());
-    invoiceContext = new InvoiceContext(apiUrl);
-    parkingContext = new ParkingContext(invoiceContext.getInvoiceCreator(),
-                                        invoiceContext.getInvoicePaidObservable(),
-                                        invoiceContext.getInvoiceUriBuilder());
+    billingContext = new BillingContext(apiUrl, accountContext.getAccountCreatedObservable());
+    parkingContext = new ParkingContext(billingContext.getInvoiceCreator(),
+                                        billingContext.getInvoicePaidObservable(),
+                                        billingContext.getInvoiceUriBuilder(),
+                                        accountContext.getAccountService());
   }
 
   @Override

@@ -14,7 +14,7 @@ public class ParkingUserAssembler {
   public ParkingUserDto toDto(ParkingUser parkingUser) {
     ParkingUserDto dto = new ParkingUserDto();
 
-    dto.id = parkingUser.getId();
+    dto.accountId = parkingUser.getAccountId();
     dto.name = parkingUser.getName();
     dto.permits = permitsAssembler.toDtos(parkingUser.getPermits());
 

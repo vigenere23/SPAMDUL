@@ -1,20 +1,20 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.permit.association;
 
+import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 
 public class PermitAssociationAction {
 
-  private final ParkingUserId parkingUserId;
+  private final AccountId accountId;
   private final Permit permit;
 
-  public PermitAssociationAction(ParkingUserId parkingUserId,
+  public PermitAssociationAction(AccountId accountId,
                                  Permit permit) {
-    this.parkingUserId = parkingUserId;
+    this.accountId = accountId;
     this.permit = permit;
   }
 
   public void trigger(PermitAssociator permitAssociator) {
-    permitAssociator.associatePermit(parkingUserId, permit);
+    permitAssociator.associatePermit(accountId, permit);
   }
 }

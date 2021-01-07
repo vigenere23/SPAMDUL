@@ -1,10 +1,12 @@
 package ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence;
 
+import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.ParkingUserNotFound;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,47 +14,35 @@ import java.util.Optional;
 
 public class ParkingUserRepositoryInMemory implements ParkingUserRepository {
 
-  private final Map<ParkingUserId, ParkingUser> users = new HashMap<>();
+  private final Map<AccountId, ParkingUser> users = new HashMap<>();
 
   @Override
-  public ParkingUser findBy(ParkingUserId id) {
-    Optional<ParkingUser> parkingUser = Optional.ofNullable(users.get(id));
-
-    return validateParkingUser(parkingUser);
+  public ParkingUser findBy(AccountId accountId) {
+    return Optional.ofNullable(users.get(accountId)).orElseThrow(() -> new ParkingUserNotFound(accountId));
   }
 
   @Override
   public ParkingUser findBy(LicensePlate licensePlate) {
-    Optional<ParkingUser> parkingUser = users
+    return users
         .values()
         .stream()
         .filter(user -> user.hasPermitWith(licensePlate))
-        .findFirst();
-
-    return validateParkingUser(parkingUser);
+        .findFirst()
+        .orElseThrow(() -> new CarNotFoundException(licensePlate));
   }
 
   @Override
   public ParkingUser findBy(PermitNumber permitNumber) {
-    Optional<ParkingUser> parkingUser = users
+    return users
         .values()
         .stream()
         .filter(user -> user.hasPermitWith(permitNumber))
-        .findFirst();
-
-    return validateParkingUser(parkingUser);
-  }
-
-  private ParkingUser validateParkingUser(Optional<ParkingUser> parkingUser) {
-    if (!parkingUser.isPresent()) {
-      throw new ParkingUserNotFound();
-    }
-
-    return parkingUser.get();
+        .findFirst()
+        .orElseThrow(() -> new PermitNotFoundException(permitNumber));
   }
 
   @Override
   public void save(ParkingUser parkingUser) {
-    users.put(parkingUser.getId(), parkingUser);
+    users.put(parkingUser.getAccountId(), parkingUser);
   }
 }

@@ -1,13 +1,14 @@
 package ca.ulaval.glo4003.spamdul.shared.context.main;
 
+import ca.ulaval.glo4003.spamdul.account.context.AccountContext;
 import ca.ulaval.glo4003.spamdul.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.authentication.context.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.billing.context.BillingContext;
 import ca.ulaval.glo4003.spamdul.charging.context.ChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.InitiativesContext;
 import ca.ulaval.glo4003.spamdul.finance.context.revenue.RevenueContext;
-import ca.ulaval.glo4003.spamdul.invoice.context.InvoiceContext;
 import ca.ulaval.glo4003.spamdul.parking.context.bikeparkingaccess.BikeParkingAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContext;
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
@@ -21,6 +22,7 @@ import ca.ulaval.glo4003.spamdul.usage.context.UsageContext;
 
 public abstract class MainContext implements ResourceContext {
 
+  protected AccountContext accountContext;
   protected AuthenticationContext authContext;
   protected ParkingUserContext parkingUserContext;
   protected UsageContext usageContext;
@@ -32,7 +34,7 @@ public abstract class MainContext implements ResourceContext {
   protected InfractionsContext infractionsContext;
   protected CarbonCreditsContext carbonCreditsContext;
   protected BikeParkingAccessContext bikeParkingAccessContext;
-  protected InvoiceContext invoiceContext;
+  protected BillingContext billingContext;
   protected ParkingContext parkingContext;
 
   @Override
@@ -40,6 +42,7 @@ public abstract class MainContext implements ResourceContext {
     resources.add(new GlobalExceptionAssembler());
     resources.add(new SpamDULExceptionAssembler());
 
+    accountContext.registerResources(resources);
     authContext.registerResources(resources);
     parkingUserContext.registerResources(resources);
     usageContext.registerResources(resources);
@@ -51,7 +54,7 @@ public abstract class MainContext implements ResourceContext {
     infractionsContext.registerResources(resources);
     carbonCreditsContext.registerResources(resources);
     bikeParkingAccessContext.registerResources(resources);
-    invoiceContext.registerResources(resources);
+    billingContext.registerResources(resources);
     parkingContext.registerResources(resources);
   }
 

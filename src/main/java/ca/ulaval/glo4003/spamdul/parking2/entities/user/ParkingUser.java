@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.user;
 
+import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 public class ParkingUser {
 
-  private final ParkingUserId parkingUserId;
+  private final AccountId accountId;
   private final String name;
   private final Sex sex;
   private final LocalDate birthDate;
@@ -27,10 +28,10 @@ public class ParkingUser {
   private final Map<PermitNumber, Permit> permits = new HashMap<>();
   private final Set<Infraction> infractions = new HashSet<>();
 
-  public ParkingUser(ParkingUserId parkingUserId,
+  public ParkingUser(AccountId accountId,
                      String name,
                      Sex sex, LocalDate birthDate) {
-    this.parkingUserId = parkingUserId;
+    this.accountId = accountId;
     this.name = name;
     this.sex = sex;
     this.birthDate = birthDate;
@@ -69,8 +70,8 @@ public class ParkingUser {
     infractions.add(infraction);
   }
 
-  public ParkingUserId getId() {
-    return parkingUserId;
+  public AccountId getAccountId() {
+    return accountId;
   }
 
   private Permit findPermitBy(PermitNumber permitNumber) {

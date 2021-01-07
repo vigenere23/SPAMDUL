@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidPermitException;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -59,7 +60,13 @@ public class CarPermit extends Permit {
     return car;
   }
 
-  @Override public String getName() {
+  @Override
+  public Amount getPrice() {
+    return Amount.valueOf(20.50); // TODO use price calculator
+  }
+
+  @Override
+  public String getName() {
     return "Car permit";
   }
 }

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association;
 
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoicePaidObserver;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoicePaidObserver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

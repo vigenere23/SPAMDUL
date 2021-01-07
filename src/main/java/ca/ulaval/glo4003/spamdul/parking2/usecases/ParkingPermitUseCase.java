@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
+import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationAction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
@@ -38,13 +38,14 @@ public class ParkingPermitUseCase {
     this.permitAssociationQueue = permitAssociationQueue;
   }
 
-  public InvoiceId orderPermit(ParkingUserId parkingUserId, PermitCreationDto dto) {
-    parkingUserRepository.findBy(parkingUserId);
+  public InvoiceId orderPermit(AccountId accountId, PermitCreationDto dto) {
+    parkingUserRepository.findBy(accountId);
     DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
     Permit permit = createPermit(dto);
 
-    InvoiceId invoiceId = invoiceCreator.createInvoice(ListUtil.toList(permit)); // TODO add billing item for delivery
-    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(parkingUserId, permit));
+    InvoiceId invoiceId = invoiceCreator.createInvoice(accountId,
+                                                       ListUtil.toList(permit)); // TODO add billing item for delivery
+    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(accountId, permit));
     // TODO add listener for shipping
 
     return invoiceId;

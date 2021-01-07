@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
-import ca.ulaval.glo4003.spamdul.invoice.entities.Priceable;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.Priceable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationAction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationQueue;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
+import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessPeriodCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
@@ -36,16 +36,14 @@ public class ParkingAccessRightUseCase {
     this.accessRightAssociationQueue = accessRightAssociationQueue;
   }
 
-  public InvoiceId orderAccessRights(ParkingUserId parkingUserId,
-                                     LicensePlate licensePlate,
+  public InvoiceId orderAccessRights(LicensePlate licensePlate,
                                      List<AccessRightCreationDto> dtos) {
-    parkingUserRepository.findBy(parkingUserId);
+    ParkingUser parkingUser = parkingUserRepository.findBy(licensePlate);
     List<AccessRight> accessRights = createAccessRights(dtos);
 
-    InvoiceId invoiceId = invoiceCreator.createInvoice(Priceable.fromList(accessRights));
+    InvoiceId invoiceId = invoiceCreator.createInvoice(parkingUser.getAccountId(), Priceable.fromList(accessRights));
     accessRights.forEach(accessRight -> accessRightAssociationQueue.add(invoiceId,
-                                                                        new AccessRightAssociationAction(parkingUserId,
-                                                                                                         licensePlate,
+                                                                        new AccessRightAssociationAction(licensePlate,
                                                                                                          accessRight)));
 
     return invoiceId;

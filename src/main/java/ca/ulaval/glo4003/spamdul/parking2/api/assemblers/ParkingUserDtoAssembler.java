@@ -13,7 +13,7 @@ public class ParkingUserDtoAssembler {
 
   public ParkingUserResponse toResponse(ParkingUserDto dto) {
     ParkingUserResponse response = new ParkingUserResponse();
-    response.id = dto.id.toString();
+    response.accountId = dto.accountId.toString();
     response.name = dto.name;
     response.permits = permitDtoAssembler.toResponses(dto.permits);
 

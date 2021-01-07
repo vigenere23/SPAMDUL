@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.right;
 
-import ca.ulaval.glo4003.spamdul.invoice.entities.Priceable;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.Priceable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
@@ -29,7 +29,8 @@ public class AccessRight implements Priceable {
 
   @Override
   public Amount getPrice() {
-    // TODO
+    // TODO use price calculator
+    // How to access Car? Maybe use another object for that
     return Amount.valueOf(20.23);
   }
 

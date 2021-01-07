@@ -15,8 +15,7 @@ public class AccessPeriodFactorySession {
 
   public AccessPeriod create(AccessPeriodCreationInfosSession infos, int numberOfSemesters) {
     if (numberOfSemesters > 3 || numberOfSemesters < 1) {
-      // TODO be more specific
-      throw new RuntimeException("number of sessions must be between 1 and 3");
+      throw new IllegalArgumentException("number of sessions must be between 1 and 3");
     }
 
     LocalDate periodStart = calendar.getStartOfSemester(infos.getSemester()).toLocalDate();

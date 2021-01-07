@@ -1,7 +1,8 @@
 package ca.ulaval.glo4003.spamdul.parking2.api;
 
-import ca.ulaval.glo4003.spamdul.invoice.api.InvoiceUriBuilder;
-import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
+import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
+import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingUserDtoAssembler;
@@ -13,7 +14,6 @@ import ca.ulaval.glo4003.spamdul.parking2.api.dtos.UserCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightsCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.PermitCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessRightUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingPermitUseCase;
@@ -44,7 +44,7 @@ public class ParkingResource {
   private final ParkingAccessRightUseCase parkingAccessRightUseCase;
   private final ParkingAccessUseCase parkingAccessUseCase;
   private final ParkingUserDtoAssembler parkingUserDtoAssembler;
-  private final InvoiceUriBuilder invoiceUriBuilder;
+  private final BillingUriBuilder billingUriBuilder;
 
   public ParkingResource(UserCreationAssembler userCreationAssembler,
                          PermitCreationAssembler permitCreationAssembler,
@@ -55,7 +55,7 @@ public class ParkingResource {
                          ParkingAccessRightUseCase parkingAccessRightUseCase,
                          ParkingAccessUseCase parkingAccessUseCase,
                          ParkingUserDtoAssembler parkingUserDtoAssembler,
-                         InvoiceUriBuilder invoiceUriBuilder) {
+                         BillingUriBuilder billingUriBuilder) {
     this.userCreationAssembler = userCreationAssembler;
     this.permitCreationAssembler = permitCreationAssembler;
     this.accessRightCreationAssembler = accessRightCreationAssembler;
@@ -65,53 +65,52 @@ public class ParkingResource {
     this.parkingAccessRightUseCase = parkingAccessRightUseCase;
     this.parkingAccessUseCase = parkingAccessUseCase;
     this.parkingUserDtoAssembler = parkingUserDtoAssembler;
-    this.invoiceUriBuilder = invoiceUriBuilder;
+    this.billingUriBuilder = billingUriBuilder;
   }
 
-  @Path("user")
+  @Path("user/{accountId}")
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response createUser(UserCreationRequest request) {
+  public Response createUser(@PathParam("accountId") String accountIdString, UserCreationRequest request) {
+    AccountId accountId = AccountId.valueOf(accountIdString);
     UserCreationDto dto = userCreationAssembler.fromRequest(request);
-    ParkingUserDto parkingUserDto = parkingUserUseCase.createUser(dto);
+    ParkingUserDto parkingUserDto = parkingUserUseCase.createUser(accountId, dto);
 
     ParkingUserResponse response = parkingUserDtoAssembler.toResponse(parkingUserDto);
     return Response.status(201).entity(response).build();
   }
 
-  @Path("user/{userId}")
+  @Path("user/{accountId}")
   @GET
-  public Response getUser(@PathParam("userId") String userId) {
-    ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
-    ParkingUserDto parkingUserDto = parkingUserUseCase.getUser(parkingUserId);
+  public Response getUser(@PathParam("accountId") String accountIdString) {
+    AccountId accountId = AccountId.valueOf(accountIdString);
+    ParkingUserDto parkingUserDto = parkingUserUseCase.getUser(accountId);
 
     ParkingUserResponse response = parkingUserDtoAssembler.toResponse(parkingUserDto);
     return Response.status(200).entity(response).build();
   }
 
-  @Path("user/{userId}/permit")
+  @Path("user/{accountId}/permit")
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response orderPermit(@PathParam("userId") String userId, PermitCreationRequest request) {
-    ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
+  public Response orderPermit(@PathParam("accountId") String accountIdString, PermitCreationRequest request) {
+    AccountId accountId = AccountId.valueOf(accountIdString);
     PermitCreationDto dto = permitCreationAssembler.fromRequest(request);
-    InvoiceId invoiceId = parkingPermitUseCase.orderPermit(parkingUserId, dto);
+    InvoiceId invoiceId = parkingPermitUseCase.orderPermit(accountId, dto);
 
-    return Response.created(invoiceUriBuilder.buildGet(invoiceId)).build();
+    return Response.created(billingUriBuilder.buildInvoice(invoiceId)).build();
   }
 
-  @Path("user/{userId}/car/{carId}/access-right")
+  @Path("car/{carId}/access-right")
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response orderAccessRight(@PathParam("userId") String userId,
-                                   @PathParam("carId") String carId,
+  public Response orderAccessRight(@PathParam("carId") String carId,
                                    AccessRightsCreationRequest request) {
-    ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     LicensePlate licensePlate = LicensePlate.valueOf(carId);
     List<AccessRightCreationDto> dtos = accessRightCreationAssembler.fromRequests(request.accessRights);
-    InvoiceId invoiceId = parkingAccessRightUseCase.orderAccessRights(parkingUserId, licensePlate, dtos);
+    InvoiceId invoiceId = parkingAccessRightUseCase.orderAccessRights(licensePlate, dtos);
 
-    return Response.created(invoiceUriBuilder.buildGet(invoiceId)).build();
+    return Response.created(billingUriBuilder.buildInvoice(invoiceId)).build();
   }
 
   @Path("access")
