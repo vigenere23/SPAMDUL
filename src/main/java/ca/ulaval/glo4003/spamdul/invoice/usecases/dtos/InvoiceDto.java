@@ -8,6 +8,7 @@ public class InvoiceDto {
 
   public InvoiceId id;
   public LocalDateTime createdAt;
+  public LocalDateTime paidAt;
   public Amount total;
   public String status;
 }

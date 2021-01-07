@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.invoice.entities.InvoiceId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitAssociator;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitBuyingCallback;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationAction;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
+import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
 
 public class ParkingPermitUseCase {
 
@@ -21,20 +22,20 @@ public class ParkingPermitUseCase {
   private final DeliveryInfosAssembler deliveryInfosAssembler;
   private final PermitCreationInfosAssembler permitCreationInfosAssembler;
   private final InvoiceCreator invoiceCreator;
-  private final PermitAssociator permitAssociator;
+  private final PermitAssociationQueue permitAssociationQueue;
 
   public ParkingPermitUseCase(ParkingUserRepository parkingUserRepository,
                               PermitFactoryProvider permitFactoryProvider,
                               DeliveryInfosAssembler deliveryInfosAssembler,
                               PermitCreationInfosAssembler permitCreationInfosAssembler,
                               InvoiceCreator invoiceCreator,
-                              PermitAssociator permitAssociator) {
+                              PermitAssociationQueue permitAssociationQueue) {
     this.parkingUserRepository = parkingUserRepository;
     this.permitFactoryProvider = permitFactoryProvider;
     this.deliveryInfosAssembler = deliveryInfosAssembler;
     this.permitCreationInfosAssembler = permitCreationInfosAssembler;
     this.invoiceCreator = invoiceCreator;
-    this.permitAssociator = permitAssociator;
+    this.permitAssociationQueue = permitAssociationQueue;
   }
 
   public InvoiceId orderPermit(ParkingUserId parkingUserId, PermitCreationDto dto) {
@@ -42,8 +43,8 @@ public class ParkingPermitUseCase {
     DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
     Permit permit = createPermit(dto);
 
-    InvoiceId invoiceId = invoiceCreator.createInvoice(permit); // TODO add billing item for delivery
-    permitAssociator.addListener(invoiceId, new PermitBuyingCallback(parkingUserId, permit));
+    InvoiceId invoiceId = invoiceCreator.createInvoice(ListUtil.toList(permit)); // TODO add billing item for delivery
+    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(parkingUserId, permit));
     // TODO add listener for shipping
 
     return invoiceId;

@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.access.right;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodCreationInfos;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodCreationInfos;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactory;
 
 public class AccessRightFactory {
 

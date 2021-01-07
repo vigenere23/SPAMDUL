@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.invoice.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class InvoiceFactory {
 
@@ -10,12 +11,9 @@ public class InvoiceFactory {
     this.invoiceIdFactory = invoiceIdFactory;
   }
 
-  public Invoice create(Priceable... items) {
+  public Invoice create(List<Priceable> items) {
     Invoice invoice = new Invoice(invoiceIdFactory.create(), LocalDateTime.now());
-
-    for (Priceable item : items) {
-      invoice.addItem(item);
-    }
+    items.forEach(invoice::addItem);
 
     return invoice;
   }

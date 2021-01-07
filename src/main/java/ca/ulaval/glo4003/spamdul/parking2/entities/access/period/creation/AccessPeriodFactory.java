@@ -1,4 +1,7 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
+package ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation;
+
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
 
 public class AccessPeriodFactory {
 

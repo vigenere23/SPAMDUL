@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
+package ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation;
 
 import java.time.Month;
 

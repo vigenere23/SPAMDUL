@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightValidator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.Car;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.CarPermit;

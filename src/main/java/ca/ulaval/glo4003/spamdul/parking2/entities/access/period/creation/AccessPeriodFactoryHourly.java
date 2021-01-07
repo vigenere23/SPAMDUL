@@ -1,5 +1,6 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
+package ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

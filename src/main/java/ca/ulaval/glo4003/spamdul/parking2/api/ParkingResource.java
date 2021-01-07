@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit.PermitCreationAs
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.ParkingAccessRequest;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.ParkingUserResponse;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.UserCreationRequest;
-import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightCreationRequest;
+import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightsCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.PermitCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserId;
@@ -23,6 +23,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -104,11 +105,11 @@ public class ParkingResource {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response orderAccessRight(@PathParam("userId") String userId,
                                    @PathParam("carId") String carId,
-                                   AccessRightCreationRequest request) {
+                                   AccessRightsCreationRequest request) {
     ParkingUserId parkingUserId = ParkingUserId.valueOf(userId);
     LicensePlate licensePlate = LicensePlate.valueOf(carId);
-    AccessRightCreationDto dto = accessRightCreationAssembler.fromRequest(request);
-    InvoiceId invoiceId = parkingAccessRightUseCase.orderAccessRight(parkingUserId, licensePlate, dto);
+    List<AccessRightCreationDto> dtos = accessRightCreationAssembler.fromRequests(request.accessRights);
+    InvoiceId invoiceId = parkingAccessRightUseCase.orderAccessRights(parkingUserId, licensePlate, dtos);
 
     return Response.created(invoiceUriBuilder.buildGet(invoiceId)).build();
   }

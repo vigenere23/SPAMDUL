@@ -12,6 +12,10 @@ public class InvoiceAssembler {
     dto.total = invoice.getTotal();
     dto.status = invoice.getStatus();
 
+    if (invoice.getPaidAt() != null) {
+      dto.paidAt = invoice.getPaidAt();
+    }
+
     return dto;
   }
 }

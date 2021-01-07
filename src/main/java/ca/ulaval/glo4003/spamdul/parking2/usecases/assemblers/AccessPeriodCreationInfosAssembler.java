@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodCreationInfos;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessPeriodCreationDto;
 
 public class AccessPeriodCreationInfosAssembler {

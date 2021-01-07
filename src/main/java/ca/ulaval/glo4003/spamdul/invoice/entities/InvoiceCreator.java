@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.invoice.entities;
 
+import java.util.List;
+
 public class InvoiceCreator {
 
   private final InvoiceFactory invoiceFactory;
@@ -11,7 +13,7 @@ public class InvoiceCreator {
     this.invoiceRepository = invoiceRepository;
   }
 
-  public InvoiceId createInvoice(Priceable... items) {
+  public InvoiceId createInvoice(List<Priceable> items) {
     Invoice invoice = invoiceFactory.create(items);
     invoiceRepository.save(invoice);
 

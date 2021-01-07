@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.spamdul.parking2.api.assemblers;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.accessright.AccessRightCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccessRightCreationAssembler {
 
@@ -10,6 +12,10 @@ public class AccessRightCreationAssembler {
 
   public AccessRightCreationAssembler(AccessPeriodCreationAssembler accessPeriodCreationAssembler) {
     this.accessPeriodCreationAssembler = accessPeriodCreationAssembler;
+  }
+
+  public List<AccessRightCreationDto> fromRequests(List<AccessRightCreationRequest> requests) {
+    return requests.stream().map(this::fromRequest).collect(Collectors.toList());
   }
 
   public AccessRightCreationDto fromRequest(AccessRightCreationRequest request) {
