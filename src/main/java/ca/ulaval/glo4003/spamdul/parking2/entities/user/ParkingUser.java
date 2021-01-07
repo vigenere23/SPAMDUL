@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.user;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
@@ -10,6 +12,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.CarPermit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -64,6 +67,13 @@ public class ParkingUser {
   public void addAccessRight(LicensePlate licensePlate, AccessRight accessRight) {
     CarPermit permit = findPermitBy(licensePlate);
     permit.addAccessRight(accessRight);
+  }
+
+  public Amount getAccessRightPrice(ParkingZoneFeeRepository zoneFeeRepository,
+                                    ParkingCarFeeRepository carFeeRepository,
+                                    LicensePlate licensePlate,
+                                    AccessRight accessRight) {
+    return findPermitBy(licensePlate).getAccessRightPrice(carFeeRepository, zoneFeeRepository, accessRight);
   }
 
   public void addInfraction(Infraction infraction) {

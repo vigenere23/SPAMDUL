@@ -1,7 +1,12 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessDateException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessTimeException;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,25 +15,29 @@ import java.util.Optional;
 
 public class AccessPeriod {
 
+  private final AccessPeriodType periodType;
   private final LocalDate periodStart;
   private final LocalDate periodEnd;
   private final LocalTime startTime;
   private final LocalTime endTime;
   private Optional<DayOfWeek> dayOfWeek = Optional.empty();
 
-  public AccessPeriod(LocalDate periodStart,
+  public AccessPeriod(AccessPeriodType periodType,
+                      LocalDate periodStart,
                       LocalDate periodEnd,
                       LocalTime startTime,
                       LocalTime endTime,
                       DayOfWeek dayOfWeek) {
-    this(periodStart, periodEnd, startTime, endTime);
+    this(periodType, periodStart, periodEnd, startTime, endTime);
     this.dayOfWeek = Optional.of(dayOfWeek);
   }
 
-  public AccessPeriod(LocalDate periodStart,
+  public AccessPeriod(AccessPeriodType periodType,
+                      LocalDate periodStart,
                       LocalDate periodEnd,
                       LocalTime startTime,
                       LocalTime endTime) {
+    this.periodType = periodType;
     this.periodStart = periodStart;
     this.periodEnd = periodEnd;
     this.startTime = startTime;
@@ -89,5 +98,19 @@ public class AccessPeriod {
 
   public Optional<DayOfWeek> getDayOfWeek() {
     return dayOfWeek;
+  }
+
+  public Amount getZonePrice(ParkingZoneFeeRepository zoneFeeRepository, ParkingZone parkingZone) {
+    return zoneFeeRepository.findBy(parkingZone, periodType);
+  }
+
+  public Amount getCarTypePrice(ParkingCarFeeRepository carFeeRepository, CarType carType) {
+    return carFeeRepository.findBy(carType, periodType);
+  }
+
+  // TODO for each implementation
+  @Override
+  public String toString() {
+    return "TODO";
   }
 }

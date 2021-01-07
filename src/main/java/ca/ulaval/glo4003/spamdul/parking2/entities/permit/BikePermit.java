@@ -24,7 +24,7 @@ public class BikePermit extends Permit {
   }
 
   @Override
-  public String getName() {
-    return "Bike permit";
+  public String toString() {
+    return String.format("Bike permit with number %s", permitNumber);
   }
 }

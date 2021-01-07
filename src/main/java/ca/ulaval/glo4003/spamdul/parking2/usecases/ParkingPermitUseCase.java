@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.spamdul.parking2.usecases;
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationAction;
@@ -14,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssem
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
 import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
+import java.util.List;
 
 public class ParkingPermitUseCase {
 
@@ -40,13 +42,12 @@ public class ParkingPermitUseCase {
 
   public InvoiceId orderPermit(AccountId accountId, PermitCreationDto dto) {
     parkingUserRepository.findBy(accountId);
-    DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
     Permit permit = createPermit(dto);
+    DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
 
-    InvoiceId invoiceId = invoiceCreator.createInvoice(accountId,
-                                                       ListUtil.toList(permit)); // TODO add billing item for delivery
+    InvoiceId invoiceId = createInvoice(accountId, permit); // TODO add delivery
     permitAssociationQueue.add(invoiceId, new PermitAssociationAction(accountId, permit));
-    // TODO add listener for shipping
+    // TODO add listener for delivery
 
     return invoiceId;
   }
@@ -54,5 +55,11 @@ public class ParkingPermitUseCase {
   private Permit createPermit(PermitCreationDto dto) {
     PermitCreationInfos infos = permitCreationInfosAssembler.fromDto(dto);
     return permitFactoryProvider.provide(dto.type).create(infos);
+  }
+
+  private InvoiceId createInvoice(AccountId accountId, Permit permit) {
+    List<InvoiceItem> invoiceItems = ListUtil.toList(new InvoiceItem(permit.getPrice(), permit.toString(), 1));
+
+    return invoiceCreator.createInvoice(accountId, invoiceItems);
   }
 }

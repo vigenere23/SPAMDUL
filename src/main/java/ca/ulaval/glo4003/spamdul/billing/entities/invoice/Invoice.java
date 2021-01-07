@@ -11,7 +11,7 @@ public class Invoice {
   private final InvoiceId invoiceId;
   private final LocalDateTime createdAt;
   private LocalDateTime paidAt;
-  private final List<Priceable> items = new ArrayList<>();
+  private final List<InvoiceItem> items = new ArrayList<>();
 
   public Invoice(InvoiceId invoiceId, LocalDateTime createdAt) {
     this.invoiceId = invoiceId;
@@ -28,13 +28,13 @@ public class Invoice {
     paidAt = LocalDateTime.now();
   }
 
-  public void addItem(Priceable item) {
+  public void addItem(InvoiceItem item) {
     items.add(item);
   }
 
   public Amount getTotal() {
     return items.stream()
-                .map(Priceable::getPrice)
+                .map(InvoiceItem::getPrice)
                 .reduce(Amount::add)
                 .orElse(Amount.valueOf(0));
   }

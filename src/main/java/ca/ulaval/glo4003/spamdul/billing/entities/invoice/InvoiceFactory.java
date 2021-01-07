@@ -11,7 +11,7 @@ public class InvoiceFactory {
     this.invoiceIdFactory = invoiceIdFactory;
   }
 
-  public Invoice create(List<Priceable> items) {
+  public Invoice create(List<InvoiceItem> items) {
     Invoice invoice = new Invoice(invoiceIdFactory.create(), LocalDateTime.now());
     items.forEach(invoice::addItem);
 

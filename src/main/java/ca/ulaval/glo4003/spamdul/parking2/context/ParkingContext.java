@@ -16,6 +16,10 @@ import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.UserCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit.CarCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit.PermitCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit.PermitDeliveryAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactoryDayPerWeek;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactoryHourly;
@@ -31,6 +35,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.Acces
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidatorFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAmountRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionFactory;
@@ -59,6 +64,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.ParkingUserAssembl
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitsAssembler;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
+import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
@@ -75,6 +81,18 @@ public class ParkingContext implements ResourceContext {
     Calendar calendar = new HardCodedCalendar();
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
     InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
+
+    // TODO
+    ParkingZoneFeeRepository zoneFeeRepository = new ParkingZoneFeeRepository() {
+      @Override public Amount findBy(ParkingZone parkingZone, AccessPeriodType accessPeriodType) {
+        return null;
+      }
+    };
+    ParkingCarFeeRepository carFeeRepository = new ParkingCarFeeRepository() {
+      @Override public Amount findBy(CarType carType, AccessPeriodType accessPeriodType) {
+        return null;
+      }
+    };
     // TODO populate infractionAmountRepository
 
     PermitAssociator permitAssociator = new PermitAssociator(parkingUserRepository);
@@ -122,6 +140,8 @@ public class ParkingContext implements ResourceContext {
                                                                          invoiceCreator,
                                                                          permitAssociationQueue);
     ParkingAccessRightUseCase parkingAccessRightUseCase = new ParkingAccessRightUseCase(parkingUserRepository,
+                                                                                        zoneFeeRepository,
+                                                                                        carFeeRepository,
                                                                                         accessRightFactory,
                                                                                         new AccessPeriodCreationInfosAssembler(),
                                                                                         invoiceCreator,

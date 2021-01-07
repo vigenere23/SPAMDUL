@@ -16,7 +16,7 @@ public class InvoiceCreator {
     this.billingUserRepository = billingUserRepository;
   }
 
-  public InvoiceId createInvoice(AccountId accountId, List<Priceable> items) {
+  public InvoiceId createInvoice(AccountId accountId, List<InvoiceItem> items) {
     BillingUser billingUser = billingUserRepository.findBy(accountId);
     Invoice invoice = invoiceFactory.create(items);
     billingUser.addInvoice(invoice);

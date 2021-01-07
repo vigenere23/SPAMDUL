@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +23,23 @@ public class AccessPeriodFactorySession {
     LocalDate periodEnd = calendar.getEndOfSemester(infos.getSemester().plusSemesters(numberOfSemesters))
                                   .toLocalDate();
 
-    return new AccessPeriod(periodStart, periodEnd, LocalTime.MIN, LocalTime.MAX);
+    // TODO create polymorphic accessPeriod with timePeriods
+    // it could then calculate its own price
+
+    AccessPeriodType periodType = null;
+
+    switch (numberOfSemesters) {
+      case 1:
+        periodType = AccessPeriodType.ONE_SEMESTER;
+        break;
+      case 2:
+        periodType = AccessPeriodType.TWO_SEMESTERS;
+        break;
+      case 3:
+        periodType = AccessPeriodType.THREE_SEMESTERS;
+        break;
+    }
+
+    return new AccessPeriod(periodType, periodStart, periodEnd, LocalTime.MIN, LocalTime.MAX);
   }
 }

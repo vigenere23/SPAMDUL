@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidator;
@@ -60,13 +62,19 @@ public class CarPermit extends Permit {
     return car;
   }
 
-  @Override
-  public Amount getPrice() {
-    return Amount.valueOf(20.50); // TODO use price calculator
+  public Amount getAccessRightPrice(ParkingCarFeeRepository carFeeRepository,
+                                    ParkingZoneFeeRepository zoneFeeRepository,
+                                    AccessRight accessRight) {
+    return accessRight.getPrice(carFeeRepository, zoneFeeRepository, car.getType());
   }
 
   @Override
-  public String getName() {
-    return "Car permit";
+  public Amount getPrice() {
+    return Amount.valueOf(0);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Car permit with number %s", permitNumber);
   }
 }
