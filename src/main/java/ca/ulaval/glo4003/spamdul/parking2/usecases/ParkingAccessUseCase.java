@@ -36,10 +36,7 @@ public class ParkingAccessUseCase {
   }
 
   private ParkingUser findParkingUser(ParkingAccessDto dto) {
-    if (dto.permitNumber == null && dto.licensePlate == null) {
-      // TODO create specific exception here
-      throw new RuntimeException("No permit specified.");
-    }
+    validateRequiredInfos(dto);
 
     if (dto.permitNumber != null) {
       return parkingUserRepository.findBy(dto.permitNumber);
@@ -49,17 +46,20 @@ public class ParkingAccessUseCase {
   }
 
   private void validateAccess(ParkingUser parkingUser, ParkingAccessDto dto) {
-    if (dto.permitNumber == null && dto.licensePlate == null) {
-      // TODO create specific exception here
-      throw new RuntimeException("No permit specified.");
-    }
-
+    validateRequiredInfos(dto);
+    
     if (dto.licensePlate == null) {
       parkingUser.validateAccess(dto.permitNumber, dto.accessDateTime, dto.parkingZone);
     } else if (dto.permitNumber == null) {
       parkingUser.validateAccess(dto.licensePlate, dto.accessDateTime, dto.parkingZone);
     } else {
       parkingUser.validateAccess(dto.permitNumber, dto.licensePlate, dto.accessDateTime, dto.parkingZone);
+    }
+  }
+
+  private void validateRequiredInfos(ParkingAccessDto dto) {
+    if (dto.permitNumber == null && dto.licensePlate == null) {
+      throw new IllegalArgumentException("Either a permit number or a license plate is required.");
     }
   }
 

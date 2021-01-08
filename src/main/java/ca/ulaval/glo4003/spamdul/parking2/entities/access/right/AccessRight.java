@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidParkingZoneException;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.TimePeriod;
 import java.time.LocalDateTime;
 
 public class AccessRight {
@@ -32,8 +33,8 @@ public class AccessRight {
   public Amount getPrice(ParkingCarFeeRepository carFeeRepository,
                          ParkingZoneFeeRepository zoneFeeRepository,
                          CarType carType) {
-    Amount zonePrice = accessPeriod.getZonePrice(zoneFeeRepository, parkingZone);
-    Amount carPrice = accessPeriod.getCarTypePrice(carFeeRepository, carType);
+    Amount zonePrice = zoneFeeRepository.findBy(parkingZone, accessPeriod.getType());
+    Amount carPrice = carFeeRepository.findBy(carType, accessPeriod.getType());
     return zonePrice.add(carPrice);
   }
 
@@ -42,8 +43,8 @@ public class AccessRight {
     return String.format("Access right for zone %s with period of %s", parkingZone, accessPeriod);
   }
 
-  public AccessPeriod getAccessPeriod() {
-    return accessPeriod;
+  public TimePeriod getTimePeriod() {
+    return accessPeriod.getTimePeriod();
   }
 
   public ParkingZone getParkingZone() {

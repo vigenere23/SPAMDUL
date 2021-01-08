@@ -3,15 +3,15 @@ package ca.ulaval.glo4003.spamdul.billing.entities.invoice;
 import ca.ulaval.glo4003.spamdul.billing.entities.exceptions.InvoiceAlreadyPaidException;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Invoice {
 
   private final InvoiceId invoiceId;
   private final LocalDateTime createdAt;
   private LocalDateTime paidAt;
-  private final List<InvoiceItem> items = new ArrayList<>();
+  private final Set<InvoiceItem> items = new HashSet<>();
 
   public Invoice(InvoiceId invoiceId, LocalDateTime createdAt) {
     this.invoiceId = invoiceId;
@@ -53,5 +53,9 @@ public class Invoice {
 
   public LocalDateTime getPaidAt() {
     return paidAt;
+  }
+
+  public Set<InvoiceItem> getItems() {
+    return new HashSet<>(items);
   }
 }

@@ -1,116 +1,37 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.period;
 
-import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
-import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
-import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessDateException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessTimeException;
-import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.TimePeriod;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.exceptions.InvalidDayOfWeekException;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.exceptions.InvalidTimeException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Optional;
 
-public class AccessPeriod {
+public abstract class AccessPeriod {
 
-  private final AccessPeriodType periodType;
-  private final LocalDate periodStart;
-  private final LocalDate periodEnd;
-  private final LocalTime startTime;
-  private final LocalTime endTime;
-  private Optional<DayOfWeek> dayOfWeek = Optional.empty();
+  protected final TimePeriod timePeriod;
 
-  public AccessPeriod(AccessPeriodType periodType,
-                      LocalDate periodStart,
-                      LocalDate periodEnd,
-                      LocalTime startTime,
-                      LocalTime endTime,
-                      DayOfWeek dayOfWeek) {
-    this(periodType, periodStart, periodEnd, startTime, endTime);
-    this.dayOfWeek = Optional.of(dayOfWeek);
-  }
-
-  public AccessPeriod(AccessPeriodType periodType,
-                      LocalDate periodStart,
-                      LocalDate periodEnd,
-                      LocalTime startTime,
-                      LocalTime endTime) {
-    this.periodType = periodType;
-    this.periodStart = periodStart;
-    this.periodEnd = periodEnd;
-    this.startTime = startTime;
-    this.endTime = endTime;
+  protected AccessPeriod(TimePeriod timePeriod) {
+    this.timePeriod = timePeriod;
   }
 
   public void validateAccess(LocalDateTime accessDateTime) {
-    validateDayOfWeek(accessDateTime);
-    validateDate(accessDateTime);
-    validateTime(accessDateTime);
-  }
-
-  private void validateDayOfWeek(LocalDateTime accessDateTime) {
-    if (!this.dayOfWeek.isPresent()) {
-      return;
-    }
-
-    boolean isValid = dayOfWeek.get().equals(accessDateTime.getDayOfWeek());
-
-    if (!isValid) {
+    try {
+      timePeriod.validateDateTime(accessDateTime);
+    } catch (InvalidDateException | InvalidDayOfWeekException exception) {
       throw new InvalidAccessDateException(accessDateTime.toLocalDate());
+    } catch (InvalidTimeException exception) {
+      throw new InvalidAccessTimeException(accessDateTime.toLocalTime());
     }
   }
 
-  private void validateDate(LocalDateTime accessDateTime) {
-    LocalDate accessDate = accessDateTime.toLocalDate();
-    boolean isValid = !accessDate.isBefore(periodStart) && !accessDate.isAfter(periodEnd);
-
-    if (!isValid) {
-      throw new InvalidAccessDateException(accessDate);
-    }
-  }
-
-  private void validateTime(LocalDateTime accessDateTime) {
-    LocalTime accessTime = accessDateTime.toLocalTime();
-    boolean isValid = !accessTime.isBefore(startTime) && !accessTime.isAfter(endTime);
-
-    if (!isValid) {
-      throw new InvalidAccessTimeException(accessTime);
-    }
-  }
-
-  public LocalDate getPeriodStart() {
-    return periodStart;
-  }
-
-  public LocalDate getPeriodEnd() {
-    return periodEnd;
-  }
-
-  public LocalTime getStartTime() {
-    return startTime;
-  }
-
-  public LocalTime getEndTime() {
-    return endTime;
-  }
-
-  public Optional<DayOfWeek> getDayOfWeek() {
-    return dayOfWeek;
-  }
-
-  public Amount getZonePrice(ParkingZoneFeeRepository zoneFeeRepository, ParkingZone parkingZone) {
-    return zoneFeeRepository.findBy(parkingZone, periodType);
-  }
-
-  public Amount getCarTypePrice(ParkingCarFeeRepository carFeeRepository, CarType carType) {
-    return carFeeRepository.findBy(carType, periodType);
-  }
-
-  // TODO for each implementation
   @Override
-  public String toString() {
-    return "TODO";
+  public abstract String toString();
+
+  public abstract AccessPeriodType getType();
+
+  public TimePeriod getTimePeriod() {
+    return timePeriod;
   }
 }

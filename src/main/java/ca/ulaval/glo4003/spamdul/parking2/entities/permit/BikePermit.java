@@ -13,6 +13,10 @@ public class BikePermit extends Permit {
 
   @Override
   public void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone) {
+    if (parkingZone == null) {
+      throw new IllegalArgumentException("a parking zone must be specified");
+    }
+
     if (!parkingZone.equals(ParkingZone.BIKE)) {
       throw new InvalidParkingZoneException(parkingZone);
     }

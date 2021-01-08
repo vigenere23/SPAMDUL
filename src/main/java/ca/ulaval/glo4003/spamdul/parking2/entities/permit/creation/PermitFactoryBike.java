@@ -3,14 +3,15 @@ package ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.BikePermit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 
-public class PermitFactoryBike extends AbstractPermitFactory {
+public class PermitFactoryBike {
+
+  private final PermitNumberFactory permitNumberFactory;
 
   public PermitFactoryBike(PermitNumberFactory permitNumberFactory) {
-    super(permitNumberFactory);
+    this.permitNumberFactory = permitNumberFactory;
   }
 
-  @Override
-  public Permit create(PermitCreationInfos infos) {
+  public Permit create() {
     return new BikePermit(permitNumberFactory.create());
   }
 }

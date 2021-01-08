@@ -35,6 +35,14 @@ public class CarPermit extends Permit {
 
   @Override
   public void validateAccess(LocalDateTime accessDateTime, ParkingZone parkingZone) {
+    if (parkingZone == null) {
+      throw new IllegalArgumentException("a parking zone must be specified");
+    }
+
+    if (accessDateTime == null) {
+      throw new IllegalArgumentException("an access datetime must be specified");
+    }
+
     if (accessRights.isEmpty()) {
       throw new InvalidPermitException(permitNumber);
     }

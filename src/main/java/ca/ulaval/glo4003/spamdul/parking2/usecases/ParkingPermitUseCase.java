@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationAction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
@@ -20,20 +20,20 @@ import java.util.List;
 public class ParkingPermitUseCase {
 
   private final ParkingUserRepository parkingUserRepository;
-  private final PermitFactoryProvider permitFactoryProvider;
+  private final PermitFactory permitFactory;
   private final DeliveryInfosAssembler deliveryInfosAssembler;
   private final PermitCreationInfosAssembler permitCreationInfosAssembler;
   private final InvoiceCreator invoiceCreator;
   private final PermitAssociationQueue permitAssociationQueue;
 
   public ParkingPermitUseCase(ParkingUserRepository parkingUserRepository,
-                              PermitFactoryProvider permitFactoryProvider,
+                              PermitFactory permitFactory,
                               DeliveryInfosAssembler deliveryInfosAssembler,
                               PermitCreationInfosAssembler permitCreationInfosAssembler,
                               InvoiceCreator invoiceCreator,
                               PermitAssociationQueue permitAssociationQueue) {
     this.parkingUserRepository = parkingUserRepository;
-    this.permitFactoryProvider = permitFactoryProvider;
+    this.permitFactory = permitFactory;
     this.deliveryInfosAssembler = deliveryInfosAssembler;
     this.permitCreationInfosAssembler = permitCreationInfosAssembler;
     this.invoiceCreator = invoiceCreator;
@@ -54,7 +54,7 @@ public class ParkingPermitUseCase {
 
   private Permit createPermit(PermitCreationDto dto) {
     PermitCreationInfos infos = permitCreationInfosAssembler.fromDto(dto);
-    return permitFactoryProvider.provide(dto.type).create(infos);
+    return permitFactory.create(dto.type, infos);
   }
 
   private InvoiceId createInvoice(AccountId accountId, Permit permit) {

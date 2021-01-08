@@ -45,8 +45,8 @@ public class AccessPeriodCreationInfos {
     return new AccessPeriodCreationInfosDayPerWeek(semester, dayOfWeek);
   }
 
-  public AccessPeriodCreationInfosSession forSession() {
-    return new AccessPeriodCreationInfosSession(semester);
+  public AccessPeriodCreationInfosSemesters forSession() {
+    return new AccessPeriodCreationInfosSemesters(semester);
   }
 
   public AccessPeriodCreationInfosMonth forMonth() {

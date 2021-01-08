@@ -7,6 +7,12 @@ import java.util.stream.Collectors;
 
 public class InvoiceAssembler {
 
+  private final InvoiceItemAssembler invoiceItemAssembler;
+
+  public InvoiceAssembler(InvoiceItemAssembler invoiceItemAssembler) {
+    this.invoiceItemAssembler = invoiceItemAssembler;
+  }
+
   public Set<InvoiceDto> toDtos(Set<Invoice> invoices) {
     return invoices.stream().map(this::toDto).collect(Collectors.toSet());
   }
@@ -17,6 +23,7 @@ public class InvoiceAssembler {
     dto.createdAt = invoice.getCreatedAt();
     dto.total = invoice.getTotal();
     dto.status = invoice.getStatus().toString();
+    dto.items = invoiceItemAssembler.toDtos(invoice.getItems());
 
     if (invoice.getPaidAt() != null) {
       dto.paidAt = invoice.getPaidAt();

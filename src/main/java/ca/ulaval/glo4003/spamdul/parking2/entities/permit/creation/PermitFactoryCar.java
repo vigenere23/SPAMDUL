@@ -6,22 +6,21 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.CarPermit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 
-public class PermitFactoryCar extends AbstractPermitFactory {
+public class PermitFactoryCar {
 
+  private final PermitNumberFactory permitNumberFactory;
   private final AccessRightValidator accessRightValidator;
   private final CarFactory carFactory;
 
   public PermitFactoryCar(PermitNumberFactory permitNumberFactory,
                           AccessRightValidator accessRightValidator,
                           CarFactory carFactory) {
-    super(permitNumberFactory);
+    this.permitNumberFactory = permitNumberFactory;
     this.accessRightValidator = accessRightValidator;
     this.carFactory = carFactory;
   }
 
-  @Override
-  public Permit create(PermitCreationInfos permitCreationInfos) {
-    PermitCreationInfosCar infos = permitCreationInfos.forCar();
+  public Permit create(PermitCreationInfosCar infos) {
     Car car = carFactory.create(infos.getCar().getBrand(),
                                 infos.getCar().getModel(),
                                 infos.getCar().getYear(),

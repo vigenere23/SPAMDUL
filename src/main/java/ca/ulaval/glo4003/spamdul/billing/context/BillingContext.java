@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.spamdul.billing.api.BillingResource;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
 import ca.ulaval.glo4003.spamdul.billing.api.assemblers.BillingUserDtoAssembler;
 import ca.ulaval.glo4003.spamdul.billing.api.assemblers.InvoiceDtoAssembler;
+import ca.ulaval.glo4003.spamdul.billing.api.assemblers.InvoiceItemDtoAssembler;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceFactory;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceIdFactory;
@@ -16,6 +17,7 @@ import ca.ulaval.glo4003.spamdul.billing.infrastructure.persistence.BillingUserR
 import ca.ulaval.glo4003.spamdul.billing.usecases.BillingUseCase;
 import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.BillingUserAssembler;
 import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.InvoiceAssembler;
+import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.InvoiceItemAssembler;
 import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
@@ -32,12 +34,12 @@ public class BillingContext implements ResourceContext {
     BillingUserRepository billingUserRepository = new BillingUserRepositoryInMemory();
     BillingUserFactory billingUserFactory = new BillingUserFactory();
     BillingUserCreator billingUserCreator = new BillingUserCreator(billingUserRepository, billingUserFactory);
-    
+
     accountCreatedObservable.register(billingUserCreator);
 
-    InvoiceAssembler invoiceAssembler = new InvoiceAssembler();
+    InvoiceAssembler invoiceAssembler = new InvoiceAssembler(new InvoiceItemAssembler());
     BillingUserAssembler billingUserAssembler = new BillingUserAssembler(invoiceAssembler);
-    InvoiceDtoAssembler invoiceDtoAssembler = new InvoiceDtoAssembler();
+    InvoiceDtoAssembler invoiceDtoAssembler = new InvoiceDtoAssembler(new InvoiceItemDtoAssembler());
     invoicePaidObservable = new InvoicePaidObservable();
     BillingUseCase billingUseCase = new BillingUseCase(billingUserRepository,
                                                        billingUserAssembler,

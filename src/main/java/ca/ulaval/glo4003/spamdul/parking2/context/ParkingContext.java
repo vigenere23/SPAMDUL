@@ -22,7 +22,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.Access
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactoryDayPerWeek;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactoryHourly;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactoryMonth;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactorySession;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactorySemester;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactorySingleDay;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationQueue;
@@ -40,9 +40,9 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionIdFactor
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionTypeFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryBike;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryCar;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryProvider;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitNumberFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
@@ -103,12 +103,12 @@ public class ParkingContext implements ResourceContext {
                                                              accessRightValidator,
                                                              new CarFactory());
     PermitFactoryBike permitFactoryBike = new PermitFactoryBike(permitNumberFactory);
-    PermitFactoryProvider permitFactoryProvider = new PermitFactoryProvider(permitFactoryCar, permitFactoryBike);
+    PermitFactory permitFactory = new PermitFactory(permitFactoryCar, permitFactoryBike);
     AccessRightFactory accessRightFactory = new AccessRightFactory(new AccessPeriodFactory(new AccessPeriodFactoryHourly(),
                                                                                            new AccessPeriodFactorySingleDay(),
                                                                                            new AccessPeriodFactoryDayPerWeek(
                                                                                                calendar),
-                                                                                           new AccessPeriodFactorySession(
+                                                                                           new AccessPeriodFactorySemester(
                                                                                                calendar),
                                                                                            new AccessPeriodFactoryMonth()));
     InfractionFactory infractionFactory = new InfractionFactory(new InfractionIdFactory(new IncrementalIdGenerator()));
@@ -122,7 +122,7 @@ public class ParkingContext implements ResourceContext {
                                                                    parkingUserFactory,
                                                                    parkingUserAssembler, accountService);
     ParkingPermitUseCase parkingPermitUseCase = new ParkingPermitUseCase(parkingUserRepository,
-                                                                         permitFactoryProvider,
+                                                                         permitFactory,
                                                                          new DeliveryInfosAssembler(),
                                                                          new PermitCreationInfosAssembler(
                                                                              new CarCreationInfosAssembler()),

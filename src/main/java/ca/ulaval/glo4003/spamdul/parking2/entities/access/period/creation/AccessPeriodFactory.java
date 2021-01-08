@@ -8,18 +8,18 @@ public class AccessPeriodFactory {
   private final AccessPeriodFactoryHourly accessPeriodFactoryHourly;
   private final AccessPeriodFactorySingleDay accessPeriodFactorySingleDay;
   private final AccessPeriodFactoryDayPerWeek accessPeriodFactoryDayPerWeek;
-  private final AccessPeriodFactorySession accessPeriodFactorySession;
+  private final AccessPeriodFactorySemester accessPeriodFactorySemester;
   private final AccessPeriodFactoryMonth accessPeriodFactoryMonth;
 
   public AccessPeriodFactory(AccessPeriodFactoryHourly accessPeriodFactoryHourly,
                              AccessPeriodFactorySingleDay accessPeriodFactorySingleDay,
                              AccessPeriodFactoryDayPerWeek accessPeriodFactoryDayPerWeek,
-                             AccessPeriodFactorySession accessPeriodFactorySession,
+                             AccessPeriodFactorySemester accessPeriodFactorySemester,
                              AccessPeriodFactoryMonth accessPeriodFactoryMonth) {
     this.accessPeriodFactoryHourly = accessPeriodFactoryHourly;
     this.accessPeriodFactorySingleDay = accessPeriodFactorySingleDay;
     this.accessPeriodFactoryDayPerWeek = accessPeriodFactoryDayPerWeek;
-    this.accessPeriodFactorySession = accessPeriodFactorySession;
+    this.accessPeriodFactorySemester = accessPeriodFactorySemester;
     this.accessPeriodFactoryMonth = accessPeriodFactoryMonth;
   }
 
@@ -32,11 +32,11 @@ public class AccessPeriodFactory {
       case DAY_PER_WEEK:
         return accessPeriodFactoryDayPerWeek.create(infos.forDayPerWeek());
       case ONE_SEMESTER:
-        return accessPeriodFactorySession.create(infos.forSession(), 1);
+        return accessPeriodFactorySemester.create(infos.forSession(), 1);
       case TWO_SEMESTERS:
-        return accessPeriodFactorySession.create(infos.forSession(), 2);
+        return accessPeriodFactorySemester.create(infos.forSession(), 2);
       case THREE_SEMESTERS:
-        return accessPeriodFactorySession.create(infos.forSession(), 3);
+        return accessPeriodFactorySemester.create(infos.forSession(), 3);
       case MONTH:
         return accessPeriodFactoryMonth.create(infos.forMonth());
       default:

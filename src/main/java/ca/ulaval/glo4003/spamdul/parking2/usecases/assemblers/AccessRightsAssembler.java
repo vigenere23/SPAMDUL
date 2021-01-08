@@ -14,13 +14,13 @@ public class AccessRightsAssembler {
   public AccessRightDto toDto(AccessRight accessRight) {
     AccessRightDto dto = new AccessRightDto();
     dto.parkingZone = accessRight.getParkingZone();
-    dto.periodStart = accessRight.getAccessPeriod().getPeriodStart();
-    dto.periodEnd = accessRight.getAccessPeriod().getPeriodEnd();
-    dto.startTime = accessRight.getAccessPeriod().getStartTime();
-    dto.endTime = accessRight.getAccessPeriod().getEndTime();
+    dto.periodStart = accessRight.getTimePeriod().getPeriodStart();
+    dto.periodEnd = accessRight.getTimePeriod().getPeriodEnd();
+    dto.startTime = accessRight.getTimePeriod().getStartTime();
+    dto.endTime = accessRight.getTimePeriod().getEndTime();
 
-    if (accessRight.getAccessPeriod().getDayOfWeek().isPresent()) {
-      dto.dayOfWeek = accessRight.getAccessPeriod().getDayOfWeek().get();
+    if (accessRight.getTimePeriod().getDayOfWeek().isPresent()) {
+      dto.dayOfWeek = accessRight.getTimePeriod().getDayOfWeek().get();
     }
 
     return dto;

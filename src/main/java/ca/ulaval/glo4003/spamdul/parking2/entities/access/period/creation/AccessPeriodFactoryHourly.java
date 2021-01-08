@@ -1,7 +1,8 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriod;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodType;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.AccessPeriodHour;
+import ca.ulaval.glo4003.spamdul.shared.entities.timeperiod.TimePeriod;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,7 +15,8 @@ public class AccessPeriodFactoryHourly {
     LocalDate periodEnd = end.toLocalDate();
     LocalTime startTime = infos.getStart().toLocalTime();
     LocalTime endTime = end.toLocalTime();
+    TimePeriod timePeriod = new TimePeriod(periodStart, periodEnd, startTime, endTime);
 
-    return new AccessPeriod(AccessPeriodType.HOUR, periodStart, periodEnd, startTime, endTime);
+    return new AccessPeriodHour(timePeriod);
   }
 }
