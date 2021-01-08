@@ -23,6 +23,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiExceptionWrapper;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -117,8 +118,10 @@ public class ParkingResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public void access(ParkingAccessRequest request) {
-    ParkingAccessDto dto = parkingAccessAssembler.fromRequest(request);
-    parkingAccessUseCase.accessParking(dto);
+    ApiExceptionWrapper.wrap(() -> {
+      ParkingAccessDto dto = parkingAccessAssembler.fromRequest(request);
+      parkingAccessUseCase.accessParking(dto);
+    });
   }
 
   @Path("infraction")

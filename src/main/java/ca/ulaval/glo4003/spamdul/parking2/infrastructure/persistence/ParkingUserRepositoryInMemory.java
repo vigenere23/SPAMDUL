@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence;
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
-import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.ParkingUserNotFound;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.ParkingUserNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitNumber;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
@@ -18,7 +18,7 @@ public class ParkingUserRepositoryInMemory implements ParkingUserRepository {
 
   @Override
   public ParkingUser findBy(AccountId accountId) {
-    return Optional.ofNullable(users.get(accountId)).orElseThrow(() -> new ParkingUserNotFound(accountId));
+    return Optional.ofNullable(users.get(accountId)).orElseThrow(() -> new ParkingUserNotFoundException(accountId));
   }
 
   @Override

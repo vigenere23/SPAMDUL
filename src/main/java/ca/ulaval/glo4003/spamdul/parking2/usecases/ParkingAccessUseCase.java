@@ -1,11 +1,16 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.ParkingUserNotFoundException;
+import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
+import ca.ulaval.glo4003.spamdul.shared.usecases.exceptions.ItemNotFoundException;
+import ca.ulaval.glo4003.spamdul.shared.usecases.exceptions.UnauthorizedException;
 
 public class ParkingAccessUseCase {
 
@@ -19,9 +24,14 @@ public class ParkingAccessUseCase {
   }
 
   public void accessParking(ParkingAccessDto dto) {
-    ParkingUser parkingUser = findParkingUser(dto);
-
-    validateAccess(parkingUser, dto);
+    try {
+      ParkingUser parkingUser = findParkingUser(dto);
+      validateAccess(parkingUser, dto);
+    } catch (ParkingUserNotFoundException | PermitNotFoundException | CarNotFoundException exception) {
+      throw new ItemNotFoundException(exception);
+    } catch (InvalidAccessException exception) {
+      throw new UnauthorizedException(exception);
+    }
   }
 
   public void giveInfraction(ParkingAccessDto dto) {
@@ -47,7 +57,7 @@ public class ParkingAccessUseCase {
 
   private void validateAccess(ParkingUser parkingUser, ParkingAccessDto dto) {
     validateRequiredInfos(dto);
-    
+
     if (dto.licensePlate == null) {
       parkingUser.validateAccess(dto.permitNumber, dto.accessDateTime, dto.parkingZone);
     } else if (dto.permitNumber == null) {

@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.PassContext;
 import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiExceptionMapper;
 import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
@@ -41,6 +42,7 @@ public abstract class MainContext implements ResourceContext {
   public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
     resources.add(new SpamDULExceptionAssembler());
+    resources.add(new ApiExceptionMapper());
 
     accountContext.registerResources(resources);
     authContext.registerResources(resources);
