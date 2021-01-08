@@ -47,8 +47,12 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitNumberF
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.InfractionAmountRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeePopulator;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeePopulatorCsv;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeeRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingUserRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeePopulator;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeePopulatorCsv;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeeRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessRightUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
@@ -64,6 +68,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfo
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitsAssembler;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.reader.CsvReader;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
@@ -81,7 +86,15 @@ public class ParkingContext implements ResourceContext {
     InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
 
     ParkingZoneFeeRepository zoneFeeRepository = new ParkingZoneFeeRepositoryInMemory();
+    ParkingZoneFeePopulator zoneFeePopulator = new ParkingZoneFeePopulatorCsv(new CsvReader(),
+                                                                              "src/main/resources/frais-zone.csv");
+    zoneFeePopulator.populate(zoneFeeRepository);
+
     ParkingCarFeeRepository carFeeRepository = new ParkingCarFeeRepositoryInMemory();
+    ParkingCarFeePopulator parkingCarFeePopulator = new ParkingCarFeePopulatorCsv(new CsvReader(),
+                                                                                  "src/main/resources/frais-acces.csv");
+    parkingCarFeePopulator.populate(carFeeRepository);
+
     // TODO populate fees repositories
 
     PermitAssociator permitAssociator = new PermitAssociator(parkingUserRepository);

@@ -14,7 +14,7 @@ public class ParkingAccessAssembler {
     dto.accessDateTime = LocalDateTime.now();
 
     if (request.parkingZone != null) {
-      dto.parkingZone = ParkingZone.valueOf(request.parkingZone.toUpperCase());
+      dto.parkingZone = ParkingZone.parse(request.parkingZone.toUpperCase());
     }
 
     if (request.permitNumber != null) {

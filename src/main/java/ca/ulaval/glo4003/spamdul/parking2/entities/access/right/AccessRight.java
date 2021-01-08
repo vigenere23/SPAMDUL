@@ -33,14 +33,14 @@ public class AccessRight {
   public Amount getPrice(ParkingCarFeeRepository carFeeRepository,
                          ParkingZoneFeeRepository zoneFeeRepository,
                          CarType carType) {
-    Amount zonePrice = zoneFeeRepository.findBy(parkingZone, accessPeriod.getType());
-    Amount carPrice = carFeeRepository.findBy(carType, accessPeriod.getType());
+    Amount zonePrice = accessPeriod.getParkingZonePrice(zoneFeeRepository, parkingZone);
+    Amount carPrice = accessPeriod.getCarTypePrice(carFeeRepository, carType);
     return zonePrice.add(carPrice);
   }
 
   @Override
   public String toString() {
-    return String.format("Access right for zone %s with period of %s", parkingZone, accessPeriod);
+    return String.format("Access right for zone %s with %s", parkingZone, accessPeriod);
   }
 
   public TimePeriod getTimePeriod() {

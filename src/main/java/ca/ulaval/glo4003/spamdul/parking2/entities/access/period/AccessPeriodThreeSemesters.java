@@ -9,10 +9,10 @@ public class AccessPeriodThreeSemesters extends AccessPeriod {
   }
 
   @Override public String toString() {
-    return "Access period for 3 semesters";
+    return "access period for 3 semesters";
   }
 
-  @Override public AccessPeriodType getType() {
+  @Override protected AccessPeriodType getType() {
     return AccessPeriodType.THREE_SEMESTERS;
   }
 }

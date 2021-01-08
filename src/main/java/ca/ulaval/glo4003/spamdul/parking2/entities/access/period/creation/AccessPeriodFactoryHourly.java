@@ -10,13 +10,14 @@ import java.time.LocalTime;
 public class AccessPeriodFactoryHourly {
 
   public AccessPeriod create(AccessPeriodCreationInfosHourly infos) {
-    LocalDateTime end = infos.getStart().plusHours(infos.getNumberOfHours());
+    int numberOfHours = infos.getNumberOfHours();
+    LocalDateTime end = infos.getStart().plusHours(numberOfHours);
     LocalDate periodStart = infos.getStart().toLocalDate();
     LocalDate periodEnd = end.toLocalDate();
     LocalTime startTime = infos.getStart().toLocalTime();
     LocalTime endTime = end.toLocalTime();
     TimePeriod timePeriod = new TimePeriod(periodStart, periodEnd, startTime, endTime);
 
-    return new AccessPeriodHour(timePeriod);
+    return new AccessPeriodHour(timePeriod, numberOfHours);
   }
 }

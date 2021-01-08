@@ -21,7 +21,7 @@ public class AccessRightCreationAssembler {
   public AccessRightCreationDto fromRequest(AccessRightCreationRequest request) {
     AccessRightCreationDto dto = new AccessRightCreationDto();
 
-    dto.parkingZone = ParkingZone.valueOf(request.parkingZone.toUpperCase());
+    dto.parkingZone = ParkingZone.parse(request.parkingZone.toUpperCase());
     dto.period = accessPeriodCreationAssembler.fromRequest(request.period);
 
     return dto;

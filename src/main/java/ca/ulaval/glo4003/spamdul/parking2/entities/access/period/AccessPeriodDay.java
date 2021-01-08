@@ -9,10 +9,10 @@ public class AccessPeriodDay extends AccessPeriod {
   }
 
   @Override public String toString() {
-    return "Access period for 1 day";
+    return "access period for 1 day";
   }
 
-  @Override public AccessPeriodType getType() {
+  @Override protected AccessPeriodType getType() {
     return AccessPeriodType.DAY;
   }
 }

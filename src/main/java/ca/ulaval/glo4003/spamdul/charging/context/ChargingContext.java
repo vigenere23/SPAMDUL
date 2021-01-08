@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.spamdul.charging.usecases.assembler.RechargULDtoAssembl
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
@@ -68,9 +68,9 @@ public abstract class ChargingContext implements ResourceContext {
     populateRechargULCards(rechargULCardPopulator);
   }
 
-  protected abstract void populateChargingPoints(Populator populator);
+  protected abstract void populateChargingPoints(RecordPopulator recordPopulator);
 
-  protected abstract void populateRechargULCards(Populator populator);
+  protected abstract void populateRechargULCards(RecordPopulator recordPopulator);
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(chargingPointResource);

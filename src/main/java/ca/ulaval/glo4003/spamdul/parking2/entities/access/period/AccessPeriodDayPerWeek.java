@@ -9,10 +9,10 @@ public class AccessPeriodDayPerWeek extends AccessPeriod {
   }
 
   @Override public String toString() {
-    return "Access period for 1 day per week, for 1 semester";
+    return "access period for 1 day per week, for 1 semester";
   }
 
-  @Override public AccessPeriodType getType() {
+  @Override protected AccessPeriodType getType() {
     return AccessPeriodType.DAY_PER_WEEK;
   }
 }

@@ -15,7 +15,7 @@ import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.Initiativ
 import ca.ulaval.glo4003.spamdul.finance.infrastructure.persistence.initiatives.InMemoryInitiativeRepository;
 import ca.ulaval.glo4003.spamdul.finance.usecases.initiatives.InitiativeDtoAssembler;
 import ca.ulaval.glo4003.spamdul.finance.usecases.initiatives.InitiativeUseCase;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
@@ -58,7 +58,7 @@ public abstract class InitiativesContext implements ResourceContext {
     return initiativeCreator;
   }
 
-  protected abstract void populateData(Populator populator);
+  protected abstract void populateData(RecordPopulator recordPopulator);
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(fundraisingResource);
