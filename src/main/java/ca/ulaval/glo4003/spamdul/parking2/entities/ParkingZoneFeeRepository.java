@@ -7,4 +7,6 @@ import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 public interface ParkingZoneFeeRepository {
 
   Amount findBy(ParkingZone parkingZone, AccessPeriodType accessPeriodType);
+
+  void save(ParkingZone parkingZone, AccessPeriodType accessPeriodType, Amount amount);
 }
