@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit;
 
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.PermitCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitType;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 
 public class PermitCreationAssembler {
 

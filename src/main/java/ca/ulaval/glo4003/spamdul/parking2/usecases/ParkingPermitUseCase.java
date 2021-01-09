@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.PermitCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
 import java.util.List;
 
@@ -45,9 +45,7 @@ public class ParkingPermitUseCase {
     Permit permit = createPermit(dto);
     DeliveryInfos deliveryInfos = deliveryInfosAssembler.fromDto(dto.delivery); // TODO do something with that
 
-    InvoiceId invoiceId = createInvoice(accountId, permit); // TODO add delivery
-    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(accountId, permit));
-    // TODO add listener for delivery
+    InvoiceId invoiceId = createInvoice(accountId, permit);
 
     return invoiceId;
   }
@@ -59,7 +57,10 @@ public class ParkingPermitUseCase {
 
   private InvoiceId createInvoice(AccountId accountId, Permit permit) {
     List<InvoiceItem> invoiceItems = ListUtil.toList(new InvoiceItem(permit.getPrice(), permit.toString(), 1));
+    InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
+    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(accountId, permit));
+    // TODO add delivery item + callback
 
-    return invoiceCreator.createInvoice(accountId, invoiceItems);
+    return invoiceId;
   }
 }

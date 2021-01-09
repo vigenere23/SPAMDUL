@@ -34,6 +34,8 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.Acces
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidatorFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAmountRepository;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionIdFactory;
@@ -47,13 +49,15 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitNumberF
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.InfractionAmountRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeePopulator;
-import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeePopulatorCsv;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingCarFeeRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingUserRepositoryInMemory;
-import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeePopulator;
-import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeePopulatorCsv;
 import ca.ulaval.glo4003.spamdul.parking2.infrastructure.persistence.ParkingZoneFeeRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.InfractionAmountPopulator;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.InfractionAmountPopulatorJson;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.ParkingCarFeePopulator;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.ParkingCarFeePopulatorCsv;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.ParkingZoneFeePopulator;
+import ca.ulaval.glo4003.spamdul.parking2.infrastructure.populators.ParkingZoneFeePopulatorCsv;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessRightUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingPermitUseCase;
@@ -69,6 +73,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitsAssembler;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.reader.CsvReader;
+import ca.ulaval.glo4003.spamdul.shared.infrastructure.reader.JsonReader;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.time.entities.timeperiod.Calendar;
 import ca.ulaval.glo4003.spamdul.time.infrastructure.calendar.HardCodedCalendar;
@@ -83,7 +88,6 @@ public class ParkingContext implements ResourceContext {
                         AccountService accountService) {
     Calendar calendar = new HardCodedCalendar();
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
-    InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
 
     ParkingZoneFeeRepository zoneFeeRepository = new ParkingZoneFeeRepositoryInMemory();
     ParkingZoneFeePopulator zoneFeePopulator = new ParkingZoneFeePopulatorCsv(new CsvReader(),
@@ -95,7 +99,10 @@ public class ParkingContext implements ResourceContext {
                                                                                   "src/main/resources/frais-acces.csv");
     parkingCarFeePopulator.populate(carFeeRepository);
 
-    // TODO populate fees repositories
+    InfractionAmountRepository infractionAmountRepository = new InfractionAmountRepositoryInMemory();
+    InfractionAmountPopulator infractionAmountPopulator = new InfractionAmountPopulatorJson(new JsonReader(),
+                                                                                            "src/main/resources/infraction.json");
+    infractionAmountPopulator.populate(infractionAmountRepository);
 
     PermitAssociator permitAssociator = new PermitAssociator(parkingUserRepository);
     PermitAssociationQueue permitAssociationQueue = new PermitAssociationQueue(permitAssociator);
@@ -104,6 +111,10 @@ public class ParkingContext implements ResourceContext {
     AccessRightAssociator accessRightAssociator = new AccessRightAssociator(parkingUserRepository);
     AccessRightAssociationQueue accessRightAssociationQueue = new AccessRightAssociationQueue(accessRightAssociator);
     invoicePaidObservable.register(accessRightAssociationQueue);
+
+    InfractionAssociator infractionAssociator = new InfractionAssociator(parkingUserRepository);
+    InfractionAssociationQueue infractionAssociationQueue = new InfractionAssociationQueue(infractionAssociator);
+    invoicePaidObservable.register(infractionAssociationQueue);
 
     AccessRightValidator accessRightValidator = new AccessRightValidatorFactory().create(
         new AccessRightFilterStrategyParkingZone(),
@@ -148,7 +159,8 @@ public class ParkingContext implements ResourceContext {
                                                                                         new AccessPeriodCreationInfosAssembler(),
                                                                                         invoiceCreator,
                                                                                         accessRightAssociationQueue);
-    ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository, infractionCreator);
+    ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository, infractionCreator,
+                                                                         invoiceCreator, infractionAssociationQueue);
 
     UserCreationAssembler userCreationAssembler = new UserCreationAssembler();
     PermitCreationAssembler permitCreationAssembler = new PermitCreationAssembler(new PermitDeliveryAssembler(),

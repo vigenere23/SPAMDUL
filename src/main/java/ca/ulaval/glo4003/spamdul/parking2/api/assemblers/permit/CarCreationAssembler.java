@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.permit.CarCreationRequest;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.CarCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.CarCreationDto;
 
 public class CarCreationAssembler {
 

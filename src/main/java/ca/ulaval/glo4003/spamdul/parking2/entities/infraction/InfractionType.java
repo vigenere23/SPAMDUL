@@ -10,9 +10,11 @@ public enum InfractionType {
   INVALID_DAY("VIG_01"),
   INVALID_TIME("TEMPS_01");
 
-  private final String value;
+  private final String code;
 
-  InfractionType(String value) {
-    this.value = value;
+  InfractionType(String code) {
+    this.code = code;
   }
+
+  // TODO create infraction type from code... how?
 }

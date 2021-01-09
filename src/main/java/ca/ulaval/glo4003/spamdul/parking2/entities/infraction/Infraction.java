@@ -18,4 +18,17 @@ public class Infraction {
   public InfractionId getId() {
     return infractionId;
   }
+
+  public InfractionType getInfractionType() {
+    return infractionType;
+  }
+
+  public Amount getAmount() {
+    return amount;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Infraction %s with id %s", infractionType, infractionId);
+  }
 }

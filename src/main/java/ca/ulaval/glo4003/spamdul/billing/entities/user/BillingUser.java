@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.spamdul.billing.entities.user;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.exceptions.InvoiceNotFoundException;
-import ca.ulaval.glo4003.spamdul.billing.entities.exceptions.InvoicePendingException;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.Invoice;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceStatus;
@@ -19,10 +18,6 @@ public class BillingUser {
   }
 
   public void addInvoice(Invoice invoice) {
-    if (hasUnpaidInvoices()) {
-      throw new InvoicePendingException(accountId);
-    }
-
     invoices.add(invoice);
   }
 

@@ -50,10 +50,7 @@ public class ParkingAccessRightUseCase {
     ParkingUser parkingUser = parkingUserRepository.findBy(licensePlate);
     List<AccessRight> accessRights = createAccessRights(dtos);
 
-    InvoiceId invoiceId = createInvoice(parkingUser.getAccountId(), licensePlate, parkingUser, accessRights);
-    enqueueAccessRightAssociationActions(invoiceId, licensePlate, accessRights);
-
-    return invoiceId;
+    return createInvoice(parkingUser.getAccountId(), licensePlate, parkingUser, accessRights);
   }
 
   private List<AccessRight> createAccessRights(List<AccessRightCreationDto> dtos) {
@@ -78,7 +75,10 @@ public class ParkingAccessRightUseCase {
       invoiceItems.add(new InvoiceItem(price, accessRight.toString(), 1));
     });
 
-    return invoiceCreator.createInvoice(accountId, invoiceItems);
+    InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
+    enqueueAccessRightAssociationActions(invoiceId, licensePlate, accessRights);
+
+    return invoiceId;
   }
 
   private void enqueueAccessRightAssociationActions(InvoiceId invoiceId,

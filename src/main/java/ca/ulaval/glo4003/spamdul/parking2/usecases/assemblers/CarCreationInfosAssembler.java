@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.CarCreationInfos;
-import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.permit.CarCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.CarCreationDto;
 
 public class CarCreationInfosAssembler {
 
