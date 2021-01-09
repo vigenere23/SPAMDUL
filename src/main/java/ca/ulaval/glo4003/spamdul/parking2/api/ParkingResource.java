@@ -128,7 +128,9 @@ public class ParkingResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   public void giveInfraction(ParkingAccessRequest request) {
-    ParkingAccessDto dto = parkingAccessAssembler.fromRequest(request);
-    parkingAccessUseCase.giveInfraction(dto);
+    ApiExceptionWrapper.wrap(() -> {
+      ParkingAccessDto dto = parkingAccessAssembler.fromRequest(request);
+      parkingAccessUseCase.giveInfraction(dto);
+    });
   }
 }

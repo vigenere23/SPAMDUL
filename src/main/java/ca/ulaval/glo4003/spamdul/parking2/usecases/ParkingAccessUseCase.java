@@ -59,7 +59,7 @@ public class ParkingAccessUseCase {
         createInvoice(parkingUser.getAccountId(), infraction);
       }
       throw new UnauthorizedException(exception.getClass().getSimpleName(),
-                                      infraction.getInfractionType().toString(),
+                                      infraction.getInfractionType().getCode(),
                                       exception.getMessage());
     }
   }

@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
 
+import java.util.Arrays;
+
 public enum InfractionType {
   NO_PERMIT("VIG_03"),
   INVALID_PERMIT("VIG_02"),
@@ -16,5 +18,16 @@ public enum InfractionType {
     this.code = code;
   }
 
-  // TODO create infraction type from code... how?
+  public static InfractionType fromCode(String code) {
+    return Arrays.stream(values())
+                 .filter(value -> value.code.equals(code.toUpperCase()))
+                 .findFirst()
+                 .orElseThrow(() -> new IllegalArgumentException(String.format("No value for %s.%s",
+                                                                               InfractionType.class.getName(),
+                                                                               code)));
+  }
+
+  public String getCode() {
+    return code;
+  }
 }

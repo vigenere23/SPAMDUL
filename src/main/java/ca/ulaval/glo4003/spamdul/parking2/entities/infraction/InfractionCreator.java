@@ -1,25 +1,24 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
 
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
-import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 
 public class InfractionCreator {
 
   private final InfractionTypeFactory infractionTypeFactory;
   private final InfractionFactory infractionFactory;
-  private final InfractionAmountRepository infractionAmountRepository;
+  private final InfractionInfosRepository infractionInfosRepository;
 
   public InfractionCreator(InfractionTypeFactory infractionTypeFactory,
                            InfractionFactory infractionFactory,
-                           InfractionAmountRepository infractionAmountRepository) {
+                           InfractionInfosRepository infractionInfosRepository) {
     this.infractionTypeFactory = infractionTypeFactory;
     this.infractionFactory = infractionFactory;
-    this.infractionAmountRepository = infractionAmountRepository;
+    this.infractionInfosRepository = infractionInfosRepository;
   }
 
   public Infraction createInfraction(InvalidAccessException exception) {
     InfractionType infractionType = infractionTypeFactory.create(exception);
-    Amount amount = infractionAmountRepository.findBy(infractionType);
-    return infractionFactory.create(infractionType, amount);
+    InfractionInfos infractionInfos = infractionInfosRepository.findBy(infractionType);
+    return infractionFactory.create(infractionType, infractionInfos.getAmount());
   }
 }
