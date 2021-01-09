@@ -13,11 +13,14 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociat
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.InfractionAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.InfractionDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
 import ca.ulaval.glo4003.spamdul.shared.usecases.exceptions.ItemNotFoundException;
 import ca.ulaval.glo4003.spamdul.shared.usecases.exceptions.UnauthorizedException;
 import ca.ulaval.glo4003.spamdul.shared.utils.ListUtil;
 import java.util.List;
+import java.util.Optional;
 
 public class ParkingAccessUseCase {
 
@@ -25,15 +28,18 @@ public class ParkingAccessUseCase {
   private final InfractionCreator infractionCreator;
   private final InvoiceCreator invoiceCreator;
   private final InfractionAssociationQueue infractionAssociationQueue;
+  private final InfractionAssembler infractionAssembler;
 
   public ParkingAccessUseCase(ParkingUserRepository parkingUserRepository,
                               InfractionCreator infractionCreator,
                               InvoiceCreator invoiceCreator,
-                              InfractionAssociationQueue infractionAssociationQueue) {
+                              InfractionAssociationQueue infractionAssociationQueue,
+                              InfractionAssembler infractionAssembler) {
     this.parkingUserRepository = parkingUserRepository;
     this.infractionCreator = infractionCreator;
     this.invoiceCreator = invoiceCreator;
     this.infractionAssociationQueue = infractionAssociationQueue;
+    this.infractionAssembler = infractionAssembler;
   }
 
   public void accessParking(ParkingAccessDto dto) {
@@ -47,20 +53,21 @@ public class ParkingAccessUseCase {
     }
   }
 
-  public void giveInfraction(ParkingAccessDto dto) {
+  public Optional<InfractionDto> giveInfraction(ParkingAccessDto dto) {
     ParkingUser parkingUser = null;
 
     try {
       parkingUser = findParkingUser(dto);
       validateAccess(parkingUser, dto);
+      return Optional.empty();
     } catch (InvalidAccessException exception) {
       Infraction infraction = infractionCreator.createInfraction(exception);
       if (parkingUser != null) {
-        createInvoice(parkingUser.getAccountId(), infraction);
+        InvoiceId invoiceId = createInvoice(parkingUser.getAccountId(), infraction);
+        infraction.setInvoiceId(invoiceId);
       }
-      throw new UnauthorizedException(exception.getClass().getSimpleName(),
-                                      infraction.getInfractionType().getCode(),
-                                      exception.getMessage());
+      InfractionDto infractionDto = infractionAssembler.toDto(infraction);
+      return Optional.of(infractionDto);
     }
   }
 
@@ -92,12 +99,14 @@ public class ParkingAccessUseCase {
     }
   }
 
-  private void createInvoice(AccountId accountId, Infraction infraction) {
+  private InvoiceId createInvoice(AccountId accountId, Infraction infraction) {
     List<InvoiceItem> invoiceItems = ListUtil.toList(new InvoiceItem(infraction.getAmount(),
                                                                      infraction.toString(),
                                                                      1));
     InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
     infractionAssociationQueue.add(invoiceId,
                                    new InfractionAssociationAction(accountId, infraction));
+
+    return invoiceId;
   }
 }

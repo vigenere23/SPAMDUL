@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
 
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 
 public class Infraction {
@@ -7,6 +8,7 @@ public class Infraction {
   private final InfractionId infractionId;
   private final InfractionType infractionType;
   private final Amount amount;
+  private InvoiceId invoiceId;
 
   public Infraction(InfractionId infractionId,
                     InfractionType infractionType, Amount amount) {
@@ -25,6 +27,16 @@ public class Infraction {
 
   public Amount getAmount() {
     return amount;
+  }
+
+  public InvoiceId getInvoiceId() {
+    return invoiceId;
+  }
+
+  public void setInvoiceId(InvoiceId invoiceId) {
+    if (this.invoiceId == null) {
+      this.invoiceId = invoiceId;
+    }
   }
 
   @Override

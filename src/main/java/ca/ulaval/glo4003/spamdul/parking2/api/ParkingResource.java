@@ -4,10 +4,12 @@ import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingUserDtoAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.UserCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.permit.PermitCreationAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.api.dtos.InfractionResponse;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.ParkingAccessRequest;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.ParkingUserResponse;
 import ca.ulaval.glo4003.spamdul.parking2.api.dtos.UserCreationRequest;
@@ -19,12 +21,14 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingAccessUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingPermitUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.ParkingUserUseCase;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.AccessRightCreationDto;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.InfractionDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingAccessDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.ParkingUserDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.PermitCreationDto;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.dtos.UserCreationDto;
 import ca.ulaval.glo4003.spamdul.shared.api.ApiExceptionWrapper;
 import java.util.List;
+import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -45,6 +49,7 @@ public class ParkingResource {
   private final ParkingAccessRightUseCase parkingAccessRightUseCase;
   private final ParkingAccessUseCase parkingAccessUseCase;
   private final ParkingUserDtoAssembler parkingUserDtoAssembler;
+  private final InfractionDtoAssembler infractionDtoAssembler;
   private final BillingUriBuilder billingUriBuilder;
 
   public ParkingResource(UserCreationAssembler userCreationAssembler,
@@ -56,6 +61,7 @@ public class ParkingResource {
                          ParkingAccessRightUseCase parkingAccessRightUseCase,
                          ParkingAccessUseCase parkingAccessUseCase,
                          ParkingUserDtoAssembler parkingUserDtoAssembler,
+                         InfractionDtoAssembler infractionDtoAssembler,
                          BillingUriBuilder billingUriBuilder) {
     this.userCreationAssembler = userCreationAssembler;
     this.permitCreationAssembler = permitCreationAssembler;
@@ -66,6 +72,7 @@ public class ParkingResource {
     this.parkingAccessRightUseCase = parkingAccessRightUseCase;
     this.parkingAccessUseCase = parkingAccessUseCase;
     this.parkingUserDtoAssembler = parkingUserDtoAssembler;
+    this.infractionDtoAssembler = infractionDtoAssembler;
     this.billingUriBuilder = billingUriBuilder;
   }
 
@@ -127,10 +134,16 @@ public class ParkingResource {
   @Path("infraction")
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public void giveInfraction(ParkingAccessRequest request) {
-    ApiExceptionWrapper.wrap(() -> {
+  public Response giveInfraction(ParkingAccessRequest request) {
+    return ApiExceptionWrapper.wrap(() -> {
       ParkingAccessDto dto = parkingAccessAssembler.fromRequest(request);
-      parkingAccessUseCase.giveInfraction(dto);
+      Optional<InfractionDto> infractionDto = parkingAccessUseCase.giveInfraction(dto);
+      if (infractionDto.isPresent()) {
+        InfractionResponse response = infractionDtoAssembler.toResponse(infractionDto.get());
+        return Response.status(201).entity(response).build();
+      } else {
+        return Response.ok().build();
+      }
     });
   }
 }

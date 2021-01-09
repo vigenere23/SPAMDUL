@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAss
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightDtoAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.CarDtoAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.InfractionDtoAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingAccessAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.ParkingUserDtoAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.PermitDtoAssembler;
@@ -67,6 +68,7 @@ import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessRightsAssemb
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.CarAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.CarCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.DeliveryInfosAssembler;
+import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.ParkingUserAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitCreationInfosAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.PermitsAssembler;
@@ -160,7 +162,8 @@ public class ParkingContext implements ResourceContext {
                                                                                         invoiceCreator,
                                                                                         accessRightAssociationQueue);
     ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository, infractionCreator,
-                                                                         invoiceCreator, infractionAssociationQueue);
+                                                                         invoiceCreator, infractionAssociationQueue,
+                                                                         new InfractionAssembler());
 
     UserCreationAssembler userCreationAssembler = new UserCreationAssembler();
     PermitCreationAssembler permitCreationAssembler = new PermitCreationAssembler(new PermitDeliveryAssembler(),
@@ -177,6 +180,7 @@ public class ParkingContext implements ResourceContext {
                                           parkingAccessUseCase,
                                           new ParkingUserDtoAssembler(new PermitDtoAssembler(new CarDtoAssembler(),
                                                                                              new AccessRightDtoAssembler())),
+                                          new InfractionDtoAssembler(),
                                           billingUriBuilder);
   }
 
