@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul.billing.entities.invoice;
 
 import ca.ulaval.glo4003.spamdul.billing.entities.exceptions.InvoiceAlreadyPaidException;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidInfos;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -10,12 +12,16 @@ public class Invoice {
 
   private final InvoiceId invoiceId;
   private final LocalDateTime createdAt;
+  private final InvoicePaidObservable invoicePaidObservable;
   private LocalDateTime paidAt;
   private final Set<InvoiceItem> items = new HashSet<>();
 
-  public Invoice(InvoiceId invoiceId, LocalDateTime createdAt) {
+  public Invoice(InvoiceId invoiceId,
+                 LocalDateTime createdAt,
+                 InvoicePaidObservable invoicePaidObservable) {
     this.invoiceId = invoiceId;
     this.createdAt = createdAt;
+    this.invoicePaidObservable = invoicePaidObservable;
   }
 
   public void pay() {
@@ -26,6 +32,8 @@ public class Invoice {
     // TODO use payment service
 
     paidAt = LocalDateTime.now();
+
+    invoicePaidObservable.notify(new InvoicePaidInfos(invoiceId, paidAt, getTotal()));
   }
 
   public void addItem(InvoiceItem item) {

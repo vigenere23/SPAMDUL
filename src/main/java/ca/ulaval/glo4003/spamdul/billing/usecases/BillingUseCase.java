@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.billing.usecases;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
-import ca.ulaval.glo4003.spamdul.billing.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.Invoice;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.billing.entities.user.BillingUser;
 import ca.ulaval.glo4003.spamdul.billing.entities.user.BillingUserRepository;
 import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.BillingUserAssembler;
@@ -38,8 +38,6 @@ public class BillingUseCase {
     BillingUser billingUser = billingUserRepository.findBy(invoiceId);
     Invoice invoice = billingUser.payInvoice(invoiceId);
     billingUserRepository.save(billingUser);
-
-    invoicePaidObservable.notify(invoiceId);
 
     return invoiceAssembler.toDto(invoice);
   }

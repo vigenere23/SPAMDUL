@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.spamdul.billing.context;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountCreatedObservable;
-import ca.ulaval.glo4003.spamdul.billing.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingResource;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
 import ca.ulaval.glo4003.spamdul.billing.api.assemblers.BillingUserDtoAssembler;
@@ -10,10 +9,13 @@ import ca.ulaval.glo4003.spamdul.billing.api.assemblers.InvoiceItemDtoAssembler;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceFactory;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceIdFactory;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObserverRepository;
 import ca.ulaval.glo4003.spamdul.billing.entities.user.BillingUserCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.user.BillingUserFactory;
 import ca.ulaval.glo4003.spamdul.billing.entities.user.BillingUserRepository;
 import ca.ulaval.glo4003.spamdul.billing.infrastructure.persistence.BillingUserRepositoryInMemory;
+import ca.ulaval.glo4003.spamdul.billing.infrastructure.persistence.InvoicePaidObserverRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.billing.usecases.BillingUseCase;
 import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.BillingUserAssembler;
 import ca.ulaval.glo4003.spamdul.billing.usecases.assemblers.InvoiceAssembler;
@@ -35,12 +37,14 @@ public class BillingContext implements ResourceContext {
     BillingUserFactory billingUserFactory = new BillingUserFactory();
     BillingUserCreator billingUserCreator = new BillingUserCreator(billingUserRepository, billingUserFactory);
 
+    InvoicePaidObserverRepository invoicePaidObserverRepository = new InvoicePaidObserverRepositoryInMemory();
+
     accountCreatedObservable.register(billingUserCreator);
 
     InvoiceAssembler invoiceAssembler = new InvoiceAssembler(new InvoiceItemAssembler());
     BillingUserAssembler billingUserAssembler = new BillingUserAssembler(invoiceAssembler);
     InvoiceDtoAssembler invoiceDtoAssembler = new InvoiceDtoAssembler(new InvoiceItemDtoAssembler());
-    invoicePaidObservable = new InvoicePaidObservable();
+    invoicePaidObservable = new InvoicePaidObservable(invoicePaidObserverRepository);
     BillingUseCase billingUseCase = new BillingUseCase(billingUserRepository,
                                                        billingUserAssembler,
                                                        invoiceAssembler,
@@ -49,7 +53,8 @@ public class BillingContext implements ResourceContext {
                                           new BillingUserDtoAssembler(invoiceDtoAssembler),
                                           invoiceDtoAssembler);
 
-    InvoiceFactory invoiceFactory = new InvoiceFactory(new InvoiceIdFactory(new IncrementalIdGenerator()));
+    InvoiceFactory invoiceFactory = new InvoiceFactory(new InvoiceIdFactory(new IncrementalIdGenerator()),
+                                                       invoicePaidObservable);
     invoiceCreator = new InvoiceCreator(invoiceFactory, billingUserRepository);
     billingUriBuilder = new BillingUriBuilder(apiUrl.toString());
   }

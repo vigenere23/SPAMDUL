@@ -4,13 +4,14 @@ import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationAction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationCallback;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
@@ -28,7 +29,8 @@ public class ParkingAccessRightUseCase {
   private final AccessRightFactory accessRightFactory;
   private final AccessPeriodCreationInfosAssembler accessPeriodCreationInfosAssembler;
   private final InvoiceCreator invoiceCreator;
-  private final AccessRightAssociationQueue accessRightAssociationQueue;
+  private final InvoicePaidObservable invoicePaidObservable;
+  private final AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory;
 
   public ParkingAccessRightUseCase(ParkingUserRepository parkingUserRepository,
                                    ParkingZoneFeeRepository zoneFeeRepository,
@@ -36,14 +38,16 @@ public class ParkingAccessRightUseCase {
                                    AccessRightFactory accessRightFactory,
                                    AccessPeriodCreationInfosAssembler accessPeriodCreationInfosAssembler,
                                    InvoiceCreator invoiceCreator,
-                                   AccessRightAssociationQueue accessRightAssociationQueue) {
+                                   InvoicePaidObservable invoicePaidObservable,
+                                   AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory) {
     this.parkingUserRepository = parkingUserRepository;
     this.zoneFeeRepository = zoneFeeRepository;
     this.carFeeRepository = carFeeRepository;
     this.accessRightFactory = accessRightFactory;
     this.accessPeriodCreationInfosAssembler = accessPeriodCreationInfosAssembler;
     this.invoiceCreator = invoiceCreator;
-    this.accessRightAssociationQueue = accessRightAssociationQueue;
+    this.invoicePaidObservable = invoicePaidObservable;
+    this.accessRightAssociationCallbackFactory = accessRightAssociationCallbackFactory;
   }
 
   public InvoiceId orderAccessRights(LicensePlate licensePlate, List<AccessRightCreationDto> dtos) {
@@ -85,8 +89,8 @@ public class ParkingAccessRightUseCase {
                                                     LicensePlate licensePlate,
                                                     List<AccessRight> accessRights) {
     for (AccessRight accessRight : accessRights) {
-      AccessRightAssociationAction action = new AccessRightAssociationAction(licensePlate, accessRight);
-      accessRightAssociationQueue.add(invoiceId, action);
+      AccessRightAssociationCallback callback = accessRightAssociationCallbackFactory.create(licensePlate, accessRight);
+      invoicePaidObservable.register(invoiceId, callback);
     }
   }
 }

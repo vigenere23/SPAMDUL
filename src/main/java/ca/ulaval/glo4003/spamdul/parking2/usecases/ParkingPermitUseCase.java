@@ -4,10 +4,10 @@ import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationAction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
@@ -24,20 +24,23 @@ public class ParkingPermitUseCase {
   private final DeliveryInfosAssembler deliveryInfosAssembler;
   private final PermitCreationInfosAssembler permitCreationInfosAssembler;
   private final InvoiceCreator invoiceCreator;
-  private final PermitAssociationQueue permitAssociationQueue;
+  private final InvoicePaidObservable invoicePaidObservable;
+  private final PermitAssociationCallbackFactory permitAssociationCallbackFactory;
 
   public ParkingPermitUseCase(ParkingUserRepository parkingUserRepository,
                               PermitFactory permitFactory,
                               DeliveryInfosAssembler deliveryInfosAssembler,
                               PermitCreationInfosAssembler permitCreationInfosAssembler,
                               InvoiceCreator invoiceCreator,
-                              PermitAssociationQueue permitAssociationQueue) {
+                              InvoicePaidObservable invoicePaidObservable,
+                              PermitAssociationCallbackFactory permitAssociationCallbackFactory) {
     this.parkingUserRepository = parkingUserRepository;
     this.permitFactory = permitFactory;
     this.deliveryInfosAssembler = deliveryInfosAssembler;
     this.permitCreationInfosAssembler = permitCreationInfosAssembler;
     this.invoiceCreator = invoiceCreator;
-    this.permitAssociationQueue = permitAssociationQueue;
+    this.invoicePaidObservable = invoicePaidObservable;
+    this.permitAssociationCallbackFactory = permitAssociationCallbackFactory;
   }
 
   public InvoiceId orderPermit(AccountId accountId, PermitCreationDto dto) {
@@ -58,7 +61,7 @@ public class ParkingPermitUseCase {
   private InvoiceId createInvoice(AccountId accountId, Permit permit) {
     List<InvoiceItem> invoiceItems = ListUtil.toList(new InvoiceItem(permit.getPrice(), permit.toString(), 1));
     InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
-    permitAssociationQueue.add(invoiceId, new PermitAssociationAction(accountId, permit));
+    invoicePaidObservable.register(invoiceId, permitAssociationCallbackFactory.create(accountId, permit));
     // TODO add delivery item + callback
 
     return invoiceId;

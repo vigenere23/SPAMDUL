@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.spamdul.parking2.context;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountService;
-import ca.ulaval.glo4003.spamdul.billing.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.parking2.api.ParkingResource;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
@@ -26,7 +26,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.Access
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactorySemester;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.period.creation.AccessPeriodFactorySingleDay;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightFilterStrategyDate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightFilterStrategyParkingZone;
@@ -34,14 +34,14 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.Acces
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidatorFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionInfosRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionTypeFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryBike;
@@ -107,16 +107,8 @@ public class ParkingContext implements ResourceContext {
     infractionInfosPopulator.populate(infractionInfosRepository);
 
     PermitAssociator permitAssociator = new PermitAssociator(parkingUserRepository);
-    PermitAssociationQueue permitAssociationQueue = new PermitAssociationQueue(permitAssociator);
-    invoicePaidObservable.register(permitAssociationQueue);
-
     AccessRightAssociator accessRightAssociator = new AccessRightAssociator(parkingUserRepository);
-    AccessRightAssociationQueue accessRightAssociationQueue = new AccessRightAssociationQueue(accessRightAssociator);
-    invoicePaidObservable.register(accessRightAssociationQueue);
-
     InfractionAssociator infractionAssociator = new InfractionAssociator(parkingUserRepository);
-    InfractionAssociationQueue infractionAssociationQueue = new InfractionAssociationQueue(infractionAssociator);
-    invoicePaidObservable.register(infractionAssociationQueue);
 
     AccessRightValidator accessRightValidator = new AccessRightValidatorFactory().create(
         new AccessRightFilterStrategyParkingZone(),
@@ -141,6 +133,12 @@ public class ParkingContext implements ResourceContext {
     InfractionCreator infractionCreator = new InfractionCreator(new InfractionTypeFactory(),
                                                                 infractionFactory,
                                                                 infractionInfosRepository);
+    PermitAssociationCallbackFactory permitAssociationCallbackFactory = new PermitAssociationCallbackFactory(
+        permitAssociator);
+    AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory = new AccessRightAssociationCallbackFactory(
+        accessRightAssociator);
+    InfractionAssociationCallbackFactory infractionAssociationCallbackFactory = new InfractionAssociationCallbackFactory(
+        infractionAssociator);
 
     ParkingUserAssembler parkingUserAssembler = new ParkingUserAssembler(new PermitsAssembler(new AccessRightsAssembler(),
                                                                                               new CarAssembler()));
@@ -153,16 +151,21 @@ public class ParkingContext implements ResourceContext {
                                                                          new PermitCreationInfosAssembler(
                                                                              new CarCreationInfosAssembler()),
                                                                          invoiceCreator,
-                                                                         permitAssociationQueue);
+                                                                         invoicePaidObservable,
+                                                                         permitAssociationCallbackFactory);
     ParkingAccessRightUseCase parkingAccessRightUseCase = new ParkingAccessRightUseCase(parkingUserRepository,
                                                                                         zoneFeeRepository,
                                                                                         carFeeRepository,
                                                                                         accessRightFactory,
                                                                                         new AccessPeriodCreationInfosAssembler(),
                                                                                         invoiceCreator,
-                                                                                        accessRightAssociationQueue);
-    ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository, infractionCreator,
-                                                                         invoiceCreator, infractionAssociationQueue,
+                                                                                        invoicePaidObservable,
+                                                                                        accessRightAssociationCallbackFactory);
+    ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository,
+                                                                         infractionCreator,
+                                                                         invoiceCreator,
+                                                                         invoicePaidObservable,
+                                                                         infractionAssociationCallbackFactory,
                                                                          new InfractionAssembler());
 
     UserCreationAssembler userCreationAssembler = new UserCreationAssembler();

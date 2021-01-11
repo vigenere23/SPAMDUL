@@ -4,12 +4,12 @@ import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
+import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationAction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationQueue;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
@@ -27,18 +27,21 @@ public class ParkingAccessUseCase {
   private final ParkingUserRepository parkingUserRepository;
   private final InfractionCreator infractionCreator;
   private final InvoiceCreator invoiceCreator;
-  private final InfractionAssociationQueue infractionAssociationQueue;
+  private final InvoicePaidObservable invoicePaidObservable;
+  private final InfractionAssociationCallbackFactory infractionAssociationCallbackFactory;
   private final InfractionAssembler infractionAssembler;
 
   public ParkingAccessUseCase(ParkingUserRepository parkingUserRepository,
                               InfractionCreator infractionCreator,
                               InvoiceCreator invoiceCreator,
-                              InfractionAssociationQueue infractionAssociationQueue,
+                              InvoicePaidObservable invoicePaidObservable,
+                              InfractionAssociationCallbackFactory infractionAssociationCallbackFactory,
                               InfractionAssembler infractionAssembler) {
     this.parkingUserRepository = parkingUserRepository;
     this.infractionCreator = infractionCreator;
     this.invoiceCreator = invoiceCreator;
-    this.infractionAssociationQueue = infractionAssociationQueue;
+    this.invoicePaidObservable = invoicePaidObservable;
+    this.infractionAssociationCallbackFactory = infractionAssociationCallbackFactory;
     this.infractionAssembler = infractionAssembler;
   }
 
@@ -104,8 +107,8 @@ public class ParkingAccessUseCase {
                                                                      infraction.toString(),
                                                                      1));
     InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
-    infractionAssociationQueue.add(invoiceId,
-                                   new InfractionAssociationAction(accountId, infraction));
+    invoicePaidObservable.register(invoiceId,
+                                   infractionAssociationCallbackFactory.create(accountId, infraction));
 
     return invoiceId;
   }
