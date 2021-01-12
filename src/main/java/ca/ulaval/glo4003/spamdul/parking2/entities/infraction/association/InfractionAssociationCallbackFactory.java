@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
+package ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
 
 public class InfractionAssociationCallbackFactory {
 

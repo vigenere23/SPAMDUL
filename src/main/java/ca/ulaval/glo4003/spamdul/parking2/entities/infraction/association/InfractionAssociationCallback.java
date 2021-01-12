@@ -1,8 +1,9 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.infraction;
+package ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidInfos;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObserver;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
 
 public class InfractionAssociationCallback implements InvoicePaidObserver {
 

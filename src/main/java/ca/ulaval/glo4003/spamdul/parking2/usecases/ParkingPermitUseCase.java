@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
 import ca.ulaval.glo4003.spamdul.parking2.entities.delivery.DeliveryInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationCallbackFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.PermitAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitCreationInfos;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;

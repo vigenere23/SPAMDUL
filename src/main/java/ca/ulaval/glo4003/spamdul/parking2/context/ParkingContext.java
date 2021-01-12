@@ -34,15 +34,15 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.Acces
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.validation.AccessRightValidatorFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationCallbackFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionIdFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionInfosRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionTypeFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociationCallbackFactory;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.association.PermitAssociator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association.InfractionAssociationCallbackFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association.InfractionAssociator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitAssociator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.PermitAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryBike;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryCar;
@@ -160,7 +160,8 @@ public class ParkingContext implements ResourceContext {
                                                                                         new AccessPeriodCreationInfosAssembler(),
                                                                                         invoiceCreator,
                                                                                         invoicePaidObservable,
-                                                                                        accessRightAssociationCallbackFactory);
+                                                                                        accessRightAssociationCallbackFactory,
+                                                                                        transactionCreationCallbackFactory);
     ParkingAccessUseCase parkingAccessUseCase = new ParkingAccessUseCase(parkingUserRepository,
                                                                          infractionCreator,
                                                                          invoiceCreator,

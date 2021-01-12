@@ -9,8 +9,8 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarNotFoundExcepti
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.InvalidAccessException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.Infraction;
-import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.InfractionCreator;
+import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association.InfractionAssociationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.InfractionAssembler;

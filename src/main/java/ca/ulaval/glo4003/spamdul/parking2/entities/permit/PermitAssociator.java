@@ -1,7 +1,6 @@
-package ca.ulaval.glo4003.spamdul.parking2.entities.permit.association;
+package ca.ulaval.glo4003.spamdul.parking2.entities.permit;
 
 import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
-import ca.ulaval.glo4003.spamdul.parking2.entities.permit.Permit;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 

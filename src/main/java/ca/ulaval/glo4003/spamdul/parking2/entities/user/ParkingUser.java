@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingCarFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.ParkingZoneFeeRepository;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.ParkingZone;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.CarMismatchException;
 import ca.ulaval.glo4003.spamdul.parking2.entities.exceptions.PermitNotFoundException;
@@ -74,6 +75,10 @@ public class ParkingUser {
                                     LicensePlate licensePlate,
                                     AccessRight accessRight) {
     return findPermitBy(licensePlate).getAccessRightPrice(carFeeRepository, zoneFeeRepository, accessRight);
+  }
+
+  public CarType getCarTypeOf(LicensePlate licensePlate) {
+    return findPermitBy(licensePlate).getCar().getType();
   }
 
   public void addInfraction(Infraction infraction) {

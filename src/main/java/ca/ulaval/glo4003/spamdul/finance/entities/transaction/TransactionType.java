@@ -4,6 +4,7 @@ public enum TransactionType {
 
   PASS,
   CAMPUS_ACCESS,
+  ACCESS_RIGHT, // from parking v2 only
   INFRACTION,
   INITIATIVE,
   CARBON_CREDIT,

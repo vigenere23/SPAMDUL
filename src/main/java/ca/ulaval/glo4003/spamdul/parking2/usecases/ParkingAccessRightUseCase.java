@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.spamdul.parking2.usecases;
 
-import ca.ulaval.glo4003.spamdul.account.entities.AccountId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceId;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceItem;
@@ -12,7 +11,10 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRight;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.AccessRightFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationCallback;
 import ca.ulaval.glo4003.spamdul.parking2.entities.access.right.association.AccessRightAssociationCallbackFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.car.CarType;
 import ca.ulaval.glo4003.spamdul.parking2.entities.car.LicensePlate;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.TransactionCreationCallback;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.TransactionCreationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUser;
 import ca.ulaval.glo4003.spamdul.parking2.entities.user.ParkingUserRepository;
 import ca.ulaval.glo4003.spamdul.parking2.usecases.assemblers.AccessPeriodCreationInfosAssembler;
@@ -31,6 +33,7 @@ public class ParkingAccessRightUseCase {
   private final InvoiceCreator invoiceCreator;
   private final InvoicePaidObservable invoicePaidObservable;
   private final AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory;
+  private final TransactionCreationCallbackFactory transactionCreationCallbackFactory;
 
   public ParkingAccessRightUseCase(ParkingUserRepository parkingUserRepository,
                                    ParkingZoneFeeRepository zoneFeeRepository,
@@ -39,7 +42,8 @@ public class ParkingAccessRightUseCase {
                                    AccessPeriodCreationInfosAssembler accessPeriodCreationInfosAssembler,
                                    InvoiceCreator invoiceCreator,
                                    InvoicePaidObservable invoicePaidObservable,
-                                   AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory) {
+                                   AccessRightAssociationCallbackFactory accessRightAssociationCallbackFactory,
+                                   TransactionCreationCallbackFactory transactionCreationCallbackFactory) {
     this.parkingUserRepository = parkingUserRepository;
     this.zoneFeeRepository = zoneFeeRepository;
     this.carFeeRepository = carFeeRepository;
@@ -48,13 +52,14 @@ public class ParkingAccessRightUseCase {
     this.invoiceCreator = invoiceCreator;
     this.invoicePaidObservable = invoicePaidObservable;
     this.accessRightAssociationCallbackFactory = accessRightAssociationCallbackFactory;
+    this.transactionCreationCallbackFactory = transactionCreationCallbackFactory;
   }
 
   public InvoiceId orderAccessRights(LicensePlate licensePlate, List<AccessRightCreationDto> dtos) {
     ParkingUser parkingUser = parkingUserRepository.findBy(licensePlate);
     List<AccessRight> accessRights = createAccessRights(dtos);
 
-    return createInvoice(parkingUser.getAccountId(), licensePlate, parkingUser, accessRights);
+    return createInvoice(licensePlate, parkingUser, accessRights);
   }
 
   private List<AccessRight> createAccessRights(List<AccessRightCreationDto> dtos) {
@@ -68,8 +73,7 @@ public class ParkingAccessRightUseCase {
     return accessRights;
   }
 
-  private InvoiceId createInvoice(AccountId accountId,
-                                  LicensePlate licensePlate,
+  private InvoiceId createInvoice(LicensePlate licensePlate,
                                   ParkingUser parkingUser,
                                   List<AccessRight> accessRights) {
     List<InvoiceItem> invoiceItems = new ArrayList<>();
@@ -79,18 +83,17 @@ public class ParkingAccessRightUseCase {
       invoiceItems.add(new InvoiceItem(price, accessRight.toString(), 1));
     });
 
-    InvoiceId invoiceId = invoiceCreator.createInvoice(accountId, invoiceItems);
-    enqueueAccessRightAssociationActions(invoiceId, licensePlate, accessRights);
+    InvoiceId invoiceId = invoiceCreator.createInvoice(parkingUser.getAccountId(), invoiceItems);
 
-    return invoiceId;
-  }
-
-  private void enqueueAccessRightAssociationActions(InvoiceId invoiceId,
-                                                    LicensePlate licensePlate,
-                                                    List<AccessRight> accessRights) {
     for (AccessRight accessRight : accessRights) {
       AccessRightAssociationCallback callback = accessRightAssociationCallbackFactory.create(licensePlate, accessRight);
       invoicePaidObservable.register(invoiceId, callback);
     }
+
+    CarType carType = parkingUser.getCarTypeOf(licensePlate);
+    TransactionCreationCallback transactionCreationCallback = transactionCreationCallbackFactory.create(carType);
+    invoicePaidObservable.register(invoiceId, transactionCreationCallback);
+
+    return invoiceId;
   }
 }
