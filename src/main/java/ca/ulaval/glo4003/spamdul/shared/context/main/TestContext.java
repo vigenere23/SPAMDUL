@@ -59,7 +59,8 @@ public class TestContext extends MainContext {
     parkingContext = new ParkingContext(billingContext.getInvoiceCreator(),
                                         billingContext.getInvoicePaidObservable(),
                                         billingContext.getInvoiceUriBuilder(),
-                                        accountContext.getAccountService());
+                                        accountContext.getAccountService(),
+                                        revenueContext.getAccessRightTransactionService());
   }
 
   @Override

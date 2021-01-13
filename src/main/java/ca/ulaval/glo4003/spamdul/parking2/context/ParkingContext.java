@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.account.entities.AccountService;
 import ca.ulaval.glo4003.spamdul.billing.api.BillingUriBuilder;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.InvoiceCreator;
 import ca.ulaval.glo4003.spamdul.billing.entities.invoice.paid_event.InvoicePaidObservable;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.AccessRightTransactionService;
 import ca.ulaval.glo4003.spamdul.parking2.api.ParkingResource;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessPeriodCreationAssembler;
 import ca.ulaval.glo4003.spamdul.parking2.api.assemblers.AccessRightCreationAssembler;
@@ -43,6 +44,7 @@ import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association.Infrac
 import ca.ulaval.glo4003.spamdul.parking2.entities.infraction.association.InfractionAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.PermitAssociator;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.PermitAssociationCallbackFactory;
+import ca.ulaval.glo4003.spamdul.parking2.entities.permit.callbacks.TransactionCreationCallbackFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactory;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryBike;
 import ca.ulaval.glo4003.spamdul.parking2.entities.permit.creation.PermitFactoryCar;
@@ -87,7 +89,8 @@ public class ParkingContext implements ResourceContext {
   public ParkingContext(InvoiceCreator invoiceCreator,
                         InvoicePaidObservable invoicePaidObservable,
                         BillingUriBuilder billingUriBuilder,
-                        AccountService accountService) {
+                        AccountService accountService,
+                        AccessRightTransactionService accessRightTransactionService) {
     Calendar calendar = new HardCodedCalendar();
     ParkingUserRepository parkingUserRepository = new ParkingUserRepositoryInMemory();
 
@@ -139,6 +142,8 @@ public class ParkingContext implements ResourceContext {
         accessRightAssociator);
     InfractionAssociationCallbackFactory infractionAssociationCallbackFactory = new InfractionAssociationCallbackFactory(
         infractionAssociator);
+    TransactionCreationCallbackFactory transactionCreationCallbackFactory = new TransactionCreationCallbackFactory(
+        accessRightTransactionService);
 
     ParkingUserAssembler parkingUserAssembler = new ParkingUserAssembler(new PermitsAssembler(new AccessRightsAssembler(),
                                                                                               new CarAssembler()));
