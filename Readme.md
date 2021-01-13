@@ -30,7 +30,7 @@ mvn clean install exec:java
 mvn test
 ```
 
-**Functional/integration tests**
+**Integration tests**
 
 ```
 mvn test -P integration-tests

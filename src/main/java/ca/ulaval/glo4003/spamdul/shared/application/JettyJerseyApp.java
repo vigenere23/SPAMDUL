@@ -25,7 +25,7 @@ public class JettyJerseyApp implements SpamdUlApplication {
     context = contextFactory.create(contextType);
 
     ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    contextHandler.setContextPath('/' + context.getApiUrl().getPrefix() + '/');
+    contextHandler.setContextPath('/' + context.getApiUrl().getPrefix());
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {

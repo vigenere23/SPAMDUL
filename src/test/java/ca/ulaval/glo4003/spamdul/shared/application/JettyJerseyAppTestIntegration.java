@@ -6,10 +6,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.shared.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.shared.context.main.MainContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,19 +22,27 @@ public class JettyJerseyAppTestIntegration {
 
   private static final String MODE_VAR_NAME = "SPAMDUL_API_MODE";
   private static final int SERVER_UP_TIME_IN_MILLIS = 400;
+  private static final ApiUrl API_URL = new ApiUrl("localhost", 8080, "");
 
   @Mock
   private ContextFactory contextFactory;
   @Mock
   private MainContext context;
 
+  @Before
+  public void setUp() {
+    when(context.getApiUrl()).thenReturn(API_URL);
+  }
+
   @Test
   public void whenCreating_shouldNotThrowException() {
+    when(contextFactory.create(any(ContextType.class))).thenReturn(context);
     new JettyJerseyApp(contextFactory);
   }
 
   @Test
   public void givenTestMode_whenCreating_shouldCreateWithFactory() throws Exception {
+    when(contextFactory.create(any(ContextType.class))).thenReturn(context);
     withEnvironmentVariable(MODE_VAR_NAME, "test").execute(() -> {
       new JettyJerseyApp(contextFactory);
     });
@@ -53,6 +63,7 @@ public class JettyJerseyAppTestIntegration {
 
   @Test
   public void givenDevMode_whenCreating_shouldCreateWithFactory() throws Exception {
+    when(contextFactory.create(any(ContextType.class))).thenReturn(context);
     withEnvironmentVariable(MODE_VAR_NAME, "dev").execute(() -> {
       new JettyJerseyApp(contextFactory);
     });
@@ -73,6 +84,7 @@ public class JettyJerseyAppTestIntegration {
 
   @Test
   public void givenProdMode_whenCreating_shouldCreateWithFactory() throws Exception {
+    when(contextFactory.create(any(ContextType.class))).thenReturn(context);
     withEnvironmentVariable(MODE_VAR_NAME, "prod").execute(() -> {
       new JettyJerseyApp(contextFactory);
     });
