@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.spamdul.usage.context;
 
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 
 public class ProdUsageContext extends UsageContext {
 
@@ -12,6 +12,6 @@ public class ProdUsageContext extends UsageContext {
   }
 
   @Override
-  protected void populateData(Populator populator) {
+  protected void populateData(RecordPopulator recordPopulator) {
   }
 }

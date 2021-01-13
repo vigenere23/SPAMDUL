@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.spamdul.usage.context;
 
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogFactory;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogRepository;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ParkingAccessLogPopulator implements Populator {
+public class ParkingAccessLogPopulator implements RecordPopulator {
 
   private final ParkingAccessLogRepository parkingAccessLogRepository;
   private final ParkingAccessLogFactory parkingAccessLogFactory;

@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul.shared.context.main;
 
+import ca.ulaval.glo4003.spamdul.account.context.AccountContext;
 import ca.ulaval.glo4003.spamdul.authentication.context.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.billing.context.BillingContext;
 import ca.ulaval.glo4003.spamdul.charging.context.DevChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.DevCarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.DevInitiativesContext;
@@ -10,13 +12,20 @@ import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContex
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.DevPassContext;
+import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.api.PingResource;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.usage.context.DevUsageContext;
 
 public class DevContext extends MainContext {
 
+  private final ApiUrl apiUrl;
+
   public DevContext() {
+    apiUrl = new ApiUrl("localhost", 8080, "api");
+
+    accountContext = new AccountContext(apiUrl);
     authContext = new AuthenticationContext();
     parkingUserContext = new ParkingUserContext();
     usageContext = new DevUsageContext(authContext.getAuthenticationRepository(),
@@ -46,11 +55,22 @@ public class DevContext extends MainContext {
                                                        initiativesContext.getInitiativeCreator(),
                                                        authContext.getAuthenticationRepository(),
                                                        authContext.getAccessTokenCookieAssembler());
+    billingContext = new BillingContext(apiUrl, accountContext.getAccountCreatedObservable());
+    parkingContext = new ParkingContext(billingContext.getInvoiceCreator(),
+                                        billingContext.getInvoicePaidObservable(),
+                                        billingContext.getInvoiceUriBuilder(),
+                                        accountContext.getAccountService(),
+                                        revenueContext.getAccessRightTransactionService());
   }
 
   @Override
   public void registerResources(InstanceMap resources) {
     super.registerResources(resources);
     resources.add(new PingResource());
+  }
+
+  @Override
+  public ApiUrl getApiUrl() {
+    return apiUrl;
   }
 }

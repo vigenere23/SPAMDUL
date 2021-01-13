@@ -16,8 +16,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class TimePeriodFactoryTest {
 
   private static final Semester A_SEMESTER = new Semester(Session.AUTUMN, 2050);
-  private static final Semester NEXT_SEMESTER = A_SEMESTER.addSemester(1);
-  private static final Semester NEXT_NEXT_SEMESTER = NEXT_SEMESTER.addSemester(1);
+  private static final Semester NEXT_SEMESTER = A_SEMESTER.plusSemesters(1);
+  private static final Semester NEXT_NEXT_SEMESTER = NEXT_SEMESTER.plusSemesters(1);
   private static final LocalDateTime A_START_DATE_TIME = LocalDateTime.of(2020, 1, 1, 0, 0);
   private static final LocalDateTime A_END_DATE_TIME = LocalDateTime.of(2020, 2, 1, 0, 0);
   private static final TimePeriodDayOfWeek A_DAY_OF_WEEK = TimePeriodDayOfWeek.TUESDAY;

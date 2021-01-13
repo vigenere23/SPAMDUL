@@ -8,10 +8,10 @@ import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserId;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarType;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import java.time.LocalDate;
 
-public class RechargULCardPopulator implements Populator {
+public class RechargULCardPopulator implements RecordPopulator {
 
   private final CarFactory carFactory;
   private final RechargULCardFactory rechargULCardFactory;

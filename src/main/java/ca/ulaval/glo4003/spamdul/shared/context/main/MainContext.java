@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.spamdul.shared.context.main;
 
+import ca.ulaval.glo4003.spamdul.account.context.AccountContext;
 import ca.ulaval.glo4003.spamdul.assemblers.GlobalExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.assemblers.SpamDULExceptionAssembler;
 import ca.ulaval.glo4003.spamdul.authentication.context.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.billing.context.BillingContext;
 import ca.ulaval.glo4003.spamdul.charging.context.ChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.CarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.InitiativesContext;
@@ -12,12 +14,16 @@ import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContex
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.PassContext;
+import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiExceptionMapper;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
 import ca.ulaval.glo4003.spamdul.usage.context.UsageContext;
 
 public abstract class MainContext implements ResourceContext {
 
+  protected AccountContext accountContext;
   protected AuthenticationContext authContext;
   protected ParkingUserContext parkingUserContext;
   protected UsageContext usageContext;
@@ -29,11 +35,16 @@ public abstract class MainContext implements ResourceContext {
   protected InfractionsContext infractionsContext;
   protected CarbonCreditsContext carbonCreditsContext;
   protected BikeParkingAccessContext bikeParkingAccessContext;
+  protected BillingContext billingContext;
+  protected ParkingContext parkingContext;
 
-  @Override public void registerResources(InstanceMap resources) {
+  @Override
+  public void registerResources(InstanceMap resources) {
     resources.add(new GlobalExceptionAssembler());
     resources.add(new SpamDULExceptionAssembler());
+    resources.add(new ApiExceptionMapper());
 
+    accountContext.registerResources(resources);
     authContext.registerResources(resources);
     parkingUserContext.registerResources(resources);
     usageContext.registerResources(resources);
@@ -45,9 +56,13 @@ public abstract class MainContext implements ResourceContext {
     infractionsContext.registerResources(resources);
     carbonCreditsContext.registerResources(resources);
     bikeParkingAccessContext.registerResources(resources);
+    billingContext.registerResources(resources);
+    parkingContext.registerResources(resources);
   }
 
   public void destroy() {
     carbonCreditsContext.getEndOfMonthEventScheduler().stopJob();
   }
+
+  public abstract ApiUrl getApiUrl();
 }

@@ -13,7 +13,20 @@ public class Semester {
     this.year = year;
   }
 
-  public Semester addSemester(int numberOfSemester) {
+  public static Semester valueOf(String semester) {
+    Session session = Session.parse(semester.substring(0, 1));
+    int year = Integer.parseInt(semester.substring(1));
+
+    if (semester.length() == 3) {
+      // short way, makes it year 20xx
+      // TODO make it adapt to current century
+      year += 2000;
+    }
+
+    return new Semester(session, year);
+  }
+
+  public Semester plusSemesters(int numberOfSemester) {
     int remainder = numberOfSemester % 3;
     int plusYear = numberOfSemester / 3;
 
@@ -21,7 +34,7 @@ public class Semester {
       return new Semester(session, year + plusYear);
     }
 
-    return nextSemester().addSemester(numberOfSemester - 1);
+    return nextSemester().plusSemesters(numberOfSemester - 1);
   }
 
   private Semester nextSemester() {

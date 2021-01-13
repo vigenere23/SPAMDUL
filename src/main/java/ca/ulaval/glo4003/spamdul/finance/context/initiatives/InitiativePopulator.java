@@ -3,10 +3,10 @@ package ca.ulaval.glo4003.spamdul.finance.context.initiatives;
 import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.Initiative;
 import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeFactory;
 import ca.ulaval.glo4003.spamdul.finance.entities.initiatives.InitiativeRepository;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import ca.ulaval.glo4003.spamdul.shared.entities.amount.Amount;
 
-public class InitiativePopulator implements Populator {
+public class InitiativePopulator implements RecordPopulator {
 
   private final InitiativeRepository initiativeRepository;
   private final InitiativeFactory initiativeFactory;

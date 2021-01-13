@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.finance.context.initiatives;
 import ca.ulaval.glo4003.spamdul.assemblers.authentification.AccessTokenCookieAssembler;
 import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InitiativeTransactionService;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 
 public class DevInitiativesContext extends InitiativesContext {
 
@@ -15,7 +15,7 @@ public class DevInitiativesContext extends InitiativesContext {
     super(initiativeTransactionService, authenticationRepository, cookieAssembler);
   }
 
-  @Override protected void populateData(Populator populator) {
-    populator.populate(NUMBER_OF_RECORDS);
+  @Override protected void populateData(RecordPopulator recordPopulator) {
+    recordPopulator.populate(NUMBER_OF_RECORDS);
   }
 }

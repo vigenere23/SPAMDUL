@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.spamdul.assemblers.usagereport.UsageReportSummaryAssemb
 import ca.ulaval.glo4003.spamdul.authentication.entities.AuthenticationRepository;
 import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.AccessLevelValidator;
 import ca.ulaval.glo4003.spamdul.authentication.entities.accesslevelvalidator.UsageReportAccessLevelValidator;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 import ca.ulaval.glo4003.spamdul.shared.context.ResourceContext;
 import ca.ulaval.glo4003.spamdul.shared.infrastructure.ids.IncrementalIdGenerator;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
@@ -58,16 +58,17 @@ public abstract class UsageContext implements ResourceContext {
     usageReportResource = new UsageReportResource(usageReportUseCase,
                                                   usageReportCreationAssembler,
                                                   cookieAssembler);
-    Populator populator = new ParkingAccessLogPopulator(parkingAccessLogRepository, parkingAccessLogFactory);
+    RecordPopulator recordPopulator = new ParkingAccessLogPopulator(parkingAccessLogRepository,
+                                                                    parkingAccessLogFactory);
 
-    this.populateData(populator);
+    this.populateData(recordPopulator);
   }
 
   public ParkingAccessLogger getParkingAccessLogger() {
     return parkingAccessLogger;
   }
 
-  protected abstract void populateData(Populator populator);
+  protected abstract void populateData(RecordPopulator recordPopulator);
 
   @Override public void registerResources(InstanceMap resources) {
     resources.add(usageReportResource);

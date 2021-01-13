@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.spamdul.charging.context;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.UserRepository;
 import ca.ulaval.glo4003.spamdul.parking.entities.parkinguser.car.CarFactory;
-import ca.ulaval.glo4003.spamdul.shared.context.Populator;
+import ca.ulaval.glo4003.spamdul.shared.context.RecordPopulator;
 
 public class DevChargingContext extends ChargingContext {
 
@@ -16,11 +16,11 @@ public class DevChargingContext extends ChargingContext {
     super(transactionFactory, userRepository, carFactory);
   }
 
-  @Override protected void populateChargingPoints(Populator populator) {
-    populator.populate(NUMBER_OF_CHARGING_POINTS);
+  @Override protected void populateChargingPoints(RecordPopulator recordPopulator) {
+    recordPopulator.populate(NUMBER_OF_CHARGING_POINTS);
   }
 
-  @Override protected void populateRechargULCards(Populator populator) {
-    populator.populate(NUMBER_OF_CARDS);
+  @Override protected void populateRechargULCards(RecordPopulator recordPopulator) {
+    recordPopulator.populate(NUMBER_OF_CARDS);
   }
 }

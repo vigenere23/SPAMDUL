@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.spamdul.shared.context.main.ContextFactory;
 import ca.ulaval.glo4003.spamdul.shared.context.main.ContextType;
 import ca.ulaval.glo4003.spamdul.shared.context.main.MainContext;
 import ca.ulaval.glo4003.spamdul.shared.utils.InstanceMap;
+import java.net.InetSocketAddress;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -24,7 +25,7 @@ public class JettyJerseyApp implements SpamdUlApplication {
     context = contextFactory.create(contextType);
 
     ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    contextHandler.setContextPath("/api/");
+    contextHandler.setContextPath('/' + context.getApiUrl().getPrefix());
     ResourceConfig resourceConfig = ResourceConfig.forApplication(new Application() {
       @Override
       public Set<Object> getSingletons() {
@@ -40,7 +41,7 @@ public class JettyJerseyApp implements SpamdUlApplication {
 
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     contexts.setHandlers(new Handler[]{contextHandler});
-    server = new Server(8080);
+    server = new Server(new InetSocketAddress(context.getApiUrl().getHostName(), context.getApiUrl().getPortNumber()));
     server.setHandler(contexts);
   }
 

@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.spamdul.finance.api.revenue.RevenueResource;
 import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.MainBankAccount;
 import ca.ulaval.glo4003.spamdul.finance.entities.bank_accounts.SustainabilityBankAccount;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction.TransactionFactory;
+import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.AccessRightTransactionService;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CampusAccessTransactionService;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.CarbonCreditsTransactionService;
 import ca.ulaval.glo4003.spamdul.finance.entities.transaction_services.InfractionTransactionService;
@@ -32,6 +33,7 @@ public class RevenueContext implements ResourceContext {
   private final InfractionTransactionService infractionTransactionService;
   private final InitiativeTransactionService initiativeTransactionService;
   private final PassTransactionService passTransactionService;
+  private final AccessRightTransactionService accessRightTransactionService;
 
   private final RevenueResource revenueResource;
 
@@ -54,6 +56,9 @@ public class RevenueContext implements ResourceContext {
     initiativeTransactionService = new InitiativeTransactionService(sustainabilityBankAccount);
     infractionTransactionService = new InfractionTransactionService(mainBankAccount, sustainabilityBankAccount);
     passTransactionService = new PassTransactionService(mainBankAccount, sustainabilityBankAccount);
+    accessRightTransactionService = new AccessRightTransactionService(mainBankAccount,
+                                                                      sustainabilityBankAccount,
+                                                                      new InMemoryCampusAccessTransactionRepository());
 
     AccessLevelValidator accessLevelValidator = new FinanceAccessValidator(authenticationRepository);
     RevenueUseCase revenueUseCase = new RevenueUseCase(accessLevelValidator,
@@ -97,6 +102,10 @@ public class RevenueContext implements ResourceContext {
 
   public PassTransactionService getPassBankAccount() {
     return passTransactionService;
+  }
+
+  public AccessRightTransactionService getAccessRightTransactionService() {
+    return accessRightTransactionService;
   }
 
   @Override public void registerResources(InstanceMap resources) {

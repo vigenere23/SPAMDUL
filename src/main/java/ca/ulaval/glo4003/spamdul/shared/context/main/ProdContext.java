@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.spamdul.shared.context.main;
 
+import ca.ulaval.glo4003.spamdul.account.context.AccountContext;
 import ca.ulaval.glo4003.spamdul.authentication.context.AuthenticationContext;
+import ca.ulaval.glo4003.spamdul.billing.context.BillingContext;
 import ca.ulaval.glo4003.spamdul.charging.context.ProdChargingContext;
 import ca.ulaval.glo4003.spamdul.finance.context.carboncredits.ProdCarbonCreditsContext;
 import ca.ulaval.glo4003.spamdul.finance.context.initiatives.ProdInitiativesContext;
@@ -10,11 +12,18 @@ import ca.ulaval.glo4003.spamdul.parking.context.campusaccess.CampusAccessContex
 import ca.ulaval.glo4003.spamdul.parking.context.infractions.InfractionsContext;
 import ca.ulaval.glo4003.spamdul.parking.context.parkinguser.ParkingUserContext;
 import ca.ulaval.glo4003.spamdul.parking.context.pass.ProdPassContext;
+import ca.ulaval.glo4003.spamdul.parking2.context.ParkingContext;
+import ca.ulaval.glo4003.spamdul.shared.api.ApiUrl;
 import ca.ulaval.glo4003.spamdul.usage.context.ProdUsageContext;
 
 public class ProdContext extends MainContext {
 
+  private final ApiUrl apiUrl;
+
   public ProdContext() {
+    apiUrl = new ApiUrl("localhost", 8080, "api");
+
+    accountContext = new AccountContext(apiUrl);
     authContext = new AuthenticationContext();
     parkingUserContext = new ParkingUserContext();
     usageContext = new ProdUsageContext(authContext.getAuthenticationRepository(),
@@ -44,5 +53,16 @@ public class ProdContext extends MainContext {
                                                         initiativesContext.getInitiativeCreator(),
                                                         authContext.getAuthenticationRepository(),
                                                         authContext.getAccessTokenCookieAssembler());
+    billingContext = new BillingContext(apiUrl, accountContext.getAccountCreatedObservable());
+    parkingContext = new ParkingContext(billingContext.getInvoiceCreator(),
+                                        billingContext.getInvoicePaidObservable(),
+                                        billingContext.getInvoiceUriBuilder(),
+                                        accountContext.getAccountService(),
+                                        revenueContext.getAccessRightTransactionService());
+  }
+
+  @Override
+  public ApiUrl getApiUrl() {
+    return apiUrl;
   }
 }
