@@ -1,19 +1,45 @@
-# Telephony WS
+# SPAMDUL - Rich DDD parking system
 
-## Qu'est-ce que c'est
-Un exemple de projet pour créer un API Web REST en utilisant Java, Jetty et Jersey seulement.
+This software offers a representation of a parking software. It was done under a course from the Software Engineering program of Laval University.
 
-## Contexte
-Voici une structure de projet qui n'utilise pas de plate-forme d'injection de dépendance et qui explicite
- la création de l'application et de ses composantes. C'est une application petite, mais complète, qui sera une base de 
- projet pour un travail à l'Université. La couverture des tests est minimale pour encourager les étudiants à explorer
- . L'exercice est de comprendre comment fonctionne le tout pour mieux bâtir une application en utilisant 
- de l'injection de dépendance.
+## Features
 
-##  Comment l'utiliser
-* Avec Java 8 et Maven d'installé et la variable JAVA_HOME configurée, exécutez `mvn compile` ensuite `mvn exec:java`
-* Dans un IDE, exécutez la classe `TelephonyWsMain` en tant que "Java Application"
+- Buy parking permits and access rights
+- Validate access and parking permissions and give infractions
+- Manage finances and budgets
+- Log parking usage
+- Other small features
 
-### Fait avec:
-* https://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
-* http://www.freefavicon.com/
+## Developpement
+
+The main goal of this project was to develop a Clean architecture with a rich domain (aka DDD). Many design patterns were used in order to reach such a rich level of DDD, hence the complexity of the classes and their interactions.
+
+For a more advanced DDD approach, see the refactor done in [`parking2`](./src/main/java/ca/ulaval/glo4003/spamdul/parking2).
+
+## Running
+
+**Application**
+
+```
+mvn clean install exec:java
+```
+
+**Unit tests**
+
+```
+mvn test
+```
+
+**Functional/integration tests**
+
+```
+mvn test -P integration-tests
+```
+
+**API tests**
+
+> These tests use [Newman](https://support.postman.com/hc/en-us/articles/115003710329-What-is-Newman-), the Postman API.
+
+```
+newman run SPAMD-UL.postman_collection.json
+```
