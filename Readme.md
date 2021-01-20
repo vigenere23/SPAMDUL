@@ -1,4 +1,4 @@
-![Build](https://github.com/vigenere23/SPAMDUL/workflows/Check/badge.svg)
+![Build](https://github.com/vigenere23/SPAMDUL/workflows/Build/badge.svg)
 ![spamdul-logo](https://user-images.githubusercontent.com/32545895/105125463-70e61880-5aaa-11eb-853d-cfb5188ba23f.png)
 
 # SPAMDUL - Rich DDD parking system
