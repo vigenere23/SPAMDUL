@@ -1,3 +1,5 @@
+![spamdul-logo](https://user-images.githubusercontent.com/32545895/105125463-70e61880-5aaa-11eb-853d-cfb5188ba23f.png)
+
 # SPAMDUL - Rich DDD parking system
 
 This software offers a representation of a parking software. It was done under a course from the Software Engineering program of Laval University.
