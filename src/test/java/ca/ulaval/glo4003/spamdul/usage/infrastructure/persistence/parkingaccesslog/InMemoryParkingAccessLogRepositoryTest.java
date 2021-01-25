@@ -25,7 +25,7 @@ public class InMemoryParkingAccessLogRepositoryTest {
 
   @Test
   public void givenInitialized_whenFindingAll_shouldReturnEmptyList() {
-    List<ParkingAccessLog> logs = parkingAccessLogRepository.findAll();
+    List<ParkingAccessLog> logs = parkingAccessLogRepository.find().getAll();
     assertThat(logs).isEmpty();
   }
 
@@ -34,7 +34,7 @@ public class InMemoryParkingAccessLogRepositoryTest {
     ParkingAccessLog parkingAccessLog = new ParkingAccessLog(PARKING_ACCESS_LOG_ID, A_PARKING_ZONE, A_DATE);
     parkingAccessLogRepository.save(parkingAccessLog);
 
-    List<ParkingAccessLog> logs = parkingAccessLogRepository.findAll();
+    List<ParkingAccessLog> logs = parkingAccessLogRepository.find().getAll();
 
     assertThat(logs).containsExactly(parkingAccessLog);
   }

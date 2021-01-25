@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ca.ulaval.glo4003</groupId>
-  <artifactId>projet-de-base</artifactId>
+  <artifactId>spamdul</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>projet-de-base-ws</name>
+  <name>spamdul</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

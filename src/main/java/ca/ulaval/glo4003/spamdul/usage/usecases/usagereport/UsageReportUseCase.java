@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingCategory;
 import ca.ulaval.glo4003.spamdul.parking.entities.pass.ParkingZone;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLog;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogAgglomerator;
-import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogFilter;
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReport;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportFactory;
@@ -84,15 +83,13 @@ public class UsageReportUseCase {
                                                                   LocalDate endDate,
                                                                   ParkingZone parkingZone,
                                                                   ParkingCategory parkingCategory) {
-    List<ParkingAccessLog> allLogs = parkingAccessLogRepository.findAll();
-    ParkingAccessLogFilter parkingAccessLogFilter = new ParkingAccessLogFilter()
-        .setData(allLogs)
-        .betweenDates(startDate,
-                      endDate)
-        .atCategory(parkingCategory)
-        .atZone(parkingZone);
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.getResults();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogRepository
+            .find()
+            .betweenDates(startDate, endDate)
+            .atCategory(parkingCategory)
+            .atZone(parkingZone)
+            .getAll();
 
     return parkingAccessLogAgglomerator.groupByAccessDate(filteredLogs);
   }

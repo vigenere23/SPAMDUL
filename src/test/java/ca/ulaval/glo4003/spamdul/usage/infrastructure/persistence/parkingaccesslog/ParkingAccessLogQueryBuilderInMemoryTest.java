@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog;
+package ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -8,12 +8,15 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLog;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogId;
+import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogIdFactory;
 import org.junit.Test;
 
-public class ParkingAccessLogFilterTest {
+public class ParkingAccessLogQueryBuilderInMemoryTest {
 
-  private ParkingAccessLogFilter parkingAccessLogFilter;
+  private ParkingAccessLogQueryBuilderInMemory parkingAccessLogQueryerInMemory;
   private final LocalDate START_DATE = LocalDate.of(2010, 1, 1);
   private final LocalDate END_DATE = START_DATE.plusDays(28);
   private final LocalDate BETWEEN_DATE = START_DATE.plusDays(15);
@@ -28,17 +31,12 @@ public class ParkingAccessLogFilterTest {
                                                                            LocalDate.now());
   private final ParkingAccessLogIdFactory parkingAccessLogIdFactory = new ParkingAccessLogIdFactory(new IncrementalIdGenerator());
 
-  @Before
-  public void setUp() {
-    parkingAccessLogFilter = new ParkingAccessLogFilter();
-  }
-
   @Test
   public void givenDataSetAndNoFiltersAdded_whenGettingResults_shouldReturnDataSet() {
     List<ParkingAccessLog> logs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
-    parkingAccessLogFilter.setData(logs);
+    parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(logs);
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.getResults();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.getAll();
 
     assertThat(filteredLogs).containsExactlyElementsIn(logs);
   }
@@ -46,10 +44,10 @@ public class ParkingAccessLogFilterTest {
   @Test
   public void givenResultsGet_whenGettingResultsASecondTime_shouldReturnSameResults() {
     List<ParkingAccessLog> logs = Arrays.asList(AN_ACCESS_LOG, AN_ACCESS_LOG_COPY);
-    parkingAccessLogFilter.setData(logs);
-    List<ParkingAccessLog> filteredLogsFirstTime = parkingAccessLogFilter.getResults();
+    parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(logs);
+    List<ParkingAccessLog> filteredLogsFirstTime = parkingAccessLogQueryerInMemory.getAll();
 
-    List<ParkingAccessLog> filteredLogsSecondTime = parkingAccessLogFilter.getResults();
+    List<ParkingAccessLog> filteredLogsSecondTime = parkingAccessLogQueryerInMemory.getAll();
 
     assertThat(filteredLogsSecondTime).containsExactlyElementsIn(filteredLogsFirstTime);
   }
@@ -57,9 +55,9 @@ public class ParkingAccessLogFilterTest {
   @Test
   public void givenAccessLogTooEarly_whenFilteringBetweenDates_shouldReturnEmptyList() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BEFORE_DATE);
-    parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+    parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
 
     assertThat(filteredLogs).isEmpty();
   }
@@ -67,9 +65,9 @@ public class ParkingAccessLogFilterTest {
   @Test
   public void givenAccessLogTooLate_whenFilteringBetweenDates_shouldReturnEmptyList() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(AFTER_DATE);
-    parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+    parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
 
     assertThat(filteredLogs).isEmpty();
   }
@@ -77,9 +75,9 @@ public class ParkingAccessLogFilterTest {
   @Test
   public void givenAccessLogBetweenDates_whenFilteringBetweenDates_shouldReturnTheGivenLog() {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BETWEEN_DATE);
-    parkingAccessLogFilter.setData(Collections.singletonList(accessLogTooEarly));
+    parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogFilter.betweenDates(START_DATE, END_DATE).getResults();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
 
     assertThat(filteredLogs).containsExactly(accessLogTooEarly);
   }
