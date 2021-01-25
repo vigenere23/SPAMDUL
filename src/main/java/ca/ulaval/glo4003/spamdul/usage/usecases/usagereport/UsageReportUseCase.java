@@ -86,9 +86,9 @@ public class UsageReportUseCase {
 
     List<ParkingAccessLog> filteredLogs = parkingAccessLogRepository
             .find()
-            .betweenDates(startDate, endDate)
-            .atCategory(parkingCategory)
-            .atZone(parkingZone)
+            .withDate().between(startDate, endDate)
+            .withCategory(parkingCategory)
+            .withZone(parkingZone)
             .getAll();
 
     return parkingAccessLogAgglomerator.groupByAccessDate(filteredLogs);

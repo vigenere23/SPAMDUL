@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLo
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogger;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog.InMemoryParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.UsageReportUseCase;
 
 public abstract class UsageContext implements ResourceContext {
@@ -29,7 +29,7 @@ public abstract class UsageContext implements ResourceContext {
 
   public UsageContext(AuthenticationRepository authenticationRepository,
                       AccessTokenCookieAssembler cookieAssembler) {
-    ParkingAccessLogRepository parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
+    ParkingAccessLogRepository parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
 
     ParkingAccessLogAgglomerator parkingAccessLogAgglomerator = new ParkingAccessLogAgglomerator();
 

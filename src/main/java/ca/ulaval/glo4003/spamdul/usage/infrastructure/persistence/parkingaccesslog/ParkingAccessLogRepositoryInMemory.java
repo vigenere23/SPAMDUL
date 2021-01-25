@@ -2,17 +2,17 @@ package ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccess
 
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import jersey.repackaged.com.google.common.collect.Lists;
 
-public class InMemoryParkingAccessLogRepository implements ParkingAccessLogRepository {
+public class ParkingAccessLogRepositoryInMemory implements ParkingAccessLogRepository {
 
   private static final Map<ParkingAccessLogId, ParkingAccessLog> parkingAccessLogsById = new HashMap<>();
 
   @Override
   public ParkingAccessLogQueryBuilder find() {
-    return new ParkingAccessLogQueryBuilderInMemory(Lists.newArrayList(parkingAccessLogsById.values()));
+    return new ParkingAccessLogQueryBuilderInMemory(new ArrayList<>(parkingAccessLogsById.values()));
   }
 
   @Override
