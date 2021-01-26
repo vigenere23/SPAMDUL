@@ -46,3 +46,7 @@ mvn test -P integration-tests
 ```
 newman run SPAMD-UL.postman_collection.json
 ```
+
+## Known caveats
+
+- `finance` : The whole transaction managing system is not well designed. There should be a clear separation between a `Transaction` (an amount being transfered between accounts) and a `TransactionLog` (a record of the transaction made, with more or less infos than the linked transaction). The abstractions are also wrong.
