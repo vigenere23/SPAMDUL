@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLo
 import ca.ulaval.glo4003.spamdul.usage.entities.parkingaccesslog.ParkingAccessLogRepository;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportFactory;
 import ca.ulaval.glo4003.spamdul.usage.entities.usagereport.UsageReportSummaryFactory;
-import ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog.InMemoryParkingAccessLogRepository;
+import ca.ulaval.glo4003.spamdul.usage.infrastructure.persistence.parkingaccesslog.ParkingAccessLogRepositoryInMemory;
 import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportCreationDto;
 import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportDto;
 import ca.ulaval.glo4003.spamdul.usage.usecases.usagereport.dto.UsageReportSummaryDto;
@@ -46,7 +46,7 @@ public class UsageReportUseCaseFunctionalTest {
 
   @Before
   public void setUp() {
-    parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
+    parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
     usageReportUseCase = new UsageReportUseCase(
         parkingAccessLogRepository,
         new ParkingAccessLogAgglomerator(),

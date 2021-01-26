@@ -10,13 +10,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryParkingAccessLogRepositoryTest {
+public class ParkingAccessLogRepositoryInMemoryTest {
 
   private static final ParkingAccessLogId PARKING_ACCESS_LOG_ID = ParkingAccessLogId.valueOf("123");
   private static final ParkingZone A_PARKING_ZONE = ParkingZone.ZONE_1;
   private static final LocalDate A_DATE = LocalDate.of(2015, 11, 24);
 
-  private final InMemoryParkingAccessLogRepository parkingAccessLogRepository = new InMemoryParkingAccessLogRepository();
+  private final ParkingAccessLogRepositoryInMemory parkingAccessLogRepository = new ParkingAccessLogRepositoryInMemory();
 
   @Before
   public void setUp() {

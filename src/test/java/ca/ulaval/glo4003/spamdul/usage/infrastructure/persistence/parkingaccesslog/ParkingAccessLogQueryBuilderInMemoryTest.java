@@ -57,7 +57,9 @@ public class ParkingAccessLogQueryBuilderInMemoryTest {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BEFORE_DATE);
     parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory
+            .withDate().between(START_DATE, END_DATE)
+            .getAll();
 
     assertThat(filteredLogs).isEmpty();
   }
@@ -67,7 +69,9 @@ public class ParkingAccessLogQueryBuilderInMemoryTest {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(AFTER_DATE);
     parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory
+            .withDate().between(START_DATE, END_DATE)
+            .getAll();
 
     assertThat(filteredLogs).isEmpty();
   }
@@ -77,7 +81,9 @@ public class ParkingAccessLogQueryBuilderInMemoryTest {
     ParkingAccessLog accessLogTooEarly = createLogAtDate(BETWEEN_DATE);
     parkingAccessLogQueryerInMemory = new ParkingAccessLogQueryBuilderInMemory(Collections.singletonList(accessLogTooEarly));
 
-    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory.betweenDates(START_DATE, END_DATE).getAll();
+    List<ParkingAccessLog> filteredLogs = parkingAccessLogQueryerInMemory
+            .withDate().between(START_DATE, END_DATE)
+            .getAll();
 
     assertThat(filteredLogs).containsExactly(accessLogTooEarly);
   }

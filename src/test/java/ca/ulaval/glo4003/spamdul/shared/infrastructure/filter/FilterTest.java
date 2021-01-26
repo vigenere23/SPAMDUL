@@ -8,31 +8,31 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FilterContainerTest {
+public class FilterTest {
 
   static class FilterContainerItem {
 
   }
 
-  private FilterContainer<FilterContainerItem> filterContainer;
+  private Filter<FilterContainerItem> filter;
   private final FilterContainerItem AN_ITEM = new FilterContainerItem();
   private final FilterContainerItem ANOTHER_ITEM = new FilterContainerItem();
 
   @Before
   public void setUp() {
-    filterContainer = new FilterContainer<>();
+    filter = new Filter<>();
   }
 
   @Test(expected = FilterDataNotSetException.class)
   public void givenNoDataHasBeenSet_whenGettingResults_shouldThrowException() {
-    filterContainer.getResults();
+    filter.getResults();
   }
 
   @Test
   public void givenDataIsEmptyList_whenGettingResults_shouldReturnEmptyList() {
-    filterContainer.setData(new ArrayList<>());
+    filter.setData(new ArrayList<>());
 
-    List<FilterContainerItem> filteredItems = filterContainer.getResults();
+    List<FilterContainerItem> filteredItems = filter.getResults();
 
     assertThat(filteredItems).isEmpty();
   }
@@ -40,19 +40,19 @@ public class FilterContainerTest {
   @Test
   public void givenDataIsAList_whenGettingResults_shouldReturnThatList() {
     List<FilterContainerItem> items = Arrays.asList(AN_ITEM, ANOTHER_ITEM);
-    filterContainer.setData(items);
+    filter.setData(items);
 
-    List<FilterContainerItem> filteredItems = filterContainer.getResults();
+    List<FilterContainerItem> filteredItems = filter.getResults();
 
     assertThat(filteredItems).containsExactlyElementsIn(items);
   }
 
   @Test
   public void givenResultsAlreadyCollected_whenGettingResultsASecondTime_shouldReturnSameResults() {
-    filterContainer.setData(Arrays.asList(AN_ITEM, ANOTHER_ITEM));
-    List<FilterContainerItem> filteredItemsFirstTime = filterContainer.getResults();
+    filter.setData(Arrays.asList(AN_ITEM, ANOTHER_ITEM));
+    List<FilterContainerItem> filteredItemsFirstTime = filter.getResults();
 
-    List<FilterContainerItem> filteredItemsSecondTime = filterContainer.getResults();
+    List<FilterContainerItem> filteredItemsSecondTime = filter.getResults();
 
     assertThat(filteredItemsSecondTime).containsExactlyElementsIn(filteredItemsFirstTime);
   }

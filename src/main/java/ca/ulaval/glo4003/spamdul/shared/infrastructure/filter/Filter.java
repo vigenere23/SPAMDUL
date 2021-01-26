@@ -6,20 +6,17 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FilterContainer<T> {
+public class Filter<T> {
 
   private List<T> originalData;
-  private final List<Predicate<? super T>> filters = new ArrayList<>();
-
-  public FilterContainer() {
-  }
+  private final List<Predicate<T>> conditions = new ArrayList<>();
 
   public void setData(List<T> dataList) {
     originalData = dataList;
   }
 
-  public void addFilter(Predicate<? super T> filter) {
-    filters.add(filter);
+  public void addCondition(Predicate<T> condition) {
+    conditions.add(condition);
   }
 
   public List<T> getResults() {
@@ -28,8 +25,8 @@ public class FilterContainer<T> {
     }
 
     Stream<T> filterStream = originalData.stream();
-    for (Predicate<? super T> filter : filters) {
-      filterStream = filterStream.filter(filter);
+    for (Predicate<T> condition : conditions) {
+      filterStream = filterStream.filter(condition);
     }
 
     return filterStream.collect(Collectors.toList());
